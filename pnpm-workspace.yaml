@@ -1,0 +1,9 @@
+packages:
+    - common/*
+    - examples
+    - mockdata
+    - packages/*
+    - tests/*
+publicHoistPattern:
+    - '@storybook/react'
+    - tsx

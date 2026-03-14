@@ -1,0 +1,10 @@
+{
+    "extends": "@univerjs-infra/shared/tsconfigs/base",
+    "compilerOptions": {
+        "types": ["esbuild-style-plugin"],
+        "allowArbitraryExtensions": true,
+        "outDir": "local"
+    },
+    "references": [{ "path": "./tsconfig.node.json" }],
+    "include": ["src"]
+}
