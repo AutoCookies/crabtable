@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { DataValidationType } from '@univerjs/core';
+import { DataValidationType } from '@crabtable/core';
 import { CHECKBOX_FORMULA_INPUT_NAME } from '../components/formula-input';
 import { CheckboxRender } from '../widgets/checkbox-widget';
 import { BaseSheetDataValidatorView } from './sheet-validator-view';

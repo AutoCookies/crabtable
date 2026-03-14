@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { MenuSchemaType } from '@univerjs/ui';
-import { RibbonOthersGroup } from '@univerjs/ui';
+import type { MenuSchemaType } from '@crabtable/ui';
+import { RibbonOthersGroup } from '@crabtable/ui';
 import { ToggleScriptPanelOperation } from '../commands/operations/panel.operation';
 import { UniscriptMenuItemFactory } from './menu';
 

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IDrawingSearch } from '@univerjs/core';
-import type { IEventBase } from '@univerjs/core/facade';
-import type { ISheetFloatDom, ISheetImage } from '@univerjs/sheets-drawing';
-import type { FWorkbook } from '@univerjs/sheets/facade';
+import type { IDrawingSearch } from '@crabtable/core';
+import type { IEventBase } from '@crabtable/core/facade';
+import type { ISheetFloatDom, ISheetImage } from '@crabtable/sheets-drawing';
+import type { FWorkbook } from '@crabtable/sheets/facade';
 import type { FOverGridImage } from './f-over-grid-image';
-import { FEventName } from '@univerjs/core/facade';
+import { FEventName } from '@crabtable/core/facade';
 
 /**
  * @ignore
@@ -30,7 +30,7 @@ interface IFDrawingEventNameMixin {
      * @see {@link IBeforeFloatDomAddParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeFloatDomAdd, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeFloatDomAdd, (params) => {
      *   console.log(params);
      *   // do something
      *   const { workbook, drawings } = params;
@@ -48,7 +48,7 @@ interface IFDrawingEventNameMixin {
      * @see {@link IFloatDomAddedParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.FloatDomAdded, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.FloatDomAdded, (params) => {
      *   console.log(params);
      *   // do something
      *   const { workbook, drawings } = params;
@@ -64,7 +64,7 @@ interface IFDrawingEventNameMixin {
      * @see {@link IBeforeFloatDomUpdateParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeFloatDomUpdate, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeFloatDomUpdate, (params) => {
      *   console.log(params);
      *   // do something
      *   const { workbook, drawings } = params;
@@ -82,7 +82,7 @@ interface IFDrawingEventNameMixin {
      * @see {@link IFloatDomUpdatedParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.FloatDomUpdated, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.FloatDomUpdated, (params) => {
      *   console.log(params);
      *   // do something
      *   const { workbook, drawings } = params;
@@ -98,7 +98,7 @@ interface IFDrawingEventNameMixin {
      * @see {@link IBeforeFloatDomDeleteParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeFloatDomDelete, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeFloatDomDelete, (params) => {
      *   console.log(params);
      *   // do something
      *   const { workbook, drawings } = params;
@@ -116,7 +116,7 @@ interface IFDrawingEventNameMixin {
      * @see {@link IFloatDomDeletedParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.FloatDomDeleted, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.FloatDomDeleted, (params) => {
      *   console.log(params);
      *   // do something
      *   const { workbook, drawings } = params;
@@ -132,7 +132,7 @@ interface IFDrawingEventNameMixin {
      * @see {@link IBeforeOverGridImageInsertParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeOverGridImageInsert, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeOverGridImageInsert, (params) => {
      *   console.log(params);
      *   // do something
      *   const { workbook, insertImageParams } = params;
@@ -150,7 +150,7 @@ interface IFDrawingEventNameMixin {
      * @see {@link IOverGridImageInsertedParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.OverGridImageInserted, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.OverGridImageInserted, (params) => {
      *   console.log(params);
      *   // do something
      *   const { workbook, images } = params;
@@ -166,7 +166,7 @@ interface IFDrawingEventNameMixin {
      * @see {@link IBeforeOverGridImageRemoveParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeOverGridImageRemove, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeOverGridImageRemove, (params) => {
      *   console.log(params);
      *   // do something
      *   const { workbook, images } = params;
@@ -184,7 +184,7 @@ interface IFDrawingEventNameMixin {
      * @see {@link IOverGridImageRemovedParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.OverGridImageRemoved, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.OverGridImageRemoved, (params) => {
      *   console.log(params);
      *   // do something
      *   const { workbook, removeImageParams } = params;
@@ -200,7 +200,7 @@ interface IFDrawingEventNameMixin {
      * @see {@link IBeforeOverGridImageChangeParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeOverGridImageChange, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeOverGridImageChange, (params) => {
      *   console.log(params);
      *   // do something
      *   const { workbook, images } = params;
@@ -218,7 +218,7 @@ interface IFDrawingEventNameMixin {
      * @see {@link IOverGridImageChangedParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.OverGridImageChanged, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.OverGridImageChanged, (params) => {
      *   console.log(params);
      *   // do something
      *   const { workbook, images } = params;
@@ -234,7 +234,7 @@ interface IFDrawingEventNameMixin {
      * @see {@link IBeforeOverGridImageSelectParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeOverGridImageSelect, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeOverGridImageSelect, (params) => {
      *   console.log(params);
      *   // do something
      *   const { workbook, selectedImages, oldSelectedImages } = params;
@@ -252,7 +252,7 @@ interface IFDrawingEventNameMixin {
      * @see {@link IOverGridImageSelectedParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.OverGridImageSelected, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.OverGridImageSelected, (params) => {
      *   console.log(params);
      *   // do something
      *   const { workbook, selectedImages } = params;
@@ -529,7 +529,7 @@ interface IFSheetsUIEventParamConfig {
 }
 
 FEventName.extend(FDrawingEventNameMixin);
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FEventName extends IFDrawingEventNameMixin { }
     interface IEventParamConfig extends IFSheetsUIEventParamConfig { }

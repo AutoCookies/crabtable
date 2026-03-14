@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDisposable, IRange } from '@univerjs/core';
+import type { IDisposable, IRange } from '@crabtable/core';
 import type { UnitObject } from '@univerjs/protocol';
-import { generateRandomId } from '@univerjs/core';
+import { generateRandomId } from '@crabtable/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 export enum ViewStateEnum {

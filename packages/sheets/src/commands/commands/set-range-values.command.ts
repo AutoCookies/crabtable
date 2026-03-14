@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICellData, ICommand, IObjectMatrixPrimitiveType, IRange } from '@univerjs/core';
+import type { IAccessor, ICellData, ICommand, IObjectMatrixPrimitiveType, IRange } from '@crabtable/core';
 import type { ISheetCommandSharedParams } from '../utils/interface';
 
 import {
     CommandType,
     ICommandService,
+    ICrabTableInstanceService,
     IPermissionService,
     isICellData,
     IUndoRedoService,
-    IUniverInstanceService,
     mapObjectMatrix,
     ObjectMatrix,
     sequenceExecute,
     Tools,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { WorksheetEditPermission } from '../../services/permission/permission-point';
 import { SheetsSelectionsService } from '../../services/selections/selection.service';
 import { SheetInterceptorService } from '../../services/sheet-interceptor/sheet-interceptor.service';
@@ -59,11 +59,11 @@ export const SetRangeValuesCommand: ICommand = {
     handler: (accessor: IAccessor, params: ISetRangeValuesCommandParams) => {
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const selectionManagerService = accessor.get(SheetsSelectionsService);
         const sheetInterceptorService = accessor.get(SheetInterceptorService);
         const permissionService = accessor.get(IPermissionService);
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { subUnitId, unitId, workbook, worksheet } = target;

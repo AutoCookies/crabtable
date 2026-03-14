@@ -15,7 +15,7 @@
  */
 
 import type { LexerNode } from '../lexer-node';
-import { AbsoluteRefType } from '@univerjs/core';
+import { AbsoluteRefType } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import { ErrorType } from '../../../basics/error-type';
 import { LexerTreeBuilder } from '../lexer-tree-builder';

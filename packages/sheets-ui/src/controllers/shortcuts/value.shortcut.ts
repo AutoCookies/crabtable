@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IShortcutItem } from '@univerjs/ui';
-import { ClearSelectionContentCommand } from '@univerjs/sheets';
-import { KeyCode, MetaKeys } from '@univerjs/ui';
+import type { IShortcutItem } from '@crabtable/ui';
+import { ClearSelectionContentCommand } from '@crabtable/sheets';
+import { KeyCode, MetaKeys } from '@crabtable/ui';
 
 import { SheetCutCommand } from '../../commands/commands/clipboard.command';
 import { whenSheetEditorFocused } from './utils';

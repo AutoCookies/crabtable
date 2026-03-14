@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { DataValidationType } from '@univerjs/core';
+import { DataValidationType } from '@crabtable/core';
 import { ListValidator } from './list-validator';
 
 export class ListMultipleValidator extends ListValidator {

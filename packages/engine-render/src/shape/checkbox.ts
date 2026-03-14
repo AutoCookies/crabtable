@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IKeyValue } from '@univerjs/core';
+import type { IKeyValue } from '@crabtable/core';
 import type { UniverRenderingContext } from '../context';
 import type { IShapeProps } from './shape';
-import { Tools } from '@univerjs/core';
+import { Tools } from '@crabtable/core';
 import { Shape } from './shape';
 
 export interface ICheckboxShapeProps extends IShapeProps {

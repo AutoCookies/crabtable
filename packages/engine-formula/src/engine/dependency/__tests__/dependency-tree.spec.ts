@@ -15,7 +15,7 @@
  */
 
 import type { IUnitExcludedCell } from '../../../basics/common';
-import { ObjectMatrix } from '@univerjs/core';
+import { ObjectMatrix } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import {
     FormulaDependencyTree,

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { IWatermarkTypeEnum, UNIVER_WATERMARK_STORAGE_KEY } from '@univerjs/engine-render';
+import { IWatermarkTypeEnum, UNIVER_WATERMARK_STORAGE_KEY } from '@crabtable/engine-render';
 import { Subject } from 'rxjs';
 
 import { describe, expect, it, vi } from 'vitest';
@@ -22,8 +22,8 @@ import { WatermarkRenderController } from './watermark.render.controller';
 
 const layerInstances: Array<{ updateConfig: ReturnType<typeof vi.fn> }> = [];
 
-vi.mock('@univerjs/engine-render', async () => {
-    const actual = await vi.importActual<typeof import('@univerjs/engine-render')>('@univerjs/engine-render');
+vi.mock('@crabtable/engine-render', async () => {
+    const actual = await vi.importActual<typeof import('@crabtable/engine-render')>('@crabtable/engine-render');
 
     class WatermarkLayer {
         readonly updateConfig = vi.fn();

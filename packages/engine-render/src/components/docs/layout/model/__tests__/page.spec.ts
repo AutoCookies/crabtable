@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { BooleanNumber, ColumnSeparatorType, PageOrientType } from '@univerjs/core';
+import { BooleanNumber, ColumnSeparatorType, PageOrientType } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { DocumentSkeletonPageType } from '../../../../../basics/i-document-skeleton-cached';
 

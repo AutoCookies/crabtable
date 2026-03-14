@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Editor } from '@univerjs/docs-ui';
-import { CommandType, Direction, DisposableCollection, ICommandService } from '@univerjs/core';
-import { MoveCursorOperation, MoveSelectionOperation } from '@univerjs/docs-ui';
-import { DeviceInputEventType } from '@univerjs/engine-render';
-import { ExpandSelectionCommand, JumpOver, MoveSelectionCommand } from '@univerjs/sheets-ui';
-import { IShortcutService, KeyCode, MetaKeys, useDependency } from '@univerjs/ui';
+import type { Editor } from '@crabtable/docs-ui';
+import { CommandType, Direction, DisposableCollection, ICommandService } from '@crabtable/core';
+import { MoveCursorOperation, MoveSelectionOperation } from '@crabtable/docs-ui';
+import { DeviceInputEventType } from '@crabtable/engine-render';
+import { ExpandSelectionCommand, JumpOver, MoveSelectionCommand } from '@crabtable/sheets-ui';
+import { IShortcutService, KeyCode, MetaKeys, useDependency } from '@crabtable/ui';
 import { useEffect, useRef } from 'react';
 import { FormulaSelectingType } from './use-formula-selection';
 

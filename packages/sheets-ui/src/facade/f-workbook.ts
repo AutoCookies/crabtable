@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Nullable } from '@univerjs/core';
-import type { IColumnsHeaderCfgParam, IMouseEvent, IPointerEvent, IRowsHeaderCfgParam, RenderComponentType, RenderManagerService, SpreadsheetColumnHeader, SpreadsheetRowHeader } from '@univerjs/engine-render';
-import type { ICellPosWithEvent, IDragCellPosition, IEditorBridgeServiceVisibleParam, IHoverRichTextInfo, IHoverRichTextPosition, IScrollState, SheetSelectionRenderService } from '@univerjs/sheets-ui';
-import type { IDialogPartMethodOptions, ISidebarMethodOptions } from '@univerjs/ui';
+import type { IDisposable, Nullable } from '@crabtable/core';
+import type { IColumnsHeaderCfgParam, IMouseEvent, IPointerEvent, IRowsHeaderCfgParam, RenderComponentType, RenderManagerService, SpreadsheetColumnHeader, SpreadsheetRowHeader } from '@crabtable/engine-render';
+import type { ICellPosWithEvent, IDragCellPosition, IEditorBridgeServiceVisibleParam, IHoverRichTextInfo, IHoverRichTextPosition, IScrollState, SheetSelectionRenderService } from '@crabtable/sheets-ui';
+import type { IDialogPartMethodOptions, ISidebarMethodOptions } from '@crabtable/ui';
 
 import type { ICellEventParam } from './f-event';
-import { awaitTime, ICommandService, ILogService, toDisposable } from '@univerjs/core';
-import { DeviceInputEventType, IRenderManagerService } from '@univerjs/engine-render';
-import { DragManagerService, HoverManagerService, IEditorBridgeService, ISheetSelectionRenderService, SetCellEditVisibleOperation, SHEET_VIEW_KEY, SheetScrollManagerService } from '@univerjs/sheets-ui';
-import { FWorkbook } from '@univerjs/sheets/facade';
-import { IDialogService, ISidebarService, KeyCode } from '@univerjs/ui';
+import { awaitTime, ICommandService, ILogService, toDisposable } from '@crabtable/core';
+import { DeviceInputEventType, IRenderManagerService } from '@crabtable/engine-render';
+import { DragManagerService, HoverManagerService, IEditorBridgeService, ISheetSelectionRenderService, SetCellEditVisibleOperation, SHEET_VIEW_KEY, SheetScrollManagerService } from '@crabtable/sheets-ui';
+import { FWorkbook } from '@crabtable/sheets/facade';
+import { IDialogService, ISidebarService, KeyCode } from '@crabtable/ui';
 import { filter } from 'rxjs';
 
 /**
@@ -33,12 +33,12 @@ import { filter } from 'rxjs';
 export interface IFWorkbookSheetsUIMixin {
     /**
      * Open a sidebar.
-     * @deprecated use `univerAPI.openSidebar` instead
+     * @deprecated use `crabtableAPI.openSidebar` instead
      * @param {ISidebarMethodOptions} params the sidebar options
      * @returns {IDisposable} the disposable object
      * @example
      * ```ts
-     * univerAPI.openSidebar({
+     * crabtableAPI.openSidebar({
      *   id: 'mock-sidebar-id',
      *   width: 300,
      *   header: {
@@ -60,14 +60,14 @@ export interface IFWorkbookSheetsUIMixin {
 
     /**
      * Open a dialog.
-     * @deprecated use `univerAPI.openDialog` instead
+     * @deprecated use `crabtableAPI.openDialog` instead
      * @param {IDialogPartMethodOptions} dialog the dialog options
      * @returns {IDisposable} the disposable object
      * @example
      * ```ts
-     * import { Button } from '@univerjs/design';
+     * import { Button } from '@crabtable/design';
      *
-     * univerAPI.openDialog({
+     * crabtableAPI.openDialog({
      *   id: 'mock-dialog-id',
      *   width: 500,
      *   title: {
@@ -97,7 +97,7 @@ export interface IFWorkbookSheetsUIMixin {
      * @param {IColumnsHeaderCfgParam} cfg The configuration of the column header.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * fWorkbook.customizeColumnHeader({
      *   headerStyle: {
      *     fontColor: '#fff',
@@ -126,7 +126,7 @@ export interface IFWorkbookSheetsUIMixin {
      * @param {IRowsHeaderCfgParam} cfg The configuration of the row header.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * fWorkbook.customizeRowHeader({
      *   headerStyle: {
      *     backgroundColor: 'pink',
@@ -145,37 +145,37 @@ export interface IFWorkbookSheetsUIMixin {
     customizeRowHeader(cfg: IRowsHeaderCfgParam): void;
 
     /**
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.CellClicked, (params) => {})` instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.CellClicked, (params) => {})` instead
      */
     onCellClick(callback: (cell: IHoverRichTextInfo) => void): IDisposable;
 
     /**
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.CellHover, (params) => {})` instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.CellHover, (params) => {})` instead
      */
     onCellHover(callback: (cell: IHoverRichTextPosition) => void): IDisposable;
 
     /**
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.CellPointerMove, (params) => {})` instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.CellPointerMove, (params) => {})` instead
      */
     onCellPointerMove(callback: (cell: ICellPosWithEvent, event: IPointerEvent | IMouseEvent) => void): IDisposable;
 
     /**
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.CellPointerDown, (params) => {})` instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.CellPointerDown, (params) => {})` instead
      */
     onCellPointerDown(callback: (cell: ICellPosWithEvent) => void): IDisposable;
 
     /**
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.CellPointerUp, (params) => {})` instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.CellPointerUp, (params) => {})` instead
      */
     onCellPointerUp(callback: (cell: ICellPosWithEvent) => void): IDisposable;
 
     /**
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.DragOver, (params) => {})` instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.DragOver, (params) => {})` instead
      */
     onDragOver(callback: (cell: IDragCellPosition) => void): IDisposable;
 
     /**
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.Drop, (params) => {})` instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.Drop, (params) => {})` instead
      */
     onDrop(callback: (cell: IDragCellPosition) => void): IDisposable;
 
@@ -184,7 +184,7 @@ export interface IFWorkbookSheetsUIMixin {
      * @returns {boolean} Whether the editing process is started successfully
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * fWorkbook.startEditing();
      * ```
      */
@@ -202,7 +202,7 @@ export interface IFWorkbookSheetsUIMixin {
      * @returns {Promise<boolean>} Whether the editing process is ended successfully
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * await fWorkbook.endEditingAsync(false);
      * ```
      */
@@ -214,7 +214,7 @@ export interface IFWorkbookSheetsUIMixin {
      * @returns {Promise<boolean>} Whether the editing process is ended successfully
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * await fWorkbook.abortEditingAsync();
      * ```
      */
@@ -225,7 +225,7 @@ export interface IFWorkbookSheetsUIMixin {
      * @returns {boolean} True if the current active cell is in editing state, false otherwise
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const isEditing = fWorkbook.isCellEditing();
      * console.log(isEditing);
      * ```
@@ -238,7 +238,7 @@ export interface IFWorkbookSheetsUIMixin {
      * @returns {IScrollState} scroll state
      * @example
      * ``` ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // scroll to cell D10
@@ -257,7 +257,7 @@ export interface IFWorkbookSheetsUIMixin {
      * @returns {FWorkbook} FWorkbook instance for chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * fWorkbook.disableSelection();
      * ```
      */
@@ -268,7 +268,7 @@ export interface IFWorkbookSheetsUIMixin {
      * @returns {FWorkbook} FWorkbook instance for chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * fWorkbook.enableSelection();
      * ```
      */
@@ -279,7 +279,7 @@ export interface IFWorkbookSheetsUIMixin {
      * @returns {FWorkbook} FWorkbook instance for chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * fWorkbook.transparentSelection();
      * ```
      */
@@ -290,7 +290,7 @@ export interface IFWorkbookSheetsUIMixin {
      * @returns {FWorkbook} FWorkbook instance for chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * fWorkbook.showSelection();
      * ```
      */
@@ -490,7 +490,7 @@ export class FWorkbookSheetsUIMixin extends FWorkbook implements IFWorkbookSheet
      * @returns {IScrollState} scroll state
      * @example
      * ``` ts
-     * univerAPI.getActiveWorkbook().getScrollStateBySheetId($sheetId)
+     * crabtableAPI.getActiveWorkbook().getScrollStateBySheetId($sheetId)
      * ```
      */
     override getScrollStateBySheetId(sheetId: string): Nullable<IScrollState> {
@@ -544,7 +544,7 @@ export class FWorkbookSheetsUIMixin extends FWorkbook implements IFWorkbookSheet
 }
 
 FWorkbook.extend(FWorkbookSheetsUIMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FWorkbook extends IFWorkbookSheetsUIMixin {}
 }

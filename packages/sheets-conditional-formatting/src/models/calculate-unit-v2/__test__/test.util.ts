@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData } from '@univerjs/core';
-import { ICommandService, Inject, Injector, IUniverInstanceService, LocaleType, Plugin, Univer, UniverInstanceType } from '@univerjs/core';
-import { IActiveDirtyManagerService, RegisterOtherFormulaService } from '@univerjs/engine-formula';
-import { SheetInterceptorService } from '@univerjs/sheets';
+import type { Dependency, IWorkbookData } from '@crabtable/core';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, Inject, Injector, LocaleType, Plugin } from '@crabtable/core';
+import { IActiveDirtyManagerService, RegisterOtherFormulaService } from '@crabtable/engine-formula';
+import { SheetInterceptorService } from '@crabtable/sheets';
 import { AddConditionalRuleMutation } from '../../../commands/mutations/add-conditional-rule.mutation';
 import { DeleteConditionalRuleMutation } from '../../../commands/mutations/delete-conditional-rule.mutation';
 import { MoveConditionalRuleMutation } from '../../../commands/mutations/move-conditional-rule.mutation';
@@ -55,13 +55,13 @@ const TEST_WORKBOOK_DATA_DEMO: () => IWorkbookData = () => ({
 });
 
 export const createTestBed = (dependencies?: Dependency[]) => {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -85,9 +85,9 @@ export const createTestBed = (dependencies?: Dependency[]) => {
     univer.registerPlugin(TestPlugin);
 
     const workbookJson = TEST_WORKBOOK_DATA_DEMO();
-    const workbook = univer.createUnit(UniverInstanceType.UNIVER_SHEET, workbookJson);
+    const workbook = univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, workbookJson);
 
-    const univerInstanceService = injector.get(IUniverInstanceService);
+    const crabtableInstanceService = injector.get(ICrabTableInstanceService);
     const commandService = injector.get(ICommandService);
 
     [
@@ -102,8 +102,8 @@ export const createTestBed = (dependencies?: Dependency[]) => {
     const unitId = workbookJson.id;
     const subUnitId = workbookJson.sheets.sheet1.id!;
 
-    univerInstanceService.focusUnit('test');
-    univerInstanceService.setCurrentUnitForType(unitId);
+    crabtableInstanceService.focusUnit('test');
+    crabtableInstanceService.setCurrentUnitForType(unitId);
 
     const getConditionalFormattingRuleModel = () => injector.get(ConditionalFormattingRuleModel);
     const getConditionalFormattingViewModel = () => injector.get(ConditionalFormattingViewModel);

@@ -38,7 +38,7 @@ describe('test textX function', () => {
                     rangeId: '1',
                     rangeType: CustomRangeType.HYPERLINK,
                     properties: {
-                        url: 'https://univer.ai',
+                        url: 'https://crabtable.dev',
                     },
                 },
             ],
@@ -53,7 +53,7 @@ describe('test textX function', () => {
                     rangeId: '1',
                     rangeType: CustomRangeType.HYPERLINK,
                     properties: {
-                        url: 'https://univer.ai/haha',
+                        url: 'https://crabtable.dev/haha',
                     },
                 },
             ],
@@ -72,7 +72,7 @@ describe('test textX function', () => {
         if (textX) {
             TextX.apply(body, textX.serialize());
             expect(body.dataStream).toEqual('what are univer and how to use it?\r\n');
-            expect(body.customRanges?.[0].properties?.url).toEqual('https://univer.ai/haha');
+            expect(body.customRanges?.[0].properties?.url).toEqual('https://crabtable.dev/haha');
             expect(body.customRanges?.[0].startIndex).toEqual(0);
             expect(body.customRanges?.[0].endIndex).toEqual(8);
         }

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
-import { CommandType } from '@univerjs/core';
-import { IDialogService } from '@univerjs/ui';
-import { UNIVER_SHEET_PERMISSION_DIALOG, UNIVER_SHEET_PERMISSION_DIALOG_ID } from '../../consts/permission';
+import type { ICommand } from '@crabtable/core';
+import { CommandType } from '@crabtable/core';
+import { IDialogService } from '@crabtable/ui';
+import { CRABTABLE_SHEET_PERMISSION_DIALOG, CRABTABLE_SHEET_PERMISSION_DIALOG_ID } from '../../consts/permission';
 
 export const SheetPermissionOpenDialogOperation: ICommand = {
     type: CommandType.OPERATION,
@@ -28,12 +28,12 @@ export const SheetPermissionOpenDialogOperation: ICommand = {
         dialogService.close('DESKTOP_FIND_REPLACE_DIALOG');
 
         dialogService.open({
-            id: UNIVER_SHEET_PERMISSION_DIALOG_ID,
+            id: CRABTABLE_SHEET_PERMISSION_DIALOG_ID,
             title: { title: 'permission.dialog.allowedPermissionType' },
-            children: { label: UNIVER_SHEET_PERMISSION_DIALOG },
+            children: { label: CRABTABLE_SHEET_PERMISSION_DIALOG },
             width: 393,
             destroyOnClose: true,
-            onClose: () => dialogService.close(UNIVER_SHEET_PERMISSION_DIALOG_ID),
+            onClose: () => dialogService.close(CRABTABLE_SHEET_PERMISSION_DIALOG_ID),
         });
         return true;
     },

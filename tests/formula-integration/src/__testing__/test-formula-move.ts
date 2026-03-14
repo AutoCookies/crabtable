@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-import type { IWorkbookData } from '@univerjs/core';
+import type { IWorkbookData } from '@crabtable/core';
 import fs from 'node:fs';
 import path from 'node:path';
-import { IUniverInstanceService, LocaleType, Univer } from '@univerjs/core';
-import { FUniver } from '@univerjs/core/facade';
-import { UniverFormulaEnginePlugin } from '@univerjs/engine-formula';
-import zhCN from '@univerjs/mockdata/locales/zh-CN';
-import { MoveRangeCommand, UniverSheetsPlugin } from '@univerjs/sheets';
-import { CalculationMode, UniverSheetsFormulaPlugin } from '@univerjs/sheets-formula';
+import { CrabTable, ICrabTableInstanceService, LocaleType } from '@crabtable/core';
+import { FCrabTable } from '@crabtable/core/facade';
+import { UniverFormulaEnginePlugin } from '@crabtable/engine-formula';
+import zhCN from '@crabtable/mockdata/locales/zh-CN';
+import { MoveRangeCommand, UniverSheetsPlugin } from '@crabtable/sheets';
+import { CalculationMode, UniverSheetsFormulaPlugin } from '@crabtable/sheets-formula';
 import { expect } from 'vitest';
 import { getTestFilePath, getTestName } from './util';
 
 function createTestBed() {
-    const univer = new Univer({
+    const univer = new CrabTable({
         locale: LocaleType.ZH_CN,
         locales: {
             [LocaleType.ZH_CN]: zhCN,
@@ -45,7 +45,7 @@ function createTestBed() {
     return {
         univer,
         get: injector.get.bind(injector),
-        api: FUniver.newAPI(univer),
+        api: FCrabTable.newAPI(univer),
     };
 }
 
@@ -62,8 +62,8 @@ export async function expectMoveFormulaRowsResultMatchesSnapshot() {
     const testSnapshot = JSON.parse(testSnapshotRaw) as IWorkbookData;
 
     const workbook = testBed.api.createWorkbook(testSnapshot);
-    const univerInstanceService = testBed.get(IUniverInstanceService);
-    univerInstanceService.focusUnit(workbook.getId());
+    const crabtableInstanceService = testBed.get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit(workbook.getId());
     const worksheet = workbook.getActiveSheet();
 
     await testBed.api.getFormula().onCalculationResultApplied();
@@ -117,8 +117,8 @@ export async function expectMoveFormulaSiRowsResultMatchesSnapshot() {
     const testSnapshot = JSON.parse(testSnapshotRaw) as IWorkbookData;
 
     const workbook = testBed.api.createWorkbook(testSnapshot);
-    const univerInstanceService = testBed.get(IUniverInstanceService);
-    univerInstanceService.focusUnit(workbook.getId());
+    const crabtableInstanceService = testBed.get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit(workbook.getId());
     const worksheet = workbook.getActiveSheet();
 
     await testBed.api.getFormula().onCalculationResultApplied();
@@ -172,8 +172,8 @@ export async function expectMoveFormulaCellResultMatchesSnapshot() {
     const testSnapshot = JSON.parse(testSnapshotRaw) as IWorkbookData;
 
     const workbook = testBed.api.createWorkbook(testSnapshot);
-    const univerInstanceService = testBed.get(IUniverInstanceService);
-    univerInstanceService.focusUnit(workbook.getId());
+    const crabtableInstanceService = testBed.get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit(workbook.getId());
     const worksheet = workbook.getActiveSheet();
 
     await testBed.api.getFormula().onCalculationResultApplied();

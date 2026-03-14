@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
-import type { IMessageProtocol } from '@univerjs/rpc';
+import type { Dependency } from '@crabtable/core';
+import type { IMessageProtocol } from '@crabtable/rpc';
 import type { ChildProcess, Serializable } from 'node:child_process';
 import type { IUniverRPCNodeMainConfig, IUniverRPCNodeWorkerThreadConfig } from './config/config';
 import { fork } from 'node:child_process';
 import process from 'node:process';
-import { IConfigService, ILogService, Inject, Injector, merge, Plugin } from '@univerjs/core';
+import { IConfigService, ILogService, Inject, Injector, merge, Plugin } from '@crabtable/core';
 import {
     ChannelService,
     DataSyncPrimaryController,
@@ -30,7 +30,7 @@ import {
     IRPCChannelService,
     RemoteSyncPrimaryService,
     WebWorkerRemoteInstanceService,
-} from '@univerjs/rpc';
+} from '@crabtable/rpc';
 import { Observable, shareReplay } from 'rxjs';
 import pkg from '../package.json';
 import { defaultPluginMainThreadConfig, defaultPluginWorkerThreadConfig, PLUGIN_CONFIG_KEY_MAIN_THREAD, PLUGIN_CONFIG_KEY_WORKER_THREAD } from './config/config';

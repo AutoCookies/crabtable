@@ -16,11 +16,11 @@
 
 /* eslint-disable max-lines-per-function */
 
-import type { Injector } from '@univerjs/core';
-import type { ITableFilterItem } from '@univerjs/sheets-table';
+import type { Injector } from '@crabtable/core';
+import type { ITableFilterItem } from '@crabtable/sheets-table';
 import type { IConditionCompareTypeEnum } from './type';
-import { LocaleService } from '@univerjs/core';
-import { TableConditionTypeEnum, TableDateCompareTypeEnum, TableNumberCompareTypeEnum, TableStringCompareTypeEnum } from '@univerjs/sheets-table';
+import { LocaleService } from '@crabtable/core';
+import { TableConditionTypeEnum, TableDateCompareTypeEnum, TableNumberCompareTypeEnum, TableStringCompareTypeEnum } from '@crabtable/sheets-table';
 import { ConditionSubComponentEnum } from './type';
 
 export function getCascaderListOptions(injector: Injector) {

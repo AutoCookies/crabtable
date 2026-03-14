@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { CommandListener, CustomData, ICommandInfo, IDisposable, IRange, IStyleData, IWorkbookData, IWorksheetData, LocaleType, Workbook } from '@univerjs/core';
-import type { ISetDefinedNameMutationParam } from '@univerjs/engine-formula';
-import type { IRangeThemeStyleJSON, ISetSelectionsOperationParams, ISheetCommandSharedParams } from '@univerjs/sheets';
+import type { CommandListener, CustomData, ICommandInfo, IDisposable, IRange, IStyleData, IWorkbookData, IWorksheetData, LocaleType, Workbook } from '@crabtable/core';
+import type { ISetDefinedNameMutationParam } from '@crabtable/engine-formula';
+import type { IRangeThemeStyleJSON, ISetSelectionsOperationParams, ISheetCommandSharedParams } from '@crabtable/sheets';
 import type { FontLine as _FontLine } from './f-range';
-import { ICommandService, ILogService, Inject, Injector, IPermissionService, IResourceLoaderService, IUniverInstanceService, LocaleService, mergeWorksheetSnapshotWithDefault, RANGE_TYPE, RedoCommand, toDisposable, Tools, UndoCommand, UniverInstanceType } from '@univerjs/core';
-import { FBaseInitialable } from '@univerjs/core/facade';
-import { IDefinedNamesService } from '@univerjs/engine-formula';
-import { CopySheetCommand, getPrimaryForRange, InsertSheetCommand, RangeThemeStyle, RegisterWorksheetRangeThemeStyleCommand, RemoveSheetCommand, SCOPE_WORKBOOK_VALUE_DEFINED_NAME, SetDefinedNameCommand, SetSelectionsOperation, SetWorkbookNameCommand, SetWorksheetActiveOperation, SetWorksheetOrderCommand, SheetRangeThemeService, SheetsSelectionsService, UnregisterWorksheetRangeThemeStyleCommand, WorkbookEditablePermission } from '@univerjs/sheets';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, ILogService, Inject, Injector, IPermissionService, IResourceLoaderService, LocaleService, mergeWorksheetSnapshotWithDefault, RANGE_TYPE, RedoCommand, toDisposable, Tools, UndoCommand } from '@crabtable/core';
+import { FBaseInitialable } from '@crabtable/core/facade';
+import { IDefinedNamesService } from '@crabtable/engine-formula';
+import { CopySheetCommand, getPrimaryForRange, InsertSheetCommand, RangeThemeStyle, RegisterWorksheetRangeThemeStyleCommand, RemoveSheetCommand, SCOPE_WORKBOOK_VALUE_DEFINED_NAME, SetDefinedNameCommand, SetSelectionsOperation, SetWorkbookNameCommand, SetWorksheetActiveOperation, SetWorksheetOrderCommand, SheetRangeThemeService, SheetsSelectionsService, UnregisterWorksheetRangeThemeStyleCommand, WorkbookEditablePermission } from '@crabtable/sheets';
 import { FDefinedName, FDefinedNameBuilder } from './f-defined-name';
 import { FPermission } from './f-permission';
 import { FRange } from './f-range';
@@ -40,7 +40,7 @@ export class FWorkbook extends FBaseInitialable {
         @Inject(Injector) protected override readonly _injector: Injector,
         @Inject(IResourceLoaderService) protected readonly _resourceLoaderService: IResourceLoaderService,
         @Inject(SheetsSelectionsService) protected readonly _selectionManagerService: SheetsSelectionsService,
-        @IUniverInstanceService protected readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService protected readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService protected readonly _commandService: ICommandService,
         @IPermissionService protected readonly _permissionService: IPermissionService,
         @ILogService protected readonly _logService: ILogService,
@@ -58,7 +58,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below gets the Workbook instance
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const workbook = fWorkbook.getWorkbook();
      * console.log(workbook);
      * ```
@@ -79,7 +79,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below gets the id of the workbook
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const unitId = fWorkbook.getId();
      * console.log(unitId);
      * ```
@@ -94,7 +94,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below gets the name of the workbook
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const name = fWorkbook.getName();
      * console.log(name);
      * ```
@@ -109,7 +109,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below sets the name of the workbook
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * fWorkbook.setName('MyWorkbook');
      * ```
      */
@@ -128,7 +128,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below saves the workbook snapshot data
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const snapshot = fWorkbook.save();
      * console.log(snapshot);
      * ```
@@ -145,7 +145,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below saves the workbook snapshot data
-     * const activeSpreadsheet = univerAPI.getActiveWorkbook();
+     * const activeSpreadsheet = crabtableAPI.getActiveWorkbook();
      * const snapshot = activeSpreadsheet.getSnapshot();
      * ```
      */
@@ -160,7 +160,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below gets the active sheet of the workbook
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * console.log(fWorksheet);
      * ```
@@ -176,7 +176,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below gets all the worksheets in the workbook
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const sheets = fWorkbook.getSheets();
      * console.log(sheets);
      * ```
@@ -198,7 +198,7 @@ export class FWorkbook extends FBaseInitialable {
      * @returns {FWorksheet} The new created sheet
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      *
      * // Create a new sheet named 'MyNewSheet' with 10 rows and 10 columns
      * const newSheet = fWorkbook.create('MyNewSheet', 10, 10);
@@ -258,7 +258,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below gets a worksheet by sheet id
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const sheet = fWorkbook.getSheetBySheetId('sheetId');
      * console.log(sheet);
      * ```
@@ -279,7 +279,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below gets a worksheet by sheet name
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const sheet = fWorkbook.getSheetByName('Sheet1');
      * console.log(sheet);
      * ```
@@ -300,7 +300,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below sets the given worksheet to be the active worksheet
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const sheet = fWorkbook.getSheets()[1];
      * fWorkbook.setActiveSheet(sheet);
      * ```
@@ -324,7 +324,7 @@ export class FWorkbook extends FBaseInitialable {
      * @returns {FWorksheet} The new sheet
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      *
      * // Create a new sheet with default configuration
      * const newSheet = fWorkbook.insertSheet();
@@ -386,7 +386,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below deletes the specified worksheet
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const sheet = fWorkbook.getSheets()[1];
      * fWorkbook.deleteSheet(sheet);
      *
@@ -410,12 +410,12 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below undoes the last action
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * fWorkbook.undo();
      * ```
      */
     undo(): FWorkbook {
-        this._univerInstanceService.focusUnit(this.id);
+        this._crabtableInstanceService.focusUnit(this.id);
         this._commandService.syncExecuteCommand(UndoCommand.id);
         return this;
     }
@@ -426,12 +426,12 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below redoes the last undone action
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * fWorkbook.redo();
      * ```
      */
     redo(): FWorkbook {
-        this._univerInstanceService.focusUnit(this.id);
+        this._crabtableInstanceService.focusUnit(this.id);
         this._commandService.syncExecuteCommand(RedoCommand.id);
         return this;
     }
@@ -443,13 +443,13 @@ export class FWorkbook extends FBaseInitialable {
      */
 
     /**
-     * Register a callback that will be triggered before invoking a command targeting the Univer sheet.
+     * Register a callback that will be triggered before invoking a command targeting the CrabTable sheet.
      * @param {onBeforeCommandExecuteCallback} callback the callback.
      * @returns {IDisposable} A function to dispose the listening.
      * @example
      * ```ts
-     * // The code below registers a callback that will be triggered before invoking a command targeting the Univer sheet
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * // The code below registers a callback that will be triggered before invoking a command targeting the CrabTable sheet
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * fWorkbook.onBeforeCommandExecute((command) => {
      *   console.log('Before command execute:', command);
      * });
@@ -472,13 +472,13 @@ export class FWorkbook extends FBaseInitialable {
      */
 
     /**
-     * Register a callback that will be triggered when a command is invoked targeting the Univer sheet.
+     * Register a callback that will be triggered when a command is invoked targeting the CrabTable sheet.
      * @param {onCommandExecutedCallback} callback the callback.
      * @returns {IDisposable} A function to dispose the listening.
      * @example
      * ```ts
-     * // The code below registers a callback that will be triggered when a command is invoked targeting the Univer sheet
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * // The code below registers a callback that will be triggered when a command is invoked targeting the CrabTable sheet
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * fWorkbook.onCommandExecuted((command) => {
      *   console.log('Command executed:', command);
      * });
@@ -507,7 +507,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below registers a callback that will be triggered when the selection changes
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * fWorkbook.onSelectionChange((selections) => {
      *   console.log('Selection changed:', selections);
      * });
@@ -516,7 +516,7 @@ export class FWorkbook extends FBaseInitialable {
     onSelectionChange(callback: (selections: IRange[]) => void): IDisposable {
         return toDisposable(
             this._selectionManagerService.selectionMoveEnd$.subscribe((selections) => {
-                if (this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getUnitId() !== this.id) {
+                if (this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getUnitId() !== this.id) {
                     return;
                 }
 
@@ -537,7 +537,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below sets the editing permissions of the workbook
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * fWorkbook.setEditable(false);
      * ```
      */
@@ -558,7 +558,7 @@ export class FWorkbook extends FBaseInitialable {
      * @returns {FWorkbook} FWorkbook instance
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const range = fWorkbook.getActiveSheet().getRange('A10:B10');
      * fWorkbook.setActiveRange(range);
      * ```
@@ -595,7 +595,7 @@ export class FWorkbook extends FBaseInitialable {
      * @returns {FRange | null} The active range
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const activeRange = fWorkbook.getActiveRange();
      * console.log(activeRange);
      * ```
@@ -617,7 +617,7 @@ export class FWorkbook extends FBaseInitialable {
      * @returns {FRange | null} The active cell
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * console.log(fWorkbook.getActiveCell().getA1Notation());
      * ```
      */
@@ -642,7 +642,7 @@ export class FWorkbook extends FBaseInitialable {
      * @returns {boolean} true if the sheet was deleted, false otherwise
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * fWorkbook.deleteActiveSheet();
      * ```
      */
@@ -658,7 +658,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below duplicates the given worksheet
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const activeSheet = fWorkbook.getActiveSheet();
      * const duplicatedSheet = fWorkbook.duplicateSheet(activeSheet);
      * console.log(duplicatedSheet);
@@ -678,7 +678,7 @@ export class FWorkbook extends FBaseInitialable {
      * @returns {FWorksheet} The duplicated worksheet
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const duplicatedSheet = fWorkbook.duplicateActiveSheet();
      * console.log(duplicatedSheet);
      * ```
@@ -694,7 +694,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below gets the number of sheets in the workbook
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * console.log(fWorkbook.getNumSheets());
      * ```
      */
@@ -708,7 +708,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below gets the locale of the workbook
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * console.log(fWorkbook.getLocale());
      * ```
      */
@@ -731,8 +731,8 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below sets the locale of the workbook
-     * const fWorkbook = univerAPI.getActiveWorkbook();
-     * fWorkbook.setSpreadsheetLocale(univerAPI.Enum.LocaleType.EN_US);
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
+     * fWorkbook.setSpreadsheetLocale(crabtableAPI.Enum.LocaleType.EN_US);
      * console.log(fWorkbook.getLocale());
      * ```
      */
@@ -747,7 +747,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below gets the URL of the workbook
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const url = fWorkbook.getUrl();
      * console.log(url);
      * ```
@@ -764,7 +764,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below moves the sheet to the specified index
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const sheet = fWorkbook.getActiveSheet();
      * fWorkbook.moveSheet(sheet, 1);
      * ```
@@ -791,7 +791,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below moves the active sheet to the specified index
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * fWorkbook.moveActiveSheet(1);
      * ```
      */
@@ -806,7 +806,7 @@ export class FWorkbook extends FBaseInitialable {
      * @deprecated Use `getWorkbookPermission()` instead for the new permission API
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const permission = fWorkbook.getPermission();
      * console.log(permission);
      * ```
@@ -821,7 +821,7 @@ export class FWorkbook extends FBaseInitialable {
      * @returns {FWorkbookPermission} - The WorkbookPermission instance.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const permission = fWorkbook.getWorkbookPermission();
      *
      * // Set workbook to read-only mode
@@ -851,7 +851,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below gets the defined name by name
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const definedName = fWorkbook.getDefinedName('MyDefinedName');
      * console.log(definedName?.getFormulaOrRefString());
      *
@@ -875,7 +875,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below gets all the defined names in the workbook
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const definedNames = fWorkbook.getDefinedNames();
      * console.log(definedNames, definedNames[0]?.getFormulaOrRefString());
      * ```
@@ -898,7 +898,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below inserts a defined name
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * fWorkbook.insertDefinedName('MyDefinedName', 'Sheet1!$A$1');
      * ```
      */
@@ -917,7 +917,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below deletes the defined name with the given name
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * fWorkbook.deleteDefinedName('MyDefinedName');
      * ```
      */
@@ -938,8 +938,8 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below inserts a defined name by builder param
-     * const fWorkbook = univerAPI.getActiveWorkbook();
-     * const definedNameBuilder = univerAPI.newDefinedName()
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
+     * const definedNameBuilder = crabtableAPI.newDefinedName()
      *   .setRef('Sheet1!$A$1')
      *   .setName('MyDefinedName')
      *   .setComment('This is a comment')
@@ -959,7 +959,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below updates the defined name with the given name
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const definedName = fWorkbook.getDefinedName('MyDefinedName');
      * console.log(definedName?.getFormulaOrRefString());
      *
@@ -983,7 +983,7 @@ export class FWorkbook extends FBaseInitialable {
      * @example
      * ```ts
      * // The code below gets the registered range themes
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const themes = fWorkbook.getRegisteredRangeThemes();
      * console.log(themes);
      * ```
@@ -998,7 +998,7 @@ export class FWorkbook extends FBaseInitialable {
      * @returns {void}
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const rangeThemeStyle = fWorkbook.createRangeThemeStyle('MyTheme', {
      *   secondRowStyle: {
      *     bg: {
@@ -1022,7 +1022,7 @@ export class FWorkbook extends FBaseInitialable {
      * @returns {void}
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * fWorkbook.unregisterRangeTheme('MyTheme');
      * ```
      */
@@ -1040,7 +1040,7 @@ export class FWorkbook extends FBaseInitialable {
      * @returns {RangeThemeStyle} - The created range theme style
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const rangeThemeStyle = fWorkbook.createRangeThemeStyle('MyTheme', {
      *   secondRowStyle: {
      *     bg: {
@@ -1061,7 +1061,7 @@ export class FWorkbook extends FBaseInitialable {
      * @returns {FWorkbook} FWorkbook
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * fWorkbook.setCustomMetadata({ key: 'value' });
      * ```
      */
@@ -1075,7 +1075,7 @@ export class FWorkbook extends FBaseInitialable {
      * @returns {CustomData | undefined} custom metadata
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const custom = fWorkbook.getCustomMetadata();
      * console.log(custom);
      * ```
@@ -1089,7 +1089,7 @@ export class FWorkbook extends FBaseInitialable {
      * @param {Record<string, IStyleData>} styles Styles to add
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      *
      * // Add styles to the workbook styles
      * const styles = {
@@ -1125,7 +1125,7 @@ export class FWorkbook extends FBaseInitialable {
      * @param {string[]} styleKeys Style keys to remove
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      *
      * // Add styles to the workbook styles
      * const styles = {

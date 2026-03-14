@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Injector, IRange, Univer, Workbook } from '@univerjs/core';
-import { IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
+import type { Injector, IRange, Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { createTestBase, TEST_WORKBOOK_DATA_DEMO } from '../../services/__tests__/util';
 import { SheetInterceptorService } from '../../services/sheet-interceptor/sheet-interceptor.service';
@@ -23,7 +23,7 @@ import { SheetRangeThemeModel } from '../range-theme-model';
 import { RangeThemeStyle } from '../range-theme-util';
 
 describe('SheetRangeThemeModel', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let model: SheetRangeThemeModel;
     let unitId: string;
@@ -39,7 +39,7 @@ describe('SheetRangeThemeModel', () => {
         get = testBed.get;
         model = get(SheetRangeThemeModel);
 
-        const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         unitId = workbook.getUnitId();
         subUnitId = workbook.getActiveSheet()!.getSheetId();
     });

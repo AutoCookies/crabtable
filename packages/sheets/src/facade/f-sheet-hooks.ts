@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Inject, Injector } from '@univerjs/core';
-import { FBase } from '@univerjs/core/facade';
+import { Inject, Injector } from '@crabtable/core';
+import { FBase } from '@crabtable/core/facade';
 
 /**
  * @hideconstructor

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuButtonItem } from '@univerjs/ui';
-import { UniverInstanceType } from '@univerjs/core';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuButtonItem } from '@crabtable/ui';
+import { CrabTableInstanceType } from '@crabtable/core';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { SlideAddTextCommand } from '../commands/operations/insert-text.operation';
 
 export function SlideAddTextMenuItemFactory(_accessor: IAccessor): IMenuButtonItem {
@@ -26,6 +26,6 @@ export function SlideAddTextMenuItemFactory(_accessor: IAccessor): IMenuButtonIt
         type: MenuItemType.BUTTON,
         icon: 'TextIcon',
         tooltip: 'slide.text.insert.title',
-        hidden$: getMenuHiddenObservable(_accessor, UniverInstanceType.UNIVER_SLIDE),
+        hidden$: getMenuHiddenObservable(_accessor, CrabTableInstanceType.CRABTABLE_SLIDE),
     };
 }

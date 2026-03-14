@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
-import { LocaleService } from '@univerjs/core';
-import { Button, Checkbox, CheckboxGroup, FormLayout, Select } from '@univerjs/design';
-import { useHighlightRange } from '@univerjs/sheets-ui';
-import { IDialogService, useDependency } from '@univerjs/ui';
+import type { IRange } from '@crabtable/core';
+import { LocaleService } from '@crabtable/core';
+import { Button, Checkbox, CheckboxGroup, FormLayout, Select } from '@crabtable/design';
+import { useHighlightRange } from '@crabtable/sheets-ui';
+import { IDialogService, useDependency } from '@crabtable/ui';
 import { useCallback, useMemo, useState } from 'react';
 import { FileNamePart, IBatchSaveImagesService } from '../../services/batch-save-images.service';
 import { BATCH_SAVE_IMAGES_DIALOG_ID } from './component-name';

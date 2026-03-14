@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IParagraph } from '@univerjs/core';
+import type { IParagraph } from '@crabtable/core';
 import type { IPastePlugin } from './type';
 import { getParagraphStyle } from '../utils';
 

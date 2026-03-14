@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Disposable, Inject, Injector, ObjectMatrix } from '@univerjs/core';
-import { IAutoFillService } from '@univerjs/sheets';
+import { Disposable, Inject, Injector, ObjectMatrix } from '@crabtable/core';
+import { IAutoFillService } from '@crabtable/sheets';
 import { resizeImageByCell } from './sheet-cell-image.controller';
 
 export class SheetCellImageAutofillController extends Disposable {

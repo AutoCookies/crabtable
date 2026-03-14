@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICellData, Nullable } from '@univerjs/core';
-import { BuildTextUtils, CellValueType } from '@univerjs/core';
+import type { ICellData, Nullable } from '@crabtable/core';
+import { BuildTextUtils, CellValueType } from '@crabtable/core';
 
 /**
  * Get pure text in a cell.

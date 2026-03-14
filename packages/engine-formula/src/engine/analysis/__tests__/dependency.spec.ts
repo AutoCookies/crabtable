@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Injector } from '@univerjs/core';
+import type { Injector } from '@crabtable/core';
 import type { FormulaDependencyTreeVirtual } from '../../dependency/dependency-tree';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { IFormulaCurrentConfigService } from '../../../services/current-data.service';

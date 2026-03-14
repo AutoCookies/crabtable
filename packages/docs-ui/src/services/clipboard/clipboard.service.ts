@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-import type { IDisposable, IDocumentBody, IDocumentData } from '@univerjs/core';
-import type { IDocImage } from '@univerjs/docs-drawing';
-import type { IRectRangeWithStyle, ITextRangeWithStyle } from '@univerjs/engine-render';
+import type { IDisposable, IDocumentBody, IDocumentData } from '@crabtable/core';
+import type { IDocImage } from '@crabtable/docs-drawing';
+import type { IRectRangeWithStyle, ITextRangeWithStyle } from '@crabtable/engine-render';
 import {
     BuildTextUtils,
+    CrabTableInstanceType,
     createIdentifier,
     DataStreamTreeTokenType,
     Disposable,
@@ -28,9 +29,9 @@ import {
     generateRandomId,
     getBodySlice,
     ICommandService,
+    ICrabTableInstanceService,
     ILogService,
     Inject,
-    IUniverInstanceService,
     normalizeBody,
     ObjectRelativeFromH,
     ObjectRelativeFromV,
@@ -38,10 +39,9 @@ import {
     SliceBodyType,
     toDisposable,
     Tools,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { ImageSourceType } from '@univerjs/drawing';
+} from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { ImageSourceType } from '@crabtable/drawing';
 import {
     FILE__BMP_CLIPBOARD_MIME_TYPE,
     FILE__JPEG_CLIPBOARD_MIME_TYPE,
@@ -50,7 +50,7 @@ import {
     HTML_CLIPBOARD_MIME_TYPE,
     IClipboardInterfaceService,
     PLAIN_TEXT_CLIPBOARD_MIME_TYPE,
-} from '@univerjs/ui';
+} from '@crabtable/ui';
 import { CutContentCommand, InnerPasteCommand } from '../../commands/commands/clipboard.inner.command';
 import { getCursorWhenDelete } from '../../commands/commands/doc-delete.command';
 import { copyContentCache, extractId, genId } from './copy-content-cache';
@@ -122,7 +122,7 @@ export class DocClipboardService extends Disposable implements IDocClipboardServ
     private _umdToHtml = new UDMToHtmlService();
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ILogService private readonly _logService: ILogService,
         @ICommandService private readonly _commandService: ICommandService,
         @IClipboardInterfaceService private readonly _clipboardInterfaceService: IClipboardInterfaceService,
@@ -166,7 +166,7 @@ export class DocClipboardService extends Disposable implements IDocClipboardServ
         files: File[];
     }): Promise<boolean> {
         let { html, text, files } = options;
-        const currentDocInstance = this._univerInstanceService.getCurrentUnitForType(UniverInstanceType.UNIVER_DOC);
+        const currentDocInstance = this._crabtableInstanceService.getCurrentUnitForType(CrabTableInstanceType.CRABTABLE_DOC);
         const docUnitId = currentDocInstance?.getUnitId() || '';
         if (!html && !text && files.length) {
             html = await this._createImagePasteHtml(files);
@@ -257,7 +257,7 @@ export class DocClipboardService extends Disposable implements IDocClipboardServ
 
         let body = normalizeBody(_body);
 
-        const unitId = this._univerInstanceService.getCurrentUnitForType(UniverInstanceType.UNIVER_DOC)?.getUnitId();
+        const unitId = this._crabtableInstanceService.getCurrentUnitForType(CrabTableInstanceType.CRABTABLE_DOC)?.getUnitId();
         if (!unitId) {
             return false;
         }
@@ -388,7 +388,7 @@ export class DocClipboardService extends Disposable implements IDocClipboardServ
     }
 
     private _getDocumentBodyInRanges(sliceType: SliceBodyType, ranges?: ITextRangeWithStyle[]) {
-        const docDataModel = this._univerInstanceService.getCurrentUniverDocInstance();
+        const docDataModel = this._crabtableInstanceService.getCurrentUniverDocInstance();
         const allRanges = ranges ?? this._docSelectionManagerService.getDocRanges();
 
         const results: IDocumentData['body'][] = [];
@@ -507,7 +507,7 @@ export class DocClipboardService extends Disposable implements IDocClipboardServ
         }
 
         if (!_unitId) {
-            const currentDocInstance = this._univerInstanceService.getCurrentUnitForType(UniverInstanceType.UNIVER_DOC);
+            const currentDocInstance = this._crabtableInstanceService.getCurrentUnitForType(CrabTableInstanceType.CRABTABLE_DOC);
             const docUnitId = currentDocInstance?.getUnitId() || '';
             _unitId = docUnitId;
         }

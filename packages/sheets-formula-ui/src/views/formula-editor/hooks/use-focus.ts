@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Editor } from '@univerjs/docs-ui';
-import { Tools } from '@univerjs/core';
-import { IEditorService } from '@univerjs/docs-ui';
-import { useDependency, useEvent } from '@univerjs/ui';
+import type { Editor } from '@crabtable/docs-ui';
+import { Tools } from '@crabtable/core';
+import { IEditorService } from '@crabtable/docs-ui';
+import { useDependency, useEvent } from '@crabtable/ui';
 
 export const useFocus = (editor?: Editor) => {
     const editorService = useDependency(IEditorService);

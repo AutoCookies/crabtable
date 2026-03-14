@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { IAddSheetTableCommandParams, IDeleteSheetTableParams, ISetSheetTableParams, ITableFilterItem, ITableInfo, ITableInfoWithUnitId, ITableOptions, ITableRange } from '@univerjs/sheets-table';
-import { customNameCharacterCheck, ILogService, IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
-import { AddSheetTableCommand, DeleteSheetTableCommand, SetSheetTableFilterCommand, SheetTableService } from '@univerjs/sheets-table';
-import { FWorkbook } from '@univerjs/sheets/facade';
+import type { Workbook } from '@crabtable/core';
+import type { IAddSheetTableCommandParams, IDeleteSheetTableParams, ISetSheetTableParams, ITableFilterItem, ITableInfo, ITableInfoWithUnitId, ITableOptions, ITableRange } from '@crabtable/sheets-table';
+import { CrabTableInstanceType, customNameCharacterCheck, ICrabTableInstanceService, ILogService, LocaleService } from '@crabtable/core';
+import { AddSheetTableCommand, DeleteSheetTableCommand, SetSheetTableFilterCommand, SheetTableService } from '@crabtable/sheets-table';
+import { FWorkbook } from '@crabtable/sheets/facade';
 
 /**
  * @ignore
@@ -30,7 +30,7 @@ export interface IFWorkbookSheetsTableMixin {
      * @returns {ITableInfo} The table information
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Insert a table in the range B2:F11
@@ -58,7 +58,7 @@ export interface IFWorkbookSheetsTableMixin {
      * @returns {ITableInfo} The table information
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Insert a table in the range B2:F11
@@ -85,7 +85,7 @@ export interface IFWorkbookSheetsTableMixin {
      * @returns {ITableInfo[]} The table list
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const tables = fWorkbook.getTableList();
      * console.log('debugger tables', tables);
      * ```
@@ -102,7 +102,7 @@ export interface IFWorkbookSheetsTableMixin {
      * @returns {string} The table id
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Insert a table in the range B2:F11
@@ -133,7 +133,7 @@ export interface IFWorkbookSheetsTableMixin {
      * @returns {Promise<boolean>} The result of set table filter
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Insert a table in the range B2:F11
@@ -150,10 +150,10 @@ export interface IFWorkbookSheetsTableMixin {
      * if (success) {
      *   // Set the filter for the second column
      *   await fWorkbook.setTableFilter('id-1', 1, {
-     *     filterType: univerAPI.Enum.TableColumnFilterTypeEnum.condition,
+     *     filterType: crabtableAPI.Enum.TableColumnFilterTypeEnum.condition,
      *     filterInfo: {
-     *       conditionType: univerAPI.Enum.TableConditionTypeEnum.Number,
-     *       compareType: univerAPI.Enum.TableNumberCompareTypeEnum.GreaterThan,
+     *       conditionType: crabtableAPI.Enum.TableConditionTypeEnum.Number,
+     *       compareType: crabtableAPI.Enum.TableNumberCompareTypeEnum.GreaterThan,
      *       expectedValue: 10,
      *     },
      *   });
@@ -171,7 +171,7 @@ export interface IFWorkbookSheetsTableMixin {
      * @returns {boolean} The result of remove table
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const tableInfo = fWorkbook.getTableInfo('id-1');
      * console.log('debugger tableInfo', tableInfo);
      *
@@ -201,8 +201,8 @@ export class FWorkbookSheetsTableMixin extends FWorkbook implements IFWorkbookSh
         const sheetTableService = this._injector.get(SheetTableService);
         const localeService = this._injector.get(LocaleService);
 
-        const univerInstanceService = this._injector.get(IUniverInstanceService);
-        const workbook = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const crabtableInstanceService = this._injector.get(ICrabTableInstanceService);
+        const workbook = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         const sheetNameSet = new Set<string>();
         if (workbook) {
             workbook.getSheets().forEach((sheet) => {
@@ -261,7 +261,7 @@ export class FWorkbookSheetsTableMixin extends FWorkbook implements IFWorkbookSh
 }
 
 FWorkbook.extend(FWorkbookSheetsTableMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FWorkbook extends IFWorkbookSheetsTableMixin { }
 }

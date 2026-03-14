@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Univer } from '@univerjs/core';
-import { ICommandService, Injector, RANGE_TYPE } from '@univerjs/core';
-import { SetRangeValuesMutation, SetSelectionsOperation, SheetsSelectionsService } from '@univerjs/sheets';
+import type { CrabTable } from '@crabtable/core';
+import { ICommandService, Injector, RANGE_TYPE } from '@crabtable/core';
+import { SetRangeValuesMutation, SetSelectionsOperation, SheetsSelectionsService } from '@crabtable/sheets';
 import { firstValueFrom, take } from 'rxjs';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import {
@@ -34,7 +34,7 @@ import {
 import { createMenuTestBed } from './create-menu-test-bed';
 
 describe('advanced menu state streams', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: any;
     let commandService: ICommandService;
     let selectionService: SheetsSelectionsService;

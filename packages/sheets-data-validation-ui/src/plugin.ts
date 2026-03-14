@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Dependency, Workbook } from '@univerjs/core';
+import type { Dependency, Workbook } from '@crabtable/core';
 import type { IUniverSheetsDataValidationUIConfig } from './config/config';
-import { DependentOn, ICommandService, IConfigService, Inject, Injector, merge, Plugin, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { UniverSheetsDataValidationPlugin } from '@univerjs/sheets-data-validation';
+import { CrabTableInstanceType, DependentOn, ICommandService, IConfigService, Inject, Injector, merge, Plugin } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { UniverSheetsDataValidationPlugin } from '@crabtable/sheets-data-validation';
 import pkg from '../package.json';
 import { AddSheetDataValidationAndOpenCommand } from './commands/commands/data-validation-ui.command';
 import {
@@ -45,7 +45,7 @@ export class UniverSheetsDataValidationUIPlugin extends Plugin {
     static override pluginName: string = 'SHEET_DATA_VALIDATION_UI_PLUGIN';
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
     constructor(
         private readonly _config: Partial<IUniverSheetsDataValidationUIConfig> = defaultPluginConfig,
@@ -102,7 +102,7 @@ export class UniverSheetsDataValidationUIPlugin extends Plugin {
 
         const renderManager = this._injector.get(IRenderManagerService);
         renderManager.registerRenderModule<Workbook>(
-            UniverInstanceType.UNIVER_SHEET,
+            CrabTableInstanceType.CRABTABLE_SHEET,
             [SheetsDataValidationReRenderController] as Dependency
         );
     }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IMutationInfo } from '@univerjs/core';
+import type { IMutationInfo } from '@crabtable/core';
 import type { ISetRangeValuesMutationParams } from '../../commands/mutations/set-range-values.mutation';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { SheetLazyExecuteScheduleService } from '../lazy-execute-schedule.service';

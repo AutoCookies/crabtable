@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IMutation } from '@univerjs/core';
+import type { IMutation } from '@crabtable/core';
 
 import type { IAnchor } from '../../utils/anchor';
-import { CommandType } from '@univerjs/core';
+import { CommandType } from '@crabtable/core';
 import { ConditionalFormattingRuleModel } from '../../models/conditional-formatting-rule-model';
 import { anchorUndoFactory } from '../../utils/anchor';
 

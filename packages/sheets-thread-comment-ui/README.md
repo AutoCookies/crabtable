@@ -1,14 +1,14 @@
-# @univerjs/sheets-thread-comment-ui
+# @crabtable/sheets-thread-comment-ui
 
 ## Package Overview
 
 | Package Name | UMD Namespace | Version | License | Downloads | Contains CSS | Contains i18n locales |
 | --- | --- | --- | --- | --- | :---: | :---: |
-| `@univerjs/sheets-thread-comment-ui` | `UniverSheetsThreadComment` | [![][npm-version-shield]][npm-version-link] | ![][npm-license-shield] | ![][npm-downloads-shield] | ⭕️ | ⭕️ |
+| `@crabtable/sheets-thread-comment-ui` | `UniverSheetsThreadComment` | [![][npm-version-shield]][npm-version-link] | ![][npm-license-shield] | ![][npm-downloads-shield] | ⭕️ | ⭕️ |
 
 ## Introduction
 
-`@univerjs/sheets-thread-comment-ui` provides the comment/annotation function of Univer Sheets.
+`@crabtable/sheets-thread-comment-ui` provides the comment/annotation function of CrabTable Sheets.
 
 ## Usage
 
@@ -16,16 +16,16 @@
 
 ```shell
 # Use npm
-npm install @univerjs/sheets-thread-comment-ui
+npm install @crabtable/sheets-thread-comment-ui
 
-# Use pnpm
-pnpm add @univerjs/sheets-thread-comment-ui
+# Use yarn
+yarn add @crabtable/sheets-thread-comment-ui
 ```
 
 ### Register the plugin
 
 ```typescript
-import { UniverSheetsThreadCommentPlugin, IThreadCommentMentionDataService} from '@univerjs/sheets-thread-comment-ui';
+import { UniverSheetsThreadCommentPlugin, IThreadCommentMentionDataService} from '@crabtable/sheets-thread-comment-ui';
 
 const mockUser = {
     userID: 'mockId',
@@ -68,14 +68,14 @@ import {
     UpdateCommentCommand,
     ResolveCommentCommand,
     DeleteCommentTreeCommand,
-} from '@univerjs/sheets-thread-comment-ui';
+} from '@crabtable/sheets-thread-comment-ui';
 import type {
     IAddCommentCommandParams,
     IDeleteCommentCommandParams,
     IResolveCommentCommandParams,
     IUpdateCommentCommandParams,
     IDeleteCommentTreeCommandParams,
-} from '@univerjs/sheets-thread-comment-ui';
+} from '@crabtable/sheets-thread-comment-ui';
 
 // Add comment by command
 const commandService = univer.__getInjector().get(ICommandService);
@@ -90,7 +90,7 @@ commandService.executeCommand(AddCommentCommand.id, {
 ```
 
 <!-- Links -->
-[npm-version-shield]: https://img.shields.io/npm/v/@univerjs/sheets-thread-comment-ui?style=flat-square
-[npm-version-link]: https://npmjs.com/package/@univerjs/sheets-thread-comment-ui
-[npm-license-shield]: https://img.shields.io/npm/l/@univerjs/sheets-thread-comment-ui?style=flat-square
-[npm-downloads-shield]: https://img.shields.io/npm/dm/@univerjs/sheets-thread-comment-ui?style=flat-square
+[npm-version-shield]: https://img.shields.io/npm/v/@crabtable/sheets-thread-comment-ui?style=flat-square
+[npm-version-link]: https://npmjs.com/package/@crabtable/sheets-thread-comment-ui
+[npm-license-shield]: https://img.shields.io/npm/l/@crabtable/sheets-thread-comment-ui?style=flat-square
+[npm-downloads-shield]: https://img.shields.io/npm/dm/@crabtable/sheets-thread-comment-ui?style=flat-square

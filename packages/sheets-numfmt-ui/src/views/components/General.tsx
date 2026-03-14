@@ -16,8 +16,8 @@
 
 import type { FC } from 'react';
 import type { IBusinessComponentProps } from './interface';
-import { LocaleService } from '@univerjs/core';
-import { useDependency } from '@univerjs/ui';
+import { LocaleService } from '@crabtable/core';
+import { useDependency } from '@crabtable/ui';
 
 export const isGeneralPanel = (pattern: string) => !pattern;
 

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, SlideDataModel } from '@univerjs/core';
-import { BasicShapes, CommandType, generateRandomId, ICommandService, IUniverInstanceService, LocaleService, PageElementType } from '@univerjs/core';
-import { ObjectType } from '@univerjs/engine-render';
+import type { IAccessor, ICommand, SlideDataModel } from '@crabtable/core';
+import { BasicShapes, CommandType, generateRandomId, ICommandService, ICrabTableInstanceService, LocaleService, PageElementType } from '@crabtable/core';
+import { ObjectType } from '@crabtable/engine-render';
 
-import { ISidebarService } from '@univerjs/ui';
+import { ISidebarService } from '@crabtable/ui';
 import { COMPONENT_SLIDE_SIDEBAR } from '../../components/sidebar/Sidebar';
 import { CanvasView } from '../../controllers/canvas-view';
 
@@ -31,7 +31,7 @@ export const InsertSlideShapeRectangleCommand: ICommand = {
     type: CommandType.COMMAND,
     handler: async (accessor: IAccessor) => {
         const commandService = accessor.get(ICommandService);
-        const instanceService = accessor.get(IUniverInstanceService);
+        const instanceService = accessor.get(ICrabTableInstanceService);
         const unitId = instanceService.getFocusedUnit()?.getUnitId();
         return commandService.executeCommand(InsertSlideShapeRectangleOperation.id, { unitId });
     },
@@ -43,11 +43,11 @@ export const InsertSlideShapeRectangleOperation: ICommand<IInsertShapeOperationP
     handler: async (accessor, params: IInsertShapeOperationParams) => {
         const id = generateRandomId(6);
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        // const slideData = univerInstanceService.getCurrentUnitForType<SlideDataModel>(UniverInstanceType.UNIVER_SLIDE);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        // const slideData = crabtableInstanceService.getCurrentUnitForType<SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE);
 
         const unitId = params.unitId;
-        const slideData = univerInstanceService.getUnit<SlideDataModel>(unitId);
+        const slideData = crabtableInstanceService.getUnit<SlideDataModel>(unitId);
 
         if (!slideData) return false;
 
@@ -135,7 +135,7 @@ export const InsertSlideShapeEllipseCommand: ICommand = {
     type: CommandType.COMMAND,
     handler: async (accessor: IAccessor) => {
         const commandService = accessor.get(ICommandService);
-        const instanceService = accessor.get(IUniverInstanceService);
+        const instanceService = accessor.get(ICrabTableInstanceService);
         const unitId = instanceService.getFocusedUnit()?.getUnitId();
         return commandService.executeCommand(InsertSlideShapeEllipseOperation.id, { unitId });
     },
@@ -147,11 +147,11 @@ export const InsertSlideShapeEllipseOperation: ICommand<IInsertShapeOperationPar
     handler: async (accessor, params: IInsertShapeOperationParams) => {
         const id = generateRandomId(6);
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        // const slideData = univerInstanceService.getCurrentUnitForType<SlideDataModel>(UniverInstanceType.UNIVER_SLIDE);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        // const slideData = crabtableInstanceService.getCurrentUnitForType<SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE);
 
         const unitId = params.unitId;
-        const slideData = univerInstanceService.getUnit<SlideDataModel>(unitId);
+        const slideData = crabtableInstanceService.getUnit<SlideDataModel>(unitId);
 
         if (!slideData) return false;
 

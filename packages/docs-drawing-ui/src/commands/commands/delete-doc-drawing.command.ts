@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
-import type { IDocDrawing } from '@univerjs/docs-drawing';
+import type { IAccessor, ICommand } from '@crabtable/core';
+import type { IDocDrawing } from '@crabtable/docs-drawing';
 import type { IDeleteDrawingCommandParams } from './interfaces';
-import { CommandType, ICommandService } from '@univerjs/core';
-import { IDocDrawingService } from '@univerjs/docs-drawing';
+import { CommandType, ICommandService } from '@crabtable/core';
+import { IDocDrawingService } from '@crabtable/docs-drawing';
 import { RemoveDocDrawingCommand } from './remove-doc-drawing.command';
 
 export const DeleteDocDrawingsCommand: ICommand = {

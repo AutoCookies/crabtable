@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IStyleData, Nullable } from '@univerjs/core';
+import type { IStyleData, Nullable } from '@crabtable/core';
 
 export type IRangeThemeStyleItem = Pick<IStyleData, 'bg' | 'ol' | 'bd' | 'cl' | 'ht' | 'vt' | 'bl'>;
 export interface IRangeThemeStyleJSON {

@@ -14,22 +14,21 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
+import type { Workbook } from '@crabtable/core';
 import type { IUniverSheetsUIConfig } from '../../config/config';
 import type { IEditorBridgeServiceVisibleParam } from '../../services/editor-bridge.service';
 import {
+    CrabTableInstanceType,
     DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY,
     FOCUSING_FX_BAR_EDITOR,
     ICommandService,
     IContextService,
+    ICrabTableInstanceService,
     IPermissionService,
-    IUniverInstanceService,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { borderBottomClassName, borderRightClassName, clsx } from '@univerjs/design';
-import { IEditorService } from '@univerjs/docs-ui';
-import { DeviceInputEventType } from '@univerjs/engine-render';
-import { CheckMarkIcon, CloseIcon, DropdownIcon, FxIcon } from '@univerjs/icons';
+} from '@crabtable/core';
+import { borderBottomClassName, borderRightClassName, clsx } from '@crabtable/design';
+import { IEditorService } from '@crabtable/docs-ui';
+import { DeviceInputEventType } from '@crabtable/engine-render';
 import {
     RangeProtectionCache,
     RangeProtectionRuleModel,
@@ -38,8 +37,9 @@ import {
     WorksheetEditPermission,
     WorksheetProtectionRuleModel,
     WorksheetViewPermission,
-} from '@univerjs/sheets';
-import { ComponentContainer, ComponentManager, KeyCode, useComponentsOfPart, useConfigValue, useDependency, useObservable } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { ComponentContainer, ComponentManager, KeyCode, useComponentsOfPart, useConfigValue, useDependency, useObservable } from '@crabtable/ui';
+import { CheckMarkIcon, CloseIcon, DropdownIcon, FxIcon } from '@univerjs/icons';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { EMPTY, merge, of, switchMap } from 'rxjs';
 import { SetCellEditVisibleOperation } from '../../commands/operations/cell-edit.operation';
@@ -69,7 +69,7 @@ export function FormulaBar(props: IProps) {
     const editorBridgeService = useDependency(IEditorBridgeService);
     const worksheetProtectionRuleModel = useDependency(WorksheetProtectionRuleModel);
     const rangeProtectionRuleModel = useDependency(RangeProtectionRuleModel);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const selectionManager = useDependency(SheetsSelectionsService);
     const permissionService = useDependency(IPermissionService);
     const rangeProtectionCache = useDependency(RangeProtectionCache);
@@ -80,7 +80,7 @@ export function FormulaBar(props: IProps) {
     });
     const [imageDisable, setImageDisable] = useState<boolean>(false);
     const componentManager = useDependency(ComponentManager);
-    const workbook = useObservable(() => univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET), undefined, undefined, [])!;
+    const workbook = useObservable(() => crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET), undefined, undefined, [])!;
     const isRefSelecting = useRef<0 | 1 | 2>(0);
     const editState = useObservable(editorBridgeService.currentEditCellState$);
     const keyCodeConfig = useKeyEventConfig(isRefSelecting, editState?.unitId);

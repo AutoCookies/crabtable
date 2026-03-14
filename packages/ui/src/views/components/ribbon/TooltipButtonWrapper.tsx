@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDropdownMenuProps, IDropdownProps, ITooltipProps } from '@univerjs/design';
+import type { IDropdownMenuProps, IDropdownProps, ITooltipProps } from '@crabtable/design';
 import type { ReactNode } from 'react';
 import type { Subscription } from 'rxjs';
 import type { IMenuItem, IValueOption } from '../../../services/menu/menu';
-import { clsx, Dropdown, DropdownMenu, Tooltip } from '@univerjs/design';
+import { clsx, Dropdown, DropdownMenu, Tooltip } from '@crabtable/design';
 import { CheckMarkIcon } from '@univerjs/icons';
 import { createContext, forwardRef, useContext, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { combineLatest, of } from 'rxjs';

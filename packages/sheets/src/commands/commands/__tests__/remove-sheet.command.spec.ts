@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Injector, Univer, Workbook } from '@univerjs/core';
-import { ICommandService, IUniverInstanceService, RedoCommand, UndoCommand, UniverInstanceType } from '@univerjs/core';
+import type { Injector, Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, RedoCommand, UndoCommand } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { InsertSheetMutation } from '../../mutations/insert-sheet.mutation';
 import { RemoveSheetMutation } from '../../mutations/remove-sheet.mutation';
@@ -26,7 +26,7 @@ import { SetWorksheetActivateCommand } from '../set-worksheet-activate.command';
 import { createCommandTestBed } from './create-command-test-bed';
 
 describe('Test remove worksheet commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
@@ -59,7 +59,7 @@ describe('Test remove worksheet commands', () => {
                 ).toBeFalsy();
             });
             it('will be working if there are more than one sheet', async () => {
-                const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                 if (!workbook) throw new Error('This is an error');
 
                 const targetActiveSheet = workbook.getActiveSheet();

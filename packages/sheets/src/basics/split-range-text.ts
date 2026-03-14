@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICellData, IDocumentData, IRange, Nullable, Worksheet } from '@univerjs/core';
-import { CellValueType, Range } from '@univerjs/core';
+import type { ICellData, IDocumentData, IRange, Nullable, Worksheet } from '@crabtable/core';
+import { CellValueType, Range } from '@crabtable/core';
 
 /**
  * The default delimiter to split the text.

@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { IAddDataValidationMutationParams, IRemoveDataValidationMutationParams } from '@univerjs/data-validation';
-import type { ICopySheetCommandParams, IRemoveSheetCommandParams } from '@univerjs/sheets';
-import { Disposable, generateRandomId, Inject, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { AddDataValidationMutation, RemoveDataValidationMutation } from '@univerjs/data-validation';
-import { CopySheetCommand, RemoveSheetCommand, SheetInterceptorService } from '@univerjs/sheets';
+import type { Workbook } from '@crabtable/core';
+import type { IAddDataValidationMutationParams, IRemoveDataValidationMutationParams } from '@crabtable/data-validation';
+import type { ICopySheetCommandParams, IRemoveSheetCommandParams } from '@crabtable/sheets';
+import { CrabTableInstanceType, Disposable, generateRandomId, ICrabTableInstanceService, Inject } from '@crabtable/core';
+import { AddDataValidationMutation, RemoveDataValidationMutation } from '@crabtable/data-validation';
+import { CopySheetCommand, RemoveSheetCommand, SheetInterceptorService } from '@crabtable/sheets';
 import { SheetDataValidationModel } from '../models/sheet-data-validation-model';
 
 export class SheetDataValidationSheetController extends Disposable {
     constructor(
         @Inject(SheetInterceptorService) private _sheetInterceptorService: SheetInterceptorService,
-        @Inject(IUniverInstanceService) private _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(SheetDataValidationModel) private readonly _sheetDataValidationModel: SheetDataValidationModel
     ) {
         super();
@@ -40,8 +40,8 @@ export class SheetDataValidationSheetController extends Disposable {
                 getMutations: (commandInfo) => {
                     if (commandInfo.id === RemoveSheetCommand.id) {
                         const params = commandInfo.params as IRemoveSheetCommandParams;
-                        const unitId = params.unitId || this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getUnitId();
-                        const workbook = this._univerInstanceService.getUniverSheetInstance(unitId);
+                        const unitId = params.unitId || this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getUnitId();
+                        const workbook = this._crabtableInstanceService.getCrabTableSheetInstance(unitId);
                         if (!workbook) {
                             return { redos: [], undos: [] };
                         }

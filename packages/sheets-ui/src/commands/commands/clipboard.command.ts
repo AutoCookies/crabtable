@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, IMultiCommand } from '@univerjs/core';
+import type { IAccessor, ICommand, IMultiCommand } from '@crabtable/core';
 import type { IPasteHookKeyType } from '../../services/clipboard/type';
-import { CommandType, ICommandService } from '@univerjs/core';
-import { CopyCommand, CutCommand, IClipboardInterfaceService, PasteCommand, SheetPasteShortKeyCommandName } from '@univerjs/ui';
+import { CommandType, ICommandService } from '@crabtable/core';
+import { CopyCommand, CutCommand, IClipboardInterfaceService, PasteCommand, SheetPasteShortKeyCommandName } from '@crabtable/ui';
 import { whenSheetFocused } from '../../controllers/shortcuts/utils';
 import { ISheetClipboardService, PREDEFINED_HOOK_NAME_PASTE } from '../../services/clipboard/clipboard.service';
 

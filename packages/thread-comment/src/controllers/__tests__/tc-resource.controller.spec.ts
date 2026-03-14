@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-import type { IDocumentBody, Injector, IWorkbookData } from '@univerjs/core';
+import type { IDocumentBody, Injector, IWorkbookData } from '@crabtable/core';
 import type { IThreadComment } from '../../types/interfaces/i-thread-comment';
 import {
+    CrabTableInstanceType,
+    ICrabTableInstanceService,
     IResourceManagerService,
-    IUniverInstanceService,
     LifecycleService,
     LifecycleStages,
     LocaleType,
-    Univer,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { ThreadCommentModel } from '../../models/thread-comment.model';
 import { UniverThreadCommentPlugin } from '../../plugin';
@@ -77,19 +76,19 @@ function createComment(overrides: Partial<IThreadComment> = {}): IThreadComment 
 }
 
 describe('ThreadCommentResourceController', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let resourceManagerService: IResourceManagerService;
     let threadCommentModel: ThreadCommentModel;
 
     beforeEach(() => {
-        univer = new Univer();
+        univer = new CrabTable();
         univer.registerPlugin(UniverThreadCommentPlugin);
-        univer.createUnit(UniverInstanceType.UNIVER_SHEET, createWorkbookData());
+        univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, createWorkbookData());
 
         const injector = univer.__getInjector();
         get = injector.get.bind(injector);
-        get(IUniverInstanceService).focusUnit('unit-1');
+        get(ICrabTableInstanceService).focusUnit('unit-1');
         get(LifecycleService).stage = LifecycleStages.Rendered;
 
         resourceManagerService = get(IResourceManagerService);
@@ -109,7 +108,7 @@ describe('ThreadCommentResourceController', () => {
         threadCommentModel.addComment('unit-1', 'sheet-1', reply);
         threadCommentModel.addComment('unit-1', 'sheet-2', sideThread);
 
-        const resource = resourceManagerService.getResourcesByType('unit-1', UniverInstanceType.UNIVER_SHEET)
+        const resource = resourceManagerService.getResourcesByType('unit-1', CrabTableInstanceType.CRABTABLE_SHEET)
             .find((item) => item.name === SHEET_UNIVER_THREAD_COMMENT_PLUGIN);
 
         expect(resource).toBeDefined();
@@ -156,7 +155,7 @@ describe('ThreadCommentResourceController', () => {
             relativeUsers: new Set(['user-1']),
         });
 
-        resourceManagerService.unloadResources('unit-1', UniverInstanceType.UNIVER_SHEET);
+        resourceManagerService.unloadResources('unit-1', CrabTableInstanceType.CRABTABLE_SHEET);
 
         expect(threadCommentModel.getUnit('unit-1')).toEqual([]);
     });

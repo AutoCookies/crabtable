@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICustomRangeForInterceptor, IDocumentData, IInterceptor } from '@univerjs/core';
-import type { IRenderContext } from '@univerjs/engine-render';
+import type { DocumentDataModel, ICustomRangeForInterceptor, IDocumentData, IInterceptor, Univer } from '@crabtable/core';
+import type { IRenderContext } from '@crabtable/engine-render';
 
 import {
+    CrabTableInstanceType,
     CustomRangeType,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     LifecycleService,
     LifecycleStages,
     LocaleService,
-    Univer,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { DocsRenameMutation } from '../commands/mutations/docs-rename.mutation';
@@ -50,7 +49,7 @@ function registerRenderManagerForDoc(
     injector: ReturnType<Univer['__getInjector']>,
     doc: DocumentDataModel
 ) {
-    const univerInstanceService = injector.get(IUniverInstanceService);
+    const crabtableInstanceService = injector.get(ICrabTableInstanceService);
     const context: IRenderContext<DocumentDataModel> = {
         unitId: doc.getUnitId(),
         unit: doc,
@@ -59,7 +58,7 @@ function registerRenderManagerForDoc(
     const skeletonManager = new DocSkeletonManagerService(
         context,
         injector.get(LocaleService),
-        univerInstanceService
+        crabtableInstanceService
     );
 
     injector.add([IRenderManagerService, {
@@ -100,11 +99,11 @@ function createTestDocData(id: string): IDocumentData {
 }
 
 describe('docs integration', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let injector: ReturnType<Univer['__getInjector']>;
 
     beforeEach(() => {
-        univer = new Univer();
+        univer = new CrabTable();
         injector = univer.__getInjector();
         injector.get(LifecycleService).stage = LifecycleStages.Starting;
     });
@@ -116,12 +115,12 @@ describe('docs integration', () => {
     it('renames doc through command service mutation', async () => {
         univer.registerPlugin(UniverDocsPlugin);
         const doc = univer.createUnit<IDocumentData, DocumentDataModel>(
-            UniverInstanceType.UNIVER_DOC,
+            CrabTableInstanceType.CRABTABLE_DOC,
             createTestDocData('doc-1')
         );
 
-        const univerInstanceService = injector.get(IUniverInstanceService);
-        univerInstanceService.focusUnit(doc.getUnitId());
+        const crabtableInstanceService = injector.get(ICrabTableInstanceService);
+        crabtableInstanceService.focusUnit(doc.getUnitId());
 
         const commandService = injector.get(ICommandService);
         const ok = await commandService.executeCommand(DocsRenameMutation.id, {
@@ -136,12 +135,12 @@ describe('docs integration', () => {
     it('manages selections and emits selection operations via real command flow', async () => {
         univer.registerPlugin(UniverDocsPlugin);
         const doc = univer.createUnit<IDocumentData, DocumentDataModel>(
-            UniverInstanceType.UNIVER_DOC,
+            CrabTableInstanceType.CRABTABLE_DOC,
             createTestDocData('doc-2')
         );
 
-        const univerInstanceService = injector.get(IUniverInstanceService);
-        univerInstanceService.focusUnit(doc.getUnitId());
+        const crabtableInstanceService = injector.get(ICrabTableInstanceService);
+        crabtableInstanceService.focusUnit(doc.getUnitId());
 
         const commandService = injector.get(ICommandService);
 
@@ -205,12 +204,12 @@ describe('docs integration', () => {
     it('replaces a selection through the factory-generated rich text mutation', async () => {
         univer.registerPlugin(UniverDocsPlugin);
         const doc = univer.createUnit<IDocumentData, DocumentDataModel>(
-            UniverInstanceType.UNIVER_DOC,
+            CrabTableInstanceType.CRABTABLE_DOC,
             createTestDocData('doc-2a')
         );
 
-        const univerInstanceService = injector.get(IUniverInstanceService);
-        univerInstanceService.focusUnit(doc.getUnitId());
+        const crabtableInstanceService = injector.get(ICrabTableInstanceService);
+        crabtableInstanceService.focusUnit(doc.getUnitId());
         const skeletonManager = registerRenderManagerForDoc(injector, doc);
 
         const selectionManager = injector.get(DocSelectionManagerService);
@@ -263,12 +262,12 @@ describe('docs integration', () => {
     it('adds and removes custom ranges through the same mutation pipeline', async () => {
         univer.registerPlugin(UniverDocsPlugin);
         const doc = univer.createUnit<IDocumentData, DocumentDataModel>(
-            UniverInstanceType.UNIVER_DOC,
+            CrabTableInstanceType.CRABTABLE_DOC,
             createTestDocData('doc-2b')
         );
 
-        const univerInstanceService = injector.get(IUniverInstanceService);
-        univerInstanceService.focusUnit(doc.getUnitId());
+        const crabtableInstanceService = injector.get(ICrabTableInstanceService);
+        crabtableInstanceService.focusUnit(doc.getUnitId());
         const skeletonManager = registerRenderManagerForDoc(injector, doc);
 
         const selectionManager = injector.get(DocSelectionManagerService);
@@ -323,12 +322,12 @@ describe('docs integration', () => {
 
     it('builds skeleton/view-model and applies interceptors for custom ranges', () => {
         const doc = univer.createUnit<IDocumentData, DocumentDataModel>(
-            UniverInstanceType.UNIVER_DOC,
+            CrabTableInstanceType.CRABTABLE_DOC,
             createTestDocData('doc-3')
         );
 
-        const univerInstanceService = injector.get(IUniverInstanceService);
-        univerInstanceService.focusUnit(doc.getUnitId());
+        const crabtableInstanceService = injector.get(ICrabTableInstanceService);
+        crabtableInstanceService.focusUnit(doc.getUnitId());
 
         const context: IRenderContext<DocumentDataModel> = {
             unitId: doc.getUnitId(),
@@ -338,10 +337,10 @@ describe('docs integration', () => {
         const skeletonManager = new DocSkeletonManagerService(
             context,
             injector.get(LocaleService),
-            univerInstanceService
+            crabtableInstanceService
         );
 
-        const viewModelManager = new DocViewModelManagerService(context, univerInstanceService);
+        const viewModelManager = new DocViewModelManagerService(context, crabtableInstanceService);
         expect(viewModelManager.getViewModel(doc.getUnitId())).toBeDefined();
 
         const interceptorService = new DocInterceptorService(context, skeletonManager);

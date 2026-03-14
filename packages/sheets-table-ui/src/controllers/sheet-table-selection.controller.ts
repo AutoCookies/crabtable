@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
-import { Disposable, Inject, IUniverInstanceService, Rectangle } from '@univerjs/core';
-import { getPrimaryForRange, getSheetCommandTarget, SetSelectionsOperation, SheetInterceptorService } from '@univerjs/sheets';
-import { TableManager } from '@univerjs/sheets-table';
-import { SelectAllCommand } from '@univerjs/sheets-ui';
+import type { IRange } from '@crabtable/core';
+import { Disposable, ICrabTableInstanceService, Inject, Rectangle } from '@crabtable/core';
+import { getPrimaryForRange, getSheetCommandTarget, SetSelectionsOperation, SheetInterceptorService } from '@crabtable/sheets';
+import { TableManager } from '@crabtable/sheets-table';
+import { SelectAllCommand } from '@crabtable/sheets-ui';
 
 export class SheetTableSelectionController extends Disposable {
     constructor(
         @Inject(SheetInterceptorService) private readonly _sheetInterceptorService: SheetInterceptorService,
-        @Inject(IUniverInstanceService) private readonly _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(TableManager) private readonly _tableManager: TableManager
     ) {
         super();
@@ -35,7 +35,7 @@ export class SheetTableSelectionController extends Disposable {
             this._sheetInterceptorService.interceptCommand({
                 getMutations: (command) => {
                     if (command.id === SelectAllCommand.id) {
-                        const target = getSheetCommandTarget(this._univerInstanceService);
+                        const target = getSheetCommandTarget(this._crabtableInstanceService);
                         if (!target) {
                             return { redos: [], undos: [] };
                         }

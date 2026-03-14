@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { DataValidationOperator, DataValidationType, IDataValidationRuleBase, IDataValidationRuleOptions, IExecutionOptions, ISheetDataValidationRule, IUnitRange, Workbook } from '@univerjs/core';
-import type { IUpdateSheetDataValidationRangeCommandParams } from '@univerjs/sheets-data-validation';
-import type { IRangeSelectorInstance } from '@univerjs/sheets-formula-ui';
-import { debounce, ICommandService, isUnitRangesEqual, IUniverInstanceService, LocaleService, RedoCommand, shallowEqual, UndoCommand, UniverInstanceType } from '@univerjs/core';
-import { DataValidationModel, DataValidatorRegistryScope, DataValidatorRegistryService, getRuleOptions, getRuleSetting, TWO_FORMULA_OPERATOR_COUNT } from '@univerjs/data-validation';
-import { Button, Checkbox, FormLayout, Select } from '@univerjs/design';
-import { deserializeRangeWithSheet, serializeRange } from '@univerjs/engine-formula';
-import { SetWorksheetActiveOperation, SheetsSelectionsService } from '@univerjs/sheets';
-import { RemoveSheetDataValidationCommand, UpdateSheetDataValidationOptionsCommand, UpdateSheetDataValidationRangeCommand, UpdateSheetDataValidationSettingCommand } from '@univerjs/sheets-data-validation';
-import { RangeSelector } from '@univerjs/sheets-formula-ui';
-import { ComponentManager, useDependency, useEvent, useObservable } from '@univerjs/ui';
+import type { DataValidationOperator, DataValidationType, IDataValidationRuleBase, IDataValidationRuleOptions, IExecutionOptions, ISheetDataValidationRule, IUnitRange, Workbook } from '@crabtable/core';
+import type { IUpdateSheetDataValidationRangeCommandParams } from '@crabtable/sheets-data-validation';
+import type { IRangeSelectorInstance } from '@crabtable/sheets-formula-ui';
+import { CrabTableInstanceType, debounce, ICommandService, ICrabTableInstanceService, isUnitRangesEqual, LocaleService, RedoCommand, shallowEqual, UndoCommand } from '@crabtable/core';
+import { DataValidationModel, DataValidatorRegistryScope, DataValidatorRegistryService, getRuleOptions, getRuleSetting, TWO_FORMULA_OPERATOR_COUNT } from '@crabtable/data-validation';
+import { Button, Checkbox, FormLayout, Select } from '@crabtable/design';
+import { deserializeRangeWithSheet, serializeRange } from '@crabtable/engine-formula';
+import { SetWorksheetActiveOperation, SheetsSelectionsService } from '@crabtable/sheets';
+import { RemoveSheetDataValidationCommand, UpdateSheetDataValidationOptionsCommand, UpdateSheetDataValidationRangeCommand, UpdateSheetDataValidationSettingCommand } from '@crabtable/sheets-data-validation';
+import { RangeSelector } from '@crabtable/sheets-formula-ui';
+import { ComponentManager, useDependency, useEvent, useObservable } from '@crabtable/ui';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { of } from 'rxjs';
 import { DataValidationPanelService } from '../../../services/data-validation-panel.service';
@@ -38,11 +38,11 @@ const debounceExecuteFactory = (commandService: ICommandService) => debounce(
     },
     1000
 );
-function getSheetIdByName(univerInstanceService: IUniverInstanceService, unitId: string, name: string) {
+function getSheetIdByName(crabtableInstanceService: ICrabTableInstanceService, unitId: string, name: string) {
     if (unitId) {
-        return univerInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetName(name)?.getSheetId() || '';
+        return crabtableInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetName(name)?.getSheetId() || '';
     }
-    return univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getSheetBySheetName(name)?.getSheetId() || '';
+    return crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getSheetBySheetName(name)?.getSheetId() || '';
 }
 
 export function DataValidationDetail() {
@@ -52,13 +52,13 @@ export function DataValidationDetail() {
     const { unitId, subUnitId, rule } = activeRuleInfo || {};
     const ruleId = rule.uid;
     const validatorService = useDependency(DataValidatorRegistryService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const componentManager = useDependency(ComponentManager);
     const commandService = useDependency(ICommandService);
     const dataValidationModel = useDependency(DataValidationModel);
     const localeService = useDependency(LocaleService);
     const workbook = useObservable(
-        () => univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET),
+        () => crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET),
         undefined,
         undefined,
         []
@@ -137,7 +137,7 @@ export function DataValidationDetail() {
         const unitRanges = rangeText.split(',').filter(Boolean).map(deserializeRangeWithSheet).map((unitRange) => {
             const sheetName = unitRange.sheetName;
             if (sheetName) {
-                const sheetId = getSheetIdByName(univerInstanceService, unitRange.unitId, sheetName);
+                const sheetId = getSheetIdByName(crabtableInstanceService, unitRange.unitId, sheetName);
                 return { ...unitRange, sheetId };
             }
             return {

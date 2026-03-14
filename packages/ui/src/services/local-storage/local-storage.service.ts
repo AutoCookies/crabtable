@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ILocalStorageService } from '@univerjs/core';
+import type { ILocalStorageService } from '@crabtable/core';
 import localforage from 'localforage';
 
 export class DesktopLocalStorageService implements ILocalStorageService {

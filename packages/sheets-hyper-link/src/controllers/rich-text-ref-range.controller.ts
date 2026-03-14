@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IDisposable, IDocumentData, Workbook } from '@univerjs/core';
-import type { ISetRangeValuesMutationParams } from '@univerjs/sheets';
+import type { IDisposable, IDocumentData, Workbook } from '@crabtable/core';
+import type { ISetRangeValuesMutationParams } from '@crabtable/sheets';
 import type { IUpdateRichHyperLinkMutationParams } from '../commands/mutations/update-hyper-link.mutation';
-import { CustomRangeType, Disposable, DisposableCollection, ICommandService, Inject, isValidRange, IUniverInstanceService, ObjectMatrix, Rectangle, UniverInstanceType } from '@univerjs/core';
-import { deserializeRangeWithSheet, serializeRange } from '@univerjs/engine-formula';
-import { getSheetCommandTarget, handleDefaultRangeChangeWithEffectRefCommands, RefRangeService, SetRangeValuesMutation } from '@univerjs/sheets';
+import { CrabTableInstanceType, CustomRangeType, Disposable, DisposableCollection, ICommandService, ICrabTableInstanceService, Inject, isValidRange, ObjectMatrix, Rectangle } from '@crabtable/core';
+import { deserializeRangeWithSheet, serializeRange } from '@crabtable/engine-formula';
+import { getSheetCommandTarget, handleDefaultRangeChangeWithEffectRefCommands, RefRangeService, SetRangeValuesMutation } from '@crabtable/sheets';
 import { UpdateRichHyperLinkMutation } from '../commands/mutations/update-hyper-link.mutation';
 import { ERROR_RANGE } from '../types/const';
 
@@ -27,7 +27,7 @@ export class SheetsHyperLinkRichTextRefRangeController extends Disposable {
     private _refRangeMap: Map<string, Map<string, ObjectMatrix<IDisposable>>> = new Map();
     constructor(
         @ICommandService private readonly _commandService: ICommandService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(RefRangeService) private readonly _refRangeService: RefRangeService
     ) {
         super();
@@ -51,7 +51,7 @@ export class SheetsHyperLinkRichTextRefRangeController extends Disposable {
     }
 
     private _isLegalRangeUrl(unitId: string, payload: string) {
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             return null;
         }
@@ -170,12 +170,12 @@ export class SheetsHyperLinkRichTextRefRangeController extends Disposable {
             });
         };
 
-        this._univerInstanceService.getAllUnitsForType<Workbook>(UniverInstanceType.UNIVER_SHEET).forEach((workbook) => {
+        this._crabtableInstanceService.getAllUnitsForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).forEach((workbook) => {
             handleWorkbook(workbook);
         });
         this.disposeWithMe(
-            this._univerInstanceService.unitAdded$.subscribe((unit) => {
-                if (unit.type === UniverInstanceType.UNIVER_SHEET) {
+            this._crabtableInstanceService.unitAdded$.subscribe((unit) => {
+                if (unit.type === CrabTableInstanceType.CRABTABLE_SHEET) {
                     const workbook = unit as Workbook;
                     handleWorkbook(workbook);
                 }
@@ -185,8 +185,8 @@ export class SheetsHyperLinkRichTextRefRangeController extends Disposable {
 
     private _initWorkbookUnload() {
         this.disposeWithMe(
-            this._univerInstanceService.unitDisposed$.subscribe((unit) => {
-                if (unit.type === UniverInstanceType.UNIVER_SHEET) {
+            this._crabtableInstanceService.unitDisposed$.subscribe((unit) => {
+                if (unit.type === CrabTableInstanceType.CRABTABLE_SHEET) {
                     const workbook = unit as Workbook;
                     const unitId = workbook.getUnitId();
                     workbook.getSheets().forEach((sheet) => {
@@ -231,7 +231,7 @@ export class SheetsHyperLinkRichTextRefRangeController extends Disposable {
                 if (commandInfo.id === UpdateRichHyperLinkMutation.id) {
                     const params = commandInfo.params as IUpdateRichHyperLinkMutationParams;
                     const { unitId, subUnitId, row, col } = params;
-                    const sheetTarget = getSheetCommandTarget(this._univerInstanceService, { unitId, subUnitId });
+                    const sheetTarget = getSheetCommandTarget(this._crabtableInstanceService, { unitId, subUnitId });
                     const map = this._enusreMap(unitId, subUnitId);
                     const dispose = map.getValue(row, col);
                     if (dispose) {

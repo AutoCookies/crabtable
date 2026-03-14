@@ -1,7 +1,7 @@
 {
     "name": "formula-integration-test",
     "private": true,
-    "author": "DreamNum <developer@univer.ai>",
+    "author": "DreamNum <developer@crabtable.dev>",
     "license": "Apache-2.0",
     "scripts": {
         "test": "vitest run",
@@ -10,22 +10,22 @@
         "typecheck": "tsc --noEmit"
     },
     "dependencies": {
-        "@univerjs/core": "workspace:*",
-        "@univerjs/data-validation": "workspace:*",
-        "@univerjs/docs": "workspace:*",
-        "@univerjs/engine-formula": "workspace:*",
-        "@univerjs/mockdata": "workspace:*",
-        "@univerjs/rpc": "workspace:*",
-        "@univerjs/sheets": "workspace:*",
-        "@univerjs/sheets-conditional-formatting": "workspace:*",
-        "@univerjs/sheets-data-validation": "workspace:*",
-        "@univerjs/sheets-filter": "workspace:*",
-        "@univerjs/sheets-formula": "workspace:*",
-        "@univerjs/sheets-numfmt": "workspace:*",
-        "univer-examples": "workspace:*"
+        "@crabtable/core": "*",
+        "@crabtable/data-validation": "*",
+        "@crabtable/docs": "*",
+        "@crabtable/engine-formula": "*",
+        "@crabtable/mockdata": "*",
+        "@crabtable/rpc": "*",
+        "@crabtable/sheets": "*",
+        "@crabtable/sheets-conditional-formatting": "*",
+        "@crabtable/sheets-data-validation": "*",
+        "@crabtable/sheets-filter": "*",
+        "@crabtable/sheets-formula": "*",
+        "@crabtable/sheets-numfmt": "*",
+        "crabtable-examples": "*"
     },
     "devDependencies": {
-        "@univerjs-infra/shared": "workspace:*",
+        "@crabtable-infra/shared": "*",
         "typescript": "^5.9.3",
         "vitest": "^4.0.18"
     }

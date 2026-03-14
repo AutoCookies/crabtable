@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
+import type { IAccessor, ICommand } from '@crabtable/core';
 
 import type { IWorksheetRangeThemeStyleMutationParams } from '../../basics/interfaces/mutation-interface';
 import {
     CommandType,
     ICommandService,
     IUndoRedoService,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { SetWorksheetRangeThemeStyleMutation } from '../mutations/add-worksheet-range-theme.mutation';
 import { DeleteWorksheetRangeThemeStyleMutation, DeleteWorksheetRangeThemeStyleMutationFactory } from '../mutations/delete-worksheet-range-theme.mutation';
 

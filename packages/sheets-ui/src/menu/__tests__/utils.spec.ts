@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { DOCS_NORMAL_EDITOR_UNIT_ID_KEY, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { IEditorService } from '@univerjs/docs-ui';
+import { CrabTableInstanceType, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, ICrabTableInstanceService } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { IEditorService } from '@crabtable/docs-ui';
 import { describe, expect, it, vi } from 'vitest';
 import { getFontStyleAtCursor } from '../utils';
 
@@ -38,11 +38,11 @@ describe('menu utils', () => {
         getUnit.mockReturnValue(null);
         const getActiveTextRange = vi.fn();
         getActiveTextRange.mockReturnValue({ startOffset: 0, endOffset: 1 });
-        const univerInstanceService = { getUnit };
+        const crabtableInstanceService = { getUnit };
         const textSelectionService = { getActiveTextRange };
         const editorService = { getFocusId: vi.fn(() => 'doc-1') };
         const accessor = createAccessor([
-            [IUniverInstanceService, univerInstanceService],
+            [ICrabTableInstanceService, crabtableInstanceService],
             [DocSelectionManagerService, textSelectionService],
             [IEditorService, editorService],
         ]);
@@ -56,7 +56,7 @@ describe('menu utils', () => {
 
     it('returns undefined when editor model body has no textRuns', () => {
         const accessor = createAccessor([
-            [IUniverInstanceService, { getUnit: vi.fn(() => ({ getBody: () => ({}) })) }],
+            [ICrabTableInstanceService, { getUnit: vi.fn(() => ({ getBody: () => ({}) })) }],
             [DocSelectionManagerService, { getActiveTextRange: vi.fn(() => ({ startOffset: 1, endOffset: 2 })) }],
             [IEditorService, { getFocusId: vi.fn(() => 'doc-1') }],
         ]);
@@ -73,12 +73,12 @@ describe('menu utils', () => {
         }));
 
         const accessor = createAccessor([
-            [IUniverInstanceService, { getUnit }],
+            [ICrabTableInstanceService, { getUnit }],
             [DocSelectionManagerService, { getActiveTextRange: () => ({ startOffset: 12, endOffset: 18 }) }],
             [IEditorService, { getFocusId: () => undefined }],
         ]);
 
         expect(getFontStyleAtCursor(accessor)).toBe(matchRun);
-        expect(getUnit).toHaveBeenCalledWith(DOCS_NORMAL_EDITOR_UNIT_ID_KEY, UniverInstanceType.UNIVER_DOC);
+        expect(getUnit).toHaveBeenCalledWith(DOCS_NORMAL_EDITOR_UNIT_ID_KEY, CrabTableInstanceType.CRABTABLE_DOC);
     });
 });

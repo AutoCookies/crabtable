@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { DataValidationOperator } from '@univerjs/core';
+import { DataValidationOperator } from '@crabtable/core';
 
 export const TWO_FORMULA_OPERATOR_COUNT: DataValidationOperator[] = [
     DataValidationOperator.BETWEEN,

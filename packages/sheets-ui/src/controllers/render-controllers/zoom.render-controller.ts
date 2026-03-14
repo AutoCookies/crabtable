@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { IRenderContext, IRenderModule, IWheelEvent } from '@univerjs/engine-render';
-import { Disposable, DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY, FOCUSING_SHEET, ICommandService, IContextService, Inject, Optional } from '@univerjs/core';
+import type { Workbook } from '@crabtable/core';
+import type { IRenderContext, IRenderModule, IWheelEvent } from '@crabtable/engine-render';
+import { Disposable, DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY, FOCUSING_SHEET, ICommandService, IContextService, Inject, Optional } from '@crabtable/core';
 import { SetZoomRatioCommand } from '../../commands/commands/set-zoom-ratio.command';
 import { IEditorBridgeService } from '../../services/editor-bridge.service';
 import { SheetSkeletonManagerService } from '../../services/sheet-skeleton-manager.service';

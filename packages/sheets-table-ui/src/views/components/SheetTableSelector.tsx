@@ -15,13 +15,13 @@
  */
 
 import type { ITableSelectionInfo } from '../../commands/operations/open-table-selector.operation';
-import { IUniverInstanceService, LocaleService, Rectangle } from '@univerjs/core';
-import { Button } from '@univerjs/design';
-import { deserializeRangeWithSheet, serializeRange } from '@univerjs/engine-formula';
-import { getSheetCommandTarget } from '@univerjs/sheets';
-import { RangeSelector } from '@univerjs/sheets-formula-ui';
-import { TableManager } from '@univerjs/sheets-table';
-import { useDependency } from '@univerjs/ui';
+import { ICrabTableInstanceService, LocaleService, Rectangle } from '@crabtable/core';
+import { Button } from '@crabtable/design';
+import { deserializeRangeWithSheet, serializeRange } from '@crabtable/engine-formula';
+import { getSheetCommandTarget } from '@crabtable/sheets';
+import { RangeSelector } from '@crabtable/sheets-formula-ui';
+import { TableManager } from '@crabtable/sheets-table';
+import { useDependency } from '@crabtable/ui';
 import { useState } from 'react';
 
 export const SheetTableSelector = (props: ITableSelectionInfo & {
@@ -34,7 +34,7 @@ export const SheetTableSelector = (props: ITableSelectionInfo & {
     const [selectedRange, setSelectedRange] = useState(range);
     const [rangeError, setRangeError] = useState('');
     const localeService = useDependency(LocaleService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
 
     return (
         <>
@@ -46,7 +46,7 @@ export const SheetTableSelector = (props: ITableSelectionInfo & {
                 onChange={(_, text) => {
                     const originValue = serializeRange(range);
                     const newRange = deserializeRangeWithSheet(text).range;
-                    const target = getSheetCommandTarget(univerInstanceService, { unitId, subUnitId });
+                    const target = getSheetCommandTarget(crabtableInstanceService, { unitId, subUnitId });
                     if (!target) {
                         return;
                     }

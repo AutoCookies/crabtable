@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { Inject, InterceptorEffectEnum, RxDisposable } from '@univerjs/core';
-import { extractFormulaError, FormulaDataModel } from '@univerjs/engine-formula';
-import { INTERCEPTOR_POINT, SheetInterceptorService } from '@univerjs/sheets';
+import { Inject, InterceptorEffectEnum, RxDisposable } from '@crabtable/core';
+import { extractFormulaError, FormulaDataModel } from '@crabtable/engine-formula';
+import { INTERCEPTOR_POINT, SheetInterceptorService } from '@crabtable/sheets';
 
 const FORMULA_ERROR_MARK = {
     tl: {

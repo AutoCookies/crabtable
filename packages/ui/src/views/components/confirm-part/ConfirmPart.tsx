@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IConfirmProps } from '@univerjs/design';
+import type { IConfirmProps } from '@crabtable/design';
 import type { IConfirmChildrenProps, IConfirmPartMethodOptions, IContextConfirmProps } from './interface';
-import { IConfirmService } from '@univerjs/core';
-import { Confirm } from '@univerjs/design';
+import { IConfirmService } from '@crabtable/core';
+import { Confirm } from '@crabtable/design';
 import { cloneElement, useEffect, useState } from 'react';
 import { CustomLabel } from '../../../components/custom-label/CustomLabel';
 import { useDependency } from '../../../utils/di';

@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import type { ICellData, Injector, Nullable, Univer } from '@univerjs/core';
-import type { ISetRangeValuesMutationParams } from '@univerjs/sheets';
-import type { ICellDataWithSpanInfo } from '@univerjs/sheets-ui';
-import { ICommandService, IUniverInstanceService, ObjectMatrix } from '@univerjs/core';
-import { FormulaDataModel, LexerTreeBuilder } from '@univerjs/engine-formula';
-import { SetRangeValuesMutation } from '@univerjs/sheets';
-import { COPY_TYPE, ISheetSelectionRenderService, PREDEFINED_HOOK_NAME_PASTE, SheetSelectionRenderService } from '@univerjs/sheets-ui';
+import type { CrabTable, ICellData, Injector, Nullable } from '@crabtable/core';
+import type { ISetRangeValuesMutationParams } from '@crabtable/sheets';
+import type { ICellDataWithSpanInfo } from '@crabtable/sheets-ui';
+import { ICommandService, ICrabTableInstanceService, ObjectMatrix } from '@crabtable/core';
+import { FormulaDataModel, LexerTreeBuilder } from '@crabtable/engine-formula';
+import { SetRangeValuesMutation } from '@crabtable/sheets';
+import { COPY_TYPE, ISheetSelectionRenderService, PREDEFINED_HOOK_NAME_PASTE, SheetSelectionRenderService } from '@crabtable/sheets-ui';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { getSetCellFormulaMutations } from '../formula-clipboard.controller';
 import { createCommandTestBed } from './create-command-test-bed';
 
 describe('Test paste with formula', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let has: Injector['has'];
     let commandService: ICommandService;
@@ -56,8 +56,8 @@ describe('Test paste with formula', () => {
             endRow: number,
             endColumn: number
         ): Array<Array<Nullable<ICellData>>> | undefined =>
-            get(IUniverInstanceService)
-                .getUniverSheetInstance('test')
+            get(ICrabTableInstanceService)
+                .getCrabTableSheetInstance('test')
                 ?.getSheetBySheetId('sheet1')
                 ?.getRange(startRow, startColumn, endRow, endColumn)
                 .getValues();

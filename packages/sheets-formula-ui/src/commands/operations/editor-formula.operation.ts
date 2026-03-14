@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IOperation } from '@univerjs/core';
-import type { DeviceInputEventType } from '@univerjs/engine-render';
-import type { KeyCode, MetaKeys } from '@univerjs/ui';
+import type { IOperation } from '@crabtable/core';
+import type { DeviceInputEventType } from '@crabtable/engine-render';
+import type { KeyCode, MetaKeys } from '@crabtable/ui';
 import type { META_KEY_CTRL_AND_SHIFT } from '../../common/prompt';
 
-import { CommandType } from '@univerjs/core';
+import { CommandType } from '@crabtable/core';
 
 export interface ISelectEditorFormulaOperationParam {
     eventType: DeviceInputEventType;

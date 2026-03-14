@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { IDrawingJsonUndo1, IDrawingSubunitMap } from '@univerjs/drawing';
-import type { ICopySheetCommandParams, IRemoveSheetCommandParams } from '@univerjs/sheets';
+import type { Workbook } from '@crabtable/core';
+import type { IDrawingJsonUndo1, IDrawingSubunitMap } from '@crabtable/drawing';
+import type { ICopySheetCommandParams, IRemoveSheetCommandParams } from '@crabtable/sheets';
 import type { ISheetDrawing } from '../services/sheet-drawing.service';
-import { Disposable, DrawingTypeEnum, generateRandomId, ICommandService, Inject, IResourceManagerService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { CopySheetCommand, RemoveSheetCommand, SheetInterceptorService } from '@univerjs/sheets';
+import { CrabTableInstanceType, Disposable, DrawingTypeEnum, generateRandomId, ICommandService, ICrabTableInstanceService, Inject, IResourceManagerService } from '@crabtable/core';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { CopySheetCommand, RemoveSheetCommand, SheetInterceptorService } from '@crabtable/sheets';
 import { DrawingApplyType, SetDrawingApplyMutation } from '../commands/mutations/set-drawing-apply.mutation';
 import { ISheetDrawingService } from '../services/sheet-drawing.service';
 
@@ -29,7 +29,7 @@ export const SHEET_DRAWING_PLUGIN = 'SHEET_DRAWING_PLUGIN';
 export class SheetsDrawingLoadController extends Disposable {
     constructor(
         @Inject(SheetInterceptorService) private _sheetInterceptorService: SheetInterceptorService,
-        @Inject(IUniverInstanceService) private _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService,
         @ISheetDrawingService private readonly _sheetDrawingService: ISheetDrawingService,
         @IDrawingManagerService private readonly _drawingManagerService: IDrawingManagerService,
@@ -68,7 +68,7 @@ export class SheetsDrawingLoadController extends Disposable {
         this.disposeWithMe(
             this._resourceManagerService.registerPluginResource<IDrawingSubunitMap<ISheetDrawing>>({
                 pluginName: SHEET_DRAWING_PLUGIN,
-                businesses: [UniverInstanceType.UNIVER_SHEET],
+                businesses: [CrabTableInstanceType.CRABTABLE_SHEET],
                 toJson: (unitId, model) => toJson(unitId, model),
                 parseJson: (json) => parseJson(json),
                 onUnLoad: (unitId) => {
@@ -91,8 +91,8 @@ export class SheetsDrawingLoadController extends Disposable {
                 getMutations: (commandInfo) => {
                     if (commandInfo.id === RemoveSheetCommand.id) {
                         const params = commandInfo.params as IRemoveSheetCommandParams;
-                        const unitId = params.unitId || this._univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getUnitId();
-                        const subUnitId = params.subUnitId || this._univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()?.getSheetId();
+                        const unitId = params.unitId || this._crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getUnitId();
+                        const subUnitId = params.subUnitId || this._crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()?.getSheetId();
 
                         if (!unitId || !subUnitId) {
                             return { redos: [], undos: [] };

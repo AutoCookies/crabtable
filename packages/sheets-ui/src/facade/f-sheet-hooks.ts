@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { ICellCustomRender, IDisposable, Nullable } from '@univerjs/core';
-import type { IDragCellPosition, IEditorBridgeServiceVisibleParam, IHoverCellPosition } from '@univerjs/sheets-ui';
-import { ICommandService, InterceptorEffectEnum, toDisposable } from '@univerjs/core';
-import { InterceptCellContentPriority, INTERCEPTOR_POINT, SheetInterceptorService } from '@univerjs/sheets';
-import { DragManagerService, HoverManagerService, SetCellEditVisibleOperation } from '@univerjs/sheets-ui';
-import { FSheetHooks } from '@univerjs/sheets/facade';
+import type { ICellCustomRender, IDisposable, Nullable } from '@crabtable/core';
+import type { IDragCellPosition, IEditorBridgeServiceVisibleParam, IHoverCellPosition } from '@crabtable/sheets-ui';
+import { ICommandService, InterceptorEffectEnum, toDisposable } from '@crabtable/core';
+import { InterceptCellContentPriority, INTERCEPTOR_POINT, SheetInterceptorService } from '@crabtable/sheets';
+import { DragManagerService, HoverManagerService, SetCellEditVisibleOperation } from '@crabtable/sheets-ui';
+import { FSheetHooks } from '@crabtable/sheets/facade';
 
 /**
  * @ignore
@@ -27,48 +27,48 @@ import { FSheetHooks } from '@univerjs/sheets/facade';
 export interface IFSheetHooksUIMixin {
     /**
      * The onCellPointerMove event is fired when a pointer changes coordinates.
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.CellPointerMove, (params) => {})` instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.CellPointerMove, (params) => {})` instead
      * @param {function(Nullable<IHoverCellPosition>): void} callback - function that will be called when the event is fired
      * @returns {IDisposable} A disposable object that can be used to unsubscribe from the event
      * @example
      * ```ts
-     * univerAPI.getSheetHooks().onCellPointerMove((cellPos) => { console.log(cellPos)});
+     * crabtableAPI.getSheetHooks().onCellPointerMove((cellPos) => { console.log(cellPos)});
      * ```
      */
     onCellPointerMove(callback: (cellPos: Nullable<IHoverCellPosition>) => void): IDisposable;
 
     /**
      * The onCellPointerOver event is fired when a pointer is moved into a cell's hit test boundaries.
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.CellHover, (params) => {})` instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.CellHover, (params) => {})` instead
      * @param {function(Nullable<IHoverCellPosition>): void} callback - function that will be called when the event is fired
      * @returns {IDisposable} A disposable object that can be used to unsubscribe from the event
      * @example
      * ```ts
-     * univerAPI.getSheetHooks().onCellPointerOver((cellPos) => { console.log(cellPos)});
+     * crabtableAPI.getSheetHooks().onCellPointerOver((cellPos) => { console.log(cellPos)});
      * ```
      */
     onCellPointerOver(callback: (cellPos: Nullable<IHoverCellPosition>) => void): IDisposable;
 
     /**
      * The onCellDragOver event is fired when an element or text selection is being dragged into a cell's hit test boundaries.
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.DragOver, (params) => {})` instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.DragOver, (params) => {})` instead
      * @param {function (Nullable<IDragCellPosition>): void} callback Callback function that will be called when the event is fired
      * @returns {IDisposable} A disposable object that can be used to unsubscribe from the event
      * @example
      * ```ts
-     * univerAPI.getSheetHooks().onCellDragOver((cellPos) => { console.log(cellPos)});
+     * crabtableAPI.getSheetHooks().onCellDragOver((cellPos) => { console.log(cellPos)});
      * ```
      */
     onCellDragOver(callback: (cellPos: Nullable<IDragCellPosition>) => void): IDisposable;
 
     /**
      * The onCellDrop event is fired when an element or text selection is being dropped on the cell.
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.Drop, (params) => {})` instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.Drop, (params) => {})` instead
      * @param {function(Nullable<IDragCellPosition>): void} callback Callback function that will be called when the event is fired
      * @returns {IDisposable} A disposable object that can be used to unsubscribe from the event
      * @example
      * ```ts
-     * univerAPI.getSheetHooks().onCellDrop((cellPos) => { console.log(cellPos)});
+     * crabtableAPI.getSheetHooks().onCellDrop((cellPos) => { console.log(cellPos)});
      * ```
      */
     onCellDrop(callback: (cellPos: Nullable<IDragCellPosition>) => void): IDisposable;
@@ -81,7 +81,7 @@ export interface IFSheetHooksUIMixin {
      * @returns {IDisposable} A disposable object that can be used to unsubscribe from the event
      * @example
      * ```ts
-        univerAPI.getSheetHooks().onCellRender([{
+        crabtableAPI.getSheetHooks().onCellRender([{
             drawWith: (ctx, info) => {
                 const { row, col } = info;
                 // Update to any cell location you want
@@ -98,24 +98,24 @@ export interface IFSheetHooksUIMixin {
 
     /**
      * The onBeforeCellEdit event is fired before a cell is edited.
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.BeforeSheetEditStart, (params) => {})` instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetEditStart, (params) => {})` instead
      * @param callback Callback function that will be called when the event is fired
      * @returns A disposable object that can be used to unsubscribe from the event
      * @example
      * ```ts
-     * univerAPI.getSheetHooks().onBeforeCellEdit((params) => {console.log(params)})
+     * crabtableAPI.getSheetHooks().onBeforeCellEdit((params) => {console.log(params)})
      * ```
      */
     onBeforeCellEdit(callback: (params: IEditorBridgeServiceVisibleParam) => void): IDisposable;
 
     /**
      * The onAfterCellEdit event is fired after a cell is edited.
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.SheetEditEnded, (params) => {})` instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.SheetEditEnded, (params) => {})` instead
      * @param callback Callback function that will be called when the event is fired
      * @returns A disposable object that can be used to unsubscribe from the event
      * @example
      * ```ts
-     * univerAPI.getSheetHooks().onAfterCellEdit((params) => {console.log(params)})
+     * crabtableAPI.getSheetHooks().onAfterCellEdit((params) => {console.log(params)})
      * ```
      */
     onAfterCellEdit(callback: (params: IEditorBridgeServiceVisibleParam) => void): IDisposable;
@@ -176,7 +176,7 @@ export class FSheetHooksUIMixin extends FSheetHooks implements IFSheetHooksUIMix
 }
 
 FSheetHooks.extend(FSheetHooksUIMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FSheetHooks extends IFSheetHooksUIMixin { }
 }

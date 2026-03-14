@@ -20,10 +20,10 @@ import type {
     INumberHighlightCell,
     ITextHighlightCell,
     ITimePeriodHighlightCell,
-} from '@univerjs/sheets-conditional-formatting';
+} from '@crabtable/sheets-conditional-formatting';
 import type { IStyleEditorProps } from './type';
-import { LocaleService } from '@univerjs/core';
-import { Input, InputNumber, Select } from '@univerjs/design';
+import { LocaleService } from '@crabtable/core';
+import { Input, InputNumber, Select } from '@crabtable/design';
 import {
     CFNumberOperator,
     CFRuleType,
@@ -31,8 +31,8 @@ import {
     CFTextOperator,
     CFTimePeriodOperator,
     createDefaultValue,
-} from '@univerjs/sheets-conditional-formatting';
-import { useDependency } from '@univerjs/ui';
+} from '@crabtable/sheets-conditional-formatting';
+import { useDependency } from '@crabtable/ui';
 import { useEffect, useMemo, useState } from 'react';
 import { ConditionalStyleEditor } from '../../conditional-style-editor';
 import { Preview } from '../../preview';

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IRange } from '@univerjs/core';
+import type { IAccessor, IRange } from '@crabtable/core';
 import type { IAddMergeCommandParams } from '../commands/add-worksheet-merge.command';
 import type { ISetSelectionsOperationParams } from '../operations/selection.operation';
-import { Dimension } from '@univerjs/core';
+import { Dimension } from '@crabtable/core';
 import { SheetsSelectionsService } from '../../services/selections/selection.service';
 import { SelectionMoveType } from '../../services/selections/type';
 import { SetSelectionsOperation } from '../operations/selection.operation';

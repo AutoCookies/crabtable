@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IMenuSchema } from '@univerjs/ui';
-import { borderClassName, clsx } from '@univerjs/design';
-import { IMenuManagerService, MenuManagerPosition, ToolbarItem, useDependency } from '@univerjs/ui';
+import type { IMenuSchema } from '@crabtable/ui';
+import { borderClassName, clsx } from '@crabtable/design';
+import { IMenuManagerService, MenuManagerPosition, ToolbarItem, useDependency } from '@crabtable/ui';
 import { useEffect, useState } from 'react';
 import {
     SetInlineFormatBoldCommand,

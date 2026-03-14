@@ -46,7 +46,7 @@ describe('FTextFinder', () => {
             }),
         };
 
-        const univerInstanceService = {
+        const crabtableInstanceService = {
             getUnit: vi.fn(() => workbook),
         };
 
@@ -54,7 +54,7 @@ describe('FTextFinder', () => {
             getProviders: vi.fn(() => new Set()),
         };
 
-        const finder = new FTextFinder({ findString: 'a' }, injector as any, univerInstanceService as any, findReplaceService as any);
+        const finder = new FTextFinder({ findString: 'a' }, injector as any, crabtableInstanceService as any, findReplaceService as any);
         await finder.ensureCompleteAsync();
 
         // ensure internal state is marked completed

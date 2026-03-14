@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ICommandService } from '@univerjs/core';
+import { ICommandService } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { CompleteRecordingActionCommand, StartRecordingActionCommand, StopRecordingActionCommand } from '../../commands/commands/record.command';
 import { CloseRecordPanelOperation } from '../../commands/operations/operation';
@@ -26,8 +26,8 @@ const mocked = vi.hoisted(() => ({
     callbacks: [] as Array<(...args: unknown[]) => unknown>,
 }));
 
-vi.mock('@univerjs/ui', async () => {
-    const actual = await vi.importActual<typeof import('@univerjs/ui')>('@univerjs/ui');
+vi.mock('@crabtable/ui', async () => {
+    const actual = await vi.importActual<typeof import('@crabtable/ui')>('@crabtable/ui');
     return {
         ...actual,
         useDependency: mocked.useDependency,

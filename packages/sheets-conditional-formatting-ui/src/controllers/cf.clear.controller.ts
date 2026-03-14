@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { IMutationInfo, IRange, Workbook } from '@univerjs/core';
-import type { IConditionalFormattingRuleConfig, IConditionFormattingRule, IDeleteConditionalRuleMutationParams, ISetConditionalRuleMutationParams } from '@univerjs/sheets-conditional-formatting';
-import { Disposable, Inject, Injector, IUniverInstanceService, Rectangle, UniverInstanceType } from '@univerjs/core';
-import { ClearSelectionAllCommand, ClearSelectionFormatCommand, RangeMergeUtil, SheetInterceptorService, SheetsSelectionsService } from '@univerjs/sheets';
-import { ConditionalFormattingRuleModel, DeleteConditionalRuleMutation, DeleteConditionalRuleMutationUndoFactory, SetConditionalRuleMutation, setConditionalRuleMutationUndoFactory } from '@univerjs/sheets-conditional-formatting';
+import type { IMutationInfo, IRange, Workbook } from '@crabtable/core';
+import type { IConditionalFormattingRuleConfig, IConditionFormattingRule, IDeleteConditionalRuleMutationParams, ISetConditionalRuleMutationParams } from '@crabtable/sheets-conditional-formatting';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject, Injector, Rectangle } from '@crabtable/core';
+import { ClearSelectionAllCommand, ClearSelectionFormatCommand, RangeMergeUtil, SheetInterceptorService, SheetsSelectionsService } from '@crabtable/sheets';
+import { ConditionalFormattingRuleModel, DeleteConditionalRuleMutation, DeleteConditionalRuleMutationUndoFactory, SetConditionalRuleMutation, setConditionalRuleMutationUndoFactory } from '@crabtable/sheets-conditional-formatting';
 
 export class ConditionalFormattingClearController extends Disposable {
     constructor(
         @Inject(Injector) private _injector: Injector,
-        @Inject(IUniverInstanceService) private _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(SheetInterceptorService) private _sheetInterceptorService: SheetInterceptorService,
         @Inject(SheetsSelectionsService) private _selectionManagerService: SheetsSelectionsService,
         @Inject(ConditionalFormattingRuleModel) private _conditionalFormattingRuleModel: ConditionalFormattingRuleModel
@@ -45,7 +45,7 @@ export class ConditionalFormattingClearController extends Disposable {
                     if (!ranges) {
                         return defaultV;
                     }
-                    const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                    const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                     const worksheet = workbook.getActiveSheet();
                     if (!worksheet) {
                         return defaultV;

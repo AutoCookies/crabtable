@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuButtonItem } from '@univerjs/ui';
-import { IUniverInstanceService, SHEET_EDITOR_UNITS, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService, DocSkeletonManagerService } from '@univerjs/docs';
-import { DocumentEditArea, IRenderManagerService, withCurrentTypeOfRenderer } from '@univerjs/engine-render';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuButtonItem } from '@crabtable/ui';
+import { CrabTableInstanceType, ICrabTableInstanceService, SHEET_EDITOR_UNITS } from '@crabtable/core';
+import { DocSelectionManagerService, DocSkeletonManagerService } from '@crabtable/docs';
+import { DocumentEditArea, IRenderManagerService, withCurrentTypeOfRenderer } from '@crabtable/engine-render';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { debounceTime, Observable } from 'rxjs';
 import { StartAddCommentOperation, ToggleCommentPanelOperation } from '../commands/operations/show-comment-panel.operation';
 
@@ -27,9 +27,9 @@ export const shouldDisableAddComment = (accessor: IAccessor) => {
     const renderManagerService = accessor.get(IRenderManagerService);
     const docSelectionManagerService = accessor.get(DocSelectionManagerService);
     const skeleton = withCurrentTypeOfRenderer(
-        UniverInstanceType.UNIVER_DOC,
+        CrabTableInstanceType.CRABTABLE_DOC,
         DocSkeletonManagerService,
-        accessor.get(IUniverInstanceService),
+        accessor.get(ICrabTableInstanceService),
         renderManagerService
     )?.getSkeleton();
 
@@ -54,7 +54,7 @@ export function AddDocCommentMenuItemFactory(accessor: IAccessor): IMenuButtonIt
         icon: 'CommentIcon',
         title: 'threadCommentUI.panel.addComment',
         tooltip: 'threadCommentUI.panel.addComment',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC, undefined, SHEET_EDITOR_UNITS),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC, undefined, SHEET_EDITOR_UNITS),
         disabled$: new Observable(function (subscribe) {
             const textSelectionService = accessor.get(DocSelectionManagerService);
             const observer = textSelectionService.textSelection$.pipe(debounceTime(16)).subscribe(() => {
@@ -75,6 +75,6 @@ export function ToolbarDocCommentMenuItemFactory(accessor: IAccessor): IMenuButt
         icon: 'CommentIcon',
         title: 'threadCommentUI.panel.addComment',
         tooltip: 'threadCommentUI.panel.addComment',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 }

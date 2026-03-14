@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IRange, Nullable } from '@univerjs/core';
+import type { IRange, Nullable } from '@crabtable/core';
 
 import { BaseReferenceObject } from './base-reference-object';
 

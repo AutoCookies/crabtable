@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { LocaleService } from '@univerjs/core';
-import type { DataValidatorRegistryService } from '@univerjs/data-validation';
-import type { SheetInterceptorService } from '@univerjs/sheets';
-import type { SheetDataValidationModel, SheetsDataValidationValidatorService } from '@univerjs/sheets-data-validation';
-import type { IDialogService } from '@univerjs/ui';
-import { DataValidationErrorStyle, DataValidationStatus } from '@univerjs/core';
-import { VALIDATE_CELL } from '@univerjs/sheets';
+import type { LocaleService } from '@crabtable/core';
+import type { DataValidatorRegistryService } from '@crabtable/data-validation';
+import type { SheetInterceptorService } from '@crabtable/sheets';
+import type { SheetDataValidationModel, SheetsDataValidationValidatorService } from '@crabtable/sheets-data-validation';
+import type { IDialogService } from '@crabtable/ui';
+import { DataValidationErrorStyle, DataValidationStatus } from '@crabtable/core';
+import { VALIDATE_CELL } from '@crabtable/sheets';
 import { describe, expect, it, vi } from 'vitest';
 import { DataValidationRejectInputController } from '../dv-reject-input.controller';
 

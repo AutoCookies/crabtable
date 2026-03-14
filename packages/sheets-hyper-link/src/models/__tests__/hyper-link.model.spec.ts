@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IWorkbookData, Workbook } from '@univerjs/core';
+import type { IWorkbookData, Workbook } from '@crabtable/core';
 import type { ISheetHyperLink } from '../../types/interfaces/i-hyper-link';
-import { IUniverInstanceService, LocaleType, Univer, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, ICrabTableInstanceService, LocaleType } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { HyperLinkModel } from '../hyper-link.model';
 
@@ -48,7 +48,7 @@ function createWorkbookData(unitId = 'book-1', sheetId = 'sheet-1'): IWorkbookDa
     };
 }
 
-function createLink(id: string, row: number, column: number, payload = 'https://univer.ai'): ISheetHyperLink {
+function createLink(id: string, row: number, column: number, payload = 'https://crabtable.dev'): ISheetHyperLink {
     return {
         id,
         row,
@@ -59,16 +59,16 @@ function createLink(id: string, row: number, column: number, payload = 'https://
 }
 
 describe('HyperLinkModel', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let model: HyperLinkModel;
 
     beforeEach(() => {
-        univer = new Univer();
+        univer = new CrabTable();
         const injector = univer.__getInjector();
 
         injector.add([HyperLinkModel]);
-        univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, createWorkbookData());
-        injector.get(IUniverInstanceService).focusUnit('book-1');
+        univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, createWorkbookData());
+        injector.get(ICrabTableInstanceService).focusUnit('book-1');
 
         model = injector.get(HyperLinkModel);
     });
@@ -88,8 +88,8 @@ describe('HyperLinkModel', () => {
         expect(model.addHyperLink('book-1', 'sheet-1', link)).toBe(true);
         expect(model.getHyperLink('book-1', 'sheet-1', 'link-1')).toEqual(link);
 
-        expect(model.updateHyperLink('book-1', 'sheet-1', 'link-1', { payload: 'https://docs.univer.ai' }, true)).toBe(true);
-        expect(model.getHyperLink('book-1', 'sheet-1', 'link-1')?.payload).toBe('https://docs.univer.ai');
+        expect(model.updateHyperLink('book-1', 'sheet-1', 'link-1', { payload: 'https://docs.crabtable.dev' }, true)).toBe(true);
+        expect(model.getHyperLink('book-1', 'sheet-1', 'link-1')?.payload).toBe('https://docs.crabtable.dev');
 
         expect(model.removeHyperLink('book-1', 'sheet-1', 'link-1')).toBe(true);
         expect(model.removeHyperLink('book-1', 'sheet-1', 'missing')).toBe(false);

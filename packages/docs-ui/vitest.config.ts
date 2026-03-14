@@ -1,5 +1,5 @@
 import path from 'node:path';
-import createConfig from '@univerjs-infra/shared/vitest';
+import createConfig from '@crabtable-infra/shared/vitest';
 
 export default createConfig({
     test: {

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IPosition, Nullable } from '@univerjs/core';
-import type { DocumentSkeleton, IDocumentLayoutObject, Scene } from '@univerjs/engine-render';
-import { Disposable, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, HorizontalAlign, IConfigService, IUniverInstanceService, UniverInstanceType, VerticalAlign, WrapStrategy } from '@univerjs/core';
-import { DocSkeletonManagerService } from '@univerjs/docs';
-import { DOCS_COMPONENT_MAIN_LAYER_INDEX, VIEWPORT_KEY } from '@univerjs/docs-ui';
-import { convertTextRotation, fixLineWidthByScale, getCurrentTypeOfRenderer, IRenderManagerService, Rect, ScrollBar } from '@univerjs/engine-render';
-import { ILayoutService } from '@univerjs/ui';
+import type { DocumentDataModel, IPosition, Nullable } from '@crabtable/core';
+import type { DocumentSkeleton, IDocumentLayoutObject, Scene } from '@crabtable/engine-render';
+import { CrabTableInstanceType, Disposable, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, HorizontalAlign, IConfigService, ICrabTableInstanceService, VerticalAlign, WrapStrategy } from '@crabtable/core';
+import { DocSkeletonManagerService } from '@crabtable/docs';
+import { DOCS_COMPONENT_MAIN_LAYER_INDEX, VIEWPORT_KEY } from '@crabtable/docs-ui';
+import { convertTextRotation, fixLineWidthByScale, getCurrentTypeOfRenderer, IRenderManagerService, Rect, ScrollBar } from '@crabtable/engine-render';
+import { ILayoutService } from '@crabtable/ui';
 import { getEditorObject } from '../../basics/editor/get-editor-object';
 import { IEditorBridgeService } from '../editor-bridge.service';
 import { SheetSkeletonManagerService } from '../sheet-skeleton-manager.service';
@@ -41,14 +41,14 @@ export class SheetCellEditorResizeService extends Disposable {
         @ICellEditorManagerService private readonly _cellEditorManagerService: ICellEditorManagerService,
         @IEditorBridgeService private readonly _editorBridgeService: IEditorBridgeService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IConfigService private readonly _configService: IConfigService
     ) {
         super();
     }
 
     private get _currentRenderer() {
-        return getCurrentTypeOfRenderer(UniverInstanceType.UNIVER_SHEET, this._univerInstanceService, this._renderManagerService);
+        return getCurrentTypeOfRenderer(CrabTableInstanceType.CRABTABLE_SHEET, this._crabtableInstanceService, this._renderManagerService);
     }
 
     private get _editingUnitId() {
@@ -60,7 +60,7 @@ export class SheetCellEditorResizeService extends Disposable {
     }
 
     private get _renderer() {
-        const currentUnitId = this._univerInstanceService.getCurrentUnitOfType(UniverInstanceType.UNIVER_SHEET)?.getUnitId();
+        const currentUnitId = this._crabtableInstanceService.getCurrentUnitOfType(CrabTableInstanceType.CRABTABLE_SHEET)?.getUnitId();
         return this._editingUnitId === currentUnitId ? this._editingRenderer : this._currentRenderer;
     }
 
@@ -78,7 +78,7 @@ export class SheetCellEditorResizeService extends Disposable {
         const { position, documentLayoutObject, canvasOffset, scaleX, scaleY } = param;
 
         const { startX, startY, endX, endY } = position;
-        const documentDataModel = this._univerInstanceService.getUnit<DocumentDataModel>(DOCS_NORMAL_EDITOR_UNIT_ID_KEY, UniverInstanceType.UNIVER_DOC);
+        const documentDataModel = this._crabtableInstanceService.getUnit<DocumentDataModel>(DOCS_NORMAL_EDITOR_UNIT_ID_KEY, CrabTableInstanceType.CRABTABLE_DOC);
 
         if (documentDataModel == null) {
             return;
@@ -168,7 +168,7 @@ export class SheetCellEditorResizeService extends Disposable {
 
         const { textRotation, wrapStrategy, paddingData } = documentLayoutObject;
 
-        const documentDataModel = this._univerInstanceService.getUnit<DocumentDataModel>(DOCS_NORMAL_EDITOR_UNIT_ID_KEY, UniverInstanceType.UNIVER_DOC);
+        const documentDataModel = this._crabtableInstanceService.getUnit<DocumentDataModel>(DOCS_NORMAL_EDITOR_UNIT_ID_KEY, CrabTableInstanceType.CRABTABLE_DOC);
 
         const { vertexAngle: angle } = convertTextRotation(textRotation);
 

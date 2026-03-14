@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
-import type { IFunctionInfo, IFunctionNames } from '@univerjs/engine-formula';
+import type { IDisposable } from '@crabtable/core';
+import type { IFunctionInfo, IFunctionNames } from '@crabtable/engine-formula';
 import type { IUniverSheetsFormulaBaseConfig } from '../config/config';
-import { createIdentifier, IConfigService, Inject, LocaleService, toDisposable } from '@univerjs/core';
+import { createIdentifier, IConfigService, Inject, LocaleService, toDisposable } from '@crabtable/core';
 
 import {
     functionArray,
@@ -39,7 +39,7 @@ import {
     functionWeb,
     IFunctionService,
     isReferenceStrings,
-} from '@univerjs/engine-formula';
+} from '@crabtable/engine-formula';
 import { PLUGIN_CONFIG_KEY_BASE } from '../config/config';
 import { FUNCTION_LIST } from './function-list/function-list';
 import { getFunctionName } from './utils';

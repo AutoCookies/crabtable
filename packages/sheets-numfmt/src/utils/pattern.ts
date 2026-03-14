@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { INumfmtLocaleTag } from '@univerjs/core';
-import type { FormatType } from '@univerjs/sheets';
-import { DEFAULT_NUMBER_FORMAT, numfmt } from '@univerjs/core';
-import { stripErrorMargin } from '@univerjs/engine-formula';
+import type { INumfmtLocaleTag } from '@crabtable/core';
+import type { FormatType } from '@crabtable/sheets';
+import { DEFAULT_NUMBER_FORMAT, numfmt } from '@crabtable/core';
+import { stripErrorMargin } from '@crabtable/engine-formula';
 
 export const getPatternType = (pattern: string): FormatType => numfmt.getFormatInfo(pattern).type || 'unknown';
 interface IPatternPreview {

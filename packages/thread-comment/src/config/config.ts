@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { DependencyOverride } from '@univerjs/core';
+import type { DependencyOverride } from '@crabtable/core';
 
 export const THREAD_COMMENT_PLUGIN_CONFIG_KEY = 'thread-comment.config';
 

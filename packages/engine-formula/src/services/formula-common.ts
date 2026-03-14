@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICellData, IObjectMatrixPrimitiveType, Nullable } from '@univerjs/core';
+import type { ICellData, IObjectMatrixPrimitiveType, Nullable } from '@crabtable/core';
 
 export enum FormulaResultStatus {
     NOT_REGISTER = 1,

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IThreadComment } from '@univerjs/thread-comment';
+import type { IThreadComment } from '@crabtable/thread-comment';
 
 export interface ISheetThreadComment extends IThreadComment {
     row: number;

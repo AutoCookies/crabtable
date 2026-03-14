@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IRange, IScale } from '@univerjs/core';
-import type { SpreadsheetSkeleton, UniverRenderingContext } from '@univerjs/engine-render';
+import type { IRange, IScale } from '@crabtable/core';
+import type { SpreadsheetSkeleton, UniverRenderingContext } from '@crabtable/engine-render';
 import type { IDataBarCellData } from './type';
-import { Range } from '@univerjs/core';
-import { FIX_ONE_PIXEL_BLUR_OFFSET, SheetExtension, SpreadsheetExtensionRegistry } from '@univerjs/engine-render';
+import { Range } from '@crabtable/core';
+import { FIX_ONE_PIXEL_BLUR_OFFSET, SheetExtension, SpreadsheetExtensionRegistry } from '@crabtable/engine-render';
 
 export const dataBarUKey = 'sheet-conditional-rule-data-bar';
 export const defaultDataBarPositiveColor = '#ffbe38';

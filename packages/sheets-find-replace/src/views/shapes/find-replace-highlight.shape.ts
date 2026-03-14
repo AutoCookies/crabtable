@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IRgbColor, Nullable } from '@univerjs/core';
-import type { IShapeProps, UniverRenderingContext } from '@univerjs/engine-render';
-import { Rect, Shape } from '@univerjs/engine-render';
+import type { IRgbColor, Nullable } from '@crabtable/core';
+import type { IShapeProps, UniverRenderingContext } from '@crabtable/engine-render';
+import { Rect, Shape } from '@crabtable/engine-render';
 
 export interface ISheetFindReplaceHighlightShapeProps extends IShapeProps {
     inHiddenRange: boolean;

@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, IExecutionOptions, Nullable, Workbook } from '@univerjs/core';
-import type { IFunctionInfo, ISetDefinedNameMutationParam } from '@univerjs/engine-formula';
+import type { ICommandInfo, IExecutionOptions, Nullable, Workbook } from '@crabtable/core';
+import type { IFunctionInfo, ISetDefinedNameMutationParam } from '@crabtable/engine-formula';
 import {
+    CrabTableInstanceType,
     Disposable,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     toDisposable,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { FunctionType, IDefinedNamesService, RemoveDefinedNameMutation, SetDefinedNameMutation } from '@univerjs/engine-formula';
-import { SCOPE_WORKBOOK_VALUE_DEFINED_NAME, SetWorksheetActiveOperation } from '@univerjs/sheets';
+} from '@crabtable/core';
+import { FunctionType, IDefinedNamesService, RemoveDefinedNameMutation, SetDefinedNameMutation } from '@crabtable/engine-formula';
+import { SCOPE_WORKBOOK_VALUE_DEFINED_NAME, SetWorksheetActiveOperation } from '@crabtable/sheets';
 
 import { IDescriptionService } from '../services/description.service';
 
@@ -38,7 +38,7 @@ export class DefinedNameController extends Disposable {
     constructor(
         @IDescriptionService private readonly _descriptionService: IDescriptionService,
         @IDefinedNamesService private readonly _definedNamesService: IDefinedNamesService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService
 
     ) {
@@ -65,7 +65,7 @@ export class DefinedNameController extends Disposable {
 
     private _changeUnitListener() {
         toDisposable(
-            this._univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET).subscribe((workbook) => {
+            this._crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((workbook) => {
                 this._unRegisterDescriptions();
                 if (workbook) {
                     this._registerDescriptions();
@@ -146,8 +146,8 @@ export class DefinedNameController extends Disposable {
         const { unitId, subUnitId } = params;
 
         const workbook = unitId
-            ? this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET)
-            : this._univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+            ? this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET)
+            : this._crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) return null;
 
         const worksheet = subUnitId

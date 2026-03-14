@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, IDrawingSearch, ISrcRect, ITransformState, Nullable, Workbook } from '@univerjs/core';
-import type { IImageData } from '@univerjs/drawing';
-import type { BaseObject, Scene } from '@univerjs/engine-render';
+import type { ICommandInfo, IDrawingSearch, ISrcRect, ITransformState, Nullable, Workbook } from '@crabtable/core';
+import type { IImageData } from '@crabtable/drawing';
+import type { BaseObject, Scene } from '@crabtable/engine-render';
 import type { IOpenImageCropOperationBySrcRectParams } from '../commands/operations/image-crop.operation';
-import { checkIfMove, Disposable, ICommandService, Inject, IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
-import { MessageType } from '@univerjs/design';
-import { getDrawingShapeKeyByDrawingSearch, IDrawingManagerService, SetDrawingSelectedOperation } from '@univerjs/drawing';
-import { CURSOR_TYPE, degToRad, Image, IRenderManagerService, precisionTo, Vector2 } from '@univerjs/engine-render';
-import { IMessageService } from '@univerjs/ui';
+import { checkIfMove, CrabTableInstanceType, Disposable, ICommandService, ICrabTableInstanceService, Inject, LocaleService } from '@crabtable/core';
+import { MessageType } from '@crabtable/design';
+import { getDrawingShapeKeyByDrawingSearch, IDrawingManagerService, SetDrawingSelectedOperation } from '@crabtable/drawing';
+import { CURSOR_TYPE, degToRad, Image, IRenderManagerService, precisionTo, Vector2 } from '@crabtable/engine-render';
+import { IMessageService } from '@crabtable/ui';
 import { of, switchMap } from 'rxjs';
 import { AutoImageCropOperation, CloseImageCropOperation, CropType, OpenImageCropOperation } from '../commands/operations/image-crop.operation';
 import { ImageCropperObject } from '../views/crop/image-cropper-object';
@@ -34,7 +34,7 @@ export class ImageCropperController extends Disposable {
         @ICommandService private readonly _commandService: ICommandService,
         @IDrawingManagerService private readonly _drawingManagerService: IDrawingManagerService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
-        @IUniverInstanceService private _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private _crabtableInstanceService: ICrabTableInstanceService,
         @IMessageService private readonly _messageService: IMessageService,
         @Inject(LocaleService) private readonly _localeService: LocaleService
     ) {
@@ -284,7 +284,7 @@ export class ImageCropperController extends Disposable {
                     return;
                 }
 
-                const currentUnit = this._univerInstanceService.getFocusedUnit();
+                const currentUnit = this._crabtableInstanceService.getFocusedUnit();
 
                 if (currentUnit == null) {
                     return;
@@ -338,8 +338,8 @@ export class ImageCropperController extends Disposable {
             })
         );
 
-        const sheetUnit$ = this._univerInstanceService
-            .getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET)
+        const sheetUnit$ = this._crabtableInstanceService
+            .getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)
             .pipe(
                 switchMap((workbook) => workbook ? workbook.activeSheet$ : of(null))
             );

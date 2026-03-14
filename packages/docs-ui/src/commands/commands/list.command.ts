@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IAccessor, ICommand, IMutationInfo, IParagraph, IParagraphRange, ISectionBreak } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { ITextRangeWithStyle } from '@univerjs/engine-render';
+import type { DocumentDataModel, IAccessor, ICommand, IMutationInfo, IParagraph, IParagraphRange, ISectionBreak } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { ITextRangeWithStyle } from '@crabtable/engine-render';
 import {
     BuildTextUtils,
     CommandType,
+    CrabTableInstanceType,
     generateRandomId,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     JSONX,
     MemoryCursor,
     PRESET_LIST_TYPE,
@@ -30,9 +31,8 @@ import {
     sortRulesFactory,
     TextX,
     TextXActionType,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation } from '@univerjs/docs';
+} from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation } from '@crabtable/docs';
 import { getRichTextEditPath } from '../util';
 import { getCurrentParagraph } from './util';
 
@@ -47,12 +47,12 @@ export const ListOperationCommand: ICommand<IListOperationCommandParams> = {
 
     handler: (accessor, params: IListOperationCommandParams) => {
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
 
         const listType: string = params.listType;
 
-        const docDataModel = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         const docRanges = params.docRange ?? docSelectionManagerService.getDocRanges() ?? [];
 
         if (docDataModel == null || docRanges.length === 0) {
@@ -115,10 +115,10 @@ export const ChangeListTypeCommand: ICommand<IChangeListTypeCommandParams> = {
 
     handler: (accessor, params: IChangeListTypeCommandParams) => {
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
         const { listType } = params;
-        const docDataModel = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         const activeRanges = params.docRange ?? docSelectionManagerService.getDocRanges();
         if (docDataModel == null || activeRanges == null || !activeRanges.length) {
             return false;
@@ -187,9 +187,9 @@ export const ChangeListNestingLevelCommand: ICommand<IChangeListNestingLevelComm
         }
         const { type } = params;
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
-        const docDataModel = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         const activeRange = docSelectionManagerService.getActiveTextRange();
         if (docDataModel == null || activeRange == null) {
             return false;
@@ -297,11 +297,11 @@ export const ToggleCheckListCommand: ICommand<IToggleCheckListCommandParams> = {
         if (!params) {
             return false;
         }
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
         const { index, segmentId, textRanges } = params;
 
-        const docDataModel = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         if (docDataModel == null) {
             return false;
         }
@@ -380,9 +380,9 @@ export const QuickListCommand: ICommand<IQuickListCommandParams> = {
             return false;
         }
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
-        const docDataModel = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         const activeRange = docSelectionManagerService.getActiveTextRange();
         if (docDataModel == null || activeRange == null) {
             return false;
@@ -487,7 +487,7 @@ function insertList(accessor: IAccessor, listType: PresetListType) {
     if (!paragraph) {
         return false;
     }
-    const docDataModel = accessor.get(IUniverInstanceService).getCurrentUnitOfType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+    const docDataModel = accessor.get(ICrabTableInstanceService).getCurrentUnitOfType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
     if (!docDataModel) {
         return false;
     }

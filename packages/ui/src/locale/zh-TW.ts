@@ -78,7 +78,7 @@ const locale: typeof enUS = {
     clipboard: {
         authentication: {
             title: '無法存取剪貼簿',
-            content: '請允許 Univer 存取您的剪貼簿。 ',
+            content: '請允許 CrabTable 存取您的剪貼簿。 ',
         },
     },
     textEditor: {

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IColumnData, IRowData, Nullable } from '@univerjs/core';
-import { Tools } from '@univerjs/core';
+import type { IColumnData, IRowData, Nullable } from '@crabtable/core';
+import { Tools } from '@crabtable/core';
 
 /**
  * Reset the row data to undefined when undoing the operation

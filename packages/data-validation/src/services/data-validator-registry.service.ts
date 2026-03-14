@@ -15,7 +15,7 @@
  */
 
 import type { BaseDataValidator } from '../validators/base-data-validator';
-import { toDisposable } from '@univerjs/core';
+import { toDisposable } from '@crabtable/core';
 import { BehaviorSubject } from 'rxjs';
 
 export enum DataValidatorRegistryScope {

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
-import type { IValidStatusChange } from '@univerjs/sheets-data-validation';
-import { bufferDebounceTime, Disposable, Inject } from '@univerjs/core';
-import { SheetDataValidationModel } from '@univerjs/sheets-data-validation';
-import { SheetSkeletonManagerService } from '@univerjs/sheets-ui';
+import type { Workbook } from '@crabtable/core';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
+import type { IValidStatusChange } from '@crabtable/sheets-data-validation';
+import { bufferDebounceTime, Disposable, Inject } from '@crabtable/core';
+import { SheetDataValidationModel } from '@crabtable/sheets-data-validation';
+import { SheetSkeletonManagerService } from '@crabtable/sheets-ui';
 
 export class SheetsDataValidationReRenderController extends Disposable implements IRenderModule {
     constructor(

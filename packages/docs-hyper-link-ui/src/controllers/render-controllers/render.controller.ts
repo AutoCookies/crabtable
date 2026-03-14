@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel } from '@univerjs/core';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
-import { Disposable, Inject } from '@univerjs/core';
-import { DOC_INTERCEPTOR_POINT, DocInterceptorService } from '@univerjs/docs';
-import { DocRenderController } from '@univerjs/docs-ui';
+import type { DocumentDataModel } from '@crabtable/core';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
+import { Disposable, Inject } from '@crabtable/core';
+import { DOC_INTERCEPTOR_POINT, DocInterceptorService } from '@crabtable/docs';
+import { DocRenderController } from '@crabtable/docs-ui';
 import { distinctUntilChanged, pairwise } from 'rxjs';
 import { DocHyperLinkPopupService } from '../../services/hyper-link-popup.service';
 

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICustomRangeForInterceptor, ITextStyle, Nullable } from '@univerjs/core';
-import { BooleanNumber, CustomRangeType } from '@univerjs/core';
+import type { ICustomRangeForInterceptor, ITextStyle, Nullable } from '@crabtable/core';
+import { BooleanNumber, CustomRangeType } from '@crabtable/core';
 
 export function getCustomRangeStyle(customRange: ICustomRangeForInterceptor): Nullable<ITextStyle> {
     if (

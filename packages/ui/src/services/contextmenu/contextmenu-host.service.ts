@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
-import { createIdentifier, Disposable, toDisposable } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
+import { createIdentifier, Disposable, toDisposable } from '@crabtable/core';
 
 export interface IContextMenuHostService {
     readonly activeMenuId: string | null;

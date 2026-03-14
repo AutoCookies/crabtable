@@ -36,7 +36,7 @@ export class TextX {
 
     static id = 'text-x';
 
-    static uri = 'https://github.com/dream-num/univer#text-x';
+    static uri = 'https://github.com/AutoCookies/crabtable#text-x';
 
     static apply(doc: IDocumentBody, actions: TextXAction[]): IDocumentBody {
         return textXApply(doc, actions);
@@ -187,7 +187,7 @@ export class TextX {
 
     /**
      * Used to transform selection. Why not named transformSelection?
-     * Because Univer Doc supports multiple Selections in one document, user need to encapsulate transformSelections at the application layer.
+     * Because CrabTable Doc supports multiple Selections in one document, user need to encapsulate transformSelections at the application layer.
      */
     static transformPosition(thisActions: TextXAction[], index: number, priority = false): number {
         const thisIter = new ActionIterator(thisActions);

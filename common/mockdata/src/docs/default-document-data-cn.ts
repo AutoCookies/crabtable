@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDocumentData } from '@univerjs/core';
-import { BooleanNumber, DashStyleType, DocumentFlavor, DrawingTypeEnum, ObjectRelativeFromH, ObjectRelativeFromV, PositionedObjectLayoutType, WrapTextType } from '@univerjs/core';
-import { ptToPixel } from '@univerjs/engine-render';
+import type { IDocumentData } from '@crabtable/core';
+import { BooleanNumber, DashStyleType, DocumentFlavor, DrawingTypeEnum, ObjectRelativeFromH, ObjectRelativeFromV, PositionedObjectLayoutType, WrapTextType } from '@crabtable/core';
+import { ptToPixel } from '@crabtable/engine-render';
 
 export const DEFAULT_DOCUMENT_DATA_CN: IDocumentData = {
     id: 'd',

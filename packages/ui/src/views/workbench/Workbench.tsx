@@ -16,8 +16,8 @@
 
 import type { IUniverUIConfig } from '../../config/config';
 import type { IWorkbenchOptions } from '../../controllers/ui/ui.controller';
-import { IConfigService, LocaleService, ThemeService } from '@univerjs/core';
-import { borderBottomClassName, clsx, ConfigContext, ConfigProvider } from '@univerjs/design';
+import { IConfigService, LocaleService, ThemeService } from '@crabtable/core';
+import { borderBottomClassName, clsx, ConfigContext, ConfigProvider } from '@crabtable/design';
 import { useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useConfigValue } from '../../components/hooks';

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
-import { Disposable } from '@univerjs/core';
+import type { IRange } from '@crabtable/core';
+import { Disposable } from '@crabtable/core';
 
 export class SelectAllService extends Disposable {
     rangesStack: IRange[] = [];

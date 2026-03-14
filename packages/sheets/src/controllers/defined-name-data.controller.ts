@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IDefinedNameMapItem } from '@univerjs/engine-formula';
+import type { IDefinedNameMapItem } from '@crabtable/engine-formula';
 import {
+    CrabTableInstanceType,
     Disposable,
     IResourceManagerService,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { IDefinedNamesService } from '@univerjs/engine-formula';
+} from '@crabtable/core';
+import { IDefinedNamesService } from '@crabtable/engine-formula';
 
 const SHEET_DEFINED_NAME_PLUGIN = 'SHEET_DEFINED_NAME_PLUGIN';
 
@@ -61,7 +61,7 @@ export class DefinedNameDataController extends Disposable {
         this.disposeWithMe(
             this._resourceManagerService.registerPluginResource<IDefinedNameMapItem>({
                 pluginName: SHEET_DEFINED_NAME_PLUGIN,
-                businesses: [UniverInstanceType.UNIVER_SHEET],
+                businesses: [CrabTableInstanceType.CRABTABLE_SHEET],
                 toJson: (unitId) => toJson(unitId),
                 parseJson: (json) => parseJson(json),
                 onUnLoad: (unitId) => {

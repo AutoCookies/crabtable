@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Workbook } from '@univerjs/core';
+import type { IDisposable, Workbook } from '@crabtable/core';
 import {
+    CrabTableInstanceType,
     IContextService,
+    ICrabTableInstanceService,
     Inject,
-    IUniverInstanceService,
     RxDisposable,
     ThemeService,
     toDisposable,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { IRenderManagerService, RENDER_RAW_FORMULA_KEY, Spreadsheet } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { IRenderManagerService, RENDER_RAW_FORMULA_KEY, Spreadsheet } from '@crabtable/engine-render';
 import { distinctUntilChanged, takeUntil } from 'rxjs';
 
 const SHEET_MAIN_CANVAS_ID = 'univer-sheet-main-canvas';
@@ -37,7 +37,7 @@ export class SheetsRenderService extends RxDisposable {
 
     constructor(
         @IContextService private readonly _contextService: IContextService,
-        @IUniverInstanceService private readonly _instanceSrv: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _instanceSrv: ICrabTableInstanceService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
         @Inject(ThemeService) private readonly _themeService: ThemeService
     ) {
@@ -75,12 +75,12 @@ export class SheetsRenderService extends RxDisposable {
     }
 
     private _initWorkbookListener(): void {
-        this._instanceSrv.getTypeOfUnitAdded$<Workbook>(UniverInstanceType.UNIVER_SHEET)
+        this._instanceSrv.getTypeOfUnitAdded$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)
             .pipe(takeUntil(this.dispose$))
             .subscribe((workbook) => this._createRenderer(workbook));
-        this._instanceSrv.getAllUnitsForType<Workbook>(UniverInstanceType.UNIVER_SHEET)
+        this._instanceSrv.getAllUnitsForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)
             .forEach((workbook) => this._createRenderer(workbook));
-        this._instanceSrv.getTypeOfUnitDisposed$<Workbook>(UniverInstanceType.UNIVER_SHEET)
+        this._instanceSrv.getTypeOfUnitDisposed$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)
             .pipe(takeUntil(this.dispose$))
             .subscribe((workbook) => this._disposeRenderer(workbook));
     }

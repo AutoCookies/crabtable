@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { cellToRange, CellValueType } from '@univerjs/core';
+import { cellToRange, CellValueType } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import { ErrorType } from '../../../basics/error-type';
 import { CellReferenceObject } from '../../reference-object/cell-reference-object';

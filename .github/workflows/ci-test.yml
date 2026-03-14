@@ -28,7 +28,7 @@ jobs:
               uses: ./.github/actions/setup-node
 
             - name: 🩺 Run test
-              run: pnpm coverage
+              run: yarn coverage
 
             - name: 🧬 Report coverage
               uses: codecov/codecov-action@v3
@@ -46,7 +46,7 @@ jobs:
               uses: ./.github/actions/setup-node
 
             - name: 🌡️ Run ESLint
-              run: pnpm lint --quiet
+              run: yarn lint --quiet
 
     typecheck:
         runs-on: ubuntu-latest
@@ -59,4 +59,4 @@ jobs:
               uses: ./.github/actions/setup-node
 
             - name: 🧼 Type checking
-              run: pnpm typecheck
+              run: yarn typecheck

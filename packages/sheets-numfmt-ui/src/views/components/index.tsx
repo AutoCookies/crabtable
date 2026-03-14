@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { ISelectProps } from '@univerjs/design';
+import type { ISelectProps } from '@crabtable/design';
 import type { FC } from 'react';
 import type { IBusinessComponentProps } from './interface';
-import { LocaleService } from '@univerjs/core';
-import { Button, clsx, scrollbarClassName, Select } from '@univerjs/design';
-import { getCurrencyType } from '@univerjs/sheets-numfmt';
-import { useDependency } from '@univerjs/ui';
+import { LocaleService } from '@crabtable/core';
+import { Button, clsx, scrollbarClassName, Select } from '@crabtable/design';
+import { getCurrencyType } from '@crabtable/sheets-numfmt';
+import { useDependency } from '@crabtable/ui';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { UserHabitCurrencyContext } from '../../controllers/user-habit.controller';
 import { useCurrencyOptions } from '../hooks/use-currency-options';

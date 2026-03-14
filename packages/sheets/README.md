@@ -1,16 +1,16 @@
-# @univerjs/sheets
+# @crabtable/sheets
 
 ## Package Overview
 
 | Package Name | UMD Namespace | Version | License | Downloads | Contains CSS | Contains i18n locales |
 | --- | --- | --- | --- | --- | :---: | :---: |
-| `@univerjs/sheets` | `UniverSheets` | [![][npm-version-shield]][npm-version-link] | ![][npm-license-shield] | ![][npm-downloads-shield] | ❌ | ⭕️ |
+| `@crabtable/sheets` | `UniverSheets` | [![][npm-version-shield]][npm-version-link] | ![][npm-license-shield] | ![][npm-downloads-shield] | ❌ | ⭕️ |
 
 ## Introduction
 
-`@univerjs/sheets` serves as the foundation for the core business logic of spreadsheets, with base-sheets designed to be UI-agnostic, allowing for functionality such as collaborative editing to be implemented in a Node.js environment.
+`@crabtable/sheets` serves as the foundation for the core business logic of spreadsheets, with base-sheets designed to be UI-agnostic, allowing for functionality such as collaborative editing to be implemented in a Node.js environment.
 
-`@univerjs/sheets` provides the following capabilities for Univer Sheet:
+`@crabtable/sheets` provides the following capabilities for CrabTable Sheet:
 
 * Core functionality, including numerical formatting, selection management, permissions, etc.
 * Commands/mutations for modifying spreadsheet data
@@ -23,15 +23,15 @@
 
 ```shell
 # Using npm
-npm install @univerjs/sheets
+npm install @crabtable/sheets
 
-# Using pnpm
-pnpm add @univerjs/sheets
+# Using yarn
+yarn add @crabtable/sheets
 ```
 
 ### `SheetInterceptorService`
 
-`SheetInterceptorService` is a more specialized service provided by `@univerjs/sheets` that allows higher-level business to modify the results of operations such as obtaining cell data, retrieving row/column hiding information from a Worksheet, and supplementing mutations or operations at specific command executions. This service's primary goal is to enable specific functionalities, including:
+`SheetInterceptorService` is a more specialized service provided by `@crabtable/sheets` that allows higher-level business to modify the results of operations such as obtaining cell data, retrieving row/column hiding information from a Worksheet, and supplementing mutations or operations at specific command executions. This service's primary goal is to enable specific functionalities, including:
 
 1. Sheet formulas
 2. Sheet conditional formatting
@@ -47,7 +47,7 @@ Use `SheetInterceptorService` when multiple features need to operate on the same
 However, if one feature relies explicitly on another feature, such as a formula needing to perform certain actions when the fill down or copy-paste functions are called, the formula module should directly depend on the fill down and copy-paste modules, instead of using `SheetInterceptorService` for implementation.
 
 <!-- Links -->
-[npm-version-shield]: https://img.shields.io/npm/v/@univerjs/sheets?style=flat-square
-[npm-version-link]: https://npmjs.com/package/@univerjs/sheets
-[npm-license-shield]: https://img.shields.io/npm/l/@univerjs/sheets?style=flat-square
-[npm-downloads-shield]: https://img.shields.io/npm/dm/@univerjs/sheets?style=flat-square
+[npm-version-shield]: https://img.shields.io/npm/v/@crabtable/sheets?style=flat-square
+[npm-version-link]: https://npmjs.com/package/@crabtable/sheets
+[npm-license-shield]: https://img.shields.io/npm/l/@crabtable/sheets?style=flat-square
+[npm-downloads-shield]: https://img.shields.io/npm/dm/@crabtable/sheets?style=flat-square

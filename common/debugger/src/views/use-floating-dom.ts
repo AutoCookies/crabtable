@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import { IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocFloatDomController } from '@univerjs/docs-drawing-ui';
-import { SheetCanvasFloatDomManagerService } from '@univerjs/sheets-drawing-ui';
-import { useDependency } from '@univerjs/ui';
+import { CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
+import { DocFloatDomController } from '@crabtable/docs-drawing-ui';
+import { SheetCanvasFloatDomManagerService } from '@crabtable/sheets-drawing-ui';
+import { useDependency } from '@crabtable/ui';
 
-export function useFloatingDom(entryUnitType?: UniverInstanceType) {
-    const univerInstanceService = useDependency(IUniverInstanceService);
-    const floatDomService = entryUnitType === UniverInstanceType.UNIVER_SHEET ? useDependency(SheetCanvasFloatDomManagerService) : null;
-    const floatDomController = entryUnitType === UniverInstanceType.UNIVER_DOC ? useDependency(DocFloatDomController) : null;
+export function useFloatingDom(entryUnitType?: CrabTableInstanceType) {
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
+    const floatDomService = entryUnitType === CrabTableInstanceType.CRABTABLE_SHEET ? useDependency(SheetCanvasFloatDomManagerService) : null;
+    const floatDomController = entryUnitType === CrabTableInstanceType.CRABTABLE_DOC ? useDependency(DocFloatDomController) : null;
 
     const onSelect = () => {
-        if (entryUnitType === UniverInstanceType.UNIVER_SHEET) {
-            const currentSheet = univerInstanceService.getCurrentUnitOfType(UniverInstanceType.UNIVER_SHEET);
+        if (entryUnitType === CrabTableInstanceType.CRABTABLE_SHEET) {
+            const currentSheet = crabtableInstanceService.getCurrentUnitOfType(CrabTableInstanceType.CRABTABLE_SHEET);
             if (!currentSheet) return;
 
             floatDomService?.addFloatDomToPosition({
@@ -42,8 +42,8 @@ export function useFloatingDom(entryUnitType?: UniverInstanceType) {
                     aa: '128',
                 },
             });
-        } else if (entryUnitType === UniverInstanceType.UNIVER_DOC) {
-            const currentDoc = univerInstanceService.getCurrentUnitOfType(UniverInstanceType.UNIVER_DOC);
+        } else if (entryUnitType === CrabTableInstanceType.CRABTABLE_DOC) {
+            const currentDoc = crabtableInstanceService.getCurrentUnitOfType(CrabTableInstanceType.CRABTABLE_DOC);
             if (!currentDoc) return;
 
             floatDomController?.insertFloatDom({

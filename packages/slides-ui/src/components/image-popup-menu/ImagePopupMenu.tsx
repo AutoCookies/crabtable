@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDrawingSearch } from '@univerjs/core';
-import { ICommandService, LocaleService } from '@univerjs/core';
-import { borderClassName, clsx, Dropdown } from '@univerjs/design';
+import type { IDrawingSearch } from '@crabtable/core';
+import { ICommandService, LocaleService } from '@crabtable/core';
+import { borderClassName, clsx, Dropdown } from '@crabtable/design';
+import { useDependency } from '@crabtable/ui';
 import { AutofillDoubleIcon, MoreDownIcon } from '@univerjs/icons';
-import { useDependency } from '@univerjs/ui';
 import { useState } from 'react';
 
 export interface IImagePopupMenuItem {

@@ -16,39 +16,39 @@
 
 /* eslint-disable ts/no-non-null-asserted-optional-chain */
 
-import type { Injector } from '@univerjs/core';
-import type { FUniver } from '@univerjs/core/facade';
-import { DataValidationType, ICommandService } from '@univerjs/core';
-import { AddSheetDataValidationCommand } from '@univerjs/sheets-data-validation';
+import type { Injector } from '@crabtable/core';
+import type { FCrabTable } from '@crabtable/core/facade';
+import { DataValidationType, ICommandService } from '@crabtable/core';
+import { AddSheetDataValidationCommand } from '@crabtable/sheets-data-validation';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createFacadeTestBed } from './create-test-bed';
 
 describe('Test FRange', () => {
     let get: Injector['get'];
     let commandService: ICommandService;
-    let univerAPI: FUniver;
+    let crabtableAPI: FCrabTable;
 
     beforeEach(() => {
         const testBed = createFacadeTestBed();
         get = testBed.get;
 
-        univerAPI = testBed.univerAPI;
+        crabtableAPI = testBed.crabtableAPI;
 
         commandService = get(ICommandService);
         commandService.registerCommand(AddSheetDataValidationCommand);
     });
 
     it('Range set data validation', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet()!;
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet()!;
         const range = activeSheet.getRange(0, 0, 10, 10);
         const range2 = activeSheet.getRange(11, 11, 2, 2);
-        await range.setDataValidation(univerAPI.newDataValidation().requireCheckbox().build());
-        await range2?.setDataValidation(univerAPI.newDataValidation().requireNumberEqualTo(1).build());
+        await range.setDataValidation(crabtableAPI.newDataValidation().requireCheckbox().build());
+        await range2?.setDataValidation(crabtableAPI.newDataValidation().requireNumberEqualTo(1).build());
         const range3 = activeSheet.getRange(0, 0, 100, 100);
 
         expect(range.getDataValidation()).toBeTruthy();
         expect(range.getDataValidation()?.rule.ranges).toEqual([{
-            unitId: univerAPI.getActiveWorkbook()?.getId(),
+            unitId: crabtableAPI.getActiveWorkbook()?.getId(),
             sheetId: activeSheet.getSheetId(),
             startRow: 0,
             endRow: 9,

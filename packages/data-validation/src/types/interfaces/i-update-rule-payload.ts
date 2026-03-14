@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IDataValidationRule, IDataValidationRuleBase, IDataValidationRuleOptions } from '@univerjs/core';
+import type { IDataValidationRule, IDataValidationRuleBase, IDataValidationRuleOptions } from '@crabtable/core';
 import type { UpdateRuleType } from '../enum/update-rule-type';
 
 export interface IUpdateRuleRangePayload {

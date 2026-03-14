@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDrawingParam } from '@univerjs/core';
-import { ICommandService, LocaleService } from '@univerjs/core';
-import { clsx, Select } from '@univerjs/design';
-import { useDependency } from '@univerjs/ui';
+import type { IDrawingParam } from '@crabtable/core';
+import { ICommandService, LocaleService } from '@crabtable/core';
+import { clsx, Select } from '@crabtable/design';
+import { useDependency } from '@crabtable/ui';
 import { useState } from 'react';
 import { AlignType, SetDrawingAlignOperation } from '../../commands/operations/drawing-align.operation';
 

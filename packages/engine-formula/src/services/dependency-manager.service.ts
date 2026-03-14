@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IRTreeItem, IUnitRange, Nullable } from '@univerjs/core';
+import type { IRTreeItem, IUnitRange, Nullable } from '@crabtable/core';
 import type { AstRootNode } from '../engine/ast-node';
 import type { FormulaDependencyTree, IFormulaDependencyTree } from '../engine/dependency/dependency-tree';
-import { createIdentifier, Disposable, ObjectMatrix, RTree } from '@univerjs/core';
+import { createIdentifier, Disposable, ObjectMatrix, RTree } from '@crabtable/core';
 
 export interface IDependencyManagerService {
     dispose(): void;

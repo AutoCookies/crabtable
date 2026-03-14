@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
-import type { IGalleryProps } from '@univerjs/design';
+import type { IDisposable } from '@crabtable/core';
+import type { IGalleryProps } from '@crabtable/design';
 import type { Subject } from 'rxjs';
-import { createIdentifier } from '@univerjs/core';
+import { createIdentifier } from '@crabtable/core';
 
 export const IGalleryService = createIdentifier<IGalleryService>('univer.ui.gallery-service');
 export interface IGalleryService {

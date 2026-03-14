@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IDataValidationRule, IRange, Nullable, ObjectMatrix } from '@univerjs/core';
+import type { IDataValidationRule, IRange, Nullable, ObjectMatrix } from '@crabtable/core';
 import type { IDataValidationError } from './f-workbook';
-import { DataValidationStatus } from '@univerjs/core';
-import { DataValidationModel } from '@univerjs/data-validation';
-import { SheetDataValidationModel, SheetsDataValidationValidatorService } from '@univerjs/sheets-data-validation';
-import { FWorksheet } from '@univerjs/sheets/facade';
+import { DataValidationStatus } from '@crabtable/core';
+import { DataValidationModel } from '@crabtable/data-validation';
+import { SheetDataValidationModel, SheetsDataValidationValidatorService } from '@crabtable/sheets-data-validation';
+import { FWorksheet } from '@crabtable/sheets/facade';
 import { FDataValidation } from './f-data-validation';
 
 /**
@@ -30,7 +30,7 @@ export interface IFWorksheetDataValidationMixin {
      * Get all data validation rules in current sheet.
      * @returns {FDataValidation[]} All data validation rules
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const rules = fWorksheet.getDataValidations();
      * console.log(rules);
@@ -47,7 +47,7 @@ export interface IFWorksheetDataValidationMixin {
      * Get data validation validator status for current sheet.
      * @returns {Promise<ObjectMatrix<Nullable<DataValidationStatus>>>} matrix of validator status
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const status = await fWorksheet.getValidatorStatusAsync();
      * console.log(status);
@@ -60,7 +60,7 @@ export interface IFWorksheetDataValidationMixin {
      * @param ruleId - the rule id
      * @returns {Nullable<FDataValidation>} data validation rule
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const rules = fWorksheet.getDataValidations();
      * console.log(fWorksheet.getDataValidation(rules[0]?.rule.uid));
@@ -73,7 +73,7 @@ export interface IFWorksheetDataValidationMixin {
      * @returns A promise that resolves to an array of validation errors.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const errors = await fWorksheet.getAllDataValidationError();
      * console.log(errors);
@@ -198,7 +198,7 @@ export class FWorksheetDataValidationMixin extends FWorksheet implements IFWorks
 }
 
 FWorksheet.extend(FWorksheetDataValidationMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FWorksheet extends IFWorksheetDataValidationMixin {}
 }

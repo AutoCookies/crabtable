@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IAverageHighlightCell, IConditionalFormattingRuleConfig, IHighlightCell, IRankHighlightCell } from '@univerjs/sheets-conditional-formatting';
+import type { IAverageHighlightCell, IConditionalFormattingRuleConfig, IHighlightCell, IRankHighlightCell } from '@crabtable/sheets-conditional-formatting';
 import type { IStyleEditorProps } from './type';
-import { LocaleService } from '@univerjs/core';
-import { Checkbox, InputNumber, Select } from '@univerjs/design';
-import { CFNumberOperator, CFRuleType, CFSubRuleType } from '@univerjs/sheets-conditional-formatting';
-import { useDependency } from '@univerjs/ui';
+import { LocaleService } from '@crabtable/core';
+import { Checkbox, InputNumber, Select } from '@crabtable/design';
+import { CFNumberOperator, CFRuleType, CFSubRuleType } from '@crabtable/sheets-conditional-formatting';
+import { useDependency } from '@crabtable/ui';
 import { useEffect, useState } from 'react';
 import { ConditionalStyleEditor } from '../../conditional-style-editor';
 import { Preview } from '../../preview';

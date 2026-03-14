@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { Disposable, ICommandService, Inject, Injector } from '@univerjs/core';
+import { Disposable, ICommandService, Inject, Injector } from '@crabtable/core';
+import { ComponentManager, IMenuManagerService, IShortcutService } from '@crabtable/ui';
 import { LinkIcon } from '@univerjs/icons';
-import { ComponentManager, IMenuManagerService, IShortcutService } from '@univerjs/ui';
 import { CloseHyperLinkPopupOperation, InsertHyperLinkOperation, InsertHyperLinkToolbarOperation, OpenHyperLinkEditPanelOperation } from '../commands/operations/popup.operations';
 import { InsertLinkShortcut } from '../menu/menu';
 import { menuSchema } from '../menu/schema';

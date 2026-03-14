@@ -29,7 +29,7 @@ const locale: typeof enUS = {
         functionParameter: {
             year: {
                 name: 'Năm',
-                detail: 'có thể chứa từ 1 đến 4 chữ số. Excel giải thích tham số year dựa trên hệ thống ngày được máy tính sử dụng. Theo mặc định, Univer sử dụng hệ thống ngày 1900, nghĩa là ngày đầu tiên là ngày 1 tháng 1 năm 1900.',
+                detail: 'có thể chứa từ 1 đến 4 chữ số. Excel giải thích tham số year dựa trên hệ thống ngày được máy tính sử dụng. Theo mặc định, CrabTable sử dụng hệ thống ngày 1900, nghĩa là ngày đầu tiên là ngày 1 tháng 1 năm 1900.',
             },
             month: {
                 name: 'Tháng',

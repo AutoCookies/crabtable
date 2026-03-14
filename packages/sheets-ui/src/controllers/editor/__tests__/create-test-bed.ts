@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData, Workbook } from '@univerjs/core';
-import { ILogService, Inject, Injector, IUniverInstanceService, LocaleType, LogLevel, Plugin, Univer, UniverInstanceType } from '@univerjs/core';
-import { SheetInterceptorService, SheetsSelectionsService } from '@univerjs/sheets';
+import type { Dependency, IWorkbookData, Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICrabTableInstanceService, ILogService, Inject, Injector, LocaleType, LogLevel, Plugin } from '@crabtable/core';
+import { SheetInterceptorService, SheetsSelectionsService } from '@crabtable/sheets';
 
 function getTestWorkbookDataDemo(): IWorkbookData {
     return {
@@ -36,18 +36,18 @@ function getTestWorkbookDataDemo(): IWorkbookData {
 }
 
 export interface ITestBed {
-    univer: Univer;
+    univer: CrabTable;
     get: Injector['get'];
     sheet: Workbook;
 }
 
 export function createTestBed(workbookData?: IWorkbookData, dependencies?: Dependency[]): ITestBed {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
 
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -65,10 +65,10 @@ export function createTestBed(workbookData?: IWorkbookData, dependencies?: Depen
     }
 
     univer.registerPlugin(TestPlugin);
-    const sheet = univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, workbookData ?? getTestWorkbookDataDemo());
+    const sheet = univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, workbookData ?? getTestWorkbookDataDemo());
 
-    const univerInstanceService = injector.get(IUniverInstanceService);
-    univerInstanceService.focusUnit('test');
+    const crabtableInstanceService = injector.get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit('test');
     const logService = injector.get(ILogService);
 
     logService.setLogLevel(LogLevel.SILENT); // change this to `LogLevel.VERBOSE` to debug tests via logs

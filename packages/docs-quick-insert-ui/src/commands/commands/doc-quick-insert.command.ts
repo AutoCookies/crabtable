@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
-import type { IInnerCutCommandParams } from '@univerjs/docs-ui';
-import { CommandType, ICommandService, RANGE_DIRECTION } from '@univerjs/core';
-import { CutContentCommand } from '@univerjs/docs-ui';
+import type { ICommand } from '@crabtable/core';
+import type { IInnerCutCommandParams } from '@crabtable/docs-ui';
+import { CommandType, ICommandService, RANGE_DIRECTION } from '@crabtable/core';
+import { CutContentCommand } from '@crabtable/docs-ui';
 
 interface IDeleteSearchKeyCommandParams {
     start: number;

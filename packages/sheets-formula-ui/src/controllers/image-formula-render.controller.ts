@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import { Disposable, Inject, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { ImageFormulaCellInterceptorController } from '@univerjs/sheets-formula';
-import { SheetSkeletonManagerService } from '@univerjs/sheets-ui';
+import type { Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { ImageFormulaCellInterceptorController } from '@crabtable/sheets-formula';
+import { SheetSkeletonManagerService } from '@crabtable/sheets-ui';
 
 export class ImageFormulaRenderController extends Disposable {
     constructor(
         @Inject(ImageFormulaCellInterceptorController) private readonly _imageFormulaCellInterceptorController: ImageFormulaCellInterceptorController,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
 
         this._imageFormulaCellInterceptorController.registerRefreshRenderFunction(() => {
-            const workbook = this._univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+            const workbook = this._crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
             if (!workbook) return;
 
             const render = this._renderManagerService.getRenderById(workbook.getUnitId());

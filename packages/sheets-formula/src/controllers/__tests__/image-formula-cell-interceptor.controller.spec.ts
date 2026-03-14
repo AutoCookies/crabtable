@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData, Workbook, Worksheet } from '@univerjs/core';
-import type { IImageFormulaInfo } from '@univerjs/engine-formula';
-import { CellValueType, ICommandService, InterceptorEffectEnum, LocaleType, ObjectMatrix } from '@univerjs/core';
-import { ErrorType, FormulaDataModel, SetImageFormulaDataMutation } from '@univerjs/engine-formula';
-import { INTERCEPTOR_POINT, SheetInterceptorService } from '@univerjs/sheets';
+import type { Dependency, IWorkbookData, Workbook, Worksheet } from '@crabtable/core';
+import type { IImageFormulaInfo } from '@crabtable/engine-formula';
+import { CellValueType, ICommandService, InterceptorEffectEnum, LocaleType, ObjectMatrix } from '@crabtable/core';
+import { ErrorType, FormulaDataModel, SetImageFormulaDataMutation } from '@crabtable/engine-formula';
+import { INTERCEPTOR_POINT, SheetInterceptorService } from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { createFacadeTestBed } from '../../facade/__tests__/create-test-bed';

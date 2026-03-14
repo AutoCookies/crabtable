@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo } from '@univerjs/core';
-import type { IAddCfCommandParams } from '@univerjs/sheets-conditional-formatting';
-import { Disposable, ICommandService, Inject, LocaleService } from '@univerjs/core';
-import { RangeProtectionPermissionEditPoint, SheetPermissionCheckController, WorkbookEditablePermission, WorksheetEditPermission, WorksheetSetCellStylePermission } from '@univerjs/sheets';
-import { AddCfCommand } from '@univerjs/sheets-conditional-formatting';
+import type { ICommandInfo } from '@crabtable/core';
+import type { IAddCfCommandParams } from '@crabtable/sheets-conditional-formatting';
+import { Disposable, ICommandService, Inject, LocaleService } from '@crabtable/core';
+import { RangeProtectionPermissionEditPoint, SheetPermissionCheckController, WorkbookEditablePermission, WorksheetEditPermission, WorksheetSetCellStylePermission } from '@crabtable/sheets';
+import { AddCfCommand } from '@crabtable/sheets-conditional-formatting';
 
 export class ConditionalFormattingPermissionController extends Disposable {
     constructor(

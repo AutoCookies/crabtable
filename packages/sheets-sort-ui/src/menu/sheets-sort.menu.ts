@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuItem } from '@univerjs/ui';
-import { UniverInstanceType } from '@univerjs/core';
-import { RangeProtectionPermissionEditPoint, WorkbookEditablePermission, WorksheetEditPermission, WorksheetSortPermission } from '@univerjs/sheets';
-import { getCurrentExclusiveRangeInterest$, getCurrentRangeDisable$ } from '@univerjs/sheets-ui';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuItem } from '@crabtable/ui';
+import { CrabTableInstanceType } from '@crabtable/core';
+import { RangeProtectionPermissionEditPoint, WorkbookEditablePermission, WorksheetEditPermission, WorksheetSortPermission } from '@crabtable/sheets';
+import { getCurrentExclusiveRangeInterest$, getCurrentRangeDisable$ } from '@crabtable/sheets-ui';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { SortRangeAscCommand, SortRangeAscExtCommand, SortRangeAscExtInCtxMenuCommand, SortRangeAscInCtxMenuCommand, SortRangeCustomCommand, SortRangeCustomInCtxMenuCommand, SortRangeDescCommand, SortRangeDescExtCommand, SortRangeDescExtInCtxMenuCommand, SortRangeDescInCtxMenuCommand } from '../commands/commands/sheets-sort.command';
 
 export const SHEETS_SORT_MENU_ID = 'sheet.menu.sheets-sort';
@@ -37,7 +37,7 @@ export function sortRangeMenuFactory(accessor: IAccessor): IMenuItem {
         type: MenuItemType.SUBITEMS,
         icon: SHEETS_SORT_ASC_ICON,
         tooltip: 'sheets-sort.general.sort',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         disabled$: getCurrentRangeDisable$(accessor, { workbookTypes: [WorkbookEditablePermission], worksheetTypes: [WorksheetSortPermission, WorksheetEditPermission], rangeTypes: [RangeProtectionPermissionEditPoint] }),
     };
 }
@@ -94,7 +94,7 @@ export function sortRangeCtxMenuFactory(accessor: IAccessor): IMenuItem {
         title: 'sheets-sort.general.sort',
         type: MenuItemType.SUBITEMS,
         icon: SHEETS_SORT_ASC_ICON,
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         disabled$: getCurrentRangeDisable$(accessor, {
             workbookTypes: [WorkbookEditablePermission],
             worksheetTypes: [WorksheetSortPermission, WorksheetEditPermission],

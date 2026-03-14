@@ -71,7 +71,7 @@ describe('ComponentManager', () => {
         const manager = new ComponentManager();
 
         expect(() => manager.register('vue-comp', () => null, { framework: 'vue3' })).toThrow(
-            '[ComponentManager] Vue3 support is no longer built-in since v0.9.0, please install @univerjs/ui-adapter-vue3 plugin.'
+            '[ComponentManager] Vue3 support is no longer built-in since v0.9.0, please install @crabtable/ui-adapter-vue3 plugin.'
         );
 
         manager.dispose();

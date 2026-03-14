@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { DisposableCollection } from '@univerjs/core';
-import type { Documents, DocumentSkeleton, Engine, IBoundRectNoAngle, Scene } from '@univerjs/engine-render';
-import { createInterceptorKey, Disposable, InterceptorManager } from '@univerjs/core';
+import type { DisposableCollection } from '@crabtable/core';
+import type { Documents, DocumentSkeleton, Engine, IBoundRectNoAngle, Scene } from '@crabtable/engine-render';
+import { createInterceptorKey, Disposable, InterceptorManager } from '@crabtable/core';
 
 export interface IDocPrintContext {
     unitId: string;

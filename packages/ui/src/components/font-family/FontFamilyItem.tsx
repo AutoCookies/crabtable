@@ -15,8 +15,8 @@
  */
 
 import type { IFontConfig } from '../../services/font.service';
-import { ICommandService, LocaleService } from '@univerjs/core';
-import { Tooltip } from '@univerjs/design';
+import { ICommandService, LocaleService } from '@crabtable/core';
+import { Tooltip } from '@crabtable/design';
 import { InfoIcon } from '@univerjs/icons';
 import { useEffect, useState } from 'react';
 import { IFontService } from '../../services/font.service';

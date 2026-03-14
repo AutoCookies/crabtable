@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IFormulaInputProps } from '@univerjs/data-validation';
-import { LocaleService } from '@univerjs/core';
-import { Checkbox, FormLayout, Input } from '@univerjs/design';
-import { useDependency } from '@univerjs/ui';
+import type { IFormulaInputProps } from '@crabtable/data-validation';
+import { LocaleService } from '@crabtable/core';
+import { Checkbox, FormLayout, Input } from '@crabtable/design';
+import { useDependency } from '@crabtable/ui';
 import { useState } from 'react';
 
 export function CheckboxFormulaInput(props: IFormulaInputProps) {

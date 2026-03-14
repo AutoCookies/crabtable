@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { BooleanNumber } from '@univerjs/core';
+import { BooleanNumber } from '@crabtable/core';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { textShape } from '../text-shaping';

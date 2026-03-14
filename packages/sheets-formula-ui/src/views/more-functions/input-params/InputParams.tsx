@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IFunctionInfo, IFunctionParam } from '@univerjs/engine-formula';
-import { borderLeftClassName, clsx, scrollbarClassName } from '@univerjs/design';
+import type { IFunctionInfo, IFunctionParam } from '@crabtable/engine-formula';
+import { borderLeftClassName, clsx, scrollbarClassName } from '@crabtable/design';
 import { useState } from 'react';
 import { FunctionHelp } from '../function-help/FunctionHelp';
 import { FunctionParams } from '../function-params/FunctionParams';

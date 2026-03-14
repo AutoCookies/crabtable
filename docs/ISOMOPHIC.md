@@ -23,7 +23,7 @@ implemented in another server-only plugin.
 ## Separate Facade API
 
 **The Facade API is designed to be used by both the server and the client**. It should be implemented in each plugins and
-composed by users (or the `@univerjs/presets` package) to provide a unified
+composed by users (or the `@crabtable/presets` package) to provide a unified
 API for the SDK.
 
 You should implement the Facade API that can run on Node.js and the browser in the underlying logic plugins.

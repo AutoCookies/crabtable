@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Injector, Univer, Workbook } from '@univerjs/core';
+import type { Injector, Workbook } from '@crabtable/core';
 import type { IDeltaColumnWidthCommandParams, ISetColWidthCommandParams } from '../set-worksheet-col-width.command';
-import { ICommandService, IUniverInstanceService, RANGE_TYPE, RedoCommand, UndoCommand, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, RANGE_TYPE, RedoCommand, UndoCommand } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SheetsSelectionsService } from '../../../services/selections/selection.service';
 import { SetWorksheetColWidthMutation } from '../../mutations/set-worksheet-col-width.mutation';
@@ -24,19 +24,19 @@ import { DeltaColumnWidthCommand, SetColWidthCommand } from '../set-worksheet-co
 import { createCommandTestBed } from './create-command-test-bed';
 
 describe('Test set col width commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
 
     let commandService: ICommandService;
     let selectionsService: SheetsSelectionsService;
 
     function getColumnWidth(col: number): number {
-        const worksheet = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()!;
+        const worksheet = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()!;
         return worksheet.getColumnWidth(col);
     }
 
     function setSelection(start: number, end: number): void {
-        const worksheet = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()!;
+        const worksheet = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()!;
         const maxRow = worksheet.getMaxRows() - 1;
 
         selectionsService.setSelections([
@@ -58,7 +58,7 @@ describe('Test set col width commands', () => {
     }
 
     function addSelection(start: number, end: number): void {
-        const worksheet = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()!;
+        const worksheet = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()!;
         const maxRow = worksheet.getMaxRows() - 1;
 
         selectionsService.addSelections([
@@ -80,7 +80,7 @@ describe('Test set col width commands', () => {
         commandService.registerCommand(SetColWidthCommand);
         commandService.registerCommand(SetWorksheetColWidthMutation);
 
-        const worksheet = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()!;
+        const worksheet = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()!;
         const maxRow = worksheet.getMaxRows() - 1;
         selectionsService = get(SheetsSelectionsService);
 
@@ -114,7 +114,7 @@ describe('Test set col width commands', () => {
             expect(getColumnWidth(5)).toBe(65);
         });
 
-        // Fix https://github.com/dream-num/univer-pro/issues/2302.
+        // Fix https://github.com/AutoCookies/crabtable-pro/issues/2302.
         it('Should undo to original col widths', async () => {
             expect(getColumnWidth(1)).toBe(88);
 

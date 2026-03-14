@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICellData, ObjectMatrix } from '@univerjs/core';
-import type { IDiscreteRange } from '@univerjs/sheets';
+import type { ICellData, ObjectMatrix } from '@crabtable/core';
+import type { IDiscreteRange } from '@crabtable/sheets';
 import type { ICellDataWithSpanInfo, IClipboardPropertyItem, ISheetClipboardHook } from '../type';
 
 /**

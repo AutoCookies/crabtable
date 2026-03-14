@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { Injector, Univer } from '@univerjs/core';
-import { ICommandService, IUniverInstanceService, RedoCommand, UndoCommand } from '@univerjs/core';
+import type { CrabTable, Injector } from '@crabtable/core';
+import { ICommandService, ICrabTableInstanceService, RedoCommand, UndoCommand } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SetTabColorMutation } from '../../mutations/set-tab-color.mutation';
 import { SetTabColorCommand } from '../set-tab-color.command';
 import { createCommandTestBed } from './create-command-test-bed';
 
 describe('Test tab color commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
@@ -42,7 +42,7 @@ describe('Test tab color commands', () => {
 
     describe('Set several specific colors', () => {
         function getTabColor() {
-            return get(IUniverInstanceService).getUniverSheetInstance('test')?.getActiveSheet()?.getTabColor();
+            return get(ICrabTableInstanceService).getCrabTableSheetInstance('test')?.getActiveSheet()?.getTabColor();
         }
 
         describe('correct situations', () => {

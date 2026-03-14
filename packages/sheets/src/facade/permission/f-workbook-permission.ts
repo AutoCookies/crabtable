@@ -17,7 +17,7 @@
 import type { ICollaborator as IProtocolCollaborator, IUser } from '@univerjs/protocol';
 import type { Observable, Subscription } from 'rxjs';
 import type { ICollaborator, IWorkbookPermission, UnsubscribeFn, WorkbookMode, WorkbookPermissionSnapshot } from './permission-types';
-import { IAuthzIoService, Inject, Injector, IPermissionService } from '@univerjs/core';
+import { IAuthzIoService, Inject, Injector, IPermissionService } from '@crabtable/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, shareReplay } from 'rxjs/operators';
 import { FPermission } from '../f-permission';
@@ -184,7 +184,7 @@ export class FWorkbookPermission implements IWorkbookPermission {
      * @returns {Promise<void>} A promise that resolves when the mode is set.
      * @example
      * ```ts
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook?.getWorkbookPermission();
      * await permission?.setMode('editor');
      * ```
@@ -289,7 +289,7 @@ export class FWorkbookPermission implements IWorkbookPermission {
      * @returns {Promise<void>} A promise that resolves when the mode is set.
      * @example
      * ```ts
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook?.getWorkbookPermission();
      * await permission?.setReadOnly();
      * ```
@@ -303,7 +303,7 @@ export class FWorkbookPermission implements IWorkbookPermission {
      * @returns {Promise<void>} A promise that resolves when the mode is set.
      * @example
      * ```ts
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook?.getWorkbookPermission();
      * await permission?.setEditable();
      * ```
@@ -317,7 +317,7 @@ export class FWorkbookPermission implements IWorkbookPermission {
      * @returns {boolean} true if the workbook can be edited, false otherwise.
      * @example
      * ```ts
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook?.getWorkbookPermission();
      * if (permission?.canEdit()) {
      *   console.log('Workbook is editable');
@@ -335,9 +335,9 @@ export class FWorkbookPermission implements IWorkbookPermission {
      * @returns {Promise<void>} A promise that resolves when the point is set.
      * @example
      * ```ts
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook?.getWorkbookPermission();
-     * await permission?.setPoint(univerAPI.Enum.WorkbookPermissionPoint.Print, false);
+     * await permission?.setPoint(crabtableAPI.Enum.WorkbookPermissionPoint.Print, false);
      * ```
      */
     async setPoint(point: WorkbookPermissionPoint, value: boolean): Promise<void> {
@@ -365,9 +365,9 @@ export class FWorkbookPermission implements IWorkbookPermission {
      * @returns {boolean} true if allowed, false if denied.
      * @example
      * ```ts
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook?.getWorkbookPermission();
-     * const canPrint = permission?.getPoint(univerAPI.Enum.WorkbookPermissionPoint.Print);
+     * const canPrint = permission?.getPoint(crabtableAPI.Enum.WorkbookPermissionPoint.Print);
      * console.log(canPrint);
      * ```
      */
@@ -388,7 +388,7 @@ export class FWorkbookPermission implements IWorkbookPermission {
      * @returns {WorkbookPermissionSnapshot} An object containing all permission point values.
      * @example
      * ```ts
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook?.getWorkbookPermission();
      * const snapshot = permission?.getSnapshot();
      * console.log(snapshot);
@@ -404,16 +404,16 @@ export class FWorkbookPermission implements IWorkbookPermission {
      * @returns {Promise<void>} A promise that resolves when the collaborators are set.
      * @example
      * ```ts
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook?.getWorkbookPermission();
      * await permission?.setCollaborators([
      *   {
      *     user: { userID: 'user1', name: 'John Doe', avatar: 'https://...' },
-     *     role: univerAPI.Enum.UnitRole.Editor
+     *     role: crabtableAPI.Enum.UnitRole.Editor
      *   },
      *   {
      *     user: { userID: 'user2', name: 'Jane Smith', avatar: '' },
-     *     role: univerAPI.Enum.UnitRole.Reader
+     *     role: crabtableAPI.Enum.UnitRole.Reader
      *   }
      * ]);
      * ```
@@ -452,11 +452,11 @@ export class FWorkbookPermission implements IWorkbookPermission {
      * @returns {Promise<void>} A promise that resolves when the collaborator is added.
      * @example
      * ```ts
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook?.getWorkbookPermission();
      * await permission?.addCollaborator(
      *   { userID: 'user1', name: 'John Doe', avatar: 'https://...' },
-     *   univerAPI.Enum.UnitRole.Editor
+     *   crabtableAPI.Enum.UnitRole.Editor
      * );
      * ```
      */
@@ -487,11 +487,11 @@ export class FWorkbookPermission implements IWorkbookPermission {
      * @returns {Promise<void>} A promise that resolves when the collaborator is updated.
      * @example
      * ```ts
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook?.getWorkbookPermission();
      * await permission?.updateCollaborator(
      *   { userID: 'user1', name: 'John Doe Updated', avatar: 'https://...' },
-     *   univerAPI.Enum.UnitRole.Reader
+     *   crabtableAPI.Enum.UnitRole.Reader
      * );
      * ```
      */
@@ -521,7 +521,7 @@ export class FWorkbookPermission implements IWorkbookPermission {
      * @returns {Promise<void>} A promise that resolves when the collaborator is removed.
      * @example
      * ```ts
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook?.getWorkbookPermission();
      * await permission?.removeCollaborator('user1');
      * ```
@@ -548,7 +548,7 @@ export class FWorkbookPermission implements IWorkbookPermission {
      * @returns {Promise<void>} A promise that resolves when the collaborators are removed.
      * @example
      * ```ts
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook?.getWorkbookPermission();
      * await permission?.removeCollaborators(['user1', 'user2']);
      * ```
@@ -564,7 +564,7 @@ export class FWorkbookPermission implements IWorkbookPermission {
      * @returns {Promise<ICollaborator[]>} Array of collaborators with their roles.
      * @example
      * ```ts
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook?.getWorkbookPermission();
      * const collaborators = await permission?.listCollaborators();
      * console.log(collaborators);
@@ -591,7 +591,7 @@ export class FWorkbookPermission implements IWorkbookPermission {
      * @returns {UnsubscribeFn} Unsubscribe function.
      * @example
      * ```ts
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook?.getWorkbookPermission();
      * const unsubscribe = permission?.subscribe((snapshot) => {
      *   console.log('Permission changed:', snapshot);

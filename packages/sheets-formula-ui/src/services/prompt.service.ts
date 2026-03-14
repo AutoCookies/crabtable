@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Direction, IDisposable } from '@univerjs/core';
-import type { IFunctionInfo, ISequenceNode } from '@univerjs/engine-formula';
-import type { ISearchItem } from '@univerjs/sheets-formula';
+import type { Direction, IDisposable } from '@crabtable/core';
+import type { IFunctionInfo, ISequenceNode } from '@crabtable/engine-formula';
+import type { ISearchItem } from '@crabtable/sheets-formula';
 import type { Observable } from 'rxjs';
-import { createIdentifier, IContextService } from '@univerjs/core';
-import { sequenceNodeType } from '@univerjs/engine-formula';
+import { createIdentifier, IContextService } from '@crabtable/core';
+import { sequenceNodeType } from '@crabtable/engine-formula';
 import { Subject } from 'rxjs';
 
 /** If the formula prompt is visible. */
@@ -271,7 +271,7 @@ export class FormulaPromptService implements IFormulaPromptService, IDisposable 
 
             if (strIndex <= nodeIndex) {
                 /**
-                 * =((|A1 and =|**，fix https://github.com/dream-num/univer/issues/1387
+                 * =((|A1 and =|**，fix https://github.com/AutoCookies/crabtable/issues/1387
                  */
                 if (typeof firstNode === 'string' && strIndex !== 0) {
                     return i + 1;

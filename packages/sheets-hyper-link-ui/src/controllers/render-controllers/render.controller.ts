@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
-import { Disposable, Inject, InterceptorEffectEnum } from '@univerjs/core';
-import { INTERCEPTOR_POINT, SheetInterceptorService } from '@univerjs/sheets';
-import { HyperLinkModel } from '@univerjs/sheets-hyper-link';
+import type { Workbook } from '@crabtable/core';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
+import { Disposable, Inject, InterceptorEffectEnum } from '@crabtable/core';
+import { INTERCEPTOR_POINT, SheetInterceptorService } from '@crabtable/sheets';
+import { HyperLinkModel } from '@crabtable/sheets-hyper-link';
 import { debounceTime } from 'rxjs';
 
 export class SheetsHyperLinkRenderController extends Disposable implements IRenderModule {

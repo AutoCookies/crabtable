@@ -16,36 +16,36 @@
 
 import type { Injector } from '../../common/di';
 import { describe, expect, it } from 'vitest';
-import { UniverInstanceType } from '../../common/unit';
-import { Univer } from '../../univer';
+import { CrabTableInstanceType } from '../../common/unit';
+import { CrabTable } from '../../univer';
 import { Plugin } from '../plugin/plugin.service';
 
 describe('plugin version check', () => {
     it('should allow registering plugin with same version as core', () => {
         class SameVersionPlugin extends Plugin {
             static override pluginName = 'same-version-plugin';
-            static override packageName = '@univerjs/same-version-plugin';
+            static override packageName = '@crabtable/same-version-plugin';
             static override version = Plugin.version;
-            static override type = UniverInstanceType.UNIVER_SHEET;
+            static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
             protected override _injector!: Injector;
         }
 
-        const univer = new Univer();
+        const univer = new CrabTable();
         expect(() => univer.registerPlugin(SameVersionPlugin)).not.toThrow();
     });
 
     it('should throw with package name when plugin version mismatches', () => {
         class MismatchVersionPlugin extends Plugin {
             static override pluginName = 'mismatch-version-plugin';
-            static override packageName = '@univerjs/mismatch-version-plugin';
+            static override packageName = '@crabtable/mismatch-version-plugin';
             static override version = '__MISMATCH_VERSION__';
-            static override type = UniverInstanceType.UNIVER_SHEET;
+            static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
             protected override _injector!: Injector;
         }
 
-        const univer = new Univer();
+        const univer = new CrabTable();
         expect(() => univer.registerPlugin(MismatchVersionPlugin)).toThrowError(
             /package "@univerjs\/mismatch-version-plugin" version mismatch/
         );

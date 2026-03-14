@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuButtonItem, IMenuSelectorItem } from '@univerjs/ui';
-import { FOCUSING_COMMON_DRAWINGS, IContextService, UniverInstanceType } from '@univerjs/core';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuButtonItem, IMenuSelectorItem } from '@crabtable/ui';
+import { CrabTableInstanceType, FOCUSING_COMMON_DRAWINGS, IContextService } from '@crabtable/core';
 import {
     AddWorksheetMergeAllCommand,
     AddWorksheetMergeCommand,
@@ -28,8 +28,8 @@ import {
     WorksheetEditPermission,
     WorksheetSetCellStylePermission,
     WorksheetSetCellValuePermission,
-} from '@univerjs/sheets';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { combineLatest, combineLatestWith, map, startWith } from 'rxjs';
 import { getSheetSelectionsDisabled$ } from '../controllers/utils/selections-tools';
 import { getCurrentRangeDisable$, getObservableWithExclusiveRange$ } from './menu-util';
@@ -45,7 +45,7 @@ export function CellMergeMenuItemFactory(accessor: IAccessor): IMenuSelectorItem
         type: MenuItemType.SUBITEMS,
         // selections: [...MERGE_CHILDREN],
         hidden$: combineLatest([
-            getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+            getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
             accessor.get(IContextService).subscribeContextValue$(FOCUSING_COMMON_DRAWINGS).pipe(startWith(false)),
         ]).pipe(map(([hidden, focusingDrawing]) => hidden || focusingDrawing)),
         disabled$: editDisabled$.pipe(
@@ -61,7 +61,7 @@ export function CellMergeAllMenuItemFactory(accessor: IAccessor): IMenuButtonIte
         type: MenuItemType.BUTTON,
         title: 'merge.all',
         icon: 'MergeAllIcon',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -71,7 +71,7 @@ export function CellMergeVerticalMenuItemFactory(accessor: IAccessor): IMenuButt
         type: MenuItemType.BUTTON,
         title: 'merge.vertical',
         icon: 'VerticalIntegrationIcon',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -81,7 +81,7 @@ export function CellMergeHorizontalMenuItemFactory(accessor: IAccessor): IMenuBu
         type: MenuItemType.BUTTON,
         title: 'merge.horizontal',
         icon: 'HorizontalMergeIcon',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -91,6 +91,6 @@ export function CellMergeCancelMenuItemFactory(accessor: IAccessor): IMenuButton
         type: MenuItemType.BUTTON,
         title: 'merge.cancel',
         icon: 'CancelMergeIcon',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }

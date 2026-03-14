@@ -16,11 +16,11 @@
 
 /* eslint-disable perfectionist/sort-imports */
 
-import type { IWorkbookData, Workbook } from '@univerjs/core';
-import { ICommandService, Inject, Injector, IUniverInstanceService, LocaleService, LocaleType, Plugin, RANGE_TYPE, UndoCommand, Univer, UniverInstanceType } from '@univerjs/core';
+import type { IWorkbookData, Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, Inject, Injector, LocaleService, LocaleType, Plugin, RANGE_TYPE, UndoCommand } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import type { ISetRangeValuesMutationParams } from '@univerjs/sheets';
-import { CopySheetCommand, InsertColByRangeCommand, InsertColMutation, InsertRowByRangeCommand, InsertSheetMutation, MoveColsCommand, MoveColsMutation, MoveRangeCommand, MoveRangeMutation, MoveRowsCommand, MoveRowsMutation, RefRangeService, RemoveColByRangeCommand, RemoveColCommand, RemoveColMutation, RemoveRowByRangeCommand, RemoveRowCommand, RemoveRowMutation, SetRangeValuesMutation, SetSelectionsOperation, SheetInterceptorService, SheetLazyExecuteScheduleService, SheetRangeThemeModel, SheetsSelectionsService, ZebraCrossingCacheController } from '@univerjs/sheets';
+import type { ISetRangeValuesMutationParams } from '@crabtable/sheets';
+import { CopySheetCommand, InsertColByRangeCommand, InsertColMutation, InsertRowByRangeCommand, InsertSheetMutation, MoveColsCommand, MoveColsMutation, MoveRangeCommand, MoveRangeMutation, MoveRowsCommand, MoveRowsMutation, RefRangeService, RemoveColByRangeCommand, RemoveColCommand, RemoveColMutation, RemoveRowByRangeCommand, RemoveRowCommand, RemoveRowMutation, SetRangeValuesMutation, SetSelectionsOperation, SheetInterceptorService, SheetLazyExecuteScheduleService, SheetRangeThemeModel, SheetsSelectionsService, ZebraCrossingCacheController } from '@crabtable/sheets';
 import { SHEET_FILTER_SNAPSHOT_ID, SheetsFilterService } from '../../services/sheet-filter.service';
 import { SheetsFilterController } from '../sheets-filter.controller';
 import { SetSheetsFilterCriteriaMutation } from '../../commands/mutations/sheets-filter.mutation';
@@ -118,12 +118,12 @@ function testWorkbookDataWithFilterFactory(): IWorkbookData {
 }
 
 function createFilterControllerTestBed(workbookData?: IWorkbookData) {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
     class SheetsFilterTestPlugin extends Plugin {
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
         static override pluginName = 'SheetsFilterTestPlugin';
 
         constructor(_config: unknown, @Inject(Injector) protected readonly _injector: Injector) {
@@ -148,7 +148,7 @@ function createFilterControllerTestBed(workbookData?: IWorkbookData) {
 
     univer.registerPlugin(SheetsFilterTestPlugin);
 
-    const sheet = univer.createUnit(UniverInstanceType.UNIVER_SHEET, workbookData ?? testWorkbookDataWithFilterFactory());
+    const sheet = univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, workbookData ?? testWorkbookDataWithFilterFactory());
 
     const sheetsFilterService = get(SheetsFilterService);
     const commandService = get(ICommandService);
@@ -186,11 +186,11 @@ function createFilterControllerTestBed(workbookData?: IWorkbookData) {
 }
 
 describe('test controller of sheets filter', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let sheetsFilterService: SheetsFilterService;
-    let instanceService: IUniverInstanceService;
+    let instanceService: ICrabTableInstanceService;
 
     beforeEach(() => {
         const testBed = createFilterControllerTestBed();
@@ -201,7 +201,7 @@ describe('test controller of sheets filter', () => {
 
         commandService = get(ICommandService);
         sheetsFilterService = get(SheetsFilterService);
-        instanceService = get(IUniverInstanceService);
+        instanceService = get(ICrabTableInstanceService);
         instanceService.setCurrentUnitForType('test');
         instanceService.focusUnit('test');
     });
@@ -234,7 +234,7 @@ describe('test controller of sheets filter', () => {
             expect(result).toBeTruthy();
             expect((sheetsFilterService as SheetsFilterService).getFilterModel('test', 'sheet1')!.getRange())
                 .toEqual({ startRow: 3, startColumn: 0, endRow: 5, endColumn: 5 });
-            const workbook = instanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+            const workbook = instanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
             expect(workbook.getSheetBySheetId('sheet1')?.getCell(0, 0)?.v).toBe('A2');
             expect(workbook.getSheetBySheetId('sheet1')?.getCell(1, 0)?.v).toBe('A1');
         });
@@ -388,7 +388,7 @@ describe('test controller of sheets filter', () => {
                 subUnitId: 'sheet1',
             });
             expect(res).toBeTruthy();
-            const workbook = instanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+            const workbook = instanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
             const sheet2 = workbook.getSheets()[1];
             const filterModel = (sheetsFilterService as SheetsFilterService).getFilterModel('test', sheet2.getSheetId());
             expect(filterModel).toBeTruthy();

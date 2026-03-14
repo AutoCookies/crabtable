@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
-import type { IRemoveRowColCommandParams } from '@univerjs/sheets';
-import { CommandType, ICommandService, IConfirmService, IUniverInstanceService, LocaleService } from '@univerjs/core';
-import { getSheetCommandTarget, RemoveColCommand, RemoveRowCommand, SheetsSelectionsService } from '@univerjs/sheets';
+import type { IAccessor, ICommand } from '@crabtable/core';
+import type { IRemoveRowColCommandParams } from '@crabtable/sheets';
+import { CommandType, ICommandService, IConfirmService, ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { getSheetCommandTarget, RemoveColCommand, RemoveRowCommand, SheetsSelectionsService } from '@crabtable/sheets';
 
 import { isAllColumnsCovered, isAllRowsCovered } from './utils/selection-utils';
 
@@ -36,9 +36,9 @@ export const RemoveRowConfirmCommand: ICommand = {
         }
 
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const target = getSheetCommandTarget(univerInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { worksheet } = target;
@@ -81,9 +81,9 @@ export const RemoveColConfirmCommand: ICommand = {
         }
 
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const target = getSheetCommandTarget(univerInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { worksheet } = target;

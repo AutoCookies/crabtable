@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { LocaleType, LogLevel, Univer } from '@univerjs/core';
-import { UniverFormulaEnginePlugin } from '@univerjs/engine-formula';
-import { UniverRPCWorkerThreadPlugin } from '@univerjs/rpc';
-import { UniverSheetsPlugin } from '@univerjs/sheets';
+import { CrabTable, LocaleType, LogLevel } from '@crabtable/core';
+import { UniverFormulaEnginePlugin } from '@crabtable/engine-formula';
+import { UniverRPCWorkerThreadPlugin } from '@crabtable/rpc';
+import { UniverSheetsPlugin } from '@crabtable/sheets';
 
-// Univer web worker is also a univer application.
-const univer = new Univer({
+// CrabTable web worker is also a univer application.
+const univer = new CrabTable({
     locale: LocaleType.ZH_CN,
     logLevel: LogLevel.VERBOSE,
 });
@@ -29,5 +29,5 @@ univer.registerPlugin(UniverSheetsPlugin, { onlyRegisterFormulaRelatedMutations:
 univer.registerPlugin(UniverFormulaEnginePlugin);
 univer.registerPlugin(UniverRPCWorkerThreadPlugin);
 
-declare let self: WorkerGlobalScope & typeof globalThis & { univer: Univer };
+declare let self: WorkerGlobalScope & typeof globalThis & { univer: CrabTable };
 self.univer = univer;

@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IDisposable, IDrawingSearch, Nullable } from '@univerjs/core';
-import type { IDocFloatDom } from '@univerjs/docs-drawing';
-import type { ISetDocZoomRatioOperationParams } from '@univerjs/docs-ui';
-import type { IDocFloatDomDataBase } from '@univerjs/drawing';
-import type { IBoundRectNoAngle, IRender, Rect, Scene } from '@univerjs/engine-render';
-import type { IFloatDomLayout } from '@univerjs/ui';
+import type { DocumentDataModel, IDisposable, IDrawingSearch, Nullable } from '@crabtable/core';
+import type { IDocFloatDom } from '@crabtable/docs-drawing';
+import type { ISetDocZoomRatioOperationParams } from '@crabtable/docs-ui';
+import type { IDocFloatDomDataBase } from '@crabtable/drawing';
+import type { IBoundRectNoAngle, IRender, Rect, Scene } from '@crabtable/engine-render';
+import type { IFloatDomLayout } from '@crabtable/ui';
 import type { IInsertDrawingCommandParams } from '../commands/commands/interfaces';
-import { Disposable, DisposableCollection, DrawingTypeEnum, fromEventSubject, generateRandomId, ICommandService, Inject, IUniverInstanceService, ObjectRelativeFromH, ObjectRelativeFromV, PositionedObjectLayoutType, toDisposable, UniverInstanceType } from '@univerjs/core';
-import { DocSkeletonManagerService } from '@univerjs/docs';
-import { docDrawingPositionToTransform, SetDocZoomRatioOperation, VIEWPORT_KEY } from '@univerjs/docs-ui';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { DrawingRenderService } from '@univerjs/drawing-ui';
-import { CURSOR_TYPE, IRenderManagerService } from '@univerjs/engine-render';
-import { CanvasFloatDomService } from '@univerjs/ui';
+import { CrabTableInstanceType, Disposable, DisposableCollection, DrawingTypeEnum, fromEventSubject, generateRandomId, ICommandService, ICrabTableInstanceService, Inject, ObjectRelativeFromH, ObjectRelativeFromV, PositionedObjectLayoutType, toDisposable } from '@crabtable/core';
+import { DocSkeletonManagerService } from '@crabtable/docs';
+import { docDrawingPositionToTransform, SetDocZoomRatioOperation, VIEWPORT_KEY } from '@crabtable/docs-ui';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { DrawingRenderService } from '@crabtable/drawing-ui';
+import { CURSOR_TYPE, IRenderManagerService } from '@crabtable/engine-render';
+import { CanvasFloatDomService } from '@crabtable/ui';
 import { BehaviorSubject, map, of, switchMap } from 'rxjs';
 import { InsertDocDrawingCommand } from '../commands/commands/insert-doc-drawing.command';
 
@@ -87,7 +87,7 @@ export class DocFloatDomController extends Disposable {
         @IDrawingManagerService private readonly _drawingManagerService: IDrawingManagerService,
         @Inject(DrawingRenderService) private readonly _drawingRenderService: DrawingRenderService,
         @Inject(CanvasFloatDomService) private readonly _canvasFloatDomService: CanvasFloatDomService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService
     ) {
         super();
@@ -141,7 +141,7 @@ export class DocFloatDomController extends Disposable {
     private _insertRects(params: IDrawingSearch[]) {
         (params).forEach(async (param) => {
             const { unitId } = param;
-            const documentDataModel = this._univerInstanceService.getUnit(unitId, UniverInstanceType.UNIVER_DOC);
+            const documentDataModel = this._crabtableInstanceService.getUnit(unitId, CrabTableInstanceType.CRABTABLE_DOC);
             if (!documentDataModel) {
                 return;
             }
@@ -260,7 +260,7 @@ export class DocFloatDomController extends Disposable {
         };
 
         this.disposeWithMe(
-            this._univerInstanceService.getCurrentTypeOfUnit$<DocumentDataModel>(UniverInstanceType.UNIVER_DOC).pipe(
+            this._crabtableInstanceService.getCurrentTypeOfUnit$<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC).pipe(
                 map((documentDataModel) => {
                     if (!documentDataModel) return null;
                     const unitId = documentDataModel.getUnitId();
@@ -290,7 +290,7 @@ export class DocFloatDomController extends Disposable {
     }
 
     insertFloatDom(floatDom: IDocFloatDomParams, opts: { width?: number; height: number; drawingId?: string }) {
-        const currentDoc = this._univerInstanceService.getCurrentUnitOfType(UniverInstanceType.UNIVER_DOC);
+        const currentDoc = this._crabtableInstanceService.getCurrentUnitOfType(CrabTableInstanceType.CRABTABLE_DOC);
         if (!currentDoc) return false;
         const render = this._getSceneAndTransformerByDrawingSearch(currentDoc.getUnitId());
         if (!render) return false;

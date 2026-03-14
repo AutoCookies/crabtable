@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
+import type { IRange } from '@crabtable/core';
 import type { INumfmtService } from './type';
 
 import {
     Disposable,
+    ICrabTableInstanceService,
     ILogService,
     IResourceManagerService,
-    IUniverInstanceService,
     Range,
-} from '@univerjs/core';
+} from '@crabtable/core';
 
 export class NumfmtService extends Disposable implements INumfmtService {
     constructor(
         @IResourceManagerService private _resourceManagerService: IResourceManagerService,
-        @IUniverInstanceService private _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private _crabtableInstanceService: ICrabTableInstanceService,
         @ILogService private _logService: ILogService
     ) {
         super();
     }
 
     getValue(unitId: string, subUnitId: string, row: number, col: number) {
-        const workbook = this._univerInstanceService.getUniverSheetInstance(unitId);
+        const workbook = this._crabtableInstanceService.getCrabTableSheetInstance(unitId);
         if (!workbook) {
             return;
         }
@@ -55,7 +55,7 @@ export class NumfmtService extends Disposable implements INumfmtService {
     }
 
     deleteValues(unitId: string, subUnitId: string, values: IRange[]) {
-        const workbook = this._univerInstanceService.getUniverSheetInstance(unitId);
+        const workbook = this._crabtableInstanceService.getCrabTableSheetInstance(unitId);
         if (!workbook) {
             return;
         }
@@ -86,7 +86,7 @@ export class NumfmtService extends Disposable implements INumfmtService {
         subUnitId: string,
         values: Array<{ ranges: IRange[]; pattern: string }>
     ) {
-        const workbook = this._univerInstanceService.getUniverSheetInstance(unitId);
+        const workbook = this._crabtableInstanceService.getCrabTableSheetInstance(unitId);
         if (!workbook) {
             return;
         }

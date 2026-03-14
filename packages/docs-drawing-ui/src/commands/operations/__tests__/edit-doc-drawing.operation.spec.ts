@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IDrawingSearch } from '@univerjs/core';
-import { ICommandService } from '@univerjs/core';
-import { IDrawingManagerService } from '@univerjs/drawing';
+import type { IAccessor, IDrawingSearch } from '@crabtable/core';
+import { ICommandService } from '@crabtable/core';
+import { IDrawingManagerService } from '@crabtable/drawing';
 import { describe, expect, it, vi } from 'vitest';
 import { EditDocDrawingOperation } from '../edit-doc-drawing.operation';
 import { SidebarDocDrawingOperation } from '../open-drawing-panel.operation';

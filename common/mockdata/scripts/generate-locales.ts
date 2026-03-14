@@ -69,7 +69,7 @@ async function generateLocales() {
     fs.writeJsonSync(path.resolve(__dirname, '../package.json'), pkgJsonFile, { spaces: 4, EOL: '\n' });
 
     locales.forEach((locale) => {
-        let statements = '/* eslint-disable */\n' + 'import { mergeLocales } from \'@univerjs/core\';\n\n';
+        let statements = '/* eslint-disable */\n' + 'import { mergeLocales } from \'@crabtable/core\';\n\n';
 
         packageNames.forEach((pkg) => {
             const pkgName = pkg.replace(/@|univerjs|\/|-/g, '');

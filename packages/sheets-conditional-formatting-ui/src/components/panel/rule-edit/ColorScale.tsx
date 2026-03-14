@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { IColorScale, IConditionalFormattingRuleConfig } from '@univerjs/sheets-conditional-formatting';
-import type { IFormulaEditorRef } from '@univerjs/sheets-formula-ui';
+import type { Workbook } from '@crabtable/core';
+import type { IColorScale, IConditionalFormattingRuleConfig } from '@crabtable/sheets-conditional-formatting';
+import type { IFormulaEditorRef } from '@crabtable/sheets-formula-ui';
 import type { IStyleEditorProps } from './type';
-import { IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
-import { borderClassName, clsx, InputNumber, Select } from '@univerjs/design';
-import { CFRuleType, CFValueType, createDefaultValueByValueType } from '@univerjs/sheets-conditional-formatting';
-import { FormulaEditor } from '@univerjs/sheets-formula-ui';
-import { useDependency, useSidebarClick } from '@univerjs/ui';
+import { CrabTableInstanceType, ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { borderClassName, clsx, InputNumber, Select } from '@crabtable/design';
+import { CFRuleType, CFValueType, createDefaultValueByValueType } from '@crabtable/sheets-conditional-formatting';
+import { FormulaEditor } from '@crabtable/sheets-formula-ui';
+import { useDependency, useSidebarClick } from '@crabtable/ui';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ColorPicker } from '../../color-picker';
 import { Preview } from '../../preview';
@@ -32,9 +32,9 @@ const createOptionItem = (text: string, localeService: LocaleService) => ({ labe
 
 const TextInput = (props: { id: string; type: CFValueType | 'none'; value: number | string; onChange: (v: number | string) => void; className: string }) => {
     const { type, className, onChange, id, value } = props;
-    const univerInstanceService = useDependency(IUniverInstanceService);
-    const unitId = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getUnitId();
-    const subUnitId = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()?.getSheetId();
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
+    const unitId = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getUnitId();
+    const subUnitId = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()?.getSheetId();
     const formulaInitValue = useMemo(() => {
         return String(value).startsWith('=') ? String(value) : '=';
     }, [value]);

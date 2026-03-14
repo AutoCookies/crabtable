@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IDocumentStyle } from '@univerjs/core';
+import type { IDocumentStyle } from '@crabtable/core';
 import type { IHeaderFooterProps } from '../../../commands/commands/doc-header-footer.command';
-import { BooleanNumber, generateRandomId, ICommandService, IUniverInstanceService, LocaleService } from '@univerjs/core';
-import { Button, Checkbox, InputNumber } from '@univerjs/design';
-import { DocSkeletonManagerService } from '@univerjs/docs';
-import { DocumentEditArea, IRenderManagerService } from '@univerjs/engine-render';
-import { ILayoutService, useDependency } from '@univerjs/ui';
+import { BooleanNumber, generateRandomId, ICommandService, ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { Button, Checkbox, InputNumber } from '@crabtable/design';
+import { DocSkeletonManagerService } from '@crabtable/docs';
+import { DocumentEditArea, IRenderManagerService } from '@crabtable/engine-render';
+import { ILayoutService, useDependency } from '@crabtable/ui';
 import { useEffect, useState } from 'react';
 import { CloseHeaderFooterCommand, CoreHeaderFooterCommandId } from '../../../commands/commands/doc-header-footer.command';
 import { DocSelectionRenderService } from '../../../services/selection/doc-selection-render.service';
@@ -66,7 +66,7 @@ export interface IDocHeaderFooterOptionsProps {
 
 export const DocHeaderFooterOptions = (props: IDocHeaderFooterOptionsProps) => {
     const localeService = useDependency(LocaleService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const renderManagerService = useDependency(IRenderManagerService);
     const commandService = useDependency(ICommandService);
 
@@ -84,7 +84,7 @@ export const DocHeaderFooterOptions = (props: IDocHeaderFooterOptionsProps) => {
             [type]: val ? BooleanNumber.TRUE : BooleanNumber.FALSE,
         }));
 
-        const docDataModel = univerInstanceService.getUniverDocInstance(unitId);
+        const docDataModel = crabtableInstanceService.getUniverDocInstance(unitId);
         const documentStyle = docDataModel?.getSnapshot().documentStyle;
         const docSkeletonManagerService = renderManagerService.getRenderById(unitId)?.with(DocSkeletonManagerService);
         const viewModel = docSkeletonManagerService?.getViewModel();
@@ -190,7 +190,7 @@ export const DocHeaderFooterOptions = (props: IDocHeaderFooterOptionsProps) => {
     };
 
     useEffect(() => {
-        const docDataModel = univerInstanceService.getUniverDocInstance(unitId);
+        const docDataModel = crabtableInstanceService.getUniverDocInstance(unitId);
         const documentStyle = docDataModel?.getSnapshot().documentStyle;
 
         if (documentStyle) {

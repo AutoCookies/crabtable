@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Nullable } from '@univerjs/core';
+import type { IDisposable, Nullable } from '@crabtable/core';
 import type { MutableRefObject } from 'react';
-import { DisposableCollection, LocaleService, ThemeService, toDisposable } from '@univerjs/core';
-import { Button, MessageType } from '@univerjs/design';
-import { IMessageService, IShortcutService, useDependency } from '@univerjs/ui';
+import { DisposableCollection, LocaleService, ThemeService, toDisposable } from '@crabtable/core';
+import { Button, MessageType } from '@crabtable/design';
+import { IMessageService, IShortcutService, useDependency } from '@crabtable/ui';
 import { editor } from 'monaco-editor';
 import { useCallback, useEffect, useRef } from 'react';
 import { ScriptEditorService } from '../../services/script-editor.service';

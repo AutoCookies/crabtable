@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { LocaleService } from '@univerjs/core';
-import { useDependency } from '@univerjs/ui';
+import { LocaleService } from '@crabtable/core';
+import { useDependency } from '@crabtable/ui';
 
 export const QuickInsertPlaceholderComponentKey = 'docs.quick.insert.placeholder';
 

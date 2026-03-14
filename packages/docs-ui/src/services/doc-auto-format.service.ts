@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommandInfo, ICustomRange, IDisposable, IParagraphRange, Nullable } from '@univerjs/core';
-import type { ITextRangeWithStyle } from '@univerjs/engine-render';
-import { BuildTextUtils, Disposable, Inject, IUniverInstanceService, toDisposable, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
+import type { DocumentDataModel, ICommandInfo, ICustomRange, IDisposable, IParagraphRange, Nullable } from '@crabtable/core';
+import type { ITextRangeWithStyle } from '@crabtable/engine-render';
+import { BuildTextUtils, CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject, toDisposable } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
 
 export interface IAutoFormatContext {
     unit: DocumentDataModel;
@@ -52,7 +52,7 @@ export interface IAutoFormat {
 export class DocAutoFormatService extends Disposable {
     private _matches: Map<string, IAutoFormat[]> = new Map();
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(DocSelectionManagerService) private readonly _textSelectionManagerService: DocSelectionManagerService
     ) {
         super();
@@ -80,7 +80,7 @@ export class DocAutoFormatService extends Disposable {
 
     onAutoFormat(id: string, params: Nullable<object>): ICommandInfo[] {
         const autoFormats = this._matches.get(id) ?? [];
-        const unit = this._univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const unit = this._crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         const docRanges = this._textSelectionManagerService.getDocRanges();
         const selection = docRanges.find((range) => range.isActive) ?? docRanges[0];
 

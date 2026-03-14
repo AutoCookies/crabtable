@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IOperation, SlideDataModel } from '@univerjs/core';
-import { CommandType, IUniverInstanceService } from '@univerjs/core';
+import type { IAccessor, IOperation, SlideDataModel } from '@crabtable/core';
+import { CommandType, ICrabTableInstanceService } from '@crabtable/core';
 import { CanvasView } from '../../controllers/canvas-view';
 
 export interface IActiveSlidePageOperationParams {
@@ -28,10 +28,10 @@ export const ActivateSlidePageOperation: IOperation<IActiveSlidePageOperationPar
     handler: (accessor: IAccessor, params: IActiveSlidePageOperationParams) => {
         const unitId = params.unitId;
         const canvasView = accessor.get(CanvasView);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        // const model = univerInstanceService.getCurrentUnitForType<SlideDataModel>(UniverInstanceType.UNIVER_SLIDE);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        // const model = crabtableInstanceService.getCurrentUnitForType<SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE);
 
-        const model = univerInstanceService.getUnit<SlideDataModel>(unitId);
+        const model = crabtableInstanceService.getUnit<SlideDataModel>(unitId);
         const pageId = model?.getActivePage()?.id;
 
         if (!pageId) return false;

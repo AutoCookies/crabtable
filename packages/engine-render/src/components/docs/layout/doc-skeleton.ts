@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ColumnSeparatorType, ISectionColumnProperties, LocaleService, Nullable } from '@univerjs/core';
+import type { ColumnSeparatorType, ISectionColumnProperties, LocaleService, Nullable } from '@crabtable/core';
 import type {
     IDocumentSkeletonCached,
     IDocumentSkeletonGlyph,
@@ -25,7 +25,7 @@ import type { IDocsConfig, INodeInfo, INodePosition, INodeSearch } from '../../.
 import type { IViewportInfo, Vector2 } from '../../../basics/vector2';
 import type { DocumentViewModel } from '../view-model/document-view-model';
 import type { ILayoutContext } from './tools';
-import { PRESET_LIST_TYPE, SectionType, Skeleton } from '@univerjs/core';
+import { PRESET_LIST_TYPE, SectionType, Skeleton } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { DocumentSkeletonPageType, GlyphType, LineType, PageLayoutType } from '../../../basics/i-document-skeleton-cached';
 import { Liquid } from '../liquid';

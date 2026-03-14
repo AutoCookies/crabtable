@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
-import { Disposable, Inject, Injector } from '@univerjs/core';
-import { IMenuManagerService } from '@univerjs/ui';
+import type { IDisposable } from '@crabtable/core';
+import { Disposable, Inject, Injector } from '@crabtable/core';
+import { IMenuManagerService } from '@crabtable/ui';
 import { menuSchema } from './schema';
 
 export class ConditionalFormattingMenuController extends Disposable {

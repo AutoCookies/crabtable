@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { CellValueType, IDocumentData, IPaddingData, IStyleBase, IStyleData, ITextRotation, ITextStyle, Nullable, TextDirection } from '@univerjs/core';
-import { DEFAULT_EMPTY_DOCUMENT_VALUE, DocumentDataModel, HorizontalAlign, VerticalAlign, WrapStrategy } from '@univerjs/core';
+import type { CellValueType, IDocumentData, IPaddingData, IStyleBase, IStyleData, ITextRotation, ITextStyle, Nullable, TextDirection } from '@crabtable/core';
+import { DEFAULT_EMPTY_DOCUMENT_VALUE, DocumentDataModel, HorizontalAlign, VerticalAlign, WrapStrategy } from '@crabtable/core';
 import { convertTextRotation } from '../../basics/text-rotation';
 import { DEFAULT_PADDING_DATA } from './sheet.render-skeleton';
 

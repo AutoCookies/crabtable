@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import { IContextService } from '@univerjs/core';
+import type { IAccessor } from '@crabtable/core';
+import { IContextService } from '@crabtable/core';
 import { IRefSelectionsService } from '../../services/selections/ref-selections.service';
 import { REF_SELECTIONS_ENABLED, SheetsSelectionsService } from '../../services/selections/selection.service';
 

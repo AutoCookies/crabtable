@@ -1,28 +1,28 @@
-# @univerjs/sheets-note
+# @crabtable/sheets-note
 
 | Package | Description | Version | License | Downloads | Continuous Integration | Coverage |
 |---------|-------------|---------|----------|-----------|----------------------|----------|
-| `@univerjs/sheets-note` | `UniverSheetsNote` | [![][npm-version-shield]][npm-version-link] | ![][npm-license-shield] | ![][npm-downloads-shield] | ❌ | ❌ |
+| `@crabtable/sheets-note` | `UniverSheetsNote` | [![][npm-version-shield]][npm-version-link] | ![][npm-license-shield] | ![][npm-downloads-shield] | ❌ | ❌ |
 
 ## Introduction
 
-`@univerjs/sheets-note` core package for sheet note. For using, please refer to [@univerjs/sheets-note](../sheets-note/README.md)
+`@crabtable/sheets-note` core package for sheet note. For using, please refer to [@crabtable/sheets-note](../sheets-note/README.md)
 
 ## Usage
 
 ### Installation
 
 ```shell
-npm install @univerjs/sheets-note
+npm install @crabtable/sheets-note
 ```
 
 or
 
 ```shell
-pnpm add @univerjs/sheets-note
+yarn add @crabtable/sheets-note
 ```
 
-[npm-version-shield]: https://img.shields.io/npm/v/@univerjs/sheets-note?style=flat-square
-[npm-version-link]: https://npmjs.com/package/@univerjs/sheets-note
-[npm-license-shield]: https://img.shields.io/npm/l/@univerjs/sheets-note?style=flat-square
-[npm-downloads-shield]: https://img.shields.io/npm/dm/@univerjs/sheets-note?style=flat-square
+[npm-version-shield]: https://img.shields.io/npm/v/@crabtable/sheets-note?style=flat-square
+[npm-version-link]: https://npmjs.com/package/@crabtable/sheets-note
+[npm-license-shield]: https://img.shields.io/npm/l/@crabtable/sheets-note?style=flat-square
+[npm-downloads-shield]: https://img.shields.io/npm/dm/@crabtable/sheets-note?style=flat-square

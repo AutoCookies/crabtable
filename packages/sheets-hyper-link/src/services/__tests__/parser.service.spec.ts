@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-import type { IRange, IWorkbookData, Workbook } from '@univerjs/core';
+import type { IRange, IWorkbookData, Workbook } from '@crabtable/core';
 import {
-    IUniverInstanceService,
+    CrabTableInstanceType,
+    ICrabTableInstanceService,
     LocaleService,
     LocaleType,
-    Univer,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { DefinedNamesService, IDefinedNamesService } from '@univerjs/engine-formula';
+} from '@crabtable/core';
+import { DefinedNamesService, IDefinedNamesService } from '@crabtable/engine-formula';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { ERROR_RANGE } from '../../types/const';
 import { SheetHyperLinkType } from '../../types/enums/hyper-link-type';
@@ -53,12 +52,12 @@ function createWorkbookData(unitId = 'book-1', sheetId = 'sheet-1'): IWorkbookDa
 }
 
 describe('SheetsHyperLinkParserService', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let service: SheetsHyperLinkParserService;
     let localeService: LocaleService;
 
     beforeEach(() => {
-        univer = new Univer();
+        univer = new CrabTable();
 
         const injector = univer.__getInjector();
         injector.add([IDefinedNamesService, { useClass: DefinedNamesService }]);
@@ -97,7 +96,7 @@ describe('SheetsHyperLinkParserService', () => {
     });
 
     it('should parse external URLs as url links', () => {
-        const url = 'https://univer.ai';
+        const url = 'https://crabtable.dev';
 
         expect(service.parseHyperLink(url)).toEqual({
             type: SheetHyperLinkType.URL,
@@ -108,9 +107,9 @@ describe('SheetsHyperLinkParserService', () => {
     });
 
     it('should parse range links from the focused workbook when unitid is absent', () => {
-        const workbook = univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, createWorkbookData());
-        const univerInstanceService = univer.__getInjector().get(IUniverInstanceService);
-        univerInstanceService.focusUnit(workbook.getUnitId());
+        const workbook = univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, createWorkbookData());
+        const crabtableInstanceService = univer.__getInjector().get(ICrabTableInstanceService);
+        crabtableInstanceService.focusUnit(workbook.getUnitId());
 
         const url = '#gid=sheet-1&range=A1:B2';
         expect(service.parseHyperLink(url)).toEqual({
@@ -127,7 +126,7 @@ describe('SheetsHyperLinkParserService', () => {
     });
 
     it('should parse defined name links through the real defined names service', () => {
-        const workbook = univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, createWorkbookData());
+        const workbook = univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, createWorkbookData());
         const definedNamesService = univer.__getInjector().get(IDefinedNamesService);
 
         definedNamesService.registerDefinedName(workbook.getUnitId(), {
@@ -151,7 +150,7 @@ describe('SheetsHyperLinkParserService', () => {
     });
 
     it('should parse sheet links by sheet id', () => {
-        const workbook = univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, createWorkbookData());
+        const workbook = univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, createWorkbookData());
 
         const url = `#gid=sheet-1&unitid=${workbook.getUnitId()}`;
         expect(service.parseHyperLink(url)).toEqual({
@@ -168,7 +167,7 @@ describe('SheetsHyperLinkParserService', () => {
     });
 
     it('should return invalid for missing workbook, invalid range and missing defined names', () => {
-        univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, createWorkbookData());
+        univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, createWorkbookData());
 
         expect(service.parseHyperLink('#gid=sheet-1&range=A1&unitid=missing').type).toBe(SheetHyperLinkType.INVALID);
         expect(service.parseHyperLink(`#gid=sheet-1&range=${ERROR_RANGE}&unitid=book-1`).type).toBe(SheetHyperLinkType.INVALID);

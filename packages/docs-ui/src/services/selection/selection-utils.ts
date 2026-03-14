@@ -30,11 +30,11 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import type { Documents, DocumentSkeleton, Engine, IDocumentSkeletonGlyph, INodePosition, IRectRangeWithStyle, ITextRangeWithStyle, ITextSelectionStyle, Scene } from '@univerjs/engine-render';
+import type { Nullable } from '@crabtable/core';
+import type { Documents, DocumentSkeleton, Engine, IDocumentSkeletonGlyph, INodePosition, IRectRangeWithStyle, ITextRangeWithStyle, ITextSelectionStyle, Scene } from '@crabtable/engine-render';
 import type { IDocRange } from './range-interface';
-import { RANGE_DIRECTION, Tools } from '@univerjs/core';
-import { getOffsetRectForDom } from '@univerjs/engine-render';
+import { RANGE_DIRECTION, Tools } from '@crabtable/core';
+import { getOffsetRectForDom } from '@crabtable/engine-render';
 import { isInSameTableCell, isInSameTableCellData, isValidRectRange } from './convert-rect-range';
 import { convertPositionsToRectRanges, RectRange } from './rect-range';
 import { TextRange } from './text-range';
@@ -255,7 +255,7 @@ export function getRangeListFromSelection(
                 }
             }
 
-            // TO fix https://github.com/dream-num/univer-pro/issues/3437.
+            // TO fix https://github.com/AutoCookies/crabtable-pro/issues/3437.
             if (end === endIndex + 1 && !endInTable && nextParagraph && nextParagraph.children.length) {
                 end = endIndex;
                 endInTable = true;

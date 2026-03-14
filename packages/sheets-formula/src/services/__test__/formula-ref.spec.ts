@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IRange, IWorkbookData } from '@univerjs/core';
+import type { IRange, IWorkbookData } from '@crabtable/core';
 import type { ITestBed } from './util';
-import { Direction, ICommandService, LocaleType } from '@univerjs/core';
-import { InsertColCommand, MoveRangeCommand, RemoveColCommand } from '@univerjs/sheets';
+import { Direction, ICommandService, LocaleType } from '@crabtable/core';
+import { InsertColCommand, MoveRangeCommand, RemoveColCommand } from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { FormulaRefRangeService } from '../formula-ref-range.service';
 import { createCommandTestBed } from './util';

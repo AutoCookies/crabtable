@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { BooleanNumber } from '@univerjs/core';
+import type { BooleanNumber } from '@crabtable/core';
 
 import type { FUNCTION_NAMES_ARRAY } from '../functions/array/function-names';
 import type { FUNCTION_NAMES_COMPATIBILITY } from '../functions/compatibility/function-names';

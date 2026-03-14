@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { INumfmtLocaleTag } from '@univerjs/core';
-import { SheetsNumfmtCellContentController } from '@univerjs/sheets-numfmt';
-import { FWorkbook } from '@univerjs/sheets/facade';
+import type { INumfmtLocaleTag } from '@crabtable/core';
+import { SheetsNumfmtCellContentController } from '@crabtable/sheets-numfmt';
+import { FWorkbook } from '@crabtable/sheets/facade';
 
 export interface IFWorkbookNumfmtMixin {
     /**
@@ -26,7 +26,7 @@ export interface IFWorkbookNumfmtMixin {
      * @memberof IFWorkbookNumfmtMixin
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1');
      * fRange.setValue(1234.567).setNumberFormat('#,##0.00');
@@ -50,7 +50,7 @@ export class FWorkbookLegacy extends FWorkbook implements IFWorkbookNumfmtMixin 
     }
 }
 FWorkbook.extend(FWorkbookLegacy);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FWorkbook extends IFWorkbookNumfmtMixin { }
 }

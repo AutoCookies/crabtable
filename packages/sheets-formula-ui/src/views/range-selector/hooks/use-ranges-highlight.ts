@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { Nullable, Workbook } from '@univerjs/core';
-import type { Editor } from '@univerjs/docs-ui';
-import type { ISequenceNode } from '@univerjs/engine-formula';
-import { ColorKit, DisposableCollection, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { deserializeRangeWithSheet, LexerTreeBuilder } from '@univerjs/engine-formula';
-import { IMarkSelectionService } from '@univerjs/sheets-ui';
-import { useDependency, useObservable } from '@univerjs/ui';
+import type { Nullable, Workbook } from '@crabtable/core';
+import type { Editor } from '@crabtable/docs-ui';
+import type { ISequenceNode } from '@crabtable/engine-formula';
+import { ColorKit, CrabTableInstanceType, DisposableCollection, ICrabTableInstanceService } from '@crabtable/core';
+import { deserializeRangeWithSheet, LexerTreeBuilder } from '@crabtable/engine-formula';
+import { IMarkSelectionService } from '@crabtable/sheets-ui';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { useEffect, useRef, useState } from 'react';
 import { useDocHight } from '../../formula-editor/hooks/use-highlight';
 
@@ -31,7 +31,7 @@ export function useRangesHighlight(editor: Nullable<Editor>, focusing: boolean, 
     const [sequenceNodes, setSequenceNodes] = useState<(string | ISequenceNode)[]>([]);
     const markSelectionService = useDependency(IMarkSelectionService);
     const last = useRef('');
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
 
     useEffect(() => {
         if (!editor) return;
@@ -63,7 +63,7 @@ export function useRangesHighlight(editor: Nullable<Editor>, focusing: boolean, 
         selections.forEach((selection) => {
             // selection.token;
             const range = deserializeRangeWithSheet(selection.token);
-            const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+            const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
             const worksheet = workbook?.getActiveSheet();
             // range is not in the current worksheet
             if ((!range.sheetName && subUnitId !== worksheet?.getSheetId()) || (range.sheetName && worksheet?.getName() !== range.sheetName)) {

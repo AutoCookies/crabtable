@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { DeepReadonly, ISelectionCell, IStyleData, Nullable, Workbook } from '@univerjs/core';
+import type { DeepReadonly, ISelectionCell, IStyleData, Nullable, Workbook } from '@crabtable/core';
 import type { Observable } from 'rxjs';
 import type { ISelectionWithStyle } from '../../basics/selection';
 import type { ISelectionManagerSearchParam } from './type';
-import { IUniverInstanceService, RxDisposable, Tools, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, ICrabTableInstanceService, RxDisposable, Tools } from '@crabtable/core';
 import { distinctUntilChanged, of, shareReplay, skip, switchMap, takeUntil } from 'rxjs';
 import { WorkbookSelectionModel } from './selection-data-model';
 import { SelectionMoveType } from './type';
@@ -29,7 +29,7 @@ import { SelectionMoveType } from './type';
  */
 export class SheetsSelectionsService extends RxDisposable {
     private get _currentSelectionPos(): Nullable<ISelectionManagerSearchParam> {
-        const workbook = this._instanceSrv.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._instanceSrv.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) return null;
 
         const worksheet = workbook.getActiveSheet();
@@ -71,14 +71,14 @@ export class SheetsSelectionsService extends RxDisposable {
     selectionChanged$: Observable<Nullable<ISelectionWithStyle[]>>;
 
     constructor(
-        @IUniverInstanceService protected readonly _instanceSrv: IUniverInstanceService
+        @ICrabTableInstanceService protected readonly _instanceSrv: ICrabTableInstanceService
     ) {
         super();
         this._init();
     }
 
     protected _init(): void {
-        const c$ = this._instanceSrv.getCurrentTypeOfUnit$(UniverInstanceType.UNIVER_SHEET).pipe(shareReplay(1), takeUntil(this.dispose$));
+        const c$ = this._instanceSrv.getCurrentTypeOfUnit$(CrabTableInstanceType.CRABTABLE_SHEET).pipe(shareReplay(1), takeUntil(this.dispose$));
         // When workbook changed, unsubscribe the previous workbook selection$ and subscribe the new workbook selection$.
         this.selectionMoveStart$ = c$.pipe().pipe(switchMap((workbook) => !workbook ? of() : this._ensureWorkbookSelection(workbook.getUnitId()).selectionMoveStart$)).pipe(takeUntil(this.dispose$));
         this.selectionMoving$ = c$.pipe(switchMap((workbook) => !workbook ? of() : this._ensureWorkbookSelection(workbook.getUnitId()).selectionMoving$)).pipe(takeUntil(this.dispose$));
@@ -96,7 +96,7 @@ export class SheetsSelectionsService extends RxDisposable {
         ).pipe(takeUntil(this.dispose$));
 
         this.disposeWithMe(
-            this._instanceSrv.getTypeOfUnitDisposed$(UniverInstanceType.UNIVER_SHEET).pipe(takeUntil(this.dispose$)).subscribe((workbook) => {
+            this._instanceSrv.getTypeOfUnitDisposed$(CrabTableInstanceType.CRABTABLE_SHEET).pipe(takeUntil(this.dispose$)).subscribe((workbook) => {
                 this._removeWorkbookSelection(workbook.getUnitId());
             })
         );
@@ -280,7 +280,7 @@ export class SheetsSelectionsService extends RxDisposable {
         isAllValuesSame: boolean;
         value: Nullable<IStyleData[keyof IStyleData]>;
     } {
-        const worksheet = this._instanceSrv.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getActiveSheet();
+        const worksheet = this._instanceSrv.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getActiveSheet();
         const selections = this.getCurrentSelections();
         if (!worksheet || selections.length === 0) {
             return {

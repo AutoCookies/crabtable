@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { ICommandService, Injector, RANGE_DIRECTION } from '@univerjs/core';
-import { CutContentCommand } from '@univerjs/docs-ui';
+import { ICommandService, Injector, RANGE_DIRECTION } from '@crabtable/core';
+import { CutContentCommand } from '@crabtable/docs-ui';
 import { describe, expect, it, vi } from 'vitest';
 import { DeleteSearchKeyCommand } from '../doc-quick-insert.command';
 

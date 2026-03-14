@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-import type { ICellRenderContext, IDataValidationRule, IStyleData, Nullable } from '@univerjs/core';
-import type { IBaseDataValidationWidget, IFormulaResult } from '@univerjs/data-validation';
-import type { IMouseEvent, IPointerEvent, UniverRenderingContext, UniverRenderingContext2D } from '@univerjs/engine-render';
-import type { ISetRangeValuesCommandParams } from '@univerjs/sheets';
-import type { CheckboxValidator } from '@univerjs/sheets-data-validation';
+import type { ICellRenderContext, IDataValidationRule, IStyleData, Nullable } from '@crabtable/core';
+import type { IBaseDataValidationWidget, IFormulaResult } from '@crabtable/data-validation';
+import type { IMouseEvent, IPointerEvent, UniverRenderingContext, UniverRenderingContext2D } from '@crabtable/engine-render';
+import type { ISetRangeValuesCommandParams } from '@crabtable/sheets';
+import type { CheckboxValidator } from '@crabtable/sheets-data-validation';
 import {
+    CrabTableInstanceType,
     HorizontalAlign,
     ICommandService,
+    ICrabTableInstanceService,
     Inject,
     isFormulaString,
-    IUniverInstanceService,
     ThemeService,
-    UniverInstanceType,
     VerticalAlign,
-} from '@univerjs/core';
-import { CheckboxShape as Checkbox, CURSOR_TYPE, fixLineWidthByScale, getCurrentTypeOfRenderer, IRenderManagerService, Transform } from '@univerjs/engine-render';
-import { SetRangeValuesCommand } from '@univerjs/sheets';
+} from '@crabtable/core';
+import { CheckboxShape as Checkbox, CURSOR_TYPE, fixLineWidthByScale, getCurrentTypeOfRenderer, IRenderManagerService, Transform } from '@crabtable/engine-render';
+import { SetRangeValuesCommand } from '@crabtable/sheets';
 import {
     CHECKBOX_FORMULA_1,
     CHECKBOX_FORMULA_2,
@@ -40,7 +40,7 @@ import {
     isLegalFormulaResult,
     SheetDataValidationModel,
     transformCheckboxValue,
-} from '@univerjs/sheets-data-validation';
+} from '@crabtable/sheets-data-validation';
 
 const MARGIN_H = 6;
 
@@ -87,7 +87,7 @@ export class CheckboxRender implements IBaseDataValidationWidget {
 
     constructor(
         @ICommandService private readonly _commandService: ICommandService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(DataValidationFormulaService) private readonly _formulaService: DataValidationFormulaService,
         @Inject(ThemeService) private readonly _themeService: ThemeService,
         @Inject(IRenderManagerService) private readonly _renderManagerService: IRenderManagerService,
@@ -235,13 +235,13 @@ export class CheckboxRender implements IBaseDataValidationWidget {
     };
 
     onPointerEnter(info: ICellRenderContext, evt: IPointerEvent | IMouseEvent) {
-        getCurrentTypeOfRenderer(UniverInstanceType.UNIVER_SHEET, this._univerInstanceService, this._renderManagerService)
+        getCurrentTypeOfRenderer(CrabTableInstanceType.CRABTABLE_SHEET, this._crabtableInstanceService, this._renderManagerService)
             ?.mainComponent
             ?.setCursor(CURSOR_TYPE.POINTER);
     }
 
     onPointerLeave(info: ICellRenderContext, evt: IPointerEvent | IMouseEvent) {
-        getCurrentTypeOfRenderer(UniverInstanceType.UNIVER_SHEET, this._univerInstanceService, this._renderManagerService)
+        getCurrentTypeOfRenderer(CrabTableInstanceType.CRABTABLE_SHEET, this._crabtableInstanceService, this._renderManagerService)
             ?.mainComponent
             ?.setCursor(CURSOR_TYPE.DEFAULT);
     }

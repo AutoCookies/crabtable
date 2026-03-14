@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-import type { IRange, Nullable, Workbook } from '@univerjs/core';
-import type { IDiscreteRange } from '@univerjs/sheets';
-import type { IAddConditionalRuleMutationParams, IConditionalFormattingRuleConfig, IConditionFormattingRule, IDeleteConditionalRuleMutationParams, ISetConditionalRuleMutationParams } from '@univerjs/sheets-conditional-formatting';
-import type { IPasteHookValueType } from '@univerjs/sheets-ui';
+import type { IRange, Nullable, Workbook } from '@crabtable/core';
+import type { IDiscreteRange } from '@crabtable/sheets';
+import type { IAddConditionalRuleMutationParams, IConditionalFormattingRuleConfig, IConditionFormattingRule, IDeleteConditionalRuleMutationParams, ISetConditionalRuleMutationParams } from '@crabtable/sheets-conditional-formatting';
+import type { IPasteHookValueType } from '@crabtable/sheets-ui';
 import {
+    CrabTableInstanceType,
     Disposable,
+    ICrabTableInstanceService,
     Inject,
     Injector,
-    IUniverInstanceService,
     ObjectMatrix,
     Range,
     Rectangle,
     Tools,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     createTopMatrixFromMatrix,
     findAllRectangle,
     rangeToDiscreteRange,
-} from '@univerjs/sheets';
-import { AddConditionalRuleMutation, AddConditionalRuleMutationUndoFactory, ConditionalFormattingRuleModel, ConditionalFormattingViewModel, DeleteConditionalRuleMutation, DeleteConditionalRuleMutationUndoFactory, SetConditionalRuleMutation, setConditionalRuleMutationUndoFactory, SHEET_CONDITIONAL_FORMATTING_PLUGIN } from '@univerjs/sheets-conditional-formatting';
-import { COPY_TYPE, getRepeatRange, ISheetClipboardService, PREDEFINED_HOOK_NAME_PASTE, virtualizeDiscreteRanges } from '@univerjs/sheets-ui';
+} from '@crabtable/sheets';
+import { AddConditionalRuleMutation, AddConditionalRuleMutationUndoFactory, ConditionalFormattingRuleModel, ConditionalFormattingViewModel, DeleteConditionalRuleMutation, DeleteConditionalRuleMutationUndoFactory, SetConditionalRuleMutation, setConditionalRuleMutationUndoFactory, SHEET_CONDITIONAL_FORMATTING_PLUGIN } from '@crabtable/sheets-conditional-formatting';
+import { COPY_TYPE, getRepeatRange, ISheetClipboardService, PREDEFINED_HOOK_NAME_PASTE, virtualizeDiscreteRanges } from '@crabtable/sheets-ui';
 
 export class ConditionalFormattingCopyPasteController extends Disposable {
     private _copyInfo: Nullable<{
@@ -53,7 +53,7 @@ export class ConditionalFormattingCopyPasteController extends Disposable {
         @Inject(Injector) private _injector: Injector,
         @Inject(ConditionalFormattingViewModel) private _conditionalFormattingViewModel: ConditionalFormattingViewModel,
 
-        @Inject(IUniverInstanceService) private _univerInstanceService: IUniverInstanceService
+        @Inject(ICrabTableInstanceService) private _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
         this._initClipboardHook();
@@ -121,7 +121,7 @@ export class ConditionalFormattingCopyPasteController extends Disposable {
             pasteType: IPasteHookValueType;
         }
     ) {
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const sheet = workbook.getActiveSheet();
         const unitId = workbook.getUnitId();
         if (!sheet) return { redos: [], undos: [] };

@@ -24,7 +24,7 @@ const GIT_HASH = process.env.GITHUB_SHA;
 let client: PostHog | null = null;
 
 /**
- * Report an event to PostHog. For Univer members, you can visit https://us.posthog.com/project/133116/dashboard/332238
+ * Report an event to PostHog. For CrabTable members, you can visit https://us.posthog.com/project/133116/dashboard/332238
  * for the dashboard.
  * @param event
  * @param properties

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Dependency, IDisposable, Injector, IWorkbookData, Workbook } from '@univerjs/core';
-import type { IRenderContext, Vector2 } from '@univerjs/engine-render';
+import type { Dependency, IDisposable, Injector, IWorkbookData, Workbook } from '@crabtable/core';
+import type { IRenderContext, Vector2 } from '@crabtable/engine-render';
 import type { Observable } from 'rxjs';
-import { ICommandService, IContextService, ILogService, Inject, IUniverInstanceService, LocaleService, LocaleType, LogLevel, Plugin, Tools, Univer, Injector as UniverInjector, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService, SHEET_VIEWPORT_KEY } from '@univerjs/engine-render';
-import { SheetInterceptorService, SheetsSelectionsService } from '@univerjs/sheets';
+import { CrabTableInstanceType, ICommandService, IContextService, ICrabTableInstanceService, ILogService, Inject, LocaleService, LocaleType, LogLevel, Plugin, Tools, Injector as UniverInjector } from '@crabtable/core';
+import { IRenderManagerService, SHEET_VIEWPORT_KEY } from '@crabtable/engine-render';
+import { SheetInterceptorService, SheetsSelectionsService } from '@crabtable/sheets';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { SHEET_VIEW_KEY } from '../../../common/keys';
 import enUS from '../../../locale/en-US';
@@ -370,7 +370,7 @@ export function createFakeSkeleton(options?: Partial<IFakeSkeleton>): IFakeSkele
 }
 
 export interface IRenderTestBed {
-    univer: Univer;
+    univer: CrabTable;
     injector: Injector;
     get: Injector['get'];
     sheet: Workbook;
@@ -396,12 +396,12 @@ export interface IRenderTestBed {
 
 // eslint-disable-next-line max-lines-per-function
 export function createRenderTestBed(options?: { workbookData?: IWorkbookData; dependencies?: Dependency[]; parentClassType?: string }): IRenderTestBed {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
 
     class TestPlugin extends Plugin {
         static override pluginName = 'render-test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -434,8 +434,8 @@ export function createRenderTestBed(options?: { workbookData?: IWorkbookData; de
         },
     } satisfies IWorkbookData);
 
-    const sheet = univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, snapshot);
-    injector.get(IUniverInstanceService).focusUnit(snapshot.id);
+    const sheet = univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, snapshot);
+    injector.get(ICrabTableInstanceService).focusUnit(snapshot.id);
 
     const localeService = injector.get(LocaleService);
     localeService.setLocale(LocaleType.EN_US);
@@ -476,7 +476,7 @@ export function createRenderTestBed(options?: { workbookData?: IWorkbookData; de
     const context: IRenderContext<Workbook> = {
         unitId: sheet.getUnitId(),
         unit: sheet,
-        type: UniverInstanceType.UNIVER_SHEET,
+        type: CrabTableInstanceType.CRABTABLE_SHEET,
         engine: engine as any,
         scene: scene as any,
         mainComponent: mainComponent as any,

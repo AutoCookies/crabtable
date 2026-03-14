@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverSheetsConfig } from './config/config';
-import { AUTO_HEIGHT_FOR_MERGED_CELLS, DependentOn, IConfigService, Inject, Injector, IS_ROW_STYLE_PRECEDE_COLUMN_STYLE, merge, mergeOverrideWithDependencies, Plugin, registerDependencies, touchDependencies, UniverInstanceType } from '@univerjs/core';
-import { UniverFormulaEnginePlugin } from '@univerjs/engine-formula';
+import { AUTO_HEIGHT_FOR_MERGED_CELLS, CrabTableInstanceType, DependentOn, IConfigService, Inject, Injector, IS_ROW_STYLE_PRECEDE_COLUMN_STYLE, merge, mergeOverrideWithDependencies, Plugin, registerDependencies, touchDependencies } from '@crabtable/core';
+import { UniverFormulaEnginePlugin } from '@crabtable/engine-formula';
 import pkg from '../package.json';
 import { defaultPluginConfig, SHEETS_PLUGIN_CONFIG_KEY } from './config/config';
 import { ActiveWorksheetController } from './controllers/active-worksheet.controller';
@@ -58,7 +58,7 @@ export class UniverSheetsPlugin extends Plugin {
     static override pluginName = 'SHEET_PLUGIN';
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
     constructor(
         private readonly _config: Partial<IUniverSheetsConfig> = defaultPluginConfig,

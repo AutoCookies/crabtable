@@ -14,61 +14,61 @@
  * limitations under the License.
  */
 
+import { CrabTableInstanceType, LocaleType, LogLevel } from '@crabtable/core';
+import { FCrabTable } from '@crabtable/core/facade';
+import { render } from '@crabtable/design';
+import { UniverDocsPlugin } from '@crabtable/docs';
+import { UniverDocsUIPlugin } from '@crabtable/docs-ui';
+import { UniverFormulaEnginePlugin } from '@crabtable/engine-formula';
+import { UniverRenderEnginePlugin } from '@crabtable/engine-render';
+import { DEFAULT_WORKBOOK_DATA_DEMO } from '@crabtable/mockdata';
+import zhCN from '@crabtable/mockdata/locales/zh-CN';
+import { UniverNetworkPlugin } from '@crabtable/network';
+import { UniverSheetsPlugin } from '@crabtable/sheets';
+import { UniverSheetsConditionalFormattingPlugin } from '@crabtable/sheets-conditional-formatting';
+import { UniverSheetsConditionalFormattingUIPlugin } from '@crabtable/sheets-conditional-formatting-ui';
+import { UniverSheetsCrosshairHighlightPlugin } from '@crabtable/sheets-crosshair-highlight';
+import { UniverSheetsDataValidationPlugin } from '@crabtable/sheets-data-validation';
+import { UniverSheetsDataValidationUIPlugin } from '@crabtable/sheets-data-validation-ui';
+import { UniverSheetsDrawingPlugin } from '@crabtable/sheets-drawing';
+import { UniverSheetsDrawingUIPlugin } from '@crabtable/sheets-drawing-ui';
+import { UniverSheetsFilterPlugin } from '@crabtable/sheets-filter';
+import { UniverSheetsFilterUIPlugin } from '@crabtable/sheets-filter-ui';
+import { UniverSheetsFindReplacePlugin } from '@crabtable/sheets-find-replace';
+import { UniverSheetsFormulaPlugin } from '@crabtable/sheets-formula';
+import { UniverSheetsFormulaUIPlugin } from '@crabtable/sheets-formula-ui';
+import { UniverSheetsHyperLinkPlugin } from '@crabtable/sheets-hyper-link';
+import { UniverSheetsHyperLinkUIPlugin } from '@crabtable/sheets-hyper-link-ui';
+import { UniverSheetsNotePlugin } from '@crabtable/sheets-note';
+import { UniverSheetsNoteUIPlugin } from '@crabtable/sheets-note-ui';
+import { UniverSheetsNumfmtPlugin } from '@crabtable/sheets-numfmt';
+import { UniverSheetsNumfmtUIPlugin } from '@crabtable/sheets-numfmt-ui';
+import { UniverSheetsSortPlugin } from '@crabtable/sheets-sort';
+import { UniverSheetsSortUIPlugin } from '@crabtable/sheets-sort-ui';
+import { UniverSheetsTablePlugin } from '@crabtable/sheets-table';
+import { UniverSheetsTableUIPlugin } from '@crabtable/sheets-table-ui';
+import { UniverSheetsThreadCommentPlugin } from '@crabtable/sheets-thread-comment';
+import { UniverSheetsThreadCommentUIPlugin, UniverThreadCommentUIPlugin } from '@crabtable/sheets-thread-comment-ui';
+import { UniverSheetsUIPlugin } from '@crabtable/sheets-ui';
+import { UniverSheetsZenEditorPlugin } from '@crabtable/sheets-zen-editor';
+import { UniverThreadCommentPlugin } from '@crabtable/thread-comment';
+import { UniverUIPlugin } from '@crabtable/ui';
+import { UniverVue3AdapterPlugin } from '@crabtable/ui-adapter-vue3';
+import { UniverWebComponentAdapterPlugin } from '@crabtable/ui-adapter-web-component';
+import { UniverWatermarkPlugin } from '@crabtable/watermark';
 import { createComponent } from '@lit/react';
-import { LocaleType, LogLevel, Univer, UniverInstanceType } from '@univerjs/core';
-import { FUniver } from '@univerjs/core/facade';
-import { render } from '@univerjs/design';
-import { UniverDocsPlugin } from '@univerjs/docs';
-import { UniverDocsUIPlugin } from '@univerjs/docs-ui';
-import { UniverFormulaEnginePlugin } from '@univerjs/engine-formula';
-import { UniverRenderEnginePlugin } from '@univerjs/engine-render';
-import { DEFAULT_WORKBOOK_DATA_DEMO } from '@univerjs/mockdata';
-import zhCN from '@univerjs/mockdata/locales/zh-CN';
-import { UniverNetworkPlugin } from '@univerjs/network';
-import { UniverSheetsPlugin } from '@univerjs/sheets';
-import { UniverSheetsConditionalFormattingPlugin } from '@univerjs/sheets-conditional-formatting';
-import { UniverSheetsConditionalFormattingUIPlugin } from '@univerjs/sheets-conditional-formatting-ui';
-import { UniverSheetsCrosshairHighlightPlugin } from '@univerjs/sheets-crosshair-highlight';
-import { UniverSheetsDataValidationPlugin } from '@univerjs/sheets-data-validation';
-import { UniverSheetsDataValidationUIPlugin } from '@univerjs/sheets-data-validation-ui';
-import { UniverSheetsDrawingPlugin } from '@univerjs/sheets-drawing';
-import { UniverSheetsDrawingUIPlugin } from '@univerjs/sheets-drawing-ui';
-import { UniverSheetsFilterPlugin } from '@univerjs/sheets-filter';
-import { UniverSheetsFilterUIPlugin } from '@univerjs/sheets-filter-ui';
-import { UniverSheetsFindReplacePlugin } from '@univerjs/sheets-find-replace';
-import { UniverSheetsFormulaPlugin } from '@univerjs/sheets-formula';
-import { UniverSheetsFormulaUIPlugin } from '@univerjs/sheets-formula-ui';
-import { UniverSheetsHyperLinkPlugin } from '@univerjs/sheets-hyper-link';
-import { UniverSheetsHyperLinkUIPlugin } from '@univerjs/sheets-hyper-link-ui';
-import { UniverSheetsNotePlugin } from '@univerjs/sheets-note';
-import { UniverSheetsNoteUIPlugin } from '@univerjs/sheets-note-ui';
-import { UniverSheetsNumfmtPlugin } from '@univerjs/sheets-numfmt';
-import { UniverSheetsNumfmtUIPlugin } from '@univerjs/sheets-numfmt-ui';
-import { UniverSheetsSortPlugin } from '@univerjs/sheets-sort';
-import { UniverSheetsSortUIPlugin } from '@univerjs/sheets-sort-ui';
-import { UniverSheetsTablePlugin } from '@univerjs/sheets-table';
-import { UniverSheetsTableUIPlugin } from '@univerjs/sheets-table-ui';
-import { UniverSheetsThreadCommentPlugin } from '@univerjs/sheets-thread-comment';
-import { UniverSheetsThreadCommentUIPlugin, UniverThreadCommentUIPlugin } from '@univerjs/sheets-thread-comment-ui';
-import { UniverSheetsUIPlugin } from '@univerjs/sheets-ui';
-import { UniverSheetsZenEditorPlugin } from '@univerjs/sheets-zen-editor';
-import { UniverThreadCommentPlugin } from '@univerjs/thread-comment';
-import { UniverUIPlugin } from '@univerjs/ui';
-import { UniverVue3AdapterPlugin } from '@univerjs/ui-adapter-vue3';
-import { UniverWebComponentAdapterPlugin } from '@univerjs/ui-adapter-web-component';
-import { UniverWatermarkPlugin } from '@univerjs/watermark';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import * as React from 'react';
 import '../global.css';
-import '@univerjs/sheets/facade';
+import '@crabtable/sheets/facade';
 
 @customElement('my-univer')
 class MyWebComponent extends LitElement {
     override firstUpdated() {
         const container = this.renderRoot.querySelector('#containerId') as HTMLDivElement;
 
-        const univer = new Univer({
+        const univer = new CrabTable({
             locale: LocaleType.ZH_CN,
             locales: {
                 [LocaleType.ZH_CN]: zhCN,
@@ -135,9 +135,9 @@ class MyWebComponent extends LitElement {
         univer.registerPlugin(UniverWebComponentAdapterPlugin);
         univer.registerPlugin(UniverVue3AdapterPlugin);
 
-        univer.createUnit(UniverInstanceType.UNIVER_SHEET, DEFAULT_WORKBOOK_DATA_DEMO);
+        univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, DEFAULT_WORKBOOK_DATA_DEMO);
 
-        window.univerAPI = FUniver.newAPI(univer);
+        window.crabtableAPI = FCrabTable.newAPI(univer);
     }
 
     override render() {

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, IMutationInfo, IRange } from '@univerjs/core';
+import type { ICommandInfo, IMutationInfo, IRange } from '@crabtable/core';
 import type { IRemoveSheetMutationParams } from '../../../basics';
 import type { IInsertColCommandParams, IInsertRowCommandParams } from '../../../commands/commands/insert-row-col.command';
 import type { IRemoveRowColCommandInterceptParams } from '../../../commands/commands/remove-row-col.command';
 import type { IMoveRowsMutationParams } from '../../../commands/mutations/move-rows-cols.mutation';
 import type { IRemoveRowColCommand } from '../type';
-import { Direction } from '@univerjs/core';
+import { Direction } from '@crabtable/core';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { MoveRowsMutation } from '../../../commands/mutations/move-rows-cols.mutation';
 import { RemoveSheetMutation } from '../../../commands/mutations/remove-sheet.mutation';

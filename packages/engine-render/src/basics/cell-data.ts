@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICellData, IStyleData } from '@univerjs/core';
+import type { ICellData, IStyleData } from '@crabtable/core';
 
 export interface ITempCellData extends ICellData {
     style: IStyleData;

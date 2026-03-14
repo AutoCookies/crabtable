@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICellData, IObjectArrayPrimitiveType, IObjectMatrixPrimitiveType, IRange, IRowData, IUnitRange, Nullable, Workbook } from '@univerjs/core';
+import type { ICellData, IObjectArrayPrimitiveType, IObjectMatrixPrimitiveType, IRange, IRowData, IUnitRange, Nullable, Workbook } from '@crabtable/core';
 import type {
     IArrayFormulaRangeType,
     IArrayFormulaUnitCellType,
@@ -30,7 +30,7 @@ import type {
     IUnitStylesData,
 } from '../basics/common';
 import type { IImageFormulaInfo } from '../engine/value-object/primitive-object';
-import { BooleanNumber, Disposable, Inject, isFormulaId, isFormulaString, IUniverInstanceService, ObjectMatrix, RANGE_TYPE, UniverInstanceType } from '@univerjs/core';
+import { BooleanNumber, CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject, isFormulaId, isFormulaString, ObjectMatrix, RANGE_TYPE } from '@crabtable/core';
 import { LexerTreeBuilder } from '../engine/analysis/lexer-tree-builder';
 import { clearArrayFormulaCellDataByCell, updateFormulaDataByCellValue } from './utils/formula-data-util';
 
@@ -47,7 +47,7 @@ export class FormulaDataModel extends Disposable {
     private _unitImageFormulaData: IUnitImageFormulaDataType = {};
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(LexerTreeBuilder) private readonly _lexerTreeBuilder: LexerTreeBuilder
     ) {
         super();
@@ -159,7 +159,7 @@ export class FormulaDataModel extends Disposable {
 
     getFormulaData(): IFormulaData {
         const formulaData: IFormulaData = {};
-        const allSheets = this._univerInstanceService.getAllUnitsForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const allSheets = this._crabtableInstanceService.getAllUnitsForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (allSheets.length === 0) {
             return formulaData;
         }
@@ -182,7 +182,7 @@ export class FormulaDataModel extends Disposable {
 
     getSheetFormulaData(unitId: string, sheetId: string) {
         const formulaData: IFormulaData = {};
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId);
         if (workbook == null) {
             return {};
         }
@@ -300,7 +300,7 @@ export class FormulaDataModel extends Disposable {
     }
 
     getCalculateData() {
-        const unitAllSheet = this._univerInstanceService.getAllUnitsForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const unitAllSheet = this._crabtableInstanceService.getAllUnitsForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
 
         const allUnitData: IUnitData = {};
 
@@ -353,7 +353,7 @@ export class FormulaDataModel extends Disposable {
      * For formulas that are sensitive to hidden rows.
      */
     getHiddenRowsFiltered() {
-        const unitAllSheet = this._univerInstanceService.getAllUnitsForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const unitAllSheet = this._crabtableInstanceService.getAllUnitsForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         const rowData: IUnitRowData = {};
 
         for (const workbook of unitAllSheet) {
@@ -507,7 +507,7 @@ export class FormulaDataModel extends Disposable {
     }
 
     getFormulaStringByCell(row: number, column: number, sheetId: string, unitId: string) {
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId);
         if (workbook == null) {
             return null;
         }
@@ -573,7 +573,7 @@ export class FormulaDataModel extends Disposable {
 
             if (!workbook) continue;
 
-            const workbookInstance = this._univerInstanceService.getUnit<Workbook>(unitId);
+            const workbookInstance = this._crabtableInstanceService.getUnit<Workbook>(unitId);
 
             if (!workbookInstance) continue;
 
@@ -644,7 +644,7 @@ export class FormulaDataModel extends Disposable {
     private _getSheetFormulaIdMap(unitId: string, sheetId: string) {
         const formulaIdMap: Nullable<{ [formulaId: string]: IFormulaIdMap }> = {}; // Connect the formula and ID
 
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId);
         if (workbook == null) {
             return formulaIdMap;
         }

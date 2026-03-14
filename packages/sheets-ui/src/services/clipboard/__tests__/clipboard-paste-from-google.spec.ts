@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICellData, Injector, IStyleData, Nullable, Univer } from '@univerjs/core';
-import { ICommandService, IUniverInstanceService, LocaleType, RANGE_TYPE } from '@univerjs/core';
+import type { CrabTable, ICellData, Injector, IStyleData, Nullable } from '@crabtable/core';
+import { ICommandService, ICrabTableInstanceService, LocaleType, RANGE_TYPE } from '@crabtable/core';
 import {
     AddWorksheetMergeMutation,
     MoveRangeMutation,
@@ -26,7 +26,7 @@ import {
     SetWorksheetRowAutoHeightMutation,
     SetWorksheetRowHeightMutation,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SheetSkeletonManagerService } from '../../sheet-skeleton-manager.service';
 import { ISheetClipboardService } from '../clipboard.service';
@@ -34,7 +34,7 @@ import { clipboardTestBed } from './clipboard-test-bed';
 import { googleSample } from './constant';
 
 describe('Test clipboard', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let sheetClipboardService: ISheetClipboardService;
@@ -95,8 +95,8 @@ describe('Test clipboard', () => {
             endRow: number,
             endColumn: number
         ): Array<Array<Nullable<ICellData>>> | undefined =>
-            get(IUniverInstanceService)
-                .getUniverSheetInstance('test')
+            get(ICrabTableInstanceService)
+                .getCrabTableSheetInstance('test')
                 ?.getSheetBySheetId('sheet1')
                 ?.getRange(startRow, startColumn, endRow, endColumn)
                 .getValues();
@@ -108,7 +108,7 @@ describe('Test clipboard', () => {
             endColumn: number
         ): Array<Array<Nullable<IStyleData>>> | undefined => {
             const values = getValues(startRow, startColumn, endRow, endColumn);
-            const styles = get(IUniverInstanceService).getUniverSheetInstance('test')?.getStyles();
+            const styles = get(ICrabTableInstanceService).getCrabTableSheetInstance('test')?.getStyles();
             if (values && styles) {
                 return values.map((row) => row.map((cell) => styles.getStyleByCell(cell)));
             }
@@ -141,7 +141,7 @@ describe('Test clipboard', () => {
             });
         });
         it('test style with paste cell style', async () => {
-            const worksheet = get(IUniverInstanceService).getUniverSheetInstance('test')?.getSheetBySheetId('sheet1');
+            const worksheet = get(ICrabTableInstanceService).getCrabTableSheetInstance('test')?.getSheetBySheetId('sheet1');
             if (!worksheet) return false;
             const res = await sheetClipboardService.legacyPaste(googleSample);
             expect(res).toBeTruthy();
@@ -191,7 +191,7 @@ describe('Test clipboard', () => {
         });
 
         it('test style with paste rich text style', async () => {
-            const worksheet = get(IUniverInstanceService).getUniverSheetInstance('test')?.getSheetBySheetId('sheet1');
+            const worksheet = get(ICrabTableInstanceService).getCrabTableSheetInstance('test')?.getSheetBySheetId('sheet1');
             if (!worksheet) return false;
             const res = await sheetClipboardService.legacyPaste(googleSample);
             expect(res).toBeTruthy();
@@ -232,7 +232,7 @@ describe('Test clipboard', () => {
         });
 
         it('test numfmt with paste', async () => {
-            const worksheet = get(IUniverInstanceService).getUniverSheetInstance('test')?.getSheetBySheetId('sheet1');
+            const worksheet = get(ICrabTableInstanceService).getCrabTableSheetInstance('test')?.getSheetBySheetId('sheet1');
             if (!worksheet) return false;
             const res = await sheetClipboardService.legacyPaste(googleSample);
             expect(res).toBeTruthy();
@@ -241,7 +241,7 @@ describe('Test clipboard', () => {
         });
 
         it('test merge style with paste', async () => {
-            const worksheet = get(IUniverInstanceService).getUniverSheetInstance('test')?.getSheetBySheetId('sheet1');
+            const worksheet = get(ICrabTableInstanceService).getCrabTableSheetInstance('test')?.getSheetBySheetId('sheet1');
             if (!worksheet) return false;
             const res = await sheetClipboardService.legacyPaste(googleSample);
             expect(res).toBeTruthy();

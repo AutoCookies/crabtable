@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IExecutionOptions, IMutationInfo, IWorkbookData } from '@univerjs/core';
-import { createIdentifier, ICommandService, ILogService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
+import type { IExecutionOptions, IMutationInfo, IWorkbookData } from '@crabtable/core';
+import { CrabTableInstanceType, createIdentifier, ICommandService, ICrabTableInstanceService, ILogService } from '@crabtable/core';
 
 export interface IRemoteSyncMutationOptions extends IExecutionOptions {
     /** If this mutation is executed after it was sent from the peer univer instance (e.g. in a web worker). */
@@ -24,9 +24,9 @@ export interface IRemoteSyncMutationOptions extends IExecutionOptions {
 
 export const RemoteSyncServiceName = 'rpc.remote-sync.service';
 /**
- * This service is provided by the primary Univer.
+ * This service is provided by the primary CrabTable.
  *
- * Replica Univer could call this service to update mutations back to the primary Univer.
+ * Replica CrabTable could call this service to update mutations back to the primary CrabTable.
  */
 export const IRemoteSyncService = createIdentifier<IRemoteSyncService>(RemoteSyncServiceName);
 export interface IRemoteSyncService {
@@ -50,7 +50,7 @@ export class RemoteSyncPrimaryService implements IRemoteSyncService {
 export const RemoteInstanceServiceName = 'univer.remote-instance-service';
 
 /**
- * This service is provided by the replica Univer.
+ * This service is provided by the replica CrabTable.
  *
  * Primary univer could call this service to init and dispose univer business instances
  * and sync mutations to replica univer.
@@ -60,14 +60,14 @@ export interface IRemoteInstanceService {
     /** Tell other modules if the `IRemoteInstanceService` is ready to load files. */
     whenReady(): Promise<true>;
 
-    createInstance(params: { unitID: string; type: UniverInstanceType; snapshot: IWorkbookData }): Promise<boolean>;
+    createInstance(params: { unitID: string; type: CrabTableInstanceType; snapshot: IWorkbookData }): Promise<boolean>;
     disposeInstance(params: { unitID: string }): Promise<boolean>;
     syncMutation(params: { mutationInfo: IMutationInfo }, options?: IExecutionOptions): Promise<boolean>;
 }
 
 export class WebWorkerRemoteInstanceService implements IRemoteInstanceService {
     constructor(
-        @IUniverInstanceService protected readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService protected readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService protected readonly _commandService: ICommandService,
         @ILogService protected readonly _logService: ILogService
     ) {
@@ -84,15 +84,15 @@ export class WebWorkerRemoteInstanceService implements IRemoteInstanceService {
 
     async createInstance(params: {
         unitID: string;
-        type: UniverInstanceType;
+        type: CrabTableInstanceType;
         snapshot: IWorkbookData;
     }): Promise<boolean> {
         this._logService.debug(`[WebWorkerRemoteInstanceService]: Creating instance with id ${params.unitID}`);
         const { type, snapshot } = params;
         try {
             switch (type) {
-                case UniverInstanceType.UNIVER_SHEET:
-                    this._univerInstanceService.createUnit(UniverInstanceType.UNIVER_SHEET, snapshot);
+                case CrabTableInstanceType.CRABTABLE_SHEET:
+                    this._crabtableInstanceService.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, snapshot);
                     return true;
                 default:
                     throw new Error(
@@ -110,7 +110,7 @@ export class WebWorkerRemoteInstanceService implements IRemoteInstanceService {
 
     async disposeInstance(params: { unitID: string }): Promise<boolean> {
         this._logService.debug(`[WebWorkerRemoteInstanceService]: Disposing instance with id ${params.unitID}`);
-        return this._univerInstanceService.disposeUnit(params.unitID);
+        return this._crabtableInstanceService.disposeUnit(params.unitID);
     }
 
     protected _applyMutation(mutationInfo: IMutationInfo, options?: IExecutionOptions): boolean {

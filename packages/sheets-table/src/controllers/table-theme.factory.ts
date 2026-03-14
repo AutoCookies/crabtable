@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IRangeThemeStyleItem, IRangeThemeStyleJSON } from '@univerjs/sheets';
+import type { IRangeThemeStyleItem, IRangeThemeStyleJSON } from '@crabtable/sheets';
 import type { ITableDefaultThemeStyle } from '../config/config';
 import { tableDefaultBorderStyle } from '../config/config';
 

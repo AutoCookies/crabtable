@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
-import type { IUniverSheetsConfig } from '@univerjs/sheets';
-import { CommandType, ICommandService, IConfigService, IConfirmService, IUniverInstanceService, LocaleService } from '@univerjs/core';
-import { countCells, defaultLargeSheetOperationConfig, getSheetCommandTarget, RemoveSheetCommand, SHEETS_PLUGIN_CONFIG_KEY } from '@univerjs/sheets';
+import type { IAccessor, ICommand } from '@crabtable/core';
+import type { IUniverSheetsConfig } from '@crabtable/sheets';
+import { CommandType, ICommandService, IConfigService, IConfirmService, ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { countCells, defaultLargeSheetOperationConfig, getSheetCommandTarget, RemoveSheetCommand, SHEETS_PLUGIN_CONFIG_KEY } from '@crabtable/sheets';
 
 interface IRemoveSheetConfirmCommandParams {
     subUnitId: string;
@@ -32,10 +32,10 @@ export const RemoveSheetConfirmCommand: ICommand = {
         const commandService = accessor.get(ICommandService);
         const localeService = accessor.get(LocaleService);
         const configService = accessor.get(IConfigService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
         // Check if this is a large sheet that needs confirmation
-        const target = getSheetCommandTarget(univerInstanceService, { subUnitId });
+        const target = getSheetCommandTarget(crabtableInstanceService, { subUnitId });
         if (!target) return false;
         const { worksheet } = target;
 

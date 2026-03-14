@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import type { FormatType } from '@univerjs/sheets';
-import { ICommandService, LocaleService, Range } from '@univerjs/core';
-import { Separator } from '@univerjs/design';
-import { SheetsSelectionsService } from '@univerjs/sheets';
+import type { FormatType } from '@crabtable/sheets';
+import { ICommandService, LocaleService, Range } from '@crabtable/core';
+import { Separator } from '@crabtable/design';
+import { SheetsSelectionsService } from '@crabtable/sheets';
 import {
     getPatternPreview,
     getPatternType,
     localeCurrencySymbolMap,
     SetNumfmtCommand,
     SheetsNumfmtCellContentController,
-} from '@univerjs/sheets-numfmt';
-import { ILayoutService, useDependency } from '@univerjs/ui';
+} from '@crabtable/sheets-numfmt';
+import { ILayoutService, useDependency } from '@crabtable/ui';
 import { useMemo } from 'react';
 import { OpenNumfmtPanelOperator } from '../../commands/operations/open.numfmt.panel.operation';
 import { MENU_OPTIONS } from '../../menu/menu';

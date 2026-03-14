@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Injector, Univer } from '@univerjs/core';
-import type { ISetSelectionsOperationParams } from '@univerjs/sheets';
-import { ICommandService, LocaleType, RANGE_TYPE, set, ThemeService } from '@univerjs/core';
+import type { CrabTable, Injector } from '@crabtable/core';
+import type { ISetSelectionsOperationParams } from '@crabtable/sheets';
+import { ICommandService, LocaleType, RANGE_TYPE, set, ThemeService } from '@crabtable/core';
 import {
     AddWorksheetMergeMutation,
     RemoveWorksheetMergeMutation,
@@ -25,14 +25,14 @@ import {
     SetWorksheetColWidthMutation,
     SetWorksheetRowAutoHeightMutation,
     SetWorksheetRowHeightMutation,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SheetCopyCommand } from '../../../commands/commands/clipboard.command';
 import { ISheetClipboardService } from '../clipboard.service';
 import { clipboardTestBed } from './clipboard-test-bed';
 
 describe('Test clipboard', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let sheetClipboardService: ISheetClipboardService;

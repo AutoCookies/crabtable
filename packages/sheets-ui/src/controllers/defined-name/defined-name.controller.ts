@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { ISelectionWithStyle } from '@univerjs/sheets';
-import { Disposable, ICommandService, Inject, IUniverInstanceService, ThemeService, UniverInstanceType } from '@univerjs/core';
-import { deserializeRangeWithSheet, IDefinedNamesService, isReferenceStrings, operatorToken } from '@univerjs/engine-formula';
-import { getPrimaryForRange, ScrollToCellOperation, SetWorksheetActivateCommand, SheetsSelectionsService } from '@univerjs/sheets';
+import type { Workbook } from '@crabtable/core';
+import type { ISelectionWithStyle } from '@crabtable/sheets';
+import { CrabTableInstanceType, Disposable, ICommandService, ICrabTableInstanceService, Inject, ThemeService } from '@crabtable/core';
+import { deserializeRangeWithSheet, IDefinedNamesService, isReferenceStrings, operatorToken } from '@crabtable/engine-formula';
+import { getPrimaryForRange, ScrollToCellOperation, SetWorksheetActivateCommand, SheetsSelectionsService } from '@crabtable/sheets';
 import { filter, merge } from 'rxjs';
 import { genNormalSelectionStyle } from '../../services/selection/const';
 
@@ -26,7 +26,7 @@ export class SheetsDefinedNameController extends Disposable {
     constructor(
         @Inject(SheetsSelectionsService) private readonly _selectionManagerService: SheetsSelectionsService,
         @Inject(ThemeService) private readonly _themeService: ThemeService,
-        @IUniverInstanceService private readonly _instanceSrv: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _instanceSrv: ICrabTableInstanceService,
         @ICommandService private readonly _cmdSrv: ICommandService,
         @IDefinedNamesService private readonly _definedNamesService: IDefinedNamesService
     ) {
@@ -80,7 +80,7 @@ export class SheetsDefinedNameController extends Disposable {
         }
 
         const lastSelection = params[params.length - 1];
-        const workbook = this._instanceSrv.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._instanceSrv.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         const worksheet = workbook?.getActiveSheet();
         if (!worksheet) {
             return;

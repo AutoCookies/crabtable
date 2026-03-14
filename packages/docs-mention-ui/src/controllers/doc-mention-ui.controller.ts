@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Disposable, ICommandService, Inject } from '@univerjs/core';
-import { ComponentManager } from '@univerjs/ui';
+import { Disposable, ICommandService, Inject } from '@crabtable/core';
+import { ComponentManager } from '@crabtable/ui';
 import { AddDocMentionCommand, DeleteDocMentionCommand } from '../commands/commands/doc-mention.command';
 import { CloseMentionEditPopupOperation, CloseMentionInfoPopupOperation, ShowMentionEditPopupOperation, ShowMentionInfoPopupOperation } from '../commands/operations/mention-popup.operation';
 import { MentionEditPopup } from '../views/mention-edit-popup';

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICustomDecoration, ICustomRange, ICustomTable, IDocumentBody, IParagraph, ITextRun, ITextStyle, Nullable } from '@univerjs/core';
+import type { ICustomDecoration, ICustomRange, ICustomTable, IDocumentBody, IParagraph, ITextRun, ITextStyle, Nullable } from '@crabtable/core';
 
 export function hasParagraphInTable(paragraph: IParagraph, tables: ICustomTable[]) {
     return tables.some((table) => paragraph.startIndex > table.startIndex && paragraph.startIndex < table.endIndex);

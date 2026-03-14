@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Injector } from '@univerjs/core';
-import type { FWorkbook, FWorksheet } from '@univerjs/sheets/facade';
-import type { IAddCommentCommandParams, IDeleteCommentCommandParams, IResolveCommentCommandParams, IThreadComment, IUpdateCommentCommandParams } from '@univerjs/thread-comment';
+import type { IDisposable, Injector } from '@crabtable/core';
+import type { FWorkbook, FWorksheet } from '@crabtable/sheets/facade';
+import type { IAddCommentCommandParams, IDeleteCommentCommandParams, IResolveCommentCommandParams, IThreadComment, IUpdateCommentCommandParams } from '@crabtable/thread-comment';
 import type { IBeforeSheetCommentAddEvent, IBeforeSheetCommentDeleteEvent, IBeforeSheetCommentUpdateEvent, ISheetCommentAddEvent, ISheetCommentDeleteEvent, ISheetCommentResolveEvent, ISheetCommentUpdateEvent } from './f-event';
-import { CanceledError, ICommandService, RichTextValue } from '@univerjs/core';
-import { FUniver } from '@univerjs/core/facade';
-import { deserializeRangeWithSheet } from '@univerjs/engine-formula';
-import { AddCommentCommand, DeleteCommentCommand, DeleteCommentTreeCommand, ResolveCommentCommand, UpdateCommentCommand } from '@univerjs/thread-comment';
+import { CanceledError, ICommandService, RichTextValue } from '@crabtable/core';
+import { FCrabTable } from '@crabtable/core/facade';
+import { deserializeRangeWithSheet } from '@crabtable/engine-formula';
+import { AddCommentCommand, DeleteCommentCommand, DeleteCommentTreeCommand, ResolveCommentCommand, UpdateCommentCommand } from '@crabtable/thread-comment';
 import { FTheadCommentBuilder, FTheadCommentItem } from './f-thread-comment';
 
 /**
@@ -29,22 +29,22 @@ import { FTheadCommentBuilder, FTheadCommentItem } from './f-thread-comment';
  */
 export interface IFUniverCommentMixin {
     /**
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.CommentAdded, (params) => {})` as instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.CommentAdded, (params) => {})` as instead
      */
     onCommentAdded(callback: (event: ISheetCommentAddEvent) => void): IDisposable;
 
     /**
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.CommentUpdated, (params) => {})` as instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.CommentUpdated, (params) => {})` as instead
      */
     onCommentUpdated(callback: (event: ISheetCommentUpdateEvent) => void): IDisposable;
 
     /**
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.CommentDeleted, (params) => {})` as instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.CommentDeleted, (params) => {})` as instead
      */
     onCommentDeleted(callback: (event: ISheetCommentDeleteEvent) => void): IDisposable;
 
     /**
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.CommentResolved, (params) => {})` as instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.CommentResolved, (params) => {})` as instead
      */
     onCommentResolved(callback: (event: ISheetCommentResolveEvent) => void): IDisposable;
 
@@ -54,8 +54,8 @@ export interface IFUniverCommentMixin {
      * @example
      * ```ts
      * // Create a new comment
-     * const richText = univerAPI.newRichText().insertText('hello univer');
-     * const commentBuilder = univerAPI.newTheadComment()
+     * const richText = crabtableAPI.newRichText().insertText('hello univer');
+     * const commentBuilder = crabtableAPI.newTheadComment()
      *   .setContent(richText)
      *   .setPersonId('mock-user-id')
      *   .setDateTime(new Date('2025-02-21 14:22:22'))
@@ -63,7 +63,7 @@ export interface IFUniverCommentMixin {
      *   .setThreadId('mock-thread-id');
      *
      * // Add the comment to the cell A1
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const cell = fWorksheet.getRange('A1');
      * const result = await cell.addCommentAsync(commentBuilder);
@@ -76,7 +76,7 @@ export interface IFUniverCommentMixin {
 /**
  * @ignore
  */
-export class FUniverCommentMixin extends FUniver implements IFUniverCommentMixin {
+export class FCrabTableCommentMixin extends FCrabTable implements IFUniverCommentMixin {
     private _getTargetSheet(params: { unitId?: string; subUnitId?: string } = {}): {
         workbook: FWorkbook;
         worksheet: FWorksheet;
@@ -328,9 +328,9 @@ export class FUniverCommentMixin extends FUniver implements IFUniverCommentMixin
     }
 }
 
-FUniver.extend(FUniverCommentMixin);
+FCrabTable.extend(FUniverCommentMixin);
 
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
-    interface FUniver extends IFUniverCommentMixin {}
+    interface FCrabTable extends IFUniverCommentMixin {}
 }

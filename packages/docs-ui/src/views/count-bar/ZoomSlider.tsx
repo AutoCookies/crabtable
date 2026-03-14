@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel } from '@univerjs/core';
-import { ICommandService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { Slider, useDependency } from '@univerjs/ui';
+import type { DocumentDataModel } from '@crabtable/core';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { Slider, useDependency } from '@crabtable/ui';
 import { useCallback, useEffect, useState } from 'react';
 import { SetDocZoomRatioOperation } from '../../commands/operations/set-doc-zoom-ratio.operation';
 
@@ -25,7 +25,7 @@ const DOC_ZOOM_RANGE = [10, 400];
 
 export function ZoomSlider() {
     const commandService = useDependency(ICommandService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const [documentDataModel, setDocumentDataModel] = useState<DocumentDataModel | null>(null);
     const [zoom, setZoom] = useState<number>(100);
 
@@ -37,7 +37,7 @@ export function ZoomSlider() {
     }, [documentDataModel]);
 
     useEffect(() => {
-        const currentDoc$ = univerInstanceService.getCurrentTypeOfUnit$<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const currentDoc$ = crabtableInstanceService.getCurrentTypeOfUnit$<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
 
         const subscription = currentDoc$.subscribe((doc) => {
             if (doc) {
@@ -49,7 +49,7 @@ export function ZoomSlider() {
         return () => {
             subscription.unsubscribe();
         };
-    }, [univerInstanceService, getCurrentZoom]);
+    }, [crabtableInstanceService, getCurrentZoom]);
 
     useEffect(() => {
         const disposable = commandService.onCommandExecuted((commandInfo) => {

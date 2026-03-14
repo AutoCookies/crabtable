@@ -1,18 +1,18 @@
-<!-- https://univer.ai/guides/sheet/contributing/ -->
+<!-- https://crabtable.dev/guides/sheet/contributing/ -->
 
-# Univer Contributing Guide
+# CrabTable Contributing Guide
 
 Welcome, and thank you for your interest in contributing to Univer!
 
-Please read our [Code of Conduct](./CODE_OF_CONDUCT.md) before you join in the Univer community.
+Please read our [Code of Conduct](./CODE_OF_CONDUCT.md) before you join in the CrabTable community.
 
 ## Asking Questions
 
 If you encounter any issues while using Univer, you can seek help in the following communities:
 
 - [Discord community](https://discord.gg/z3NKNT6D2f)
-- [GitHub Discussions](https://github.com/dream-num/univer/discussions)
-- Join the Univer Chinese community (please scan the QR code [here](https://univer.ai/contact))
+- [GitHub Discussions](https://github.com/AutoCookies/crabtable/discussions)
+- Join the CrabTable Chinese community (please scan the QR code [here](https://crabtable.dev/contact))
 
 ## Reporting Issues
 
@@ -21,7 +21,7 @@ If you encounter any issues or have any suggestions while using Univer, please f
 To better assist you, we recommend:
 
 - Before submitting an issue, please search to see if someone has already raised a similar question.
-- We provide an [issue template](https://github.com/dream-num/univer/issues/new/choose) and encourage you to fill it out with sufficient information, which helps us quickly identify the problem.
+- We provide an [issue template](https://github.com/AutoCookies/crabtable/issues/new/choose) and encourage you to fill it out with sufficient information, which helps us quickly identify the problem.
 - Please try to describe the issue in English, as it enables more people to participate in the discussion. We will also make an effort to reply in English to benefit a wider audience.
 
 > If you're new to submitting issues, we recommend to read [How To Ask Questions The Smart Way](http://www.catb.org/~esr/faqs/smart-questions.html) and [How to Report Bugs Effectively](https://www.chiark.greenend.org.uk/~sgtatham/bugs.html) before posting. Well-written bug reports help us and help you!
@@ -33,26 +33,23 @@ To better assist you, we recommend:
 Univer requires Node.js >= 18.17.0. We recommend using nvm or fnm to switch between different versions of Node.js.
 
 ```shell
-git clone https://github.com/dream-num/univer
+git clone https://github.com/AutoCookies/crabtable
 cd univer
 
-# install package manager pnpm
-npm i -g pnpm
-
 # install dependencies
-pnpm install
+yarn install
 
 ```
 
 ### Start dev server
 
 ```shell
-pnpm dev
+yarn dev
 ```
 
 ### Architecture
 
-Please refer to [Architecture](https://docs.univer.ai/guides/recipes/architecture/univer), and also [ISOMORPHIC.md](./docs/ISOMORPHIC.md) for more guidance on how to set up plugins.
+Please refer to [Architecture](https://docs.crabtable.dev/guides/recipes/architecture/univer), and also [ISOMORPHIC.md](./docs/ISOMORPHIC.md) for more guidance on how to set up plugins.
 
 ### Source code organization
 
@@ -65,7 +62,7 @@ The structure of the repository is as follows:
 ├── e2e/ e2e test cases
 ├── examples/ demos running on the web
 ├── mockdata/ mock data for development
-├── packages/ Univer core and plugins
+├── packages/ CrabTable core and plugins
 ```
 
 The file structure of a plugin should be organized as follows:
@@ -146,7 +143,7 @@ We provide preview deployments for pull requests. You can view the preview deplo
 We use Storybook to develop and test components in isolation. It is a great tool to develop UI components in isolation, which can improve component reuse, testability, and development efficiency. You can use the following command to start Storybook:
 
 ```shell
-pnpm storybook:dev
+yarn storybook:dev
 ```
 
 When a new pull request is submitted, a Storybook deployment will be automatically generated. You can view the Storybook deployment by clicking the "Preview" link in the "View Storybook" section.
@@ -157,14 +154,14 @@ We provided some Visual Studio Code (vscode) tasks to help you debug in vscode.
 
 After stating dev server, you can launch Edge or Chrome instance and debug in vscode, and you can debug directly in vscode!
 
-![image](https://github.com/dream-num/univer/assets/12122021/25da436c-2155-4ea0-8646-ff3b3dc23112)
+![image](https://github.com/AutoCookies/crabtable/assets/12122021/25da436c-2155-4ea0-8646-ff3b3dc23112)
 
 ### Unit test
 
 To ensure the quality of the code and move with confidence, we require that all code must be covered by unit tests. We use vitest as the unit test framework. You can use the following command to run unit tests:
 
 ```shell
-pnpm test
+yarn test
 ```
 
 Also, with the help of vscode and its rich ecosystem, you could directly debug unit tests in vscode. Please install the extension we recommend, and you will see the debug button in the side bar. In addition, if you add a new plugin, you should update `vitest.workspace.js` to include the new plugin.
@@ -176,19 +173,19 @@ Also, with the help of vscode and its rich ecosystem, you could directly debug u
 You may need to install dependencies of Playwright manually by running the following command:
 
 ```shell
-pnpm exec playwright install
+yarn exec playwright install
 ```
 
 If you would like to develop E2E tests, you can use the following command to run the dev server:
 
 ```shell
-pnpm dev:e2e
+yarn dev:e2e
 ```
 
 and then run the following command to run E2E tests:
 
 ```shell
-pnpm test:e2e
+yarn test:e2e
 ```
 
 ### Build Preview
@@ -196,13 +193,13 @@ pnpm test:e2e
 After building, the output may differ from the source code. To test for any differences, you can link to the built artifacts using:
 
 ```shell
-pnpm build
-pnpm dev:libs
+yarn build
+yarn dev:libs
 ```
 
 ### Update Snapshots
 
-Univer uses Playwright to perform visual comparison tests. If you have made changes to the UI, the CI may fail due to visual differences. You can update the snapshots by running this GitHub Action [📸 Manually Update Snapshots · Workflow runs · dream-num/univer (github.com)](https://github.com/dream-num/univer/actions/workflows/update-snapshots-manually.yml) on your branch.
+Univer uses Playwright to perform visual comparison tests. If you have made changes to the UI, the CI may fail due to visual differences. You can update the snapshots by running this GitHub Action [📸 Manually Update Snapshots · Workflow runs · AutoCookies/crabtable (github.com)](https://github.com/AutoCookies/crabtable/actions/workflows/update-snapshots-manually.yml) on your branch.
 
 ### Clean code
 
@@ -221,11 +218,11 @@ References:
 Create a new package with our CLI tool:
 
 ```shell
-# pnpm
-pnpm create @univerjs/cli init <project-name>
+# yarn
+yarn create @crabtable/cli init <project-name>
 
 # npm
-npm create @univerjs/cli init <project-name>
+npm create @crabtable/cli init <project-name>
 ```
 
 ### How to Contribute to Facade API

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuButtonItem, IMenuSelectorItem } from '@univerjs/ui';
-import { ICommandService, IUniverInstanceService } from '@univerjs/core';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuButtonItem, IMenuSelectorItem } from '@crabtable/ui';
+import { ICommandService, ICrabTableInstanceService } from '@crabtable/core';
 import {
     InsertColAfterCommand,
     InsertColBeforeCommand,
@@ -35,9 +35,9 @@ import {
     WorksheetEditPermission,
     WorksheetInsertColumnPermission,
     WorksheetInsertRowPermission,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 
-import { MenuItemType } from '@univerjs/ui';
+import { MenuItemType } from '@crabtable/ui';
 import { Observable } from 'rxjs';
 import { InsertRangeMoveDownConfirmCommand } from '../commands/commands/insert-range-move-down-confirm.command';
 import { InsertRangeMoveRightConfirmCommand } from '../commands/commands/insert-range-move-right-confirm.command';
@@ -106,7 +106,7 @@ export function InsertRowBeforeMenuItemFactory(accessor: IAccessor): IMenuButton
  * @returns
  */
 export function InsertRowBeforeCellMenuItemFactory(accessor: IAccessor): IMenuButtonItem<number> {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const selectionManagerService = accessor.get(SheetsSelectionsService);
     const commandService = accessor.get(ICommandService);
     const defaultValue = 1;
@@ -131,7 +131,7 @@ export function InsertRowBeforeCellMenuItemFactory(accessor: IAccessor): IMenuBu
                 disabled$,
             },
         },
-        value$: deriveStateFromActiveSheet$(univerInstanceService, defaultValue, () => new Observable((subscriber) => {
+        value$: deriveStateFromActiveSheet$(crabtableInstanceService, defaultValue, () => new Observable((subscriber) => {
             function update() {
                 const range = selectionManagerService.getCurrentLastSelection()?.range;
                 let countSelectedRange = defaultValue;
@@ -177,7 +177,7 @@ export function InsertRowAfterMenuItemFactory(accessor: IAccessor): IMenuButtonI
  * @param accessor
  */
 export function InsertColLeftCellMenuItemFactory(accessor: IAccessor): IMenuButtonItem<number> {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const selectionManagerService = accessor.get(SheetsSelectionsService);
     const commandService = accessor.get(ICommandService);
     const defaultValue = 1;
@@ -202,7 +202,7 @@ export function InsertColLeftCellMenuItemFactory(accessor: IAccessor): IMenuButt
                 disabled$,
             },
         },
-        value$: deriveStateFromActiveSheet$(univerInstanceService, defaultValue, () => new Observable((subscriber) => {
+        value$: deriveStateFromActiveSheet$(crabtableInstanceService, defaultValue, () => new Observable((subscriber) => {
             function update() {
                 const range = selectionManagerService.getCurrentLastSelection()?.range;
                 let countSelectedRange = defaultValue;
@@ -297,7 +297,7 @@ export function InsertRangeMoveDownMenuItemFactory(accessor: IAccessor): IMenuBu
  * @param accessor
  */
 export function InsertMultiRowsAfterHeaderMenuItemFactory(accessor: IAccessor): IMenuButtonItem<number> {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const selectionManagerService = accessor.get(SheetsSelectionsService);
     const commandService = accessor.get(ICommandService);
     const defaultValue = 1;
@@ -322,7 +322,7 @@ export function InsertMultiRowsAfterHeaderMenuItemFactory(accessor: IAccessor): 
                 disabled$,
             },
         },
-        value$: deriveStateFromActiveSheet$(univerInstanceService, defaultValue, () => new Observable((subscriber) => {
+        value$: deriveStateFromActiveSheet$(crabtableInstanceService, defaultValue, () => new Observable((subscriber) => {
             function update() {
                 const range = selectionManagerService.getCurrentLastSelection()?.range;
                 let countSelectedRange = defaultValue;
@@ -354,7 +354,7 @@ export function InsertMultiRowsAfterHeaderMenuItemFactory(accessor: IAccessor): 
  * @param accessor
  */
 export function InsertMultiRowsAboveHeaderMenuItemFactory(accessor: IAccessor): IMenuButtonItem<number> {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const selectionManagerService = accessor.get(SheetsSelectionsService);
     const commandService = accessor.get(ICommandService);
     const defaultValue = 1;
@@ -379,7 +379,7 @@ export function InsertMultiRowsAboveHeaderMenuItemFactory(accessor: IAccessor): 
                 disabled$,
             },
         },
-        value$: deriveStateFromActiveSheet$(univerInstanceService, defaultValue, () => new Observable((subscriber) => {
+        value$: deriveStateFromActiveSheet$(crabtableInstanceService, defaultValue, () => new Observable((subscriber) => {
             function update() {
                 const range = selectionManagerService.getCurrentLastSelection()?.range;
                 let countSelectedRange = defaultValue;
@@ -410,7 +410,7 @@ export function InsertMultiRowsAboveHeaderMenuItemFactory(accessor: IAccessor): 
  * @param accessor
  */
 export function InsertMultiColsLeftHeaderMenuItemFactory(accessor: IAccessor): IMenuButtonItem<number> {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const selectionManagerService = accessor.get(SheetsSelectionsService);
     const commandService = accessor.get(ICommandService);
     const defaultValue = 1;
@@ -435,7 +435,7 @@ export function InsertMultiColsLeftHeaderMenuItemFactory(accessor: IAccessor): I
                 disabled$,
             },
         },
-        value$: deriveStateFromActiveSheet$(univerInstanceService, defaultValue, () => new Observable((subscriber) => {
+        value$: deriveStateFromActiveSheet$(crabtableInstanceService, defaultValue, () => new Observable((subscriber) => {
             function update() {
                 const range = selectionManagerService.getCurrentLastSelection()?.range;
                 let countSelectedRange = defaultValue;
@@ -466,7 +466,7 @@ export function InsertMultiColsLeftHeaderMenuItemFactory(accessor: IAccessor): I
  * @param accessor
  */
 export function InsertMultiColsRightHeaderMenuItemFactory(accessor: IAccessor): IMenuButtonItem<number> {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const selectionManagerService = accessor.get(SheetsSelectionsService);
     const commandService = accessor.get(ICommandService);
     const defaultValue = 1;
@@ -491,7 +491,7 @@ export function InsertMultiColsRightHeaderMenuItemFactory(accessor: IAccessor): 
                 disabled$,
             },
         },
-        value$: deriveStateFromActiveSheet$(univerInstanceService, defaultValue, () => new Observable((subscriber) => {
+        value$: deriveStateFromActiveSheet$(crabtableInstanceService, defaultValue, () => new Observable((subscriber) => {
             function update() {
                 const range = selectionManagerService.getCurrentLastSelection()?.range;
                 let countSelectedRange = defaultValue;

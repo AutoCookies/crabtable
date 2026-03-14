@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ILocalStorageService, Inject } from '@univerjs/core';
+import { ILocalStorageService, Inject } from '@crabtable/core';
 import { createContext } from 'react';
 
 type HabitValue = string | number;

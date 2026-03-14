@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { Documents, IRenderContext, IRenderModule } from '@univerjs/engine-render';
+import type { Workbook } from '@crabtable/core';
+import type { Documents, IRenderContext, IRenderModule } from '@crabtable/engine-render';
 import {
     DEFAULT_EMPTY_DOCUMENT_VALUE,
     Disposable,
@@ -23,9 +23,9 @@ import {
     DOCS_NORMAL_EDITOR_UNIT_ID_KEY,
     DOCS_ZEN_EDITOR_UNIT_ID_KEY,
     ICommandService,
-} from '@univerjs/core';
-import { RichTextEditingMutation } from '@univerjs/docs';
-import { ContextMenuPosition, IContextMenuService } from '@univerjs/ui';
+} from '@crabtable/core';
+import { RichTextEditingMutation } from '@crabtable/docs';
+import { ContextMenuPosition, IContextMenuService } from '@crabtable/ui';
 
 const SKIP_UNIT_IDS = [
     DEFAULT_EMPTY_DOCUMENT_VALUE,

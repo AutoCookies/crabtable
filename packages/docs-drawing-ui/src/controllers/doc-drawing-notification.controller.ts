@@ -16,22 +16,22 @@
 
 /* eslint-disable ts/no-explicit-any */
 
-import type { ICommandInfo, IDrawingSearch, JSONXActions, Nullable } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { IDocDrawing } from '@univerjs/docs-drawing';
-import type { IDrawingJsonUndo1, IDrawingOrderMapParam } from '@univerjs/drawing';
+import type { ICommandInfo, IDrawingSearch, JSONXActions, Nullable } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { IDocDrawing } from '@crabtable/docs-drawing';
+import type { IDrawingJsonUndo1, IDrawingOrderMapParam } from '@crabtable/drawing';
 import {
     Disposable,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     JSONX,
     RedoCommand,
     UndoCommand,
-} from '@univerjs/core';
-import { RichTextEditingMutation } from '@univerjs/docs';
-import { IDocDrawingService } from '@univerjs/docs-drawing';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { IRenderManagerService } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { RichTextEditingMutation } from '@crabtable/docs';
+import { IDocDrawingService } from '@crabtable/docs-drawing';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { IRenderManagerService } from '@crabtable/engine-render';
 
 interface IAddOrRemoveDrawing {
     type: 'add' | 'remove';
@@ -118,7 +118,7 @@ function getReOrderedDrawings(actions: JSONXActions): number[] {
 
 export class DocDrawingAddRemoveController extends Disposable {
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService,
         @IDrawingManagerService private readonly _drawingManagerService: IDrawingManagerService,
         @IDocDrawingService private readonly _docDrawingService: IDocDrawingService,
@@ -178,7 +178,7 @@ export class DocDrawingAddRemoveController extends Disposable {
                     return;
                 }
 
-                const unitId = this._univerInstanceService.getCurrentUniverDocInstance()?.getUnitId();
+                const unitId = this._crabtableInstanceService.getCurrentUniverDocInstance()?.getUnitId();
                 const focusedDrawings = this._drawingManagerService.getFocusDrawings();
 
                 if (unitId == null || focusedDrawings.length === 0) {
@@ -234,7 +234,7 @@ export class DocDrawingAddRemoveController extends Disposable {
     }
 
     private _updateDrawingsOrder(unitId: string) {
-        const documentDataModel = this._univerInstanceService.getUniverDocInstance(unitId);
+        const documentDataModel = this._crabtableInstanceService.getUniverDocInstance(unitId);
 
         if (documentDataModel == null) {
             return;

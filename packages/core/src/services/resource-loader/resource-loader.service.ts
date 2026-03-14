@@ -20,16 +20,16 @@ import type { IResourceHook } from '../resource-manager/type';
 import type { IResourceLoaderService } from './type';
 import { isInternalEditorID } from '../../common/const';
 import { Inject } from '../../common/di';
-import { UniverInstanceType } from '../../common/unit';
+import { CrabTableInstanceType } from '../../common/unit';
 import { Tools } from '../../shared';
 import { Disposable } from '../../shared/lifecycle';
-import { IUniverInstanceService } from '../instance/instance.service';
+import { ICrabTableInstanceService } from '../instance/instance.service';
 import { IResourceManagerService } from '../resource-manager/type';
 
 export class ResourceLoaderService extends Disposable implements IResourceLoaderService {
     constructor(
         @Inject(IResourceManagerService) private readonly _resourceManagerService: IResourceManagerService,
-        @Inject(IUniverInstanceService) private readonly _univerInstanceService: IUniverInstanceService
+        @Inject(ICrabTableInstanceService) private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
         this._init();
@@ -39,11 +39,11 @@ export class ResourceLoaderService extends Disposable implements IResourceLoader
         const handleHookAdd = (hook: IResourceHook) => {
             hook.businesses.forEach((business) => {
                 switch (business) {
-                    case UniverInstanceType.UNRECOGNIZED:
-                    case UniverInstanceType.UNIVER_UNKNOWN:
-                    case UniverInstanceType.UNIVER_SLIDE:
-                    case UniverInstanceType.UNIVER_DOC: {
-                        this._univerInstanceService.getAllUnitsForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC).forEach((doc) => {
+                    case CrabTableInstanceType.UNRECOGNIZED:
+                    case CrabTableInstanceType.UNIVER_UNKNOWN:
+                    case CrabTableInstanceType.CRABTABLE_SLIDE:
+                    case CrabTableInstanceType.CRABTABLE_DOC: {
+                        this._crabtableInstanceService.getAllUnitsForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC).forEach((doc) => {
                             const snapshotResource = doc.getSnapshot().resources || [];
                             const plugin = snapshotResource.find((r) => r.name === hook.pluginName);
                             if (plugin) {
@@ -57,8 +57,8 @@ export class ResourceLoaderService extends Disposable implements IResourceLoader
                         });
                         break;
                     }
-                    case UniverInstanceType.UNIVER_SHEET: {
-                        this._univerInstanceService.getAllUnitsForType<Workbook>(UniverInstanceType.UNIVER_SHEET).forEach((workbook) => {
+                    case CrabTableInstanceType.CRABTABLE_SHEET: {
+                        this._crabtableInstanceService.getAllUnitsForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).forEach((workbook) => {
                             const snapshotResource = workbook.getSnapshot().resources || [];
                             const plugin = snapshotResource.find((r) => r.name === hook.pluginName);
                             if (plugin) {
@@ -81,12 +81,12 @@ export class ResourceLoaderService extends Disposable implements IResourceLoader
         this.disposeWithMe(this._resourceManagerService.register$.subscribe((hook) => handleHookAdd(hook)));
 
         this.disposeWithMe(
-            this._univerInstanceService.getTypeOfUnitAdded$<Workbook>(UniverInstanceType.UNIVER_SHEET).subscribe((workbook) => {
+            this._crabtableInstanceService.getTypeOfUnitAdded$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((workbook) => {
                 this._resourceManagerService.loadResources(workbook.getUnitId(), workbook.getSnapshot().resources);
             })
         );
         this.disposeWithMe(
-            this._univerInstanceService.getTypeOfUnitAdded$<DocumentDataModel>(UniverInstanceType.UNIVER_DOC).subscribe((doc) => {
+            this._crabtableInstanceService.getTypeOfUnitAdded$<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC).subscribe((doc) => {
                 const unitId = doc.getUnitId();
                 if (!isInternalEditorID(unitId)) {
                     this._resourceManagerService.loadResources(doc.getUnitId(), doc.getSnapshot().resources);
@@ -97,20 +97,20 @@ export class ResourceLoaderService extends Disposable implements IResourceLoader
         // TODO: add slides in the future
 
         this.disposeWithMe(
-            this._univerInstanceService.getTypeOfUnitDisposed$<Workbook>(UniverInstanceType.UNIVER_SHEET).subscribe((workbook) => {
-                this._resourceManagerService.unloadResources(workbook.getUnitId(), UniverInstanceType.UNIVER_SHEET);
+            this._crabtableInstanceService.getTypeOfUnitDisposed$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((workbook) => {
+                this._resourceManagerService.unloadResources(workbook.getUnitId(), CrabTableInstanceType.CRABTABLE_SHEET);
             })
         );
 
         this.disposeWithMe(
-            this._univerInstanceService.getTypeOfUnitDisposed$<DocumentDataModel>(UniverInstanceType.UNIVER_DOC).subscribe((doc) => {
-                this._resourceManagerService.unloadResources(doc.getUnitId(), UniverInstanceType.UNIVER_DOC);
+            this._crabtableInstanceService.getTypeOfUnitDisposed$<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC).subscribe((doc) => {
+                this._resourceManagerService.unloadResources(doc.getUnitId(), CrabTableInstanceType.CRABTABLE_DOC);
             })
         );
     }
 
     saveUnit<T = object>(unitId: string) {
-        const unit = this._univerInstanceService.getUnit(unitId);
+        const unit = this._crabtableInstanceService.getUnit(unitId);
         if (!unit) {
             return null;
         }

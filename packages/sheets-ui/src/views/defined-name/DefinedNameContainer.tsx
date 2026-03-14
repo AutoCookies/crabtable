@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-import type { Nullable, Workbook } from '@univerjs/core';
-import type { IDefinedNamesServiceParam, ISetDefinedNameMutationParam } from '@univerjs/engine-formula';
-import { generateRandomId, ICommandService, IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
-import { Button, clsx, Confirm, scrollbarClassName, Tooltip } from '@univerjs/design';
-import { IDefinedNamesService, serializeRangeWithSheet } from '@univerjs/engine-formula';
-import { DeleteIcon, IncreaseIcon, PenIcon } from '@univerjs/icons';
+import type { Nullable, Workbook } from '@crabtable/core';
+import type { IDefinedNamesServiceParam, ISetDefinedNameMutationParam } from '@crabtable/engine-formula';
+import { CrabTableInstanceType, generateRandomId, ICommandService, ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { Button, clsx, Confirm, scrollbarClassName, Tooltip } from '@crabtable/design';
+import { IDefinedNamesService, serializeRangeWithSheet } from '@crabtable/engine-formula';
 import {
     InsertDefinedNameCommand,
     RemoveDefinedNameCommand,
@@ -27,19 +26,20 @@ import {
     SetDefinedNameCommand,
     SetWorksheetShowCommand,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
-import { useDependency } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { useDependency } from '@crabtable/ui';
+import { DeleteIcon, IncreaseIcon, PenIcon } from '@univerjs/icons';
 import { useEffect, useState } from 'react';
 import { DefinedNameInput } from './DefinedNameInput';
 
 export const DefinedNameContainer = () => {
     const commandService = useDependency(ICommandService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const localeService = useDependency(LocaleService);
     const definedNamesService = useDependency(IDefinedNamesService);
     const selectionManagerService = useDependency(SheetsSelectionsService);
 
-    const workbook = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const workbook = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     const unitId = workbook?.getUnitId();
     const getDefinedNameMap = () => {
         if (!unitId) {

@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-import type { IDisposable, IDrawingSearch, IPosition, IRange, ITransformState, Nullable, Serializable, Workbook, Worksheet } from '@univerjs/core';
-import type { IDrawingJsonUndo1 } from '@univerjs/drawing';
-import type { BaseObject, IBoundRectNoAngle, IRectProps, IRender, Scene, SpreadsheetSkeleton } from '@univerjs/engine-render';
-import type { ISetFrozenMutationParams, ISetSelectionsOperationParams, ISetWorksheetRowAutoHeightMutationParams } from '@univerjs/sheets';
-import type { IFloatDomData, ISheetDrawingPosition, ISheetFloatDom } from '@univerjs/sheets-drawing';
-import type { IFloatDom, IFloatDomLayout } from '@univerjs/ui';
+import type { IDisposable, IDrawingSearch, IPosition, IRange, ITransformState, Nullable, Serializable, Workbook, Worksheet } from '@crabtable/core';
+import type { IDrawingJsonUndo1 } from '@crabtable/drawing';
+import type { BaseObject, IBoundRectNoAngle, IRectProps, IRender, Scene, SpreadsheetSkeleton } from '@crabtable/engine-render';
+import type { ISetFrozenMutationParams, ISetSelectionsOperationParams, ISetWorksheetRowAutoHeightMutationParams } from '@crabtable/sheets';
+import type { IFloatDomData, ISheetDrawingPosition, ISheetFloatDom } from '@crabtable/sheets-drawing';
+import type { IFloatDom, IFloatDomLayout } from '@crabtable/ui';
 import type { IInsertDrawingCommandParams } from '../commands/commands/interfaces';
-import { Disposable, DisposableCollection, DrawingTypeEnum, fromEventSubject, generateRandomId, ICommandService, Inject, IUniverInstanceService, LifecycleService, LifecycleStages, Tools, UniverInstanceType } from '@univerjs/core';
-import { getDrawingShapeKeyByDrawingSearch, IDrawingManagerService } from '@univerjs/drawing';
-import { DRAWING_OBJECT_LAYER_INDEX, IRenderManagerService, ObjectType, Rect, SHEET_VIEWPORT_KEY } from '@univerjs/engine-render';
-import { COMMAND_LISTENER_SKELETON_CHANGE, getSheetCommandTarget, SetFrozenMutation, SetSelectionsOperation, SetWorksheetRowAutoHeightMutation } from '@univerjs/sheets';
-import { DrawingApplyType, ISheetDrawingService, SetDrawingApplyMutation } from '@univerjs/sheets-drawing';
-import { ISheetSelectionRenderService, SetScrollOperation, SetZoomRatioOperation, SheetSkeletonManagerService } from '@univerjs/sheets-ui';
-import { CanvasFloatDomService } from '@univerjs/ui';
+import { CrabTableInstanceType, Disposable, DisposableCollection, DrawingTypeEnum, fromEventSubject, generateRandomId, ICommandService, ICrabTableInstanceService, Inject, LifecycleService, LifecycleStages, Tools } from '@crabtable/core';
+import { getDrawingShapeKeyByDrawingSearch, IDrawingManagerService } from '@crabtable/drawing';
+import { DRAWING_OBJECT_LAYER_INDEX, IRenderManagerService, ObjectType, Rect, SHEET_VIEWPORT_KEY } from '@crabtable/engine-render';
+import { COMMAND_LISTENER_SKELETON_CHANGE, getSheetCommandTarget, SetFrozenMutation, SetSelectionsOperation, SetWorksheetRowAutoHeightMutation } from '@crabtable/sheets';
+import { DrawingApplyType, ISheetDrawingService, SetDrawingApplyMutation } from '@crabtable/sheets-drawing';
+import { ISheetSelectionRenderService, SetScrollOperation, SetZoomRatioOperation, SheetSkeletonManagerService } from '@crabtable/sheets-ui';
+import { CanvasFloatDomService } from '@crabtable/ui';
 import { BehaviorSubject, filter, map, of, Subject, switchMap, take } from 'rxjs';
 import { InsertSheetDrawingCommand } from '../commands/commands/insert-sheet-drawing.command';
 
@@ -287,7 +287,7 @@ export class SheetCanvasFloatDomManagerService extends Disposable {
 
     constructor(
         @Inject(IRenderManagerService) private _renderManagerService: IRenderManagerService,
-        @IUniverInstanceService private _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(ICommandService) private _commandService: ICommandService,
         @IDrawingManagerService private _drawingManagerService: IDrawingManagerService,
         @Inject(CanvasFloatDomService) private readonly _canvasFloatDomService: CanvasFloatDomService,
@@ -342,10 +342,10 @@ export class SheetCanvasFloatDomManagerService extends Disposable {
                 // eslint-disable-next-line max-lines-per-function
                 (params).forEach((param) => {
                     const { unitId, subUnitId, drawingId } = param;
-                    const target = getSheetCommandTarget(this._univerInstanceService, { unitId, subUnitId });
+                    const target = getSheetCommandTarget(this._crabtableInstanceService, { unitId, subUnitId });
                     const floatDomParam = this._drawingManagerService.getDrawingByParam(param) as IFloatDomData;
 
-                    const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+                    const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
                     if (!workbook) {
                         return;
                     }
@@ -508,7 +508,7 @@ export class SheetCanvasFloatDomManagerService extends Disposable {
                 .map((id) => ({ id, ...this._domLayerInfoMap.get(id) }))
                 .filter((info) => info.subUnitId === subUnitId && info.unitId === unitId)
                 .map((info) => info.id);
-            const target = getSheetCommandTarget(this._univerInstanceService, { unitId, subUnitId });
+            const target = getSheetCommandTarget(this._crabtableInstanceService, { unitId, subUnitId });
             const skeleton = this._renderManagerService.getRenderById(unitId)?.with(SheetSkeletonManagerService).getSkeletonParam(subUnitId);
             if (!renderObject || !target || !skeleton) {
                 return;
@@ -524,7 +524,7 @@ export class SheetCanvasFloatDomManagerService extends Disposable {
 
         // #region scroll
         this.disposeWithMe(
-            this._univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET).pipe(
+            this._crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).pipe(
                 switchMap((workbook) => workbook ? workbook.activeSheet$ : of(null)),
                 map((worksheet) => {
                     if (!worksheet) return null;
@@ -669,7 +669,7 @@ export class SheetCanvasFloatDomManagerService extends Disposable {
 
     // CreateFloatDomCommand --> floatDomService.addFloatDomToPosition
     addFloatDomToPosition(layer: ICanvasFloatDom, propId?: string) {
-        const target = getSheetCommandTarget(this._univerInstanceService, {
+        const target = getSheetCommandTarget(this._crabtableInstanceService, {
             unitId: layer.unitId,
             subUnitId: layer.subUnitId,
         });
@@ -749,7 +749,7 @@ export class SheetCanvasFloatDomManagerService extends Disposable {
 
     // eslint-disable-next-line max-lines-per-function, complexity
     addFloatDomToRange(range: IRange, config: ICanvasFloatDom, domAnchor: Partial<IDOMAnchor>, propId?: string) {
-        const target = getSheetCommandTarget(this._univerInstanceService, {
+        const target = getSheetCommandTarget(this._crabtableInstanceService, {
             unitId: config.unitId,
             subUnitId: config.subUnitId,
         });
@@ -797,10 +797,10 @@ export class SheetCanvasFloatDomManagerService extends Disposable {
 
         {
             const { unitId, subUnitId, drawingId } = sheetDrawingParam;
-            const target = getSheetCommandTarget(this._univerInstanceService, { unitId, subUnitId });
+            const target = getSheetCommandTarget(this._crabtableInstanceService, { unitId, subUnitId });
             const floatDomParam = sheetDrawingParam;
 
-            const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+            const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
             if (!workbook) {
                 return;
             }
@@ -998,7 +998,7 @@ export class SheetCanvasFloatDomManagerService extends Disposable {
 
     // eslint-disable-next-line max-lines-per-function, complexity
     addFloatDomToColumnHeader(column: number, config: ICanvasFloatDom, domLayoutParam: IDOMAnchor, propId?: string) {
-        const target = getSheetCommandTarget(this._univerInstanceService, {
+        const target = getSheetCommandTarget(this._crabtableInstanceService, {
             unitId: config.unitId,
             subUnitId: config.subUnitId,
         });
@@ -1051,11 +1051,11 @@ export class SheetCanvasFloatDomManagerService extends Disposable {
 
         {
             const { unitId, subUnitId, drawingId } = sheetDrawingParam;
-            const target = getSheetCommandTarget(this._univerInstanceService, { unitId, subUnitId });
+            const target = getSheetCommandTarget(this._crabtableInstanceService, { unitId, subUnitId });
             // const floatDomParam = this._drawingManagerService.getDrawingByParam(sheetDrawingParam) as IFloatDomData;
             const floatDomParam = sheetDrawingParam;
 
-            const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+            const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
             if (!workbook) {
                 return;
             }

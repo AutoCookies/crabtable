@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Disposable, Inject } from '@univerjs/core';
-import { SheetPermissionInitController } from '@univerjs/sheets';
+import { Disposable, Inject } from '@crabtable/core';
+import { SheetPermissionInitController } from '@crabtable/sheets';
 
 export class SheetPermissionInitUIController extends Disposable {
     constructor(

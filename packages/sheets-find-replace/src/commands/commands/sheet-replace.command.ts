@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICellData, ICommand, IObjectArrayPrimitiveType } from '@univerjs/core';
-import type { IReplaceAllResult } from '@univerjs/find-replace';
-import type { ISetRangeValuesCommandParams } from '@univerjs/sheets';
-import { CommandType, ICommandService, IUndoRedoService } from '@univerjs/core';
-import { SetRangeValuesCommand } from '@univerjs/sheets';
+import type { IAccessor, ICellData, ICommand, IObjectArrayPrimitiveType } from '@crabtable/core';
+import type { IReplaceAllResult } from '@crabtable/find-replace';
+import type { ISetRangeValuesCommandParams } from '@crabtable/sheets';
+import { CommandType, ICommandService, IUndoRedoService } from '@crabtable/core';
+import { SetRangeValuesCommand } from '@crabtable/sheets';
 
 export interface ISheetReplaceCommandParams {
     unitId: string;

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IRange, Nullable, SheetSkeleton, Worksheet } from '@univerjs/core';
-import { ObjectMatrix, Range } from '@univerjs/core';
+import type { IRange, Nullable, SheetSkeleton, Worksheet } from '@crabtable/core';
+import { ObjectMatrix, Range } from '@crabtable/core';
 
 export function getRangesHeight(ranges: IRange[], worksheet: Worksheet) {
     const cellHeights = new ObjectMatrix<number>();

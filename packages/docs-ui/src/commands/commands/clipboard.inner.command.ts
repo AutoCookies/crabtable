@@ -24,23 +24,23 @@ import type {
     ITextRange,
     JSONXActions,
     Nullable,
-} from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { DocumentViewModel, IRectRangeWithStyle, ITextRangeWithStyle } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { DocumentViewModel, IRectRangeWithStyle, ITextRangeWithStyle } from '@crabtable/engine-render';
 import {
     BuildTextUtils,
     CommandType,
     generateRandomId,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     JSONX,
     MemoryCursor,
     SHEET_EDITOR_UNITS,
     TextX,
     TextXActionType,
     Tools,
-} from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation } from '@univerjs/docs';
+} from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation } from '@crabtable/docs';
 import { getCustomDecorationAtPosition, getCustomRangeAtPosition } from '../../basics/paragraph';
 import { getCommandSkeleton, getRichTextEditPath } from '../util';
 import { getDeleteRowContentActionParams, getDeleteRowsActionsParams, getDeleteTableActionParams } from './table/table';
@@ -93,7 +93,7 @@ export const InnerPasteCommand: ICommand<IInnerPasteCommandParams> = {
         const { segmentId, textRanges, doc } = params;
         const commandService = accessor.get(ICommandService);
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const selections = docSelectionManagerService.getTextRanges();
         const rectRanges = docSelectionManagerService.getRectRanges();
         const { body, tableSource, drawings } = doc;
@@ -101,7 +101,7 @@ export const InnerPasteCommand: ICommand<IInnerPasteCommandParams> = {
             return false;
         }
 
-        const docDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const docDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
         const originBody = docDataModel?.getSelfOrHeaderFooterModel(segmentId).getBody();
         if (docDataModel == null || originBody == null) {
             return false;
@@ -242,7 +242,7 @@ export const InnerPasteCommand: ICommand<IInnerPasteCommandParams> = {
     },
 };
 
-// TODO: WORKAROUND to fix https://github.com/dream-num/univer-pro/issues/2560.
+// TODO: WORKAROUND to fix https://github.com/AutoCookies/crabtable-pro/issues/2560.
 function adjustSelectionByTable(selection: ITextRange, tables: ICustomTable[]): ITextRange {
     const { startOffset, endOffset } = selection;
     const endsWithTable = tables.some((t) => t.startIndex === endOffset);
@@ -486,7 +486,7 @@ export const CutContentCommand: ICommand<IInnerCutCommandParams> = {
     handler: (accessor, params: IInnerCutCommandParams) => {
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
         const { segmentId, textRanges, selections = docSelectionManagerService.getTextRanges(), rectRanges = docSelectionManagerService.getRectRanges() } = params;
 
@@ -497,12 +497,12 @@ export const CutContentCommand: ICommand<IInnerCutCommandParams> = {
             return false;
         }
 
-        const unitId = univerInstanceService.getCurrentUniverDocInstance()?.getUnitId();
+        const unitId = crabtableInstanceService.getCurrentUniverDocInstance()?.getUnitId();
         if (!unitId) {
             return false;
         }
 
-        const docDataModel = univerInstanceService.getUniverDocInstance(unitId);
+        const docDataModel = crabtableInstanceService.getUniverDocInstance(unitId);
         if (docDataModel == null) {
             return false;
         }

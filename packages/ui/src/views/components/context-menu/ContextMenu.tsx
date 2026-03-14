@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IMouseEvent } from '@univerjs/engine-render';
+import type { IMouseEvent } from '@crabtable/engine-render';
 import type { IContextMenuAnchorRect } from './AnchoredContextMenu';
-import { ICommandService } from '@univerjs/core';
+import { ICommandService } from '@crabtable/core';
 
 import { useEffect, useRef, useState } from 'react';
 import { IContextMenuService } from '../../../services/contextmenu/contextmenu.service';

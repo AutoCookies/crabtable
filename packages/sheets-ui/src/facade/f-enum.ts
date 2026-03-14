@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { FEnum } from '@univerjs/core/facade';
-import { SHEET_VIEWPORT_KEY } from '@univerjs/engine-render';
+import { FEnum } from '@crabtable/core/facade';
+import { SHEET_VIEWPORT_KEY } from '@crabtable/engine-render';
 
 /**
  * @ignore
@@ -35,7 +35,7 @@ export class FSheetsUIEnum implements IFSheetsUIEnum {
 }
 
 FEnum.extend(FSheetsUIEnum);
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
     export interface FEnum extends IFSheetsUIEnum {
     }

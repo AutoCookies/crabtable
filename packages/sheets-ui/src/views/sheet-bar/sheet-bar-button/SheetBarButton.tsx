@@ -15,7 +15,7 @@
  */
 
 import type { CSSProperties, MouseEvent, ReactNode } from 'react';
-import { Button } from '@univerjs/design';
+import { Button } from '@crabtable/design';
 
 export interface IBaseSheetBarButtonProps {
     children?: ReactNode;

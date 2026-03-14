@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { BaseDataValidator } from '@univerjs/data-validation';
-import { DataValidationStatus, Disposable, Inject, IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
-import { SheetDataValidationModel } from '@univerjs/sheets-data-validation';
-import { CellAlertManagerService, CellAlertType, HoverManagerService } from '@univerjs/sheets-ui';
-import { IZenZoneService } from '@univerjs/ui';
+import type { Workbook } from '@crabtable/core';
+import type { BaseDataValidator } from '@crabtable/data-validation';
+import { CrabTableInstanceType, DataValidationStatus, Disposable, ICrabTableInstanceService, Inject, LocaleService } from '@crabtable/core';
+import { SheetDataValidationModel } from '@crabtable/sheets-data-validation';
+import { CellAlertManagerService, CellAlertType, HoverManagerService } from '@crabtable/sheets-ui';
+import { IZenZoneService } from '@crabtable/ui';
 import { debounceTime } from 'rxjs';
 
 const ALERT_KEY = 'SHEET_DATA_VALIDATION_ALERT';
@@ -28,7 +28,7 @@ export class DataValidationAlertController extends Disposable {
     constructor(
         @Inject(HoverManagerService) private readonly _hoverManagerService: HoverManagerService,
         @Inject(CellAlertManagerService) private readonly _cellAlertManagerService: CellAlertManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(LocaleService) private readonly _localeService: LocaleService,
         @IZenZoneService private readonly _zenZoneService: IZenZoneService,
         @Inject(SheetDataValidationModel) private readonly _dataValidationModel: SheetDataValidationModel
@@ -45,7 +45,7 @@ export class DataValidationAlertController extends Disposable {
     private _initCellAlertPopup() {
         this.disposeWithMe(this._hoverManagerService.currentCell$.pipe(debounceTime(100)).subscribe((cellPos) => {
             if (cellPos) {
-                const workbook = this._univerInstanceService.getUnit<Workbook>(cellPos.location.unitId, UniverInstanceType.UNIVER_SHEET)!;
+                const workbook = this._crabtableInstanceService.getUnit<Workbook>(cellPos.location.unitId, CrabTableInstanceType.CRABTABLE_SHEET)!;
                 const worksheet = workbook.getSheetBySheetId(cellPos.location.subUnitId);
                 if (!worksheet) return;
                 const rule = this._dataValidationModel.getRuleByLocation(cellPos.location.unitId, cellPos.location.subUnitId, cellPos.location.row, cellPos.location.col);

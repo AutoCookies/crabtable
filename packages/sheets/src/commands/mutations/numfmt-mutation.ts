@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, IMutationInfo, IRange } from '@univerjs/core';
-import { cellToRange, CommandType, Range } from '@univerjs/core';
+import type { IAccessor, ICommand, IMutationInfo, IRange } from '@crabtable/core';
+import { cellToRange, CommandType, Range } from '@crabtable/core';
 
 import { rangeMerge } from '../../basics/range-merge';
 import { createUniqueKey, groupByKey } from '../../basics/utils';

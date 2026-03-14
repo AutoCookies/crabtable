@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Injector, IWorkbookData, Univer, Workbook } from '@univerjs/core';
+import type { Injector, IWorkbookData, Workbook } from '@crabtable/core';
 import type { LexerNode } from '../lexer-node';
-import { LocaleType } from '@univerjs/core';
+import { LocaleType } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { IFormulaCurrentConfigService } from '../../../services/current-data.service';
 import { IDefinedNamesService } from '../../../services/defined-names.service';
@@ -62,7 +62,7 @@ const TEST_WORKBOOK_DATA: IWorkbookData = {
 };
 
 describe('lexer test', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let lexer: Lexer;
     let get: Injector['get'];
     let workbook: Workbook;

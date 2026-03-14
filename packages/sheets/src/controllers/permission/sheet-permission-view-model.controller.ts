@@ -15,7 +15,7 @@
  */
 
 import type { IWorksheetProtectionRenderCellData } from '../../services/permission/worksheet-permission/type';
-import { Disposable, Inject, InterceptorEffectEnum, IPermissionService } from '@univerjs/core';
+import { Disposable, Inject, InterceptorEffectEnum, IPermissionService } from '@crabtable/core';
 import { UnitAction } from '@univerjs/protocol';
 import { RangeProtectionCache } from '../../model/range-protection.cache';
 import { WorksheetEditPermission, WorksheetViewPermission } from '../../services/permission/permission-point';

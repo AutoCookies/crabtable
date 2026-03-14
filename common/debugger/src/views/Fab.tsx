@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDropdownMenuProps } from '@univerjs/design';
+import type { IDropdownMenuProps } from '@crabtable/design';
 import type { IUniverDebuggerConfig } from '../config/config';
-import { IConfigService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { borderClassName, clsx, DropdownMenu } from '@univerjs/design';
-import { useDependency } from '@univerjs/ui';
+import { CrabTableInstanceType, IConfigService, ICrabTableInstanceService } from '@crabtable/core';
+import { borderClassName, clsx, DropdownMenu } from '@crabtable/design';
+import { useDependency } from '@crabtable/ui';
 import { DEBUGGER_PLUGIN_CONFIG_KEY } from '../config/config';
 import { useCellContent } from './use-cell-content';
 import { useDarkMode } from './use-dark-mode';
@@ -58,8 +58,8 @@ export function Fab() {
     const user = useUser();
     const dispose = useDispose();
 
-    const univerInstanceService = useDependency(IUniverInstanceService);
-    const unitType = univerInstanceService.getFocusedUnit()?.type;
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
+    const unitType = crabtableInstanceService.getFocusedUnit()?.type;
     if (!unitType) return null;
 
     const items: IDropdownMenuProps['items'] = [
@@ -73,12 +73,12 @@ export function Fab() {
         dialog,
         sidebar,
         { type: 'separator' },
-        (fabEntryUnitType === UniverInstanceType.UNIVER_SHEET || fabEntryUnitType === UniverInstanceType.UNIVER_DOC) && floatingDom,
-        fabEntryUnitType === UniverInstanceType.UNIVER_SHEET && cellContent,
-        fabEntryUnitType === UniverInstanceType.UNIVER_SHEET && units,
+        (fabEntryUnitType === CrabTableInstanceType.CRABTABLE_SHEET || fabEntryUnitType === CrabTableInstanceType.CRABTABLE_DOC) && floatingDom,
+        fabEntryUnitType === CrabTableInstanceType.CRABTABLE_SHEET && cellContent,
+        fabEntryUnitType === CrabTableInstanceType.CRABTABLE_SHEET && units,
         snapshot,
         editable,
-        fabEntryUnitType === UniverInstanceType.UNIVER_SHEET && user,
+        fabEntryUnitType === CrabTableInstanceType.CRABTABLE_SHEET && user,
         dispose,
     ].filter((item) => item !== null) as IDropdownMenuProps['items'];
 

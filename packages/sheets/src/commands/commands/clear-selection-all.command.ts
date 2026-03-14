@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, IMutationInfo, IRange, Workbook } from '@univerjs/core';
+import type { IAccessor, ICommand, IMutationInfo, IRange, Workbook } from '@crabtable/core';
 import type { ISetRangeValuesMutationParams } from '../mutations/set-range-values.mutation';
 
 import {
     CommandType,
+    CrabTableInstanceType,
     ICommandService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
     sequenceExecute,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { generateNullCell, getVisibleRanges } from '../../basics/utils';
 import { SheetsSelectionsService } from '../../services/selections/selection.service';
 import { SheetInterceptorService } from '../../services/sheet-interceptor/sheet-interceptor.service';
@@ -43,13 +43,13 @@ export const ClearSelectionAllCommand: ICommand = {
     id: 'sheet.command.clear-selection-all',
     type: CommandType.COMMAND,
     handler: (accessor: IAccessor, params: IClearSelectionAllCommandParams) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
         const selectionManagerService = accessor.get(SheetsSelectionsService);
         const undoRedoService = accessor.get(IUndoRedoService);
         const sheetInterceptorService = accessor.get(SheetInterceptorService);
 
-        const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) return false;
 
         const unitId = params?.unitId || workbook.getUnitId();

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IRange, ISheetDataValidationRule, Nullable } from '@univerjs/core';
-import type { IDiscreteRange } from '@univerjs/sheets';
-import type { IPasteHookValueType } from '@univerjs/sheets-ui';
-import { Disposable, Inject, Injector, ObjectMatrix, queryObjectMatrix, Rectangle } from '@univerjs/core';
-import { rangeToDiscreteRange } from '@univerjs/sheets';
-import { DATA_VALIDATION_PLUGIN_NAME, getDataValidationDiffMutations, SheetDataValidationModel } from '@univerjs/sheets-data-validation';
-import { COPY_TYPE, getRepeatRange, ISheetClipboardService, PREDEFINED_HOOK_NAME_PASTE, virtualizeDiscreteRanges } from '@univerjs/sheets-ui';
+import type { IRange, ISheetDataValidationRule, Nullable } from '@crabtable/core';
+import type { IDiscreteRange } from '@crabtable/sheets';
+import type { IPasteHookValueType } from '@crabtable/sheets-ui';
+import { Disposable, Inject, Injector, ObjectMatrix, queryObjectMatrix, Rectangle } from '@crabtable/core';
+import { rangeToDiscreteRange } from '@crabtable/sheets';
+import { DATA_VALIDATION_PLUGIN_NAME, getDataValidationDiffMutations, SheetDataValidationModel } from '@crabtable/sheets-data-validation';
+import { COPY_TYPE, getRepeatRange, ISheetClipboardService, PREDEFINED_HOOK_NAME_PASTE, virtualizeDiscreteRanges } from '@crabtable/sheets-ui';
 
 export class DataValidationCopyPasteController extends Disposable {
     private _copyInfo: Nullable<{

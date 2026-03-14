@@ -78,7 +78,7 @@ const locale: typeof enUS = {
     clipboard: {
         authentication: {
             title: 'Không thể truy cập vào bảng nhớ tạm',
-            content: 'Vui lòng cho phép Univer truy cập vào bảng nhớ tạm của bạn.',
+            content: 'Vui lòng cho phép CrabTable truy cập vào bảng nhớ tạm của bạn.',
         },
     },
     textEditor: {

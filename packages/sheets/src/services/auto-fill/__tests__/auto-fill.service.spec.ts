@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Injector, IRange, Univer, Workbook } from '@univerjs/core';
+import type { Injector, IRange, Workbook } from '@crabtable/core';
 import type { IAutoFillRule } from '../type';
-import { Direction, ICommandService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, Direction, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { SetSelectionsOperation } from '../../../commands/operations/selection.operation';
 import { createTestBase, TEST_WORKBOOK_DATA_DEMO } from '../../__tests__/util';
@@ -25,7 +25,7 @@ import { AutoFillService } from '../auto-fill.service';
 import { AUTO_FILL_APPLY_TYPE, AUTO_FILL_DATA_TYPE, AUTO_FILL_HOOK_TYPE } from '../type';
 
 describe('AutoFillService', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let service: AutoFillService;
     let commandService: ICommandService;
@@ -44,7 +44,7 @@ describe('AutoFillService', () => {
         commandService = get(ICommandService);
         commandService.registerCommand(SetSelectionsOperation);
 
-        const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         unitId = workbook.getUnitId();
         subUnitId = workbook.getActiveSheet()!.getSheetId();
     });
@@ -188,7 +188,7 @@ describe('AutoFillService', () => {
     });
 
     it('should skip auto-height mutation generation in NO_FORMAT mode', () => {
-        const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet()!;
         service.applyType = AUTO_FILL_APPLY_TYPE.NO_FORMAT;
 

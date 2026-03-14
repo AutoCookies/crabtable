@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IDocumentBody, IDocumentData, IUser } from '@univerjs/core';
-import type { Editor, IKeyboardEventConfig } from '@univerjs/docs-ui';
-import type { IThreadComment } from '@univerjs/thread-comment';
-import { BuildTextUtils, DOCS_COMMENT_EDITOR_UNIT_ID_KEY, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, ICommandService, LocaleService, Tools, UniverInstanceType } from '@univerjs/core';
-import { Button, clsx } from '@univerjs/design';
-import { BreakLineCommand, IEditorService, RichTextEditor } from '@univerjs/docs-ui';
-import { KeyCode, useDependency } from '@univerjs/ui';
+import type { IDocumentBody, IDocumentData, IUser } from '@crabtable/core';
+import type { Editor, IKeyboardEventConfig } from '@crabtable/docs-ui';
+import type { IThreadComment } from '@crabtable/thread-comment';
+import { BuildTextUtils, CrabTableInstanceType, DOCS_COMMENT_EDITOR_UNIT_ID_KEY, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, ICommandService, LocaleService, Tools } from '@crabtable/core';
+import { Button, clsx } from '@crabtable/design';
+import { BreakLineCommand, IEditorService, RichTextEditor } from '@crabtable/docs-ui';
+import { KeyCode, useDependency } from '@crabtable/ui';
 import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { SetActiveCommentOperation } from '../../commands/operations/comment.operations';
 
@@ -32,7 +32,7 @@ export interface IThreadCommentEditorProps {
     autoFocus?: boolean;
     unitId: string;
     subUnitId: string;
-    type: UniverInstanceType;
+    type: CrabTableInstanceType;
 }
 
 export interface IThreadCommentEditorInstance {
@@ -54,7 +54,7 @@ export const ThreadCommentEditor = forwardRef<IThreadCommentEditorInstance, IThr
     const [editing, setEditing] = useState(false);
     const editorService = useDependency(IEditorService);
     const editor = useRef<Editor>(null);
-    const rootEditorId = type === UniverInstanceType.UNIVER_DOC ? DOCS_NORMAL_EDITOR_UNIT_ID_KEY : unitId;
+    const rootEditorId = type === CrabTableInstanceType.CRABTABLE_DOC ? DOCS_NORMAL_EDITOR_UNIT_ID_KEY : unitId;
     const [canSubmit, setCanSubmit] = useState(() => BuildTextUtils.transform.getPlainText(editor.current?.getDocumentData().body?.dataStream ?? ''));
     useEffect(() => {
         setCanSubmit(BuildTextUtils.transform.getPlainText(editor.current?.getDocumentData().body?.dataStream ?? ''));

@@ -15,7 +15,7 @@
  */
 
 import type { Observable } from 'rxjs';
-import { defaultTheme } from '@univerjs/themes';
+import { defaultTheme } from '@crabtable/themes';
 import { BehaviorSubject } from 'rxjs';
 import { get } from '../../common/lodash';
 import { Disposable, toDisposable } from '../../shared/lifecycle';

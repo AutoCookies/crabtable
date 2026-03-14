@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ISelectionCellWithMergeInfo } from '@univerjs/core';
-import type { IRenderContext, IRenderModule, Spreadsheet, SpreadsheetSkeleton, UniverRenderingContext } from '@univerjs/engine-render';
-import { Disposable, Inject } from '@univerjs/core';
-import { SheetPrintInterceptorService } from '@univerjs/sheets-ui';
+import type { ISelectionCellWithMergeInfo } from '@crabtable/core';
+import type { IRenderContext, IRenderModule, Spreadsheet, SpreadsheetSkeleton, UniverRenderingContext } from '@crabtable/engine-render';
+import { Disposable, Inject } from '@crabtable/core';
+import { SheetPrintInterceptorService } from '@crabtable/sheets-ui';
 import { UNIQUE_KEY } from '../common/const';
 import { Graphics } from '../views/extensions/graphics.extension';
 

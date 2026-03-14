@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Injector, IWorkbookData } from '@univerjs/core';
-import type { FUniver } from '@univerjs/core/facade';
-import { ICommandService, LocaleType } from '@univerjs/core';
-import { ErrorType } from '@univerjs/engine-formula';
-import { SetRangeValuesCommand, SetRangeValuesMutation } from '@univerjs/sheets';
+import type { Injector, IWorkbookData } from '@crabtable/core';
+import type { FCrabTable } from '@crabtable/core/facade';
+import { ICommandService, LocaleType } from '@crabtable/core';
+import { ErrorType } from '@crabtable/engine-formula';
+import { SetRangeValuesCommand, SetRangeValuesMutation } from '@crabtable/sheets';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createFacadeTestBed } from './create-test-bed';
 
@@ -104,12 +104,12 @@ function getTestWorkbookDataWithFormulas(): IWorkbookData {
 describe('Test FRangeEngineFormulaMixin', () => {
     let get: Injector['get'];
     let commandService: ICommandService;
-    let univerAPI: FUniver;
+    let crabtableAPI: FCrabTable;
 
     beforeEach(() => {
         const testBed = createFacadeTestBed(getTestWorkbookDataWithFormulas());
         get = testBed.get;
-        univerAPI = testBed.univerAPI;
+        crabtableAPI = testBed.crabtableAPI;
 
         commandService = get(ICommandService);
         commandService.registerCommand(SetRangeValuesCommand);
@@ -117,7 +117,7 @@ describe('Test FRangeEngineFormulaMixin', () => {
     });
 
     it('should get formula errors in a specific range', () => {
-        const workbook = univerAPI.getActiveWorkbook()!;
+        const workbook = crabtableAPI.getActiveWorkbook()!;
         const worksheet = workbook.getActiveSheet()!;
 
         // Test range that contains errors (A1:D2)
@@ -148,7 +148,7 @@ describe('Test FRangeEngineFormulaMixin', () => {
     });
 
     it('should return empty array for range with no formula errors', () => {
-        const workbook = univerAPI.getActiveWorkbook()!;
+        const workbook = crabtableAPI.getActiveWorkbook()!;
         const worksheet = workbook.getActiveSheet()!;
 
         // Test range that contains no errors (A1:B1 - only regular values)
@@ -161,7 +161,7 @@ describe('Test FRangeEngineFormulaMixin', () => {
     });
 
     it('should get formula errors in a single cell range', () => {
-        const workbook = univerAPI.getActiveWorkbook()!;
+        const workbook = crabtableAPI.getActiveWorkbook()!;
         const worksheet = workbook.getActiveSheet()!;
 
         // Test single cell with error (D1 contains DIV_BY_ZERO error)
@@ -181,7 +181,7 @@ describe('Test FRangeEngineFormulaMixin', () => {
     });
 
     it('should handle range with mixed content (errors and normal values)', () => {
-        const workbook = univerAPI.getActiveWorkbook()!;
+        const workbook = crabtableAPI.getActiveWorkbook()!;
         const worksheet = workbook.getActiveSheet()!;
 
         // Test range that contains both errors and normal values (A1:C3)
@@ -199,7 +199,7 @@ describe('Test FRangeEngineFormulaMixin', () => {
     });
 
     it('should validate error object properties', () => {
-        const workbook = univerAPI.getActiveWorkbook()!;
+        const workbook = crabtableAPI.getActiveWorkbook()!;
         const worksheet = workbook.getActiveSheet()!;
 
         // Test range with known error
@@ -231,7 +231,7 @@ describe('Test FRangeEngineFormulaMixin', () => {
     });
 
     it('should return empty array for range with only normal formulas', () => {
-        const workbook = univerAPI.getActiveWorkbook()!;
+        const workbook = crabtableAPI.getActiveWorkbook()!;
         const worksheet = workbook.getActiveSheet()!;
 
         // Test range that contains normal formulas without errors (A4:C4)
@@ -244,7 +244,7 @@ describe('Test FRangeEngineFormulaMixin', () => {
     });
 
     it('should handle large range correctly', () => {
-        const workbook = univerAPI.getActiveWorkbook()!;
+        const workbook = crabtableAPI.getActiveWorkbook()!;
         const worksheet = workbook.getActiveSheet()!;
 
         // Test large range that includes all test data
@@ -263,7 +263,7 @@ describe('Test FRangeEngineFormulaMixin', () => {
     });
 
     it('should identify different error types correctly in range', () => {
-        const workbook = univerAPI.getActiveWorkbook()!;
+        const workbook = crabtableAPI.getActiveWorkbook()!;
         const worksheet = workbook.getActiveSheet()!;
 
         // Test range containing different error types

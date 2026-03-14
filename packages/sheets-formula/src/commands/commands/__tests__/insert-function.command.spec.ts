@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import * as core from '@univerjs/core';
-import { ICommandService } from '@univerjs/core';
-import { SetRangeValuesCommand } from '@univerjs/sheets';
+import type { IAccessor } from '@crabtable/core';
+import * as core from '@crabtable/core';
+import { ICommandService } from '@crabtable/core';
+import { SetRangeValuesCommand } from '@crabtable/sheets';
 import { describe, expect, it, vi } from 'vitest';
 
 import { InsertFunctionCommand } from '../insert-function.command';

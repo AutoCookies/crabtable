@@ -15,9 +15,9 @@
  */
 
 import type { Editor } from '../../../services/editor/editor';
-import { CommandType, Direction, DisposableCollection, ICommandService } from '@univerjs/core';
-import { DeviceInputEventType } from '@univerjs/engine-render';
-import { IShortcutService, KeyCode, MetaKeys, useDependency } from '@univerjs/ui';
+import { CommandType, Direction, DisposableCollection, ICommandService } from '@crabtable/core';
+import { DeviceInputEventType } from '@crabtable/engine-render';
+import { IShortcutService, KeyCode, MetaKeys, useDependency } from '@crabtable/ui';
 import { useEffect, useRef } from 'react';
 import { MoveCursorOperation, MoveSelectionOperation } from '../../../commands/operations/doc-cursor.operation';
 

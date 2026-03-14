@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IContextService, IMultiCommand } from '@univerjs/core';
-import { CommandType, DOC_RANGE_TYPE, EDITOR_ACTIVATED, FOCUSING_DOC, SliceBodyType } from '@univerjs/core';
-import { CopyCommand, CutCommand, IClipboardInterfaceService, PasteCommand } from '@univerjs/ui';
+import type { IAccessor, IContextService, IMultiCommand } from '@crabtable/core';
+import { CommandType, DOC_RANGE_TYPE, EDITOR_ACTIVATED, FOCUSING_DOC, SliceBodyType } from '@crabtable/core';
+import { CopyCommand, CutCommand, IClipboardInterfaceService, PasteCommand } from '@crabtable/ui';
 import { IDocClipboardService } from '../../services/clipboard/clipboard.service';
 import { getCurrentParagraph } from './util';
 

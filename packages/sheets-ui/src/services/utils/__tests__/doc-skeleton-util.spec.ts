@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import { HorizontalAlign, IUniverInstanceService, VerticalAlign } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { HorizontalAlign, ICrabTableInstanceService, VerticalAlign } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { describe, expect, it, vi } from 'vitest';
 import { IEditorBridgeService } from '../../editor-bridge.service';
 import { calcPadding, getCustomRangePosition, getEditingCustomRangePosition } from '../doc-skeleton-util';
 
-vi.mock('@univerjs/docs-ui', async (importOriginal) => {
-    const actual = await importOriginal<typeof import('@univerjs/docs-ui')>();
+vi.mock('@crabtable/docs-ui', async (importOriginal) => {
+    const actual = await importOriginal<typeof import('@crabtable/docs-ui')>();
     return {
         ...actual,
         DOC_VERTICAL_PADDING: 2,
@@ -139,7 +139,7 @@ describe('doc-skeleton-util', () => {
             }),
         };
         const injector = createAccessor([
-            [IUniverInstanceService, { getUnit: () => workbook }],
+            [ICrabTableInstanceService, { getUnit: () => workbook }],
             [IRenderManagerService, renderManagerService],
         ]);
 
@@ -150,14 +150,14 @@ describe('doc-skeleton-util', () => {
 
     it('getCustomRangePosition returns null for missing workbook/worksheet/customRange', () => {
         const noWorkbookInjector = createAccessor([
-            [IUniverInstanceService, { getUnit: () => null }],
+            [ICrabTableInstanceService, { getUnit: () => null }],
             [IRenderManagerService, { getRenderById: () => null }],
         ]);
         expect(getCustomRangePosition(noWorkbookInjector, 'unit-1', 'sheet-1', 1, 2, 'range-1')).toBeNull();
 
         const workbook = { getSheetBySheetId: () => null };
         const noWorksheetInjector = createAccessor([
-            [IUniverInstanceService, { getUnit: () => workbook }],
+            [ICrabTableInstanceService, { getUnit: () => workbook }],
             [IRenderManagerService, { getRenderById: () => null }],
         ]);
         expect(getCustomRangePosition(noWorksheetInjector, 'unit-1', 'sheet-1', 1, 2, 'range-1')).toBeNull();
@@ -178,7 +178,7 @@ describe('doc-skeleton-util', () => {
             overflowCache: { forValue: () => {} },
         };
         const noRangeInjector = createAccessor([
-            [IUniverInstanceService, { getUnit: () => ({ getUnitId: () => 'unit-1', getSheetBySheetId: () => worksheet }) }],
+            [ICrabTableInstanceService, { getUnit: () => ({ getUnitId: () => 'unit-1', getSheetBySheetId: () => worksheet }) }],
             [IRenderManagerService, { getRenderById: () => ({ with: () => ({ getSkeletonParam: () => ({ skeleton }) }) }) }],
         ]);
         expect(getCustomRangePosition(noRangeInjector, 'unit-1', 'sheet-1', 1, 2, 'range-1')).toBeNull();

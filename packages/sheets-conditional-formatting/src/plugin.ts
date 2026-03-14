@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverSheetsConditionalFormattingConfig } from './config/config';
-import { DependentOn, ICommandService, IConfigService, Inject, Injector, merge, Plugin, touchDependencies, UniverInstanceType } from '@univerjs/core';
-import { UniverFormulaEnginePlugin } from '@univerjs/engine-formula';
+import { CrabTableInstanceType, DependentOn, ICommandService, IConfigService, Inject, Injector, merge, Plugin, touchDependencies } from '@crabtable/core';
+import { UniverFormulaEnginePlugin } from '@crabtable/engine-formula';
 import pkg from '../package.json';
 import { SHEET_CONDITIONAL_FORMATTING_PLUGIN } from './base/const';
 import { AddCfCommand } from './commands/commands/add-cf.command';
@@ -44,7 +44,7 @@ export class UniverSheetsConditionalFormattingPlugin extends Plugin {
     static override pluginName = SHEET_CONDITIONAL_FORMATTING_PLUGIN;
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
     constructor(
         private readonly _config: Partial<IUniverSheetsConditionalFormattingConfig> = defaultPluginConfig,

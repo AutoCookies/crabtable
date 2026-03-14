@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { MenuItemType } from '@univerjs/ui';
+import { MenuItemType } from '@crabtable/ui';
 import { of } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import {
@@ -33,8 +33,8 @@ import {
     ToggleCrosshairHighlightOperation,
 } from './operation';
 
-vi.mock('@univerjs/ui', async () => {
-    const actual = await vi.importActual<typeof import('@univerjs/ui')>('@univerjs/ui');
+vi.mock('@crabtable/ui', async () => {
+    const actual = await vi.importActual<typeof import('@crabtable/ui')>('@crabtable/ui');
     return {
         ...actual,
         getMenuHiddenObservable: vi.fn(() => of(false)),

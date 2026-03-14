@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IToasterProps } from '@univerjs/design';
-import { ThemeService } from '@univerjs/core';
-import { toast, Toaster } from '@univerjs/design';
+import type { IToasterProps } from '@crabtable/design';
+import { ThemeService } from '@crabtable/core';
+import { toast, Toaster } from '@crabtable/design';
 import { useDependency, useObservable } from '../../utils/di';
 
 export function Notification() {

@@ -15,7 +15,7 @@
  */
 
 import type { IValueOption } from '../../../services/menu/menu';
-import { Popup } from '@univerjs/design';
+import { Popup } from '@crabtable/design';
 import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { IContextMenuHostService } from '../../../services/contextmenu/contextmenu-host.service';
 import { useDependency } from '../../../utils/di';

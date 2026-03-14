@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
-import { CommandType, ICommandService, IUniverInstanceService, LocaleService } from '@univerjs/core';
-import { SetDrawingSelectedOperation } from '@univerjs/drawing';
-import { getSheetCommandTarget } from '@univerjs/sheets';
-import { ISidebarService } from '@univerjs/ui';
+import type { IAccessor, ICommand } from '@crabtable/core';
+import { CommandType, ICommandService, ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { SetDrawingSelectedOperation } from '@crabtable/drawing';
+import { getSheetCommandTarget } from '@crabtable/sheets';
+import { ISidebarService } from '@crabtable/ui';
 import { COMPONENT_SHEET_DRAWING_PANEL } from '../../views/sheet-image-panel/component-name';
 
 export interface IUIComponentCommandParams {
@@ -31,11 +31,11 @@ export const SidebarSheetDrawingOperation: ICommand = {
     handler: async (accessor: IAccessor, params: IUIComponentCommandParams) => {
         const sidebarService = accessor.get(ISidebarService);
         const localeService = accessor.get(LocaleService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         // const drawingManagerService = accessor.get(IDrawingManagerService);
         const commandService = accessor.get(ICommandService);
 
-        const target = getSheetCommandTarget(univerInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         switch (params.value) {

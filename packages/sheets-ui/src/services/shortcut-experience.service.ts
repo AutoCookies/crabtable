@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDisposable, ISelection, ITextRangeParam, Nullable } from '@univerjs/core';
-import type { KeyCode } from '@univerjs/ui';
-import { Inject, IUniverInstanceService, LocaleService } from '@univerjs/core';
+import type { IDisposable, ISelection, ITextRangeParam, Nullable } from '@crabtable/core';
+import type { KeyCode } from '@crabtable/ui';
+import { ICrabTableInstanceService, Inject, LocaleService } from '@crabtable/core';
 
 export interface IShortcutExperienceSearch {
     unitId: string;
@@ -40,7 +40,7 @@ export class ShortcutExperienceService implements IDisposable {
     private _shortcutParam: IShortcutExperienceParam[] = [];
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(LocaleService) private readonly _localeService: LocaleService
     ) {
         // empty

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { ICustomRange, Nullable, Workbook } from '@univerjs/core';
+import type { ICustomRange, Nullable, Workbook } from '@crabtable/core';
 import type { IHyperLinkPopup } from '../../services/popup.service';
-import { DOCS_ZEN_EDITOR_UNIT_ID_KEY, ICommandService, IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
-import { borderClassName, clsx, MessageType, Tooltip } from '@univerjs/design';
+import { CrabTableInstanceType, DOCS_ZEN_EDITOR_UNIT_ID_KEY, ICommandService, ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { borderClassName, clsx, MessageType, Tooltip } from '@crabtable/design';
+import { CancelHyperLinkCommand, CancelRichHyperLinkCommand, SheetHyperLinkType, SheetsHyperLinkParserService } from '@crabtable/sheets-hyper-link';
+import { IEditorBridgeService } from '@crabtable/sheets-ui';
+import { IMessageService, IZenZoneService, useDependency } from '@crabtable/ui';
 import { AllBorderIcon, CopyIcon, LinkIcon, UnlinkIcon, WriteIcon, XlsxMultiIcon } from '@univerjs/icons';
-import { CancelHyperLinkCommand, CancelRichHyperLinkCommand, SheetHyperLinkType, SheetsHyperLinkParserService } from '@univerjs/sheets-hyper-link';
-import { IEditorBridgeService } from '@univerjs/sheets-ui';
-import { IMessageService, IZenZoneService, useDependency } from '@univerjs/ui';
 import { useEffect, useState } from 'react';
 import { OpenHyperLinkEditPanelOperation } from '../../commands/operations/popup.operations';
 import { SheetsHyperLinkPopupService } from '../../services/popup.service';
@@ -199,7 +199,7 @@ export const CellLinkPopupPure = (props: ICellLinkPopupPureProps) => {
 export const CellLinkPopup = () => {
     const popupService = useDependency(SheetsHyperLinkPopupService);
     const [currentPopup, setCurrentPopup] = useState<IHyperLinkPopup | null>(null);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
 
     useEffect(() => {
         setCurrentPopup(popupService.currentPopup);
@@ -215,7 +215,7 @@ export const CellLinkPopup = () => {
         return null;
     }
     if (currentPopup.showAll) {
-        const workbook = univerInstanceService.getUnit<Workbook>(currentPopup.unitId, UniverInstanceType.UNIVER_SHEET);
+        const workbook = crabtableInstanceService.getUnit<Workbook>(currentPopup.unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         const worksheet = workbook?.getSheetBySheetId(currentPopup.subUnitId);
         const cell = worksheet?.getCell(currentPopup.row, currentPopup.col);
         const customRanges = cell?.p?.body?.customRanges;

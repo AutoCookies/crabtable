@@ -1,21 +1,21 @@
 {
-    "name": "@univerjs/debugger",
+    "name": "@crabtable/debugger",
     "version": "0.17.0",
     "private": true,
     "description": "",
-    "author": "DreamNum <developer@univer.ai>",
+    "author": "DreamNum <developer@crabtable.dev>",
     "license": "Apache-2.0",
     "funding": {
         "type": "opencollective",
-        "url": "https://opencollective.com/univer"
+        "url": "https://opencollective.com/crabtable"
     },
-    "homepage": "https://univer.ai",
+    "homepage": "https://crabtable.dev",
     "repository": {
         "type": "git",
-        "url": "https://github.com/dream-num/univer"
+        "url": "https://github.com/AutoCookies/crabtable"
     },
     "bugs": {
-        "url": "https://github.com/dream-num/univer/issues"
+        "url": "https://github.com/AutoCookies/crabtable/issues"
     },
     "keywords": [],
     "exports": {
@@ -57,20 +57,20 @@
         "rxjs": ">=7.0.0"
     },
     "dependencies": {
-        "@univerjs/core": "workspace:*",
-        "@univerjs/design": "workspace:*",
-        "@univerjs/docs-drawing-ui": "workspace:*",
-        "@univerjs/engine-render": "workspace:*",
+        "@crabtable/core": "*",
+        "@crabtable/design": "*",
+        "@crabtable/docs-drawing-ui": "*",
+        "@crabtable/engine-render": "*",
         "@univerjs/icons": "^1.1.1",
-        "@univerjs/mockdata": "workspace:*",
-        "@univerjs/sheets": "workspace:*",
-        "@univerjs/sheets-drawing-ui": "workspace:*",
-        "@univerjs/themes": "workspace:*",
-        "@univerjs/ui": "workspace:*",
-        "@univerjs/watermark": "workspace:*"
+        "@crabtable/mockdata": "*",
+        "@crabtable/sheets": "*",
+        "@crabtable/sheets-drawing-ui": "*",
+        "@crabtable/themes": "*",
+        "@crabtable/ui": "*",
+        "@crabtable/watermark": "*"
     },
     "devDependencies": {
-        "@univerjs-infra/shared": "workspace:*",
+        "@crabtable-infra/shared": "*",
         "postcss": "^8.5.8",
         "react": "18.3.1",
         "rxjs": "^7.8.2",

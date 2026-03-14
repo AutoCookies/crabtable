@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
-import { CommandType, IContextService } from '@univerjs/core';
-import { TableManager } from '@univerjs/sheets-table';
+import type { ICommand } from '@crabtable/core';
+import { CommandType, IContextService } from '@crabtable/core';
+import { TableManager } from '@crabtable/sheets-table';
 import { SHEETS_TABLE_FILTER_PANEL_OPENED_KEY } from '../../const';
 import { SheetsTableComponentController } from '../../controllers/sheet-table-component.controller';
 
@@ -55,7 +55,7 @@ export const OpenTableFilterPanelOperation: ICommand<IOpenTableFilterPanelOperat
         // const tableFilter = table.getTableFilterColumn(col - tableRange.startColumn);
 
         // const dialogServiceProps = {
-        //     id: UNIVER_SHEET_TABLE_FILTER_PANEL_ID,
+        //     id: CRABTABLE_SHEET_TABLE_FILTER_PANEL_ID,
         //     draggable: true,
         //     width: 312,
         //     dialogStyles: {
@@ -74,7 +74,7 @@ export const OpenTableFilterPanelOperation: ICommand<IOpenTableFilterPanelOperat
         //     },
 
         //     onClose: (): void => {
-        //         dialogService.close(UNIVER_SHEET_TABLE_FILTER_PANEL_ID);
+        //         dialogService.close(CRABTABLE_SHEET_TABLE_FILTER_PANEL_ID);
         //     },
         //     destroyOnClose: true,
         // };

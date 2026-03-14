@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { DOCS_NORMAL_EDITOR_UNIT_ID_KEY } from '@univerjs/core';
-import { DeviceInputEventType } from '@univerjs/engine-render';
+import { DOCS_NORMAL_EDITOR_UNIT_ID_KEY } from '@crabtable/core';
+import { DeviceInputEventType } from '@crabtable/engine-render';
 import { Subject } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import { EditorBridgeService } from '../editor-bridge.service';
@@ -39,7 +39,7 @@ function createService(options?: { hasFocusEditor?: boolean }) {
         themeService: {
             getColorFromTheme: vi.fn(() => '#d0d0d0'),
         },
-        univerInstanceService: {
+        crabtableInstanceService: {
             getTypeOfUnitDisposed$: vi.fn(() => unitDisposed$.asObservable()),
             getCurrentUnitForType: vi.fn(() => workbook),
         },
@@ -56,7 +56,7 @@ function createService(options?: { hasFocusEditor?: boolean }) {
         mocks.sheetInterceptorService as any,
         mocks.renderManagerService as any,
         mocks.themeService as any,
-        mocks.univerInstanceService as any,
+        mocks.crabtableInstanceService as any,
         mocks.editorService as any,
         mocks.contextService as any
     );

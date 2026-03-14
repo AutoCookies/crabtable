@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IMutationInfo, Nullable } from '@univerjs/core';
+import type { IMutationInfo, Nullable } from '@crabtable/core';
 import type { ISetSheetsFilterCriteriaMutationParams } from './commands/mutations/sheets-filter.mutation';
 import { SetSheetsFilterCriteriaMutation } from './commands/mutations/sheets-filter.mutation';
 

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { CellValue, DataValidationOperator, IDataValidationRule, IDataValidationRuleBase } from '@univerjs/core';
-import type { IFormulaResult, IFormulaValidResult, IValidatorCellInfo } from '@univerjs/data-validation';
-import { DataValidationType } from '@univerjs/core';
-import { BaseDataValidator } from '@univerjs/data-validation';
+import type { CellValue, DataValidationOperator, IDataValidationRule, IDataValidationRuleBase } from '@crabtable/core';
+import type { IFormulaResult, IFormulaValidResult, IValidatorCellInfo } from '@crabtable/data-validation';
+import { DataValidationType } from '@crabtable/core';
+import { BaseDataValidator } from '@crabtable/data-validation';
 
 export class AnyValidator extends BaseDataValidator {
     override id: string = DataValidationType.ANY;

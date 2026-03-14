@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData, Workbook } from '@univerjs/core';
-import { ILogService, Inject, Injector, IUniverInstanceService, LocaleType, LogLevel, Plugin, Univer, UniverInstanceType } from '@univerjs/core';
+import type { Dependency, IWorkbookData, Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICrabTableInstanceService, ILogService, Inject, Injector, LocaleType, LogLevel, Plugin } from '@crabtable/core';
 
 const TEST_WORKBOOK_DATA_DEMO: IWorkbookData = {
     id: 'test',
@@ -42,7 +42,7 @@ const TEST_WORKBOOK_DATA_DEMO: IWorkbookData = {
 };
 
 export function createTestBase(workbookData?: IWorkbookData, dependencies?: Dependency[]) {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
@@ -51,7 +51,7 @@ export function createTestBase(workbookData?: IWorkbookData, dependencies?: Depe
      */
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -66,10 +66,10 @@ export function createTestBase(workbookData?: IWorkbookData, dependencies?: Depe
     }
 
     univer.registerPlugin(TestPlugin);
-    const sheet = univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, workbookData || TEST_WORKBOOK_DATA_DEMO);
+    const sheet = univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, workbookData || TEST_WORKBOOK_DATA_DEMO);
 
-    const univerInstanceService = get(IUniverInstanceService);
-    univerInstanceService.focusUnit('test');
+    const crabtableInstanceService = get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit('test');
 
     const logService = get(ILogService);
     logService.setLogLevel(LogLevel.SILENT); // change this to `LogLevel.VERBOSE` to debug tests via logs

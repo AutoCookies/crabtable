@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { IRange, Workbook } from '@univerjs/core';
-import type { IRangeProtectionRule } from '@univerjs/sheets';
+import type { IRange, Workbook } from '@crabtable/core';
+import type { IRangeProtectionRule } from '@crabtable/sheets';
 import type { IPermissionPanelRule } from '../../../services/permission/sheet-permission-panel.model';
-import { IAuthzIoService, ICommandService, IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
-import { Button } from '@univerjs/design';
+import { CrabTableInstanceType, IAuthzIoService, ICommandService, ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { Button } from '@crabtable/design';
+import { AddRangeProtectionCommand, AddWorksheetProtectionCommand, EditStateEnum, SetProtectionCommand, UnitObject, ViewStateEnum } from '@crabtable/sheets';
+import { ISidebarService, useDependency } from '@crabtable/ui';
 import { ObjectScope, UnitAction, UnitRole } from '@univerjs/protocol';
-import { AddRangeProtectionCommand, AddWorksheetProtectionCommand, EditStateEnum, SetProtectionCommand, UnitObject, ViewStateEnum } from '@univerjs/sheets';
-import { ISidebarService, useDependency } from '@univerjs/ui';
 import { getUserListEqual } from '../../../common/utils';
-import { UNIVER_SHEET_PERMISSION_PANEL } from '../../../consts/permission';
+import { CRABTABLE_SHEET_PERMISSION_PANEL } from '../../../consts/permission';
 import { SheetPermissionPanelModel } from '../../../services/permission/sheet-permission-panel.model';
 import { SheetPermissionUserManagerService } from '../../../services/permission/sheet-permission-user-list.service';
 import { checkRangesIsWholeSheet } from '../util';
@@ -47,9 +47,9 @@ export const PermissionDetailFooterPart = (props: IPermissionDetailFooterPartPro
     const localeService = useDependency(LocaleService);
     const commandService = useDependency(ICommandService);
     const sheetPermissionUserManagerService = useDependency(SheetPermissionUserManagerService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
 
-    const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     const worksheet = workbook?.getActiveSheet();
     if (!workbook || !worksheet) {
         return null;
@@ -196,7 +196,7 @@ export const PermissionDetailFooterPart = (props: IPermissionDetailFooterPartPro
                     const sidebarProps = {
                         header: { title: `${localeService.t('permission.panel.title')}` },
                         children: {
-                            label: UNIVER_SHEET_PERMISSION_PANEL,
+                            label: CRABTABLE_SHEET_PERMISSION_PANEL,
                             showDetail: false,
                         },
                         width: 330,

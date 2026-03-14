@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { Engine, IRenderContext, Scene } from '@univerjs/engine-render';
-import { Injector, UniverInstanceType } from '@univerjs/core';
+import type { Workbook } from '@crabtable/core';
+import type { Engine, IRenderContext, Scene } from '@crabtable/engine-render';
+import { CrabTableInstanceType, Injector } from '@crabtable/core';
 import { BehaviorSubject } from 'rxjs';
 import { describe, expect, it } from 'vitest';
 import { SheetScrollManagerService } from '../scroll-manager.service';
@@ -26,13 +26,13 @@ function createRenderContext(unitId: string): IRenderContext<Workbook> {
     const activated$ = new BehaviorSubject(true);
     const unit = {
         getUnitId: () => unitId,
-        type: UniverInstanceType.UNIVER_SHEET,
+        type: CrabTableInstanceType.CRABTABLE_SHEET,
     } as unknown as Workbook;
 
     return {
         unit,
         unitId,
-        type: UniverInstanceType.UNIVER_SHEET,
+        type: CrabTableInstanceType.CRABTABLE_SHEET,
         engine: {} as unknown as Engine,
         scene: {} as unknown as Scene,
         mainComponent: null,

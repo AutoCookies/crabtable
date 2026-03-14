@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
-import { RANGE_TYPE } from '@univerjs/core';
+import type { IRange } from '@crabtable/core';
+import { RANGE_TYPE } from '@crabtable/core';
 import { ErrorType } from '../../basics/error-type';
 import { matchToken } from '../../basics/token';
 import { deserializeRangeWithSheetWithCache } from '../utils/reference-cache';

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IConfirmProps } from '@univerjs/design';
+import type { IConfirmProps } from '@crabtable/design';
 
 import type { ICustomLabelProps } from '../../../components/custom-label/CustomLabel';
 

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { ICellData, Injector, IWorkbookData, Nullable, Univer, Workbook } from '@univerjs/core';
-import type { ISetDefinedNameMutationParam } from '@univerjs/engine-formula';
-import type { IDeleteRangeMoveLeftCommandParams, IDeleteRangeMoveUpCommandParams, IInsertColCommandParams, IInsertRangeMoveDownCommandParams, IInsertRangeMoveRightCommandParams, IInsertRowCommandParams, IMoveColsCommandParams, IMoveRangeCommandParams, IMoveRowsCommandParams, IRemoveRowColCommandParams, IRemoveSheetCommandParams, ISetRangeValuesCommandParams, ISetWorksheetNameCommandParams } from '@univerjs/sheets';
-import type { ISetRowHiddenCommandParams } from '@univerjs/sheets/commands/commands/set-row-visible.command.js';
-import { CellValueType, Direction, ICommandService, IUniverInstanceService, LocaleType, RANGE_TYPE, RedoCommand, UndoCommand } from '@univerjs/core';
-import { RemoveDefinedNameMutation, SetArrayFormulaDataMutation, SetDefinedNameMutation, SetFormulaDataMutation } from '@univerjs/engine-formula';
-import { DeleteRangeMoveLeftCommand, DeleteRangeMoveUpCommand, InsertColByRangeCommand, InsertColCommand, InsertColMutation, InsertRangeMoveDownCommand, InsertRangeMoveRightCommand, InsertRowByRangeCommand, InsertRowCommand, InsertRowMutation, MoveColsCommand, MoveColsMutation, MoveRangeCommand, MoveRangeMutation, MoveRowsCommand, MoveRowsMutation, RemoveColByRangeCommand, RemoveColCommand, RemoveColMutation, RemoveDefinedNameCommand, RemoveRowByRangeCommand, RemoveRowCommand, RemoveRowMutation, RemoveSheetCommand, RemoveSheetMutation, SetColHiddenCommand, SetColHiddenMutation, SetColVisibleMutation, SetDefinedNameCommand, SetRangeValuesCommand, SetRangeValuesMutation, SetRowHiddenCommand, SetRowHiddenMutation, SetRowVisibleMutation, SetSelectionsOperation, SetSpecificColsVisibleCommand, SetSpecificRowsVisibleCommand, SetWorksheetNameCommand, SetWorksheetNameMutation, SheetsSelectionsService } from '@univerjs/sheets';
-import { UpdateFormulaController } from '@univerjs/sheets-formula';
+import type { ICellData, Injector, IWorkbookData, Nullable, Workbook } from '@crabtable/core';
+import type { ISetDefinedNameMutationParam } from '@crabtable/engine-formula';
+import type { IDeleteRangeMoveLeftCommandParams, IDeleteRangeMoveUpCommandParams, IInsertColCommandParams, IInsertRangeMoveDownCommandParams, IInsertRangeMoveRightCommandParams, IInsertRowCommandParams, IMoveColsCommandParams, IMoveRangeCommandParams, IMoveRowsCommandParams, IRemoveRowColCommandParams, IRemoveSheetCommandParams, ISetRangeValuesCommandParams, ISetWorksheetNameCommandParams } from '@crabtable/sheets';
+import type { ISetRowHiddenCommandParams } from '@crabtable/sheets/commands/commands/set-row-visible.command.js';
+import { CellValueType, Direction, ICommandService, ICrabTableInstanceService, LocaleType, RANGE_TYPE, RedoCommand, UndoCommand } from '@crabtable/core';
+import { RemoveDefinedNameMutation, SetArrayFormulaDataMutation, SetDefinedNameMutation, SetFormulaDataMutation } from '@crabtable/engine-formula';
+import { DeleteRangeMoveLeftCommand, DeleteRangeMoveUpCommand, InsertColByRangeCommand, InsertColCommand, InsertColMutation, InsertRangeMoveDownCommand, InsertRangeMoveRightCommand, InsertRowByRangeCommand, InsertRowCommand, InsertRowMutation, MoveColsCommand, MoveColsMutation, MoveRangeCommand, MoveRangeMutation, MoveRowsCommand, MoveRowsMutation, RemoveColByRangeCommand, RemoveColCommand, RemoveColMutation, RemoveDefinedNameCommand, RemoveRowByRangeCommand, RemoveRowCommand, RemoveRowMutation, RemoveSheetCommand, RemoveSheetMutation, SetColHiddenCommand, SetColHiddenMutation, SetColVisibleMutation, SetDefinedNameCommand, SetRangeValuesCommand, SetRangeValuesMutation, SetRowHiddenCommand, SetRowHiddenMutation, SetRowVisibleMutation, SetSelectionsOperation, SetSpecificColsVisibleCommand, SetSpecificRowsVisibleCommand, SetWorksheetNameCommand, SetWorksheetNameMutation, SheetsSelectionsService } from '@crabtable/sheets';
+import { UpdateFormulaController } from '@crabtable/sheets-formula';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { createCommandTestBed } from './create-command-test-bed';
 
@@ -444,7 +444,7 @@ const TEST_WORKBOOK_DATA_DEMO = (): IWorkbookData => ({
 });
 
 describe('Test update formula ', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let getValues: (
@@ -532,7 +532,7 @@ describe('Test update formula ', () => {
             endColumn: number,
             sheetId: string = 'sheet1'
         ): Array<Array<Nullable<ICellData>>> | undefined =>
-            get(IUniverInstanceService)
+            get(ICrabTableInstanceService)
                 .getUnit<Workbook>('test')
                 ?.getSheetBySheetId(sheetId)
                 ?.getRange(startRow, startColumn, endRow, endColumn)
@@ -609,7 +609,7 @@ describe('Test update formula ', () => {
         });
 
         it('Move range, update reference, release si', async () => {
-            const workbook = get(IUniverInstanceService).getUnit<Workbook>('test');
+            const workbook = get(ICrabTableInstanceService).getUnit<Workbook>('test');
             const sheetId = 'sheet6';
             const sheet6 = workbook?.getSheetBySheetId(sheetId);
             if (!sheet6) {
@@ -669,7 +669,7 @@ describe('Test update formula ', () => {
         });
 
         it('Move range with f/si', async () => {
-            const workbook = get(IUniverInstanceService).getUnit<Workbook>('test');
+            const workbook = get(ICrabTableInstanceService).getUnit<Workbook>('test');
             const sheetId = 'sheet6';
             const sheet6 = workbook?.getSheetBySheetId(sheetId);
             if (!sheet6) {
@@ -726,7 +726,7 @@ describe('Test update formula ', () => {
         });
 
         it('Move range with si only, but the si is not source formula cell', async () => {
-            const workbook = get(IUniverInstanceService).getUnit<Workbook>('test');
+            const workbook = get(ICrabTableInstanceService).getUnit<Workbook>('test');
             const sheetId = 'sheet6';
             const sheet6 = workbook?.getSheetBySheetId(sheetId);
             if (!sheet6) {
@@ -783,7 +783,7 @@ describe('Test update formula ', () => {
         });
 
         it('Move range with f/si and si', async () => {
-            const workbook = get(IUniverInstanceService).getUnit<Workbook>('test');
+            const workbook = get(ICrabTableInstanceService).getUnit<Workbook>('test');
             const sheetId = 'sheet6';
             const sheet6 = workbook?.getSheetBySheetId(sheetId);
             if (!sheet6) {
@@ -970,7 +970,7 @@ describe('Test update formula ', () => {
         });
 
         it('Move rows, reduce scope', async () => {
-            const workbook = get(IUniverInstanceService).getUnit<Workbook>('test');
+            const workbook = get(ICrabTableInstanceService).getUnit<Workbook>('test');
             const sheet2 = workbook?.getSheetBySheetId('sheet2');
             if (!sheet2) {
                 throw new Error('sheet2 not found');
@@ -1108,7 +1108,7 @@ describe('Test update formula ', () => {
         });
 
         it('Move columns, reduce scope', async () => {
-            const workbook = get(IUniverInstanceService).getUnit<Workbook>('test');
+            const workbook = get(ICrabTableInstanceService).getUnit<Workbook>('test');
             const sheet2 = workbook?.getSheetBySheetId('sheet2');
             if (!sheet2) {
                 throw new Error('sheet2 not found');

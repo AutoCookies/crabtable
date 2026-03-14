@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { ICellData, ICommandInfo, IMutationInfo, IObjectArrayPrimitiveType, IRange, Nullable, Workbook } from '@univerjs/core';
-import type { EffectRefRangeParams, IAddWorksheetMergeMutationParams, ICopySheetCommandParams, IInsertColCommandParams, IInsertRowCommandParams, IInsertRowMutationParams, IMoveColsCommandParams, IMoveRangeCommandParams, IMoveRowsCommandParams, IRemoveColMutationParams, IRemoveRowsMutationParams, IRemoveSheetCommandParams, ISetRangeValuesMutationParams, ISetWorksheetActiveOperationParams, ISheetCommandSharedParams } from '@univerjs/sheets';
+import type { ICellData, ICommandInfo, IMutationInfo, IObjectArrayPrimitiveType, IRange, Nullable, Workbook } from '@crabtable/core';
+import type { EffectRefRangeParams, IAddWorksheetMergeMutationParams, ICopySheetCommandParams, IInsertColCommandParams, IInsertRowCommandParams, IInsertRowMutationParams, IMoveColsCommandParams, IMoveRangeCommandParams, IMoveRowsCommandParams, IRemoveColMutationParams, IRemoveRowsMutationParams, IRemoveSheetCommandParams, ISetRangeValuesMutationParams, ISetWorksheetActiveOperationParams, ISheetCommandSharedParams } from '@crabtable/sheets';
 import type { ISetSheetsFilterCriteriaMutationParams, ISetSheetsFilterRangeMutationParams } from '../commands/mutations/sheets-filter.mutation';
 import type { FilterColumn } from '../models/filter-model';
 
-import { Disposable, DisposableCollection, ICommandService, Inject, IUniverInstanceService, moveMatrixArray, Optional, Rectangle } from '@univerjs/core';
-import { DataSyncPrimaryController } from '@univerjs/rpc';
-import { CopySheetCommand, EffectRefRangId, expandToContinuousRange, getSheetCommandTarget, InsertColCommand, InsertRowCommand, InsertRowMutation, INTERCEPTOR_POINT, MoveRangeCommand, MoveRowsCommand, RefRangeService, RemoveColCommand, RemoveRowCommand, RemoveRowMutation, RemoveSheetCommand, SetRangeValuesMutation, SetWorksheetActiveOperation, SheetInterceptorService, ZebraCrossingCacheController } from '@univerjs/sheets';
+import { Disposable, DisposableCollection, ICommandService, ICrabTableInstanceService, Inject, moveMatrixArray, Optional, Rectangle } from '@crabtable/core';
+import { DataSyncPrimaryController } from '@crabtable/rpc';
+import { CopySheetCommand, EffectRefRangId, expandToContinuousRange, getSheetCommandTarget, InsertColCommand, InsertRowCommand, InsertRowMutation, INTERCEPTOR_POINT, MoveRangeCommand, MoveRowsCommand, RefRangeService, RemoveColCommand, RemoveRowCommand, RemoveRowMutation, RemoveSheetCommand, SetRangeValuesMutation, SetWorksheetActiveOperation, SheetInterceptorService, ZebraCrossingCacheController } from '@crabtable/sheets';
 import { ReCalcSheetsFilterMutation, RemoveSheetsFilterMutation, SetSheetsFilterCriteriaMutation, SetSheetsFilterRangeMutation } from '../commands/mutations/sheets-filter.mutation';
 import { SheetsFilterService } from '../services/sheet-filter.service';
 import { mergeSetFilterCriteria } from '../utils';
@@ -32,7 +32,7 @@ export class SheetsFilterController extends Disposable {
         @ICommandService private readonly _commandService: ICommandService,
         @Inject(SheetInterceptorService) private readonly _sheetInterceptorService: SheetInterceptorService,
         @Inject(SheetsFilterService) private readonly _sheetsFilterService: SheetsFilterService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(RefRangeService) private readonly _refRangeService: RefRangeService,
         @Optional(DataSyncPrimaryController) private readonly _dataSyncPrimaryController: DataSyncPrimaryController,
         @Inject(ZebraCrossingCacheController) private readonly _zebraCrossingCacheController: ZebraCrossingCacheController
@@ -101,7 +101,7 @@ export class SheetsFilterController extends Disposable {
 
         this.disposeWithMe(this._sheetsFilterService.loadedUnitId$.subscribe((unitId) => {
             if (unitId) {
-                const workbook = this._univerInstanceService.getUniverSheetInstance(unitId);
+                const workbook = this._crabtableInstanceService.getCrabTableSheetInstance(unitId);
                 const sheet = workbook?.getActiveSheet();
                 if (sheet) {
                     this._registerRefRange(unitId, sheet.getSheetId());
@@ -112,7 +112,7 @@ export class SheetsFilterController extends Disposable {
 
     private _registerRefRange(unitId: string, subUnitId: string): void {
         this._disposableCollection.dispose();
-        const workbook = this._univerInstanceService.getUniverSheetInstance(unitId);
+        const workbook = this._crabtableInstanceService.getCrabTableSheetInstance(unitId);
         const workSheet = workbook?.getSheetBySheetId(subUnitId);
         if (!workbook || !workSheet) return;
         const range = this._sheetsFilterService.getFilterModel(unitId, subUnitId)?.getRange();
@@ -401,7 +401,7 @@ export class SheetsFilterController extends Disposable {
                 undos.push({ id: SetSheetsFilterCriteriaMutation.id, params: setCriteriaMutationParams });
             });
         } else {
-            const worksheet = this._univerInstanceService.getUniverSheetInstance(unitId)?.getSheetBySheetId(subUnitId);
+            const worksheet = this._crabtableInstanceService.getCrabTableSheetInstance(unitId)?.getSheetBySheetId(subUnitId);
             if (!worksheet) {
                 return this._handleNull();
             }
@@ -837,7 +837,7 @@ export class SheetsFilterController extends Disposable {
                         for (let col = extendRegion.startColumn; col <= extendRegion.endColumn; col++) {
                             const cell = cellValue?.[extendRegion.startRow]?.[col];
                             if (cell && this._cellHasValue(cell)) {
-                                const worksheet = (this._univerInstanceService.getUnit(unitId) as Workbook)?.getSheetBySheetId(subUnitId);
+                                const worksheet = (this._crabtableInstanceService.getUnit(unitId) as Workbook)?.getSheetBySheetId(subUnitId);
                                 if (worksheet) {
                                     const extendedRange = expandToContinuousRange(extendRegion, { down: true }, worksheet);
                                     const filterModel = this._sheetsFilterService.getFilterModel(unitId, subUnitId)!;
@@ -861,7 +861,7 @@ export class SheetsFilterController extends Disposable {
         if (!filterModel) {
             return null;
         }
-        const worksheet = (this._univerInstanceService.getUnit(unitId) as Workbook)?.getSheetBySheetId(subUnitId);
+        const worksheet = (this._crabtableInstanceService.getUnit(unitId) as Workbook)?.getSheetBySheetId(subUnitId);
         if (!worksheet) {
             return null;
         }
@@ -887,7 +887,7 @@ export class SheetsFilterController extends Disposable {
     private _initErrorHandling() {
         this.disposeWithMe(this._commandService.beforeCommandExecuted((command) => {
             const params = command.params as IMoveRowsCommandParams;
-            const target = getSheetCommandTarget(this._univerInstanceService, params);
+            const target = getSheetCommandTarget(this._crabtableInstanceService, params);
             if (!target) return;
 
             const { subUnitId, unitId } = target;

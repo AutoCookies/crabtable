@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { currencySymbols } from '@univerjs/sheets-numfmt';
-import { useDependency } from '@univerjs/ui';
+import { currencySymbols } from '@crabtable/sheets-numfmt';
+import { useDependency } from '@crabtable/ui';
 import { useEffect, useState } from 'react';
 import { UserHabitController } from '../../controllers/user-habit.controller';
 

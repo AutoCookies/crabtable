@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
-import { CommandType, LocaleService } from '@univerjs/core';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { ISidebarService } from '@univerjs/ui';
+import type { IAccessor, ICommand } from '@crabtable/core';
+import { CommandType, LocaleService } from '@crabtable/core';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { ISidebarService } from '@crabtable/ui';
 import { COMPONENT_DOC_DRAWING_PANEL } from '../../views/doc-image-panel/component-name';
 
 export interface IUIComponentCommandParams {

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Direction, IOperation } from '@univerjs/core';
-import { CommandType } from '@univerjs/core';
+import type { Direction, IOperation } from '@crabtable/core';
+import { CommandType } from '@crabtable/core';
 
 export interface IMoveCursorOperationParams {
     direction: Direction;

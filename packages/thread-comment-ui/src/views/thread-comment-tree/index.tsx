@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-import type { IUser, UniverInstanceType } from '@univerjs/core';
-import type { IAddCommentCommandParams, IThreadComment, IUpdateCommentCommandParams } from '@univerjs/thread-comment';
-import type { IUniverUIConfig } from '@univerjs/ui';
+import type { CrabTableInstanceType, IUser } from '@crabtable/core';
+import type { IAddCommentCommandParams, IThreadComment, IUpdateCommentCommandParams } from '@crabtable/thread-comment';
+import type { IUniverUIConfig } from '@crabtable/ui';
 import type { IThreadCommentEditorInstance } from '../thread-comment-editor';
-import { generateRandomId, ICommandService, LocaleService, UserManagerService } from '@univerjs/core';
-import { borderClassName, clsx, Dropdown, scrollbarClassName, Tooltip } from '@univerjs/design';
-import { DeleteIcon, MoreHorizontalIcon, ReplyToCommentIcon, ResolvedIcon, SolveIcon } from '@univerjs/icons';
+import { generateRandomId, ICommandService, LocaleService, UserManagerService } from '@crabtable/core';
+import { borderClassName, clsx, Dropdown, scrollbarClassName, Tooltip } from '@crabtable/design';
 import {
     AddCommentCommand,
     DeleteCommentCommand,
@@ -29,8 +28,9 @@ import {
     ResolveCommentCommand,
     ThreadCommentModel,
     UpdateCommentCommand,
-} from '@univerjs/thread-comment';
-import { UI_PLUGIN_CONFIG_KEY, useConfigValue, useDependency, useObservable } from '@univerjs/ui';
+} from '@crabtable/thread-comment';
+import { UI_PLUGIN_CONFIG_KEY, useConfigValue, useDependency, useObservable } from '@crabtable/ui';
+import { DeleteIcon, MoreHorizontalIcon, ReplyToCommentIcon, ResolvedIcon, SolveIcon } from '@univerjs/icons';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { debounceTime } from 'rxjs';
 import { SetActiveCommentOperation } from '../../commands/operations/comment.operations';
@@ -42,7 +42,7 @@ export interface IThreadCommentTreeProps {
     id?: string;
     unitId: string;
     subUnitId: string;
-    type: UniverInstanceType;
+    type: CrabTableInstanceType;
     refStr?: string;
     showEdit?: boolean;
     onClick?: () => void;
@@ -72,7 +72,7 @@ export interface IThreadCommentItemProps {
     onClose?: () => void;
     onAddComment?: (comment: IThreadComment) => boolean;
     onDeleteComment?: (comment: IThreadComment) => boolean;
-    type: UniverInstanceType;
+    type: CrabTableInstanceType;
 }
 
 const MOCK_ID = '__mock__';

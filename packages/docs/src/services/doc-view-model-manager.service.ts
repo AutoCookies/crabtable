@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, Nullable } from '@univerjs/core';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
-import { DOCS_NORMAL_EDITOR_UNIT_ID_KEY, IUniverInstanceService, RxDisposable, UniverInstanceType } from '@univerjs/core';
-import { DocumentViewModel } from '@univerjs/engine-render';
+import type { DocumentDataModel, Nullable } from '@crabtable/core';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
+import { CrabTableInstanceType, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, ICrabTableInstanceService, RxDisposable } from '@crabtable/core';
+import { DocumentViewModel } from '@crabtable/engine-render';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 
 export interface IDocumentViewModelManagerParam {
@@ -42,7 +42,7 @@ export class DocViewModelManagerService extends RxDisposable implements IRenderM
 
     constructor(
         private readonly _context: IRenderContext<DocumentDataModel>,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
         this._initialize();
@@ -58,18 +58,18 @@ export class DocViewModelManagerService extends RxDisposable implements IRenderM
     }
 
     private _init() {
-        this._univerInstanceService
-            .getCurrentTypeOfUnit$<DocumentDataModel>(UniverInstanceType.UNIVER_DOC)
+        this._crabtableInstanceService
+            .getCurrentTypeOfUnit$<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC)
             .pipe(takeUntil(this.dispose$))
             .subscribe((documentModel) => {
                 this._create(documentModel);
             });
 
-        this._univerInstanceService.getAllUnitsForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC).forEach((documentModel) => {
+        this._crabtableInstanceService.getAllUnitsForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC).forEach((documentModel) => {
             this._create(documentModel);
         });
 
-        this._univerInstanceService.getTypeOfUnitDisposed$(UniverInstanceType.UNIVER_DOC).pipe(takeUntil(this.dispose$)).subscribe((documentModel) => {
+        this._crabtableInstanceService.getTypeOfUnitDisposed$(CrabTableInstanceType.CRABTABLE_DOC).pipe(takeUntil(this.dispose$)).subscribe((documentModel) => {
             this._docViewModelMap.delete(documentModel.getUnitId());
         });
     }
@@ -93,7 +93,7 @@ export class DocViewModelManagerService extends RxDisposable implements IRenderM
     }
 
     private _setCurrent(unitId: string) {
-        const documentDataModel = this._univerInstanceService.getUniverDocInstance(unitId);
+        const documentDataModel = this._crabtableInstanceService.getUniverDocInstance(unitId);
         if (documentDataModel == null) {
             throw new Error(`Document data model with id ${unitId} not found when build view model.`);
         }

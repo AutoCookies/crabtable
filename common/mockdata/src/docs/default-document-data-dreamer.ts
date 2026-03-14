@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IDocumentData } from '@univerjs/core';
+import type { IDocumentData } from '@crabtable/core';
 import {
     BooleanNumber,
     ColumnSeparatorType,
@@ -25,8 +25,8 @@ import {
     PositionedObjectLayoutType,
     SectionType,
     WrapTextType,
-} from '@univerjs/core';
-import { ptToPixel } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { ptToPixel } from '@crabtable/engine-render';
 
 export const DEFAULT_DOCUMENT_DATA_DREAMER: IDocumentData = {
     id: 'd',

@@ -25,11 +25,11 @@ import type {
     IRange,
     IRangeWithCoord,
     Nullable,
-} from '@univerjs/core';
-import type { IMouseEvent, IPointerEvent, IRenderModule, Scene, SpreadsheetSkeleton, Viewport } from '@univerjs/engine-render';
-import type { ISelectionStyle, ISelectionWithCoord, ISelectionWithStyle } from '@univerjs/sheets';
-import type { Theme } from '@univerjs/themes';
-import type { IShortcutService } from '@univerjs/ui';
+} from '@crabtable/core';
+import type { IMouseEvent, IPointerEvent, IRenderModule, Scene, SpreadsheetSkeleton, Viewport } from '@crabtable/engine-render';
+import type { ISelectionStyle, ISelectionWithCoord, ISelectionWithStyle } from '@crabtable/sheets';
+import type { Theme } from '@crabtable/themes';
+import type { IShortcutService } from '@crabtable/ui';
 import type { Observable, Subscription } from 'rxjs';
 import type { SheetSkeletonManagerService } from '../sheet-skeleton-manager.service';
 
@@ -40,9 +40,9 @@ import {
     InterceptorManager,
     RANGE_TYPE,
     ThemeService,
-} from '@univerjs/core';
-import { ScrollTimer, ScrollTimerType, SHEET_VIEWPORT_KEY, Vector2 } from '@univerjs/engine-render';
-import { convertPrimaryWithCoordToPrimary, REF_SELECTIONS_ENABLED, SELECTIONS_ENABLED } from '@univerjs/sheets';
+} from '@crabtable/core';
+import { ScrollTimer, ScrollTimerType, SHEET_VIEWPORT_KEY, Vector2 } from '@crabtable/engine-render';
+import { convertPrimaryWithCoordToPrimary, REF_SELECTIONS_ENABLED, SELECTIONS_ENABLED } from '@crabtable/sheets';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { SHEET_COMPONENT_SELECTION_LAYER_INDEX } from '../../common/keys';
 import { genNormalSelectionStyle, RANGE_FILL_PERMISSION_CHECK, RANGE_MOVE_PERMISSION_CHECK } from './const';

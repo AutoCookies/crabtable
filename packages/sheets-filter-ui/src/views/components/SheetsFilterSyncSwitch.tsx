@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { LocaleService } from '@univerjs/core';
-import { MessageType, Switch, Tooltip } from '@univerjs/design';
+import { LocaleService } from '@crabtable/core';
+import { MessageType, Switch, Tooltip } from '@crabtable/design';
+import { SheetsFilterSyncController } from '@crabtable/sheets-filter';
+import { IMessageService, useDependency, useObservable } from '@crabtable/ui';
 import { InfoIcon } from '@univerjs/icons';
-import { SheetsFilterSyncController } from '@univerjs/sheets-filter';
-import { IMessageService, useDependency, useObservable } from '@univerjs/ui';
 
 export function FilterSyncSwitch() {
     const sheetsFilterSyncController = useDependency(SheetsFilterSyncController);

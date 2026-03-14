@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { ITextRange } from '@univerjs/core';
-import type { IDocObjectParam } from '@univerjs/docs-ui';
-import type { Viewport } from '@univerjs/engine-render';
+import type { ITextRange } from '@crabtable/core';
+import type { IDocObjectParam } from '@crabtable/docs-ui';
+import type { Viewport } from '@crabtable/engine-render';
 import {
     DOCS_ZEN_EDITOR_UNIT_ID_KEY,
     RxDisposable,
-} from '@univerjs/core';
-import { VIEWPORT_KEY as DOC_VIEWPORT_KEY, DocBackScrollRenderController } from '@univerjs/docs-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { getEditorObject } from '@univerjs/sheets-ui';
+} from '@crabtable/core';
+import { VIEWPORT_KEY as DOC_VIEWPORT_KEY, DocBackScrollRenderController } from '@crabtable/docs-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { getEditorObject } from '@crabtable/sheets-ui';
 
 import { takeUntil } from 'rxjs';
 import { IZenEditorManagerService } from '../services/zen-editor.service';

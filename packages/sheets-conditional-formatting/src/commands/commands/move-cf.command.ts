@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
+import type { ICommand } from '@crabtable/core';
 import type { IAnchor } from '../../utils/anchor';
 import type { IMoveConditionalRuleMutationParams } from '../mutations/move-conditional-rule.mutation';
 import {
     CommandType,
     ICommandService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
-} from '@univerjs/core';
-import { getSheetCommandTarget } from '@univerjs/sheets';
+} from '@crabtable/core';
+import { getSheetCommandTarget } from '@crabtable/sheets';
 import { ConditionalFormattingRuleModel } from '../../models/conditional-formatting-rule-model';
 import { transformSupportSymmetryAnchor } from '../../utils/anchor';
 import { MoveConditionalRuleMutation, MoveConditionalRuleMutationUndoFactory } from '../mutations/move-conditional-rule.mutation';
@@ -44,10 +44,10 @@ export const MoveCfCommand: ICommand<IMoveCfCommandParams> = {
 
         const undoRedoService = accessor.get(IUndoRedoService);
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const conditionalFormattingRuleModel = accessor.get(ConditionalFormattingRuleModel);
 
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { unitId, subUnitId } = target;

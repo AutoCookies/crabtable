@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ITextStyle } from '@univerjs/core';
-import { BaselineOffset, BooleanNumber, ColorKit } from '@univerjs/core';
-import { pixelToPt } from '@univerjs/engine-render';
+import type { ITextStyle } from '@crabtable/core';
+import { BaselineOffset, BooleanNumber, ColorKit } from '@crabtable/core';
+import { pixelToPt } from '@crabtable/engine-render';
 
 // eslint-disable-next-line max-lines-per-function, complexity
 export function extractNodeStyle(node: HTMLElement): ITextStyle {

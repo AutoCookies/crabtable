@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
-import type { BaseObject, IBoundRectNoAngle, IRender, Scene } from '@univerjs/engine-render';
-import type { IPopup } from '@univerjs/ui';
-import { Disposable, DisposableCollection, ICommandService, Inject, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService, pxToNum } from '@univerjs/engine-render';
-import { SLIDE_KEY } from '@univerjs/slides';
-import { ICanvasPopupService } from '@univerjs/ui';
+import type { IDisposable } from '@crabtable/core';
+import type { BaseObject, IBoundRectNoAngle, IRender, Scene } from '@crabtable/engine-render';
+import type { IPopup } from '@crabtable/ui';
+import { CrabTableInstanceType, Disposable, DisposableCollection, ICommandService, ICrabTableInstanceService, Inject } from '@crabtable/core';
+import { IRenderManagerService, pxToNum } from '@crabtable/engine-render';
+import { SLIDE_KEY } from '@crabtable/slides';
+import { ICanvasPopupService } from '@crabtable/ui';
 import { BehaviorSubject } from 'rxjs';
 
 export interface ISlideCanvasPopup extends Pick<IPopup, 'direction' | 'excludeOutside' | 'componentKey' | 'offset' | 'onClickOutside' | 'hideOnInvisible'> {
@@ -66,7 +66,7 @@ export class SlideCanvasPopMangerService extends Disposable {
     constructor(
         @Inject(ICanvasPopupService) private readonly _globalPopupManagerService: ICanvasPopupService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService
     ) {
         super();
@@ -120,7 +120,7 @@ export class SlideCanvasPopMangerService extends Disposable {
     }
 
     attachPopupToObject(targetObject: BaseObject, popup: ISlideCanvasPopup): IDisposable {
-        const workbook = this._univerInstanceService.getCurrentUnitForType(UniverInstanceType.UNIVER_SLIDE)!;
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType(CrabTableInstanceType.CRABTABLE_SLIDE)!;
         const unitId = workbook.getUnitId();
         // const subUnitId =
 

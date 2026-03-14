@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import type { ISheetLocationBase } from '@univerjs/sheets';
-import { Disposable, generateRandomId } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
+import type { ISheetLocationBase } from '@crabtable/sheets';
+import { Disposable, generateRandomId } from '@crabtable/core';
 import { filter, map, Subject } from 'rxjs';
 
 export interface ISheetNote {

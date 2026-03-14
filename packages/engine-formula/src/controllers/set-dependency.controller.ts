@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo } from '@univerjs/core';
+import type { ICommandInfo } from '@crabtable/core';
 import type { ISetDefinedNameMutationParam } from '../commands/mutations/set-defined-name.mutation';
 
 import type {
@@ -23,7 +23,7 @@ import type {
 } from '../commands/mutations/set-feature-calculation.mutation';
 import type { ISetFormulaDataMutationParams } from '../commands/mutations/set-formula-data.mutation';
 import type { IRemoveOtherFormulaMutationParams, ISetOtherFormulaMutationParams } from '../commands/mutations/set-other-formula.mutation';
-import { Disposable, ICommandService, ObjectMatrix } from '@univerjs/core';
+import { Disposable, ICommandService, ObjectMatrix } from '@crabtable/core';
 import { SetDefinedNameMutation } from '../commands/mutations/set-defined-name.mutation';
 import {
     RemoveFeatureCalculationMutation,

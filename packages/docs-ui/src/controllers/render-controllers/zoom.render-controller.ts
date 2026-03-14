@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommandInfo, Workbook } from '@univerjs/core';
-import type { IRenderContext, IRenderModule, IWheelEvent } from '@univerjs/engine-render';
+import type { DocumentDataModel, ICommandInfo, Workbook } from '@crabtable/core';
+import type { IRenderContext, IRenderModule, IWheelEvent } from '@crabtable/engine-render';
 
 import type { ISetDocZoomRatioOperationParams } from '../../commands/operations/set-doc-zoom-ratio.operation';
 import {
+    CrabTableInstanceType,
     Disposable,
     DOCS_NORMAL_EDITOR_UNIT_ID_KEY,
     DocumentFlavor,
     FOCUSING_DOC,
     ICommandService,
     IContextService,
+    ICrabTableInstanceService,
     Inject,
     isInternalEditorID,
-    IUniverInstanceService,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { DocSelectionManagerService, DocSkeletonManagerService } from '@univerjs/docs';
-import { IRenderManagerService } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { DocSelectionManagerService, DocSkeletonManagerService } from '@crabtable/docs';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { neoGetDocObject } from '../../basics/component-tools';
 import { SetDocZoomRatioCommand } from '../../commands/commands/set-doc-zoom-ratio.command';
 import { SwitchDocModeCommand } from '../../commands/commands/switch-doc-mode.command';
@@ -48,7 +48,7 @@ export class DocZoomRenderController extends Disposable implements IRenderModule
         private readonly _context: IRenderContext<DocumentDataModel>,
         @IContextService private readonly _contextService: IContextService,
         @Inject(DocSkeletonManagerService) private readonly _docSkeletonManagerService: DocSkeletonManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService,
         @Inject(DocSelectionManagerService) private readonly _textSelectionManagerService: DocSelectionManagerService,
         @IEditorService private readonly _editorService: IEditorService,
@@ -61,7 +61,7 @@ export class DocZoomRenderController extends Disposable implements IRenderModule
         this._initCommandExecutedListener();
         this._initRenderRefresher();
         this._isSheetEditor = this._context.unitId === DOCS_NORMAL_EDITOR_UNIT_ID_KEY;
-        const currentSheet = this._univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const currentSheet = this._crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         const sheetRenderer = currentSheet && this._renderManagerService.getRenderById(currentSheet.getUnitId());
         // TODO: do not use setTimeout.
         this._initTimer = window.setTimeout(() => this.updateViewZoom(sheetRenderer && this._isSheetEditor ? sheetRenderer.scene.scaleX : 1, true), 20);
@@ -92,7 +92,7 @@ export class DocZoomRenderController extends Disposable implements IRenderModule
                     return;
                 }
 
-                const documentModel = this._univerInstanceService.getCurrentUniverDocInstance();
+                const documentModel = this._crabtableInstanceService.getCurrentUniverDocInstance();
                 if (!documentModel) {
                     return;
                 }
@@ -132,11 +132,11 @@ export class DocZoomRenderController extends Disposable implements IRenderModule
                 return;
             }
 
-            const documentModel = this._univerInstanceService.getCurrentUniverDocInstance();
+            const documentModel = this._crabtableInstanceService.getCurrentUniverDocInstance();
             if (!documentModel) return;
 
             this._updateTimer = window.setTimeout(() => {
-                const currentSheet = this._univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+                const currentSheet = this._crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
                 const sheetRenderer = currentSheet && this._renderManagerService.getRenderById(currentSheet.getUnitId());
                 const zoomRatio = !this._isSheetEditor ? documentModel.zoomRatio : sheetRenderer?.scene.scaleX || 1;
 

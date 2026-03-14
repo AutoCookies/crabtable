@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICommandService, ILogService, IUniverInstanceService } from '@univerjs/core';
-import { UniverInstanceType } from '@univerjs/core';
+import type { ICommandService, ICrabTableInstanceService, ILogService } from '@crabtable/core';
+import { CrabTableInstanceType } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { RemoteSyncPrimaryService, WebWorkerRemoteInstanceService } from '../remote-instance.service';
 
@@ -64,10 +64,10 @@ describe('remote-instance.service', () => {
         const syncExecuteCommand = vi.fn(() => true);
         const debug = vi.fn();
 
-        const univerInstanceService = {
+        const crabtableInstanceService = {
             createUnit,
             disposeUnit,
-        } as unknown as IUniverInstanceService;
+        } as unknown as ICrabTableInstanceService;
         const commandService = {
             syncExecuteCommand,
         } as unknown as ICommandService;
@@ -75,7 +75,7 @@ describe('remote-instance.service', () => {
             debug,
         } as unknown as ILogService;
 
-        const service = new WebWorkerRemoteInstanceService(univerInstanceService, commandService, logService);
+        const service = new WebWorkerRemoteInstanceService(crabtableInstanceService, commandService, logService);
 
         await expect(service.whenReady()).resolves.toBe(true);
 
@@ -110,10 +110,10 @@ describe('remote-instance.service', () => {
 
         await expect(service.createInstance({
             unitID: 'sheet-1',
-            type: UniverInstanceType.UNIVER_SHEET,
+            type: CrabTableInstanceType.CRABTABLE_SHEET,
             snapshot: { id: 'snapshot' } as never,
         })).resolves.toBe(true);
-        expect(createUnit).toHaveBeenCalledWith(UniverInstanceType.UNIVER_SHEET, { id: 'snapshot' });
+        expect(createUnit).toHaveBeenCalledWith(CrabTableInstanceType.CRABTABLE_SHEET, { id: 'snapshot' });
 
         await expect(service.disposeInstance({ unitID: 'sheet-1' })).resolves.toBe(true);
         expect(disposeUnit).toHaveBeenCalledWith('sheet-1');
@@ -121,16 +121,16 @@ describe('remote-instance.service', () => {
 
         await expect(service.createInstance({
             unitID: 'doc-1',
-            type: UniverInstanceType.UNIVER_DOC,
+            type: CrabTableInstanceType.CRABTABLE_DOC,
             snapshot: {} as never,
-        })).rejects.toThrow(`[WebWorkerRemoteInstanceService]: cannot create replica for document type: ${UniverInstanceType.UNIVER_DOC}.`);
+        })).rejects.toThrow(`[WebWorkerRemoteInstanceService]: cannot create replica for document type: ${CrabTableInstanceType.CRABTABLE_DOC}.`);
 
         createUnit.mockImplementationOnce(() => {
             throw new Error('create error');
         });
         await expect(service.createInstance({
             unitID: 'sheet-2',
-            type: UniverInstanceType.UNIVER_SHEET,
+            type: CrabTableInstanceType.CRABTABLE_SHEET,
             snapshot: {} as never,
         })).rejects.toThrow('create error');
 
@@ -140,7 +140,7 @@ describe('remote-instance.service', () => {
         });
         await expect(service.createInstance({
             unitID: 'sheet-3',
-            type: UniverInstanceType.UNIVER_SHEET,
+            type: CrabTableInstanceType.CRABTABLE_SHEET,
             snapshot: {} as never,
         })).rejects.toThrow('bad-value');
     });

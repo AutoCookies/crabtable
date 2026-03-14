@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { EventState, Injector, IPageElement } from '@univerjs/core';
-import type { BaseObject, IDocumentSkeletonDrawing, IPageRenderConfig, IWheelEvent } from '@univerjs/engine-render';
-import { DocumentDataModel, Inject, LocaleService, PageElementType } from '@univerjs/core';
+import type { EventState, Injector, IPageElement } from '@crabtable/core';
+import type { BaseObject, IDocumentSkeletonDrawing, IPageRenderConfig, IWheelEvent } from '@crabtable/engine-render';
+import { DocumentDataModel, Inject, LocaleService, PageElementType } from '@crabtable/core';
 import {
     Documents,
     DocumentSkeleton,
@@ -29,7 +29,7 @@ import {
     SceneViewer,
     ScrollBar,
     Viewport,
-} from '@univerjs/engine-render';
+} from '@crabtable/engine-render';
 
 import { CanvasObjectProviderRegistry, ObjectAdaptor } from '../adaptor';
 

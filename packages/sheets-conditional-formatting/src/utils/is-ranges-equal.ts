@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export { isRangesEqual } from '@univerjs/core';
+export { isRangesEqual } from '@crabtable/core';

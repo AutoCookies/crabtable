@@ -16,10 +16,10 @@
 
 /* eslint-disable max-lines-per-function */
 
-import type { ICommand, IMutationInfo } from '@univerjs/core';
+import type { ICommand, IMutationInfo } from '@crabtable/core';
 import type { ITableColumnJson } from '../../types/type';
-import { CommandType, ICommandService, IUndoRedoService, IUniverInstanceService, sequenceExecute } from '@univerjs/core';
-import { getMoveRangeUndoRedoMutations, getSheetCommandTarget, InsertColMutation, InsertRowMutation, RemoveColMutation, RemoveRowMutation, SheetsSelectionsService } from '@univerjs/sheets';
+import { CommandType, ICommandService, ICrabTableInstanceService, IUndoRedoService, sequenceExecute } from '@crabtable/core';
+import { getMoveRangeUndoRedoMutations, getSheetCommandTarget, InsertColMutation, InsertRowMutation, RemoveColMutation, RemoveRowMutation, SheetsSelectionsService } from '@crabtable/sheets';
 import { SheetsTableController } from '../../controllers/sheets-table.controller';
 import { TableManager } from '../../model/table-manager';
 import { IRangeOperationTypeEnum, IRowColTypeEnum } from '../../types/type';
@@ -35,8 +35,8 @@ export const SheetTableInsertRowCommand: ICommand<ISheetTableRowColOperationComm
     id: 'sheet.command.table-insert-row',
     type: CommandType.COMMAND,
     handler: (accessor) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
 
         if (!target) {
             return false;
@@ -197,8 +197,8 @@ export const SheetTableInsertColCommand: ICommand<ISheetTableRowColOperationComm
     id: 'sheet.command.table-insert-col',
     type: CommandType.COMMAND,
     handler: (accessor) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) {
             return false;
         }
@@ -355,8 +355,8 @@ export const SheetTableRemoveRowCommand: ICommand<ISheetTableRowColOperationComm
             return false;
         }
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) {
             return false;
         }
@@ -459,8 +459,8 @@ export const SheetTableRemoveColCommand: ICommand<ISheetTableRowColOperationComm
         if (!params) {
             return false;
         }
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) {
             return false;
         }

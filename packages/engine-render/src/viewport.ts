@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { EventState, IPosition, IRange, Nullable } from '@univerjs/core';
+import type { EventState, IPosition, IRange, Nullable } from '@crabtable/core';
 import type { BaseObject } from './base-object';
 
 import type { IWheelEvent } from './basics/i-events';
@@ -22,7 +22,7 @@ import type { IBoundRectNoAngle, IViewportInfo } from './basics/vector2';
 import type { UniverRenderingContext } from './context';
 import type { Scene } from './scene';
 import type { ScrollBar } from './shape/scroll-bar';
-import { EventSubject, Tools } from '@univerjs/core';
+import { EventSubject, Tools } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { RENDER_CLASS_TYPE } from './basics/const';
 import { fixLineWidthByScale, toPx } from './basics/tools';

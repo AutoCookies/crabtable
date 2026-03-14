@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ITextStyle, Nullable } from '@univerjs/core';
-import { Disposable, Inject, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService, DocSkeletonManagerService } from '@univerjs/docs';
-import { DocumentEditArea, IRenderManagerService } from '@univerjs/engine-render';
+import type { DocumentDataModel, ITextStyle, Nullable } from '@crabtable/core';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject } from '@crabtable/core';
+import { DocSelectionManagerService, DocSkeletonManagerService } from '@crabtable/docs';
+import { DocumentEditArea, IRenderManagerService } from '@crabtable/engine-render';
 
 const BODY_DEFAULT_FONTSIZE = 11;
 const HEADER_FOOTER_DEFAULT_FONTSIZE = 9;
@@ -39,7 +39,7 @@ export class DocMenuStyleService extends Disposable {
 
     constructor(
         @Inject(DocSelectionManagerService) private readonly _textSelectionManagerService: DocSelectionManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService
     ) {
         super();
@@ -64,8 +64,8 @@ export class DocMenuStyleService extends Disposable {
     }
 
     getDefaultStyle(): ITextStyle {
-        const docDataModel = this._univerInstanceService
-            .getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const docDataModel = this._crabtableInstanceService
+            .getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
 
         if (docDataModel == null) {
             return {

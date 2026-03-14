@@ -16,7 +16,7 @@
 
 import type { CSSProperties, ReactNode } from 'react';
 import type { ICustomLabelProps } from '../../../components/custom-label/CustomLabel';
-import { borderLeftBottomClassName, clsx, scrollbarClassName } from '@univerjs/design';
+import { borderLeftBottomClassName, clsx, scrollbarClassName } from '@crabtable/design';
 import { CloseIcon } from '@univerjs/icons';
 import { useEffect, useMemo, useRef } from 'react';
 import { CustomLabel } from '../../../components/custom-label/CustomLabel';

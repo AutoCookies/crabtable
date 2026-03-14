@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverSheetsFilterUIConfig } from './config/config';
-import { DependentOn, IConfigService, Inject, Injector, merge, Plugin, UniverInstanceType } from '@univerjs/core';
-import { UniverSheetsFilterPlugin } from '@univerjs/sheets-filter';
+import { CrabTableInstanceType, DependentOn, IConfigService, Inject, Injector, merge, Plugin } from '@crabtable/core';
+import { UniverSheetsFilterPlugin } from '@crabtable/sheets-filter';
 import pkg from '../package.json';
 import { defaultPluginConfig, SHEETS_FILTER_UI_PLUGIN_CONFIG_KEY } from './config/config';
 import { SheetsFilterPermissionController } from './controllers/sheets-filter-permission.controller';
@@ -25,7 +25,7 @@ import { SheetsFilterUIMobileController } from './controllers/sheets-filter-ui-m
 
 @DependentOn(UniverSheetsFilterPlugin)
 export class UniverSheetsFilterMobileUIPlugin extends Plugin {
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
     static override pluginName = 'SHEET_FILTER_UI_PLUGIN';
     static override packageName = pkg.name;
     static override version = pkg.version;

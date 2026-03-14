@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Disposable, ErrorService, Inject } from '@univerjs/core';
-import { MessageType } from '@univerjs/design';
+import { Disposable, ErrorService, Inject } from '@crabtable/core';
+import { MessageType } from '@crabtable/design';
 
 import { IMessageService } from '../../services/message/message.service';
 

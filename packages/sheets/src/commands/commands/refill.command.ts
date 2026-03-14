@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
+import type { IAccessor, ICommand } from '@crabtable/core';
 import type { AUTO_FILL_APPLY_TYPE } from '../../services/auto-fill/type';
-import { CommandType } from '@univerjs/core';
+import { CommandType } from '@crabtable/core';
 import { IAutoFillService } from '../../services/auto-fill/auto-fill.service';
 
 export interface IRefillCommandParams {

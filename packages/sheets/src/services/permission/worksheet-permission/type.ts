@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICellDataForSheetInterceptor } from '@univerjs/core';
+import type { ICellDataForSheetInterceptor } from '@crabtable/core';
 import { UnitAction } from '@univerjs/protocol';
 
 export const defaultSheetActions = [

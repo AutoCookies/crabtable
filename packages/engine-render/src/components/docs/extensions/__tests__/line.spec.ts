@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { BaselineOffset, BooleanNumber, TextDecoration } from '@univerjs/core';
+import { BaselineOffset, BooleanNumber, TextDecoration } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { Line } from '../line';
 

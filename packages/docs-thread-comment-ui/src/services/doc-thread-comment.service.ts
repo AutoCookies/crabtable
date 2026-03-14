@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ITextRange, Nullable } from '@univerjs/core';
-import type { IThreadComment } from '@univerjs/thread-comment';
-import { Disposable, Inject } from '@univerjs/core';
-import { ThreadCommentPanelService } from '@univerjs/thread-comment-ui';
-import { ISidebarService } from '@univerjs/ui';
+import type { ITextRange, Nullable } from '@crabtable/core';
+import type { IThreadComment } from '@crabtable/thread-comment';
+import { Disposable, Inject } from '@crabtable/core';
+import { ThreadCommentPanelService } from '@crabtable/thread-comment-ui';
+import { ISidebarService } from '@crabtable/ui';
 import { BehaviorSubject } from 'rxjs';
 
 export class DocThreadCommentService extends Disposable {

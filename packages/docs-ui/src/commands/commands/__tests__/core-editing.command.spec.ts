@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommand, IDocumentData, Injector, IStyleBase, Univer } from '@univerjs/core';
+import type { CrabTable, DocumentDataModel, ICommand, IDocumentData, Injector, IStyleBase } from '@crabtable/core';
 import {
     BooleanNumber,
+    CrabTableInstanceType,
     CustomRangeType,
     ICommandService,
-    IUniverInstanceService,
-    UniverInstanceType,
+    ICrabTableInstanceService,
     UpdateDocsAttributeType,
-} from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation, SetTextSelectionsOperation } from '@univerjs/docs';
+} from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation, SetTextSelectionsOperation } from '@crabtable/docs';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { DeleteDirection } from '../../../types/delete-direction';
 import { DeleteCommand, InsertCommand, UpdateCommand } from '../core-editing.command';
@@ -67,13 +67,13 @@ function getDocumentData(): IDocumentData {
 }
 
 describe('core editing commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
     function getBody() {
-        const univerInstanceService = get(IUniverInstanceService);
-        return univerInstanceService.getUnit<DocumentDataModel>('test-doc', UniverInstanceType.UNIVER_DOC)?.getBody();
+        const crabtableInstanceService = get(ICrabTableInstanceService);
+        return crabtableInstanceService.getUnit<DocumentDataModel>('test-doc', CrabTableInstanceType.CRABTABLE_DOC)?.getBody();
     }
 
     function getDataStream() {

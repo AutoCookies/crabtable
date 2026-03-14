@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IParagraphStyle } from '@univerjs/core';
+import type { IParagraphStyle } from '@crabtable/core';
 import type { ISectionBreakConfig } from '../../../../../basics';
 import type { IDocumentSkeletonDivide, IDocumentSkeletonLine, IDocumentSkeletonPage } from '../../../../../basics/i-document-skeleton-cached';
 import type { DataStreamTreeNode } from '../../../view-model/data-stream-tree-node';
 import type { DocumentViewModel } from '../../../view-model/document-view-model';
-import { HorizontalAlign } from '@univerjs/core';
+import { HorizontalAlign } from '@crabtable/core';
 import { hasCJK, hasCJKText, isCjkLeftAlignedPunctuation, isCjkRightAlignedPunctuation } from '../../../../../basics/tools';
 import { BreakPointType } from '../../line-breaker/break';
 import { isLetter } from '../../line-breaker/enhancers/utils';
@@ -187,7 +187,7 @@ function horizontalAlignHandler(line: IDocumentSkeletonLine, horizontalAlign: Ho
             divide.paddingLeft = width - glyphGroupWidth;
         }
 
-        // To fix https://github.com/dream-num/univer-pro/issues/2930
+        // To fix https://github.com/AutoCookies/crabtable-pro/issues/2930
         divide.paddingLeft = Math.max(divide.paddingLeft, 0);
     }
 }

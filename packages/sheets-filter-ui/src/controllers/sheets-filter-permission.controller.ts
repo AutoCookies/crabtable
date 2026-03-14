@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo } from '@univerjs/core';
-import type { MenuConfig } from '@univerjs/ui';
+import type { ICommandInfo } from '@crabtable/core';
+import type { MenuConfig } from '@crabtable/ui';
 import type { IOpenFilterPanelOperationParams } from '../commands/operations/sheets-filter.operation';
-import { Disposable, ICommandService, Inject, Injector, IUniverInstanceService, LocaleService, Tools } from '@univerjs/core';
-import { expandToContinuousRange, getSheetCommandTarget, RangeProtectionPermissionViewPoint, SheetPermissionCheckController, SheetsSelectionsService, WorksheetFilterPermission, WorksheetViewPermission } from '@univerjs/sheets';
-import { SheetsFilterService, SmartToggleSheetsFilterCommand } from '@univerjs/sheets-filter';
+import { Disposable, ICommandService, ICrabTableInstanceService, Inject, Injector, LocaleService, Tools } from '@crabtable/core';
+import { expandToContinuousRange, getSheetCommandTarget, RangeProtectionPermissionViewPoint, SheetPermissionCheckController, SheetsSelectionsService, WorksheetFilterPermission, WorksheetViewPermission } from '@crabtable/sheets';
+import { SheetsFilterService, SmartToggleSheetsFilterCommand } from '@crabtable/sheets-filter';
 import { OpenFilterPanelOperation } from '../commands/operations/sheets-filter.operation';
 
 export interface IUniverSheetsFilterUIConfig {
@@ -52,8 +52,8 @@ export class SheetsFilterPermissionController extends Disposable {
         this.disposeWithMe(
             this._commandService.beforeCommandExecuted((command: ICommandInfo) => {
                 if (command.id === SmartToggleSheetsFilterCommand.id) {
-                    const univerInstanceService = this._injector.get(IUniverInstanceService);
-                    const target = getSheetCommandTarget(univerInstanceService);
+                    const crabtableInstanceService = this._injector.get(ICrabTableInstanceService);
+                    const target = getSheetCommandTarget(crabtableInstanceService);
                     if (!target) return;
                     const { unitId, subUnitId, worksheet } = target;
                     const filterRange = this._sheetsFilterService.getFilterModel(unitId, subUnitId)?.getRange();

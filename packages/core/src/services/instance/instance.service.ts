@@ -20,7 +20,7 @@ import type { UnitModel, UnitType } from '../../common/unit';
 import type { Nullable } from '../../shared';
 import { BehaviorSubject, distinctUntilChanged, filter, map, Subject } from 'rxjs';
 import { createIdentifier, Inject, Injector } from '../../common/di';
-import { UniverInstanceType } from '../../common/unit';
+import { CrabTableInstanceType } from '../../common/unit';
 import { DocumentDataModel } from '../../docs/data-model/document-data-model';
 import { Disposable } from '../../shared/lifecycle';
 import { Workbook } from '../../sheets/workbook';
@@ -34,7 +34,7 @@ export type UnitCtor = new (...args: any[]) => UnitModel;
 
 export interface ICreateUnitOptions {
     /**
-     * If Univer should make the new unit as current of its type.
+     * If CrabTable should make the new unit as current of its type.
      *
      * @default true
      */
@@ -42,12 +42,12 @@ export interface ICreateUnitOptions {
 }
 
 /**
- * IUniverInstanceService holds all the current univer instances and provides a set of
- * methods to add and remove univer instances.
+ * ICrabTableInstanceService holds all the current CrabTable instances and provides a set of
+ * methods to add and remove CrabTable instances.
  *
- * It also manages the focused univer instance.
+ * It also manages the focused CrabTable instance.
  */
-export interface IUniverInstanceService {
+export interface ICrabTableInstanceService {
     /** Omits value when a new UnitModel is created. */
     unitAdded$: Observable<UnitModel>;
     /** Subscribe to curtain type of units' creation. */
@@ -62,7 +62,7 @@ export interface IUniverInstanceService {
     getTypeOfUnitDisposed$<T extends UnitModel>(type: UnitType): Observable<T>;
 
     /**
-     * An observable value that emits the id of the focused unit. A Univer app instance
+     * An observable value that emits the id of the focused unit. A CrabTable app instance
      * can only have 1 focused unit.
      *
      * You can use `getFocusedUnit` to get the currently focused unit, and
@@ -95,15 +95,15 @@ export interface IUniverInstanceService {
     getUnitType(unitId: string): UnitType;
 
     /** @deprecated */
-    getUniverSheetInstance(unitId: string): Nullable<Workbook>;
+    getCrabTableSheetInstance(unitId: string): Nullable<Workbook>;
     /** @deprecated */
     getUniverDocInstance(unitId: string): Nullable<DocumentDataModel>;
     /** @deprecated */
     getCurrentUniverDocInstance(): Nullable<DocumentDataModel>;
 }
 
-export const IUniverInstanceService = createIdentifier<IUniverInstanceService>('univer.current');
-export class UniverInstanceService extends Disposable implements IUniverInstanceService {
+export const ICrabTableInstanceService = createIdentifier<ICrabTableInstanceService>('crabtable.current');
+export class CrabTableInstanceService extends Disposable implements ICrabTableInstanceService {
     private readonly _unitsByType = new Map<UnitType, UnitModel[]>();
 
     constructor(
@@ -170,7 +170,7 @@ export class UniverInstanceService extends Disposable implements IUniverInstance
 
     setCurrentUnitForType(unitId: string): void {
         const result = this._getUnitById(unitId);
-        if (!result) throw new Error(`[UniverInstanceService]: no document with unitId ${unitId}!`);
+        if (!result) throw new Error(`[CrabTableInstanceService]: no document with unitId ${unitId}!`);
 
         this._currentUnits.set(result[1], result[0]);
         this._currentUnits$.next(this._currentUnits);
@@ -183,14 +183,14 @@ export class UniverInstanceService extends Disposable implements IUniverInstance
     }
 
     /**
-     * Add a unit into Univer.
+     * Add a unit into CrabTable.
      *
      * @ignore
      *
      * @param unit The unit to be added.
      */
     __addUnit(unit: UnitModel, options?: ICreateUnitOptions): void {
-        this._logService.debug(`[UniverInstanceService]: Adding unit with id ${unit.getUnitId()}`);
+        this._logService.debug(`[CrabTableInstanceService]: Adding unit with id ${unit.getUnitId()}`);
         const type = unit.type;
 
         if (!this._unitsByType.has(type)) {
@@ -200,7 +200,7 @@ export class UniverInstanceService extends Disposable implements IUniverInstance
         const units = this._unitsByType.get(type)!;
         const newUnitId = unit.getUnitId();
         if (units.findIndex((u) => u.getUnitId() === newUnitId) !== -1) {
-            throw new Error(`[UniverInstanceService]: cannot create a unit with the same unit id: ${newUnitId}.`);
+            throw new Error(`[CrabTableInstanceService]: cannot create a unit with the same unit id: ${newUnitId}.`);
         }
 
         units.push(unit);
@@ -213,7 +213,7 @@ export class UniverInstanceService extends Disposable implements IUniverInstance
 
     private _unitDisposed$ = new Subject<UnitModel>();
     readonly unitDisposed$ = this._unitDisposed$.asObservable();
-    getTypeOfUnitDisposed$<T extends UnitModel<object, number>>(type: UniverInstanceType): Observable<T> {
+    getTypeOfUnitDisposed$<T extends UnitModel<object, number>>(type: CrabTableInstanceType): Observable<T> {
         return this.unitDisposed$.pipe(filter((unit) => unit.type === type)) as Observable<T>;
     }
 
@@ -224,15 +224,15 @@ export class UniverInstanceService extends Disposable implements IUniverInstance
     }
 
     getCurrentUniverDocInstance(): Nullable<DocumentDataModel> {
-        return this.getCurrentUnitForType(UniverInstanceType.UNIVER_DOC) as Nullable<DocumentDataModel>;
+        return this.getCurrentUnitForType(CrabTableInstanceType.CRABTABLE_DOC) as Nullable<DocumentDataModel>;
     }
 
     getUniverDocInstance(unitId: string): Nullable<DocumentDataModel> {
-        return this.getUnit<DocumentDataModel>(unitId, UniverInstanceType.UNIVER_DOC);
+        return this.getUnit<DocumentDataModel>(unitId, CrabTableInstanceType.CRABTABLE_DOC);
     }
 
-    getUniverSheetInstance(unitId: string): Nullable<Workbook> {
-        return this.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+    getCrabTableSheetInstance(unitId: string): Nullable<Workbook> {
+        return this.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
     }
 
     getAllUnitsForType<T>(type: UnitType): T[] {
@@ -240,7 +240,7 @@ export class UniverInstanceService extends Disposable implements IUniverInstance
     }
 
     changeDoc(unitId: string, doc: DocumentDataModel): void {
-        const allDocs = this.getAllUnitsForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const allDocs = this.getAllUnitsForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         const oldDoc = allDocs.find((doc) => doc.getUnitId() === unitId);
 
         if (oldDoc != null) {
@@ -293,18 +293,18 @@ export class UniverInstanceService extends Disposable implements IUniverInstance
         return this.focused;
     }
 
-    getUnitType(unitId: string): UniverInstanceType {
+    getUnitType(unitId: string): CrabTableInstanceType {
         const result = this._getUnitById(unitId);
-        if (!result) return UniverInstanceType.UNRECOGNIZED;
+        if (!result) return CrabTableInstanceType.UNRECOGNIZED;
 
         return result[1];
     }
 
     disposeUnit(unitId: string): boolean {
-        this._logService.debug(`[UniverInstanceService]: Disposing unit with id ${unitId}`);
+        this._logService.debug(`[CrabTableInstanceService]: Disposing unit with id ${unitId}`);
         const result = this._getUnitById(unitId);
         if (!result) {
-            this._logService.debug(`[UniverInstanceService]: No unit found with id ${unitId}`);
+            this._logService.debug(`[CrabTableInstanceService]: No unit found with id ${unitId}`);
             return false;
         }
 

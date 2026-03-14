@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IUniverInstanceService } from '@univerjs/core';
-import type { DataValidationModel, DataValidatorRegistryService } from '@univerjs/data-validation';
-import type { RegisterOtherFormulaService } from '@univerjs/engine-formula';
+import type { ICrabTableInstanceService } from '@crabtable/core';
+import type { DataValidationModel, DataValidatorRegistryService } from '@crabtable/data-validation';
+import type { RegisterOtherFormulaService } from '@crabtable/engine-formula';
 import type { DataValidationCacheService } from '../dv-cache.service';
 import type { DataValidationListCacheService } from '../dv-list-cache.service';
-import { DataValidationType, UniverInstanceType } from '@univerjs/core';
-import { OtherFormulaBizType } from '@univerjs/engine-formula';
+import { CrabTableInstanceType, DataValidationType } from '@crabtable/core';
+import { OtherFormulaBizType } from '@crabtable/engine-formula';
 import { Subject } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import { DataValidationFormulaService } from '../dv-formula.service';
@@ -55,8 +55,8 @@ describe('DataValidationFormulaService', () => {
             getValidatorItem: vi.fn(() => ({ offsetFormulaByRange: false })),
         } as unknown as DataValidatorRegistryService;
         const instanceService = {
-            getUnitType: vi.fn(() => UniverInstanceType.UNIVER_SHEET),
-        } as unknown as IUniverInstanceService;
+            getUnitType: vi.fn(() => CrabTableInstanceType.CRABTABLE_SHEET),
+        } as unknown as ICrabTableInstanceService;
 
         const service = new DataValidationFormulaService(
             instanceService,
@@ -118,7 +118,7 @@ describe('DataValidationFormulaService', () => {
         } as unknown as RegisterOtherFormulaService;
 
         const service = new DataValidationFormulaService(
-            { getUnitType: vi.fn(() => UniverInstanceType.UNIVER_DOC) } as unknown as IUniverInstanceService,
+            { getUnitType: vi.fn(() => CrabTableInstanceType.CRABTABLE_DOC) } as unknown as ICrabTableInstanceService,
             registerOtherFormulaService,
             { markRangeDirty: vi.fn() } as unknown as DataValidationCacheService,
             { getRuleById: vi.fn(() => null) } as unknown as DataValidationModel,

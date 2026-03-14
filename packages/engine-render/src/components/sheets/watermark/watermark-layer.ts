@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IUser, Nullable } from '@univerjs/core';
+import type { IUser, Nullable } from '@crabtable/core';
 import type { UniverRenderingContext } from '../../../context';
 import type { IWatermarkConfigWithType } from './type';
 import { Layer } from '../../../layer';

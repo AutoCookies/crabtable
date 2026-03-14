@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Injector, IWorkbookData } from '@univerjs/core';
-import type { FUniver } from '@univerjs/core/facade';
-import { ICommandService, LocaleType } from '@univerjs/core';
-import { ErrorType } from '@univerjs/engine-formula';
-import { SetRangeValuesCommand, SetRangeValuesMutation } from '@univerjs/sheets';
+import type { Injector, IWorkbookData } from '@crabtable/core';
+import type { FCrabTable } from '@crabtable/core/facade';
+import { ICommandService, LocaleType } from '@crabtable/core';
+import { ErrorType } from '@crabtable/engine-formula';
+import { SetRangeValuesCommand, SetRangeValuesMutation } from '@crabtable/sheets';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createFacadeTestBed } from './create-test-bed';
 
@@ -110,12 +110,12 @@ function getTestWorkbookDataWithFormulas(): IWorkbookData {
 describe('Test FWorkbookEngineFormulaMixin', () => {
     let get: Injector['get'];
     let commandService: ICommandService;
-    let univerAPI: FUniver;
+    let crabtableAPI: FCrabTable;
 
     beforeEach(() => {
         const testBed = createFacadeTestBed(getTestWorkbookDataWithFormulas());
         get = testBed.get;
-        univerAPI = testBed.univerAPI;
+        crabtableAPI = testBed.crabtableAPI;
 
         commandService = get(ICommandService);
         commandService.registerCommand(SetRangeValuesCommand);
@@ -123,7 +123,7 @@ describe('Test FWorkbookEngineFormulaMixin', () => {
     });
 
     it('should get all formula errors in the workbook', () => {
-        const workbook = univerAPI.getActiveWorkbook()!;
+        const workbook = crabtableAPI.getActiveWorkbook()!;
         const errors = workbook.getAllFormulaError();
 
         expect(errors).toBeDefined();
@@ -155,7 +155,7 @@ describe('Test FWorkbookEngineFormulaMixin', () => {
     });
 
     it('should identify different error types correctly', () => {
-        const workbook = univerAPI.getActiveWorkbook()!;
+        const workbook = crabtableAPI.getActiveWorkbook()!;
         const errors = workbook.getAllFormulaError();
 
         const errorTypes = new Set(errors.map((e) => e.errorType));
@@ -168,7 +168,7 @@ describe('Test FWorkbookEngineFormulaMixin', () => {
     });
 
     it('should include correct formula strings in error results', () => {
-        const workbook = univerAPI.getActiveWorkbook()!;
+        const workbook = crabtableAPI.getActiveWorkbook()!;
         const errors = workbook.getAllFormulaError();
 
         // Find specific errors and check their formula strings
@@ -183,7 +183,7 @@ describe('Test FWorkbookEngineFormulaMixin', () => {
     });
 
     it('should find errors across multiple sheets', () => {
-        const workbook = univerAPI.getActiveWorkbook()!;
+        const workbook = crabtableAPI.getActiveWorkbook()!;
         const errors = workbook.getAllFormulaError();
 
         const sheetNames = new Set(errors.map((e) => e.sheetName));

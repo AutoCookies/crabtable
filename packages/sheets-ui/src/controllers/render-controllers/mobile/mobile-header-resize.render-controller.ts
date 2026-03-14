@@ -16,9 +16,9 @@
 
 /* eslint-disable max-lines-per-function */
 
-import type { Nullable, Workbook } from '@univerjs/core';
-import type { IMouseEvent, IPointerEvent, IRenderContext, IRenderModule, SpreadsheetSkeleton } from '@univerjs/engine-render';
-import type { ISelectionWithStyle } from '@univerjs/sheets';
+import type { Nullable, Workbook } from '@crabtable/core';
+import type { IMouseEvent, IPointerEvent, IRenderContext, IRenderModule, SpreadsheetSkeleton } from '@crabtable/engine-render';
+import type { ISelectionWithStyle } from '@crabtable/sheets';
 import type { Subscription } from 'rxjs';
 import {
     Disposable,
@@ -27,13 +27,13 @@ import {
     Inject,
     RANGE_TYPE,
     toDisposable,
-} from '@univerjs/core';
-import { Rect } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { Rect } from '@crabtable/engine-render';
 import {
     DeltaColumnWidthCommand,
     DeltaRowHeightCommand,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { SHEET_COMPONENT_HEADER_LAYER_INDEX } from '../../../common/keys';
 import { MOBILE_EXPANDING_SELECTION, MOBILE_PINCH_ZOOMING } from '../../../consts/mobile-context';
 import { SheetScrollManagerService } from '../../../services/scroll-manager.service';

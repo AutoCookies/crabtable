@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { IAccessor, Workbook } from '@univerjs/core';
-import { FOCUSING_COMMON_DRAWINGS, FOCUSING_FX_BAR_EDITOR, IContextService, IPermissionService, IUniverInstanceService, RANGE_TYPE, Rectangle, UniverInstanceType, UserManagerService } from '@univerjs/core';
-import { RangeProtectionCache, RangeProtectionRuleModel, SheetsSelectionsService, UnitAction, WorkbookCreateProtectPermission, WorkbookEditablePermission, WorkbookManageCollaboratorPermission, WorksheetDeleteProtectionPermission, WorksheetManageCollaboratorPermission, WorksheetProtectionRuleModel } from '@univerjs/sheets';
+import type { IAccessor, Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, FOCUSING_COMMON_DRAWINGS, FOCUSING_FX_BAR_EDITOR, IContextService, ICrabTableInstanceService, IPermissionService, RANGE_TYPE, Rectangle, UserManagerService } from '@crabtable/core';
+import { RangeProtectionCache, RangeProtectionRuleModel, SheetsSelectionsService, UnitAction, WorkbookCreateProtectPermission, WorkbookEditablePermission, WorkbookManageCollaboratorPermission, WorksheetDeleteProtectionPermission, WorksheetManageCollaboratorPermission, WorksheetProtectionRuleModel } from '@crabtable/sheets';
 import { combineLatest, map, merge, of, shareReplay, startWith, switchMap } from 'rxjs';
 import { IEditorBridgeService } from '../services/editor-bridge.service';
 
 export function getAddPermissionHidden$(accessor: IAccessor) {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
-    const workbook$ = univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+    const workbook$ = crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     const userManagerService = accessor.get(UserManagerService);
 
     return combineLatest([workbook$, userManagerService.currentUser$]).pipe(
@@ -72,10 +72,10 @@ export function getAddPermissionHidden$(accessor: IAccessor) {
 }
 
 export function getEditPermissionHidden$(accessor: IAccessor) {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const rangeRuleModel = accessor.get(RangeProtectionRuleModel);
 
-    const workbook$ = univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const workbook$ = crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     const userManagerService = accessor.get(UserManagerService);
 
     return combineLatest([workbook$, userManagerService.currentUser$]).pipe(
@@ -155,9 +155,9 @@ export function getEditPermissionHidden$(accessor: IAccessor) {
 }
 
 export function getPermissionDisableBase$(accessor: IAccessor) {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const permissionService = accessor.get(IPermissionService);
-    const workbook$ = univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const workbook$ = crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     const userManagerService = accessor.get(UserManagerService);
 
     return combineLatest([workbook$, userManagerService.currentUser$]).pipe(
@@ -207,9 +207,9 @@ export function getPermissionDisableBase$(accessor: IAccessor) {
 }
 
 export function getAddPermissionDisableBase$(accessor: IAccessor) {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const permissionService = accessor.get(IPermissionService);
-    const workbook$ = univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const workbook$ = crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     const userManagerService = accessor.get(UserManagerService);
     const editorBridgeService = accessor.has(IEditorBridgeService) ? accessor.get(IEditorBridgeService) : null;
     const contextService = accessor.get(IContextService);
@@ -281,9 +281,9 @@ export function getAddPermissionDisableBase$(accessor: IAccessor) {
 }
 
 export function getAddPermissionFromSheetBarDisable$(accessor: IAccessor) {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const permissionService = accessor.get(IPermissionService);
-    const workbook$ = univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const workbook$ = crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     const userManagerService = accessor.get(UserManagerService);
 
     return combineLatest([workbook$, userManagerService.currentUser$]).pipe(
@@ -324,9 +324,9 @@ export function getAddPermissionFromSheetBarDisable$(accessor: IAccessor) {
 }
 
 export function getRemovePermissionFromSheetBarDisable$(accessor: IAccessor) {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const permissionService = accessor.get(IPermissionService);
-    const workbook$ = univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const workbook$ = crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     const userManagerService = accessor.get(UserManagerService);
 
     return combineLatest([workbook$, userManagerService.currentUser$]).pipe(
@@ -359,9 +359,9 @@ export function getRemovePermissionFromSheetBarDisable$(accessor: IAccessor) {
 }
 
 export function getSetPermissionFromSheetBarDisable$(accessor: IAccessor) {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const permissionService = accessor.get(IPermissionService);
-    const workbook$ = univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const workbook$ = crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     const userManagerService = accessor.get(UserManagerService);
 
     return combineLatest([workbook$, userManagerService.currentUser$]).pipe(
@@ -402,9 +402,9 @@ export function getSetPermissionFromSheetBarDisable$(accessor: IAccessor) {
 }
 
 export function getRemovePermissionDisable$(accessor: IAccessor) {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const permissionService = accessor.get(IPermissionService);
-    const workbook$ = univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const workbook$ = crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     const userManagerService = accessor.get(UserManagerService);
 
     return combineLatest([workbook$, userManagerService.currentUser$]).pipe(
@@ -478,9 +478,9 @@ export function getRemovePermissionDisable$(accessor: IAccessor) {
 }
 
 export function getViewPermissionDisable$(accessor: IAccessor) {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const permissionService = accessor.get(IPermissionService);
-    const workbook$ = univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const workbook$ = crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     const userManagerService = accessor.get(UserManagerService);
     const editorBridgeService = accessor.has(IEditorBridgeService) ? accessor.get(IEditorBridgeService) : null;
     const contextService = accessor.get(IContextService);

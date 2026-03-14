@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
-import { CommandType, IUniverInstanceService, LocaleService } from '@univerjs/core';
-import { IEditorService } from '@univerjs/docs-ui';
-import { getSheetCommandTarget } from '@univerjs/sheets';
-import { ISidebarService } from '@univerjs/ui';
+import type { IAccessor, ICommand } from '@crabtable/core';
+import { CommandType, ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { IEditorService } from '@crabtable/docs-ui';
+import { getSheetCommandTarget } from '@crabtable/sheets';
+import { ISidebarService } from '@crabtable/ui';
 import { DEFINED_NAME_CONTAINER } from '../../views/defined-name/component-name';
 
 export interface IUIComponentCommandParams {
@@ -32,9 +32,9 @@ export const SidebarDefinedNameOperation: ICommand = {
         const sidebarService = accessor.get(ISidebarService);
         const editorService = accessor.get(IEditorService);
         const localeService = accessor.get(LocaleService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const target = getSheetCommandTarget(univerInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { unitId } = target;

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { SlideDataModel, Workbook } from '@univerjs/core';
+import type { SlideDataModel, Workbook } from '@crabtable/core';
 import {
+    CrabTableInstanceType,
     IContextService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     RxDisposable,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { takeUntil } from 'rxjs';
 
 /**
@@ -32,7 +32,7 @@ export class SlideRenderService extends RxDisposable {
 
     constructor(
         @IContextService private readonly _contextService: IContextService,
-        @IUniverInstanceService private readonly _instanceSrv: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _instanceSrv: ICrabTableInstanceService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService
     ) {
         super();
@@ -47,18 +47,18 @@ export class SlideRenderService extends RxDisposable {
     }
 
     private _initSlideDataListener(): void {
-        this._instanceSrv.getTypeOfUnitAdded$<Workbook>(UniverInstanceType.UNIVER_SLIDE)
+        this._instanceSrv.getTypeOfUnitAdded$<Workbook>(CrabTableInstanceType.CRABTABLE_SLIDE)
             .pipe(takeUntil(this.dispose$))
             .subscribe((slideModel) => {
                 // TODO when does this function get called?
                 this._createRenderer(slideModel?.getUnitId());
             });
 
-        this._instanceSrv.getAllUnitsForType<SlideDataModel>(UniverInstanceType.UNIVER_SLIDE).forEach((slideModel) => {
+        this._instanceSrv.getAllUnitsForType<SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE).forEach((slideModel) => {
             this._createRenderer(slideModel.getUnitId());
         });
 
-        this._instanceSrv.getTypeOfUnitDisposed$<Workbook>(UniverInstanceType.UNIVER_SLIDE)
+        this._instanceSrv.getTypeOfUnitDisposed$<Workbook>(CrabTableInstanceType.CRABTABLE_SLIDE)
             .pipe(takeUntil(this.dispose$))
             .subscribe((workbook) => this._disposeRenderer(workbook));
     }
@@ -68,7 +68,7 @@ export class SlideRenderService extends RxDisposable {
             return;
         }
 
-        const model = this._instanceSrv.getUnit(unitId, UniverInstanceType.UNIVER_SLIDE);
+        const model = this._instanceSrv.getUnit(unitId, CrabTableInstanceType.CRABTABLE_SLIDE);
         if (model == null) {
             return;
         }

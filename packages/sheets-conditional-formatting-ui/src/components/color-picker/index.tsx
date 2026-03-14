@@ -15,8 +15,8 @@
  */
 
 import type { FC } from 'react';
-import { ColorKit } from '@univerjs/core';
-import { clsx, Dropdown, ColorPicker as OriginColorPicker } from '@univerjs/design';
+import { ColorKit } from '@crabtable/core';
+import { clsx, Dropdown, ColorPicker as OriginColorPicker } from '@crabtable/design';
 import { PaintBucketDoubleIcon } from '@univerjs/icons';
 import { useMemo } from 'react';
 

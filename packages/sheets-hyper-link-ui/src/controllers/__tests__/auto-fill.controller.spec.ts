@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { AUTO_FILL_APPLY_TYPE } from '@univerjs/sheets';
-import { AddHyperLinkMutation, RemoveHyperLinkMutation } from '@univerjs/sheets-hyper-link';
+import { AUTO_FILL_APPLY_TYPE } from '@crabtable/sheets';
+import { AddHyperLinkMutation, RemoveHyperLinkMutation } from '@crabtable/sheets-hyper-link';
 import { describe, expect, it, vi } from 'vitest';
 import { SheetsHyperLinkAutoFillController } from '../auto-fill.controller';
 

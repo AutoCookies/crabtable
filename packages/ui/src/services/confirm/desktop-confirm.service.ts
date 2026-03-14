@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IConfirmService, IDisposable } from '@univerjs/core';
+import type { IConfirmService, IDisposable } from '@crabtable/core';
 import type { IConfirmPartMethodOptions } from '../../views/components/confirm-part/interface';
-import { Disposable, Inject, Injector, toDisposable } from '@univerjs/core';
+import { Disposable, Inject, Injector, toDisposable } from '@crabtable/core';
 import { BehaviorSubject } from 'rxjs';
 import { connectInjector } from '../../utils/di';
 import { ConfirmPart } from '../../views/components/confirm-part/ConfirmPart';

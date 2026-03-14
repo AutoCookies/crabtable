@@ -15,7 +15,7 @@
  */
 
 import type { ICommand } from '../../command/command.service';
-import type { IUniverInstanceService } from '../../instance/instance.service';
+import type { ICrabTableInstanceService } from '../../instance/instance.service';
 import { BehaviorSubject } from 'rxjs';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY, DOCS_NORMAL_EDITOR_UNIT_ID_KEY } from '../../../common/const';
@@ -43,7 +43,7 @@ describe('LocalUndoRedoService', () => {
     let contextService: ContextService;
     let logService: DesktopLogService;
     let focused$: BehaviorSubject<FocusedUnit | null>;
-    let instanceService: IUniverInstanceService;
+    let instanceService: ICrabTableInstanceService;
     let undoRedoService: LocalUndoRedoService;
     let mutationLog: string[];
 
@@ -63,7 +63,7 @@ describe('LocalUndoRedoService', () => {
         instanceService = {
             focused$: focused$.asObservable(),
             getFocusedUnit: () => focused$.value,
-        } as IUniverInstanceService;
+        } as ICrabTableInstanceService;
 
         undoRedoService = new LocalUndoRedoService(instanceService, commandService, contextService);
         injector.add([IUndoRedoService, { useValue: undoRedoService }]);

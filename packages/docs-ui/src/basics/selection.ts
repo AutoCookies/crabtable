@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IDocumentData } from '@univerjs/core';
-import { DataStreamTreeTokenType } from '@univerjs/core';
+import type { IDocumentData } from '@crabtable/core';
+import { DataStreamTreeTokenType } from '@crabtable/core';
 
 export function findFirstCursorOffset(snapshot: IDocumentData) {
     const { dataStream } = snapshot.body ?? {};

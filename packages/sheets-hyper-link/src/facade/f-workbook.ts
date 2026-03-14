@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
-import type { ISheetHyperLinkInfo } from '@univerjs/sheets-hyper-link';
-import type { FRange } from '@univerjs/sheets/facade';
-import { Inject } from '@univerjs/core';
-import { SheetsHyperLinkParserService } from '@univerjs/sheets-hyper-link';
-import { FWorkbook } from '@univerjs/sheets/facade';
+import type { IRange } from '@crabtable/core';
+import type { ISheetHyperLinkInfo } from '@crabtable/sheets-hyper-link';
+import type { FRange } from '@crabtable/sheets/facade';
+import { Inject } from '@crabtable/core';
+import { SheetsHyperLinkParserService } from '@crabtable/sheets-hyper-link';
+import { FWorkbook } from '@crabtable/sheets/facade';
 
 /**
  * @hideconstructor
@@ -52,7 +52,7 @@ export interface IFWorkbookHyperlinkMixin {
      * @example
      * ``` ts
      * // Create a hyperlink to the range A1:D10 of the current sheet
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:D10');
      * const hyperlink = fRange.getUrl();
@@ -83,7 +83,7 @@ export class FWorkbookHyperLinkMixin extends FWorkbook implements IFWorkbookHype
 }
 
 FWorkbook.extend(FWorkbookHyperLinkMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FWorkbook extends IFWorkbookHyperlinkMixin {}
 }

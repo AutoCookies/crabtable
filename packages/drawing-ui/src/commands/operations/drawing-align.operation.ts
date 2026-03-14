@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IDrawingParam, IOperation } from '@univerjs/core';
-import { CommandType, ICommandService } from '@univerjs/core';
+import type { IDrawingParam, IOperation } from '@crabtable/core';
+import { CommandType, ICommandService } from '@crabtable/core';
 
 export enum AlignType {
     default = '0',

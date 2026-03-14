@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Disposable, Inject } from '@univerjs/core';
-import { ComponentManager, IMenuManagerService } from '@univerjs/ui';
+import { Disposable, Inject } from '@crabtable/core';
+import { ComponentManager, IMenuManagerService } from '@crabtable/ui';
 import { MORE_NUMFMT_TYPE_KEY, MoreNumfmtType, Options, OPTIONS_KEY } from '../views/components/MoreNumfmtType';
 import { menuSchema } from './schema';
 

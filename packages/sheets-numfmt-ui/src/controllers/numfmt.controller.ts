@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-import type { IDisposable, IRange, Workbook } from '@univerjs/core';
-import type { ISetNumfmtMutationParams } from '@univerjs/sheets';
-import type { ISetNumfmtCommandParams } from '@univerjs/sheets-numfmt';
+import type { IDisposable, IRange, Workbook } from '@crabtable/core';
+import type { ISetNumfmtMutationParams } from '@crabtable/sheets';
+import type { ISetNumfmtCommandParams } from '@crabtable/sheets-numfmt';
 import type { ISheetNumfmtPanelProps } from '../views/components';
 import {
     CellValueType,
+    CrabTableInstanceType,
     Disposable,
     DisposableCollection,
     ICommandService,
+    ICrabTableInstanceService,
     Inject,
     InterceptorEffectEnum,
-    IUniverInstanceService,
     LocaleService,
     Range,
     ThemeService,
     toDisposable,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import {
     INTERCEPTOR_POINT,
     INumfmtService,
@@ -41,10 +41,10 @@ import {
     SetNumfmtMutation,
     SheetInterceptorService,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
-import { getPatternPreviewIgnoreGeneral, getPatternType, SetNumfmtCommand, SheetsNumfmtCellContentController } from '@univerjs/sheets-numfmt';
-import { SheetSkeletonManagerService } from '@univerjs/sheets-ui';
-import { ComponentManager, ISidebarService } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { getPatternPreviewIgnoreGeneral, getPatternType, SetNumfmtCommand, SheetsNumfmtCellContentController } from '@crabtable/sheets-numfmt';
+import { SheetSkeletonManagerService } from '@crabtable/sheets-ui';
+import { ComponentManager, ISidebarService } from '@crabtable/ui';
 import { combineLatest, merge, Observable } from 'rxjs';
 import { debounceTime, map, switchMap, tap } from 'rxjs/operators';
 import { CloseNumfmtPanelOperator } from '../commands/operations/close.numfmt.panel.operation';
@@ -64,7 +64,7 @@ export class SheetNumfmtUIController extends Disposable {
     constructor(
         @Inject(SheetInterceptorService) private _sheetInterceptorService: SheetInterceptorService,
         @Inject(ThemeService) private _themeService: ThemeService,
-        @IUniverInstanceService private _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private _commandService: ICommandService,
         @Inject(SheetsSelectionsService) private _selectionManagerService: SheetsSelectionsService,
         @IRenderManagerService private _renderManagerService: IRenderManagerService,
@@ -94,7 +94,7 @@ export class SheetNumfmtUIController extends Disposable {
         const sidebarService = this._sidebarService;
         const selectionManagerService = this._selectionManagerService;
         const commandService = this._commandService;
-        const univerInstanceService = this._univerInstanceService;
+        const crabtableInstanceService = this._crabtableInstanceService;
         const numfmtService = this._numfmtService;
         const localeService = this._localeService;
 
@@ -105,7 +105,7 @@ export class SheetNumfmtUIController extends Disposable {
             return false;
         }
 
-        const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const sheet = workbook.getActiveSheet();
         if (!sheet) {
             return false;
@@ -170,7 +170,7 @@ export class SheetNumfmtUIController extends Disposable {
 
     private _forceUpdate(unitId?: string): void {
         const renderUnit = this._renderManagerService.getRenderById(
-            unitId ?? this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getUnitId()
+            unitId ?? this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getUnitId()
         );
 
         renderUnit?.with(SheetSkeletonManagerService).reCalculate();
@@ -239,7 +239,7 @@ export class SheetNumfmtUIController extends Disposable {
                         })
                     )
                     .subscribe(({ disposableCollection, selectionRanges }) => {
-                        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                         this.openPanel();
                         disposableCollection.add(
                             this._sheetInterceptorService.intercept(INTERCEPTOR_POINT.CELL_CONTENT, {
@@ -311,7 +311,7 @@ export class SheetNumfmtUIController extends Disposable {
 
     private _sidebarDisposable: IDisposable | null = null;
     private _initCloseListener(): void {
-        this._univerInstanceService.getCurrentTypeOfUnit$(UniverInstanceType.UNIVER_SHEET).subscribe((unit) => {
+        this._crabtableInstanceService.getCurrentTypeOfUnit$(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((unit) => {
             if (!unit) {
                 this._sidebarDisposable?.dispose();
                 this._sidebarDisposable = null;

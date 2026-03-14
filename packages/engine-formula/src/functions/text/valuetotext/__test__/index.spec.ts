@@ -31,7 +31,7 @@ describe('Test valuetotext function', () => {
             const value = StringValueObject.create('Univer');
             const format = NumberValueObject.create(1);
             const result = testFunction.calculate(value, format);
-            expect(getObjectValue(result)).toStrictEqual('"Univer"');
+            expect(getObjectValue(result)).toStrictEqual('"CrabTable"');
         });
 
         it('Format value test', () => {
@@ -42,7 +42,7 @@ describe('Test valuetotext function', () => {
 
             const format2 = BooleanValueObject.create(true);
             const result2 = testFunction.calculate(value, format2);
-            expect(getObjectValue(result2)).toStrictEqual('"Univer"');
+            expect(getObjectValue(result2)).toStrictEqual('"CrabTable"');
 
             const format3 = StringValueObject.create('test');
             const result3 = testFunction.calculate(value, format3);

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Injector } from '@univerjs/core';
+import type { Injector } from '@crabtable/core';
 import type { BaseAstNode } from '../../ast-node/base-ast-node';
 import type { ArrayValueObject } from '../../value-object/array-value-object';
 import type { BaseValueObject } from '../../value-object/base-value-object';

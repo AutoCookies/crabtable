@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDrawingParam, Nullable } from '@univerjs/core';
-import type { IDrawingManagerService, IImageData } from '@univerjs/drawing';
-import type { BaseObject, Image } from '@univerjs/engine-render';
-import { DrawingTypeEnum } from '@univerjs/core';
+import type { IDrawingParam, Nullable } from '@crabtable/core';
+import type { IDrawingManagerService, IImageData } from '@crabtable/drawing';
+import type { BaseObject, Image } from '@crabtable/engine-render';
+import { DrawingTypeEnum } from '@crabtable/core';
 
 export function getUpdateParams(objects: Map<string, BaseObject>, drawingManagerService: IDrawingManagerService): Nullable<IDrawingParam>[] {
     const params: Nullable<IDrawingParam>[] = [];

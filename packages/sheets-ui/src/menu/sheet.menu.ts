@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, Workbook } from '@univerjs/core';
-import type { IMenuButtonItem, IMenuSelectorItem } from '@univerjs/ui';
+import type { IAccessor, Workbook } from '@crabtable/core';
+import type { IMenuButtonItem, IMenuSelectorItem } from '@crabtable/ui';
 import type { Subscriber } from 'rxjs';
-import { BooleanNumber, ICommandService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
+import { BooleanNumber, CrabTableInstanceType, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
 import {
     CopySheetCommand,
     InsertSheetMutation,
@@ -31,8 +31,8 @@ import {
     WorkbookEditablePermission,
     WorkbookHideSheetPermission,
     WorkbookRenameSheetPermission,
-} from '@univerjs/sheets';
-import { COLOR_PICKER_COMPONENT, getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { COLOR_PICKER_COMPONENT, getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { combineLatest, combineLatestWith, map, Observable } from 'rxjs';
 
 import { RemoveSheetConfirmCommand } from '../commands/commands/remove-sheet-confirm.command';
@@ -41,7 +41,7 @@ import { RenameSheetOperation } from '../commands/operations/rename-sheet.operat
 import { getWorkbookPermissionDisable$ } from './menu-util';
 
 export function DeleteSheetMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const commandService = accessor.get(ICommandService);
     const defaultDisable$ = new Observable<boolean>((subscriber) => {
         const disposable = commandService.onCommandExecuted((c) => {
@@ -51,12 +51,12 @@ export function DeleteSheetMenuItemFactory(accessor: IAccessor): IMenuButtonItem
                 id === InsertSheetMutation.id ||
                 id === SetWorksheetHideMutation.id
             ) {
-                disableFunction(univerInstanceService, subscriber);
+                disableFunction(crabtableInstanceService, subscriber);
             }
         });
 
         // When there is only one sheet initialized, it is also necessary to disable
-        disableFunction(univerInstanceService, subscriber);
+        disableFunction(crabtableInstanceService, subscriber);
 
         return disposable.dispose;
     });
@@ -71,7 +71,7 @@ export function DeleteSheetMenuItemFactory(accessor: IAccessor): IMenuButtonItem
                 return defaultDisabled || permissionDisabled;
             })
         ),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -81,7 +81,7 @@ export function CopySheetMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
         type: MenuItemType.BUTTON,
         title: 'sheetConfig.copy',
         disabled$: getWorkbookPermissionDisable$(accessor, [WorkbookEditablePermission, WorkbookCreateSheetPermission]),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -91,7 +91,7 @@ export function RenameSheetMenuItemFactory(accessor: IAccessor): IMenuButtonItem
         type: MenuItemType.BUTTON,
         title: 'sheetConfig.rename',
         disabled$: getWorkbookPermissionDisable$(accessor, [WorkbookEditablePermission, WorkbookRenameSheetPermission]),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -113,7 +113,7 @@ export function ChangeColorSheetMenuItemFactory(accessor: IAccessor): IMenuSelec
 }
 
 export function HideSheetMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const commandService = accessor.get(ICommandService);
 
     return {
@@ -128,27 +128,27 @@ export function HideSheetMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
                     id === InsertSheetMutation.id ||
                     id === SetWorksheetHideMutation.id
                 ) {
-                    disableFunction(univerInstanceService, subscriber);
+                    disableFunction(crabtableInstanceService, subscriber);
                 }
             });
 
             // When there is only one sheet initialized, it is also necessary to disable
-            disableFunction(univerInstanceService, subscriber);
+            disableFunction(crabtableInstanceService, subscriber);
 
             return disposable.dispose;
         }).pipe(
             combineLatestWith(getWorkbookPermissionDisable$(accessor, [WorkbookEditablePermission, WorkbookHideSheetPermission])),
             map(([defaultDisabled, permissionDisabled]) => defaultDisabled || permissionDisabled)
         ),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
 export function UnHideSheetMenuItemFactory(accessor: IAccessor): IMenuSelectorItem<any> {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const commandService = accessor.get(ICommandService);
 
-    const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+    const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
     const hiddenList = workbook.getHiddenWorksheets().map((s) => ({
         label: workbook.getSheetBySheetId(s)?.getName() || '',
         value: s,
@@ -188,12 +188,12 @@ export function UnHideSheetMenuItemFactory(accessor: IAccessor): IMenuSelectorIt
             subscriber.next(hiddenList);
             return disposable.dispose;
         }),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
 export function ShowMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const commandService = accessor.get(ICommandService);
 
     return {
@@ -202,7 +202,7 @@ export function ShowMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
         title: 'sheetConfig.unhide',
         disabled$: new Observable<boolean>((subscriber) => {
             function disableFunction() {
-                const worksheets = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getWorksheets();
+                const worksheets = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getWorksheets();
                     // loop through all worksheets Map to see if there is more than one sheet
                 const visibleSheets = Array.from(worksheets.values());
 
@@ -226,12 +226,12 @@ export function ShowMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
             combineLatestWith(getWorkbookPermissionDisable$(accessor, [WorkbookEditablePermission, WorkbookHideSheetPermission])),
             map(([defaultDisabled, permissionDisabled]) => defaultDisabled || permissionDisabled)
         ),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
-function disableFunction(univerInstanceService: IUniverInstanceService, subscriber: Subscriber<boolean>) {
-    const worksheets = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getWorksheets();
+function disableFunction(crabtableInstanceService: ICrabTableInstanceService, subscriber: Subscriber<boolean>) {
+    const worksheets = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getWorksheets();
         // loop through all worksheets Map to see if there is more than one visible sheet
     const visibleSheets = Array.from(worksheets.values()).filter(
         (sheet) => sheet.getConfig().hidden === BooleanNumber.FALSE

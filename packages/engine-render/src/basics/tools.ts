@@ -23,11 +23,11 @@ import type {
     IScale,
     IStyleBase,
     Nullable,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import type { IDocumentSkeletonFontStyle } from './i-document-skeleton-cached';
 import type { IBoundRectNoAngle } from './vector2';
 
-import { BaselineOffset, ColorKit, DEFAULT_STYLES, FontStyleType, getCellInfoInMergeData, Rectangle, Tools } from '@univerjs/core';
+import { BaselineOffset, ColorKit, DEFAULT_STYLES, FontStyleType, getCellInfoInMergeData, Rectangle, Tools } from '@crabtable/core';
 import * as cjk from 'cjk-regex';
 import { FontCache } from '../components/docs/layout/shaping-engine/font-cache';
 import { DEFAULT_FONTFACE_PLANE } from './const';
@@ -523,7 +523,7 @@ export function getCellPositionByIndex(
 }
 
 /**
- * @deprecated use same function in @univerjs/core
+ * @deprecated use same function in @crabtable/core
  * @description Get the cell position information of the specified row and column, including the position information of the cell and the merge information of the cell
  * @param {number} row The row index of the cell
  * @param {number} column The column index of the cell
@@ -606,7 +606,7 @@ function getCellWithCoordByIndexCore(
 }
 
 /**
- * @deprecated please use getCellWithCoordByIndexCore in @univerjs/core instead
+ * @deprecated please use getCellWithCoordByIndexCore in @crabtable/core instead
  */
 const getCellByIndexWithMergeInfo = getCellWithCoordByIndexCore;
 export { getCellByIndexWithMergeInfo };

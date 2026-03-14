@@ -29,11 +29,11 @@ describe('parse build utils', () => {
     });
 
     it('should convert plain text into paragraphs and hyperlink ranges', () => {
-        const body = fromPlainText('https://univer.ai\nSecond line');
+        const body = fromPlainText('https://crabtable.dev\nSecond line');
         const singleCharBody = fromPlainText('A');
 
         expect(body).toMatchObject({
-            dataStream: 'https://univer.ai\rSecond line',
+            dataStream: 'https://crabtable.dev\rSecond line',
             paragraphs: [{ startIndex: 17 }],
             customRanges: [
                 {
@@ -41,7 +41,7 @@ describe('parse build utils', () => {
                     endIndex: 16,
                     rangeType: 0,
                     properties: {
-                        url: 'https://univer.ai\nSecond line',
+                        url: 'https://crabtable.dev\nSecond line',
                     },
                 },
             ],

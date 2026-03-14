@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IFindReplaceState } from '@univerjs/find-replace';
-import { FUniver } from '@univerjs/core/facade';
+import type { IFindReplaceState } from '@crabtable/find-replace';
+import { FCrabTable } from '@crabtable/core/facade';
 import { FTextFinder } from './f-text-finder';
 
 /**
@@ -29,7 +29,7 @@ export interface IFUniverFindReplaceMixin {
      * @example
      * ```typescript
      * // Assume the current sheet is empty sheet.
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Set some values to the range A1:D10.
@@ -48,7 +48,7 @@ export interface IFUniverFindReplaceMixin {
      * ]);
      *
      * // Create a text-finder to find the text '5'.
-     * const textFinder = await univerAPI.createTextFinderAsync('5');
+     * const textFinder = await crabtableAPI.createTextFinderAsync('5');
      *
      * // Find all cells that contain the text '5'.
      * const matchCells = textFinder.findAll();
@@ -60,7 +60,7 @@ export interface IFUniverFindReplaceMixin {
     createTextFinderAsync(text: string): Promise<FTextFinder | null>;
 }
 
-export class FUniverFindReplaceMixin extends FUniver implements IFUniverFindReplaceMixin {
+export class FCrabTableFindReplaceMixin extends FCrabTable implements IFUniverFindReplaceMixin {
     override async createTextFinderAsync(text: string): Promise<FTextFinder | null> {
         const state: Partial<IFindReplaceState> = { findString: text };
         const textFinder = this._injector.createInstance(FTextFinder, state);
@@ -69,8 +69,8 @@ export class FUniverFindReplaceMixin extends FUniver implements IFUniverFindRepl
     }
 }
 
-FUniver.extend(FUniverFindReplaceMixin);
-declare module '@univerjs/core/facade' {
+FCrabTable.extend(FUniverFindReplaceMixin);
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
-    interface FUniver extends IFUniverFindReplaceMixin {}
+    interface FCrabTable extends IFUniverFindReplaceMixin {}
 }

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICellDataForSheetInterceptor, IRange, Workbook } from '@univerjs/core';
-import { Disposable, DisposableCollection, Inject, IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
+import type { ICellDataForSheetInterceptor, IRange, Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, Disposable, DisposableCollection, ICrabTableInstanceService, Inject, LocaleService } from '@crabtable/core';
+import { SheetPermissionCheckController, SheetsSelectionsService } from '@crabtable/sheets';
 import { UnitAction } from '@univerjs/protocol';
-import { SheetPermissionCheckController, SheetsSelectionsService } from '@univerjs/sheets';
 import { ISheetClipboardService } from '../../services/clipboard/clipboard.service';
 import { virtualizeDiscreteRanges } from '../utils/range-tools';
 
@@ -28,7 +28,7 @@ export class SheetPermissionInterceptorClipboardController extends Disposable {
     disposableCollection = new DisposableCollection();
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(SheetsSelectionsService) private readonly _selectionManagerService: SheetsSelectionsService,
         @Inject(LocaleService) private readonly _localService: LocaleService,
         @Inject(ISheetClipboardService) private _sheetClipboardService: ISheetClipboardService,
@@ -55,7 +55,7 @@ export class SheetPermissionInterceptorClipboardController extends Disposable {
                         endColumn: startRange.startColumn + ranges.endColumn,
                     };
 
-                    const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                    const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                     const worksheet = workbook.getActiveSheet();
                     if (!worksheet) {
                         return false;

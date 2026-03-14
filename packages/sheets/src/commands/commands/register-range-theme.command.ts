@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
+import type { ICommand } from '@crabtable/core';
 import type { RangeThemeStyle } from '../../model/range-theme-util';
-import { CommandType, ICommandService, IUndoRedoService, IUniverInstanceService } from '@univerjs/core';
+import { CommandType, ICommandService, ICrabTableInstanceService, IUndoRedoService } from '@crabtable/core';
 
 import { RegisterWorksheetRangeThemeStyleMutation } from '../mutations/register-range-theme.mutation';
 import { UnregisterWorksheetRangeThemeStyleMutation } from '../mutations/unregister-range-theme-style.mutation';
@@ -35,10 +35,10 @@ export const RegisterWorksheetRangeThemeStyleCommand: ICommand<IRegisterWorkshee
             return false;
         }
         const { unitId, rangeThemeStyle } = params;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const redoParam = {

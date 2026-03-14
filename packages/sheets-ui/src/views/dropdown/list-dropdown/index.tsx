@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-import type { ISheetLocation } from '@univerjs/sheets';
-import type { IPopup } from '@univerjs/ui';
+import type { ISheetLocation } from '@crabtable/sheets';
+import type { IPopup } from '@crabtable/ui';
 import type { CSSProperties } from 'react';
 import type { IBaseDropdownProps } from '../type';
 import {
     ColorKit,
     LocaleService,
-} from '@univerjs/core';
-import { borderClassName, borderTopClassName, clsx, scrollbarClassName } from '@univerjs/design';
-import { CheckMarkIcon } from '@univerjs/icons';
+} from '@crabtable/core';
+import { borderClassName, borderTopClassName, clsx, scrollbarClassName } from '@crabtable/design';
 import {
     RangeProtectionPermissionEditPoint,
     SheetPermissionCheckController,
     WorkbookEditablePermission,
     WorksheetEditPermission,
-} from '@univerjs/sheets';
-import { useDependency } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { useDependency } from '@crabtable/ui';
+import { CheckMarkIcon } from '@univerjs/icons';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 function serializeListOptions(options: string[]) {

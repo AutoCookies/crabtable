@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { RANGE_TYPE, Rectangle } from '@univerjs/core';
+import { RANGE_TYPE, Rectangle } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { CrossHairRangeCollection } from './util';
 

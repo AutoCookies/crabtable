@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { DataValidationOperator, DataValidationType, IDataValidationRule, IDataValidationRuleOptions, Injector, IRange, Workbook, Worksheet } from '@univerjs/core';
-import type { IRemoveSheetDataValidationCommandParams, IUpdateSheetDataValidationOptionsCommandParams, IUpdateSheetDataValidationRangeCommandParams, IUpdateSheetDataValidationSettingCommandParams } from '@univerjs/sheets-data-validation';
-import { DataValidationErrorStyle, ICommandService, IUniverInstanceService } from '@univerjs/core';
-import { DataValidationModel, getRuleOptions } from '@univerjs/data-validation';
-import { RemoveSheetDataValidationCommand, UpdateSheetDataValidationOptionsCommand, UpdateSheetDataValidationRangeCommand, UpdateSheetDataValidationSettingCommand } from '@univerjs/sheets-data-validation';
-import { FRange } from '@univerjs/sheets/facade';
+import type { DataValidationOperator, DataValidationType, IDataValidationRule, IDataValidationRuleOptions, Injector, IRange, Workbook, Worksheet } from '@crabtable/core';
+import type { IRemoveSheetDataValidationCommandParams, IUpdateSheetDataValidationOptionsCommandParams, IUpdateSheetDataValidationRangeCommandParams, IUpdateSheetDataValidationSettingCommandParams } from '@crabtable/sheets-data-validation';
+import { DataValidationErrorStyle, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { DataValidationModel, getRuleOptions } from '@crabtable/data-validation';
+import { RemoveSheetDataValidationCommand, UpdateSheetDataValidationOptionsCommand, UpdateSheetDataValidationRangeCommand, UpdateSheetDataValidationSettingCommand } from '@crabtable/sheets-data-validation';
+import { FRange } from '@crabtable/sheets/facade';
 import { FDataValidationBuilder } from './f-data-validation-builder';
 
 /**
@@ -41,7 +41,7 @@ export class FDataValidation {
      * @returns {boolean} true if invalid data is allowed, false otherwise
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const rules = fWorksheet.getDataValidations();
      * rules.forEach((rule) => {
@@ -58,7 +58,7 @@ export class FDataValidation {
      * @returns {DataValidationType | string} The data validation type
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const rules = fWorksheet.getDataValidations();
      * rules.forEach((rule) => {
@@ -75,7 +75,7 @@ export class FDataValidation {
      * @returns {[string | undefined, string | undefined, string | undefined]} An array containing the operator, formula1, and formula2 values
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const rules = fWorksheet.getDataValidations();
      * rules.forEach((rule) => {
@@ -95,10 +95,10 @@ export class FDataValidation {
      * @returns {string | undefined} Returns the help text information. If there is no error message, it returns an undefined value
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B10');
-     * const rule = univerAPI.newDataValidation()
+     * const rule = crabtableAPI.newDataValidation()
      *   .requireNumberBetween(1, 10)
      *   .setOptions({
      *     allowBlank: true,
@@ -119,10 +119,10 @@ export class FDataValidation {
      * @returns {FDataValidationBuilder} A new FDataValidationBuilder instance with the same rule configuration
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B10');
-     * const rule = univerAPI.newDataValidation()
+     * const rule = crabtableAPI.newDataValidation()
      *   .requireNumberBetween(1, 10)
      *   .setOptions({
      *     allowBlank: true,
@@ -151,7 +151,7 @@ export class FDataValidation {
      * @returns {boolean} true if the rule is applied, false otherwise
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const rules = fWorksheet.getDataValidations();
      * rules.forEach((rule) => {
@@ -181,7 +181,7 @@ export class FDataValidation {
      * @returns {FRange[]} An array of FRange objects representing the ranges to which the data validation rule is applied
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const rules = fWorksheet.getDataValidations();
      * rules.forEach((rule) => {
@@ -198,7 +198,7 @@ export class FDataValidation {
             return [];
         }
 
-        const workbook = this._injector!.get(IUniverInstanceService).getUnit<Workbook>(this._worksheet!.getUnitId())!;
+        const workbook = this._injector!.get(ICrabTableInstanceService).getUnit<Workbook>(this._worksheet!.getUnitId())!;
         return this.rule.ranges.map((range: IRange) => this._injector!.createInstance(FRange, workbook, this._worksheet!, range));
     }
 
@@ -207,7 +207,7 @@ export class FDataValidation {
      * @returns {string | undefined} The unit ID of the worksheet
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B10');
      * console.log(fRange.getDataValidation().getUnitId());
@@ -222,7 +222,7 @@ export class FDataValidation {
      * @returns {string | undefined} The sheet ID of the worksheet
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B10');
      * console.log(fRange.getDataValidation().getSheetId());
@@ -240,20 +240,20 @@ export class FDataValidation {
      * @returns {FDataValidation} The current instance for method chaining
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a new data validation rule that requires a number equal to 20 for the range A1:B10
      * const fRange = fWorksheet.getRange('A1:B10');
-     * const rule = univerAPI.newDataValidation()
+     * const rule = crabtableAPI.newDataValidation()
      *   .requireNumberEqualTo(20)
      *   .build();
      * fRange.setDataValidation(rule);
      *
      * // Change the rule criteria to require a number between 1 and 10
      * fRange.getDataValidation().setCriteria(
-     *   univerAPI.Enum.DataValidationType.DECIMAL,
-     *   [univerAPI.Enum.DataValidationOperator.BETWEEN, '1', '10']
+     *   crabtableAPI.Enum.DataValidationType.DECIMAL,
+     *   [crabtableAPI.Enum.DataValidationOperator.BETWEEN, '1', '10']
      * );
      * ```
      */
@@ -293,12 +293,12 @@ export class FDataValidation {
      * @returns {FDataValidation} The current instance for method chaining
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a new data validation rule that requires a number equal to 20 for the range A1:B10
      * const fRange = fWorksheet.getRange('A1:B10');
-     * const rule = univerAPI.newDataValidation()
+     * const rule = crabtableAPI.newDataValidation()
      *   .requireNumberEqualTo(20)
      *   .build();
      * fRange.setDataValidation(rule);
@@ -339,12 +339,12 @@ export class FDataValidation {
      * @returns {FDataValidation} The current instance for method chaining
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a new data validation rule that requires a number equal to 20 for the range A1:B10
      * const fRange = fWorksheet.getRange('A1:B10');
-     * const rule = univerAPI.newDataValidation()
+     * const rule = crabtableAPI.newDataValidation()
      *   .requireNumberEqualTo(20)
      *   .build();
      * fRange.setDataValidation(rule);
@@ -378,12 +378,12 @@ export class FDataValidation {
      * @returns {boolean} true if the rule is deleted successfully, false otherwise
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a new data validation rule that requires a number equal to 20 for the range A1:B10
      * const fRange = fWorksheet.getRange('A1:B10');
-     * const rule = univerAPI.newDataValidation()
+     * const rule = crabtableAPI.newDataValidation()
      *   .requireNumberEqualTo(20)
      *   .build();
      * fRange.setDataValidation(rule);

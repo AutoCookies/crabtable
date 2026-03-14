@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IContextService } from '@univerjs/core';
+import type { IContextService } from '@crabtable/core';
 import {
     EDITOR_ACTIVATED,
     FOCUSING_COMMON_DRAWINGS,
@@ -23,7 +23,7 @@ import {
     FOCUSING_FX_BAR_EDITOR,
     FOCUSING_SHEET,
     FOCUSING_UNIVER_EDITOR,
-} from '@univerjs/core';
+} from '@crabtable/core';
 
 export function whenSheetFocused(contextService: IContextService) {
     return contextService.getContextValue(FOCUSING_SHEET);

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IBullet, ILists, INestingLevel, ITextStyle, LocaleService, Nullable } from '@univerjs/core';
+import type { IBullet, ILists, INestingLevel, ITextStyle, LocaleService, Nullable } from '@crabtable/core';
 
 import type { IDocumentSkeletonBullet } from '../../../../../basics/i-document-skeleton-cached';
 import { getFontStyleString } from '../../../../../basics/tools';

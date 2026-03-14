@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
-import type { IRegisterFunctionParams } from '@univerjs/sheets-formula';
-import { debounce } from '@univerjs/core';
-import { FUniver } from '@univerjs/core/facade';
-import { SetTriggerFormulaCalculationStartMutation } from '@univerjs/engine-formula';
-import { IRegisterFunctionService, RegisterFunctionService } from '@univerjs/sheets-formula';
+import type { IDisposable } from '@crabtable/core';
+import type { IRegisterFunctionParams } from '@crabtable/sheets-formula';
+import { debounce } from '@crabtable/core';
+import { FCrabTable } from '@crabtable/core/facade';
+import { SetTriggerFormulaCalculationStartMutation } from '@crabtable/engine-formula';
+import { IRegisterFunctionService, RegisterFunctionService } from '@crabtable/sheets-formula';
 
 /**
  * @ignore
@@ -27,7 +27,7 @@ import { IRegisterFunctionService, RegisterFunctionService } from '@univerjs/she
 export interface IFUniverSheetsFormulaMixin {
     /**
      * Register a function to the spreadsheet.
-     * @deprecated Use `univerAPI.getFormula().registerFunction` instead.
+     * @deprecated Use `crabtableAPI.getFormula().registerFunction` instead.
      * @param {IRegisterFunctionParams} config The configuration of the function.
      * @returns {IDisposable} The disposable instance.
      */
@@ -37,14 +37,14 @@ export interface IFUniverSheetsFormulaMixin {
 /**
  * @ignore
  */
-export class FUniverSheetsFormulaMixin extends FUniver implements IFUniverSheetsFormulaMixin {
+export class FCrabTableSheetsFormulaMixin extends FCrabTable implements IFUniverSheetsFormulaMixin {
     /**
      * RegisterFunction may be executed multiple times, triggering multiple formula forced refreshes.
      */
     declare private _debouncedFormulaCalculation: () => void;
 
     /**
-     * Initialize the FUniver instance.
+     * Initialize the FCrabTable instance.
      * @ignore
      */
     override _initialize(): void {
@@ -79,8 +79,8 @@ export class FUniverSheetsFormulaMixin extends FUniver implements IFUniverSheets
     }
 }
 
-FUniver.extend(FUniverSheetsFormulaMixin);
-declare module '@univerjs/core/facade' {
+FCrabTable.extend(FUniverSheetsFormulaMixin);
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
-    interface FUniver extends IFUniverSheetsFormulaMixin {}
+    interface FCrabTable extends IFUniverSheetsFormulaMixin {}
 }

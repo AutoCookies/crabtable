@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { IConfigService, Injector } from '@univerjs/core';
+import { IConfigService, Injector } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { FontService } from '../font.service';
 

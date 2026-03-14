@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IFunctionInfo, IFunctionNames } from '@univerjs/engine-formula';
-import { createIdentifier } from '@univerjs/core';
-import { FunctionType } from '@univerjs/engine-formula';
+import type { IFunctionInfo, IFunctionNames } from '@crabtable/engine-formula';
+import { createIdentifier } from '@crabtable/core';
+import { FunctionType } from '@crabtable/engine-formula';
 
 export class MockFunctionService {
     getDescriptions(): Map<IFunctionNames, IFunctionInfo> {

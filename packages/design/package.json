@@ -1,21 +1,21 @@
 {
-    "name": "@univerjs/design",
+    "name": "@crabtable/design",
     "version": "0.17.0",
     "private": false,
-    "description": "UI component library for building exceptional Univer.",
-    "author": "DreamNum <developer@univer.ai>",
+    "description": "UI component library for building exceptional CrabTable.",
+    "author": "DreamNum <developer@crabtable.dev>",
     "license": "Apache-2.0",
     "funding": {
         "type": "opencollective",
-        "url": "https://opencollective.com/univer"
+        "url": "https://opencollective.com/crabtable"
     },
-    "homepage": "https://univer.ai",
+    "homepage": "https://crabtable.dev",
     "repository": {
         "type": "git",
-        "url": "https://github.com/dream-num/univer"
+        "url": "https://github.com/AutoCookies/crabtable"
     },
     "bugs": {
-        "url": "https://github.com/dream-num/univer/issues"
+        "url": "https://github.com/AutoCookies/crabtable/issues"
     },
     "keywords": [
         "univer"
@@ -88,8 +88,8 @@
         "@testing-library/jest-dom": "6.9.1",
         "@testing-library/react": "^16.3.2",
         "@types/react-transition-group": "^4.4.12",
-        "@univerjs-infra/shared": "workspace:*",
-        "@univerjs/core": "workspace:*",
+        "@crabtable-infra/shared": "*",
+        "@crabtable/core": "*",
         "postcss": "^8.5.8",
         "react": "18.3.1",
         "react-dom": "18.3.1",

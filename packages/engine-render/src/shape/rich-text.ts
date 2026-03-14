@@ -24,12 +24,12 @@ import type {
     ITransformState,
     LocaleService,
     Nullable,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import type { BASE_OBJECT_ARRAY } from '../base-object';
 
 import type { IViewportInfo } from '../basics/vector2';
 import type { UniverRenderingContext } from '../context';
-import { BooleanNumber, DEFAULT_EMPTY_DOCUMENT_VALUE, DocumentDataModel } from '@univerjs/core';
+import { BooleanNumber, DEFAULT_EMPTY_DOCUMENT_VALUE, DocumentDataModel } from '@crabtable/core';
 import { BaseObject, ObjectType } from '../base-object';
 import { TRANSFORM_CHANGE_OBSERVABLE_TYPE } from '../basics/interfaces';
 import { Documents } from '../components/docs/document';

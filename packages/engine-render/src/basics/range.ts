@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ITextRangeParam, Nullable } from '@univerjs/core';
+import type { ITextRangeParam, Nullable } from '@crabtable/core';
 import type { INodePosition } from './interfaces';
 
 export interface ITextSelectionStyle {

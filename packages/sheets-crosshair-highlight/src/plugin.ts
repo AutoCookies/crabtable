@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverSheetsCrosshairHighlightConfig } from './config/config';
-import { IConfigService, Inject, Injector, merge, Plugin, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { CrabTableInstanceType, IConfigService, Inject, Injector, merge, Plugin } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import pkg from '../package.json';
 import { defaultPluginConfig, SHEETS_CROSSHAIR_HIGHLIGHT_PLUGIN_CONFIG_KEY } from './config/config';
 import { SheetsCrosshairHighlightController } from './controllers/crosshair.controller';
@@ -28,7 +28,7 @@ export class UniverSheetsCrosshairHighlightPlugin extends Plugin {
     static override pluginName: string = 'SHEET_CROSSHAIR_HIGHLIGHT_PLUGIN';
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
     constructor(
         private readonly _config: Partial<IUniverSheetsCrosshairHighlightConfig> = defaultPluginConfig,
@@ -59,6 +59,6 @@ export class UniverSheetsCrosshairHighlightPlugin extends Plugin {
             [SheetCrosshairHighlightRenderController],
         ] as Dependency[]).forEach((d) => this._injector.add(d));
         this._injector.get(SheetsCrosshairHighlightController);
-        this._renderManagerService.registerRenderModule(UniverInstanceType.UNIVER_SHEET, [SheetCrosshairHighlightRenderController] as Dependency);
+        this._renderManagerService.registerRenderModule(CrabTableInstanceType.CRABTABLE_SHEET, [SheetCrosshairHighlightRenderController] as Dependency);
     }
 }

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { DrawingTypeEnum, UniverInstanceType } from '@univerjs/core';
-import { SetDrawingSelectedOperation } from '@univerjs/drawing';
+import { CrabTableInstanceType, DrawingTypeEnum } from '@crabtable/core';
+import { SetDrawingSelectedOperation } from '@crabtable/drawing';
 import { Subject } from 'rxjs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ImageResetSizeOperation } from '../../commands/operations/image-reset-size.operation';
@@ -27,7 +27,7 @@ afterEach(() => {
 
 function createSheetUnit(unitId = 'book-1', subUnitId = 'sheet-1') {
     return {
-        type: UniverInstanceType.UNIVER_SHEET,
+        type: CrabTableInstanceType.CRABTABLE_SHEET,
         getUnitId: () => unitId,
         getActiveSheet: () => ({ getSheetId: () => subUnitId }),
     };

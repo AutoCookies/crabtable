@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, IRange, Nullable, Worksheet } from '@univerjs/core';
+import type { IAccessor, ICommand, IRange, Nullable, Worksheet } from '@crabtable/core';
 import type { ISetRowHiddenMutationParams, ISetRowVisibleMutationParams } from '../mutations/set-row-visible.mutation';
 
 import type { ISetSelectionsOperationParams } from '../operations/selection.operation';
 import {
     CommandType,
     ICommandService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
     RANGE_TYPE,
     sequenceExecute,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { SheetsSelectionsService } from '../../services/selections/selection.service';
 import { SheetInterceptorService } from '../../services/sheet-interceptor/sheet-interceptor.service';
 import {
@@ -53,7 +53,7 @@ export const SetSpecificRowsVisibleCommand: ICommand<ISetSpecificRowsVisibleComm
         const undoRedoService = accessor.get(IUndoRedoService);
         const sheetInterceptorService = accessor.get(SheetInterceptorService);
 
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService), { unitId, subUnitId });
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService), { unitId, subUnitId });
         if (!target) return false;
 
         const { worksheet } = target;
@@ -131,13 +131,13 @@ export const SetSelectedRowsVisibleCommand: ICommand = {
     id: 'sheet.command.set-selected-rows-visible',
     handler: async (accessor: IAccessor) => {
         const selectionManagerService = accessor.get(SheetsSelectionsService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
 
         const ranges = selectionManagerService.getCurrentSelections()?.map((s) => s.range).filter((r) => r.rangeType === RANGE_TYPE.ROW);
         if (!ranges?.length) return false;
 
-        const target = getSheetCommandTarget(univerInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { worksheet, unitId, subUnitId } = target;
@@ -163,14 +163,14 @@ export const SetRowHiddenCommand: ICommand<ISetRowHiddenCommandParams> = {
         const selectionManagerService = accessor.get(SheetsSelectionsService);
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const sheetInterceptorService = accessor.get(SheetInterceptorService);
 
         // Ranges should be divided by already hidden rows.
         let ranges = params?.ranges?.length ? params.ranges : selectionManagerService.getCurrentSelections()?.map((s) => s.range).filter((r) => r.rangeType === RANGE_TYPE.ROW);
         if (!ranges?.length) return false;
 
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         ranges = divideRangesByHiddenRows(target.worksheet, ranges);

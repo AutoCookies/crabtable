@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { Univer, Workbook } from '@univerjs/core';
-import type { ISetSelectionsOperationParams } from '@univerjs/sheets';
+import type { Workbook } from '@crabtable/core';
+import type { ISetSelectionsOperationParams } from '@crabtable/sheets';
 import {
+    CrabTableInstanceType,
     DisposableCollection,
     ICommandService,
+    ICrabTableInstanceService,
     Injector,
-    IUniverInstanceService,
     RANGE_TYPE,
     toDisposable,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     SetColHiddenCommand,
     SetColHiddenMutation,
@@ -37,13 +37,13 @@ import {
     SetSelectionsOperation,
     SetSpecificColsVisibleCommand,
     SetSpecificRowsVisibleCommand,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { ShowColMenuItemFactory, ShowRowMenuItemFactory } from '../menu';
 import { createMenuTestBed } from './create-menu-test-bed';
 
 describe('Test row col menu items', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let disposableCollection: DisposableCollection;
@@ -77,22 +77,22 @@ describe('Test row col menu items', () => {
     afterEach(() => univer.dispose());
 
     function getRowCount(): number {
-        const currentService = get(IUniverInstanceService);
-        const workbook = currentService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const currentService = get(ICrabTableInstanceService);
+        const workbook = currentService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet()!;
         return worksheet.getRowCount();
     }
 
     function getColCount(): number {
-        const currentService = get(IUniverInstanceService);
-        const workbook = currentService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const currentService = get(ICrabTableInstanceService);
+        const workbook = currentService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet()!;
         return worksheet.getColumnCount();
     }
 
     async function selectRow(rowStart: number, rowEnd: number): Promise<boolean> {
-        const currentService = get(IUniverInstanceService);
-        const workbook = currentService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const currentService = get(ICrabTableInstanceService);
+        const workbook = currentService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet()!;
         const endColumn = getColCount() - 1;
         return commandService.executeCommand<ISetSelectionsOperationParams, boolean>(SetSelectionsOperation.id, {
@@ -119,8 +119,8 @@ describe('Test row col menu items', () => {
     }
 
     async function selectColumn(columnStart: number, columnEnd: number): Promise<boolean> {
-        const currentService = get(IUniverInstanceService);
-        const workbook = currentService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const currentService = get(ICrabTableInstanceService);
+        const workbook = currentService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet()!;
         const endRow = getRowCount() - 1;
         return commandService.executeCommand<ISetSelectionsOperationParams, boolean>(SetSelectionsOperation.id, {

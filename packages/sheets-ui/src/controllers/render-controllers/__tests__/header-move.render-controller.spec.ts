@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ISelectionWithStyle } from '@univerjs/sheets';
-import { ICommandService, RANGE_TYPE } from '@univerjs/core';
-import { MoveRowsCommand, SheetsSelectionsService } from '@univerjs/sheets';
+import type { ISelectionWithStyle } from '@crabtable/sheets';
+import { ICommandService, RANGE_TYPE } from '@crabtable/core';
+import { MoveRowsCommand, SheetsSelectionsService } from '@crabtable/sheets';
 import { describe, expect, it, vi } from 'vitest';
 import { SHEET_VIEW_KEY } from '../../../common/keys';
 import { HeaderMoveRenderController } from '../header-move.render-controller';

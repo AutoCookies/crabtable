@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ICellData } from '@univerjs/core';
+import type { ICellData } from '@crabtable/core';
 import type { IConditionFormattingRule, IDataBar } from '../type';
 import type { IContext } from './base-calculate-unit';
-import { CellValueType, ObjectMatrix, Range } from '@univerjs/core';
-import { FormulaResultStatus } from '@univerjs/engine-formula';
+import { CellValueType, ObjectMatrix, Range } from '@crabtable/core';
+import { FormulaResultStatus } from '@crabtable/engine-formula';
 import { CFValueType } from '../../base/const';
 import { defaultDataBarNativeColor, defaultDataBarPositiveColor, defaultPlaceholderColor } from '../../render/data-bar.render';
 import { BaseCalculateUnit, CalculateEmitStatus } from './base-calculate-unit';

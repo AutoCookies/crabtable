@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { SetSelectionsOperation, SetWorksheetActiveOperation } from '@univerjs/sheets';
-import { SheetHyperLinkType } from '@univerjs/sheets-hyper-link';
-import { ScrollToRangeOperation } from '@univerjs/sheets-ui';
+import { SetSelectionsOperation, SetWorksheetActiveOperation } from '@crabtable/sheets';
+import { SheetHyperLinkType } from '@crabtable/sheets-hyper-link';
+import { ScrollToRangeOperation } from '@crabtable/sheets-ui';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { SheetsHyperLinkResolverService } from '../resolver.service';
 
@@ -139,10 +139,10 @@ describe('SheetsHyperLinkResolverService', () => {
             } as any
         );
 
-        await resolver.navigateToOtherWebsite('https://univer.ai');
+        await resolver.navigateToOtherWebsite('https://crabtable.dev');
         await resolver.navigateToOtherWebsite('https://openai.com');
 
-        expect(navigateToOtherWebsite).toHaveBeenCalledWith('https://univer.ai');
+        expect(navigateToOtherWebsite).toHaveBeenCalledWith('https://crabtable.dev');
         expect(open).toHaveBeenCalledWith('https://openai.com', '_blank', 'noopener noreferrer');
     });
 

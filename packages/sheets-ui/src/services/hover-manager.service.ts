@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { ICustomRange, IParagraph, IPosition, Nullable, Workbook, Worksheet } from '@univerjs/core';
-import type { IBoundRectNoAngle, IDocumentSkeletonDrawing, IMouseEvent, IPointerEvent, IRender } from '@univerjs/engine-render';
-import type { ISheetLocation, ISheetLocationBase } from '@univerjs/sheets';
+import type { ICustomRange, IParagraph, IPosition, Nullable, Workbook, Worksheet } from '@crabtable/core';
+import type { IBoundRectNoAngle, IDocumentSkeletonDrawing, IMouseEvent, IPointerEvent, IRender } from '@crabtable/engine-render';
+import type { ISheetLocation, ISheetLocationBase } from '@crabtable/sheets';
 import type { ISheetSkeletonManagerParam } from './sheet-skeleton-manager.service';
-import { Disposable, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService, SHEET_VIEWPORT_KEY, Vector2 } from '@univerjs/engine-render';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService } from '@crabtable/core';
+import { IRenderManagerService, SHEET_VIEWPORT_KEY, Vector2 } from '@crabtable/engine-render';
 import { BehaviorSubject, distinctUntilChanged, map, of, Subject } from 'rxjs';
 import { getHoverCellPosition } from '../common/utils';
 import { SheetScrollManagerService } from './scroll-manager.service';
@@ -204,7 +204,7 @@ export class HoverManagerService extends Disposable {
     currentColHeaderPointerUp$ = this._currentColHeaderPointerUp$.asObservable();
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService
     ) {
         super();
@@ -238,11 +238,11 @@ export class HoverManagerService extends Disposable {
     }
 
     private _initCellDisposableListener(): void {
-        this.disposeWithMe(this._univerInstanceService.getCurrentTypeOfUnit$(UniverInstanceType.UNIVER_SHEET).subscribe((workbook) => {
+        this.disposeWithMe(this._crabtableInstanceService.getCurrentTypeOfUnit$(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((workbook) => {
             if (!workbook) this._currentCell$.next(null);
         }));
 
-        this.disposeWithMe(this._univerInstanceService.unitDisposed$.subscribe((unit) => {
+        this.disposeWithMe(this._crabtableInstanceService.unitDisposed$.subscribe((unit) => {
             if (this._currentCell$.getValue()?.location.unitId === unit.getUnitId()) {
                 this._currentCell$.next(null);
             }
@@ -254,7 +254,7 @@ export class HoverManagerService extends Disposable {
     }
 
     private _getCalcDeps(unitId: string) {
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             return null;
         }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { SetScrollOperation, SetZoomRatioOperation } from '@univerjs/sheets-ui';
+import { SetScrollOperation, SetZoomRatioOperation } from '@crabtable/sheets-ui';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import { SheetTableAnchorController } from '../sheet-table-anchor.controller';

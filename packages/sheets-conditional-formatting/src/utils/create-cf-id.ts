@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { generateRandomId } from '@univerjs/core';
+import { generateRandomId } from '@crabtable/core';
 
 // Given that unit and sunUnit will change in the case of replica creation, the ID will not be spelled in here
 export const createCfId = () => `${generateRandomId(8)}`;

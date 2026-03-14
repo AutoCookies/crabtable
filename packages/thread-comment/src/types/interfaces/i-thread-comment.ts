@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IDocumentBody } from '@univerjs/core';
+import type { IDocumentBody } from '@crabtable/core';
 
 export interface IThreadCommentMention {
     label: string;

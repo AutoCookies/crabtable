@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDrawingParam, IOperation } from '@univerjs/core';
-import { ArrangeTypeEnum, CommandType, ICommandService } from '@univerjs/core';
-import { IDrawingManagerService } from '@univerjs/drawing';
+import type { IDrawingParam, IOperation } from '@crabtable/core';
+import { ArrangeTypeEnum, CommandType, ICommandService } from '@crabtable/core';
+import { IDrawingManagerService } from '@crabtable/drawing';
 
 export interface IDrawingArrangeOperationParams {
     arrangeType: ArrangeTypeEnum;

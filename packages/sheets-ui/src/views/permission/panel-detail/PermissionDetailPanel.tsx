@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IRange, Workbook } from '@univerjs/core';
+import type { IRange, Workbook } from '@crabtable/core';
 import type { IPermissionPanelRule } from '../../../services/permission/sheet-permission-panel.model';
-import { Injector, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { EditStateEnum, ViewStateEnum } from '@univerjs/sheets';
-import { ComponentManager, ISidebarService, useDependency } from '@univerjs/ui';
+import { CrabTableInstanceType, ICrabTableInstanceService, Injector } from '@crabtable/core';
+import { EditStateEnum, ViewStateEnum } from '@crabtable/sheets';
+import { ComponentManager, ISidebarService, useDependency } from '@crabtable/ui';
 import { useEffect, useState } from 'react';
-import { UNIVER_SHEET_PERMISSION_USER_PART } from '../../../consts/permission';
+import { CRABTABLE_SHEET_PERMISSION_USER_PART } from '../../../consts/permission';
 import { checkRangeValid, generateDefaultRule, generateRuleByUnitType } from '../util';
 import { PermissionDetailFooterPart } from './PermissionDetailFooterPart';
 import { PermissionDetailMainPart } from './PermissionDetailMainPart';
@@ -45,13 +45,13 @@ export const SheetPermissionPanelDetail = (props: ISheetPermissionPanelDetailPro
     const [desc, setDesc] = useState<string | undefined>(activeRule.description);
     const [editState, setEditState] = useState<EditStateEnum>(activeRule.editState ?? EditStateEnum.OnlyMe);
     const [viewState, setViewState] = useState<ViewStateEnum>(activeRule.viewState ?? ViewStateEnum.OthersCanView);
-    const CustomPermissionDetailUserPart = componentManager.get(UNIVER_SHEET_PERMISSION_USER_PART);
+    const CustomPermissionDetailUserPart = componentManager.get(CRABTABLE_SHEET_PERMISSION_USER_PART);
     const PermissionDetailUser = CustomPermissionDetailUserPart ?? PermissionDetailUserPart;
 
     useEffect(() => {
-        const univerInstanceService = injector.get(IUniverInstanceService);
+        const crabtableInstanceService = injector.get(ICrabTableInstanceService);
         const sidebarService = injector.get(ISidebarService);
-        const workbook = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) return;
         const subUnitId = workbook.getActiveSheet().getSheetId();
         const activeSheetSubscribe = workbook.activeSheet$.subscribe((sheet) => {

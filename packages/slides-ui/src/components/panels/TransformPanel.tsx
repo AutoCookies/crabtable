@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import type { BaseObject, IChangeObserverConfig, Image, Rect, RichText } from '@univerjs/engine-render';
-import { ICommandService, LocaleService } from '@univerjs/core';
-import { borderTopClassName, clsx, InputNumber } from '@univerjs/design';
-import { useDependency } from '@univerjs/ui';
+import type { Nullable } from '@crabtable/core';
+import type { BaseObject, IChangeObserverConfig, Image, Rect, RichText } from '@crabtable/engine-render';
+import { ICommandService, LocaleService } from '@crabtable/core';
+import { borderTopClassName, clsx, InputNumber } from '@crabtable/design';
+import { useDependency } from '@crabtable/ui';
 import { useEffect, useState } from 'react';
 import { UpdateSlideElementOperation } from '../../commands/operations/update-element.operation';
 import { CanvasView } from '../../controllers/canvas-view';

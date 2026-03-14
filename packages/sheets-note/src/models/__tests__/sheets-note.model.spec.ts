@@ -15,7 +15,7 @@
  */
 
 import type { ISheetNote } from '../sheets-note.model';
-import { Injector } from '@univerjs/core';
+import { Injector } from '@crabtable/core';
 import { filter, firstValueFrom, take, toArray } from 'rxjs';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { SheetsNoteModel } from '../sheets-note.model';

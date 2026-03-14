@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 
 import type { PointerEvent } from 'react';
 import type { Subscription } from 'rxjs';
 import type { BaseObject } from './base-object';
 import type { IDragEvent, IEvent, IKeyboardEvent, IMouseEvent, IPointerEvent, IWheelEvent } from './basics/i-events';
 import type { ISceneInputControlOptions, Scene } from './scene';
-import { Disposable, toDisposable } from '@univerjs/core';
+import { Disposable, toDisposable } from '@crabtable/core';
 import { RENDER_CLASS_TYPE } from './basics/const';
 import { DeviceType, PointerInput } from './basics/i-events';
 import { Vector2 } from './basics/vector2';
@@ -371,7 +371,7 @@ export class InputManager extends Disposable {
                 }
             }
 
-            // Drag Events, For 3rd users. Univer itself doesn't use drag events.
+            // Drag Events, For 3rd users. CrabTable itself doesn't use drag events.
             if ((eventData as IDragEvent).dataTransfer) {
                 switch (eventData.type) {
                     case 'dragenter':

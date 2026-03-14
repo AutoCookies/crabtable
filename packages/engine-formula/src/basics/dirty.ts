@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IUnitRange } from '@univerjs/core';
+import type { IUnitRange } from '@crabtable/core';
 
 export function isInDirtyRange(
     dirtyRanges: IUnitRange[],

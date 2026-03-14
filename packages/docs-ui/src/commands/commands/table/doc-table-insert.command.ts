@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommand, IMutationInfo, JSONXActions } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { ITextRangeWithStyle } from '@univerjs/engine-render';
-import { CommandType, ICommandService, IUniverInstanceService, JSONX, TextX, TextXActionType, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation } from '@univerjs/docs';
+import type { DocumentDataModel, ICommand, IMutationInfo, JSONXActions } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { ITextRangeWithStyle } from '@crabtable/engine-render';
+import { CommandType, CrabTableInstanceType, ICommandService, ICrabTableInstanceService, JSONX, TextX, TextXActionType } from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation } from '@crabtable/docs';
 import { getCommandSkeleton, getRichTextEditPath } from '../../util';
 import { getColumnWidths, getEmptyTableCell, getEmptyTableRow, getInsertColumnActionsParams, getInsertColumnBody, getInsertRowActionsParams, getInsertRowBody, getRangeInfoFromRanges, getTableColumn, INSERT_COLUMN_POSITION, INSERT_ROW_POSITION } from './table';
 
@@ -98,7 +98,7 @@ export const DocTableInsertRowCommand: ICommand<IDocTableInsertRowCommandParams>
     handler: async (accessor, params: IDocTableInsertRowCommandParams) => {
         const { position } = params;
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
 
         const activeRectRanges = docSelectionManagerService.getRectRanges();
@@ -112,7 +112,7 @@ export const DocTableInsertRowCommand: ICommand<IDocTableInsertRowCommandParams>
 
         const { segmentId } = rangeInfo;
 
-        const docDataModel = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         const body = docDataModel?.getSelfOrHeaderFooterModel(segmentId).getBody();
 
         if (docDataModel == null || body == null) {
@@ -206,7 +206,7 @@ export const DocTableInsertColumnCommand: ICommand<IDocTableInsertColumnCommandP
     handler: async (accessor, params: IDocTableInsertColumnCommandParams) => {
         const { position } = params;
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
 
         const activeRectRanges = docSelectionManagerService.getRectRanges();
@@ -220,7 +220,7 @@ export const DocTableInsertColumnCommand: ICommand<IDocTableInsertColumnCommandP
 
         const { segmentId } = rangeInfo;
 
-        const docDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const docDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
         const body = docDataModel?.getSelfOrHeaderFooterModel(segmentId).getBody();
 
         if (docDataModel == null || body == null) {

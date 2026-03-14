@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IRange, RichTextValue } from '@univerjs/core';
-import type { IEventBase } from '@univerjs/core/facade';
-import type { DeviceInputEventType, SpreadsheetSkeleton } from '@univerjs/engine-render';
-import type { CommandListenerSkeletonChange } from '@univerjs/sheets';
-import type { IDragCellPosition } from '@univerjs/sheets-ui';
-import type { FRange, FWorkbook, FWorksheet } from '@univerjs/sheets/facade';
-import type { KeyCode } from '@univerjs/ui';
-import { FEventName } from '@univerjs/core/facade';
+import type { IRange, RichTextValue } from '@crabtable/core';
+import type { IEventBase } from '@crabtable/core/facade';
+import type { DeviceInputEventType, SpreadsheetSkeleton } from '@crabtable/engine-render';
+import type { CommandListenerSkeletonChange } from '@crabtable/sheets';
+import type { IDragCellPosition } from '@crabtable/sheets-ui';
+import type { FRange, FWorkbook, FWorksheet } from '@crabtable/sheets/facade';
+import type { KeyCode } from '@crabtable/ui';
+import { FEventName } from '@crabtable/core/facade';
 
 /**
  * Event interface triggered when cell editing starts
@@ -161,7 +161,7 @@ export interface IFSheetsUIEventNameMixin {
      * Type of the event parameter is {@link IBeforeClipboardChangeParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeClipboardChange, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeClipboardChange, (params) => {
      *   const { workbook, worksheet, text, html, fromSheet, fromRange } = params;
      *   console.log(params);
      *
@@ -179,7 +179,7 @@ export interface IFSheetsUIEventNameMixin {
      * Type of the event parameter is {@link IClipboardChangedParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.ClipboardChanged, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.ClipboardChanged, (params) => {
      *   const { workbook, worksheet, text, html, fromSheet, fromRange } = params;
      *   console.log(params);
      * })
@@ -194,7 +194,7 @@ export interface IFSheetsUIEventNameMixin {
      * Type of the event parameter is {@link IBeforeClipboardPasteParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeClipboardPaste, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeClipboardPaste, (params) => {
      *   const { workbook, worksheet, text, html } = params;
      *   console.log(params);
      *
@@ -212,7 +212,7 @@ export interface IFSheetsUIEventNameMixin {
      * Type of the event parameter is {@link IClipboardPastedParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.ClipboardPasted, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.ClipboardPasted, (params) => {
      *   const { workbook, worksheet, text, html } = params;
      *   console.log(params);
      * })
@@ -227,7 +227,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link IBeforeSheetEditStartEventParams}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetEditStart, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetEditStart, (params) => {
      *   const { worksheet, workbook, row, column, eventType, keycode, isZenEditor } = params;
      *   console.log(params);
      *
@@ -245,7 +245,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ISheetEditStartedEventParams}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SheetEditStarted, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetEditStarted, (params) => {
      *   const { worksheet, workbook, row, column, eventType, keycode, isZenEditor } = params;
      *   console.log(params);
      * });
@@ -260,7 +260,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ISheetEditChangingEventParams}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SheetEditChanging, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetEditChanging, (params) => {
      *   const { worksheet, workbook, row, column, value, isZenEditor } = params;
      *   console.log(params);
      * });
@@ -275,7 +275,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link IBeforeSheetEditEndEventParams}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetEditEnd, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetEditEnd, (params) => {
      *   const { worksheet, workbook, row, column, value, eventType, keycode, isZenEditor, isConfirm } = params;
      *   console.log(params);
      *
@@ -293,7 +293,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ISheetEditEndedEventParams}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SheetEditEnded, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetEditEnded, (params) => {
      *   const { worksheet, workbook, row, column, eventType, keycode, isZenEditor, isConfirm } = params;
      *   console.log(params);
      * });
@@ -308,7 +308,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ICellEventParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.CellClicked, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.CellClicked, (params) => {
      *   const { worksheet, workbook, row, column } = params;
      *   console.log(params);
      * });
@@ -323,7 +323,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ICellEventParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.CellPointerDown, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.CellPointerDown, (params) => {
      *   const { worksheet, workbook, row, column } = params;
      *   console.log(params);
      * });
@@ -338,7 +338,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ICellEventParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.CellPointerUp, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.CellPointerUp, (params) => {
      *   const { worksheet, workbook, row, column } = params;
      *   console.log(params);
      * });
@@ -353,7 +353,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ICellEventParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.CellHover, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.CellHover, (params) => {
      *   const { worksheet, workbook, row, column } = params;
      *   console.log(params);
      * });
@@ -368,7 +368,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ICellEventParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.CellPointerMove, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.CellPointerMove, (params) => {
      *   const { worksheet, workbook, row, column } = params;
      *   console.log(params);
      * });
@@ -383,7 +383,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ISheetRowHeaderEvent}
      * @example
      * ```typescript
-     * const disposable = univerAPI.addEvent(univerAPI.Event.RowHeaderClick, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.RowHeaderClick, (params) => {
      *   const { worksheet, workbook, row } = params;
      *   console.log(params);
      * });
@@ -398,7 +398,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ISheetRowHeaderEvent}
      * @example
      * ```typescript
-     * const disposable = univerAPI.addEvent(univerAPI.Event.RowHeaderPointerDown, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.RowHeaderPointerDown, (params) => {
      *   const { worksheet, workbook, row } = params;
      *   console.log(params);
      * });
@@ -413,7 +413,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ISheetRowHeaderEvent}
      * @example
      * ```typescript
-     * const disposable = univerAPI.addEvent(univerAPI.Event.RowHeaderPointerUp, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.RowHeaderPointerUp, (params) => {
      *   const { worksheet, workbook, row } = params;
      *   console.log(params);
      * });
@@ -428,7 +428,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ISheetRowHeaderEvent}
      * @example
      * ```typescript
-     * const disposable = univerAPI.addEvent(univerAPI.Event.RowHeaderHover, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.RowHeaderHover, (params) => {
      *   const { worksheet, workbook, row } = params;
      *   console.log(params);
      * });
@@ -443,7 +443,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ISheetColumnHeaderEvent}
      * @example
      * ```typescript
-     * const disposable = univerAPI.addEvent(univerAPI.Event.ColumnHeaderClick, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.ColumnHeaderClick, (params) => {
      *   const { worksheet, workbook, column } = params;
      *   console.log(params);
      * });
@@ -458,7 +458,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ISheetColumnHeaderEvent}
      * @example
      * ```typescript
-     * const disposable = univerAPI.addEvent(univerAPI.Event.ColumnHeaderPointerDown, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.ColumnHeaderPointerDown, (params) => {
      *   const { worksheet, workbook, column } = params;
      *   console.log(params);
      * });
@@ -473,7 +473,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ISheetColumnHeaderEvent}
      * @example
      * ```typescript
-     * const disposable = univerAPI.addEvent(univerAPI.Event.ColumnHeaderPointerUp, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.ColumnHeaderPointerUp, (params) => {
      *   const { worksheet, workbook, column } = params;
      *   console.log(params);
      * });
@@ -488,7 +488,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ISheetColumnHeaderEvent}
      * @example
      * ```typescript
-     * const disposable = univerAPI.addEvent(univerAPI.Event.ColumnHeaderHover, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.ColumnHeaderHover, (params) => {
      *   const { worksheet, workbook, column } = params;
      *   console.log(params);
      * });
@@ -503,7 +503,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link IDragEventParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.DragOver, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.DragOver, (params) => {
      *   const { row, column, dataTransfer } = params;
      *   console.log(params, dataTransfer.files.length);
      * });
@@ -518,7 +518,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link IDragEventParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.Drop, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.Drop, (params) => {
      *   const { row, column, dataTransfer } = params;
      *   console.log(params, dataTransfer.files.length);
      * });
@@ -533,7 +533,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link IScrollEventParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.Scroll, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.Scroll, (params) => {
      *   const { worksheet, workbook, scrollX, scrollY } = params;
      *   console.log(params);
      * });
@@ -548,7 +548,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ISelectionEventParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SelectionChanged, (params)=> {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SelectionChanged, (params)=> {
      *   const { worksheet, workbook, selections } = params;
      *   console.log(params);
      * });
@@ -563,7 +563,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ISelectionEventParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SelectionMoveStart, (params)=> {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SelectionMoveStart, (params)=> {
      *   const { worksheet, workbook, selections } = params;
      *   console.log(params);
      * });
@@ -578,7 +578,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ISelectionEventParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SelectionMoving, (params)=> {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SelectionMoving, (params)=> {
      *   const { worksheet, workbook, selections } = params;
      *   console.log(params);
      * });
@@ -593,7 +593,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ISelectionEventParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SelectionMoveEnd, (params)=> {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SelectionMoveEnd, (params)=> {
      *   const { worksheet, workbook, selections } = params;
      *   console.log(params);
      * });
@@ -608,7 +608,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ISheetZoomEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SheetZoomChanged, (params)=> {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetZoomChanged, (params)=> {
      *   const { worksheet, workbook, zoom } = params;
      *   console.log(params);
      * });
@@ -623,7 +623,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ISheetZoomEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetZoomChange, (params)=> {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetZoomChange, (params)=> {
      *   const { worksheet, workbook, zoom } = params;
      *   console.log(params);
      *
@@ -641,7 +641,7 @@ export interface IFSheetsUIEventNameMixin {
      * @see {@link ISheetSkeletonChangedEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SheetSkeletonChanged, (params)=> {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetSkeletonChanged, (params)=> {
      *   const { worksheet, workbook, skeleton, payload, effectedRanges } = params;
      *   console.log(params);
      * });
@@ -934,7 +934,7 @@ export interface IFSheetsUIEventParamConfig {
 }
 
 FEventName.extend(FSheetsUIEventName);
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FEventName extends IFSheetsUIEventNameMixin { }
     interface IEventParamConfig extends IFSheetsUIEventParamConfig { }

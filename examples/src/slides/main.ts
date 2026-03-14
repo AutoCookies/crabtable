@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import { LocaleType, Univer, UniverInstanceType } from '@univerjs/core';
-import { UniverDocsPlugin } from '@univerjs/docs';
-import { UniverDocsUIPlugin } from '@univerjs/docs-ui';
-import { UniverDrawingPlugin } from '@univerjs/drawing';
-import { UniverFormulaEnginePlugin } from '@univerjs/engine-formula';
-import { UniverRenderEnginePlugin } from '@univerjs/engine-render';
-import { DEFAULT_SLIDE_DATA } from '@univerjs/mockdata';
-import zhCN from '@univerjs/mockdata/locales/zh-CN';
-import { UniverSlidesPlugin } from '@univerjs/slides';
-import { UniverSlidesUIPlugin } from '@univerjs/slides-ui';
-import { UniverUIPlugin } from '@univerjs/ui';
+import { CrabTableInstanceType, LocaleType } from '@crabtable/core';
+import { UniverDocsPlugin } from '@crabtable/docs';
+import { UniverDocsUIPlugin } from '@crabtable/docs-ui';
+import { UniverDrawingPlugin } from '@crabtable/drawing';
+import { UniverFormulaEnginePlugin } from '@crabtable/engine-formula';
+import { UniverRenderEnginePlugin } from '@crabtable/engine-render';
+import { DEFAULT_SLIDE_DATA } from '@crabtable/mockdata';
+import zhCN from '@crabtable/mockdata/locales/zh-CN';
+import { UniverSlidesPlugin } from '@crabtable/slides';
+import { UniverSlidesUIPlugin } from '@crabtable/slides-ui';
+import { UniverUIPlugin } from '@crabtable/ui';
 
 import '../global.css';
 
 // univer
-const univer = new Univer({
+const univer = new CrabTable({
     locale: LocaleType.ZH_CN,
     locales: {
         [LocaleType.ZH_CN]: zhCN,
@@ -50,6 +50,6 @@ univer.registerPlugin(UniverDrawingPlugin);
 univer.registerPlugin(UniverSlidesPlugin);
 univer.registerPlugin(UniverSlidesUIPlugin);
 
-univer.createUnit(UniverInstanceType.UNIVER_SLIDE, DEFAULT_SLIDE_DATA);
+univer.createUnit(CrabTableInstanceType.CRABTABLE_SLIDE, DEFAULT_SLIDE_DATA);
 
 window.univer = univer;

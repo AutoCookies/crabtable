@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { Nullable, Workbook } from '@univerjs/core';
-import type { ISelectionWithStyle } from '@univerjs/sheets';
-import type { IDeleteCommentMutationParams } from '@univerjs/thread-comment';
-import { Disposable, ICommandService, Inject, IUniverInstanceService, RANGE_TYPE, Rectangle, UniverInstanceType } from '@univerjs/core';
-import { singleReferenceToGrid } from '@univerjs/engine-formula';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { RangeProtectionPermissionViewPoint, SetWorksheetActiveOperation, SheetPermissionCheckController, SheetsSelectionsService, WorkbookCommentPermission, WorksheetViewPermission } from '@univerjs/sheets';
-import { SheetsThreadCommentModel } from '@univerjs/sheets-thread-comment';
-import { IEditorBridgeService, IMarkSelectionService, ScrollToRangeOperation, SheetSkeletonManagerService } from '@univerjs/sheets-ui';
-import { DeleteCommentMutation } from '@univerjs/thread-comment';
-import { SetActiveCommentOperation, ThreadCommentPanelService } from '@univerjs/thread-comment-ui';
+import type { Nullable, Workbook } from '@crabtable/core';
+import type { ISelectionWithStyle } from '@crabtable/sheets';
+import type { IDeleteCommentMutationParams } from '@crabtable/thread-comment';
+import { CrabTableInstanceType, Disposable, ICommandService, ICrabTableInstanceService, Inject, RANGE_TYPE, Rectangle } from '@crabtable/core';
+import { singleReferenceToGrid } from '@crabtable/engine-formula';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { RangeProtectionPermissionViewPoint, SetWorksheetActiveOperation, SheetPermissionCheckController, SheetsSelectionsService, WorkbookCommentPermission, WorksheetViewPermission } from '@crabtable/sheets';
+import { SheetsThreadCommentModel } from '@crabtable/sheets-thread-comment';
+import { IEditorBridgeService, IMarkSelectionService, ScrollToRangeOperation, SheetSkeletonManagerService } from '@crabtable/sheets-ui';
+import { DeleteCommentMutation } from '@crabtable/thread-comment';
+import { SetActiveCommentOperation, ThreadCommentPanelService } from '@crabtable/thread-comment-ui';
 import { debounceTime } from 'rxjs';
 import { SheetsThreadCommentPopupService } from '../services/sheets-thread-comment-popup.service';
 
@@ -44,7 +44,7 @@ export class SheetsThreadCommentPopupController extends Disposable {
         @Inject(SheetsThreadCommentPopupService) private readonly _sheetsThreadCommentPopupService: SheetsThreadCommentPopupService,
         @Inject(SheetsThreadCommentModel) private readonly _sheetsThreadCommentModel: SheetsThreadCommentModel,
         @Inject(ThreadCommentPanelService) private readonly _threadCommentPanelService: ThreadCommentPanelService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(SheetPermissionCheckController) private readonly _sheetPermissionCheckController: SheetPermissionCheckController,
         @IMarkSelectionService private readonly _markSelectionService: IMarkSelectionService,
         @Inject(SheetsSelectionsService) private readonly _sheetSelectionService: SheetsSelectionsService,
@@ -150,7 +150,7 @@ export class SheetsThreadCommentPopupController extends Disposable {
                     return;
                 }
 
-                const currentUnit = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+                const currentUnit = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
                 if (!currentUnit) {
                     return;
                 }
@@ -236,7 +236,7 @@ export class SheetsThreadCommentPopupController extends Disposable {
                 return null;
             }
 
-            const worksheet = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getSheetBySheetId(subUnitId);
+            const worksheet = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getSheetBySheetId(subUnitId);
 
             const mergeInfo = worksheet?.getMergedCell(row, column) ?? {
                 startColumn: column,

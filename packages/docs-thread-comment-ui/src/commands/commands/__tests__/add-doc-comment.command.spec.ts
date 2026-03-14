@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDocumentData } from '@univerjs/core';
-import { CommandType, ICommandService, IUniverInstanceService, Univer, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation } from '@univerjs/docs';
-import { AddCommentMutation, IThreadCommentDataSourceService, ThreadCommentDataSourceService } from '@univerjs/thread-comment';
-import { SetActiveCommentOperation } from '@univerjs/thread-comment-ui';
+import type { IDocumentData, Univer } from '@crabtable/core';
+import { CommandType, CrabTableInstanceType, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation } from '@crabtable/docs';
+import { AddCommentMutation, IThreadCommentDataSourceService, ThreadCommentDataSourceService } from '@crabtable/thread-comment';
+import { SetActiveCommentOperation } from '@crabtable/thread-comment-ui';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { AddDocCommentComment } from '../add-doc-comment.command';
 
@@ -40,11 +40,11 @@ function createDocData(id: string): IDocumentData {
 }
 
 describe('AddDocCommentComment', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let injector: ReturnType<Univer['__getInjector']>;
 
     beforeEach(() => {
-        univer = new Univer();
+        univer = new CrabTable();
         injector = univer.__getInjector();
     });
 
@@ -59,8 +59,8 @@ describe('AddDocCommentComment', () => {
         injector.add([IThreadCommentDataSourceService, { useValue: dataSource }]);
         injector.add([DocSelectionManagerService]);
 
-        const doc = univer.createUnit(UniverInstanceType.UNIVER_DOC, createDocData('doc-1'));
-        injector.get(IUniverInstanceService).focusUnit(doc.getUnitId());
+        const doc = univer.createUnit(CrabTableInstanceType.CRABTABLE_DOC, createDocData('doc-1'));
+        injector.get(ICrabTableInstanceService).focusUnit(doc.getUnitId());
 
         const selectionManager = injector.get(DocSelectionManagerService);
         selectionManager.__TEST_ONLY_setCurrentSelection({ unitId: doc.getUnitId(), subUnitId: doc.getUnitId() });

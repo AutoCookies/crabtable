@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IOperation } from '@univerjs/core';
+import type { IOperation } from '@crabtable/core';
 import type { IScrollStateWithSearchParam } from '../../services/scroll-manager.service';
 
-import { CommandType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { CommandType } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { SheetScrollManagerService } from '../../services/scroll-manager.service';
 
 export const SetScrollOperation: IOperation<IScrollStateWithSearchParam> = {
@@ -34,8 +34,8 @@ export const SetScrollOperation: IOperation<IScrollStateWithSearchParam> = {
         const { unitId, sheetId, offsetX = 0, offsetY = 0, sheetViewStartColumn, sheetViewStartRow, duration, screenRatioX, screenRatioY } = params;
         const renderManagerService = accessor.get(IRenderManagerService);
         const scrollManagerService = renderManagerService.getRenderById(unitId)!.with(SheetScrollManagerService);
-        // const currentService = accessor.get(IUniverInstanceService);
-        // const workbook = currentService.getUniverSheetInstance(unitId);
+        // const currentService = accessor.get(ICrabTableInstanceService);
+        // const workbook = currentService.getCrabTableSheetInstance(unitId);
         // const worksheet = workbook!.getSheetBySheetId(sheetId);
         // const { xSplit, ySplit } = worksheet!.getConfig().freeze;
 

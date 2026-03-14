@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, Workbook } from '@univerjs/core';
-import type { IDropdownMenuProps } from '@univerjs/design';
+import type { ICommandInfo, Workbook } from '@crabtable/core';
+import type { IDropdownMenuProps } from '@crabtable/design';
 import type { ReactNode } from 'react';
-import { BooleanNumber, DisposableCollection, ICommandService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { clsx, DropdownMenu } from '@univerjs/design';
-import { CheckMarkIcon, ConvertIcon, EyelashIcon } from '@univerjs/icons';
+import { BooleanNumber, CrabTableInstanceType, DisposableCollection, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { clsx, DropdownMenu } from '@crabtable/design';
 import {
     InsertSheetMutation,
     RemoveSheetMutation,
@@ -30,8 +29,9 @@ import {
     SetWorksheetOrderMutation,
     SetWorksheetShowCommand,
     WorksheetProtectionRuleModel,
-} from '@univerjs/sheets';
-import { useDependency, useObservable } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { useDependency, useObservable } from '@crabtable/ui';
+import { CheckMarkIcon, ConvertIcon, EyelashIcon } from '@univerjs/icons';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { ISheetBarService } from '../../../services/sheet-bar/sheet-bar.service';
@@ -49,11 +49,11 @@ export function SheetBarMenu() {
     const [menu, setMenu] = useState<ISheetBarMenuItem[]>([]);
     const [visible, setVisible] = useState(false);
 
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const commandService = useDependency(ICommandService);
     const sheetBarService = useDependency(ISheetBarService);
     const worksheetProtectionRuleModel = useDependency(WorksheetProtectionRuleModel);
-    const workbook = useObservable(() => univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET), null, false, []);
+    const workbook = useObservable(() => crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET), null, false, []);
 
     const handleClick = (item: ISheetBarMenuItem) => {
         const { sheetId } = item;

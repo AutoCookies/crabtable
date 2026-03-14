@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IMutationInfo, Workbook } from '@univerjs/core';
+import type { IMutationInfo, Workbook } from '@crabtable/core';
 import type { ISetRangeValuesMutationParams } from '../commands/mutations/set-range-values.mutation';
-import { Disposable, ICommandService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, Disposable, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
 
 interface IScheduledTask {
     unitId: string;
@@ -42,7 +42,7 @@ export class SheetLazyExecuteScheduleService extends Disposable {
 
     constructor(
         @ICommandService private readonly _commandService: ICommandService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
 
@@ -189,7 +189,7 @@ export class SheetLazyExecuteScheduleService extends Disposable {
     }
 
     private _isSheetExist(unitId: string, subUnitId: string): boolean {
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             return false;
         }

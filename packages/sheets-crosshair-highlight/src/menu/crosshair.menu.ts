@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuSelectorItem } from '@univerjs/ui';
-import { UniverInstanceType } from '@univerjs/core';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuSelectorItem } from '@crabtable/ui';
+import { CrabTableInstanceType } from '@crabtable/core';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { SetCrosshairHighlightColorOperation, ToggleCrosshairHighlightOperation } from '../commands/operations/operation';
 import { SheetsCrosshairHighlightService } from '../services/crosshair.service';
 
@@ -42,6 +42,6 @@ export function CrosshairHighlightMenuItemFactory(accessor: IAccessor): IMenuSel
         ],
         selectionsCommandId: SetCrosshairHighlightColorOperation.id,
         activated$: crosshairHighlightService.enabled$,
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }

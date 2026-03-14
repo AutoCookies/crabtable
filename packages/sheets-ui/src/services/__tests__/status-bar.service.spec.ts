@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FUNCTION_NAMES_MATH, FUNCTION_NAMES_STATISTICAL } from '@univerjs/engine-formula';
+import { FUNCTION_NAMES_MATH, FUNCTION_NAMES_STATISTICAL } from '@crabtable/engine-formula';
 import { describe, expect, it } from 'vitest';
 import { StatusBarService } from '../status-bar.service';
 

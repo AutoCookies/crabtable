@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IFunctionInfo } from '@univerjs/engine-formula';
-import { IConfigService, LocaleService, LocaleType, Univer } from '@univerjs/core';
-import { FunctionService, FunctionType, IFunctionService } from '@univerjs/engine-formula';
+import type { IFunctionInfo } from '@crabtable/engine-formula';
+import { CrabTable, IConfigService, LocaleService, LocaleType } from '@crabtable/core';
+import { FunctionService, FunctionType, IFunctionService } from '@crabtable/engine-formula';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { PLUGIN_CONFIG_KEY_BASE } from '../../config/config';
 import { DescriptionService, IDescriptionService } from '../description.service';
@@ -41,12 +41,12 @@ function createFunctionInfo(overrides: Partial<IFunctionInfo> = {}): IFunctionIn
 }
 
 describe('DescriptionService', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let localeService: LocaleService;
     let descriptionService: IDescriptionService;
 
     beforeEach(() => {
-        univer = new Univer();
+        univer = new CrabTable();
         const injector = univer.__getInjector();
 
         localeService = injector.get(LocaleService);

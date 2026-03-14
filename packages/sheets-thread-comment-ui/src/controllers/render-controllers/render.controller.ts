@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import { Disposable, Inject, InterceptorEffectEnum, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { INTERCEPTOR_POINT, SheetInterceptorService } from '@univerjs/sheets';
-import { SheetsThreadCommentModel } from '@univerjs/sheets-thread-comment';
+import type { Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject, InterceptorEffectEnum } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { INTERCEPTOR_POINT, SheetInterceptorService } from '@crabtable/sheets';
+import { SheetsThreadCommentModel } from '@crabtable/sheets-thread-comment';
 import { debounceTime } from 'rxjs';
 
 export class SheetsThreadCommentRenderController extends Disposable {
     constructor(
         @Inject(SheetInterceptorService) private readonly _sheetInterceptorService: SheetInterceptorService,
         @Inject(SheetsThreadCommentModel) private readonly _sheetsThreadCommentModel: SheetsThreadCommentModel,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService
     ) {
         super();
@@ -67,7 +67,7 @@ export class SheetsThreadCommentRenderController extends Disposable {
 
     private _initSkeletonChange() {
         const markSkeletonDirty = () => {
-            const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+            const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
             if (!workbook) return;
             const unitId = workbook.getUnitId();
             const currentRender = this._renderManagerService.getRenderById(unitId);

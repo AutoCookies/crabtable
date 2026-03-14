@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICellData, IDisposable, IObjectMatrixPrimitiveType, IRange, Nullable, Workbook, Worksheet } from '@univerjs/core';
-import type { IFindComplete, IFindMatch, IFindMoveParams, IFindQuery, IFindReplaceProvider, IReplaceAllResult } from '@univerjs/find-replace';
+import type { ICellData, IDisposable, IObjectMatrixPrimitiveType, IRange, Nullable, Workbook, Worksheet } from '@crabtable/core';
+import type { IFindComplete, IFindMatch, IFindMoveParams, IFindQuery, IFindReplaceProvider, IReplaceAllResult } from '@crabtable/find-replace';
 import type {
     ISelectionWithStyle,
     ISelectRangeCommandParams,
@@ -24,31 +24,31 @@ import type {
     ISetWorksheetActivateCommandParams,
     ISheetCommandSharedParams,
     WorkbookSelectionModel,
-} from '@univerjs/sheets';
-import type { IScrollToCellCommandParams } from '@univerjs/sheets-ui';
+} from '@crabtable/sheets';
+import type { IScrollToCellCommandParams } from '@crabtable/sheets-ui';
 import type { ISheetReplaceCommandParams, ISheetReplacement } from '../commands/commands/sheet-replace.command';
 import type { ISheetFindReplaceHighlightShapeProps } from '../views/shapes/find-replace-highlight.shape';
 import {
     ColorKit,
     CommandType,
+    CrabTableInstanceType,
     Disposable,
     EDITOR_ACTIVATED,
     fromCallback,
     groupBy,
     ICommandService,
     IContextService,
+    ICrabTableInstanceService,
     Inject,
     Injector,
-    IUniverInstanceService,
     ObjectMatrix,
     replaceInDocumentBody,
     rotate,
     ThemeService,
     Tools,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { IRenderManagerService, RENDER_RAW_FORMULA_KEY } from '@univerjs/engine-render';
-import { FindBy, FindDirection, FindModel, FindReplaceController, FindScope, IFindReplaceService } from '@univerjs/find-replace';
+} from '@crabtable/core';
+import { IRenderManagerService, RENDER_RAW_FORMULA_KEY } from '@crabtable/engine-render';
+import { FindBy, FindDirection, FindModel, FindReplaceController, FindScope, IFindReplaceService } from '@crabtable/find-replace';
 import {
     SelectRangeCommand,
     SetRangeValuesCommand,
@@ -56,8 +56,8 @@ import {
     SetWorksheetActivateCommand,
     SetWorksheetActiveOperation,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
-import { getCoordByCell, getSheetObject, ScrollToCellCommand, SheetSkeletonManagerService } from '@univerjs/sheets-ui';
+} from '@crabtable/sheets';
+import { getCoordByCell, getSheetObject, ScrollToCellCommand, SheetSkeletonManagerService } from '@crabtable/sheets-ui';
 import { debounceTime, filter, merge, skip, Subject, throttleTime } from 'rxjs';
 import { SheetReplaceCommand } from '../commands/commands/sheet-replace.command';
 import { SheetFindReplaceHighlightShape } from '../views/shapes/find-replace-highlight.shape';
@@ -160,7 +160,7 @@ export class SheetFindModel extends FindModel {
     constructor(
         private readonly _workbook: Workbook,
         private readonly _sheetSkeletonManagerService: SheetSkeletonManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
         @ICommandService private readonly _commandService: ICommandService,
         @IContextService private readonly _contextService: IContextService,
@@ -594,7 +594,7 @@ export class SheetFindModel extends FindModel {
     }
 
     private _getSheetObject() {
-        return getSheetObject(this._univerInstanceService, this._renderManagerService);
+        return getSheetObject(this._crabtableInstanceService, this._renderManagerService);
     }
 
     private _focusMatch(match: ISheetCellMatch): void {
@@ -972,7 +972,7 @@ class SheetsFindReplaceProvider extends Disposable implements IFindReplaceProvid
     private readonly _findModelsByUnitId = new Map<string, SheetFindModel>();
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
         @Inject(Injector) private readonly _injector: Injector
     ) {
@@ -982,7 +982,7 @@ class SheetsFindReplaceProvider extends Disposable implements IFindReplaceProvid
     async find(query: IFindQuery): Promise<SheetFindModel[]> {
         this._terminate();
 
-        const workbook = this._univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) return [];
 
         const parsedQuery = this._preprocessQuery(query);

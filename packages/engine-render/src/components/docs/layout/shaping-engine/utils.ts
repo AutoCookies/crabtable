@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IDocumentBody, IStyleBase } from '@univerjs/core';
+import type { IDocumentBody, IStyleBase } from '@crabtable/core';
 
 interface ITextChunk {
     content: string;

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { Disposable, ICommandService, Inject } from '@univerjs/core';
+import { Disposable, ICommandService, Inject } from '@crabtable/core';
+import { ComponentManager, IMenuManagerService } from '@crabtable/ui';
 import { BottomIcon, GroupIcon, MoveDownIcon, MoveUpIcon, TopmostIcon, UngroupIcon } from '@univerjs/icons';
-import { ComponentManager, IMenuManagerService } from '@univerjs/ui';
 import {
     SetDrawingAlignBottomOperation,
     SetDrawingAlignCenterOperation,

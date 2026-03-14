@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
+import type { IAccessor, ICommand } from '@crabtable/core';
 import type { ISetNumfmtCommandParams } from './set-numfmt.command';
-import { CommandType, ICommandService, LocaleService, Range } from '@univerjs/core';
-import { SheetsSelectionsService } from '@univerjs/sheets';
+import { CommandType, ICommandService, LocaleService, Range } from '@crabtable/core';
+import { SheetsSelectionsService } from '@crabtable/sheets';
 import { getCurrencyFormat, getCurrencySymbolIconByLocale } from '../../base/const/currency-symbols';
 import { SetNumfmtCommand } from './set-numfmt.command';
 

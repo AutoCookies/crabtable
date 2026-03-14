@@ -15,8 +15,8 @@
  */
 
 import type { IMenuSchema } from '../../../../services/menu/menu-manager.service';
-import { LocaleService } from '@univerjs/core';
-import { borderClassName, clsx, HoverCard } from '@univerjs/design';
+import { LocaleService } from '@crabtable/core';
+import { borderClassName, clsx, HoverCard } from '@crabtable/design';
 import { DatabaseIcon, EyeIcon, FunctionIcon, HomeIcon, InsertIcon, MoreDownIcon, MoreFunctionIcon } from '@univerjs/icons';
 import { useState } from 'react';
 import { RibbonPosition } from '../../../../services/menu/types';

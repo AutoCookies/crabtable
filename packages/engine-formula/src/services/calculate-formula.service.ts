@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IUnitRange } from '@univerjs/core';
+import type { IUnitRange } from '@crabtable/core';
 import type { Observable } from 'rxjs';
 import type {
     IArrayFormulaRangeType,
@@ -43,7 +43,7 @@ import {
     Inject,
     ObjectMatrix,
     requestImmediateMacroTask,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { ErrorType } from '../basics/error-type';
 import { CELL_INVERTED_INDEX_CACHE } from '../basics/inverted-index-cache';

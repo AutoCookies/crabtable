@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICellData } from '@univerjs/core';
+import type { ICellData } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import { ErrorType } from '../../../basics/error-type';
 import { extractFormulaError, getCellValue } from '../cell';

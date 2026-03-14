@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
+import type { IAccessor, ICommand } from '@crabtable/core';
 import type {
     IInsertSheetMutationParams,
     IRemoveSheetMutationParams,
@@ -25,10 +25,10 @@ import {
     CommandType,
     ICommandService,
     IConfigService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
     sequenceExecute,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { defaultLargeSheetOperationConfig, SHEETS_PLUGIN_CONFIG_KEY } from '../../config/config';
 import { SheetInterceptorService } from '../../services/sheet-interceptor/sheet-interceptor.service';
 import { InsertSheetMutation } from '../mutations/insert-sheet.mutation';
@@ -50,11 +50,11 @@ export const RemoveSheetCommand: ICommand = {
     handler: (accessor: IAccessor, params?: IRemoveSheetCommandParams) => {
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const sheetInterceptorService = accessor.get(SheetInterceptorService);
         const configService = accessor.get(IConfigService);
 
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { unitId, subUnitId, workbook, worksheet } = target;

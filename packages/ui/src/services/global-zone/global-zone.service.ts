@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
 import type { Subject } from 'rxjs';
-import { createIdentifier } from '@univerjs/core';
+import { createIdentifier } from '@crabtable/core';
 
 export const IGlobalZoneService = createIdentifier<IGlobalZoneService>('univer.global-zone-service');
 

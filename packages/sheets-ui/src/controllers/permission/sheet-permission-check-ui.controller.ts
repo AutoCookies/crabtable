@@ -17,21 +17,21 @@
 /* eslint-disable complexity */
 /* eslint-disable max-lines-per-function */
 
-import type { ICommandInfo, IRange, Workbook } from '@univerjs/core';
+import type { ICommandInfo, IRange, Workbook } from '@crabtable/core';
+import type { IMoveColsCommandParams, IMoveRangeCommandParams, IMoveRowsCommandParams, ISetRangeValuesCommandParams, ISetSpecificRowsVisibleCommandParams } from '@crabtable/sheets';
 import type { UnitAction } from '@univerjs/protocol';
-import type { IMoveColsCommandParams, IMoveRangeCommandParams, IMoveRowsCommandParams, ISetRangeValuesCommandParams, ISetSpecificRowsVisibleCommandParams } from '@univerjs/sheets';
 import type { ISheetPasteParams } from '../../commands/commands/clipboard.command';
 import type { IEditorBridgeServiceVisibleParam } from '../../services/editor-bridge.service';
-import { Disposable, DisposableCollection, FOCUSING_COMMENT_EDITOR, FOCUSING_EDITOR_STANDALONE, ICommandService, IContextService, Inject, IPermissionService, IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
-import { IMEInputCommand, InsertCommand } from '@univerjs/docs-ui';
-import { RangeProtectionPermissionEditPoint, RangeProtectionPermissionViewPoint, RangeProtectionRuleModel, SetBackgroundColorCommand, SheetPermissionCheckController, WorkbookCopyPermission, WorkbookEditablePermission, WorksheetCopyPermission, WorksheetEditPermission, WorksheetSetCellStylePermission, WorksheetSetCellValuePermission, WorksheetSetColumnStylePermission } from '@univerjs/sheets';
-import { IDialogService } from '@univerjs/ui';
+import { CrabTableInstanceType, Disposable, DisposableCollection, FOCUSING_COMMENT_EDITOR, FOCUSING_EDITOR_STANDALONE, ICommandService, IContextService, ICrabTableInstanceService, Inject, IPermissionService, LocaleService } from '@crabtable/core';
+import { IMEInputCommand, InsertCommand } from '@crabtable/docs-ui';
+import { RangeProtectionPermissionEditPoint, RangeProtectionPermissionViewPoint, RangeProtectionRuleModel, SetBackgroundColorCommand, SheetPermissionCheckController, WorkbookCopyPermission, WorkbookEditablePermission, WorksheetCopyPermission, WorksheetEditPermission, WorksheetSetCellStylePermission, WorksheetSetCellValuePermission, WorksheetSetColumnStylePermission } from '@crabtable/sheets';
+import { IDialogService } from '@crabtable/ui';
 import { SheetCopyCommand, SheetCutCommand, SheetPasteColWidthCommand, SheetPasteShortKeyCommand } from '../../commands/commands/clipboard.command';
 import { SetRangeBoldCommand, SetRangeItalicCommand, SetRangeStrickThroughCommand, SetRangeUnderlineCommand } from '../../commands/commands/inline-format.command';
 import { ApplyFormatPainterCommand } from '../../commands/commands/set-format-painter.command';
 import { SetCellEditVisibleOperation } from '../../commands/operations/cell-edit.operation';
 import { PREDEFINED_HOOK_NAME_PASTE } from '../../services/clipboard/clipboard.service';
-import { UNIVER_SHEET_PERMISSION_ALERT_DIALOG, UNIVER_SHEET_PERMISSION_ALERT_DIALOG_ID } from '../../views/permission/error-msg-dialog/interface';
+import { CRABTABLE_SHEET_PERMISSION_ALERT_DIALOG, CRABTABLE_SHEET_PERMISSION_ALERT_DIALOG_ID } from '../../views/permission/error-msg-dialog/interface';
 
 type ICellPermission = Record<UnitAction, boolean> & { ruleId?: string; ranges?: IRange[] };
 type ICheckPermissionCommandParams = IEditorBridgeServiceVisibleParam | IMoveRowsCommandParams | IMoveColsCommandParams | IMoveRangeCommandParams | ISetRangeValuesCommandParams | ISheetPasteParams | ISetSpecificRowsVisibleCommandParams;
@@ -41,7 +41,7 @@ export class SheetPermissionCheckUIController extends Disposable {
 
     constructor(
         @ICommandService private readonly _commandService: ICommandService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IPermissionService private readonly _permissionService: IPermissionService,
         @IDialogService private readonly _dialogService: IDialogService,
         @Inject(RangeProtectionRuleModel) private _rangeProtectionRuleModel: RangeProtectionRuleModel,
@@ -66,20 +66,20 @@ export class SheetPermissionCheckUIController extends Disposable {
 
     private _haveNotPermissionHandle(errorMsg: string) {
         const dialogProps = {
-            id: UNIVER_SHEET_PERMISSION_ALERT_DIALOG_ID,
+            id: CRABTABLE_SHEET_PERMISSION_ALERT_DIALOG_ID,
             title: { title: 'permission.dialog.alert' },
             children: {
-                label: UNIVER_SHEET_PERMISSION_ALERT_DIALOG,
+                label: CRABTABLE_SHEET_PERMISSION_ALERT_DIALOG,
                 errorMsg,
             },
             width: 320,
             destroyOnClose: true,
             showOk: true,
             onClose: () => {
-                this._dialogService.close(UNIVER_SHEET_PERMISSION_ALERT_DIALOG_ID);
+                this._dialogService.close(CRABTABLE_SHEET_PERMISSION_ALERT_DIALOG_ID);
             },
             onOk: () => {
-                this._dialogService.close(UNIVER_SHEET_PERMISSION_ALERT_DIALOG_ID);
+                this._dialogService.close(CRABTABLE_SHEET_PERMISSION_ALERT_DIALOG_ID);
             },
             className: 'sheet-permission-user-dialog',
         };
@@ -155,7 +155,7 @@ export class SheetPermissionCheckUIController extends Disposable {
                     worksheetTypes: [WorksheetCopyPermission],
                 });
                 errorMsg = this._localeService.t('permission.dialog.copyErr');
-                if (!this._permissionService.getPermissionPoint(new WorkbookCopyPermission(this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getUnitId()).id)?.value) {
+                if (!this._permissionService.getPermissionPoint(new WorkbookCopyPermission(this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getUnitId()).id)?.value) {
                     errorMsg = this._localeService.t('permission.dialog.workbookCopyErr');
                 }
                 break;
@@ -166,7 +166,7 @@ export class SheetPermissionCheckUIController extends Disposable {
                     worksheetTypes: [WorksheetCopyPermission, WorksheetEditPermission],
                 });
                 errorMsg = this._localeService.t('permission.dialog.copyErr');
-                if (!this._permissionService.getPermissionPoint(new WorkbookCopyPermission(this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getUnitId()).id)?.value) {
+                if (!this._permissionService.getPermissionPoint(new WorkbookCopyPermission(this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getUnitId()).id)?.value) {
                     errorMsg = this._localeService.t('permission.dialog.workbookCopyErr');
                 }
                 break;

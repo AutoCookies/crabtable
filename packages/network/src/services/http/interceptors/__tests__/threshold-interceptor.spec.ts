@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Injector } from '@univerjs/core';
+import type { Injector } from '@crabtable/core';
 import type { MockHTTPImplementation } from '../../__testing__/http-testing-utils';
-import { awaitTime } from '@univerjs/core';
+import { awaitTime } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { createHTTPTestBed } from '../../__testing__/http-testing-utils';
 import { HTTPHeaders } from '../../headers';

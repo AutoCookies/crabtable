@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { CellValueType, HorizontalAlign, TextDecoration, VerticalAlign } from '@univerjs/core';
+import { CellValueType, HorizontalAlign, TextDecoration, VerticalAlign } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { Text } from '../text';
 

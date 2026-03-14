@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel } from '@univerjs/core';
-import { CustomRangeType, ICommandService, IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
-import { borderClassName, clsx, MessageType, Tooltip } from '@univerjs/design';
+import type { DocumentDataModel } from '@crabtable/core';
+import { CrabTableInstanceType, CustomRangeType, ICommandService, ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { borderClassName, clsx, MessageType, Tooltip } from '@crabtable/design';
+import { IMessageService, useDependency, useObservable } from '@crabtable/ui';
 import { CopyIcon, LinkIcon, UnlinkIcon, WriteIcon } from '@univerjs/icons';
-import { IMessageService, useDependency, useObservable } from '@univerjs/ui';
 import { DeleteDocHyperLinkCommand } from '../../commands/commands/delete-link.command';
 import { ShowDocHyperLinkEditPopupOperation } from '../../commands/operations/popup.operation';
 import { DocHyperLinkPopupService } from '../../services/hyper-link-popup.service';
@@ -29,13 +29,13 @@ export const DocLinkPopup = () => {
     const messageService = useDependency(IMessageService);
     const localeService = useDependency(LocaleService);
     const currentPopup = useObservable(hyperLinkService.showingLink$);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     if (!currentPopup) {
         return null;
     }
 
     const { unitId, linkId, segmentId, startIndex, endIndex } = currentPopup;
-    const doc = univerInstanceService.getUnit<DocumentDataModel>(unitId, UniverInstanceType.UNIVER_DOC);
+    const doc = crabtableInstanceService.getUnit<DocumentDataModel>(unitId, CrabTableInstanceType.CRABTABLE_DOC);
     const body = doc?.getSelfOrHeaderFooterModel(segmentId).getBody();
     const link = body?.customRanges?.find((range) => range.rangeId === linkId && range.rangeType === CustomRangeType.HYPERLINK && range.startIndex === startIndex && range.endIndex === endIndex);
 

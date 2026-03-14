@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import { Disposable, Inject, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { CONDITIONAL_FORMATTING_VIEWPORT_CACHE_LENGTH, ConditionalFormattingViewModel } from '@univerjs/sheets-conditional-formatting';
-import { SheetSkeletonManagerService } from '@univerjs/sheets-ui';
+import type { Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { CONDITIONAL_FORMATTING_VIEWPORT_CACHE_LENGTH, ConditionalFormattingViewModel } from '@crabtable/sheets-conditional-formatting';
+import { SheetSkeletonManagerService } from '@crabtable/sheets-ui';
 
 export class ConditionalFormattingViewportController extends Disposable {
     constructor(
         @Inject(ConditionalFormattingViewModel) private _conditionalFormattingViewModel: ConditionalFormattingViewModel,
-        @IUniverInstanceService private _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private _crabtableInstanceService: ICrabTableInstanceService,
         @IRenderManagerService private _renderManagerService: IRenderManagerService
     ) {
         super();
@@ -31,7 +31,7 @@ export class ConditionalFormattingViewportController extends Disposable {
     }
 
     private _init() {
-        const unit = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const unit = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         const bindUnit = (unit: Workbook) => {
             const unitId = unit.getUnitId();
             const render = this._renderManagerService.getRenderById(unitId);
@@ -54,7 +54,7 @@ export class ConditionalFormattingViewportController extends Disposable {
         if (unit) {
             bindUnit(unit);
         }
-        this._univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET).subscribe((unit) => {
+        this._crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((unit) => {
             if (!unit) {
                 return;
             }

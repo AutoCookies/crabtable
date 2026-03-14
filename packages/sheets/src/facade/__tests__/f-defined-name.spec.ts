@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import type { ICellData, Injector, Nullable } from '@univerjs/core';
-import type { FUniver } from '@univerjs/core/facade';
-import { ICommandService, IUniverInstanceService } from '@univerjs/core';
-import { RemoveDefinedNameMutation, SetDefinedNameMutation } from '@univerjs/engine-formula';
-import { RemoveDefinedNameCommand, SetDefinedNameCommand } from '@univerjs/sheets';
+import type { ICellData, Injector, Nullable } from '@crabtable/core';
+import type { FCrabTable } from '@crabtable/core/facade';
+import { ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { RemoveDefinedNameMutation, SetDefinedNameMutation } from '@crabtable/engine-formula';
+import { RemoveDefinedNameCommand, SetDefinedNameCommand } from '@crabtable/sheets';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createFacadeTestBed } from './create-test-bed';
 
 describe('Test FDefinedName', () => {
     let get: Injector['get'];
     let commandService: ICommandService;
-    let univerAPI: FUniver;
+    let crabtableAPI: FCrabTable;
     let getValueByPosition: (
         startRow: number,
         startColumn: number,
@@ -36,7 +36,7 @@ describe('Test FDefinedName', () => {
     beforeEach(() => {
         const testBed = createFacadeTestBed();
         get = testBed.get;
-        univerAPI = testBed.univerAPI;
+        crabtableAPI = testBed.crabtableAPI;
 
         commandService = get(ICommandService);
         commandService.registerCommand(RemoveDefinedNameCommand);
@@ -50,22 +50,22 @@ describe('Test FDefinedName', () => {
             endRow: number,
             endColumn: number
         ): Nullable<ICellData> =>
-            get(IUniverInstanceService)
-                .getUniverSheetInstance('test')
+            get(ICrabTableInstanceService)
+                .getCrabTableSheetInstance('test')
                 ?.getSheetBySheetId('sheet1')
                 ?.getRange(startRow, startColumn, endRow, endColumn)
                 .getValue();
     });
 
     it('defined name insertDefinedName', () => {
-        const activeSpreadsheet = univerAPI.getActiveWorkbook()!;
+        const activeSpreadsheet = crabtableAPI.getActiveWorkbook()!;
         activeSpreadsheet.insertDefinedName('test1', 'A1');
         const definedName = activeSpreadsheet.getDefinedName('test1');
         expect(definedName?.getName()).eq('test1');
     });
 
     it('defined name getDefinedNames', () => {
-        const activeSpreadsheet = univerAPI.getActiveWorkbook()!;
+        const activeSpreadsheet = crabtableAPI.getActiveWorkbook()!;
         activeSpreadsheet.insertDefinedName('test', 'A1');
         activeSpreadsheet.insertDefinedName('test1', '=SUM(A1)');
         activeSpreadsheet.insertDefinedName('test2', '=A1');
@@ -74,7 +74,7 @@ describe('Test FDefinedName', () => {
     });
 
     it('defined name deleteDefinedName', () => {
-        const activeSpreadsheet = univerAPI.getActiveWorkbook()!;
+        const activeSpreadsheet = crabtableAPI.getActiveWorkbook()!;
         activeSpreadsheet.insertDefinedName('test', 'A1');
         activeSpreadsheet.insertDefinedName('test1', '=SUM(A1)');
         activeSpreadsheet.insertDefinedName('test2', '=A1');
@@ -87,16 +87,16 @@ describe('Test FDefinedName', () => {
     });
 
     it('defined name insertDefinedNameBuilder', () => {
-        const builder = univerAPI.newDefinedName();
+        const builder = crabtableAPI.newDefinedName();
         const param = builder.setName('test').setFormula('A1').setComment('test comment').setHidden(true).build();
-        const activeSpreadsheet = univerAPI.getActiveWorkbook()!;
+        const activeSpreadsheet = crabtableAPI.getActiveWorkbook()!;
         activeSpreadsheet.insertDefinedNameBuilder(param);
         const definedName = activeSpreadsheet.getDefinedName('test');
         expect(definedName?.getComment()).eq('test comment');
     });
 
     it('defined name updateDefinedName', () => {
-        const activeSpreadsheet = univerAPI.getActiveWorkbook()!;
+        const activeSpreadsheet = crabtableAPI.getActiveWorkbook()!;
         const sheet = activeSpreadsheet.getActiveSheet();
         sheet.insertDefinedName('test11', 'A1');
         expect(activeSpreadsheet.getDefinedName('test11')?.getLocalSheetId()).eq(sheet.getSheetId());

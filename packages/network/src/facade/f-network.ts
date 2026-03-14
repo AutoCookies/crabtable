@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { HTTPEvent, HTTPRequestMethod, HTTPResponse, IPostRequestParams, IRequestParams } from '@univerjs/network';
+import type { HTTPEvent, HTTPRequestMethod, HTTPResponse, IPostRequestParams, IRequestParams } from '@crabtable/network';
 import type { Observable } from 'rxjs';
-import { Inject, Injector } from '@univerjs/core';
-import { FBase } from '@univerjs/core/facade';
-import { HTTPService } from '@univerjs/network';
+import { Inject, Injector } from '@crabtable/core';
+import { FBase } from '@crabtable/core/facade';
+import { HTTPService } from '@crabtable/network';
 
 /**
  * This Facade provides a set of methods to make HTTP requests. You should not
  * create an instance of this class directly, instead, use `getNetwork` of
- * {@link FUniver} instead.
+ * {@link FCrabTable} instead.
  *
  * @hideconstructor
  */
@@ -87,7 +87,7 @@ export class FNetwork extends FBase {
 
     /**
      * Request for a stream of server-sent events. Instead of a single response, the server sends a stream of responses,
-     * Univer wraps the stream in an [`Observable`](https://rxjs.dev/guide/observable) which you can call `subscribe` on.
+     * CrabTable wraps the stream in an [`Observable`](https://rxjs.dev/guide/observable) which you can call `subscribe` on.
      * @param {HTTPRequestMethod} method - HTTP request method
      * @param {string} url - The requested URL
      * @param {IPostRequestParams} [params] - params Query parameters

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICellData, IRange, ISelection, ISelectionCell, Nullable, ObjectMatrix, Worksheet } from '@univerjs/core';
-import { Direction, getReverseDirection, RANGE_TYPE, Rectangle } from '@univerjs/core';
-import { alignToMergedCellsBorders } from '@univerjs/sheets';
+import type { ICellData, IRange, ISelection, ISelectionCell, Nullable, ObjectMatrix, Worksheet } from '@crabtable/core';
+import { Direction, getReverseDirection, RANGE_TYPE, Rectangle } from '@crabtable/core';
+import { alignToMergedCellsBorders } from '@crabtable/sheets';
 
 export enum MergeType {
     MergeAll = 'mergeAll',

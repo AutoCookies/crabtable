@@ -16,17 +16,17 @@
 
 /* eslint-disable ts/no-non-null-asserted-optional-chain */
 
-import type { ICellData, Injector, IStyleData, Nullable } from '@univerjs/core';
-import type { FUniver } from '@univerjs/core/facade';
-import { HorizontalAlign, ICommandService, IConfirmService, IUniverInstanceService, LifecycleStages, TestConfirmService, VerticalAlign, WrapStrategy } from '@univerjs/core';
-import { AddWorksheetMergeCommand, SetHorizontalTextAlignCommand, SetRangeValuesCommand, SetRangeValuesMutation, SetStyleCommand, SetTextWrapCommand, SetVerticalTextAlignCommand } from '@univerjs/sheets';
+import type { ICellData, Injector, IStyleData, Nullable } from '@crabtable/core';
+import type { FCrabTable } from '@crabtable/core/facade';
+import { HorizontalAlign, ICommandService, IConfirmService, ICrabTableInstanceService, LifecycleStages, TestConfirmService, VerticalAlign, WrapStrategy } from '@crabtable/core';
+import { AddWorksheetMergeCommand, SetHorizontalTextAlignCommand, SetRangeValuesCommand, SetRangeValuesMutation, SetStyleCommand, SetTextWrapCommand, SetVerticalTextAlignCommand } from '@crabtable/sheets';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createFacadeTestBed } from './create-test-bed';
 
 describe('Test FRange', () => {
     let get: Injector['get'];
     let commandService: ICommandService;
-    let univerAPI: FUniver;
+    let crabtableAPI: FCrabTable;
     let getValueByPosition: (
         startRow: number,
         startColumn: number,
@@ -46,7 +46,7 @@ describe('Test FRange', () => {
         ]);
         get = testBed.get;
 
-        univerAPI = testBed.univerAPI;
+        crabtableAPI = testBed.crabtableAPI;
 
         commandService = get(ICommandService);
         commandService.registerCommand(SetRangeValuesCommand);
@@ -63,8 +63,8 @@ describe('Test FRange', () => {
             endRow: number,
             endColumn: number
         ): Nullable<ICellData> =>
-            get(IUniverInstanceService)
-                .getUniverSheetInstance('test')
+            get(ICrabTableInstanceService)
+                .getCrabTableSheetInstance('test')
                 ?.getSheetBySheetId('sheet1')
                 ?.getRange(startRow, startColumn, endRow, endColumn)
                 .getValue();
@@ -76,7 +76,7 @@ describe('Test FRange', () => {
             endColumn: number
         ): Nullable<IStyleData> => {
             const value = getValueByPosition(startRow, startColumn, endRow, endColumn);
-            const styles = get(IUniverInstanceService).getUniverSheetInstance('test')?.getStyles();
+            const styles = get(ICrabTableInstanceService).getCrabTableSheetInstance('test')?.getStyles();
             if (value && styles) {
                 return styles.getStyleByCell(value);
             }
@@ -84,35 +84,35 @@ describe('Test FRange', () => {
     });
 
     it('Range getRow', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
         const range = activeSheet?.getRange(0, 0, 1, 1);
 
         expect(range?.getRow()).toBe(0);
     });
 
     it('Range getColumn', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
         const range = activeSheet?.getRange(0, 0, 1, 1);
 
         expect(range?.getColumn()).toBe(0);
     });
 
     it('Range getWidth', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
         const range = activeSheet?.getRange(0, 0, 1, 1);
 
         expect(range?.getWidth()).toBe(1);
     });
 
     it('Range getHeight', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
         const range = activeSheet?.getRange(0, 0, 1, 1);
 
         expect(range?.getHeight()).toBe(1);
     });
 
     it('Range setValue', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
 
         // // A1 sets the number
         const range1 = activeSheet?.getRange(0, 0, 1, 1);
@@ -150,7 +150,7 @@ describe('Test FRange', () => {
     });
 
     it('Range setValues', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
 
         // B3:C4 sets value
         const range1 = activeSheet?.getRange(2, 1, 2, 2);
@@ -209,7 +209,7 @@ describe('Test FRange', () => {
     });
 
     it('Range getValues', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
 
         // Set different types of values
         activeSheet?.getRange(0, 0, 4, 4)?.setValues([
@@ -263,14 +263,14 @@ describe('Test FRange', () => {
     });
 
     it('Range getCellData', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()!.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()!.getActiveSheet();
         activeSheet?.getRange(0, 0)?.setValue(1);
         const range = activeSheet?.getRange(0, 0);
         expect(range?.getCellData()?.v).toBe(1);
     });
 
     it('Range isMerged', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()!.getActiveSheet()!;
+        const activeSheet = crabtableAPI.getActiveWorkbook()!.getActiveSheet()!;
         const range = activeSheet!.getRange(2, 3);
         const isMerged = range?.isMerged()!;
         expect(isMerged).toBe(false);
@@ -281,7 +281,7 @@ describe('Test FRange', () => {
     });
 
     it('Range getCellStyleData', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
         activeSheet?.getRange(0, 0)?.setValue(1);
         activeSheet?.getRange(0, 0)?.setBackgroundColor('red');
         const range = activeSheet?.getRange(0, 0);
@@ -291,7 +291,7 @@ describe('Test FRange', () => {
     });
 
     it('Range getFormulas', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
         const formulas = activeSheet?.getRange(0, 3, 5, 1)?.getFormulas();
         expect(formulas).toStrictEqual([
             ['=SUM(A1)'],
@@ -303,14 +303,14 @@ describe('Test FRange', () => {
     });
 
     it('Range getWrap', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
         const range = activeSheet?.getRange(0, 0);
         await range?.setWrap(true);
         expect(range?.getWrap()).toBe(true);
     });
 
     it('Range setFontWeight', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
 
         // change A1 font weight
         const range = activeSheet?.getRange(0, 0, 1, 1);
@@ -345,7 +345,7 @@ describe('Test FRange', () => {
     });
 
     it('Range setFontStyle', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
 
         // change A1 Font Style
         const range = activeSheet?.getRange(0, 0);
@@ -380,7 +380,7 @@ describe('Test FRange', () => {
     });
 
     it('Range setFontLine', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
 
         // change A1 Font Line
         const range = activeSheet?.getRange(0, 0);
@@ -430,7 +430,7 @@ describe('Test FRange', () => {
     });
 
     it('Range setFontFamily', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
 
         // change A1 Font Family
         const range = activeSheet?.getRange(0, 0);
@@ -465,7 +465,7 @@ describe('Test FRange', () => {
     });
 
     it('Range setFontSize', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
 
         // change A1 Font Size
         const range = activeSheet?.getRange(0, 0);
@@ -500,7 +500,7 @@ describe('Test FRange', () => {
     });
 
     it('Range setFontColor', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
 
         // change A1 Font Color
         const range = activeSheet?.getRange(0, 0);
@@ -535,7 +535,7 @@ describe('Test FRange', () => {
     });
 
     it('Range chain call set font styles', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
 
         // set A1 font styles
         const range = activeSheet?.getRange(0, 0);
@@ -571,7 +571,7 @@ describe('Test FRange', () => {
     });
 
     it('Range set range vertical and Horizontal and Warp', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
 
         const range = activeSheet?.getRange(0, 0, 10, 10);
 
@@ -591,7 +591,7 @@ describe('Test FRange', () => {
     it('test Merge', async () => {
         let hasError = false;
         try {
-            const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet()!;
+            const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet()!;
             let range = activeSheet.getRange(0, 2, 0, 2);
             expect(activeSheet.getMergedRanges().length).toBe(0);
             range = await range.merge();
@@ -619,7 +619,7 @@ describe('Test FRange', () => {
 
     // Add these new test cases
     it('Range getRow, getColumn, getWidth, getHeight with A1 notation', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
 
         // Test range with A1 notation
         const rangeA1D5 = activeSheet?.getRange('A1:D5');
@@ -669,7 +669,7 @@ describe('Test FRange', () => {
     });
 
     it('Range getValues with A1 notation', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
 
         // Set up some test data
         activeSheet?.getRange(0, 0, 5, 4)?.setValues([
@@ -717,9 +717,9 @@ describe('Test FRange', () => {
     });
 
     it('Range getRawValue and getDisplayValue', () => {
-        univerAPI.addEvent(univerAPI.Event.LifeCycleChanged, ({ stage }) => {
+        crabtableAPI.addEvent(crabtableAPI.Event.LifeCycleChanged, ({ stage }) => {
             if (stage === LifecycleStages.Steady) {
-                const fWorkbook = univerAPI.getActiveWorkbook()!;
+                const fWorkbook = crabtableAPI.getActiveWorkbook()!;
                 const fWorksheet = fWorkbook.getActiveSheet();
                 const fRange = fWorksheet.getRange('A1:B2');
 
@@ -739,9 +739,9 @@ describe('Test FRange', () => {
     });
 
     it('Range getRawValues and getDisplayValues', () => {
-        univerAPI.addEvent(univerAPI.Event.LifeCycleChanged, ({ stage }) => {
+        crabtableAPI.addEvent(crabtableAPI.Event.LifeCycleChanged, ({ stage }) => {
             if (stage === LifecycleStages.Steady) {
-                const fWorkbook = univerAPI.getActiveWorkbook()!;
+                const fWorkbook = crabtableAPI.getActiveWorkbook()!;
                 const fWorksheet = fWorkbook.getActiveSheet();
                 const fRange = fWorksheet.getRange('A1:B2');
 

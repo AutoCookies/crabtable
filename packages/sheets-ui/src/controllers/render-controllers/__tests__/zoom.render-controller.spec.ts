@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FOCUSING_SHEET, ICommandService } from '@univerjs/core';
+import { FOCUSING_SHEET, ICommandService } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { SetZoomRatioCommand } from '../../../commands/commands/set-zoom-ratio.command';
 import { SheetsZoomRenderController } from '../zoom.render-controller';

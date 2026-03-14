@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { Observable } from 'rxjs';
 import type { IImageIoService, IImageIoServiceParam } from './image-io.service';
-import { generateRandomId } from '@univerjs/core';
+import { generateRandomId } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { DRAWING_IMAGE_ALLOW_IMAGE_LIST, DRAWING_IMAGE_ALLOW_SIZE } from '../basics/config';
 import { ImageSourceType, ImageUploadStatusType } from './image-io.service';

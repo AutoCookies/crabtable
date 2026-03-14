@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { DOC_RANGE_TYPE, Nullable, RANGE_DIRECTION } from '@univerjs/core';
-import type { INodePosition, ITextSelectionStyle } from '@univerjs/engine-render';
+import type { DOC_RANGE_TYPE, Nullable, RANGE_DIRECTION } from '@crabtable/core';
+import type { INodePosition, ITextSelectionStyle } from '@crabtable/engine-render';
 
 export interface IDocRange {
     // RECT OR TEXT.

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { Univer } from '../../univer';
+import type { CrabTable } from '../../univer';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ThemeService } from '../theme/theme.service';
 import { createTestBed } from './create-test-bed';
 
 describe('Test theme service', () => {
-    let univer: Univer;
+    let univer: CrabTable;
 
     beforeEach(() => {
         univer?.dispose();

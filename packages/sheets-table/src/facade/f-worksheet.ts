@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IRangeThemeStyleJSON } from '@univerjs/sheets';
+import type { IRangeThemeStyleJSON } from '@crabtable/sheets';
 import type {
     IAddSheetTableCommandParams,
     IDeleteSheetTableParams,
@@ -24,9 +24,9 @@ import type {
     ITableInfoWithUnitId,
     ITableOptions,
     ITableRange,
-} from '@univerjs/sheets-table';
-import { cellToRange, customNameCharacterCheck, ILogService, LocaleService, Rectangle } from '@univerjs/core';
-import { RangeThemeStyle } from '@univerjs/sheets';
+} from '@crabtable/sheets-table';
+import { cellToRange, customNameCharacterCheck, ILogService, LocaleService, Rectangle } from '@crabtable/core';
+import { RangeThemeStyle } from '@crabtable/sheets';
 import {
     AddSheetTableCommand,
     AddTableThemeCommand,
@@ -34,8 +34,8 @@ import {
     SetSheetTableCommand,
     SetSheetTableFilterCommand,
     SheetTableService,
-} from '@univerjs/sheets-table';
-import { FWorksheet } from '@univerjs/sheets/facade';
+} from '@crabtable/sheets-table';
+import { FWorksheet } from '@crabtable/sheets/facade';
 
 /**
  * @ignore
@@ -50,7 +50,7 @@ export interface IFWorkSheetTableMixin {
      * @returns {Promise<boolean>} Whether the table was added successfully
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Insert a table in the range B2:F11
@@ -66,10 +66,10 @@ export interface IFWorkSheetTableMixin {
      *     ],
      *     filters: [
      *       {
-     *         filterType: univerAPI.Enum.TableColumnFilterTypeEnum.condition,
+     *         filterType: crabtableAPI.Enum.TableColumnFilterTypeEnum.condition,
      *         filterInfo: {
-     *           conditionType: univerAPI.Enum.TableConditionTypeEnum.Number,
-     *           compareType: univerAPI.Enum.TableNumberCompareTypeEnum.GreaterThan,
+     *           conditionType: crabtableAPI.Enum.TableConditionTypeEnum.Number,
+     *           compareType: crabtableAPI.Enum.TableNumberCompareTypeEnum.GreaterThan,
      *           expectedValue: 2,
      *         }
      *       }
@@ -93,7 +93,7 @@ export interface IFWorkSheetTableMixin {
      * @returns {Promise<boolean>} Whether the table filter was set successfully
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Insert a table in the range B2:F11
@@ -110,10 +110,10 @@ export interface IFWorkSheetTableMixin {
      * if (success) {
      *   // Set the filter for the second column
      *   await fWorksheet.setTableFilter('id-1', 1, {
-     *     filterType: univerAPI.Enum.TableColumnFilterTypeEnum.condition,
+     *     filterType: crabtableAPI.Enum.TableColumnFilterTypeEnum.condition,
      *     filterInfo: {
-     *       conditionType: univerAPI.Enum.TableConditionTypeEnum.Number,
-     *       compareType: univerAPI.Enum.TableNumberCompareTypeEnum.GreaterThan,
+     *       conditionType: crabtableAPI.Enum.TableConditionTypeEnum.Number,
+     *       compareType: crabtableAPI.Enum.TableNumberCompareTypeEnum.GreaterThan,
      *       expectedValue: 10,
      *     },
      *   });
@@ -131,7 +131,7 @@ export interface IFWorkSheetTableMixin {
      * @returns {Promise<boolean>} Whether the table was removed successfully
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const tableInfo = fWorkbook.getTableInfo('id-1');
      * console.log('debugger tableInfo', tableInfo);
@@ -151,7 +151,7 @@ export interface IFWorkSheetTableMixin {
      * @returns {Promise<boolean>} Whether the table range was set successfully
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Insert a table in the range B2:F11
@@ -186,7 +186,7 @@ export interface IFWorkSheetTableMixin {
      * @returns {Promise<boolean>} Whether the table name was set successfully
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Insert a table in the range B2:F11
@@ -218,7 +218,7 @@ export interface IFWorkSheetTableMixin {
      * @returns {ITableInfoWithUnitId[]} The list of tables
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const tables = fWorksheet.getSubTableInfos();
      * console.log('debugger tables', tables);
@@ -233,7 +233,7 @@ export interface IFWorkSheetTableMixin {
      * @returns {Promise<boolean>} Whether the table filter was reset successfully
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Insert a table in the range B2:F11
@@ -250,10 +250,10 @@ export interface IFWorkSheetTableMixin {
      * if (success) {
      *   // Set the filter for the second column
      *   await fWorksheet.setTableFilter('id-1', 1, {
-     *     filterType: univerAPI.Enum.TableColumnFilterTypeEnum.condition,
+     *     filterType: crabtableAPI.Enum.TableColumnFilterTypeEnum.condition,
      *     filterInfo: {
-     *       conditionType: univerAPI.Enum.TableConditionTypeEnum.Number,
-     *       compareType: univerAPI.Enum.TableNumberCompareTypeEnum.GreaterThan,
+     *       conditionType: crabtableAPI.Enum.TableConditionTypeEnum.Number,
+     *       compareType: crabtableAPI.Enum.TableNumberCompareTypeEnum.GreaterThan,
      *       expectedValue: 10,
      *     },
      *   });
@@ -277,7 +277,7 @@ export interface IFWorkSheetTableMixin {
      * @returns {ITableInfoWithUnitId | undefined} The table information or undefined if not found
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * const cellB2 = fWorksheet.getRange('B2');
@@ -307,7 +307,7 @@ export interface IFWorkSheetTableMixin {
      * @returns {Promise<boolean>} Whether the theme was added successfully
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Insert a table in the range B2:F11
@@ -470,7 +470,7 @@ export class FWorkSheetTableMixin extends FWorksheet implements IFWorkSheetTable
 }
 
 FWorksheet.extend(FWorkSheetTableMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FWorksheet extends IFWorkSheetTableMixin { }
 }

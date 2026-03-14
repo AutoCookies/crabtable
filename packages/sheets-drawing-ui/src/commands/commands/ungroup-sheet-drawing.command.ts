@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
-import type { IDrawingGroupUpdateParam, IDrawingJsonUndo1 } from '@univerjs/drawing';
+import type { IAccessor, ICommand } from '@crabtable/core';
+import type { IDrawingGroupUpdateParam, IDrawingJsonUndo1 } from '@crabtable/drawing';
 
 import {
     CommandType,
     ICommandService,
     IUndoRedoService,
-} from '@univerjs/core';
-import { DrawingApplyType, ISheetDrawingService, SetDrawingApplyMutation } from '@univerjs/sheets-drawing';
+} from '@crabtable/core';
+import { DrawingApplyType, ISheetDrawingService, SetDrawingApplyMutation } from '@crabtable/sheets-drawing';
 import { ClearSheetDrawingTransformerOperation } from '../operations/clear-drawing-transformer.operation';
 import { ungroupToGroup } from './utils';
 

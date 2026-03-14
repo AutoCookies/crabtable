@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { createIdentifier, Disposable, ILogService, Inject, LocaleService, Optional } from '@univerjs/core';
+import { createIdentifier, Disposable, ILogService, Inject, LocaleService, Optional } from '@crabtable/core';
 
 import { INotificationService } from '../notification/notification.service';
 import { supportClipboardAPI } from './clipboard-utils';

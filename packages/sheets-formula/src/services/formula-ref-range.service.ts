@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDisposable, IMutationInfo, IRange, Workbook } from '@univerjs/core';
-import type { EffectRefRangeParams } from '@univerjs/sheets';
-import { AbsoluteRefType, Disposable, DisposableCollection, getIntersectRange, Inject, Injector, isFormulaString, IUniverInstanceService, moveRangeByOffset, Rectangle, UniverInstanceType } from '@univerjs/core';
-import { deserializeRangeWithSheetWithCache, ErrorType, generateStringWithSequence, LexerTreeBuilder, sequenceNodeType, serializeRange, serializeRangeWithSheet, serializeRangeWithSpreadsheet } from '@univerjs/engine-formula';
-import { getSeparateEffectedRangesOnCommand, handleCommonDefaultRangeChangeWithEffectRefCommands, handleDefaultRangeChangeWithEffectRefCommands, RefRangeService } from '@univerjs/sheets';
+import type { IDisposable, IMutationInfo, IRange, Workbook } from '@crabtable/core';
+import type { EffectRefRangeParams } from '@crabtable/sheets';
+import { AbsoluteRefType, CrabTableInstanceType, Disposable, DisposableCollection, getIntersectRange, ICrabTableInstanceService, Inject, Injector, isFormulaString, moveRangeByOffset, Rectangle } from '@crabtable/core';
+import { deserializeRangeWithSheetWithCache, ErrorType, generateStringWithSequence, LexerTreeBuilder, sequenceNodeType, serializeRange, serializeRangeWithSheet, serializeRangeWithSpreadsheet } from '@crabtable/engine-formula';
+import { getSeparateEffectedRangesOnCommand, handleCommonDefaultRangeChangeWithEffectRefCommands, handleDefaultRangeChangeWithEffectRefCommands, RefRangeService } from '@crabtable/sheets';
 
 export type FormulaChangeMap = Record<string, Record<string, Record<string, string>>>;
 
@@ -74,7 +74,7 @@ export class FormulaRefRangeService extends Disposable {
     constructor(
         @Inject(RefRangeService) private readonly _refRangeService: RefRangeService,
         @Inject(LexerTreeBuilder) private readonly _lexerTreeBuilder: LexerTreeBuilder,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(Injector) private readonly _injector: Injector
     ) {
         super();
@@ -82,7 +82,7 @@ export class FormulaRefRangeService extends Disposable {
 
     transformFormulaByEffectCommand(unitId: string, subUnitId: string, formula: string, params: EffectRefRangeParams) {
         const sequenceNodes = this._lexerTreeBuilder.sequenceNodesBuilder(formula);
-        const currentUnit = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const currentUnit = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const currentSheet = currentUnit.getActiveSheet();
         const currentUnitId = currentUnit.getUnitId();
         const currentSheetId = currentSheet.getSheetId();
@@ -91,7 +91,7 @@ export class FormulaRefRangeService extends Disposable {
             if (typeof node === 'object' && node.nodeType === sequenceNodeType.REFERENCE) {
                 const gridRangeName = deserializeRangeWithSheetWithCache(node.token);
                 const { range, unitId: rangeUnitId, sheetName: rangeSheetName } = gridRangeName;
-                const workbook = this._univerInstanceService.getUnit<Workbook>(rangeUnitId || unitId);
+                const workbook = this._crabtableInstanceService.getUnit<Workbook>(rangeUnitId || unitId);
                 const worksheet = rangeSheetName ? workbook?.getSheetBySheetName(rangeSheetName) : workbook?.getSheetBySheetId(subUnitId);
                 if (!worksheet) {
                     throw new Error('Sheet not found');
@@ -137,7 +137,7 @@ export class FormulaRefRangeService extends Disposable {
         const sequenceNodes = this._lexerTreeBuilder.sequenceNodesBuilder(formula);
         const disposableCollection = new DisposableCollection();
         const handleChange = (params: EffectRefRangeParams) => {
-            const currentUnit = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+            const currentUnit = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
             const currentSheet = currentUnit.getActiveSheet();
             const currentUnitId = currentUnit.getUnitId();
             const currentSheetId = currentSheet.getSheetId();
@@ -183,7 +183,7 @@ export class FormulaRefRangeService extends Disposable {
             if (typeof node === 'object' && node.nodeType === sequenceNodeType.REFERENCE) {
                 const gridRangeName = deserializeRangeWithSheetWithCache(node.token);
                 const { range, unitId: rangeUnitId, sheetName: rangeSheetName } = gridRangeName;
-                const workbook = this._univerInstanceService.getUnit<Workbook>(rangeUnitId || unitId);
+                const workbook = this._crabtableInstanceService.getUnit<Workbook>(rangeUnitId || unitId);
                 const worksheet = rangeSheetName ? workbook?.getSheetBySheetName(rangeSheetName) : workbook?.getSheetBySheetId(subUnitId);
                 if (!worksheet) {
                     return;
@@ -216,7 +216,7 @@ export class FormulaRefRangeService extends Disposable {
                 if (range.startAbsoluteRefType === AbsoluteRefType.ALL && range.endAbsoluteRefType === AbsoluteRefType.ALL) {
                     return;
                 }
-                const workbook = this._univerInstanceService.getUnit<Workbook>(rangeUnitId || unitId);
+                const workbook = this._crabtableInstanceService.getUnit<Workbook>(rangeUnitId || unitId);
                 const worksheet = rangeSheetName ? workbook?.getSheetBySheetName(rangeSheetName) : workbook?.getSheetBySheetId(subUnitId);
                 if (!worksheet) {
                     return;

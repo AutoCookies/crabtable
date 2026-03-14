@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { ICellWithCoord, ICustomRange, Injector, IParagraph, ITextRangeParam, Workbook } from '@univerjs/core';
-import type { DocumentSkeleton, IBoundRectNoAngle, IDocumentSkeletonGlyph, IFontCacheItem } from '@univerjs/engine-render';
-import { CustomRangeType, HorizontalAlign, IUniverInstanceService, PresetListType, UniverInstanceType, VerticalAlign } from '@univerjs/core';
-import { DocSkeletonManagerService } from '@univerjs/docs';
-import { DOC_VERTICAL_PADDING, getLineBounding, NodePositionConvertToCursor } from '@univerjs/docs-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import type { ICellWithCoord, ICustomRange, Injector, IParagraph, ITextRangeParam, Workbook } from '@crabtable/core';
+import type { DocumentSkeleton, IBoundRectNoAngle, IDocumentSkeletonGlyph, IFontCacheItem } from '@crabtable/engine-render';
+import { CrabTableInstanceType, CustomRangeType, HorizontalAlign, ICrabTableInstanceService, PresetListType, VerticalAlign } from '@crabtable/core';
+import { DocSkeletonManagerService } from '@crabtable/docs';
+import { DOC_VERTICAL_PADDING, getLineBounding, NodePositionConvertToCursor } from '@crabtable/docs-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { IEditorBridgeService } from '../editor-bridge.service';
 import { SheetSkeletonManagerService } from '../sheet-skeleton-manager.service';
 
@@ -200,9 +200,9 @@ export function calcPadding(cell: ICellWithCoord, font: IFontCacheItem, isNum: b
 }
 
 export const getCustomRangePosition = (injector: Injector, unitId: string, subUnitId: string, row: number, col: number, rangeId: string) => {
-    const univerInstanceService = injector.get(IUniverInstanceService);
+    const crabtableInstanceService = injector.get(ICrabTableInstanceService);
     const renderManagerService = injector.get(IRenderManagerService);
-    const workbook = univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+    const workbook = crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
     if (!workbook) {
         return null;
     }

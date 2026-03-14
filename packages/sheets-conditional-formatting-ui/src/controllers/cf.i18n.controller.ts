@@ -15,7 +15,7 @@
  */
 
 import type { ReactNode } from 'react';
-import { Disposable, Inject, LocaleService } from '@univerjs/core';
+import { Disposable, Inject, LocaleService } from '@crabtable/core';
 
 export class ConditionalFormattingI18nController extends Disposable {
     constructor(@Inject(LocaleService) private _localeService: LocaleService) {

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { IDocumentSkeletonPage } from '../../../../basics/i-document-skeleton-cached';
 import type { ISectionBreakConfig } from '../../../../basics/interfaces';
 import type { DataStreamTreeNode } from '../../view-model/data-stream-tree-node';
 import type { DocumentViewModel } from '../../view-model/document-view-model';
 import type { ILayoutContext } from '../tools';
-import { DataStreamTreeNodeType } from '@univerjs/core';
+import { DataStreamTreeNodeType } from '@crabtable/core';
 import { createSkeletonPage } from '../model/page';
 import { dealWithBlockError } from './block-error';
 import { dealWidthParagraph } from './paragraph/paragraph-layout';

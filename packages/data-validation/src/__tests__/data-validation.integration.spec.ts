@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-import type { ILogService, Injector, ISheetDataValidationRule, IWorkbookData, Workbook } from '@univerjs/core';
+import type { ILogService, Injector, ISheetDataValidationRule, IWorkbookData, Workbook } from '@crabtable/core';
 import {
+    CrabTableInstanceType,
     DataValidationOperator,
     DataValidationType,
     ICommandService,
     IResourceLoaderService,
     IResourceManagerService,
     LocaleType,
-    Univer,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { AddDataValidationMutation, RemoveDataValidationMutation, UpdateDataValidationMutation } from '../commands/mutations/data-validation.mutation';
 import { DataValidationResourceController } from '../controllers/dv-resource.controller';
@@ -70,7 +69,7 @@ function createRule(uid: string, overrides: Partial<ISheetDataValidationRule> = 
 }
 
 describe('data validation integration', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let resourceManagerService: IResourceManagerService;
@@ -78,7 +77,7 @@ describe('data validation integration', () => {
     let dataValidationModel: DataValidationModel;
 
     beforeEach(() => {
-        univer = new Univer();
+        univer = new CrabTable();
 
         const injector = univer.__getInjector();
         get = injector.get.bind(injector);
@@ -96,7 +95,7 @@ describe('data validation integration', () => {
         resourceLoaderService = get(IResourceLoaderService);
 
         get(DataValidationResourceController);
-        univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, createWorkbookData());
+        univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, createWorkbookData());
     });
 
     afterEach(() => {
@@ -245,7 +244,7 @@ describe('data validation integration', () => {
             })],
         });
 
-        resourceManagerService.unloadResources('unit-1', UniverInstanceType.UNIVER_SHEET);
+        resourceManagerService.unloadResources('unit-1', CrabTableInstanceType.CRABTABLE_SHEET);
         expect(dataValidationModel.getUnitRules('unit-1')).toEqual([]);
 
         resourceManagerService.loadResources('unit-1', [{

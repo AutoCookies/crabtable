@@ -16,7 +16,7 @@
 
 import type { KeyboardEvent } from 'react';
 import type { IFontSizeProps } from './interface';
-import { InputNumber } from '@univerjs/design';
+import { InputNumber } from '@crabtable/design';
 import { useMemo, useState } from 'react';
 import { useObservable } from '../../utils/di';
 

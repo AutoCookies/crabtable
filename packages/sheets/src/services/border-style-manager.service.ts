@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
-import { BorderStyleTypes, BorderType } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
+import { BorderStyleTypes, BorderType } from '@crabtable/core';
 import { BehaviorSubject } from 'rxjs';
 
 export interface IBorderInfo {

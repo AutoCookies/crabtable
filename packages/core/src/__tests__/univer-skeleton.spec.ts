@@ -15,7 +15,7 @@
  */
 
 import type { ILocales } from '../shared/locale';
-import { defaultTheme } from '@univerjs/themes';
+import { defaultTheme } from '@crabtable/themes';
 import { describe, expect, it, vi } from 'vitest';
 import { Injector } from '../common/di';
 import { COMMAND_LOG_EXECUTION_CONFIG_KEY } from '../services/command/command.service';
@@ -24,7 +24,7 @@ import { LocaleService } from '../services/locale/locale.service';
 import { LogLevel } from '../services/log/log.service';
 import { Skeleton } from '../skeleton';
 import { LocaleType } from '../types/enum/locale-type';
-import { Univer } from '../univer';
+import { CrabTable } from '../univer';
 
 describe('Skeleton', () => {
     it('should update dirty state and release locale data on dispose', () => {
@@ -51,7 +51,7 @@ describe('Univer', () => {
             },
         } as unknown as ILocales;
 
-        const univer = new Univer({
+        const univer = new CrabTable({
             theme: defaultTheme,
             darkMode: true,
             locales,
@@ -74,7 +74,7 @@ describe('Univer', () => {
     });
 
     it('should support add/remove dispose callbacks', () => {
-        const univer = new Univer();
+        const univer = new CrabTable();
         const removedCallback = vi.fn();
         const activeCallback = vi.fn();
 
@@ -90,7 +90,7 @@ describe('Univer', () => {
 
     it('should delegate plugin registration for tuple-style APIs and support parent injector', () => {
         const parentInjector = new Injector([]);
-        const univer = new Univer({}, parentInjector);
+        const univer = new CrabTable({}, parentInjector);
         const registerPluginSpy = vi
             .spyOn((univer as any)._pluginService, 'registerPlugin')
             .mockImplementation(() => undefined);

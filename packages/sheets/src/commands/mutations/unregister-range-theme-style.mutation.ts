@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IMutation } from '@univerjs/core';
-import { CommandType, IUniverInstanceService } from '@univerjs/core';
+import type { IMutation } from '@crabtable/core';
+import { CommandType, ICrabTableInstanceService } from '@crabtable/core';
 import { SheetRangeThemeModel } from '../../model/range-theme-model';
 import { getSheetCommandTarget } from '../commands/utils/target-util';
 
@@ -28,7 +28,7 @@ export const UnregisterWorksheetRangeThemeStyleMutation: IMutation<IUnregisterWo
     id: 'sheet.mutation.unregister-worksheet-range-theme-style',
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService), params);
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService), params);
         if (!target) return false;
 
         const sheetRangeThemeModel = accessor.get(SheetRangeThemeModel);

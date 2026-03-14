@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IMutation } from '@univerjs/core';
+import type { IAccessor, IMutation } from '@crabtable/core';
 import type {
     IInsertSheetMutationParams,
     IRemoveSheetMutationParams,
 } from '../../basics/interfaces/mutation-interface';
-import { CommandType, IUniverInstanceService } from '@univerjs/core';
+import { CommandType, ICrabTableInstanceService } from '@crabtable/core';
 import { getSheetMutationTarget } from '../commands/utils/target-util';
 
 /**
@@ -33,10 +33,10 @@ export const RemoveSheetUndoMutationFactory = (
     accessor: IAccessor,
     params: IRemoveSheetMutationParams
 ): IInsertSheetMutationParams => {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const { subUnitId, unitId } = params;
 
-    const target = getSheetMutationTarget(univerInstanceService, params);
+    const target = getSheetMutationTarget(crabtableInstanceService, params);
     if (!target) {
         throw new Error('[RemoveSheetUndoMutationFactory]: Worksheet is null error!');
     }
@@ -57,9 +57,9 @@ export const RemoveSheetMutation: IMutation<IRemoveSheetMutationParams, boolean>
     id: 'sheet.mutation.remove-sheet',
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const { subUnitId, unitId } = params;
-        const workbook = univerInstanceService.getUniverSheetInstance(unitId);
+        const workbook = crabtableInstanceService.getCrabTableSheetInstance(unitId);
         if (!workbook) {
             return false;
         }

@@ -15,11 +15,11 @@
  */
 
 import type { ByColorsModel, ByConditionsModel, ByValuesModel } from '../../services/sheets-filter-panel.service';
-import { ICommandService, LocaleService } from '@univerjs/core';
-import { Button, Segmented } from '@univerjs/design';
-import { FilterBy, SheetsFilterService } from '@univerjs/sheets-filter';
-import { SheetsUIPart } from '@univerjs/sheets-ui';
-import { ComponentContainer, useComponentsOfPart, useDependency, useObservable } from '@univerjs/ui';
+import { ICommandService, LocaleService } from '@crabtable/core';
+import { Button, Segmented } from '@crabtable/design';
+import { FilterBy, SheetsFilterService } from '@crabtable/sheets-filter';
+import { SheetsUIPart } from '@crabtable/sheets-ui';
+import { ComponentContainer, useComponentsOfPart, useDependency, useObservable } from '@crabtable/ui';
 import { useCallback, useMemo } from 'react';
 import { of } from 'rxjs';
 import { ChangeFilterByOperation, CloseFilterPanelOperation } from '../../commands/operations/sheets-filter.operation';

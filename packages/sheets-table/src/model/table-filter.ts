@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICellData, Nullable, Worksheet } from '@univerjs/core';
+import type { ICellData, Nullable, Worksheet } from '@crabtable/core';
 import type { SheetsTableButtonStateEnum } from '../types/enum';
 import type { ICalculatedOptions, ITableFilterItem, ITableFilterJSON, ITableRange } from '../types/type';
 import { SheetsTableSortStateEnum, TableColumnFilterTypeEnum, TableConditionTypeEnum } from '../types/enum';

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDialogProps } from '@univerjs/design';
+import type { IDialogProps } from '@crabtable/design';
 import type { IDialogPartMethodOptions } from './interface';
-import { Dialog } from '@univerjs/design';
+import { Dialog } from '@crabtable/design';
 import { useEffect, useMemo, useState } from 'react';
 import { CustomLabel } from '../../../components/custom-label/CustomLabel';
 import { IDialogService } from '../../../services/dialog/dialog.service';

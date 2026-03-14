@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { CellValue, Nullable } from '@univerjs/core';
-import { createREGEXFromWildChar, isNumeric } from '@univerjs/core';
+import type { CellValue, Nullable } from '@crabtable/core';
+import { createREGEXFromWildChar, isNumeric } from '@crabtable/core';
 import { CustomFilterOperator } from './types';
 
 export interface IFilterFn<P extends unknown[]> {

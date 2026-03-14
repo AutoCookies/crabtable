@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import { Inject, Injector } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
+import { Inject, Injector } from '@crabtable/core';
 import { FBase } from './f-base';
 
 export interface IFBlobSource {
@@ -47,7 +47,7 @@ export class FBlob extends FBase {
      * @returns a new blob by copying the current blob
      * @example
      * ```ts
-     * const blob = univerAPI.newBlob();
+     * const blob = crabtableAPI.newBlob();
      * const newBlob = blob.copyBlob();
      * console.log(newBlob);
      * ```
@@ -62,7 +62,7 @@ export class FBlob extends FBase {
      * @returns a new blob by converting the current blob to the specified content type
      * @example
      * ```ts
-     * const blob = univerAPI.newBlob();
+     * const blob = crabtableAPI.newBlob();
      * const newBlob = blob.getAs('text/plain');
      * console.log(newBlob);
      * ```
@@ -78,7 +78,7 @@ export class FBlob extends FBase {
      * @returns
      * @example
      * ```ts
-     * const blob = univerAPI.newBlob();
+     * const blob = crabtableAPI.newBlob();
      * const data = await blob.getDataAsString();
      * console.log(data);
      * ```
@@ -90,7 +90,7 @@ export class FBlob extends FBase {
      * @returns the blob content as a string
      * @example
      * ```ts
-     * const blob = univerAPI.newBlob();
+     * const blob = crabtableAPI.newBlob();
      * const data = await blob.getDataAsString('iso-8859-1');
      * console.log(data);
      * ```
@@ -119,7 +119,7 @@ export class FBlob extends FBase {
      * @returns the blob content as a byte array
      * @example
      * ```ts
-     * const blob = univerAPI.newBlob();
+     * const blob = crabtableAPI.newBlob();
      * const bytes = await blob.getBytes();
      * console.log(bytes);
      * ```
@@ -137,7 +137,7 @@ export class FBlob extends FBase {
      * @returns the blob object
      * @example
      * ```ts
-     * const blob = univerAPI.newBlob();
+     * const blob = crabtableAPI.newBlob();
      * const bytes = new Uint8Array(10);
      * blob.setBytes(bytes);
      * ```
@@ -153,7 +153,7 @@ export class FBlob extends FBase {
      * @returns the blob object
      * @example
      * ```ts
-     * const blob = univerAPI.newBlob();
+     * const blob = crabtableAPI.newBlob();
      * blob.setDataFromString('Hello, World!');
      * ```
      */
@@ -165,7 +165,7 @@ export class FBlob extends FBase {
      * @returns the blob object
      * @example
      * ```ts
-     * const blob = univerAPI.newBlob();
+     * const blob = crabtableAPI.newBlob();
      * blob.setDataFromString('Hello, World!', 'text/plain');
      * ```
      */
@@ -182,7 +182,7 @@ export class FBlob extends FBase {
      * @returns the content type
      * @example
      * ```ts
-     * const blob = univerAPI.newBlob();
+     * const blob = crabtableAPI.newBlob();
      * const contentType = blob.getContentType();
      * console.log(contentType);
      * ```
@@ -197,7 +197,7 @@ export class FBlob extends FBase {
      * @returns the blob object
      * @example
      * ```ts
-     * const blob = univerAPI.newBlob();
+     * const blob = crabtableAPI.newBlob();
      * blob.setContentType('text/plain');
      * ```
      */

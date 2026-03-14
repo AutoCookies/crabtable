@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import type { Injector, IRange, Univer, Workbook } from '@univerjs/core';
+import type { Injector, IRange, Workbook } from '@crabtable/core';
 import {
+    CrabTableInstanceType,
     ICommandService,
     IConfirmService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     LocaleService,
     RANGE_TYPE,
     RedoCommand,
     TestConfirmService,
     UndoCommand,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     AddWorksheetMergeAllCommand,
     AddWorksheetMergeCommand,
@@ -59,12 +59,12 @@ import {
     SetRangeValuesMutation,
     SetSelectionsOperation,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { createCommandTestBed } from './create-command-test-bed';
 
 describe('Test add worksheet merge commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let selectionManager: SheetsSelectionsService;
@@ -147,8 +147,8 @@ describe('Test add worksheet merge commands', () => {
                 ]);
 
                 function getMerge(): IRange[] | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getConfig()
                         .mergeData;
@@ -194,8 +194,8 @@ describe('Test add worksheet merge commands', () => {
                 ]);
 
                 function getMerge(): IRange[] | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getConfig()
                         .mergeData;
@@ -239,8 +239,8 @@ describe('Test add worksheet merge commands', () => {
                 ]);
 
                 function getMerge(): IRange[] | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getConfig()
                         .mergeData;
@@ -272,8 +272,8 @@ describe('Test add worksheet merge commands', () => {
                 ]);
 
                 function getMerge(): IRange[] | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getConfig()
                         .mergeData;
@@ -305,7 +305,7 @@ describe('Test add worksheet merge commands', () => {
                 expect(await commandService.executeCommand(AddWorksheetMergeHorizontalCommand.id)).toBeTruthy();
                 expect(getMerge()?.length).toBe(3);
 
-                const worksheet = get(IUniverInstanceService).getUnit<Workbook>('test')?.getSheetBySheetId('sheet1');
+                const worksheet = get(ICrabTableInstanceService).getUnit<Workbook>('test')?.getSheetBySheetId('sheet1');
                 if (worksheet) {
                     expect(worksheet.getCellMatrix().getValue(10, 1)?.v).toBe(1234);
                     expect(worksheet.getCellMatrix().getValue(10, 2)?.v).toBeUndefined();
@@ -327,8 +327,8 @@ describe('Test add worksheet merge commands', () => {
                 ]);
 
                 function getMerge(): IRange[] | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getConfig()
                         .mergeData;
@@ -358,8 +358,8 @@ describe('Test add worksheet merge commands', () => {
     describe('merge cell with set cell data', () => {
         it('test clear util', () => {
             const commandService = get(ICommandService);
-            const univerInstanceService = get(IUniverInstanceService);
-            const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+            const crabtableInstanceService = get(ICrabTableInstanceService);
+            const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
             const worksheet = workbook.getActiveSheet();
             if (!worksheet) throw new Error('No active sheet found');
 
@@ -445,8 +445,8 @@ describe('Test add worksheet merge commands', () => {
         });
 
         it('test merge range first cell is blank, second cell is percent number format', async () => {
-            const univerInstanceService = get(IUniverInstanceService);
-            const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+            const crabtableInstanceService = get(ICrabTableInstanceService);
+            const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
             const worksheet = workbook.getActiveSheet();
             if (!worksheet) throw new Error('No active sheet found');
 
@@ -509,8 +509,8 @@ describe('Test add worksheet merge commands', () => {
                 },
             ]);
             const commandService = get(ICommandService);
-            const univerInstanceService = get(IUniverInstanceService);
-            const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+            const crabtableInstanceService = get(ICrabTableInstanceService);
+            const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
             const worksheet = workbook.getActiveSheet();
             if (!worksheet) throw new Error('No active sheet found');
             const mergeData = worksheet.getConfig().mergeData;
@@ -605,8 +605,8 @@ describe('Test add worksheet merge commands', () => {
                 },
             ]);
             const commandService = get(ICommandService);
-            const univerInstanceService = get(IUniverInstanceService);
-            const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+            const crabtableInstanceService = get(ICrabTableInstanceService);
+            const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
             const worksheet = workbook.getActiveSheet();
             if (!worksheet) throw new Error('No active sheet found');
             const mergeData = worksheet.getConfig().mergeData;

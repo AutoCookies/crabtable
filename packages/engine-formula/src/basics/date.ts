@@ -15,7 +15,7 @@
  */
 
 import type { BaseValueObject } from '../engine/value-object/base-value-object';
-import { isRealNum, numfmt } from '@univerjs/core';
+import { isRealNum, numfmt } from '@crabtable/core';
 import { ErrorValueObject } from '../engine/value-object/base-value-object';
 import { ErrorType } from './error-type';
 

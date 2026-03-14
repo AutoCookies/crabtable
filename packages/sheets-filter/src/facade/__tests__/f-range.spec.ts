@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-import type { Injector, IRange } from '@univerjs/core';
-import type { FUniver } from '@univerjs/core/facade';
-import { ICommandService } from '@univerjs/core';
-import { ClearSheetsFilterCriteriaCommand, RemoveSheetFilterCommand, SetSheetFilterRangeCommand, SetSheetsFilterCriteriaCommand } from '@univerjs/sheets-filter';
+import type { Injector, IRange } from '@crabtable/core';
+import type { FCrabTable } from '@crabtable/core/facade';
+import { ICommandService } from '@crabtable/core';
+import { ClearSheetsFilterCriteriaCommand, RemoveSheetFilterCommand, SetSheetFilterRangeCommand, SetSheetsFilterCriteriaCommand } from '@crabtable/sheets-filter';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createFacadeTestBed } from './create-test-bed';
 
 describe('Test FRange', () => {
     let get: Injector['get'];
     let commandService: ICommandService;
-    let univerAPI: FUniver;
+    let crabtableAPI: FCrabTable;
 
     beforeEach(() => {
         const testBed = createFacadeTestBed();
         get = testBed.get;
 
-        univerAPI = testBed.univerAPI;
+        crabtableAPI = testBed.crabtableAPI;
 
         commandService = get(ICommandService);
     });
@@ -44,7 +44,7 @@ describe('Test FRange', () => {
         });
 
         it('create, modify and clear filters with Facade API', async () => {
-            const activeSheet = univerAPI.getActiveWorkbook()!.getActiveSheet();
+            const activeSheet = crabtableAPI.getActiveWorkbook()!.getActiveSheet();
             expect(activeSheet.getFilter()).toBeNull();
             expect(activeSheet.getRange(0, 0, 1, 1).getFilter()).toBeNull();
 
@@ -55,7 +55,7 @@ describe('Test FRange', () => {
             expect(activeSheet.getFilter()).not.toBeNull();
             expect(activeSheet.getRange(0, 0, 1, 1).getFilter()).not.toBeNull();
             expect(filter.getRange().getRange()).toStrictEqual({
-                unitId: univerAPI.getActiveWorkbook()?.getId(),
+                unitId: crabtableAPI.getActiveWorkbook()?.getId(),
                 sheetId: activeSheet.getSheetId(),
                 startColumn: 0,
                 startRow: 0,

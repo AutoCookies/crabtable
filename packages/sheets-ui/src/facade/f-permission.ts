@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FPermission } from '@univerjs/sheets/facade';
+import { FPermission } from '@crabtable/sheets/facade';
 
 /**
  * @ignore
@@ -25,7 +25,7 @@ export interface IFPermissionSheetsUIMixin {
      * @param {boolean} visible - visibility of unauthorized pop-up window
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const permission = fWorkbook.getPermission();
      * permission.setPermissionDialogVisible(false);
      * ```
@@ -40,7 +40,7 @@ export class FPermissionSheetsUIMixin extends FPermission implements IFPermissio
 }
 
 FPermission.extend(FPermissionSheetsUIMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FPermission extends IFPermissionSheetsUIMixin {}
 }

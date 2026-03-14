@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { DataValidationType } from '@univerjs/core';
-import { DataValidatorDropdownType } from '@univerjs/data-validation';
+import { DataValidationType } from '@crabtable/core';
+import { DataValidatorDropdownType } from '@crabtable/data-validation';
 import { DropdownMultipleWidget } from '../widgets/dropdown-multiple-widget';
 import { BaseSheetDataValidatorView } from './sheet-validator-view';
 

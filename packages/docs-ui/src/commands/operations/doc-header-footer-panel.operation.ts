@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
-import { CommandType, LocaleService } from '@univerjs/core';
-import { ISidebarService } from '@univerjs/ui';
+import type { IAccessor, ICommand } from '@crabtable/core';
+import { CommandType, LocaleService } from '@crabtable/core';
+import { ISidebarService } from '@crabtable/ui';
 import { COMPONENT_DOC_HEADER_FOOTER_PANEL } from '../../views/header-footer/panel/component-name';
 
 export interface IUIComponentCommandParams {

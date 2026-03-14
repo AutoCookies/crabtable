@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IMutation } from '@univerjs/core';
-import { CommandType, IUniverInstanceService, Tools } from '@univerjs/core';
+import type { IAccessor, IMutation } from '@crabtable/core';
+import { CommandType, ICrabTableInstanceService, Tools } from '@crabtable/core';
 
 export interface ISetWorksheetOrderMutationParams {
     fromOrder: number;
@@ -39,7 +39,7 @@ export const SetWorksheetOrderMutation: IMutation<ISetWorksheetOrderMutationPara
     id: 'sheet.mutation.set-worksheet-order',
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
-        const workbook = accessor.get(IUniverInstanceService).getUniverSheetInstance(params.unitId);
+        const workbook = accessor.get(ICrabTableInstanceService).getCrabTableSheetInstance(params.unitId);
         if (!workbook) return false;
         const config = workbook.getConfig();
         config.sheetOrder.splice(params.fromOrder, 1);

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { LocaleService } from '@univerjs/core';
-import type { IInputProps } from '@univerjs/design';
+import type { LocaleService } from '@crabtable/core';
+import type { IInputProps } from '@crabtable/design';
 import type { IFindReplaceService } from '../../services/find-replace.service';
-import { Input, Pager } from '@univerjs/design';
+import { Input, Pager } from '@crabtable/design';
 import { useState } from 'react';
 
 export interface ISearchInputProps extends Pick<IInputProps, 'onFocus' | 'onBlur' | 'className' | 'onChange'> {

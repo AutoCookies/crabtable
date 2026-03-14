@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IPopup } from '@univerjs/ui';
+import type { IPopup } from '@crabtable/ui';
 import type { IBaseDropdownProps } from '../type';
-import { ColorPicker } from '@univerjs/design';
+import { ColorPicker } from '@crabtable/design';
 
 export interface IColorDropdownProps {
     defaultValue?: string;

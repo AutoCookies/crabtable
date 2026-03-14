@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { Injector, IWorkbookData, Univer, Workbook } from '@univerjs/core';
+import type { Injector, IWorkbookData, Workbook } from '@crabtable/core';
 import type {
     IExpandSelectionCommandParams,
     IMoveSelectionCommandParams,
     IMoveSelectionEnterAndTabCommandParams,
     ISelectAllCommandParams,
 } from '../set-selection.command';
-import { Direction, ICommandService, IUniverInstanceService, RANGE_TYPE, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { CrabTableInstanceType, Direction, ICommandService, ICrabTableInstanceService, RANGE_TYPE } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import {
     SetColHiddenCommand,
     SetColHiddenMutation,
@@ -34,8 +34,8 @@ import {
     SetSelectedRowsVisibleCommand,
     SheetInterceptorService,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
-import { KeyCode } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { KeyCode } from '@crabtable/ui';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { SelectAllService } from '../../../services/select-all/select-all.service';
 import { ISheetSelectionRenderService } from '../../../services/selection/base-selection-render.service';
@@ -47,7 +47,7 @@ import {
 } from './create-selection-command-test-bed';
 
 describe('Test commands used for change selections', () => {
-    let univer: Univer | null = null;
+    let univer: CrabTable | null = null;
     let get: Injector['get'];
     let commandService: ICommandService;
     let selectionManagerService: SheetsSelectionsService;
@@ -110,15 +110,15 @@ describe('Test commands used for change selections', () => {
     }
 
     function getRowCount(): number {
-        const currentService = get(IUniverInstanceService);
-        const workbook = currentService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const currentService = get(ICrabTableInstanceService);
+        const workbook = currentService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet()!;
         return worksheet.getRowCount();
     }
 
     function getColCount(): number {
-        const currentService = get(IUniverInstanceService);
-        const workbook = currentService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const currentService = get(ICrabTableInstanceService);
+        const workbook = currentService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet()!;
         return worksheet.getColumnCount();
     }
@@ -524,8 +524,8 @@ describe('Test commands used for change selections', () => {
         });
 
         it('should return false when there is no active workbook target', async () => {
-            const univerInstanceService = get(IUniverInstanceService);
-            vi.spyOn(univerInstanceService, 'getCurrentUnitForType').mockReturnValue(null as never);
+            const crabtableInstanceService = get(ICrabTableInstanceService);
+            vi.spyOn(crabtableInstanceService, 'getCurrentUnitForType').mockReturnValue(null as never);
 
             await expect(commandService.executeCommand<IMoveSelectionCommandParams>(MoveSelectionCommand.id, {
                 direction: Direction.RIGHT,

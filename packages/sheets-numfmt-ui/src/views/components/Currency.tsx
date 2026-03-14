@@ -16,10 +16,10 @@
 
 import type { FC } from 'react';
 import type { IBusinessComponentProps } from './interface';
-import { isPatternEqualWithoutDecimal, LocaleService } from '@univerjs/core';
-import { InputNumber, Select, SelectList } from '@univerjs/design';
-import { getCurrencyFormatOptions, getCurrencyType, getDecimalFromPattern, setPatternDecimal } from '@univerjs/sheets-numfmt';
-import { useDependency } from '@univerjs/ui';
+import { isPatternEqualWithoutDecimal, LocaleService } from '@crabtable/core';
+import { InputNumber, Select, SelectList } from '@crabtable/design';
+import { getCurrencyFormatOptions, getCurrencyType, getDecimalFromPattern, setPatternDecimal } from '@crabtable/sheets-numfmt';
+import { useDependency } from '@crabtable/ui';
 import { useContext, useMemo, useState } from 'react';
 import { UserHabitCurrencyContext } from '../../controllers/user-habit.controller';
 

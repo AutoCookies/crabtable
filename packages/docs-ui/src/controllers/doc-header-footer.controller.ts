@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommandInfo, Nullable } from '@univerjs/core';
-import type { Documents, DocumentViewModel, IMouseEvent, IPageRenderConfig, IPathProps, IPointerEvent, IRenderContext, IRenderModule, RenderComponentType } from '@univerjs/engine-render';
+import type { DocumentDataModel, ICommandInfo, Nullable } from '@crabtable/core';
+import type { Documents, DocumentViewModel, IMouseEvent, IPageRenderConfig, IPathProps, IPointerEvent, IRenderContext, IRenderModule, RenderComponentType } from '@crabtable/engine-render';
 import {
     BooleanNumber,
+    CrabTableInstanceType,
     Disposable,
     DocumentFlavor,
     generateRandomId,
     ICommandService,
+    ICrabTableInstanceService,
     Inject,
-    IUniverInstanceService,
     LocaleService,
     toDisposable,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { DocSkeletonManagerService, RichTextEditingMutation } from '@univerjs/docs';
-import { DocumentEditArea, IRenderManagerService, PageLayoutType, Path, Rect, Vector2 } from '@univerjs/engine-render';
-import { ComponentManager } from '@univerjs/ui';
+} from '@crabtable/core';
+import { DocSkeletonManagerService, RichTextEditingMutation } from '@crabtable/docs';
+import { DocumentEditArea, IRenderManagerService, PageLayoutType, Path, Rect, Vector2 } from '@crabtable/engine-render';
+import { ComponentManager } from '@crabtable/ui';
 import { neoGetDocObject } from '../basics/component-tools';
 import { CloseHeaderFooterCommand, CoreHeaderFooterCommand } from '../commands/commands/doc-header-footer.command';
 import { IEditorService } from '../services/editor/editor-manager.service';
@@ -138,7 +138,7 @@ export class DocHeaderFooterController extends Disposable implements IRenderModu
         private readonly _context: IRenderContext<DocumentDataModel>,
         @ICommandService private readonly _commandService: ICommandService,
         @IEditorService private readonly _editorService: IEditorService,
-        @IUniverInstanceService private readonly _instanceSrv: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _instanceSrv: ICrabTableInstanceService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
         @Inject(DocSkeletonManagerService) private readonly _docSkeletonManagerService: DocSkeletonManagerService,
         @Inject(DocSelectionRenderService) private readonly _docSelectionRenderService: DocSelectionRenderService,
@@ -308,7 +308,7 @@ export class DocHeaderFooterController extends Disposable implements IRenderModu
         const localeService = this._localeService;
 
         // eslint-disable-next-line max-lines-per-function
-        this.disposeWithMe(this._instanceSrv.getCurrentTypeOfUnit$(UniverInstanceType.UNIVER_DOC).subscribe((unit) => {
+        this.disposeWithMe(this._instanceSrv.getCurrentTypeOfUnit$(CrabTableInstanceType.CRABTABLE_DOC).subscribe((unit) => {
             if (unit == null) {
                 return;
             }

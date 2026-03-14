@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Disposable } from '@univerjs/core';
+import { Disposable } from '@crabtable/core';
 import { BehaviorSubject } from 'rxjs';
 
 // Currently these colors are hard-coded, but in the future they could be customizable.

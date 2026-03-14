@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IColorStyle, Nullable, Workbook } from '@univerjs/core';
-import type { IMenuButtonItem, IMenuSelectorItem } from '@univerjs/ui';
+import type { IAccessor, IColorStyle, Nullable, Workbook } from '@crabtable/core';
+import type { IMenuButtonItem, IMenuSelectorItem } from '@crabtable/ui';
 import {
     BooleanNumber,
     composeStyles,
+    CrabTableInstanceType,
     DEFAULT_STYLES,
     EDITOR_ACTIVATED,
     FOCUSING_COMMON_DRAWINGS,
@@ -29,15 +30,14 @@ import {
     HorizontalAlign,
     ICommandService,
     IContextService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     RANGE_TYPE,
     ThemeService,
-    UniverInstanceType,
     VerticalAlign,
     WrapStrategy,
-} from '@univerjs/core';
-import { SetTextSelectionsOperation } from '@univerjs/docs';
-import { SetInlineFormatCommand } from '@univerjs/docs-ui';
+} from '@crabtable/core';
+import { SetTextSelectionsOperation } from '@crabtable/docs';
+import { SetInlineFormatCommand } from '@crabtable/docs-ui';
 import {
     RangeProtectionPermissionEditPoint,
     RangeProtectionPermissionViewPoint,
@@ -70,7 +70,7 @@ import {
     WorksheetSetCellValuePermission,
     WorksheetSetColumnStylePermission,
     WorksheetSetRowStylePermission,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import {
     COLOR_PICKER_COMPONENT,
     CutCommand,
@@ -79,7 +79,7 @@ import {
     getMenuHiddenObservable,
     IClipboardInterfaceService,
     MenuItemType,
-} from '@univerjs/ui';
+} from '@crabtable/ui';
 import { combineLatest, combineLatestWith, map, Observable, startWith } from 'rxjs';
 import {
     SheetCopyCommand,
@@ -139,14 +139,14 @@ export function FormatPainterMenuItemFactory(accessor: IAccessor): IMenuButtonIt
                 status$.unsubscribe();
             };
         }),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         disabled$: getCurrentRangeDisable$(accessor, { workbookTypes: [WorkbookEditablePermission], worksheetTypes: [WorksheetCopyPermission, WorksheetEditPermission], rangeTypes: [RangeProtectionPermissionEditPoint] }, true),
     };
 }
 
 export function BoldMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
     const commandService = accessor.get(ICommandService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const contextService = accessor.get(IContextService);
     const selectionManagerService = accessor.get(SheetsSelectionsService);
 
@@ -157,7 +157,7 @@ export function BoldMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
         title: 'Set bold',
         tooltip: 'toolbar.bold',
         disabled$: getCurrentRangeDisable$(accessor, { workbookTypes: [WorkbookEditablePermission], worksheetTypes: [WorksheetEditPermission, WorksheetSetCellStylePermission], rangeTypes: [RangeProtectionPermissionEditPoint] }, true),
-        activated$: deriveStateFromActiveSheet$(univerInstanceService, false, ({ worksheet }) => new Observable<boolean>((subscriber) => {
+        activated$: deriveStateFromActiveSheet$(crabtableInstanceService, false, ({ worksheet }) => new Observable<boolean>((subscriber) => {
             const disposable = commandService.onCommandExecuted((c) => {
                 const id = c.id;
                 if (id === SetRangeValuesMutation.id || id === SetSelectionsOperation.id || id === SetWorksheetActiveOperation.id) {
@@ -202,13 +202,13 @@ export function BoldMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
 
             return disposable.dispose;
         })),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
 export function ItalicMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
     const commandService = accessor.get(ICommandService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const selectionManagerService = accessor.get(SheetsSelectionsService);
     const contextService = accessor.get(IContextService);
 
@@ -227,7 +227,7 @@ export function ItalicMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
             },
             true
         ),
-        activated$: deriveStateFromActiveSheet$(univerInstanceService, false, ({ worksheet }) => new Observable<boolean>((subscriber) => {
+        activated$: deriveStateFromActiveSheet$(crabtableInstanceService, false, ({ worksheet }) => new Observable<boolean>((subscriber) => {
             const disposable = commandService.onCommandExecuted((c) => {
                 const id = c.id;
                 if (id === SetRangeValuesMutation.id || id === SetSelectionsOperation.id || id === SetWorksheetActiveOperation.id) {
@@ -264,13 +264,13 @@ export function ItalicMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
             subscriber.next(isItalic === FontItalic.ITALIC);
             return disposable.dispose;
         })),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
 export function UnderlineMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
     const commandService = accessor.get(ICommandService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const selectionManagerService = accessor.get(SheetsSelectionsService);
     const contextService = accessor.get(IContextService);
 
@@ -280,7 +280,7 @@ export function UnderlineMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
         icon: 'UnderlineIcon',
         title: 'Set underline',
         tooltip: 'toolbar.underline',
-        activated$: deriveStateFromActiveSheet$(univerInstanceService, false, ({ worksheet }) => new Observable<boolean>((subscriber) => {
+        activated$: deriveStateFromActiveSheet$(crabtableInstanceService, false, ({ worksheet }) => new Observable<boolean>((subscriber) => {
             const disposable = commandService.onCommandExecuted((c) => {
                 const id = c.id;
                 if (id === SetRangeValuesMutation.id || id === SetSelectionsOperation.id || id === SetWorksheetActiveOperation.id) {
@@ -322,13 +322,13 @@ export function UnderlineMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
             worksheetTypes: [WorksheetEditPermission, WorksheetSetCellStylePermission],
             rangeTypes: [RangeProtectionPermissionEditPoint],
         }, true),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
 export function StrikeThroughMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
     const commandService = accessor.get(ICommandService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const selectionManagerService = accessor.get(SheetsSelectionsService);
     const contextService = accessor.get(IContextService);
 
@@ -343,7 +343,7 @@ export function StrikeThroughMenuItemFactory(accessor: IAccessor): IMenuButtonIt
             worksheetTypes: [WorksheetEditPermission, WorksheetSetCellStylePermission],
             rangeTypes: [RangeProtectionPermissionEditPoint],
         }, true),
-        activated$: deriveStateFromActiveSheet$(univerInstanceService, false, ({ worksheet }) => new Observable<boolean>((subscriber) => {
+        activated$: deriveStateFromActiveSheet$(crabtableInstanceService, false, ({ worksheet }) => new Observable<boolean>((subscriber) => {
             const disposable = commandService.onCommandExecuted((c) => {
                 const id = c.id;
                 if (id === SetRangeValuesMutation.id || id === SetSelectionsOperation.id || id === SetWorksheetActiveOperation.id) {
@@ -384,13 +384,13 @@ export function StrikeThroughMenuItemFactory(accessor: IAccessor): IMenuButtonIt
             subscriber.next(!!(st && st.s));
             return disposable.dispose;
         })),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
 export function FontFamilySelectorMenuItemFactory(accessor: IAccessor): IMenuSelectorItem<string> {
     const commandService = accessor.get(ICommandService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const selectionManagerService = accessor.get(SheetsSelectionsService);
 
     const defaultValue = DEFAULT_STYLES.ff;
@@ -422,7 +422,7 @@ export function FontFamilySelectorMenuItemFactory(accessor: IAccessor): IMenuSel
             },
         }],
         disabled$,
-        value$: deriveStateFromActiveSheet$(univerInstanceService, defaultValue, ({ worksheet }) => new Observable((subscriber) => {
+        value$: deriveStateFromActiveSheet$(crabtableInstanceService, defaultValue, ({ worksheet }) => new Observable((subscriber) => {
             const updateSheet = () => {
                 let ff = defaultValue;
 
@@ -463,7 +463,7 @@ export function FontFamilySelectorMenuItemFactory(accessor: IAccessor): IMenuSel
             updateSheet();
             return disposable.dispose;
         })),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -478,7 +478,7 @@ export function ResetTextColorMenuItemFactory(accessor: IAccessor): IMenuButtonI
             worksheetTypes: [WorksheetEditPermission, WorksheetSetCellStylePermission],
             rangeTypes: [RangeProtectionPermissionEditPoint],
         }, true),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -523,7 +523,7 @@ export function TextColorSelectorMenuItemFactory(accessor: IAccessor): IMenuSele
             subscriber.next(defaultValue);
             return disposable.dispose;
         }),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         disabled$: getCurrentRangeDisable$(accessor, {
             workbookTypes: [WorkbookEditablePermission],
             worksheetTypes: [WorksheetEditPermission, WorksheetSetCellStylePermission],
@@ -588,7 +588,7 @@ export function BackgroundColorSelectorMenuItemFactory(accessor: IAccessor): IMe
             return disposable.dispose;
         }),
         hidden$: combineLatest([
-            getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+            getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
             accessor.get(IContextService).subscribeContextValue$(FOCUSING_COMMON_DRAWINGS).pipe(startWith(false)),
         ]).pipe(map(([hidden, focusingDrawing]) => hidden || focusingDrawing)),
         disabled$: getCurrentRangeDisable$(accessor, {
@@ -618,10 +618,10 @@ export const HORIZONTAL_ALIGN_CHILDREN = [
 ];
 
 export function HorizontalAlignMenuItemFactory(accessor: IAccessor): IMenuSelectorItem<HorizontalAlign> {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const selectionManagerService = accessor.get(SheetsSelectionsService);
 
-    const workbook = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const workbook = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
 
     const defaultStyle = workbook?.getActiveSheet().getDefaultCellStyleInternal();
     const defaultValue = defaultStyle?.ht ?? HorizontalAlign.LEFT;
@@ -632,7 +632,7 @@ export function HorizontalAlignMenuItemFactory(accessor: IAccessor): IMenuSelect
         tooltip: 'toolbar.horizontalAlignMode.main',
         type: MenuItemType.SELECTOR,
         selections: HORIZONTAL_ALIGN_CHILDREN,
-        value$: deriveStateFromActiveSheet$(univerInstanceService, defaultValue, ({ worksheet }) => new Observable<HorizontalAlign>((subscriber) => {
+        value$: deriveStateFromActiveSheet$(crabtableInstanceService, defaultValue, ({ worksheet }) => new Observable<HorizontalAlign>((subscriber) => {
             const disposable = accessor.get(ICommandService).onCommandExecuted((c) => {
                 const id = c.id;
                 if (id !== SetHorizontalTextAlignCommand.id && id !== SetSelectionsOperation.id && id !== SetWorksheetActiveOperation.id) {
@@ -663,7 +663,7 @@ export function HorizontalAlignMenuItemFactory(accessor: IAccessor): IMenuSelect
             return disposable.dispose;
         })),
         hidden$: combineLatest([
-            getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+            getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
             accessor.get(IContextService).subscribeContextValue$(FOCUSING_COMMON_DRAWINGS).pipe(startWith(false)),
         ]).pipe(map(([hidden, focusingDrawing]) => hidden || focusingDrawing)),
         disabled$: getCurrentRangeDisable$(accessor, {
@@ -693,10 +693,10 @@ export const VERTICAL_ALIGN_CHILDREN = [
 ];
 
 export function VerticalAlignMenuItemFactory(accessor: IAccessor): IMenuSelectorItem<VerticalAlign> {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const selectionManagerService = accessor.get(SheetsSelectionsService);
 
-    const workbook = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const workbook = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
 
     const defaultStyle = workbook?.getActiveSheet().getDefaultCellStyleInternal();
     const defaultValue = defaultStyle?.vt ?? VerticalAlign.BOTTOM;
@@ -707,7 +707,7 @@ export function VerticalAlignMenuItemFactory(accessor: IAccessor): IMenuSelector
         tooltip: 'toolbar.verticalAlignMode.main',
         type: MenuItemType.SELECTOR,
         selections: VERTICAL_ALIGN_CHILDREN,
-        value$: deriveStateFromActiveSheet$(univerInstanceService, defaultValue, ({ worksheet }) => new Observable<VerticalAlign>((subscriber) => {
+        value$: deriveStateFromActiveSheet$(crabtableInstanceService, defaultValue, ({ worksheet }) => new Observable<VerticalAlign>((subscriber) => {
             const disposable = accessor.get(ICommandService).onCommandExecuted((c) => {
                 const id = c.id;
                 if (id !== SetVerticalTextAlignCommand.id && id !== SetSelectionsOperation.id && id !== SetWorksheetActiveOperation.id) {
@@ -738,7 +738,7 @@ export function VerticalAlignMenuItemFactory(accessor: IAccessor): IMenuSelector
             return disposable.dispose;
         })),
         hidden$: combineLatest([
-            getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+            getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
             accessor.get(IContextService).subscribeContextValue$(FOCUSING_COMMON_DRAWINGS).pipe(startWith(false)),
         ]).pipe(map(([hidden, focusingDrawing]) => hidden || focusingDrawing)),
         disabled$: getCurrentRangeDisable$(accessor, {
@@ -769,9 +769,9 @@ export const TEXT_WRAP_CHILDREN = [
 
 export function WrapTextMenuItemFactory(accessor: IAccessor): IMenuSelectorItem<WrapStrategy> {
     const selectionManagerService = accessor.get(SheetsSelectionsService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-    const workbook = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const workbook = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
 
     const defaultStyle = workbook?.getActiveSheet().getDefaultCellStyleInternal();
     const defaultValue = defaultStyle?.tb ?? WrapStrategy.OVERFLOW;
@@ -782,7 +782,7 @@ export function WrapTextMenuItemFactory(accessor: IAccessor): IMenuSelectorItem<
         icon: TEXT_WRAP_CHILDREN.find((child) => child.value === defaultValue)?.icon,
         type: MenuItemType.SELECTOR,
         selections: TEXT_WRAP_CHILDREN,
-        value$: deriveStateFromActiveSheet$<WrapStrategy>(univerInstanceService, defaultValue, ({ worksheet }) => new Observable((subscriber) => {
+        value$: deriveStateFromActiveSheet$<WrapStrategy>(crabtableInstanceService, defaultValue, ({ worksheet }) => new Observable((subscriber) => {
             const disposable = accessor.get(ICommandService).onCommandExecuted((c) => {
                 const id = c.id;
                 if (id !== SetTextWrapCommand.id && id !== SetSelectionsOperation.id && id !== SetWorksheetActiveOperation.id) {
@@ -813,7 +813,7 @@ export function WrapTextMenuItemFactory(accessor: IAccessor): IMenuSelectorItem<
             return disposable.dispose;
         })),
         hidden$: combineLatest([
-            getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+            getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
             accessor.get(IContextService).subscribeContextValue$(FOCUSING_COMMON_DRAWINGS).pipe(startWith(false)),
         ]).pipe(map(([hidden, focusingDrawing]) => hidden || focusingDrawing)),
         disabled$: getCurrentRangeDisable$(accessor, {
@@ -859,7 +859,7 @@ export const TEXT_ROTATE_CHILDREN = [
 
 export function TextRotateMenuItemFactory(accessor: IAccessor): IMenuSelectorItem<number | string> {
     const selectionManagerService = accessor.get(SheetsSelectionsService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
     const defaultValue = 0;
 
@@ -869,7 +869,7 @@ export function TextRotateMenuItemFactory(accessor: IAccessor): IMenuSelectorIte
         icon: TEXT_ROTATE_CHILDREN[0].icon,
         type: MenuItemType.SELECTOR,
         selections: TEXT_ROTATE_CHILDREN,
-        value$: deriveStateFromActiveSheet$(univerInstanceService, defaultValue, ({ worksheet }) => new Observable<number | string>((subscriber) => {
+        value$: deriveStateFromActiveSheet$(crabtableInstanceService, defaultValue, ({ worksheet }) => new Observable<number | string>((subscriber) => {
             const disposable = accessor.get(ICommandService).onCommandExecuted((c) => {
                 const id = c.id;
                 if (id !== SetTextRotationCommand.id && id !== SetSelectionsOperation.id && id !== SetWorksheetActiveOperation.id) {
@@ -906,7 +906,7 @@ export function TextRotateMenuItemFactory(accessor: IAccessor): IMenuSelectorIte
             return disposable.dispose;
         })),
         hidden$: combineLatest([
-            getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+            getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
             accessor.get(IContextService).subscribeContextValue$(FOCUSING_COMMON_DRAWINGS).pipe(startWith(false)),
         ]).pipe(map(([hidden, focusingDrawing]) => hidden || focusingDrawing)),
         disabled$: getCurrentRangeDisable$(accessor, {
@@ -918,7 +918,7 @@ export function TextRotateMenuItemFactory(accessor: IAccessor): IMenuSelectorIte
 }
 
 // #region - copy cut paste
-// TODO@wzhudev: maybe we should move these menu factory to @univerjs/ui
+// TODO@wzhudev: maybe we should move these menu factory to @crabtable/ui
 
 export function menuClipboardDisabledObservable(injector: IAccessor): Observable<boolean> {
     return new Observable((subscriber) => {
@@ -948,7 +948,7 @@ export function CopyMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
             worksheetTypes: [WorksheetCopyPermission],
             rangeTypes: [RangeProtectionPermissionViewPoint],
         }),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -964,7 +964,7 @@ export function CutMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
             worksheetTypes: [WorksheetCopyPermission, WorksheetEditPermission],
             rangeTypes: [RangeProtectionPermissionViewPoint, RangeProtectionPermissionEditPoint],
         }),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -983,7 +983,7 @@ export function PasteMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
             })),
             map(([d1, d2]) => d1 || d2)
         ),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -995,7 +995,7 @@ export function CopySpacialMenuItemFactory(accessor: IAccessor): IMenuSelectorIt
         type: MenuItemType.SUBITEMS,
         icon: 'CopyDoubleIcon',
         title: 'rightClick.copySpecial',
-        hidden$: getObservableWithExclusiveRange$(accessor, getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET)),
+        hidden$: getObservableWithExclusiveRange$(accessor, getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET)),
     };
 }
 
@@ -1007,7 +1007,7 @@ export function PasteSpacialMenuItemFactory(accessor: IAccessor): IMenuSelectorI
         type: MenuItemType.SUBITEMS,
         icon: 'PasteSpecialDoubleIcon',
         title: 'rightClick.pasteSpecial',
-        hidden$: getObservableWithExclusiveRange$(accessor, getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET)),
+        hidden$: getObservableWithExclusiveRange$(accessor, getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET)),
     };
 }
 
@@ -1024,7 +1024,7 @@ export function PasteValueMenuItemFactory(accessor: IAccessor): IMenuButtonItem<
             })),
             map(([d1, d2]) => d1 || d2)
         ),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -1041,7 +1041,7 @@ export function PasteFormatMenuItemFactory(accessor: IAccessor): IMenuButtonItem
             })),
             map(([d1, d2]) => d1 || d2)
         ),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -1080,7 +1080,7 @@ export function PasteBesidesBorderMenuItemFactory(accessor: IAccessor): IMenuBut
             })),
             map(([d1, d2]) => d1 || d2)
         ),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -1097,7 +1097,7 @@ export function FitContentMenuItemFactory(accessor: IAccessor): IMenuButtonItem 
             worksheetTypes: [WorksheetSetRowStylePermission, WorksheetEditPermission],
             rangeTypes: [RangeProtectionPermissionEditPoint],
         }),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -1112,7 +1112,7 @@ export function ColAutoWidthMenuItemFactory(accessor: IAccessor): IMenuButtonIte
             worksheetTypes: [WorksheetSetRowStylePermission, WorksheetEditPermission],
             rangeTypes: [RangeProtectionPermissionEditPoint],
         }),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -1127,7 +1127,7 @@ export function HideRowMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
             worksheetTypes: [WorksheetSetRowStylePermission, WorksheetEditPermission],
             rangeTypes: [RangeProtectionPermissionEditPoint],
         }),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -1142,12 +1142,12 @@ export function HideColMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
             worksheetTypes: [WorksheetEditPermission, WorksheetSetColumnStylePermission],
             rangeTypes: [RangeProtectionPermissionEditPoint],
         }),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
 export function ShowRowMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const selectionManagerService = accessor.get(SheetsSelectionsService);
 
     const commandService = accessor.get(ICommandService);
@@ -1159,7 +1159,7 @@ export function ShowRowMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
         type: MenuItemType.BUTTON,
         icon: 'EyeOutlineIcon',
         title: 'rightClick.showHideRow',
-        hidden$: deriveStateFromActiveSheet$(univerInstanceService, true, ({ worksheet }) => new Observable((subscriber) => {
+        hidden$: deriveStateFromActiveSheet$(crabtableInstanceService, true, ({ worksheet }) => new Observable((subscriber) => {
             function hasHiddenRowsInSelections(): boolean {
                 const rowRanges = selectionManagerService.getCurrentSelections()?.map((s) => s.range).filter((r) => r.rangeType === RANGE_TYPE.ROW);
                 return !!rowRanges?.some((range) => {
@@ -1188,7 +1188,7 @@ export function ShowRowMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
 }
 
 export function ShowColMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const selectionManagerService = accessor.get(SheetsSelectionsService);
     const commandService = accessor.get(ICommandService);
     const affectedCommands = [SetSelectionsOperation, SetColHiddenMutation, SetColVisibleMutation].map((c) => c.id);
@@ -1198,7 +1198,7 @@ export function ShowColMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
         type: MenuItemType.BUTTON,
         icon: 'EyeOutlineIcon',
         title: 'rightClick.showHideColumn',
-        hidden$: deriveStateFromActiveSheet$(univerInstanceService, true, ({ worksheet }) => new Observable((subscriber) => {
+        hidden$: deriveStateFromActiveSheet$(crabtableInstanceService, true, ({ worksheet }) => new Observable((subscriber) => {
             function hasHiddenColsInSelections(): boolean {
                 const colRanges = selectionManagerService.getCurrentSelections()?.map((s) => s.range).filter((r) => r.rangeType === RANGE_TYPE.COLUMN);
                 if (!colRanges || colRanges.length === 0) return false;
@@ -1229,7 +1229,7 @@ export function ShowColMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
 
 export function SetRowHeightMenuItemFactory(accessor: IAccessor): IMenuButtonItem<number> {
     const commandService = accessor.get(ICommandService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const selectionManagerService = accessor.get(SheetsSelectionsService);
 
     const min = 2;
@@ -1247,7 +1247,7 @@ export function SetRowHeightMenuItemFactory(accessor: IAccessor): IMenuButtonIte
                 max: 1000,
             },
         },
-        value$: deriveStateFromActiveSheet$(univerInstanceService, min, ({ worksheet }) => new Observable((subscriber) => {
+        value$: deriveStateFromActiveSheet$(crabtableInstanceService, min, ({ worksheet }) => new Observable((subscriber) => {
             function update() {
                 const primary = selectionManagerService.getCurrentLastSelection()?.primary;
                 const rowHeight = primary ? worksheet.getRowHeight(primary.startRow) : worksheet.getConfig().defaultRowHeight;
@@ -1274,7 +1274,7 @@ export function SetRowHeightMenuItemFactory(accessor: IAccessor): IMenuButtonIte
 
 export function SetColWidthMenuItemFactory(accessor: IAccessor): IMenuButtonItem<number> {
     const commandService = accessor.get(ICommandService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const selectionManagerService = accessor.get(SheetsSelectionsService);
 
     const min = 2;
@@ -1292,7 +1292,7 @@ export function SetColWidthMenuItemFactory(accessor: IAccessor): IMenuButtonItem
                 max: 1000,
             },
         },
-        value$: deriveStateFromActiveSheet$(univerInstanceService, min, ({ worksheet }) => new Observable((subscriber) => {
+        value$: deriveStateFromActiveSheet$(crabtableInstanceService, min, ({ worksheet }) => new Observable((subscriber) => {
             function update() {
                 const primary = selectionManagerService.getCurrentLastSelection()?.primary;
                 const colWidth = primary ? worksheet.getColumnWidth(primary.startColumn) : worksheet.getConfig().defaultColumnWidth;

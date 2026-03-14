@@ -18,18 +18,18 @@ import {
     FOCUSING_COMMON_DRAWINGS,
     FOCUSING_FX_BAR_EDITOR,
     IContextService,
+    ICrabTableInstanceService,
     IPermissionService,
-    IUniverInstanceService,
     RANGE_TYPE,
     UserManagerService,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     RangeProtectionCache,
     RangeProtectionRuleModel,
     SheetsSelectionsService,
     UnitAction,
     WorksheetProtectionRuleModel,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { BehaviorSubject, firstValueFrom, of, skip, take } from 'rxjs';
 import { describe, expect, it } from 'vitest';
 import { IEditorBridgeService } from '../../services/editor-bridge.service';
@@ -132,7 +132,7 @@ function createPermissionAccessor(option: Partial<IMockOption> = {}) {
     };
 
     const pairs: Array<[unknown, unknown]> = [
-        [IUniverInstanceService, { getCurrentTypeOfUnit$: () => of(workbook) }],
+        [ICrabTableInstanceService, { getCurrentTypeOfUnit$: () => of(workbook) }],
         [UserManagerService, { currentUser$: of({ userID: 'u1' }) }],
         [SheetsSelectionsService, selectionService],
         [RangeProtectionRuleModel, rangeProtectionRuleModel],
@@ -322,7 +322,7 @@ describe('permission-menu-util', () => {
 
     it('computes view-permission disable with workbook/editor/permission states', async () => {
         const noWorkbookAccessor = createAccessor([
-            [IUniverInstanceService, { getCurrentTypeOfUnit$: () => of(null) }],
+            [ICrabTableInstanceService, { getCurrentTypeOfUnit$: () => of(null) }],
             [UserManagerService, { currentUser$: of({ userID: 'u1' }) }],
             [IPermissionService, { getPermissionPoint$: () => of({ value: true }) }],
             [IContextService, { subscribeContextValue$: () => of(false) }],

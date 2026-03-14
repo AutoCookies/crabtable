@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IOperation, Workbook } from '@univerjs/core';
+import type { IOperation, Workbook } from '@crabtable/core';
 import type { IUniverSheetsUIConfig } from '../../config/config';
 
 import type { IEditorBridgeServiceVisibleParam } from '../../services/editor-bridge.service';
-import { CommandType, ICommandService, IConfigService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
+import { CommandType, CrabTableInstanceType, ICommandService, IConfigService, ICrabTableInstanceService } from '@crabtable/core';
 import { SHEETS_UI_PLUGIN_CONFIG_KEY } from '../../config/config';
 import { IEditorBridgeService } from '../../services/editor-bridge.service';
 
@@ -37,8 +37,8 @@ export const SetCellEditVisibleOperation: IOperation<IEditorBridgeServiceVisible
         }
 
         const { unitId } = params;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             return false;
         }
@@ -57,8 +57,8 @@ export const SetCellEditVisibleWithF2Operation: IOperation<IEditorBridgeServiceV
     type: CommandType.OPERATION,
     handler: (accessor, params) => {
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             return false;
         }

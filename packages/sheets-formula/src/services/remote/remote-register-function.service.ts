@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { BaseFunction } from '@univerjs/engine-formula';
-import { createIdentifier } from '@univerjs/core';
-import { AsyncCustomFunction, CustomFunction, IFunctionService } from '@univerjs/engine-formula';
+import type { BaseFunction } from '@crabtable/engine-formula';
+import { createIdentifier } from '@crabtable/core';
+import { AsyncCustomFunction, CustomFunction, IFunctionService } from '@crabtable/engine-formula';
 
 export interface IRemoteRegisterFunctionService {
     registerFunctions(serializedFuncs: Array<[string, string]>): Promise<void>;

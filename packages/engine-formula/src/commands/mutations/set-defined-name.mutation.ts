@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IMutation } from '@univerjs/core';
-import { CommandType } from '@univerjs/core';
+import type { IAccessor, IMutation } from '@crabtable/core';
+import { CommandType } from '@crabtable/core';
 import { IDefinedNamesService } from '../../services/defined-names.service';
 
 export interface ISetDefinedNameMutationSearchParam {

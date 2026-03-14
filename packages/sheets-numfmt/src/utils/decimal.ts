@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { numfmt } from '@univerjs/core';
+import { numfmt } from '@crabtable/core';
 
 /**
  * the function decimal just use positive,negative configuration ignored

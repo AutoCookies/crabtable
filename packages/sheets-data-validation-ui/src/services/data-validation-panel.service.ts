@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDataValidationRule, IDisposable, Nullable } from '@univerjs/core';
-import { Disposable, IUniverInstanceService, toDisposable, UniverInstanceType } from '@univerjs/core';
-import { ISidebarService } from '@univerjs/ui';
+import type { IDataValidationRule, IDisposable, Nullable } from '@crabtable/core';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, toDisposable } from '@crabtable/core';
+import { ISidebarService } from '@crabtable/ui';
 import { BehaviorSubject, distinctUntilChanged, filter } from 'rxjs';
 import { DATA_VALIDATION_PANEL } from '../commands/operations/data-validation.operation';
 
@@ -42,13 +42,13 @@ export class DataValidationPanelService extends Disposable {
     private _focusFormulaEditorActiveRuleSubUnitId: string | null = null;
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ISidebarService private readonly _sidebarService: ISidebarService
     ) {
         super();
 
         this.disposeWithMe(
-            this._univerInstanceService.getCurrentTypeOfUnit$(UniverInstanceType.UNIVER_SHEET)
+            this._crabtableInstanceService.getCurrentTypeOfUnit$(CrabTableInstanceType.CRABTABLE_SHEET)
                 .pipe(filter((sheet) => !sheet)).subscribe(() => {
                     this.close();
                 })

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuItem } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuItem } from '@crabtable/ui';
 import type { Observable } from 'rxjs';
-import { IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { getSheetCommandTarget, SheetsSelectionsService, WorkbookEditablePermission, WorksheetEditPermission } from '@univerjs/sheets';
-import { SheetDeleteNoteCommand, SheetsNoteModel, SheetToggleNotePopupCommand } from '@univerjs/sheets-note';
-import { getCurrentRangeDisable$ } from '@univerjs/sheets-ui';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+import { CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
+import { getSheetCommandTarget, SheetsSelectionsService, WorkbookEditablePermission, WorksheetEditPermission } from '@crabtable/sheets';
+import { SheetDeleteNoteCommand, SheetsNoteModel, SheetToggleNotePopupCommand } from '@crabtable/sheets-note';
+import { getCurrentRangeDisable$ } from '@crabtable/sheets-ui';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { combineLatest, map } from 'rxjs';
 import { AddNotePopupOperation } from '../commands/operations/add-note-popup.operation';
 
@@ -29,11 +29,11 @@ export const SHEET_NOTE_CONTEXT_MENU_ID = 'sheet.menu.note';
 
 function getHasNote$(accessor: IAccessor): Observable<boolean> {
     const sheetsSelectionsService = accessor.get(SheetsSelectionsService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     return sheetsSelectionsService.selectionMoveEnd$.pipe(map(() => {
         const selection = sheetsSelectionsService.getCurrentLastSelection();
         if (!selection?.primary) return false;
-        const target = getSheetCommandTarget(univerInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
         const { actualColumn, actualRow } = selection.primary;
         const noteModel = accessor.get(SheetsNoteModel);
@@ -47,7 +47,7 @@ export function sheetNoteContextMenuFactory(accessor: IAccessor): IMenuItem {
         type: MenuItemType.BUTTON,
         title: 'rightClick.addNote',
         icon: 'AddNoteIcon',
-        hidden$: combineLatest([getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET), getHasNote$(accessor)])
+        hidden$: combineLatest([getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET), getHasNote$(accessor)])
             .pipe(map(([hidden, hasNote]) => hidden || hasNote)),
         disabled$: getCurrentRangeDisable$(accessor, { workbookTypes: [WorkbookEditablePermission], worksheetTypes: [WorksheetEditPermission] }),
         commandId: AddNotePopupOperation.id,

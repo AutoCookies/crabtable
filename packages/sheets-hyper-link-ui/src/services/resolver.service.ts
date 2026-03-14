@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { IRange, Workbook, Worksheet } from '@univerjs/core';
-import type { ISetSelectionsOperationParams } from '@univerjs/sheets';
-import type { ISheetHyperLinkInfo, ISheetUrlParams } from '@univerjs/sheets-hyper-link';
+import type { IRange, Workbook, Worksheet } from '@crabtable/core';
+import type { ISetSelectionsOperationParams } from '@crabtable/sheets';
+import type { ISheetHyperLinkInfo, ISheetUrlParams } from '@crabtable/sheets-hyper-link';
 import type { IUniverSheetsHyperLinkUIConfig } from '../config/config';
-import { ICommandService, IConfigService, Inject, isValidRange, IUniverInstanceService, LocaleService, RANGE_TYPE, Rectangle, UniverInstanceType } from '@univerjs/core';
-import { MessageType } from '@univerjs/design';
-import { deserializeRangeWithSheet, IDefinedNamesService } from '@univerjs/engine-formula';
-import { SetSelectionsOperation, SetWorksheetActiveOperation } from '@univerjs/sheets';
-import { ERROR_RANGE, SheetHyperLinkType } from '@univerjs/sheets-hyper-link';
-import { ScrollToRangeOperation } from '@univerjs/sheets-ui';
-import { IMessageService } from '@univerjs/ui';
+import { CrabTableInstanceType, ICommandService, IConfigService, ICrabTableInstanceService, Inject, isValidRange, LocaleService, RANGE_TYPE, Rectangle } from '@crabtable/core';
+import { MessageType } from '@crabtable/design';
+import { deserializeRangeWithSheet, IDefinedNamesService } from '@crabtable/engine-formula';
+import { SetSelectionsOperation, SetWorksheetActiveOperation } from '@crabtable/sheets';
+import { ERROR_RANGE, SheetHyperLinkType } from '@crabtable/sheets-hyper-link';
+import { ScrollToRangeOperation } from '@crabtable/sheets-ui';
+import { IMessageService } from '@crabtable/ui';
 import { SHEETS_HYPER_LINK_UI_PLUGIN_CONFIG_KEY } from '../config/config';
 
 function getContainRange(range: IRange, worksheet: Worksheet) {
@@ -55,7 +55,7 @@ function getContainRange(range: IRange, worksheet: Worksheet) {
 
 export class SheetsHyperLinkResolverService {
     constructor(
-        @IUniverInstanceService private _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private _commandService: ICommandService,
         @IDefinedNamesService private _definedNamesService: IDefinedNamesService,
         @IMessageService private _messageService: IMessageService,
@@ -77,7 +77,7 @@ export class SheetsHyperLinkResolverService {
         // NOTE: should we always use current unit and active worksheet?
 
         const { gid, range, rangeid } = params;
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             return;
         }
@@ -153,7 +153,7 @@ export class SheetsHyperLinkResolverService {
     }
 
     async navigateToSheetById(unitId: string, subUnitId: string) {
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             return false;
         }

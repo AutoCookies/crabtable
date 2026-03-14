@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IGroupBaseBound, ITransformState, Nullable } from '@univerjs/core';
+import type { IGroupBaseBound, ITransformState, Nullable } from '@crabtable/core';
 import { offsetRotationAxis } from './offset-rotation-axis';
 import { Vector2 } from './vector2';
 

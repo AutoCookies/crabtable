@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { RichTextValue, UniverInstanceType } from '@univerjs/core';
-import { AddCommentCommand, DeleteCommentCommand, DeleteCommentTreeCommand, ResolveCommentCommand, UpdateCommentCommand } from '@univerjs/thread-comment';
+import { CrabTableInstanceType, RichTextValue } from '@crabtable/core';
+import { AddCommentCommand, DeleteCommentCommand, DeleteCommentTreeCommand, ResolveCommentCommand, UpdateCommentCommand } from '@crabtable/thread-comment';
 import { describe, expect, it, vi } from 'vitest';
 import { FTheadCommentBuilder, FTheadCommentItem, FThreadComment } from '../f-thread-comment';
 import { FWorksheetCommentMixin } from '../f-worksheet';
@@ -92,8 +92,8 @@ describe('thread comment facade', () => {
         const workbook = {
             getSheetBySheetId: (sheetId: string) => (sheetId === 'sheet-1' ? { getSheetId: () => 'sheet-1' } : null),
         };
-        const univerInstanceService = {
-            getUnit: (_unitId: string, type: UniverInstanceType) => (type === UniverInstanceType.UNIVER_SHEET ? workbook : null),
+        const crabtableInstanceService = {
+            getUnit: (_unitId: string, type: CrabTableInstanceType) => (type === CrabTableInstanceType.CRABTABLE_SHEET ? workbook : null),
         };
         const threadCommentModel = {
             getCommentWithChildren: () => ({ ...root, children: [child] }),
@@ -107,7 +107,7 @@ describe('thread comment facade', () => {
             undefined,
             injector as any,
             commandService as any,
-            univerInstanceService as any,
+            crabtableInstanceService as any,
             threadCommentModel as any,
             userManagerService as any
         );
@@ -116,7 +116,7 @@ describe('thread comment facade', () => {
             root,
             injector as any,
             commandService as any,
-            univerInstanceService as any,
+            crabtableInstanceService as any,
             threadCommentModel as any,
             userManagerService as any
         );

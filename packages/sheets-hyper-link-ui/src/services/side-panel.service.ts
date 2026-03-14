@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ISheetHyperLink } from '@univerjs/sheets-hyper-link';
+import type { ISheetHyperLink } from '@crabtable/sheets-hyper-link';
 import type * as React from 'react';
-import { Disposable } from '@univerjs/core';
-import { SheetHyperLinkType } from '@univerjs/sheets-hyper-link';
+import { Disposable } from '@crabtable/core';
+import { SheetHyperLinkType } from '@crabtable/sheets-hyper-link';
 
 export interface ICustomHyperLinkFormProps {
     linkId: string;

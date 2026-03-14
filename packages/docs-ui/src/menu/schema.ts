@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { MenuSchemaType } from '@univerjs/ui';
-import { ContextMenuGroup, ContextMenuPosition, RibbonInsertGroup, RibbonStartGroup } from '@univerjs/ui';
+import type { MenuSchemaType } from '@crabtable/ui';
+import { ContextMenuGroup, ContextMenuPosition, RibbonInsertGroup, RibbonStartGroup } from '@crabtable/ui';
 import { DocCopyCommand, DocCopyCurrentParagraphCommand, DocCutCommand, DocCutCurrentParagraphCommand, DocPasteCommand } from '../commands/commands/clipboard.command';
 import { DeleteCurrentParagraphCommand, DeleteLeftCommand } from '../commands/commands/doc-delete.command';
 import { OpenHeaderFooterPanelCommand } from '../commands/commands/doc-header-footer.command';

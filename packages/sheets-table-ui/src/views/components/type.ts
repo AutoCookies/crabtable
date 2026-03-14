@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { TableConditionTypeEnum, TableDateCompareTypeEnum, TableNumberCompareTypeEnum, TableStringCompareTypeEnum } from '@univerjs/sheets-table';
+import type { TableConditionTypeEnum, TableDateCompareTypeEnum, TableNumberCompareTypeEnum, TableStringCompareTypeEnum } from '@crabtable/sheets-table';
 
 export enum ConditionSubComponentEnum {
     DatePicker = 'DatePicker',

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { IUniverInstanceService, RANGE_TYPE } from '@univerjs/core';
-import { MergeCellController, RangeProtectionRuleModel, SheetsSelectionsService } from '@univerjs/sheets';
+import { ICrabTableInstanceService, RANGE_TYPE } from '@crabtable/core';
+import { MergeCellController, RangeProtectionRuleModel, SheetsSelectionsService } from '@crabtable/sheets';
 import { BehaviorSubject } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import { getSheetSelectionsDisabled$, isThisColSelected, isThisRowSelected, matchedSelectionByRowColIndex } from '../selections-tools';
@@ -109,7 +109,7 @@ describe('selections tools', () => {
         const accessor = createAccessor([
             [SheetsSelectionsService, { selectionMoveEnd$ }],
             [RangeProtectionRuleModel, { getSubunitRuleList: vi.fn(() => [{ ranges: protectedRanges }]) }],
-            [IUniverInstanceService, { getCurrentTypeOfUnit$: vi.fn(() => workbook$) }],
+            [ICrabTableInstanceService, { getCurrentTypeOfUnit$: vi.fn(() => workbook$) }],
             [MergeCellController, mergeCellController],
         ]);
 

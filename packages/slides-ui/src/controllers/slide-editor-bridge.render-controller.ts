@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Nullable, SlideDataModel, UnitModel } from '@univerjs/core';
-import type { BaseObject, IRenderContext, IRenderModule, RichText, Scene, Slide } from '@univerjs/engine-render';
+import type { IDisposable, Nullable, SlideDataModel, UnitModel } from '@crabtable/core';
+import type { BaseObject, IRenderContext, IRenderModule, RichText, Scene, Slide } from '@crabtable/engine-render';
 
 import type { ISetEditorInfo } from '../services/slide-editor-bridge.service';
 import type { ISlideRichTextProps } from '../type';
-import { DisposableCollection, ICommandService, IUniverInstanceService, RxDisposable, UniverInstanceType } from '@univerjs/core';
-import { DeviceInputEventType, ObjectType } from '@univerjs/engine-render';
+import { CrabTableInstanceType, DisposableCollection, ICommandService, ICrabTableInstanceService, RxDisposable } from '@crabtable/core';
+import { DeviceInputEventType, ObjectType } from '@crabtable/engine-render';
 import { Subject } from 'rxjs';
 import { UpdateSlideElementOperation } from '../commands/operations/update-element.operation';
 import { ISlideEditorBridgeService } from '../services/slide-editor-bridge.service';
@@ -53,13 +53,13 @@ export class SlideEditorBridgeRenderController extends RxDisposable implements I
 
     constructor(
         private readonly _renderContext: IRenderContext<UnitModel>,
-        @IUniverInstanceService private readonly _instanceSrv: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _instanceSrv: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService,
         @ISlideEditorBridgeService private readonly _editorBridgeService: ISlideEditorBridgeService
     ) {
         super();
 
-        this.disposeWithMe(this._instanceSrv.getCurrentTypeOfUnit$<SlideDataModel>(UniverInstanceType.UNIVER_SLIDE).subscribe((slideDataModel) => {
+        this.disposeWithMe(this._instanceSrv.getCurrentTypeOfUnit$<SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE).subscribe((slideDataModel) => {
             if (slideDataModel && slideDataModel.getUnitId() === this._renderContext.unitId) {
                 this._d = this._init();
             } else {
@@ -136,7 +136,7 @@ export class SlideEditorBridgeRenderController extends RxDisposable implements I
             }));
         };
 
-        // const model = this._instanceSrv.getCurrentUnitForType<SlideDataModel>(UniverInstanceType.UNIVER_SLIDE);
+        // const model = this._instanceSrv.getCurrentUnitForType<SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE);
         // const pagesMap = model?.getPages() ?? {};
         // const pages = Object.values(pagesMap);
 
@@ -172,7 +172,7 @@ export class SlideEditorBridgeRenderController extends RxDisposable implements I
         this.setEditorVisible(false);
         const curRichText = this._curRichText;
 
-        const slideData = this._instanceSrv.getCurrentUnitForType<SlideDataModel>(UniverInstanceType.UNIVER_SLIDE);
+        const slideData = this._instanceSrv.getCurrentUnitForType<SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE);
         if (!slideData) return false;
         curRichText.refreshDocumentByDocData();
         curRichText.resizeToContentSize();

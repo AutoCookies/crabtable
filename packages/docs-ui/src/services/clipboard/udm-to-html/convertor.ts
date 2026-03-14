@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IDocumentBody, IDocumentData, IParagraph, ITextRun } from '@univerjs/core';
-import type { IDocImage } from '@univerjs/docs-drawing';
-import type { DataStreamTreeNode } from '@univerjs/engine-render';
-import { BaselineOffset, BooleanNumber, CustomRangeType, DataStreamTreeNodeType, DrawingTypeEnum, Tools } from '@univerjs/core';
-import { ImageSourceType } from '@univerjs/drawing';
-import { parseDataStreamToTree } from '@univerjs/engine-render';
+import type { IDocumentBody, IDocumentData, IParagraph, ITextRun } from '@crabtable/core';
+import type { IDocImage } from '@crabtable/docs-drawing';
+import type { DataStreamTreeNode } from '@crabtable/engine-render';
+import { BaselineOffset, BooleanNumber, CustomRangeType, DataStreamTreeNodeType, DrawingTypeEnum, Tools } from '@crabtable/core';
+import { ImageSourceType } from '@crabtable/drawing';
+import { parseDataStreamToTree } from '@crabtable/engine-render';
 
 function covertImageToHtml(item: IDocImage) {
     const transformObjectToString = (obj: Record<string, string | number | undefined>) => {

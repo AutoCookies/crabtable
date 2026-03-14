@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useEvent } from './event';
 

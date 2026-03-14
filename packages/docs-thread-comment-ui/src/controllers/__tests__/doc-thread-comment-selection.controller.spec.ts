@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { SetTextSelectionsOperation } from '@univerjs/docs';
-import { SetActiveCommentOperation } from '@univerjs/thread-comment-ui';
+import { SetTextSelectionsOperation } from '@crabtable/docs';
+import { SetActiveCommentOperation } from '@crabtable/thread-comment-ui';
 
 import { Subject } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
@@ -35,7 +35,7 @@ describe('DocThreadCommentSelectionController', () => {
             getBody: () => ({ customDecorations: [{ id: 'c1', startIndex: 0, endIndex: 5 }] }),
         };
 
-        const univerInstanceService = {
+        const crabtableInstanceService = {
             getUnit: vi.fn(() => doc),
         };
 
@@ -55,7 +55,7 @@ describe('DocThreadCommentSelectionController', () => {
 
         const controller = new DocThreadCommentSelectionController(
             threadCommentPanelService as any,
-            univerInstanceService as any,
+            crabtableInstanceService as any,
             commandService as any,
             docThreadCommentService as any,
             renderManagerService as any,
@@ -88,7 +88,7 @@ describe('DocThreadCommentSelectionController', () => {
             getBody: () => ({ customDecorations: [{ id: 'c1', startIndex: 0, endIndex: 5 }] }),
         };
 
-        const univerInstanceService = { getUnit: vi.fn(() => doc) };
+        const crabtableInstanceService = { getUnit: vi.fn(() => doc) };
 
         let onExecutedHandler: any;
         const executeCommand = vi.fn();
@@ -106,7 +106,7 @@ describe('DocThreadCommentSelectionController', () => {
 
         const controller = new DocThreadCommentSelectionController(
             threadCommentPanelService as any,
-            univerInstanceService as any,
+            crabtableInstanceService as any,
             commandService as any,
             docThreadCommentService as any,
             renderManagerService as any,

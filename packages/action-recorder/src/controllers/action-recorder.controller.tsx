@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-import { Disposable, ICommandService, Inject, Injector } from '@univerjs/core';
-import { RecordIcon } from '@univerjs/icons';
+import { Disposable, ICommandService, Inject, Injector } from '@crabtable/core';
 import {
     AddWorksheetMergeAllCommand,
     AddWorksheetMergeCommand,
@@ -48,8 +47,8 @@ import {
     SetVerticalTextAlignCommand,
     SetWorksheetActivateCommand,
     SetWorksheetActiveOperation,
-} from '@univerjs/sheets';
-import { RemoveSheetFilterCommand, SetSheetFilterRangeCommand, SetSheetsFilterCriteriaCommand } from '@univerjs/sheets-filter';
+} from '@crabtable/sheets';
+import { RemoveSheetFilterCommand, SetSheetFilterRangeCommand, SetSheetsFilterCriteriaCommand } from '@crabtable/sheets-filter';
 import {
     SetRangeBoldCommand,
     SetRangeFontFamilyCommand,
@@ -68,14 +67,15 @@ import {
     SheetPasteFormatCommand,
     SheetPasteShortKeyCommand,
     SheetPasteValueCommand,
-} from '@univerjs/sheets-ui';
+} from '@crabtable/sheets-ui';
 import {
     BuiltInUIPart,
     ComponentManager,
     connectInjector,
     IMenuManagerService,
     IUIPartsService,
-} from '@univerjs/ui';
+} from '@crabtable/ui';
+import { RecordIcon } from '@univerjs/icons';
 import { CompleteRecordingActionCommand, StartRecordingActionCommand, StopRecordingActionCommand } from '../commands/commands/record.command';
 import { ReplayLocalRecordCommand, ReplayLocalRecordOnActiveCommand, ReplayLocalRecordOnNamesakeCommand } from '../commands/commands/replay.command';
 import { CloseRecordPanelOperation, OpenRecordPanelOperation } from '../commands/operations/operation';

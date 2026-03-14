@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IRange, ISheetDataValidationRule, IUniverInstanceService, Workbook, Worksheet } from '@univerjs/core';
+import type { ICrabTableInstanceService, IRange, ISheetDataValidationRule, Workbook, Worksheet } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import { RuleMatrix } from '../rule-matrix';
 
@@ -34,11 +34,11 @@ function createMatrix(initial: Map<string, IRange[]> = new Map()) {
     const workbook = {
         getSheetBySheetId: () => worksheet,
     } as unknown as Workbook;
-    const univerInstanceService = {
+    const crabtableInstanceService = {
         getUnit: () => workbook,
-    } as unknown as IUniverInstanceService;
+    } as unknown as ICrabTableInstanceService;
 
-    return new RuleMatrix(initial, 'unit-1', 'sheet-1', univerInstanceService);
+    return new RuleMatrix(initial, 'unit-1', 'sheet-1', crabtableInstanceService);
 }
 
 describe('RuleMatrix', () => {

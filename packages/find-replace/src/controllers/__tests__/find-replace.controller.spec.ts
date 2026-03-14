@@ -22,9 +22,9 @@ import { FindReplaceController } from '../find-replace.controller';
 describe('FindReplaceController', () => {
     it('should open dialog when revealed and close when focus changes', () => {
         const focused$ = new Subject<any>();
-        const univerInstanceService = {
+        const crabtableInstanceService = {
             focused$,
-            getUniverSheetInstance: vi.fn(() => null),
+            getCrabTableSheetInstance: vi.fn(() => null),
         };
 
         const menuManagerService = { mergeMenu: vi.fn() };
@@ -41,7 +41,7 @@ describe('FindReplaceController', () => {
         const componentManager = { register: vi.fn(() => ({ dispose: vi.fn() })) };
 
         const controller = new FindReplaceController(
-            univerInstanceService as any,
+            crabtableInstanceService as any,
             menuManagerService as any,
             shortcutService as any,
             commandService as any,

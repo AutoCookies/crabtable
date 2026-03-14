@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IRange, ISelectionCell, Worksheet } from '@univerjs/core';
+import type { IRange, ISelectionCell, Worksheet } from '@crabtable/core';
 import type { ISelectionWithStyle } from '../../basics';
-import { Direction, Range, RANGE_TYPE, Rectangle } from '@univerjs/core';
+import { Direction, Range, RANGE_TYPE, Rectangle } from '@crabtable/core';
 
 const getPrimaryCellUp = (scopeRange: IRange, worksheet: Worksheet, currentPrimary: ISelectionCell, step: number = 1, isFindNext: boolean = true, isGoBack: boolean = true): IRange | undefined => {
     const movedRange = Range.transformRange(scopeRange, worksheet);

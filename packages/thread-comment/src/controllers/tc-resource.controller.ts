@@ -15,7 +15,7 @@
  */
 
 import type { IThreadComment } from '../types/interfaces/i-thread-comment';
-import { Disposable, Inject, IResourceManagerService, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, Disposable, Inject, IResourceManagerService } from '@crabtable/core';
 import { ThreadCommentModel } from '../models/thread-comment.model';
 import { IThreadCommentDataSourceService } from '../services/tc-datasource.service';
 import { TC_PLUGIN_NAME } from '../types/const';
@@ -66,7 +66,7 @@ export class ThreadCommentResourceController extends Disposable {
         this.disposeWithMe(
             this._resourceManagerService.registerPluginResource({
                 pluginName: SHEET_UNIVER_THREAD_COMMENT_PLUGIN,
-                businesses: [UniverInstanceType.UNIVER_SHEET, UniverInstanceType.UNIVER_DOC],
+                businesses: [CrabTableInstanceType.CRABTABLE_SHEET, CrabTableInstanceType.CRABTABLE_DOC],
                 toJson: (unitID) => toJson(unitID),
                 parseJson: (json) => parseJson(json),
                 onUnLoad: (unitID) => {

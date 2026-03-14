@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
 import type { IUniverUIConfig } from '../config/config';
-import { createIdentifier, IConfigService } from '@univerjs/core';
+import { createIdentifier, IConfigService } from '@crabtable/core';
 import { BehaviorSubject } from 'rxjs';
 import { UI_PLUGIN_CONFIG_KEY } from '../config/config';
 

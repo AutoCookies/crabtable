@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { ICellData, ISheetDataValidationRule, IUnitRangeName, IUniverInstanceService, Nullable, Workbook } from '@univerjs/core';
-import type { LexerTreeBuilder } from '@univerjs/engine-formula';
-import type { ISheetLocationBase } from '@univerjs/sheets';
-import { isFormulaString, Range, UniverInstanceType } from '@univerjs/core';
+import type { ICellData, ICrabTableInstanceService, ISheetDataValidationRule, IUnitRangeName, Nullable, Workbook } from '@crabtable/core';
+import type { LexerTreeBuilder } from '@crabtable/engine-formula';
+import type { ISheetLocationBase } from '@crabtable/sheets';
+import { CrabTableInstanceType, isFormulaString, Range } from '@crabtable/core';
 import { getCellValueOrigin } from '../utils/get-cell-data-origin';
 
-export function getSheetRangeValueSet(grid: IUnitRangeName, univerInstanceService: IUniverInstanceService, currUnitId: string, currSubUnitId: string) {
+export function getSheetRangeValueSet(grid: IUnitRangeName, crabtableInstanceService: ICrabTableInstanceService, currUnitId: string, currSubUnitId: string) {
     const set = new Set<string>();
     const unitId = grid.unitId || currUnitId;
-    const workbook = univerInstanceService.getUniverSheetInstance(unitId) ?? univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+    const workbook = crabtableInstanceService.getCrabTableSheetInstance(unitId) ?? crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
     const worksheet = workbook.getSheetBySheetName(grid.sheetName) ?? workbook.getSheetBySheetId(currSubUnitId) ?? workbook.getActiveSheet();
     Range.foreach(grid.range, (row, col) => {
         const data = worksheet?.getCellRaw(row, col);

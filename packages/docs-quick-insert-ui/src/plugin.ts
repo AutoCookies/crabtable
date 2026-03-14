@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverDocsQuickInsertUIConfig } from './config/config';
-import { DependentOn, IConfigService, Inject, Injector, merge, Plugin, UniverInstanceType } from '@univerjs/core';
-import { UniverDocsDrawingPlugin } from '@univerjs/docs-drawing';
-import { UniverDocsDrawingUIPlugin } from '@univerjs/docs-drawing-ui';
-import { UniverDrawingPlugin } from '@univerjs/drawing';
-import { UniverDrawingUIPlugin } from '@univerjs/drawing-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { UniverUIPlugin } from '@univerjs/ui';
+import { CrabTableInstanceType, DependentOn, IConfigService, Inject, Injector, merge, Plugin } from '@crabtable/core';
+import { UniverDocsDrawingPlugin } from '@crabtable/docs-drawing';
+import { UniverDocsDrawingUIPlugin } from '@crabtable/docs-drawing-ui';
+import { UniverDrawingPlugin } from '@crabtable/drawing';
+import { UniverDrawingUIPlugin } from '@crabtable/drawing-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { UniverUIPlugin } from '@crabtable/ui';
 import pkg from '../package.json';
 import { defaultPluginConfig, DOCS_QUICK_INSERT_UI_PLUGIN_CONFIG_KEY } from './config/config';
 import { DocQuickInsertTriggerController } from './controllers/doc-quick-insert-trigger.controller';
@@ -32,7 +32,7 @@ import { DocQuickInsertPopupService } from './services/doc-quick-insert-popup.se
 
 @DependentOn(UniverDrawingUIPlugin, UniverDrawingPlugin, UniverDocsDrawingUIPlugin, UniverDocsDrawingPlugin, UniverUIPlugin)
 export class UniverDocsQuickInsertUIPlugin extends Plugin {
-    static override type = UniverInstanceType.UNIVER_DOC;
+    static override type = CrabTableInstanceType.CRABTABLE_DOC;
     static override pluginName = 'DOC_QUICK_INSERT_UI_PLUGIN';
     static override packageName = pkg.name;
     static override version = pkg.version;
@@ -76,7 +76,7 @@ export class UniverDocsQuickInsertUIPlugin extends Plugin {
         ([
             [DocQuickInsertMenuController],
         ] as Dependency[]).forEach((m) => {
-            this._renderManagerSrv.registerRenderModule(UniverInstanceType.UNIVER_DOC, m);
+            this._renderManagerSrv.registerRenderModule(CrabTableInstanceType.CRABTABLE_DOC, m);
         });
     }
 }

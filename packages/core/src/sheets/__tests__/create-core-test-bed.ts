@@ -16,11 +16,11 @@
 
 import type { IWorkbookData } from '../typedef';
 import type { Workbook } from '../workbook';
-import { UniverInstanceType } from '../../common/unit';
-import { IUniverInstanceService } from '../../services/instance/instance.service';
+import { CrabTableInstanceType } from '../../common/unit';
+import { ICrabTableInstanceService } from '../../services/instance/instance.service';
 import { ILogService, LogLevel } from '../../services/log/log.service';
 import { LocaleType } from '../../types/enum/locale-type';
-import { Univer } from '../../univer';
+import { CrabTable } from '../../univer';
 
 const testWorkbookDataFactory: () => IWorkbookData = () => ({
     id: 'test',
@@ -48,14 +48,14 @@ const testWorkbookDataFactory: () => IWorkbookData = () => ({
 });
 
 export function createCoreTestBed(workbookData?: IWorkbookData) {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
-    const sheet = univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, workbookData || testWorkbookDataFactory());
+    const sheet = univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, workbookData || testWorkbookDataFactory());
 
-    const univerInstanceService = get(IUniverInstanceService);
-    univerInstanceService.focusUnit(workbookData?.id ?? 'test');
+    const crabtableInstanceService = get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit(workbookData?.id ?? 'test');
 
     const logService = get(ILogService);
     logService.setLogLevel(LogLevel.SILENT);

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IContextService } from '@univerjs/core';
+import type { IContextService } from '@crabtable/core';
 import type { ILayoutService } from '../../layout/layout.service';
 import { describe, expect, it, vi } from 'vitest';
 import { KeyCode, MetaKeys } from '../keycode';

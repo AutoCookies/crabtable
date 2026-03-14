@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ArrangeTypeEnum, IDisposable, IDrawingParam, IDrawingSearch, Nullable } from '@univerjs/core';
+import type { ArrangeTypeEnum, IDisposable, IDrawingParam, IDrawingSearch, Nullable } from '@crabtable/core';
 import type { Observable } from 'rxjs';
-import { createIdentifier } from '@univerjs/core';
+import { createIdentifier } from '@crabtable/core';
 
 export interface IDrawingMap<T extends IDrawingParam> {
     [unitId: string]: IDrawingSubunitMap<T>;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IDisposable, IMutationInfo, IRange, Nullable, Workbook } from '@univerjs/core';
+import type { IDisposable, IMutationInfo, IRange, Nullable, Workbook } from '@crabtable/core';
 import type { IDeleteRangeMoveLeftCommandParams } from '../../commands/commands/delete-range-move-left.command';
 import type { IDeleteRangeMoveUpCommandParams } from '../../commands/commands/delete-range-move-up.command';
 import type { IInsertRangeMoveDownCommandParams } from '../../commands/commands/insert-range-move-down.command';
@@ -29,17 +29,17 @@ import type { ISheetCommandSharedParams } from '../../commands/utils/interface';
 import type { EffectRefRangeParams } from './type';
 import {
     CommandType,
+    CrabTableInstanceType,
     createInterceptorKey,
     Disposable,
     ICommandService,
+    ICrabTableInstanceService,
     Inject,
     InterceptorManager,
-    IUniverInstanceService,
     RANGE_TYPE,
     Rectangle,
     toDisposable,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { getSheetCommandTarget } from '../../commands/commands/utils/target-util';
 import { MoveRangeMutation } from '../../commands/mutations/move-range.mutation';
 import { RemoveSheetMutation } from '../../commands/mutations/remove-sheet.mutation';
@@ -121,7 +121,7 @@ export class RefRangeService extends Disposable {
     constructor(
         @ICommandService private readonly _commandService: ICommandService,
         @Inject(SheetInterceptorService) private _sheetInterceptorService: SheetInterceptorService,
-        @Inject(IUniverInstanceService) private _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(SheetsSelectionsService) private _selectionManagerService: SheetsSelectionsService
     ) {
         super();
@@ -181,7 +181,7 @@ export class RefRangeService extends Disposable {
                     switch (command.id) {
                         case EffectRefRangId.MoveColsCommandId: {
                             const params = command.params as IMoveColsCommandParams;
-                            const target = getSheetCommandTarget(this._univerInstanceService, params);
+                            const target = getSheetCommandTarget(this._crabtableInstanceService, params);
                             if (!target) return [];
 
                             const { worksheet, unitId, subUnitId } = target;
@@ -195,7 +195,7 @@ export class RefRangeService extends Disposable {
                         }
                         case EffectRefRangId.MoveRowsCommandId: {
                             const params = command.params as IMoveRowsCommandParams;
-                            const target = getSheetCommandTarget(this._univerInstanceService, params);
+                            const target = getSheetCommandTarget(this._crabtableInstanceService, params);
                             if (!target) return [];
 
                             const { worksheet, unitId, subUnitId } = target;
@@ -209,7 +209,7 @@ export class RefRangeService extends Disposable {
                         }
                         case EffectRefRangId.MoveRangeCommandId: {
                             const params = command.params as IMoveRangeCommandParams;
-                            const target = getSheetCommandTarget(this._univerInstanceService);
+                            const target = getSheetCommandTarget(this._crabtableInstanceService);
                             if (!target) return [];
 
                             const { unitId, subUnitId } = target;
@@ -222,7 +222,7 @@ export class RefRangeService extends Disposable {
                         }
                         case EffectRefRangId.InsertRowCommandId: {
                             const params = command.params as IInsertRowCommandParams;
-                            const target = getSheetCommandTarget(this._univerInstanceService, params);
+                            const target = getSheetCommandTarget(this._crabtableInstanceService, params);
                             if (!target) return [];
 
                             const { worksheet, unitId, subUnitId } = target;
@@ -238,7 +238,7 @@ export class RefRangeService extends Disposable {
                         }
                         case EffectRefRangId.InsertColCommandId: {
                             const params = command.params as IInsertColCommandParams;
-                            const target = getSheetCommandTarget(this._univerInstanceService, params);
+                            const target = getSheetCommandTarget(this._crabtableInstanceService, params);
                             if (!target) return [];
 
                             const { worksheet, unitId, subUnitId } = target;
@@ -254,7 +254,7 @@ export class RefRangeService extends Disposable {
                         }
                         case EffectRefRangId.RemoveRowCommandId: {
                             const params = command.params as IRemoveRowColCommandParams;
-                            const target = getSheetCommandTarget(this._univerInstanceService);
+                            const target = getSheetCommandTarget(this._crabtableInstanceService);
                             if (!target) return [];
 
                             const { worksheet, unitId, subUnitId } = target;
@@ -270,7 +270,7 @@ export class RefRangeService extends Disposable {
                         }
                         case EffectRefRangId.RemoveColCommandId: {
                             const params = command.params as IRemoveRowColCommandParams;
-                            const target = getSheetCommandTarget(this._univerInstanceService);
+                            const target = getSheetCommandTarget(this._crabtableInstanceService);
                             if (!target) return [];
 
                             const { worksheet, unitId, subUnitId } = target;
@@ -287,7 +287,7 @@ export class RefRangeService extends Disposable {
                         case EffectRefRangId.DeleteRangeMoveUpCommandId:
                         case EffectRefRangId.InsertRangeMoveDownCommandId: {
                             const params = command.params as IDeleteRangeMoveUpCommandParams | IInsertRangeMoveDownCommandParams;
-                            const target = getSheetCommandTarget(this._univerInstanceService);
+                            const target = getSheetCommandTarget(this._crabtableInstanceService);
                             if (!target) return [];
 
                             const { worksheet, unitId, subUnitId } = target;
@@ -301,7 +301,7 @@ export class RefRangeService extends Disposable {
                         case EffectRefRangId.DeleteRangeMoveLeftCommandId:
                         case EffectRefRangId.InsertRangeMoveRightCommandId: {
                             const params = command.params as IDeleteRangeMoveLeftCommandParams | IInsertRangeMoveRightCommandParams;
-                            const target = getSheetCommandTarget(this._univerInstanceService);
+                            const target = getSheetCommandTarget(this._crabtableInstanceService);
                             if (!target) return [];
 
                             const { worksheet, unitId, subUnitId } = target;
@@ -314,7 +314,7 @@ export class RefRangeService extends Disposable {
                         }
                         case EffectRefRangId.ReorderRangeCommandId: {
                             const params = command.params as IReorderRangeCommandParams;
-                            const target = getSheetCommandTarget(this._univerInstanceService);
+                            const target = getSheetCommandTarget(this._crabtableInstanceService);
                             if (!target) return [];
 
                             const { unitId, subUnitId } = target;
@@ -439,8 +439,8 @@ export class RefRangeService extends Disposable {
         _unitId?: string,
         _subUnitId?: string
     ): IDisposable => {
-        const unitId = _unitId || getUnitId(this._univerInstanceService);
-        const subUnitId = _subUnitId || getSubUnitId(this._univerInstanceService);
+        const unitId = _unitId || getUnitId(this._crabtableInstanceService);
+        const subUnitId = _subUnitId || getSubUnitId(this._crabtableInstanceService);
         if (!unitId || !subUnitId) {
             return toDisposable(() => {});
         }
@@ -475,12 +475,12 @@ export class RefRangeService extends Disposable {
     };
 }
 
-function getUnitId(univerInstanceService: IUniverInstanceService) {
-    return univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getUnitId();
+function getUnitId(crabtableInstanceService: ICrabTableInstanceService) {
+    return crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getUnitId();
 }
 
-function getSubUnitId(univerInstanceService: IUniverInstanceService) {
-    return univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getActiveSheet()?.getSheetId();
+function getSubUnitId(crabtableInstanceService: ICrabTableInstanceService) {
+    return crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getActiveSheet()?.getSheetId();
 }
 
 function getRefRangId(unitId: string, subUnitId: string) {

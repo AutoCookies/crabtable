@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommandInfo, IDrawingParam, ITransformState } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { Documents, DocumentSkeleton, IDocumentSkeletonHeaderFooter, IDocumentSkeletonPage, Image, IRenderContext, IRenderModule } from '@univerjs/engine-render';
+import type { DocumentDataModel, ICommandInfo, IDrawingParam, ITransformState } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { Documents, DocumentSkeleton, IDocumentSkeletonHeaderFooter, IDocumentSkeletonPage, Image, IRenderContext, IRenderModule } from '@crabtable/engine-render';
 import {
     BooleanNumber,
     Disposable,
     DOCS_ZEN_EDITOR_UNIT_ID_KEY,
     fromEventSubject,
     ICommandService,
+    ICrabTableInstanceService,
     Inject,
-    IUniverInstanceService,
     LifecycleService,
     LifecycleStages,
     PositionedObjectLayoutType,
-} from '@univerjs/core';
-import { DocSkeletonManagerService, RichTextEditingMutation } from '@univerjs/docs';
-import { IEditorService, SetDocZoomRatioOperation } from '@univerjs/docs-ui';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { Liquid, TRANSFORM_CHANGE_OBSERVABLE_TYPE } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { DocSkeletonManagerService, RichTextEditingMutation } from '@crabtable/docs';
+import { IEditorService, SetDocZoomRatioOperation } from '@crabtable/docs-ui';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { Liquid, TRANSFORM_CHANGE_OBSERVABLE_TYPE } from '@crabtable/engine-render';
 import { debounceTime, filter } from 'rxjs';
 import { DocRefreshDrawingsService } from '../../services/doc-refresh-drawings.service';
 
@@ -58,7 +58,7 @@ export class DocDrawingTransformUpdateController extends Disposable implements I
         @IEditorService private readonly _editorService: IEditorService,
         @IDrawingManagerService private readonly _drawingManagerService: IDrawingManagerService,
         @Inject(DocRefreshDrawingsService) private readonly _docRefreshDrawingsService: DocRefreshDrawingsService,
-        @IUniverInstanceService private _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(LifecycleService) private _lifecycleService: LifecycleService
     ) {
         super();

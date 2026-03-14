@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo } from '@univerjs/core';
-import type { IUniverUIConfig } from '@univerjs/ui';
+import type { ICommandInfo } from '@crabtable/core';
+import type { IUniverUIConfig } from '@crabtable/ui';
 import type { KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent } from 'react';
 import type { IBaseSheetBarProps } from './SheetBarItem';
 import type { IScrollState } from './utils/slide-tab-bar';
@@ -26,8 +26,7 @@ import {
     LocaleService,
     nameCharacterCheck,
     Quantity,
-} from '@univerjs/core';
-import { LockIcon } from '@univerjs/icons';
+} from '@crabtable/core';
 import {
     InsertSheetMutation,
     RangeProtectionRuleModel,
@@ -42,8 +41,9 @@ import {
     WorkbookManageCollaboratorPermission,
     WorkbookRenameSheetPermission,
     WorksheetProtectionRuleModel,
-} from '@univerjs/sheets';
-import { UI_PLUGIN_CONFIG_KEY, useConfigValue, useDependency, useObservable } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { UI_PLUGIN_CONFIG_KEY, useConfigValue, useDependency, useObservable } from '@crabtable/ui';
+import { LockIcon } from '@univerjs/icons';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { merge } from 'rxjs';
 import { useActiveWorkbook } from '../../../components/hook';

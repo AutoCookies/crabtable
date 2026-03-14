@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICommandService } from '@univerjs/core';
-import type { ComponentManager, IMenuManagerService } from '@univerjs/ui';
+import type { ICommandService } from '@crabtable/core';
+import type { ComponentManager, IMenuManagerService } from '@crabtable/ui';
 import { describe, expect, it, vi } from 'vitest';
 import { COMPONENT_IMAGE_POPUP_MENU } from '../../views/image-popup-menu/component-name';
 import { DrawingUIController } from '../drawing-ui.controller';

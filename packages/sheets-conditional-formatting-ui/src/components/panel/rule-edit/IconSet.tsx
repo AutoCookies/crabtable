@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { IIconSet, IIconType } from '@univerjs/sheets-conditional-formatting';
-import type { IFormulaEditorRef } from '@univerjs/sheets-formula-ui';
+import type { Workbook } from '@crabtable/core';
+import type { IIconSet, IIconType } from '@crabtable/sheets-conditional-formatting';
+import type { IFormulaEditorRef } from '@crabtable/sheets-formula-ui';
 import type { IStyleEditorProps } from './type';
-import { get, IUniverInstanceService, LocaleService, set, Tools, UniverInstanceType } from '@univerjs/core';
-import { borderClassName, Checkbox, clsx, Dropdown, InputNumber, Select } from '@univerjs/design';
-import { MoreDownIcon, SlashDoubleIcon } from '@univerjs/icons';
+import { CrabTableInstanceType, get, ICrabTableInstanceService, LocaleService, set, Tools } from '@crabtable/core';
+import { borderClassName, Checkbox, clsx, Dropdown, InputNumber, Select } from '@crabtable/design';
 import {
     CFNumberOperator,
     CFRuleType,
@@ -32,9 +31,10 @@ import {
     getOppositeOperator,
     iconGroup,
     iconMap,
-} from '@univerjs/sheets-conditional-formatting';
-import { FormulaEditor } from '@univerjs/sheets-formula-ui';
-import { ILayoutService, useDependency, useScrollYOverContainer, useSidebarClick } from '@univerjs/ui';
+} from '@crabtable/sheets-conditional-formatting';
+import { FormulaEditor } from '@crabtable/sheets-formula-ui';
+import { ILayoutService, useDependency, useScrollYOverContainer, useSidebarClick } from '@crabtable/ui';
+import { MoreDownIcon, SlashDoubleIcon } from '@univerjs/icons';
 import { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 
 const getIcon = (iconType: string, iconId: string | number) => {
@@ -45,9 +45,9 @@ const getIcon = (iconType: string, iconId: string | number) => {
 const TextInput = (props: { id: number; type: CFValueType; value: number | string; onChange: (v: number | string) => void; error?: string }) => {
     const { error, type, onChange } = props;
 
-    const univerInstanceService = useDependency(IUniverInstanceService);
-    const unitId = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getUnitId();
-    const subUnitId = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()?.getSheetId();
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
+    const unitId = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getUnitId();
+    const subUnitId = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()?.getSheetId();
 
     const formulaEditorRef = useRef<IFormulaEditorRef>(null);
     const [isFocusFormulaEditor, setIsFocusFormulaEditor] = useState(false);

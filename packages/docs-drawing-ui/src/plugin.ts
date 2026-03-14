@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverDocsDrawingUIConfig } from './config/config';
-import { DependentOn, IConfigService, Inject, Injector, merge, Plugin, UniverInstanceType } from '@univerjs/core';
-import { UniverDocsDrawingPlugin } from '@univerjs/docs-drawing';
-import { UniverDrawingPlugin } from '@univerjs/drawing';
-import { UniverDrawingUIPlugin } from '@univerjs/drawing-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { UniverUIPlugin } from '@univerjs/ui';
+import { CrabTableInstanceType, DependentOn, IConfigService, Inject, Injector, merge, Plugin } from '@crabtable/core';
+import { UniverDocsDrawingPlugin } from '@crabtable/docs-drawing';
+import { UniverDrawingPlugin } from '@crabtable/drawing';
+import { UniverDrawingUIPlugin } from '@crabtable/drawing-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { UniverUIPlugin } from '@crabtable/ui';
 import pkg from '../package.json';
 import { defaultPluginConfig, DOCS_DRAWING_UI_PLUGIN_CONFIG_KEY } from './config/config';
 import { DocDrawingAddRemoveController } from './controllers/doc-drawing-notification.controller';
@@ -36,7 +36,7 @@ import { DocRefreshDrawingsService } from './services/doc-refresh-drawings.servi
 
 @DependentOn(UniverDrawingUIPlugin, UniverDrawingPlugin, UniverDocsDrawingPlugin, UniverUIPlugin)
 export class UniverDocsDrawingUIPlugin extends Plugin {
-    static override type = UniverInstanceType.UNIVER_DOC;
+    static override type = CrabTableInstanceType.CRABTABLE_DOC;
     static override pluginName = 'DOC_DRAWING_UI_PLUGIN';
     static override packageName = pkg.name;
     static override version = pkg.version;
@@ -76,7 +76,7 @@ export class UniverDocsDrawingUIPlugin extends Plugin {
         ([
             [DocDrawingUpdateRenderController],
             [DocDrawingTransformUpdateController],
-        ] as Dependency[]).forEach((m) => this._renderManagerSrv.registerRenderModule(UniverInstanceType.UNIVER_DOC, m));
+        ] as Dependency[]).forEach((m) => this._renderManagerSrv.registerRenderModule(CrabTableInstanceType.CRABTABLE_DOC, m));
 
         this._injector.get(DocDrawingAddRemoveController);
         this._injector.get(DocDrawingUIController);

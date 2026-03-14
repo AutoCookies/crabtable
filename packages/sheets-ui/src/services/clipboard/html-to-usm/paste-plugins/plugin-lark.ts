@@ -16,7 +16,7 @@
 
 import type { IPastePlugin } from './type';
 
-import { BooleanNumber } from '@univerjs/core';
+import { BooleanNumber } from '@crabtable/core';
 import { extractNodeStyle as getInlineStyle } from '../parse-node-style';
 
 export const LarkPastePlugin: IPastePlugin = {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { TableConditionTypeEnum, TableDateCompareTypeEnum, TableNumberCompareTypeEnum, TableStringCompareTypeEnum } from '@univerjs/sheets-table';
+import { TableConditionTypeEnum, TableDateCompareTypeEnum, TableNumberCompareTypeEnum, TableStringCompareTypeEnum } from '@crabtable/sheets-table';
 import { describe, expect, it } from 'vitest';
 import { ConditionSubComponentEnum } from '../type';
 import { getCascaderListOptions, getConditionDateSelect, getInitConditionInfo, getSubComponentType } from '../util';

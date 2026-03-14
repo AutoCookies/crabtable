@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverSheetsThreadCommentConfig } from './config/config';
-import { DependentOn, ICommandService, Inject, Injector, Plugin, touchDependencies, UniverInstanceType } from '@univerjs/core';
-import { UniverThreadCommentPlugin } from '@univerjs/thread-comment';
+import { CrabTableInstanceType, DependentOn, ICommandService, Inject, Injector, Plugin, touchDependencies } from '@crabtable/core';
+import { UniverThreadCommentPlugin } from '@crabtable/thread-comment';
 import pkg from '../package.json';
 import { defaultPluginConfig } from './config/config';
 import { SheetsThreadCommentRefRangeController } from './controllers/sheets-thread-comment-ref-range.controller';
@@ -30,7 +30,7 @@ export class UniverSheetsThreadCommentPlugin extends Plugin {
     static override pluginName = SHEET_THREAD_COMMENT_BASE;
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
     constructor(
         private readonly _config: Partial<IUniverSheetsThreadCommentConfig> = defaultPluginConfig,

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
+import type { Workbook } from '@crabtable/core';
 import type { WorkbookSelectionModel } from '../selection-data-model';
 import { firstValueFrom, Subject } from 'rxjs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';

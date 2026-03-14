@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICellData, IRange, Nullable } from '@univerjs/core';
+import type { ICellData, IRange, Nullable } from '@crabtable/core';
 import type {
     IArrayFormulaEmbeddedMap,
     IArrayFormulaRangeType,
@@ -29,7 +29,7 @@ import type { BaseReferenceObject, FunctionVariantType } from '../engine/referen
 import type { ArrayValueObject } from '../engine/value-object/array-value-object';
 import type { BaseValueObject } from '../engine/value-object/base-value-object';
 import type { StringValueObject } from '../engine/value-object/primitive-object';
-import { createIdentifier, Disposable, ObjectMatrix } from '@univerjs/core';
+import { createIdentifier, Disposable, ObjectMatrix } from '@crabtable/core';
 import { isInDirtyRange } from '../basics/dirty';
 import { ErrorType } from '../basics/error-type';
 import { CELL_INVERTED_INDEX_CACHE } from '../basics/inverted-index-cache';

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IUniverInstanceService, Nullable } from '@univerjs/core';
+import type { ICrabTableInstanceService, Nullable } from '@crabtable/core';
 import type {
     Engine,
     IRenderContext,
@@ -26,9 +26,9 @@ import type {
     SpreadsheetHeader,
     SpreadsheetSkeleton,
     Viewport,
-} from '@univerjs/engine-render';
-import { UniverInstanceType, Workbook } from '@univerjs/core';
-import { SHEET_VIEWPORT_KEY, Vector2 } from '@univerjs/engine-render';
+} from '@crabtable/engine-render';
+import { CrabTableInstanceType, Workbook } from '@crabtable/core';
+import { SHEET_VIEWPORT_KEY, Vector2 } from '@crabtable/engine-render';
 
 import { SHEET_VIEW_KEY } from '../../common/keys';
 
@@ -52,12 +52,12 @@ function isRenderManagerService(renderManagerService: IRenderManagerService | IR
  * Get render objects of a spreadsheet.
  */
 export function getSheetObject(
-    univerInstanceService: IUniverInstanceService | Workbook,
+    crabtableInstanceService: ICrabTableInstanceService | Workbook,
     renderManagerService: IRenderManagerService | IRenderContext
 ): Nullable<ISheetObjectParam> {
-    const workbook = univerInstanceService instanceof Workbook
-        ? univerInstanceService
-        : univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const workbook = crabtableInstanceService instanceof Workbook
+        ? crabtableInstanceService
+        : crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     if (!workbook) return null;
 
     const unitId = workbook.getUnitId();

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import { IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { useDependency, useObservable } from '@univerjs/ui';
+import type { Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { of } from 'rxjs';
 import { DataValidationPanelService } from '../../../services/data-validation-panel.service';
 import { DataValidationDetail } from '../detail';
@@ -25,9 +25,9 @@ import { DataValidationList } from '../list';
 export const DataValidationPanel = () => {
     const dataValidationPanelService = useDependency(DataValidationPanelService);
     const activeRule = useObservable(dataValidationPanelService.activeRule$, dataValidationPanelService.activeRule);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const workbook = useObservable(
-        () => univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET),
+        () => crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET),
         undefined,
         undefined,
         []

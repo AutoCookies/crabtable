@@ -14,24 +14,25 @@
  * limitations under the License.
  */
 
+import type { Theme } from '@crabtable/themes';
 import type { Preview } from '@storybook/react';
-import type { Theme } from '@univerjs/themes';
 import {
     CommandService,
     ConfigService,
     ContextService,
+    CrabTableInstanceService,
     DesktopLogService,
     ErrorService,
     ICommandService,
     IConfigService,
     IContextService,
+    ICrabTableInstanceService,
     ILocalStorageService,
     ILogService,
     Injector,
     IPermissionService,
     IResourceManagerService,
     IUndoRedoService,
-    IUniverInstanceService,
     LifecycleService,
     LocaleService,
     LocaleType,
@@ -39,13 +40,12 @@ import {
     PermissionService,
     ResourceManagerService,
     ThemeService,
-    UniverInstanceService,
-} from '@univerjs/core';
-import { ConfigProvider } from '@univerjs/design';
-import enUS from '@univerjs/design/locale/en-US';
-import zhCN from '@univerjs/design/locale/zh-CN';
-import { defaultTheme, greenTheme } from '@univerjs/themes';
-import { DesktopLocalStorageService, RediContext, ThemeSwitcherService } from '@univerjs/ui';
+} from '@crabtable/core';
+import { ConfigProvider } from '@crabtable/design';
+import enUS from '@crabtable/design/locale/en-US';
+import zhCN from '@crabtable/design/locale/zh-CN';
+import { defaultTheme, greenTheme } from '@crabtable/themes';
+import { DesktopLocalStorageService, RediContext, ThemeSwitcherService } from '@crabtable/ui';
 
 import { useEffect, useMemo } from 'react';
 import './global.css';
@@ -118,7 +118,7 @@ const preview: Preview = {
         const rediContext = useMemo(() => {
             const injector = new Injector([
                 [ThemeSwitcherService],
-                [IUniverInstanceService, { useClass: UniverInstanceService }],
+                [ICrabTableInstanceService, { useClass: CrabTableInstanceService }],
                 [ErrorService],
                 [LocaleService],
                 [ThemeService],

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IUniverInstanceService, Nullable } from '@univerjs/core';
-import type { DocBackground, Documents, Engine, IRenderContext, IRenderManagerService, Scene } from '@univerjs/engine-render';
-import { UniverInstanceType } from '@univerjs/core';
+import type { DocumentDataModel, ICrabTableInstanceService, Nullable } from '@crabtable/core';
+import type { DocBackground, Documents, Engine, IRenderContext, IRenderManagerService, Scene } from '@crabtable/engine-render';
+import { CrabTableInstanceType } from '@crabtable/core';
 import { DOCS_VIEW_KEY } from './docs-view-key';
 
 export interface IDocObjectParam {
@@ -41,10 +41,10 @@ export function neoGetDocObject(renderContext: IRenderContext<DocumentDataModel>
 
 /** @deprecated After migrating to `RenderUnit`, use `neoGetDocObject` instead. */
 export function getDocObject(
-    univerInstanceService: IUniverInstanceService,
+    crabtableInstanceService: ICrabTableInstanceService,
     renderManagerService: IRenderManagerService
 ): Nullable<IDocObjectParam> {
-    const documentModel = univerInstanceService.getCurrentUnitOfType(UniverInstanceType.UNIVER_DOC);
+    const documentModel = crabtableInstanceService.getCurrentUnitOfType(CrabTableInstanceType.CRABTABLE_DOC);
     if (!documentModel) {
         return null;
     }

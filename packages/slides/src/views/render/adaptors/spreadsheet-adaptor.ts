@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { EventState, IPageElement } from '@univerjs/core';
-import type { IScrollObserverParam, IWheelEvent } from '@univerjs/engine-render';
-import { IConfigService, IContextService, Inject, Injector, LocaleService, PageElementType, Styles, Worksheet } from '@univerjs/core';
+import type { EventState, IPageElement } from '@crabtable/core';
+import type { IScrollObserverParam, IWheelEvent } from '@crabtable/engine-render';
+import { IConfigService, IContextService, Inject, Injector, LocaleService, PageElementType, Styles, Worksheet } from '@crabtable/core';
 import {
     getColor,
     Rect,
@@ -28,7 +28,7 @@ import {
     SpreadsheetRowHeader,
     SpreadsheetSkeleton,
     Viewport,
-} from '@univerjs/engine-render';
+} from '@crabtable/engine-render';
 
 import { CanvasObjectProviderRegistry, ObjectAdaptor } from '../adaptor';
 

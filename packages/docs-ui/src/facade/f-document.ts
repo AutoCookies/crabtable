@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IDocumentData } from '@univerjs/core';
+import type { DocumentDataModel, IDocumentData } from '@crabtable/core';
 import {
+    CrabTableInstanceType,
     DOC_RANGE_TYPE,
     ICommandService,
+    ICrabTableInstanceService,
     Inject,
     Injector,
     IResourceManagerService,
-    IUniverInstanceService,
     RedoCommand,
     UndoCommand,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { DocSelectionRenderService, InsertCommand } from '@univerjs/docs-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { DocSelectionRenderService, InsertCommand } from '@crabtable/docs-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
 
 /**
  * @hideconstructor
@@ -38,7 +38,7 @@ export class FDocument {
     constructor(
         private readonly _documentDataModel: DocumentDataModel,
         @Inject(Injector) protected readonly _injector: Injector,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService,
         @IResourceManagerService private readonly _resourceManagerService: IResourceManagerService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService
@@ -55,19 +55,19 @@ export class FDocument {
     }
 
     getSnapshot(): IDocumentData {
-        const resources = this._resourceManagerService.getResourcesByType(this.id, UniverInstanceType.UNIVER_DOC);
+        const resources = this._resourceManagerService.getResourcesByType(this.id, CrabTableInstanceType.CRABTABLE_DOC);
         const snapshot = this._documentDataModel.getSnapshot() as IDocumentData;
         snapshot.resources = resources;
         return snapshot;
     }
 
     undo(): Promise<boolean> {
-        this._univerInstanceService.focusUnit(this.id);
+        this._crabtableInstanceService.focusUnit(this.id);
         return this._commandService.executeCommand(UndoCommand.id);
     }
 
     redo(): Promise<boolean> {
-        this._univerInstanceService.focusUnit(this.id);
+        this._crabtableInstanceService.focusUnit(this.id);
         return this._commandService.executeCommand(RedoCommand.id);
     }
 

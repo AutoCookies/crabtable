@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { ICellDataWithSpanInfo } from './type';
-import { cloneValue } from '@univerjs/core';
+import { cloneValue } from '@crabtable/core';
 
 /**
  * Fast clone for ICellDataWithSpanInfo. Optimized for the known structure.

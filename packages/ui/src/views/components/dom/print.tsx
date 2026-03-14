@@ -15,14 +15,14 @@
  */
 
 import type { IFloatDom, IFloatDomLayout } from '../../../services/dom/canvas-dom-layer.service';
-import { IUniverInstanceService } from '@univerjs/core';
+import { ICrabTableInstanceService } from '@crabtable/core';
 import { useDependency } from '@wendellhu/redi/react-bindings';
 import { memo, useMemo, useRef } from 'react';
 import { ComponentManager } from '../../../common';
 
 export const PrintFloatDomSingle = memo((props: { layer: IFloatDom; id: string; position: IFloatDomLayout }) => {
     const { layer, id, position } = props;
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const domRef = useRef<HTMLDivElement>(null);
     const innerDomRef = useRef<HTMLDivElement>(null);
     const transformRef = useRef<string>(`transform: rotate(${position?.rotate}deg) translate(${position?.startX}px, ${position?.startY}px)`);
@@ -47,7 +47,7 @@ export const PrintFloatDomSingle = memo((props: { layer: IFloatDom; id: string; 
     topRef.current = position.startY;
     leftRef.current = position.startX;
 
-    const instance = univerInstanceService.getUnit(layer.unitId);
+    const instance = crabtableInstanceService.getUnit(layer.unitId);
     const component = useMemo(() => Component
         ? (
             <Component

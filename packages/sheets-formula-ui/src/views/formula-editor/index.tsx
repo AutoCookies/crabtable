@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IDisposable, ITextRange } from '@univerjs/core';
-import type { Editor, IKeyboardEventConfig } from '@univerjs/docs-ui';
-import type { KeyCode, MetaKeys } from '@univerjs/ui';
+import type { DocumentDataModel, IDisposable, ITextRange } from '@crabtable/core';
+import type { Editor, IKeyboardEventConfig } from '@crabtable/docs-ui';
+import type { KeyCode, MetaKeys } from '@crabtable/ui';
 import type { CSSProperties, ReactNode, Ref } from 'react';
 import type { IUniverSheetsFormulaUIConfig } from '../../config/config';
 import type { FormulaSelectingType } from './hooks/use-formula-selection';
 import type { IRefSelection } from './hooks/use-highlight';
-import { BuildTextUtils, createInternalEditorID, generateRandomId, IConfigService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { clsx } from '@univerjs/design';
-import { DocBackScrollRenderController, DocSelectionRenderService, IEditorService, useKeyboardEvent, useResize } from '@univerjs/docs-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { EMBEDDING_FORMULA_EDITOR } from '@univerjs/sheets-ui';
-import { useDependency, useEvent, useObservable, useUpdateEffect } from '@univerjs/ui';
+import { BuildTextUtils, CrabTableInstanceType, createInternalEditorID, generateRandomId, IConfigService, ICrabTableInstanceService } from '@crabtable/core';
+import { clsx } from '@crabtable/design';
+import { DocBackScrollRenderController, DocSelectionRenderService, IEditorService, useKeyboardEvent, useResize } from '@crabtable/docs-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { EMBEDDING_FORMULA_EDITOR } from '@crabtable/sheets-ui';
+import { useDependency, useEvent, useObservable, useUpdateEffect } from '@crabtable/ui';
 import { forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { PLUGIN_CONFIG_KEY_BASE } from '../../config/config';
 import { findIndexFromSequenceNodes, findRefSequenceIndex } from '../range-selector/utils/find-index-from-sequence-nodes';
@@ -126,8 +126,8 @@ export const FormulaEditor = forwardRef((props: IFormulaEditorProps, ref: Ref<IF
     const formulaEditorContainerRef = useRef(null);
     const editorId = useMemo(() => propEditorId ?? createInternalEditorID(`${EMBEDDING_FORMULA_EDITOR}-${generateRandomId(4)}`), []);
     const isError = useMemo(() => errorText !== undefined, [errorText]);
-    const univerInstanceService = useDependency(IUniverInstanceService);
-    const document = univerInstanceService.getUnit<DocumentDataModel>(editorId);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
+    const document = crabtableInstanceService.getUnit<DocumentDataModel>(editorId);
     useObservable(document?.change$);
     const getFormulaToken = useFormulaToken();
     const formulaText = BuildTextUtils.transform.getPlainText(document?.getBody()?.dataStream ?? '');
@@ -140,7 +140,7 @@ export const FormulaEditor = forwardRef((props: IFormulaEditorProps, ref: Ref<IF
     const renderer = renderManagerService.getRenderById(editorId);
     const docSelectionRenderService = renderer?.with(DocSelectionRenderService);
     const isFocusing = docSelectionRenderService?.isFocusing;
-    const currentDoc$ = useMemo(() => univerInstanceService.getCurrentTypeOfUnit$(UniverInstanceType.UNIVER_DOC), [univerInstanceService]);
+    const currentDoc$ = useMemo(() => crabtableInstanceService.getCurrentTypeOfUnit$(CrabTableInstanceType.CRABTABLE_DOC), [crabtableInstanceService]);
     const currentDoc = useObservable(currentDoc$);
     const docFocusing = currentDoc?.getUnitId() === editorId;
     const refSelections = useRef([] as IRefSelection[]);

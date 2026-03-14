@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IDisposable, IRange, Nullable } from '@univerjs/core';
-import type { EffectRefRangeParams } from '@univerjs/sheets';
-import type { IAddCommentMutationParams, IUpdateCommentRefMutationParams } from '@univerjs/thread-comment';
+import type { IDisposable, IRange, Nullable } from '@crabtable/core';
+import type { EffectRefRangeParams } from '@crabtable/sheets';
+import type { IAddCommentMutationParams, IUpdateCommentRefMutationParams } from '@crabtable/thread-comment';
 import type { ISheetThreadComment } from '../types/interfaces/i-sheet-thread-comment';
-import { Disposable, ICommandService, Inject, sequenceExecuteAsync, toDisposable } from '@univerjs/core';
-import { serializeRange, singleReferenceToGrid } from '@univerjs/engine-formula';
-import { handleCommonRangeChangeWithEffectRefCommandsSkipNoInterests, RefRangeService, SheetsSelectionsService } from '@univerjs/sheets';
-import { AddCommentMutation, DeleteCommentMutation, ThreadCommentModel, UpdateCommentRefMutation } from '@univerjs/thread-comment';
+import { Disposable, ICommandService, Inject, sequenceExecuteAsync, toDisposable } from '@crabtable/core';
+import { serializeRange, singleReferenceToGrid } from '@crabtable/engine-formula';
+import { handleCommonRangeChangeWithEffectRefCommandsSkipNoInterests, RefRangeService, SheetsSelectionsService } from '@crabtable/sheets';
+import { AddCommentMutation, DeleteCommentMutation, ThreadCommentModel, UpdateCommentRefMutation } from '@crabtable/thread-comment';
 import { SheetsThreadCommentModel } from '../models/sheets-thread-comment.model';
 
 export class SheetsThreadCommentRefRangeController extends Disposable {

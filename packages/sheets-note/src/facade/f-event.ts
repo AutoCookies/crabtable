@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ISheetNote } from '@univerjs/sheets-note';
-import type { FWorkbook, FWorksheet } from '@univerjs/sheets/facade';
-import { FEventName } from '@univerjs/core/facade';
+import type { ISheetNote } from '@crabtable/sheets-note';
+import type { FWorkbook, FWorksheet } from '@crabtable/sheets/facade';
+import { FEventName } from '@crabtable/core/facade';
 
 export interface ISheetNoteAddEventParams {
     workbook: FWorkbook;
@@ -88,7 +88,7 @@ interface ISheetNoteEvent {
      * @see {@link ISheetNoteAddEventParams}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SheetNoteAdd, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetNoteAdd, (params) => {
      *   const { workbook, worksheet, row, col, note } = params;
      *   console.log(params);
      * });
@@ -102,7 +102,7 @@ interface ISheetNoteEvent {
      * @see {@link ISheetNoteDeleteEventParams}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SheetNoteDelete, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetNoteDelete, (params) => {
      *   const { workbook, worksheet, row, col, oldNote } = params;
      *   console.log(params);
      * });
@@ -116,7 +116,7 @@ interface ISheetNoteEvent {
      * @see {@link ISheetNoteUpdateEventParams}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SheetNoteUpdate, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetNoteUpdate, (params) => {
      *   const { workbook, worksheet, row, col, note, oldNote } = params;
      *   console.log(params);
      * });
@@ -130,7 +130,7 @@ interface ISheetNoteEvent {
      * @see {@link ISheetNoteShowEventParams}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SheetNoteShow, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetNoteShow, (params) => {
      *   const { workbook, worksheet, row, col } = params;
      *   console.log(params);
      * });
@@ -144,7 +144,7 @@ interface ISheetNoteEvent {
      * @see {@link ISheetNoteHideEventParams}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SheetNoteHide, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetNoteHide, (params) => {
      *   const { workbook, worksheet, row, col } = params;
      *   console.log(params);
      * });
@@ -159,7 +159,7 @@ interface ISheetNoteEvent {
      * @see {@link ISheetNoteAddEventParams}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetNoteAdd, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetNoteAdd, (params) => {
      *   const { workbook, worksheet, row, col, note } = params;
      *   console.log(params);
      *
@@ -176,7 +176,7 @@ interface ISheetNoteEvent {
      * @see {@link ISheetNoteDeleteEventParams}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetNoteDelete, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetNoteDelete, (params) => {
      *   const { workbook, worksheet, row, col, oldNote } = params;
      *   console.log(params);
      *
@@ -193,7 +193,7 @@ interface ISheetNoteEvent {
      * @see {@link ISheetNoteUpdateEventParams}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetNoteUpdate, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetNoteUpdate, (params) => {
      *   const { workbook, worksheet, row, col, note, oldNote } = params;
      *   console.log(params);
      *
@@ -210,7 +210,7 @@ interface ISheetNoteEvent {
      * @see {@link ISheetNoteShowEventParams}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetNoteShow, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetNoteShow, (params) => {
      *   const { workbook, worksheet, row, col } = params;
      *   console.log(params);
      *
@@ -227,7 +227,7 @@ interface ISheetNoteEvent {
      * @see {@link ISheetNoteHideEventParams}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetNoteHide, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetNoteHide, (params) => {
      *   const { workbook, worksheet, row, col } = params;
      *   console.log(params);
      *
@@ -304,7 +304,7 @@ export interface ISheetNoteEventConfig {
 }
 
 FEventName.extend(FSheetNoteEvent);
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FEventName extends ISheetNoteEvent {}
     interface IEventParamConfig extends ISheetNoteEventConfig {}

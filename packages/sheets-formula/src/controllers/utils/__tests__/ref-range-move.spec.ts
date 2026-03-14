@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { RANGE_TYPE } from '@univerjs/core';
+import { RANGE_TYPE } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import { checkMoveEdge, OriginRangeEdgeType } from '../ref-range-move';
 

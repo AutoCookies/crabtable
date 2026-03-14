@@ -1,14 +1,14 @@
 {
-    "name": "@univerjs/storybook",
+    "name": "@crabtable/storybook",
     "version": "0.17.0",
     "private": true,
     "description": "Some infrastructures for univerjs",
-    "author": "DreamNum <developer@univer.ai>",
+    "author": "DreamNum <developer@crabtable.dev>",
     "license": "Apache-2.0",
-    "homepage": "https://github.com/dream-num/univer",
+    "homepage": "https://github.com/AutoCookies/crabtable",
     "repository": {
         "type": "git",
-        "url": "https://github.com/dream-num/univer.git"
+        "url": "https://github.com/AutoCookies/crabtable.git"
     },
     "keywords": [],
     "scripts": {
@@ -24,10 +24,10 @@
         "@storybook/icons": "^2.0.1",
         "@storybook/react": "^10.2.12",
         "@storybook/react-webpack5": "^10.2.12",
-        "@univerjs/core": "workspace:*",
-        "@univerjs/design": "workspace:*",
-        "@univerjs/themes": "workspace:*",
-        "@univerjs/ui": "workspace:*",
+        "@crabtable/core": "*",
+        "@crabtable/design": "*",
+        "@crabtable/themes": "*",
+        "@crabtable/ui": "*",
         "css-loader": "^7.1.4",
         "postcss-loader": "^8.2.1",
         "storybook": "^10.2.12",
@@ -38,7 +38,7 @@
     },
     "devDependencies": {
         "@types/fs-extra": "^11.0.4",
-        "@univerjs-infra/shared": "workspace:*",
+        "@crabtable-infra/shared": "*",
         "fs-extra": "^11.3.4",
         "postcss": "^8.5.8",
         "tailwindcss": "3.4.18",

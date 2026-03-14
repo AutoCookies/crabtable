@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ISheetLocationBase } from '@univerjs/sheets';
-import { IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { getCurrentTypeOfRenderer, IRenderManagerService } from '@univerjs/engine-render';
-import { FileNamePart, IBatchSaveImagesService, SheetDrawingUpdateController } from '@univerjs/sheets-drawing-ui';
-import { FRange } from '@univerjs/sheets/facade';
+import type { ISheetLocationBase } from '@crabtable/sheets';
+import { CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
+import { getCurrentTypeOfRenderer, IRenderManagerService } from '@crabtable/engine-render';
+import { FileNamePart, IBatchSaveImagesService, SheetDrawingUpdateController } from '@crabtable/sheets-drawing-ui';
+import { FRange } from '@crabtable/sheets/facade';
 
 /**
  * Options for saving cell images
@@ -43,7 +43,7 @@ export interface IFRangeSheetDrawingMixin {
      * @returns True if the image is inserted successfully, otherwise false
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Insert an image into the cell A10
@@ -62,7 +62,7 @@ export interface IFRangeSheetDrawingMixin {
      * @returns {Promise<boolean>} True if images are saved successfully, otherwise false
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Save all cell images in range A1:D10
@@ -84,7 +84,7 @@ export interface IFRangeSheetDrawingMixin {
 export class FRangeSheetDrawingUI extends FRange implements IFRangeSheetDrawingMixin {
     override async insertCellImageAsync(file: File | string): Promise<boolean> {
         const renderManagerService = this._injector.get(IRenderManagerService);
-        const controller = getCurrentTypeOfRenderer(UniverInstanceType.UNIVER_SHEET, this._injector.get(IUniverInstanceService), renderManagerService)
+        const controller = getCurrentTypeOfRenderer(CrabTableInstanceType.CRABTABLE_SHEET, this._injector.get(ICrabTableInstanceService), renderManagerService)
             ?.with(SheetDrawingUpdateController);
         if (!controller) {
             return false;
@@ -158,7 +158,7 @@ export class FRangeSheetDrawingUI extends FRange implements IFRangeSheetDrawingM
 }
 
 FRange.extend(FRangeSheetDrawingUI);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FRange extends IFRangeSheetDrawingMixin { }
 }

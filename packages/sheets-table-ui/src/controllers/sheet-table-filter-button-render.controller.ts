@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, IDisposable, IRange, Workbook } from '@univerjs/core';
-import type { IRenderContext, IRenderModule, SpreadsheetSkeleton } from '@univerjs/engine-render';
-import type { ITableRangeWithState } from '@univerjs/sheets-table';
+import type { ICommandInfo, IDisposable, IRange, Workbook } from '@crabtable/core';
+import type { IRenderContext, IRenderModule, SpreadsheetSkeleton } from '@crabtable/engine-render';
+import type { ITableRangeWithState } from '@crabtable/sheets-table';
 import type { ISheetsTableFilterButtonShapeProps } from '../views/widgets/table-filter-button.shape';
-import { ICommandService, Inject, Injector, InterceptorEffectEnum, RxDisposable, VerticalAlign } from '@univerjs/core';
-import { INTERCEPTOR_POINT, SetVerticalTextAlignCommand, SheetInterceptorService } from '@univerjs/sheets';
-import { TableManager } from '@univerjs/sheets-table';
-import { getCoordByCell, SheetSkeletonManagerService } from '@univerjs/sheets-ui';
+import { ICommandService, Inject, Injector, InterceptorEffectEnum, RxDisposable, VerticalAlign } from '@crabtable/core';
+import { INTERCEPTOR_POINT, SetVerticalTextAlignCommand, SheetInterceptorService } from '@crabtable/sheets';
+import { TableManager } from '@crabtable/sheets-table';
+import { getCoordByCell, SheetSkeletonManagerService } from '@crabtable/sheets-ui';
 import { map, merge, of, startWith, switchMap, takeUntil } from 'rxjs';
 import { FILTER_ICON_PADDING, FILTER_ICON_SIZE, SheetsTableFilterButtonShape } from '../views/widgets/table-filter-button.shape';
 

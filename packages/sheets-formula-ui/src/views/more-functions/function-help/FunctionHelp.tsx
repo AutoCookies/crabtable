@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IFunctionParam } from '@univerjs/engine-formula';
+import type { IFunctionParam } from '@crabtable/engine-formula';
 import { generateParam } from '../../../services/utils';
 
 interface IFunctionHelpProps {

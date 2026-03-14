@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ICommand, ICommandInfo, IDisposable, Nullable, Workbook } from '@univerjs/core';
-import type { ISheetCommandSharedParams } from '@univerjs/sheets';
-import { CommandType, Disposable, ICommandService, ILogService, IUniverInstanceService } from '@univerjs/core';
-import { SetSelectionsOperation } from '@univerjs/sheets';
-import { ILocalFileService } from '@univerjs/ui';
+import type { ICommand, ICommandInfo, IDisposable, Nullable, Workbook } from '@crabtable/core';
+import type { ISheetCommandSharedParams } from '@crabtable/sheets';
+import { CommandType, Disposable, ICommandService, ICrabTableInstanceService, ILogService } from '@crabtable/core';
+import { SetSelectionsOperation } from '@crabtable/sheets';
+import { ILocalFileService } from '@crabtable/ui';
 import { BehaviorSubject } from 'rxjs';
 
 /**
@@ -48,7 +48,7 @@ export class ActionRecorderService extends Disposable {
         @ICommandService private readonly _commandSrv: ICommandService,
         @ILogService private readonly _logService: ILogService,
         @ILocalFileService private readonly _localFileService: ILocalFileService,
-        @IUniverInstanceService private readonly _instanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _instanceService: ICrabTableInstanceService
     ) {
         super();
     }

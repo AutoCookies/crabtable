@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, Workbook } from '@univerjs/core';
-import { IUniverInstanceService, RxDisposable, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import type { DocumentDataModel, Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICrabTableInstanceService, RxDisposable } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { takeUntil } from 'rxjs';
 
 const DOC_MAIN_CANVAS_ID = 'univer-doc-main-canvas';
 
 export class DocsRenderService extends RxDisposable {
     constructor(
-        @IUniverInstanceService private readonly _instanceSrv: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _instanceSrv: ICrabTableInstanceService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService
     ) {
         super();
@@ -36,21 +36,21 @@ export class DocsRenderService extends RxDisposable {
             .pipe(takeUntil(this.dispose$))
             .subscribe((unitId) => this._createRenderWithId(unitId));
 
-        this._instanceSrv.getAllUnitsForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC)
+        this._instanceSrv.getAllUnitsForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC)
             .forEach((documentModel) => this._createRenderer(documentModel));
 
-        this._instanceSrv.getTypeOfUnitAdded$<DocumentDataModel>(UniverInstanceType.UNIVER_DOC)
+        this._instanceSrv.getTypeOfUnitAdded$<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC)
             .pipe(takeUntil(this.dispose$))
             .subscribe((doc) => this._createRenderer(doc));
 
-        this._instanceSrv.getTypeOfUnitDisposed$<DocumentDataModel>(UniverInstanceType.UNIVER_DOC)
+        this._instanceSrv.getTypeOfUnitDisposed$<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC)
             .pipe(takeUntil(this.dispose$))
             .subscribe((doc) => this._disposeRenderer(doc));
     }
 
     private _createRenderer(doc: DocumentDataModel) {
         const unitId = doc.getUnitId();
-        const workbookId = this._instanceSrv.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_DOC)?.getUnitId();
+        const workbookId = this._instanceSrv.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_DOC)?.getUnitId();
         this._renderManagerService.created$.subscribe((renderer) => {
             if (renderer.unitId === workbookId) {
                 renderer.engine.getCanvas().setId(DOC_MAIN_CANVAS_ID);

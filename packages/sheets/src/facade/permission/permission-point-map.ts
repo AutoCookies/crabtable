@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { RangePermissionPointConstructor, WorkbookPermissionPointConstructor, WorkSheetPermissionPointConstructor } from '@univerjs/core';
+import type { RangePermissionPointConstructor, WorkbookPermissionPointConstructor, WorkSheetPermissionPointConstructor } from '@crabtable/core';
 import {
     RangeProtectionPermissionDeleteProtectionPoint,
     RangeProtectionPermissionEditPoint,
@@ -63,7 +63,7 @@ import {
     WorksheetSetRowStylePermission,
     WorksheetSortPermission,
     WorksheetViewPermission,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { RangePermissionPoint, WorkbookPermissionPoint, WorksheetPermissionPoint } from './permission-types';
 
 /**

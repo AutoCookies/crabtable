@@ -26,7 +26,7 @@ type StringMap = Record<string, string>;
 type PeerDepValue = (typeof peerDepsMap)[keyof typeof peerDepsMap] & { optional?: boolean };
 
 function filterPackageName(packageName: string): string {
-    if (packageName.startsWith('@univerjs/')) {
+    if (packageName.startsWith('@crabtable/')) {
         return packageName.split('/').slice(0, 2).join('/');
     } else if (packageName.startsWith('@univerjs-pro/')) {
         return packageName.split('/').slice(0, 2).join('/');

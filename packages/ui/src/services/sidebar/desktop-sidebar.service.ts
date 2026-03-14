@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
 import type { ISidebarMethodOptions } from '../../views/components/sidebar/Sidebar';
 import type { ISidebarService } from './sidebar.service';
-import { toDisposable } from '@univerjs/core';
+import { toDisposable } from '@crabtable/core';
 import { Subject } from 'rxjs';
 
 export class DesktopSidebarService implements ISidebarService {

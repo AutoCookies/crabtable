@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IRange } from '@univerjs/core';
-import { ICommandService, IUniverInstanceService } from '@univerjs/core';
-import { getSheetCommandTarget } from '@univerjs/sheets';
+import type { IAccessor, IRange } from '@crabtable/core';
+import { ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { getSheetCommandTarget } from '@crabtable/sheets';
 import {
     AddConditionalRuleMutation,
     CFNumberOperator,
     CFRuleType,
     CFSubRuleType,
     ConditionalFormattingRuleModel,
-} from '@univerjs/sheets-conditional-formatting';
+} from '@crabtable/sheets-conditional-formatting';
 import { describe, expect, it, vi } from 'vitest';
 import { AddAverageCfCommand } from '../add-average-cf.command';
 import { AddColorScaleConditionalRuleCommand } from '../add-color-scale-cf.command';
@@ -35,8 +35,8 @@ import { AddTextCfCommand } from '../add-text-cf.command';
 import { AddTimePeriodCfCommand } from '../add-time-period-cf.command';
 import { AddUniqueValuesCfCommand } from '../add-unique-values-cf.command';
 
-vi.mock('@univerjs/sheets', async (importActual) => {
-    const actual = await importActual<typeof import('@univerjs/sheets')>();
+vi.mock('@crabtable/sheets', async (importActual) => {
+    const actual = await importActual<typeof import('@crabtable/sheets')>();
 
     return {
         ...actual,
@@ -60,7 +60,7 @@ function createAccessor() {
     const conditionalFormattingRuleModel = {
         createCfId: vi.fn(() => 'cf-1'),
     };
-    const univerInstanceService = {};
+    const crabtableInstanceService = {};
 
     const accessor = {
         get(token: unknown) {
@@ -72,8 +72,8 @@ function createAccessor() {
                 return conditionalFormattingRuleModel;
             }
 
-            if (token === IUniverInstanceService) {
-                return univerInstanceService;
+            if (token === ICrabTableInstanceService) {
+                return crabtableInstanceService;
             }
 
             throw new Error(`Unknown dependency: ${String(token)}`);

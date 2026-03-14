@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { DOCS_NORMAL_EDITOR_UNIT_ID_KEY, ICommandService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { IEditorService } from '@univerjs/docs-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { SetWorksheetActiveOperation } from '@univerjs/sheets';
-import { useDependency } from '@univerjs/ui';
+import { CrabTableInstanceType, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { IEditorService } from '@crabtable/docs-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { SetWorksheetActiveOperation } from '@crabtable/sheets';
+import { useDependency } from '@crabtable/ui';
 import { useEffect } from 'react';
 import { RefSelectionsRenderService } from '../../../services/render-services/ref-selections.render-service';
 
@@ -34,7 +34,7 @@ export const useSwitchSheet = (
     const editorService = useDependency(IEditorService);
     const renderManagerService = useDependency(IRenderManagerService);
     const render = renderManagerService.getRenderById(unitId);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const refSelectionsRenderService = render?.with(RefSelectionsRenderService);
 
     useEffect(() => {
@@ -57,7 +57,7 @@ export const useSwitchSheet = (
                     }
                 });
 
-                const d2 = univerInstanceService.getCurrentTypeOfUnit$(UniverInstanceType.UNIVER_SHEET).subscribe((unit) => {
+                const d2 = crabtableInstanceService.getCurrentTypeOfUnit$(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((unit) => {
                     handleRefresh();
                 });
 

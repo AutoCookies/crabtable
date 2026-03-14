@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Editor } from '@univerjs/docs-ui';
-import type { FunctionType, ISequenceNode } from '@univerjs/engine-formula';
-import { CommandType, DisposableCollection, ICommandService } from '@univerjs/core';
-import { borderClassName, clsx, scrollbarClassName } from '@univerjs/design';
-import { DeviceInputEventType } from '@univerjs/engine-render';
-import { IShortcutService, KeyCode, RectPopup, useDependency } from '@univerjs/ui';
+import type { Editor } from '@crabtable/docs-ui';
+import type { FunctionType, ISequenceNode } from '@crabtable/engine-formula';
+import { CommandType, DisposableCollection, ICommandService } from '@crabtable/core';
+import { borderClassName, clsx, scrollbarClassName } from '@crabtable/design';
+import { DeviceInputEventType } from '@crabtable/engine-render';
+import { IShortcutService, KeyCode, RectPopup, useDependency } from '@crabtable/ui';
 import { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import { useEditorPosition } from '../hooks/use-editor-position';
 import { useFormulaSearch } from '../hooks/use-formula-search';

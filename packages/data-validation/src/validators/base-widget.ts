@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICellCustomRender, ICellRenderContext } from '@univerjs/core';
+import type { ICellCustomRender, ICellRenderContext } from '@crabtable/core';
 
 export interface IBaseDataValidationWidget extends ICellCustomRender {
     calcCellAutoHeight(info: ICellRenderContext): number | undefined;

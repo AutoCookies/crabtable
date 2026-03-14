@@ -26,29 +26,29 @@ import type {
     IRange,
     ISheetDataValidationRule,
     Nullable,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import type {
     DataValidationChangeSource,
     IAddDataValidationMutationParams,
     IRemoveDataValidationMutationParams,
     IUpdateDataValidationMutationParams,
-} from '@univerjs/data-validation';
-import type { ISetRangeValuesMutationParams, ISheetCommandSharedParams } from '@univerjs/sheets';
+} from '@crabtable/data-validation';
+import type { ISetRangeValuesMutationParams, ISheetCommandSharedParams } from '@crabtable/sheets';
 import type { RangeMutation } from '../../models/rule-matrix';
 import type { CheckboxValidator } from '../../validators';
 import {
     CommandType,
     DataValidationType,
     ICommandService,
+    ICrabTableInstanceService,
     isFormulaString,
     isRangesEqual,
     IUndoRedoService,
-    IUniverInstanceService,
     ObjectMatrix,
     Range,
     sequenceExecute,
     Tools,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     AddDataValidationMutation,
     DataValidatorRegistryService,
@@ -57,9 +57,9 @@ import {
     RemoveDataValidationMutation,
     UpdateDataValidationMutation,
     UpdateRuleType,
-} from '@univerjs/data-validation';
-import { LexerTreeBuilder } from '@univerjs/engine-formula';
-import { getSheetCommandTarget, SetRangeValuesMutation, SetRangeValuesUndoMutationFactory } from '@univerjs/sheets';
+} from '@crabtable/data-validation';
+import { LexerTreeBuilder } from '@crabtable/engine-formula';
+import { getSheetCommandTarget, SetRangeValuesMutation, SetRangeValuesUndoMutationFactory } from '@crabtable/sheets';
 import { SheetDataValidationModel } from '../../models/sheet-data-validation-model';
 import { shouldOffsetFormulaByRange } from '../../utils/formula';
 import { getStringCellValue } from '../../utils/get-cell-data-origin';
@@ -99,8 +99,8 @@ export function getDataValidationDiffMutations(
     const redoMutations: IMutationInfo[] = [];
     const undoMutations: IMutationInfo[] = [];
     const sheetDataValidationModel = accessor.get(SheetDataValidationModel);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
-    const target = getSheetCommandTarget(univerInstanceService, { unitId, subUnitId });
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+    const target = getSheetCommandTarget(crabtableInstanceService, { unitId, subUnitId });
     if (!target) {
         return {
             redoMutations,
@@ -478,8 +478,8 @@ export const UpdateSheetDataValidationSettingCommand: ICommand<IUpdateSheetDataV
 
         if (setting.type === DataValidationType.CHECKBOX) {
             const ranges = rule.ranges as IRange[];
-            const univerInstanceService = accessor.get(IUniverInstanceService);
-            const target = getSheetCommandTarget(univerInstanceService, { unitId, subUnitId });
+            const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+            const target = getSheetCommandTarget(crabtableInstanceService, { unitId, subUnitId });
             if (target) {
                 const redoMatrix = new ObjectMatrix<ICellData>();
                 const { worksheet } = target;
@@ -616,8 +616,8 @@ export const ClearRangeDataValidationCommand: ICommand<IClearRangeDataValidation
         }
         const { unitId, subUnitId, ranges } = params;
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService, { unitId, subUnitId });
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService, { unitId, subUnitId });
         const sheetDataValidationModel = accessor.get(SheetDataValidationModel);
 
         if (!target) return false;

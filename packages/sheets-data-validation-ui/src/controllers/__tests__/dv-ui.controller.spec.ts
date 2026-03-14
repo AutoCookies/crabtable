@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Injector } from '@univerjs/core';
+import type { Injector } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { DATA_VALIDATION_PANEL } from '../../commands/operations/data-validation.operation';
 import {

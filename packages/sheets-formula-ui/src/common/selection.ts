@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ThemeService } from '@univerjs/core';
-import type { ISelectionStyle } from '@univerjs/sheets';
-import { ColorKit } from '@univerjs/core';
+import type { ThemeService } from '@crabtable/core';
+import type { ISelectionStyle } from '@crabtable/sheets';
+import { ColorKit } from '@crabtable/core';
 
 export const FORMULA_REF_SELECTION_PLUGIN_NAME = 'formula_reference_selection_plugin_name';
 

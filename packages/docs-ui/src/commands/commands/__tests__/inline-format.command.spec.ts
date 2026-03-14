@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommand, Injector, IStyleBase, Univer } from '@univerjs/core';
-import { BooleanNumber, ICommandService, IUniverInstanceService, RedoCommand, UndoCommand, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation, SetTextSelectionsOperation } from '@univerjs/docs';
+import type { CrabTable, DocumentDataModel, ICommand, Injector, IStyleBase } from '@crabtable/core';
+import { BooleanNumber, CrabTableInstanceType, ICommandService, ICrabTableInstanceService, RedoCommand, UndoCommand } from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation, SetTextSelectionsOperation } from '@crabtable/docs';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import {
     SetInlineFormatBoldCommand,
@@ -31,13 +31,13 @@ import {
 import { createCommandTestBed } from './create-command-test-bed';
 
 describe('Test inline format commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
     function getFormatValueAt(key: keyof IStyleBase, pos: number) {
-        const univerInstanceService = get(IUniverInstanceService);
-        const docsModel = univerInstanceService.getUnit<DocumentDataModel>('test-doc', UniverInstanceType.UNIVER_DOC);
+        const crabtableInstanceService = get(ICrabTableInstanceService);
+        const docsModel = crabtableInstanceService.getUnit<DocumentDataModel>('test-doc', CrabTableInstanceType.CRABTABLE_DOC);
 
         if (docsModel?.getBody()?.textRuns == null) {
             return;

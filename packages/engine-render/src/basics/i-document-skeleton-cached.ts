@@ -28,7 +28,7 @@ import type {
     ITableRow,
     ITextStyle,
     PageOrientType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import type { BreakPointType } from '../components/docs/layout/line-breaker/break';
 
 export interface IDocumentSkeletonCached extends ISkeletonResourceReference {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IPosition, Serializable } from '@univerjs/core';
+import type { IPosition, Serializable } from '@crabtable/core';
 import type { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 

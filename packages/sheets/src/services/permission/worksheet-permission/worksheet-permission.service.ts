@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-import type { Workbook, Worksheet } from '@univerjs/core';
+import type { Workbook, Worksheet } from '@crabtable/core';
 import type { IObjectModel, IObjectPointModel } from '../type';
-import { ILogService, Inject, Injector, IPermissionService, IResourceManagerService, IUniverInstanceService, RxDisposable, UniverInstanceType } from '@univerjs/core';
-import { UniverType } from '@univerjs/protocol';
+import { CrabTableInstanceType, ICrabTableInstanceService, ILogService, Inject, Injector, IPermissionService, IResourceManagerService, RxDisposable } from '@crabtable/core';
 
 import { takeUntil } from 'rxjs/operators';
 import { RangeProtectionRuleModel } from '../../../model/range-protection-rule.model';
@@ -33,7 +32,7 @@ export const POINT_MODEL_PLUGIN_NAME = 'SHEET_WORKSHEET_PROTECTION_POINT_PLUGIN'
 export class WorksheetPermissionService extends RxDisposable {
     constructor(
         @Inject(IPermissionService) private _permissionService: IPermissionService,
-        @Inject(IUniverInstanceService) private _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(Injector) readonly _injector: Injector,
         @Inject(WorksheetProtectionRuleModel) private _worksheetProtectionRuleModel: WorksheetProtectionRuleModel,
         @Inject(WorksheetProtectionPointModel) private _worksheetProtectionPointRuleModel: WorksheetProtectionPointModel,
@@ -83,13 +82,13 @@ export class WorksheetPermissionService extends RxDisposable {
             });
         };
 
-        this._univerInstanceService.getAllUnitsForType<Workbook>(UniverInstanceType.UNIVER_SHEET).forEach((workbook) => {
+        this._crabtableInstanceService.getAllUnitsForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).forEach((workbook) => {
             handleWorkbook(workbook);
         });
 
-        this._univerInstanceService.getTypeOfUnitAdded$<Workbook>(UniverInstanceType.UNIVER_SHEET).pipe(takeUntil(this.dispose$)).subscribe(handleWorkbook);
+        this._crabtableInstanceService.getTypeOfUnitAdded$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).pipe(takeUntil(this.dispose$)).subscribe(handleWorkbook);
 
-        this._univerInstanceService.getTypeOfUnitDisposed$<Workbook>(UniverInstanceType.UNIVER_SHEET).pipe(takeUntil(this.dispose$)).subscribe((workbook) => {
+        this._crabtableInstanceService.getTypeOfUnitDisposed$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).pipe(takeUntil(this.dispose$)).subscribe((workbook) => {
             workbook.getSheets().forEach((worksheet) => {
                 const unitId = workbook.getUnitId();
                 const subUnitId = worksheet.getSheetId();
@@ -147,7 +146,7 @@ export class WorksheetPermissionService extends RxDisposable {
                 toJson,
                 parseJson,
                 pluginName: RULE_MODEL_PLUGIN_NAME,
-                businesses: [UniverType.UNIVER_SHEET],
+                businesses: [CrabTableInstanceType.CRABTABLE_SHEET],
                 onLoad: (unitId, resources) => {
                     this._worksheetProtectionRuleModel.fromObject(resources);
                     Object.keys(resources).forEach((subUnitId) => {
@@ -160,7 +159,7 @@ export class WorksheetPermissionService extends RxDisposable {
                     this._worksheetProtectionRuleModel.changeRuleInitState(true);
                 },
                 onUnLoad: (unitId: string) => {
-                    const workbook = this._univerInstanceService.getUnit<Workbook>(unitId);
+                    const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId);
                     if (workbook) {
                         workbook.getSheets().forEach((worksheet) => {
                             const subUnitId = worksheet.getSheetId();
@@ -202,7 +201,7 @@ export class WorksheetPermissionService extends RxDisposable {
                 toJson,
                 parseJson,
                 pluginName: POINT_MODEL_PLUGIN_NAME,
-                businesses: [UniverType.UNIVER_SHEET],
+                businesses: [CrabTableInstanceType.CRABTABLE_SHEET],
                 onLoad: (unitId, resources) => {
                     this._worksheetProtectionPointRuleModel.fromObject(resources);
                     Object.keys(resources).forEach((subUnitId) => {

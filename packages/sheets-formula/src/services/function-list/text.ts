@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IFunctionInfo } from '@univerjs/engine-formula';
-import { FUNCTION_NAMES_TEXT, FunctionType } from '@univerjs/engine-formula';
+import type { IFunctionInfo } from '@crabtable/engine-formula';
+import { FUNCTION_NAMES_TEXT, FunctionType } from '@crabtable/engine-formula';
 
 export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
     {
@@ -94,7 +94,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.CLEAN.functionParameter.text.name',
                 detail: 'formula.functionList.CLEAN.functionParameter.text.detail',
-                example: 'CHAR(1)&"Univer"',
+                example: 'CHAR(1)&"CrabTable"',
                 require: 1,
                 repeat: 0,
             },
@@ -109,7 +109,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.CODE.functionParameter.text.name',
                 detail: 'formula.functionList.CODE.functionParameter.text.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 1,
                 repeat: 0,
             },
@@ -131,7 +131,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.CONCAT.functionParameter.text2.name',
                 detail: 'formula.functionList.CONCAT.functionParameter.text2.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 0,
                 repeat: 1,
             },
@@ -168,7 +168,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.DBCS.functionParameter.text.name',
                 detail: 'formula.functionList.DBCS.functionParameter.text.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 1,
                 repeat: 0,
             },
@@ -205,7 +205,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.EXACT.functionParameter.text1.name',
                 detail: 'formula.functionList.EXACT.functionParameter.text1.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 1,
                 repeat: 0,
             },
@@ -227,7 +227,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.FIND.functionParameter.findText.name',
                 detail: 'formula.functionList.FIND.functionParameter.findText.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 1,
                 repeat: 0,
             },
@@ -256,7 +256,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.FINDB.functionParameter.findText.name',
                 detail: 'formula.functionList.FINDB.functionParameter.findText.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 1,
                 repeat: 0,
             },
@@ -314,7 +314,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.LEFT.functionParameter.text.name',
                 detail: 'formula.functionList.LEFT.functionParameter.text.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 1,
                 repeat: 0,
             },
@@ -336,7 +336,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.LEFTB.functionParameter.text.name',
                 detail: 'formula.functionList.LEFTB.functionParameter.text.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 1,
                 repeat: 0,
             },
@@ -358,7 +358,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.LEN.functionParameter.text.name',
                 detail: 'formula.functionList.LEN.functionParameter.text.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 1,
                 repeat: 0,
             },
@@ -373,7 +373,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.LENB.functionParameter.text.name',
                 detail: 'formula.functionList.LENB.functionParameter.text.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 1,
                 repeat: 0,
             },
@@ -388,7 +388,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.LOWER.functionParameter.text.name',
                 detail: 'formula.functionList.LOWER.functionParameter.text.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 1,
                 repeat: 0,
             },
@@ -403,7 +403,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.MID.functionParameter.text.name',
                 detail: 'formula.functionList.MID.functionParameter.text.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 1,
                 repeat: 0,
             },
@@ -432,7 +432,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.MIDB.functionParameter.text.name',
                 detail: 'formula.functionList.MIDB.functionParameter.text.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 1,
                 repeat: 0,
             },
@@ -622,7 +622,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.REPLACE.functionParameter.oldText.name',
                 detail: 'formula.functionList.REPLACE.functionParameter.oldText.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 1,
                 repeat: 0,
             },
@@ -658,7 +658,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.REPLACEB.functionParameter.oldText.name',
                 detail: 'formula.functionList.REPLACEB.functionParameter.oldText.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 1,
                 repeat: 0,
             },
@@ -716,7 +716,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.RIGHT.functionParameter.text.name',
                 detail: 'formula.functionList.RIGHT.functionParameter.text.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 1,
                 repeat: 0,
             },
@@ -738,7 +738,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.RIGHTB.functionParameter.text.name',
                 detail: 'formula.functionList.RIGHTB.functionParameter.text.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 1,
                 repeat: 0,
             },
@@ -854,7 +854,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.T.functionParameter.value.name',
                 detail: 'formula.functionList.T.functionParameter.value.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 1,
                 repeat: 0,
             },
@@ -1012,7 +1012,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.TEXTJOIN.functionParameter.text2.name',
                 detail: 'formula.functionList.TEXTJOIN.functionParameter.text2.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 0,
                 repeat: 1,
             },
@@ -1077,7 +1077,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.TRIM.functionParameter.text.name',
                 detail: 'formula.functionList.TRIM.functionParameter.text.detail',
-                example: '" Hello  Univer "',
+                example: '" Hello  CrabTable "',
                 require: 1,
                 repeat: 0,
             },
@@ -1107,7 +1107,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.UNICODE.functionParameter.text.name',
                 detail: 'formula.functionList.UNICODE.functionParameter.text.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 1,
                 repeat: 0,
             },
@@ -1122,7 +1122,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.UPPER.functionParameter.text.name',
                 detail: 'formula.functionList.UPPER.functionParameter.text.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 1,
                 repeat: 0,
             },
@@ -1152,7 +1152,7 @@ export const FUNCTION_LIST_TEXT: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.VALUETOTEXT.functionParameter.value.name',
                 detail: 'formula.functionList.VALUETOTEXT.functionParameter.value.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 1,
                 repeat: 0,
             },

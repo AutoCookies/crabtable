@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Injector, IRange, Workbook, Worksheet } from '@univerjs/core';
+import type { Injector, IRange, Workbook, Worksheet } from '@crabtable/core';
 import type { IPermissionPanelRule } from '../../services/permission/sheet-permission-panel.model';
-import { IUniverInstanceService, LocaleService, RANGE_TYPE, Rectangle, UniverInstanceType } from '@univerjs/core';
-import { EditStateEnum, RangeProtectionRuleModel, SheetsSelectionsService, UnitObject, ViewStateEnum, WorksheetProtectionRuleModel } from '@univerjs/sheets';
+import { CrabTableInstanceType, ICrabTableInstanceService, LocaleService, RANGE_TYPE, Rectangle } from '@crabtable/core';
+import { EditStateEnum, RangeProtectionRuleModel, SheetsSelectionsService, UnitObject, ViewStateEnum, WorksheetProtectionRuleModel } from '@crabtable/sheets';
 
 export const checkRangeValid = (injector: Injector, permissionRanges: IRange[], permissionId: string, unitId: string, subUnitId: string) => {
     const localeService = injector.get(LocaleService);
@@ -81,9 +81,9 @@ export const checkRangesIsWholeSheet = (ranges: IRange[], sheet: Worksheet) => {
 };
 
 export const generateDefaultRule = (injector: Injector, fromSheetBar: boolean) => {
-    const univerInstanceService = injector.get(IUniverInstanceService);
+    const crabtableInstanceService = injector.get(ICrabTableInstanceService);
     const selectionManagerService = injector.get(SheetsSelectionsService);
-    const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+    const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
     const worksheet = workbook.getActiveSheet();
 
     let unitType = UnitObject.SelectRange;
@@ -114,8 +114,8 @@ export const generateDefaultRule = (injector: Injector, fromSheetBar: boolean) =
 };
 
 export const generateRuleByUnitType = (injector: Injector, rule: IPermissionPanelRule) => {
-    const univerInstanceService = injector.get(IUniverInstanceService);
-    const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+    const crabtableInstanceService = injector.get(ICrabTableInstanceService);
+    const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
     const worksheet = workbook.getActiveSheet();
     const { unitType } = rule;
 

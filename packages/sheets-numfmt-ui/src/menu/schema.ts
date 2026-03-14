@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { MenuSchemaType } from '@univerjs/ui';
-import { AddDecimalCommand, SetCurrencyCommand, SetPercentCommand, SubtractDecimalCommand } from '@univerjs/sheets-numfmt';
-import { RibbonStartGroup } from '@univerjs/ui';
+import type { MenuSchemaType } from '@crabtable/ui';
+import { AddDecimalCommand, SetCurrencyCommand, SetPercentCommand, SubtractDecimalCommand } from '@crabtable/sheets-numfmt';
+import { RibbonStartGroup } from '@crabtable/ui';
 import { OpenNumfmtPanelOperator } from '../commands/operations/open.numfmt.panel.operation';
 import { AddDecimalMenuItem, CurrencySymbolIconMenuItem, FactoryOtherMenuItem, PercentMenuItem, SubtractDecimalMenuItem } from './menu';
 

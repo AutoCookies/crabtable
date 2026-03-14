@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IContextService } from '@univerjs/core';
-import type { IShortcutItem } from '@univerjs/ui';
+import type { IContextService } from '@crabtable/core';
+import type { IShortcutItem } from '@crabtable/ui';
 
-import { EDITOR_ACTIVATED, FOCUSING_SHEET } from '@univerjs/core';
-import { KeyCode, MetaKeys } from '@univerjs/ui';
+import { EDITOR_ACTIVATED, FOCUSING_SHEET } from '@crabtable/core';
+import { KeyCode, MetaKeys } from '@crabtable/ui';
 import {
     FocusSelectionOperation,
     GoToNextMatchOperation,

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
-import type { IMouseEvent, IPointerEvent } from '@univerjs/engine-render';
-import { createIdentifier, Disposable, toDisposable } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
+import type { IMouseEvent, IPointerEvent } from '@crabtable/engine-render';
+import { createIdentifier, Disposable, toDisposable } from '@crabtable/core';
 
 export interface IContextMenuHandler {
     /** A callback to open context menu with given position and menu type. */

@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import type { IAccessor, Nullable, Workbook } from '@univerjs/core';
-import type { ISelectionWithStyle } from '@univerjs/sheets';
-import { IUniverInstanceService, RANGE_TYPE, Rectangle, UniverInstanceType } from '@univerjs/core';
-import { MERGE_CELL_INTERCEPTOR_CHECK, MergeCellController, RangeProtectionRuleModel, SheetsSelectionsService } from '@univerjs/sheets';
+import type { IAccessor, Nullable, Workbook } from '@crabtable/core';
+import type { ISelectionWithStyle } from '@crabtable/sheets';
+import { CrabTableInstanceType, ICrabTableInstanceService, RANGE_TYPE, Rectangle } from '@crabtable/core';
+import { MERGE_CELL_INTERCEPTOR_CHECK, MergeCellController, RangeProtectionRuleModel, SheetsSelectionsService } from '@crabtable/sheets';
 import { combineLatest, map, of, switchMap } from 'rxjs';
 
 export function getSheetSelectionsDisabled$(accessor: IAccessor) {
     const selectionManagerService = accessor.get(SheetsSelectionsService);
     const rangeProtectionRuleModel = accessor.get(RangeProtectionRuleModel);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const mergeCellController = accessor.get(MergeCellController);
 
-    const workbook$ = univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const workbook$ = crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     return combineLatest([
         selectionManagerService.selectionMoveEnd$,
         workbook$.pipe(map((workbook) => workbook?.getUnitId() ?? '')),

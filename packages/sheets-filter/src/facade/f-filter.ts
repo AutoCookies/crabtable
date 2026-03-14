@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { Nullable, Workbook, Worksheet } from '@univerjs/core';
-import type { ISheetCommandSharedParams } from '@univerjs/sheets';
-import type { FilterModel, IFilterColumn, ISetSheetsFilterCriteriaCommandParams } from '@univerjs/sheets-filter';
+import type { Nullable, Workbook, Worksheet } from '@crabtable/core';
+import type { ISheetCommandSharedParams } from '@crabtable/sheets';
+import type { FilterModel, IFilterColumn, ISetSheetsFilterCriteriaCommandParams } from '@crabtable/sheets-filter';
 
-import { ICommandService, Inject, Injector } from '@univerjs/core';
-import { ClearSheetsFilterCriteriaCommand, RemoveSheetFilterCommand, SetSheetsFilterCriteriaCommand } from '@univerjs/sheets-filter';
-import { FRange } from '@univerjs/sheets/facade';
+import { ICommandService, Inject, Injector } from '@crabtable/core';
+import { ClearSheetsFilterCriteriaCommand, RemoveSheetFilterCommand, SetSheetsFilterCriteriaCommand } from '@crabtable/sheets-filter';
+import { FRange } from '@crabtable/sheets/facade';
 
 /**
  * This interface class provides methods to modify the filter settings of a worksheet.
@@ -42,7 +42,7 @@ export class FFilter {
      * @returns {number[]} Filtered out rows by this filter.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Set some values of the range C1:F10
@@ -92,7 +92,7 @@ export class FFilter {
      * @returns {Nullable<IFilterColumn>} The filter criteria of the column.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Set some values of the range C1:F10
@@ -143,7 +143,7 @@ export class FFilter {
      * @returns {FFilter} The FFilter instance for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Set some values of the range C1:F10
@@ -202,7 +202,7 @@ export class FFilter {
      * @returns {FFilter} The FFilter instance for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Set some values of the range C1:F10
@@ -254,7 +254,7 @@ export class FFilter {
      * @returns {FRange} The range of the filter.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fFilter = fWorksheet.getFilter();
      * console.log(fFilter?.getRange().getA1Notation());
@@ -270,7 +270,7 @@ export class FFilter {
      * @returns {FFilter} The FFilter instance for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Set some values of the range C1:F10
@@ -322,7 +322,7 @@ export class FFilter {
      * @returns {boolean} True if the filter is removed successfully; otherwise, false.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:D14');
      * let fFilter = fRange.createFilter();

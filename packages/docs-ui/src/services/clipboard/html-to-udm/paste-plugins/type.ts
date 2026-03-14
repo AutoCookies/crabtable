@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IDocumentData, ITextStyle } from '@univerjs/core';
+import type { IDocumentData, ITextStyle } from '@crabtable/core';
 
 export interface IStyleRule {
     filter: string | string[] | ((node: HTMLElement) => boolean);

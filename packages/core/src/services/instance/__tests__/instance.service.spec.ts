@@ -20,14 +20,14 @@ import type { IDocumentData } from '../../../types/interfaces/i-document-data';
 import type { ISlideData } from '../../../types/interfaces/i-slide-data';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { Injector } from '../../../common/di';
-import { UniverInstanceType } from '../../../common/unit';
+import { CrabTableInstanceType } from '../../../common/unit';
 import { DocumentDataModel } from '../../../docs/data-model/document-data-model';
 import { Workbook as WorkbookModel } from '../../../sheets/workbook';
 import { SlideDataModel } from '../../../slides/slide-model';
 import { FOCUSING_DOC, FOCUSING_SHEET, FOCUSING_SLIDE, FOCUSING_UNIT } from '../../context/context';
 import { ContextService } from '../../context/context.service';
 import { DesktopLogService, LogLevel } from '../../log/log.service';
-import { UniverInstanceService } from '../instance.service';
+import { CrabTableInstanceService } from '../instance.service';
 
 function createWorkbookData(id = 'sheet-unit'): Partial<IWorkbookData> {
     return {
@@ -69,8 +69,8 @@ function createSlideData(id = 'slide-unit'): Partial<ISlideData> {
     };
 }
 
-describe('UniverInstanceService', () => {
-    let service: UniverInstanceService;
+describe('CrabTableInstanceService', () => {
+    let service: CrabTableInstanceService;
     let contextService: ContextService;
     let logService: DesktopLogService;
 
@@ -78,16 +78,16 @@ describe('UniverInstanceService', () => {
         contextService = new ContextService();
         logService = new DesktopLogService();
         logService.setLogLevel(LogLevel.SILENT);
-        service = new UniverInstanceService(new Injector(), contextService, logService);
+        service = new CrabTableInstanceService(new Injector(), contextService, logService);
 
-        service.registerCtorForType(UniverInstanceType.UNIVER_SHEET, WorkbookModel as never);
-        service.registerCtorForType(UniverInstanceType.UNIVER_DOC, DocumentDataModel as never);
-        service.registerCtorForType(UniverInstanceType.UNIVER_SLIDE, SlideDataModel as never);
+        service.registerCtorForType(CrabTableInstanceType.CRABTABLE_SHEET, WorkbookModel as never);
+        service.registerCtorForType(CrabTableInstanceType.CRABTABLE_DOC, DocumentDataModel as never);
+        service.registerCtorForType(CrabTableInstanceType.CRABTABLE_SLIDE, SlideDataModel as never);
         service.__setCreateHandler((type, data, _ctor, options) => {
             let unit;
-            if (type === UniverInstanceType.UNIVER_SHEET) {
+            if (type === CrabTableInstanceType.CRABTABLE_SHEET) {
                 unit = new WorkbookModel(data as Partial<IWorkbookData>, logService);
-            } else if (type === UniverInstanceType.UNIVER_DOC) {
+            } else if (type === CrabTableInstanceType.CRABTABLE_DOC) {
                 unit = new DocumentDataModel(data as Partial<IDocumentData>);
             } else {
                 unit = new SlideDataModel(data as Partial<ISlideData>);
@@ -106,28 +106,28 @@ describe('UniverInstanceService', () => {
 
     it('should create units, set current unit and expose lookup APIs', () => {
         const added: string[] = [];
-        service.getTypeOfUnitAdded$<Workbook>(UniverInstanceType.UNIVER_SHEET).subscribe((unit) => {
+        service.getTypeOfUnitAdded$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((unit) => {
             added.push(unit.getUnitId());
         });
 
-        const workbook = service.createUnit<Partial<IWorkbookData>, WorkbookModel>(UniverInstanceType.UNIVER_SHEET, createWorkbookData());
-        const doc = service.createUnit<Partial<IDocumentData>, DocumentDataModel>(UniverInstanceType.UNIVER_DOC, createDocData(), { makeCurrent: false });
+        const workbook = service.createUnit<Partial<IWorkbookData>, WorkbookModel>(CrabTableInstanceType.CRABTABLE_SHEET, createWorkbookData());
+        const doc = service.createUnit<Partial<IDocumentData>, DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC, createDocData(), { makeCurrent: false });
 
         expect(added).toEqual(['sheet-unit']);
         expect(workbook.getUnitId()).toBe('sheet-unit');
-        expect(service.getCurrentUnitOfType<WorkbookModel>(UniverInstanceType.UNIVER_SHEET)?.getUnitId()).toBe('sheet-unit');
-        expect(service.getCurrentUnitOfType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC)).toBeUndefined();
-        expect(service.getUnit<WorkbookModel>('sheet-unit', UniverInstanceType.UNIVER_SHEET)?.getUnitId()).toBe('sheet-unit');
-        expect(service.getUnit('sheet-unit', UniverInstanceType.UNIVER_DOC)).toBeNull();
-        expect(service.getAllUnitsForType<WorkbookModel>(UniverInstanceType.UNIVER_SHEET)).toHaveLength(1);
-        expect(service.getUnitType(doc.getUnitId())).toBe(UniverInstanceType.UNIVER_DOC);
-        expect(service.getUnitType('missing')).toBe(UniverInstanceType.UNRECOGNIZED);
+        expect(service.getCurrentUnitOfType<WorkbookModel>(CrabTableInstanceType.CRABTABLE_SHEET)?.getUnitId()).toBe('sheet-unit');
+        expect(service.getCurrentUnitOfType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC)).toBeUndefined();
+        expect(service.getUnit<WorkbookModel>('sheet-unit', CrabTableInstanceType.CRABTABLE_SHEET)?.getUnitId()).toBe('sheet-unit');
+        expect(service.getUnit('sheet-unit', CrabTableInstanceType.CRABTABLE_DOC)).toBeNull();
+        expect(service.getAllUnitsForType<WorkbookModel>(CrabTableInstanceType.CRABTABLE_SHEET)).toHaveLength(1);
+        expect(service.getUnitType(doc.getUnitId())).toBe(CrabTableInstanceType.CRABTABLE_DOC);
+        expect(service.getUnitType('missing')).toBe(CrabTableInstanceType.UNRECOGNIZED);
     });
 
     it('should focus sheet, doc, slide and reset contexts on null focus', () => {
-        const workbook = service.createUnit<Partial<IWorkbookData>, WorkbookModel>(UniverInstanceType.UNIVER_SHEET, createWorkbookData());
-        const doc = service.createUnit<Partial<IDocumentData>, DocumentDataModel>(UniverInstanceType.UNIVER_DOC, createDocData());
-        const slide = service.createUnit<Partial<ISlideData>, SlideDataModel>(UniverInstanceType.UNIVER_SLIDE, createSlideData());
+        const workbook = service.createUnit<Partial<IWorkbookData>, WorkbookModel>(CrabTableInstanceType.CRABTABLE_SHEET, createWorkbookData());
+        const doc = service.createUnit<Partial<IDocumentData>, DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC, createDocData());
+        const slide = service.createUnit<Partial<ISlideData>, SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE, createSlideData());
 
         service.focusUnit(workbook.getUnitId());
         expect(contextService.getContextValue(FOCUSING_UNIT)).toBe(true);
@@ -153,11 +153,11 @@ describe('UniverInstanceService', () => {
 
     it('should replace docs and dispose units while resetting focus and current', () => {
         const disposed: string[] = [];
-        service.getTypeOfUnitDisposed$<DocumentDataModel>(UniverInstanceType.UNIVER_DOC).subscribe((unit) => {
+        service.getTypeOfUnitDisposed$<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC).subscribe((unit) => {
             disposed.push(unit.getUnitId());
         });
 
-        const doc = service.createUnit<Partial<IDocumentData>, DocumentDataModel>(UniverInstanceType.UNIVER_DOC, createDocData());
+        const doc = service.createUnit<Partial<IDocumentData>, DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC, createDocData());
         service.focusUnit(doc.getUnitId());
 
         const replacement = new DocumentDataModel(createDocData('doc-unit'));
@@ -173,12 +173,12 @@ describe('UniverInstanceService', () => {
 
     it('should throw on duplicate unit id and support current type stream', () => {
         const currentIds: Array<string | null> = [];
-        service.getCurrentTypeOfUnit$<WorkbookModel>(UniverInstanceType.UNIVER_SHEET).subscribe((unit) => {
+        service.getCurrentTypeOfUnit$<WorkbookModel>(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((unit) => {
             currentIds.push(unit?.getUnitId() ?? null);
         });
 
-        service.createUnit<Partial<IWorkbookData>, WorkbookModel>(UniverInstanceType.UNIVER_SHEET, createWorkbookData());
-        service.createUnit<Partial<IWorkbookData>, WorkbookModel>(UniverInstanceType.UNIVER_SHEET, createWorkbookData('sheet-unit-2'));
+        service.createUnit<Partial<IWorkbookData>, WorkbookModel>(CrabTableInstanceType.CRABTABLE_SHEET, createWorkbookData());
+        service.createUnit<Partial<IWorkbookData>, WorkbookModel>(CrabTableInstanceType.CRABTABLE_SHEET, createWorkbookData('sheet-unit-2'));
         service.setCurrentUnitForType('sheet-unit-2');
 
         expect(() => service.__addUnit(new WorkbookModel(createWorkbookData('sheet-unit-2'), logService))).toThrowError(/same unit id/);

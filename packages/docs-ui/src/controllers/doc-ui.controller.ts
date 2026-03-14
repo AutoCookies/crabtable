@@ -15,17 +15,17 @@
  */
 
 import {
+    CrabTableInstanceType,
     Disposable,
     ICommandService,
     IConfigService,
+    ICrabTableInstanceService,
     Inject,
     Injector,
-    IUniverInstanceService,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { BuiltInUIPart, ComponentManager, connectInjector, ILayoutService, IMenuManagerService, IShortcutService, IUIPartsService } from '@crabtable/ui';
 import { DeleteIcon, DocSettingIcon, TodoListDoubleIcon } from '@univerjs/icons';
-import { BuiltInUIPart, ComponentManager, connectInjector, ILayoutService, IMenuManagerService, IShortcutService, IUIPartsService } from '@univerjs/ui';
 import { CoreHeaderFooterCommand, OpenHeaderFooterPanelCommand } from '../commands/commands/doc-header-footer.command';
 import { SidebarDocHeaderFooterPanelOperation } from '../commands/operations/doc-header-footer-panel.operation';
 import { BULLET_LIST_TYPE_COMPONENT, BulletListTypePicker, ORDER_LIST_TYPE_COMPONENT, OrderListTypePicker } from '../components/list-type-picker';
@@ -59,7 +59,7 @@ export class DocUIController extends Disposable {
         @ILayoutService protected readonly _layoutService: ILayoutService,
         @IMenuManagerService protected readonly _menuManagerService: IMenuManagerService,
         @IUIPartsService protected readonly _uiPartsService: IUIPartsService,
-        @IUniverInstanceService protected readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService protected readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IShortcutService protected readonly _shortcutService: IShortcutService,
         @IConfigService protected readonly _configService: IConfigService
     ) {
@@ -132,7 +132,7 @@ export class DocUIController extends Disposable {
 
     private _initFocusHandler(): void {
         this.disposeWithMe(
-            this._layoutService.registerFocusHandler(UniverInstanceType.UNIVER_DOC, (unitId: string) => {
+            this._layoutService.registerFocusHandler(CrabTableInstanceType.CRABTABLE_DOC, (unitId: string) => {
                 const renderManagerService = this._injector.get(IRenderManagerService);
                 const docSelectionRenderService = renderManagerService.getRenderById(unitId)!.with(DocSelectionRenderService);
 

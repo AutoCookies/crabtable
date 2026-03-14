@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { createIdentifier, Disposable, ILogService, Inject, Injector } from '@univerjs/core';
-import { FUniver } from '@univerjs/core/facade';
+import { createIdentifier, Disposable, ILogService, Inject, Injector } from '@crabtable/core';
+import { FCrabTable } from '@crabtable/core/facade';
 
 export const IUniscriptExecutionService = createIdentifier<IUniscriptExecutionService>('univer.uniscript.execution-service');
 
@@ -36,9 +36,9 @@ export class UniscriptExecutionService extends Disposable implements IUniscriptE
     async execute(code: string): Promise<boolean> {
         this._logService.log('[UniscriptExecutionService]', 'executing Uniscript...');
 
-        const apiInstance = FUniver.newAPI(this._injector);
+        const apiInstance = FCrabTable.newAPI(this._injector);
         // eslint-disable-next-line no-new-func
-        const scriptFunction = new Function('univerAPI', `(() => {${code}})()`);
+        const scriptFunction = new Function('crabtableAPI', `(() => {${code}})()`);
 
         try {
             scriptFunction(apiInstance);

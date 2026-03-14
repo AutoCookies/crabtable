@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { DataValidationType, ICellData, Nullable } from '@univerjs/core';
-import type { DataValidatorRegistryService } from '@univerjs/data-validation';
-import { ERROR_TYPE_SET } from '@univerjs/engine-formula';
+import type { DataValidationType, ICellData, Nullable } from '@crabtable/core';
+import type { DataValidatorRegistryService } from '@crabtable/data-validation';
+import { ERROR_TYPE_SET } from '@crabtable/engine-formula';
 
 export function getFormulaResult(result: Nullable<Nullable<ICellData>[][]>) {
     return result?.[0]?.[0]?.v;

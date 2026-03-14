@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
-import { ICommandService } from '@univerjs/core';
-import { FHooks } from '@univerjs/core/facade';
-import { CopyCommand, PasteCommand, SheetPasteShortKeyCommandName } from '@univerjs/ui';
+import type { IDisposable } from '@crabtable/core';
+import { ICommandService } from '@crabtable/core';
+import { FHooks } from '@crabtable/core/facade';
+import { CopyCommand, PasteCommand, SheetPasteShortKeyCommandName } from '@crabtable/ui';
 
 /**
  * @ignore
@@ -25,7 +25,7 @@ import { CopyCommand, PasteCommand, SheetPasteShortKeyCommandName } from '@unive
 export interface IFHooksSheetsUIMixin {
     /**
      * The onBeforeCopy event is fired before a copy operation is performed.
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.BeforeClipboardChange, (params) => {})` instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.BeforeClipboardChange, (params) => {})` instead
      * @param callback Callback function that will be called when the event is fired
      * @returns A disposable object that can be used to unsubscribe from the event
      */
@@ -33,7 +33,7 @@ export interface IFHooksSheetsUIMixin {
 
     /**
      * The onCopy event is fired after a copy operation is performed.
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.ClipboardChanged, (params) => {})` instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.ClipboardChanged, (params) => {})` instead
      * @param callback Callback function that will be called when the event is fired
      * @returns A disposable object that can be used to unsubscribe from the event
      */
@@ -41,7 +41,7 @@ export interface IFHooksSheetsUIMixin {
 
     /**
      * The onBeforePaste event is fired before a paste operation is performed.
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.BeforeClipboardPaste, (params) => {})` instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.BeforeClipboardPaste, (params) => {})` instead
      * @param callback Callback function that will be called when the event is fired
      * @returns A disposable object that can be used to unsubscribe from the event
      */
@@ -49,7 +49,7 @@ export interface IFHooksSheetsUIMixin {
 
     /**
      * The onPaste event is fired after a paste operation is performed.
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.ClipboardPasted, (params) => {})` instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.ClipboardPasted, (params) => {})` instead
      * @param callback Callback function that will be called when the event is fired
      * @returns A disposable object that can be used to unsubscribe from the event
      */
@@ -102,7 +102,7 @@ export class FHooksSheetsMixin extends FHooks implements IFHooksSheetsUIMixin {
 }
 
 FHooks.extend(FHooksSheetsMixin);
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FHooks extends IFHooksSheetsUIMixin {}
 }

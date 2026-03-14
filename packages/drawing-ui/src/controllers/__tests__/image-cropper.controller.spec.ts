@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo } from '@univerjs/core';
-import { DrawingTypeEnum } from '@univerjs/core';
-import { MessageType } from '@univerjs/design';
-import { getDrawingShapeKeyByDrawingSearch, SetDrawingSelectedOperation } from '@univerjs/drawing';
-import { ImageCropperObject } from '@univerjs/drawing-ui';
-import { CURSOR_TYPE, Image } from '@univerjs/engine-render';
+import type { ICommandInfo } from '@crabtable/core';
+import { DrawingTypeEnum } from '@crabtable/core';
+import { MessageType } from '@crabtable/design';
+import { getDrawingShapeKeyByDrawingSearch, SetDrawingSelectedOperation } from '@crabtable/drawing';
+import { ImageCropperObject } from '@crabtable/drawing-ui';
+import { CURSOR_TYPE, Image } from '@crabtable/engine-render';
 import { Subject } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import { AutoImageCropOperation, CloseImageCropOperation, CropType, OpenImageCropOperation } from '../../commands/operations/image-crop.operation';

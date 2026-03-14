@@ -15,8 +15,8 @@
  */
 
 import type { ComponentType } from 'react';
-import { LocaleService } from '@univerjs/core';
-import { borderBottomClassName, borderClassName, borderRightClassName, clsx } from '@univerjs/design';
+import { LocaleService } from '@crabtable/core';
+import { borderBottomClassName, borderClassName, borderRightClassName, clsx } from '@crabtable/design';
 import { MoreIcon, MoreLeftIcon, MoreRightIcon } from '@univerjs/icons';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { RibbonPosition } from '../../../services/menu/types';

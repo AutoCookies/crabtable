@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { ICommandService } from '@univerjs/core';
-import { DocSelectionRenderService } from '@univerjs/docs-ui';
-import { DeviceInputEventType, IRenderManagerService } from '@univerjs/engine-render';
-import { KeyCode, useDependency, useObservable } from '@univerjs/ui';
+import { ICommandService } from '@crabtable/core';
+import { DocSelectionRenderService } from '@crabtable/docs-ui';
+import { DeviceInputEventType, IRenderManagerService } from '@crabtable/engine-render';
+import { KeyCode, useDependency, useObservable } from '@crabtable/ui';
 import { useMemo } from 'react';
 import { SetCellEditVisibleOperation } from '../../commands/operations/cell-edit.operation';
 import { IEditorBridgeService } from '../../services/editor-bridge.service';

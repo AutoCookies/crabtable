@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
-import { CommandType, LocaleService } from '@univerjs/core';
-import { IDialogService } from '@univerjs/ui';
+import type { ICommand } from '@crabtable/core';
+import { CommandType, LocaleService } from '@crabtable/core';
+import { IDialogService } from '@crabtable/ui';
 import { IBatchSaveImagesService } from '../../services/batch-save-images.service';
 import { BATCH_SAVE_IMAGES_DIALOG_ID } from '../../views/batch-save-images/component-name';
 

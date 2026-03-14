@@ -17,7 +17,7 @@
 import type { ReactNode } from 'react';
 import type { Observable } from 'rxjs';
 import type { IMenuSelectorItem } from '../../services/menu/menu';
-import { ColorKit, LocaleService } from '@univerjs/core';
+import { ColorKit, LocaleService } from '@crabtable/core';
 import { useEffect, useMemo, useState } from 'react';
 
 import { isObservable } from 'rxjs';

@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, IMutationInfo, JSONXActions, Nullable } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { IDrawingJsonUndo1, IDrawingOrderMapParam } from '@univerjs/drawing';
+import type { IAccessor, ICommand, IMutationInfo, JSONXActions, Nullable } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { IDrawingJsonUndo1, IDrawingOrderMapParam } from '@crabtable/drawing';
 import {
     ArrangeTypeEnum,
     CommandType,
     ICommandService,
     JSONX,
     Tools,
-} from '@univerjs/core';
-import { RichTextEditingMutation } from '@univerjs/docs';
-import { IDocDrawingService } from '@univerjs/docs-drawing';
+} from '@crabtable/core';
+import { RichTextEditingMutation } from '@crabtable/docs';
+import { IDocDrawingService } from '@crabtable/docs-drawing';
 
 export interface ISetDrawingArrangeCommandParams extends IDrawingOrderMapParam {
     arrangeType: ArrangeTypeEnum;

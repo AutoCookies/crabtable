@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { IDocumentData } from '@univerjs/core';
+import type { IDocumentData } from '@crabtable/core';
 import type { CSSProperties, ReactNode, RefObject } from 'react';
 import type { Editor } from '../../services/editor/editor';
 import type { IKeyboardEventConfig } from './hooks';
-import { BuildTextUtils, createInternalEditorID, generateRandomId, getPlainText } from '@univerjs/core';
-import { borderClassName, clsx } from '@univerjs/design';
-import { DocSkeletonManagerService } from '@univerjs/docs';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { useDependency, useEvent, useObservable } from '@univerjs/ui';
+import { BuildTextUtils, createInternalEditorID, generateRandomId, getPlainText } from '@crabtable/core';
+import { borderClassName, clsx } from '@crabtable/design';
+import { DocSkeletonManagerService } from '@crabtable/docs';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { useDependency, useEvent, useObservable } from '@crabtable/ui';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { IEditorService } from '../../services/editor/editor-manager.service';
 import { useEditorClickOutside, useIsFocusing, useKeyboardEvent, useResize } from './hooks';

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ISequenceNode } from '@univerjs/engine-formula';
-import { matchToken, sequenceNodeType } from '@univerjs/engine-formula';
+import type { ISequenceNode } from '@crabtable/engine-formula';
+import { matchToken, sequenceNodeType } from '@crabtable/engine-formula';
 
 export type INode = (string | ISequenceNode);
 export const isComma = (e: INode) => {

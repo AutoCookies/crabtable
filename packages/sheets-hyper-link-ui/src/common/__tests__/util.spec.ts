@@ -19,8 +19,8 @@ import { hasProtocol, isEmail, serializeUrl } from '../util';
 
 describe('hyper-link common util', () => {
     it('should detect protocols and email addresses', () => {
-        expect(hasProtocol('https://univer.ai')).toBe(true);
-        expect(hasProtocol('univer.ai')).toBe(false);
+        expect(hasProtocol('https://crabtable.dev')).toBe(true);
+        expect(hasProtocol('crabtable.dev')).toBe(false);
         expect(isEmail('test@example.com')).toBe(true);
         expect(isEmail('not-an-email')).toBe(false);
     });
@@ -36,7 +36,7 @@ describe('hyper-link common util', () => {
             },
         });
 
-        expect(serializeUrl('https://univer.ai')).toBe('https://univer.ai');
+        expect(serializeUrl('https://crabtable.dev')).toBe('https://crabtable.dev');
         expect(serializeUrl('not a legal link')).toBe('not a legal link');
     });
 });

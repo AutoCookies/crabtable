@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICellData, ICommand, IMutationInfo, IObjectMatrixPrimitiveType, IRange } from '@univerjs/core';
+import type { IAccessor, ICellData, ICommand, IMutationInfo, IObjectMatrixPrimitiveType, IRange } from '@crabtable/core';
 import type {
     IInsertColMutationParams,
     IInsertRowMutationParams,
@@ -27,11 +27,11 @@ import {
     CommandType,
     Direction,
     ICommandService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
     RANGE_TYPE,
     sequenceExecute,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { SheetsSelectionsService } from '../../services/selections/selection.service';
 import { SheetInterceptorService } from '../../services/sheet-interceptor/sheet-interceptor.service';
 import {
@@ -100,7 +100,7 @@ export const InsertRowByRangeCommand: ICommand = {
     id: 'sheet.command.insert-row-by-range',
     // eslint-disable-next-line max-lines-per-function
     handler: (accessor: IAccessor, params: IInsertRowCommandParams) => {
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService), params);
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService), params);
         if (!target) {
             throw new Error('Workbook or Worksheet not found at InsertRowByRangeCommand');
         };
@@ -205,8 +205,8 @@ export const InsertRowBeforeCommand: ICommand = {
             return false;
         }
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { worksheet, subUnitId, unitId } = target;
@@ -250,8 +250,8 @@ export const InsertRowAfterCommand: ICommand = {
             return false;
         }
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { worksheet, unitId, subUnitId } = target;
@@ -301,8 +301,8 @@ export const InsertMultiRowsAboveCommand: ICommand = {
             return false;
         }
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { worksheet, unitId, subUnitId } = target;
@@ -348,8 +348,8 @@ export const InsertMultiRowsAfterCommand: ICommand = {
             return false;
         }
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { worksheet, unitId, subUnitId } = target;
@@ -420,7 +420,7 @@ export const InsertColByRangeCommand: ICommand<IInsertColCommandParams> = {
     id: 'sheet.command.insert-col-by-range',
     // eslint-disable-next-line max-lines-per-function
     handler: (accessor: IAccessor, params: IInsertColCommandParams) => {
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService), params);
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService), params);
         if (!target) {
             throw new Error('Workbook or Worksheet not found at InsertColByRangeCommand');
         }
@@ -523,8 +523,8 @@ export const InsertColBeforeCommand: ICommand = {
             return false;
         }
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { worksheet, unitId, subUnitId } = target;
@@ -568,8 +568,8 @@ export const InsertColAfterCommand: ICommand = {
             return false;
         }
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { worksheet, unitId, subUnitId } = target;
@@ -616,8 +616,8 @@ export const InsertMultiColsLeftCommand: ICommand = {
             return false;
         }
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { worksheet, unitId, subUnitId } = target;
@@ -661,8 +661,8 @@ export const InsertMultiColsRightCommand: ICommand = {
             return false;
         }
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { worksheet, unitId, subUnitId } = target;

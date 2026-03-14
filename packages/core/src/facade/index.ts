@@ -19,5 +19,5 @@ export { FBlob, type IFBlobSource } from './f-blob';
 export { FEnum } from './f-enum';
 export { FEventName, type IEventBase, type IEventParamConfig } from './f-event';
 export { FHooks } from './f-hooks';
-export { FUniver } from './f-univer';
+export { FCrabTable } from './f-univer';
 export { FUtil } from './f-util';

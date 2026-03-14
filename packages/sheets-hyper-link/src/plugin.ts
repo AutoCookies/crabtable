@@ -15,8 +15,8 @@
  */
 
 import type { IUniverSheetsHyperLinkConfig } from './config/config';
-import { DependentOn, IConfigService, Inject, Injector, merge, Plugin, registerDependencies, touchDependencies, UniverInstanceType } from '@univerjs/core';
-import { UniverSheetsPlugin } from '@univerjs/sheets';
+import { CrabTableInstanceType, DependentOn, IConfigService, Inject, Injector, merge, Plugin, registerDependencies, touchDependencies } from '@crabtable/core';
+import { UniverSheetsPlugin } from '@crabtable/sheets';
 import pkg from '../package.json';
 import { defaultPluginConfig, SHEETS_HYPER_LINK_PLUGIN_CONFIG_KEY } from './config/config';
 import { SheetsHyperLinkRefRangeController } from './controllers/ref-range.controller';
@@ -34,7 +34,7 @@ export class UniverSheetsHyperLinkPlugin extends Plugin {
     static override pluginName = SHEET_HYPER_LINK_PLUGIN;
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
     constructor(
         private readonly _config: Partial<IUniverSheetsHyperLinkConfig> = defaultPluginConfig,

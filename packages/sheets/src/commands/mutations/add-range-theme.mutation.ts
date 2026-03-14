@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IMutation } from '@univerjs/core';
+import type { IAccessor, IMutation } from '@crabtable/core';
 import type { IRangeThemeStyleJSON } from '../../model/range-theme-util';
-import { CommandType } from '@univerjs/core';
+import { CommandType } from '@crabtable/core';
 import { SheetRangeThemeModel } from '../../model/range-theme-model';
 import { RangeThemeStyle } from '../../model/range-theme-util';
 

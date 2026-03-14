@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-import type { IDisposable, IPosition, ISelectionCell, Nullable, Workbook } from '@univerjs/core';
-import type { Engine, IDocumentLayoutObject, Scene } from '@univerjs/engine-render';
-import type { KeyCode } from '@univerjs/ui';
+import type { IDisposable, IPosition, ISelectionCell, Nullable, Workbook } from '@crabtable/core';
+import type { Engine, IDocumentLayoutObject, Scene } from '@crabtable/engine-render';
+import type { KeyCode } from '@crabtable/ui';
 import type { Observable } from 'rxjs';
 import {
     CellValueType,
     convertCellToRange,
+    CrabTableInstanceType,
     createIdentifier,
     Disposable,
     DOCS_NORMAL_EDITOR_UNIT_ID_KEY,
     EDITOR_ACTIVATED,
     FOCUSING_EDITOR_STANDALONE,
     IContextService,
+    ICrabTableInstanceService,
     Inject,
-    IUniverInstanceService,
     ThemeService,
     toDisposable,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { getCanvasOffsetByEngine, IEditorService } from '@univerjs/docs-ui';
-import { convertTextRotation, convertTransformToOffsetX, convertTransformToOffsetY, DeviceInputEventType, IRenderManagerService } from '@univerjs/engine-render';
-import { BEFORE_CELL_EDIT, SheetInterceptorService } from '@univerjs/sheets';
+} from '@crabtable/core';
+import { getCanvasOffsetByEngine, IEditorService } from '@crabtable/docs-ui';
+import { convertTextRotation, convertTransformToOffsetX, convertTransformToOffsetY, DeviceInputEventType, IRenderManagerService } from '@crabtable/engine-render';
+import { BEFORE_CELL_EDIT, SheetInterceptorService } from '@crabtable/sheets';
 import { BehaviorSubject, map, switchMap } from 'rxjs';
 import { ISheetSelectionRenderService } from './selection/base-selection-render.service';
 import { attachPrimaryWithCoord } from './selection/util';
@@ -148,7 +148,7 @@ export class EditorBridgeService extends Disposable implements IEditorBridgeServ
         @Inject(SheetInterceptorService) private readonly _sheetInterceptorService: SheetInterceptorService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
         @Inject(ThemeService) private readonly _themeService: ThemeService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IEditorService private readonly _editorService: IEditorService,
         @IContextService private readonly _contextService: IContextService
     ) {
@@ -159,7 +159,7 @@ export class EditorBridgeService extends Disposable implements IEditorBridgeServ
             this._currentEditCell = null;
         }));
 
-        this._univerInstanceService.getTypeOfUnitDisposed$(UniverInstanceType.UNIVER_SHEET).subscribe((unit) => {
+        this._crabtableInstanceService.getTypeOfUnitDisposed$(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((unit) => {
             if (unit.getUnitId() === this._currentEditCellState?.unitId) {
                 this._clearCurrentEditCellState();
             }
@@ -188,7 +188,7 @@ export class EditorBridgeService extends Disposable implements IEditorBridgeServ
             return;
         }
 
-        const currentSheet = this._univerInstanceService.getCurrentUnitForType(UniverInstanceType.UNIVER_SHEET);
+        const currentSheet = this._crabtableInstanceService.getCurrentUnitForType(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!currentSheet) return;
 
         const ru = this._renderManagerService.getRenderUnitById(currentSheet.getUnitId());
@@ -309,7 +309,7 @@ export class EditorBridgeService extends Disposable implements IEditorBridgeServ
         const currentEditCell = this._currentEditCell;
         if (currentEditCell == null) return;
 
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) return;
 
         const ru = this._renderManagerService.getRenderUnitById(workbook.getUnitId());

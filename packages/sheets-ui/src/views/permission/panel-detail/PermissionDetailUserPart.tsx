@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
+import type { Workbook } from '@crabtable/core';
 import type { ICollaborator } from '@univerjs/protocol';
-import { IAuthzIoService, IUniverInstanceService, LocaleService, UniverInstanceType, UserManagerService } from '@univerjs/core';
-import { Avatar, borderClassName, clsx, FormLayout, Radio, RadioGroup, Select } from '@univerjs/design';
+import { CrabTableInstanceType, IAuthzIoService, ICrabTableInstanceService, LocaleService, UserManagerService } from '@crabtable/core';
+import { Avatar, borderClassName, clsx, FormLayout, Radio, RadioGroup, Select } from '@crabtable/design';
+import { EditStateEnum, ViewStateEnum } from '@crabtable/sheets';
+import { IDialogService, useDependency, useObservable } from '@crabtable/ui';
 import { UnitRole } from '@univerjs/protocol';
-import { EditStateEnum, ViewStateEnum } from '@univerjs/sheets';
-import { IDialogService, useDependency, useObservable } from '@univerjs/ui';
 import { useEffect } from 'react';
-import { UNIVER_SHEET_PERMISSION_USER_DIALOG, UNIVER_SHEET_PERMISSION_USER_DIALOG_ID } from '../../../consts/permission';
+import { CRABTABLE_SHEET_PERMISSION_USER_DIALOG, CRABTABLE_SHEET_PERMISSION_USER_DIALOG_ID } from '../../../consts/permission';
 import { SheetPermissionUserManagerService } from '../../../services/permission/sheet-permission-user-list.service';
 import { UserEmptyBase64 } from '../user-dialog/constant';
 
@@ -41,10 +41,10 @@ export const PermissionDetailUserPart = (props: IPermissionDetailUserPartProps) 
     const authzIoService = useDependency(IAuthzIoService);
     const sheetPermissionUserManagerService = useDependency(SheetPermissionUserManagerService);
     const userManagerService = useDependency(UserManagerService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const selectUserList = useObservable(sheetPermissionUserManagerService.selectUserList$, sheetPermissionUserManagerService.selectUserList);
 
-    const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     const worksheet = workbook?.getActiveSheet();
     if (!workbook || !worksheet) {
         return null;
@@ -60,13 +60,13 @@ export const PermissionDetailUserPart = (props: IPermissionDetailUserPartProps) 
         const currentUser = userManagerService.getCurrentUser();
         sheetPermissionUserManagerService.setCanEditUserList(userList.filter((user) => user.subject?.userID !== currentUser.userID));
         dialogService.open({
-            id: UNIVER_SHEET_PERMISSION_USER_DIALOG_ID,
+            id: CRABTABLE_SHEET_PERMISSION_USER_DIALOG_ID,
             title: { title: '' },
-            children: { label: UNIVER_SHEET_PERMISSION_USER_DIALOG },
+            children: { label: CRABTABLE_SHEET_PERMISSION_USER_DIALOG },
             width: 280,
             destroyOnClose: true,
             closable: false,
-            onClose: () => dialogService.close(UNIVER_SHEET_PERMISSION_USER_DIALOG_ID),
+            onClose: () => dialogService.close(CRABTABLE_SHEET_PERMISSION_USER_DIALOG_ID),
             className: 'sheet-permission-user-dialog',
         });
     };

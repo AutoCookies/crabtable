@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IWorkbookData } from '@univerjs/core';
+import type { IWorkbookData } from '@crabtable/core';
 import fs from 'node:fs';
 import path from 'node:path';
 import { expect } from 'vitest';

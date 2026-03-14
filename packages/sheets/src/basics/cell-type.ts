@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { CellValue, ICellData, IStyleData, Nullable, Styles } from '@univerjs/core';
-import { CellValueType, isBooleanString, isRealNum, isTextFormat, willLoseNumericPrecision } from '@univerjs/core';
+import type { CellValue, ICellData, IStyleData, Nullable, Styles } from '@crabtable/core';
+import { CellValueType, isBooleanString, isRealNum, isTextFormat, willLoseNumericPrecision } from '@crabtable/core';
 
 /**
  * Get cell value type by style, new value and old value.

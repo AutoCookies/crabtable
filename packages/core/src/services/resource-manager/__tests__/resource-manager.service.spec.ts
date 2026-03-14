@@ -15,7 +15,7 @@
  */
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { UniverInstanceType } from '../../../common/unit';
+import { CrabTableInstanceType } from '../../../common/unit';
 import { DesktopLogService, LogLevel } from '../../log/log.service';
 import { ResourceManagerService } from '../resource-manager.service';
 
@@ -40,7 +40,7 @@ describe('ResourceManagerService', () => {
 
         service.registerPluginResource({
             pluginName: 'SHEET_TEST_PLUGIN',
-            businesses: [UniverInstanceType.UNIVER_SHEET],
+            businesses: [CrabTableInstanceType.CRABTABLE_SHEET],
             onLoad: () => {},
             onUnLoad: () => {},
             toJson: (unitId) => JSON.stringify({ unitId }),
@@ -48,7 +48,7 @@ describe('ResourceManagerService', () => {
         });
         service.registerPluginResource({
             pluginName: 'DOC_TEST_PLUGIN',
-            businesses: [UniverInstanceType.UNIVER_DOC],
+            businesses: [CrabTableInstanceType.CRABTABLE_DOC],
             onLoad: () => {},
             onUnLoad: () => {},
             toJson: () => 'doc',
@@ -61,7 +61,7 @@ describe('ResourceManagerService', () => {
             { name: 'SHEET_TEST_PLUGIN', data: '{"unitId":"u1"}' },
             { name: 'DOC_TEST_PLUGIN', data: 'doc' },
         ]);
-        expect(service.getResourcesByType('u1', UniverInstanceType.UNIVER_DOC)).toEqual([
+        expect(service.getResourcesByType('u1', CrabTableInstanceType.CRABTABLE_DOC)).toEqual([
             { name: 'DOC_TEST_PLUGIN', data: 'doc' },
         ]);
     });
@@ -69,7 +69,7 @@ describe('ResourceManagerService', () => {
     it('should unregister resources through returned disposable and explicit disposal', () => {
         const disposable = service.registerPluginResource({
             pluginName: 'SHEET_TEST_PLUGIN',
-            businesses: [UniverInstanceType.UNIVER_SHEET],
+            businesses: [CrabTableInstanceType.CRABTABLE_SHEET],
             onLoad: () => {},
             onUnLoad: () => {},
             toJson: () => 'sheet',
@@ -78,7 +78,7 @@ describe('ResourceManagerService', () => {
 
         expect(() => service.registerPluginResource({
             pluginName: 'SHEET_TEST_PLUGIN',
-            businesses: [UniverInstanceType.UNIVER_SHEET],
+            businesses: [CrabTableInstanceType.CRABTABLE_SHEET],
             onLoad: () => {},
             onUnLoad: () => {},
             toJson: () => 'sheet',
@@ -90,7 +90,7 @@ describe('ResourceManagerService', () => {
 
         service.registerPluginResource({
             pluginName: 'DOC_TEST_PLUGIN',
-            businesses: [UniverInstanceType.UNIVER_DOC],
+            businesses: [CrabTableInstanceType.CRABTABLE_DOC],
             onLoad: () => {},
             onUnLoad: () => {},
             toJson: () => 'doc',
@@ -107,7 +107,7 @@ describe('ResourceManagerService', () => {
 
         service.registerPluginResource({
             pluginName: 'SHEET_TEST_PLUGIN',
-            businesses: [UniverInstanceType.UNIVER_SHEET],
+            businesses: [CrabTableInstanceType.CRABTABLE_SHEET],
             onLoad: (_unitId, resource) => loaded.push(resource),
             onUnLoad: (unitId) => unloaded.push(unitId),
             toJson: () => 'sheet',
@@ -115,7 +115,7 @@ describe('ResourceManagerService', () => {
         });
         service.registerPluginResource({
             pluginName: 'DOC_TEST_PLUGIN',
-            businesses: [UniverInstanceType.UNIVER_DOC],
+            businesses: [CrabTableInstanceType.CRABTABLE_DOC],
             onLoad: () => {},
             onUnLoad: () => {},
             toJson: () => 'doc',
@@ -128,7 +128,7 @@ describe('ResourceManagerService', () => {
             { name: 'SHEET_TEST_PLUGIN', data: '{"ok":true}' },
             { name: 'DOC_TEST_PLUGIN', data: 'boom' },
         ]);
-        service.unloadResources('unit-1', UniverInstanceType.UNIVER_SHEET);
+        service.unloadResources('unit-1', CrabTableInstanceType.CRABTABLE_SHEET);
 
         expect(loaded).toEqual([{ ok: true }]);
         expect(unloaded).toEqual(['unit-1']);

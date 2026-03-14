@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import { DataValidationOperator, DataValidationType, generateRandomId } from '@univerjs/core';
-import { SheetsSelectionsService } from '@univerjs/sheets';
+import type { IAccessor } from '@crabtable/core';
+import { DataValidationOperator, DataValidationType, generateRandomId } from '@crabtable/core';
+import { SheetsSelectionsService } from '@crabtable/sheets';
 
 export function createDefaultNewRule(accessor: IAccessor) {
     const selectionManagerService = accessor.get(SheetsSelectionsService);

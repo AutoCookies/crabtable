@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { IShortcutItem } from '@univerjs/ui';
+import type { IShortcutItem } from '@crabtable/ui';
 import type {
     IExpandSelectionCommandParams,
     IMoveSelectionCommandParams,
     IMoveSelectionEnterAndTabCommandParams,
     ISelectAllCommandParams,
 } from '../../commands/commands/set-selection.command';
-import { Direction } from '@univerjs/core';
-import { KeyCode, MetaKeys } from '@univerjs/ui';
+import { Direction } from '@crabtable/core';
+import { KeyCode, MetaKeys } from '@crabtable/ui';
 import {
     ExpandSelectionCommand,
     JumpOver,

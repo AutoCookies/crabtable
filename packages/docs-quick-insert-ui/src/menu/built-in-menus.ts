@@ -15,8 +15,8 @@
  */
 
 import type { DocPopupMenu, IDocPopupMenuItem } from '../services/doc-quick-insert-popup.service';
-import { InsertDocImageCommand } from '@univerjs/docs-drawing-ui';
-import { BulletListCommand, DocCreateTableOperation, HorizontalLineCommand, OrderListCommand } from '@univerjs/docs-ui';
+import { InsertDocImageCommand } from '@crabtable/docs-drawing-ui';
+import { BulletListCommand, DocCreateTableOperation, HorizontalLineCommand, OrderListCommand } from '@crabtable/docs-ui';
 
 export enum QuickInsertMenuGroup {
     Basic = 'quick.insert.group.basic',

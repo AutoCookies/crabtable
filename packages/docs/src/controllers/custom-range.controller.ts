@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel } from '@univerjs/core';
-import type { ITextRangeWithStyle } from '@univerjs/engine-render';
+import type { DocumentDataModel } from '@crabtable/core';
+import type { ITextRangeWithStyle } from '@crabtable/engine-render';
 import type { ISetTextSelectionsOperationParams } from '../commands/operations/text-selection.operation';
-import { BuildTextUtils, Disposable, ICommandService, Inject, IUniverInstanceService } from '@univerjs/core';
+import { BuildTextUtils, Disposable, ICommandService, ICrabTableInstanceService, Inject } from '@crabtable/core';
 import { SetTextSelectionsOperation } from '../commands/operations/text-selection.operation';
 import { DocSelectionManagerService } from '../services/doc-selection-manager.service';
 
@@ -25,7 +25,7 @@ export class DocCustomRangeController extends Disposable {
     constructor(
         @ICommandService private readonly _commandService: ICommandService,
         @Inject(DocSelectionManagerService) private readonly _textSelectionManagerService: DocSelectionManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
 
@@ -73,7 +73,7 @@ export class DocCustomRangeController extends Disposable {
             if (commandInfo.id === SetTextSelectionsOperation.id) {
                 const params = commandInfo.params as ISetTextSelectionsOperationParams;
                 const { unitId, ranges, isEditing } = params;
-                const doc = this._univerInstanceService.getUnit<DocumentDataModel>(unitId);
+                const doc = this._crabtableInstanceService.getUnit<DocumentDataModel>(unitId);
                 if (!doc) {
                     return;
                 }

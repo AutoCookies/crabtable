@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
-import type { IRangeProtectionRule, IWorksheetProtectionRule } from '@univerjs/sheets';
-import { EditStateEnum, UnitObject, ViewStateEnum } from '@univerjs/sheets';
+import type { IRange } from '@crabtable/core';
+import type { IRangeProtectionRule, IWorksheetProtectionRule } from '@crabtable/sheets';
+import { EditStateEnum, UnitObject, ViewStateEnum } from '@crabtable/sheets';
 
 export const DEFAULT_RANGE_RULE: IRangeProtectionRule = {
     unitId: '',

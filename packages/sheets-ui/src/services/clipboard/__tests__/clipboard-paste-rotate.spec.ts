@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICellData, Injector, IStyleData, Nullable, Univer } from '@univerjs/core';
-import { ICommandService, IUniverInstanceService, LocaleType, RANGE_TYPE } from '@univerjs/core';
+import type { CrabTable, ICellData, Injector, IStyleData, Nullable } from '@crabtable/core';
+import { ICommandService, ICrabTableInstanceService, LocaleType, RANGE_TYPE } from '@crabtable/core';
 import {
     AddWorksheetMergeMutation,
     RemoveWorksheetMergeMutation,
@@ -25,7 +25,7 @@ import {
     SetWorksheetRowAutoHeightMutation,
     SetWorksheetRowHeightMutation,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SheetSkeletonManagerService } from '../../sheet-skeleton-manager.service';
 import { ISheetClipboardService } from '../clipboard.service';
@@ -33,7 +33,7 @@ import { clipboardTestBed } from './clipboard-test-bed';
 import { rotateSampleByUniver } from './constant';
 
 describe('Test clipboard', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let sheetClipboardService: ISheetClipboardService;
@@ -92,14 +92,14 @@ describe('Test clipboard', () => {
             endRow: number,
             endColumn: number
         ): Array<Array<Nullable<ICellData>>> | undefined =>
-            get(IUniverInstanceService)
-                .getUniverSheetInstance('test')
+            get(ICrabTableInstanceService)
+                .getCrabTableSheetInstance('test')
                 ?.getSheetBySheetId('sheet1')
                 ?.getRange(startRow, startColumn, endRow, endColumn)
                 .getValues();
 
         getStyles = (key) => {
-            return get(IUniverInstanceService).getUniverSheetInstance('test')!.getStyles().get(key);
+            return get(ICrabTableInstanceService).getCrabTableSheetInstance('test')!.getStyles().get(key);
         };
 
         convertColor = (color) => {
@@ -138,7 +138,7 @@ describe('Test clipboard', () => {
         });
 
         it('test font style paste from univer', async () => {
-            const worksheet = get(IUniverInstanceService).getUniverSheetInstance('test')!.getSheetBySheetId('sheet1')!;
+            const worksheet = get(ICrabTableInstanceService).getCrabTableSheetInstance('test')!.getSheetBySheetId('sheet1')!;
             const res = await sheetClipboardService.legacyPaste(rotateSampleByUniver);
             expect(res).toBeTruthy();
 

@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-import type { IRange, IRangeWithCoord, Worksheet } from '@univerjs/core';
+import type { IRange, IRangeWithCoord, Worksheet } from '@crabtable/core';
 import {
     HorizontalAlign,
     RANGE_TYPE,
     VerticalAlign,
-} from '@univerjs/core';
+} from '@crabtable/core';
 
 export type FDefaultAlignment = 'general';
 export type FHorizontalAlignment = 'left' | 'center' | 'normal';
 export type FVerticalAlignment = 'top' | 'middle' | 'bottom';
 
 /**
- * Transform the Facade API horizontal alignment to the Univer Core horizontal alignment.
+ * Transform the Facade API horizontal alignment to the CrabTable Core horizontal alignment.
  * @param {FHorizontalAlignment} value - The Facade API horizontal alignment.
- * @returns {HorizontalAlign} The Univer Core horizontal alignment.
+ * @returns {HorizontalAlign} The CrabTable Core horizontal alignment.
  */
 export function transformFacadeHorizontalAlignment(value: FHorizontalAlignment): HorizontalAlign {
     switch (value) {
@@ -44,8 +44,8 @@ export function transformFacadeHorizontalAlignment(value: FHorizontalAlignment):
 }
 
 /**
- * Transform the Univer Core horizontal alignment to the Facade API horizontal alignment.
- * @param {HorizontalAlign} value - The Univer Core horizontal alignment.
+ * Transform the CrabTable Core horizontal alignment to the Facade API horizontal alignment.
+ * @param {HorizontalAlign} value - The CrabTable Core horizontal alignment.
  * @returns {FHorizontalAlignment} The Facade API horizontal alignment.
  */
 export function transformCoreHorizontalAlignment(value: HorizontalAlign): FHorizontalAlignment | FDefaultAlignment {
@@ -62,9 +62,9 @@ export function transformCoreHorizontalAlignment(value: HorizontalAlign): FHoriz
 }
 
 /**
- * Transform the Facade API vertical alignment to the Univer Core vertical alignment.
+ * Transform the Facade API vertical alignment to the CrabTable Core vertical alignment.
  * @param {FVerticalAlignment} value - The Facade API vertical alignment.
- * @returns {VerticalAlign} The Univer Core vertical alignment.
+ * @returns {VerticalAlign} The CrabTable Core vertical alignment.
  */
 export function transformFacadeVerticalAlignment(value: FVerticalAlignment): VerticalAlign {
     switch (value) {
@@ -80,8 +80,8 @@ export function transformFacadeVerticalAlignment(value: FVerticalAlignment): Ver
 }
 
 /**
- * Transform the Univer Core vertical alignment to the Facade API vertical alignment.
- * @param {VerticalAlign} value - The Univer Core vertical alignment.
+ * Transform the CrabTable Core vertical alignment to the Facade API vertical alignment.
+ * @param {VerticalAlign} value - The CrabTable Core vertical alignment.
  * @returns {FVerticalAlignment} The Facade API vertical alignment.
  */
 export function transformCoreVerticalAlignment(value: VerticalAlign): FVerticalAlignment | FDefaultAlignment {

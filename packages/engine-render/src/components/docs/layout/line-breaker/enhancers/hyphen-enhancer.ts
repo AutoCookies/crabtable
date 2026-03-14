@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { Hyphen } from '../../hyphenation/hyphen';
 import type { Lang } from '../../hyphenation/lang';
 import type { IBreakPoints, LineBreaker } from '../line-breaker';

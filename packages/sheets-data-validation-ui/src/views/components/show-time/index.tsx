@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDataValidationRuleOptions } from '@univerjs/core';
-import { LocaleService } from '@univerjs/core';
-import { Checkbox, FormLayout } from '@univerjs/design';
-import { useDependency } from '@univerjs/ui';
+import type { IDataValidationRuleOptions } from '@crabtable/core';
+import { LocaleService } from '@crabtable/core';
+import { Checkbox, FormLayout } from '@crabtable/design';
+import { useDependency } from '@crabtable/ui';
 
 export interface IDateShowTimeOptionProps {
     value: IDataValidationRuleOptions;

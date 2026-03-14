@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { IDisposable, IRange, ISelectionCell, Nullable } from '@univerjs/core';
-import type { IColumnsHeaderCfgParam, IRowsHeaderCfgParam, RenderComponentType, RenderManagerService, SpreadsheetColumnHeader, SpreadsheetRowHeader, SpreadsheetSkeleton } from '@univerjs/engine-render';
+import type { IDisposable, IRange, ISelectionCell, Nullable } from '@crabtable/core';
+import type { IColumnsHeaderCfgParam, IRowsHeaderCfgParam, RenderComponentType, RenderManagerService, SpreadsheetColumnHeader, SpreadsheetRowHeader, SpreadsheetSkeleton } from '@crabtable/engine-render';
 
-import type { ISelectionStyle } from '@univerjs/sheets';
-import type { IScrollState, IViewportScrollState } from '@univerjs/sheets-ui';
-import type { FRange } from '@univerjs/sheets/facade';
-import { ICommandService, toDisposable } from '@univerjs/core';
-import { IRenderManagerService, SHEET_VIEWPORT_KEY } from '@univerjs/engine-render';
-import { SetWorksheetRowIsAutoHeightCommand } from '@univerjs/sheets';
-import { IMarkSelectionService, SetColumnHeaderHeightCommand, SetRowHeaderWidthCommand, SetWorksheetColAutoWidthCommand, SetZoomRatioCommand, SHEET_VIEW_KEY, SheetScrollManagerService, SheetSkeletonManagerService, SheetsScrollRenderController } from '@univerjs/sheets-ui';
-import { FWorksheet } from '@univerjs/sheets/facade';
+import type { ISelectionStyle } from '@crabtable/sheets';
+import type { IScrollState, IViewportScrollState } from '@crabtable/sheets-ui';
+import type { FRange } from '@crabtable/sheets/facade';
+import { ICommandService, toDisposable } from '@crabtable/core';
+import { IRenderManagerService, SHEET_VIEWPORT_KEY } from '@crabtable/engine-render';
+import { SetWorksheetRowIsAutoHeightCommand } from '@crabtable/sheets';
+import { IMarkSelectionService, SetColumnHeaderHeightCommand, SetRowHeaderWidthCommand, SetWorksheetColAutoWidthCommand, SetZoomRatioCommand, SHEET_VIEW_KEY, SheetScrollManagerService, SheetSkeletonManagerService, SheetsScrollRenderController } from '@crabtable/sheets-ui';
+import { FWorksheet } from '@crabtable/sheets/facade';
 
 /**
  * @ignore
@@ -35,7 +35,7 @@ export interface IFWorksheetSkeletonMixin {
      * @returns {FWorksheet} The FWorksheet instance for chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * fWorksheet.refreshCanvas();
      * ```
@@ -50,7 +50,7 @@ export interface IFWorksheetSkeletonMixin {
      * @return {IDisposable} An IDisposable to remove the highlights.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const ranges = [fWorksheet.getRange('A1:B2'), fWorksheet.getRange('D4:E5')];
      * const disposable = fWorksheet.highlightRanges(ranges, { fill: 'yellow' });
@@ -67,7 +67,7 @@ export interface IFWorksheetSkeletonMixin {
      * @returns {FWorksheet} The FWorksheet instance for chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Set zoom ratio to 200%
@@ -83,7 +83,7 @@ export interface IFWorksheetSkeletonMixin {
      * @returns {number} The zoom ratio of the worksheet.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const zoomRatio = fWorksheet.getZoom();
      * console.log(zoomRatio);
@@ -96,7 +96,7 @@ export interface IFWorksheetSkeletonMixin {
      * @returns {IRange} - visible range
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const visibleRange = fWorksheet.getVisibleRange();
      * console.log(visibleRange);
@@ -110,11 +110,11 @@ export interface IFWorksheetSkeletonMixin {
      * @returns {Record<SHEET_VIEWPORT_KEY, IRange>} - visible ranges of all viewports
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const visibleRanges = fWorksheet.getVisibleRangesOfAllViewports();
      * console.log(visibleRanges);
-     * const mainLeftTopViewportRange = visibleRanges?.get(univerAPI.Enum.SHEET_VIEWPORT_KEY.VIEW_MAIN_LEFT_TOP);
+     * const mainLeftTopViewportRange = visibleRanges?.get(crabtableAPI.Enum.SHEET_VIEWPORT_KEY.VIEW_MAIN_LEFT_TOP);
      * console.log(fWorksheet.getRange(mainLeftTopViewportRange).getA1Notation());
      * ```
      */
@@ -129,7 +129,7 @@ export interface IFWorksheetSkeletonMixin {
      * @returns {FWorksheet} - The FWorksheet instance for chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Scroll to cell D10
@@ -146,7 +146,7 @@ export interface IFWorksheetSkeletonMixin {
      * @returns {IScrollState} curr scroll state
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Scroll to cell D10
@@ -168,7 +168,7 @@ export interface IFWorksheetSkeletonMixin {
      * @returns {Nullable<SpreadsheetSkeleton>} The skeleton of the worksheet.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const skeleton = fWorksheet.getSkeleton();
      * console.log(skeleton);
@@ -182,7 +182,7 @@ export interface IFWorksheetSkeletonMixin {
      * @returns {FWorksheet} - The FWorksheet instance for chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Set the long text value in cell A1
@@ -202,7 +202,7 @@ export interface IFWorksheetSkeletonMixin {
      * @returns {FWorksheet} - The FWorksheet instance for chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Set the A:C columns to a width that fits their text.
@@ -227,7 +227,7 @@ export interface IFWorksheetSkeletonMixin {
      * @returns {FWorksheet} - The FWorksheet instance for chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Set the first 3 rows to a height that fits their text.
@@ -241,7 +241,7 @@ export interface IFWorksheetSkeletonMixin {
      * @param {IColumnsHeaderCfgParam} cfg The configuration of the column header.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * fWorksheet.customizeColumnHeader({
      *   headerStyle: {
@@ -271,7 +271,7 @@ export interface IFWorksheetSkeletonMixin {
      * @param {IRowsHeaderCfgParam} cfg The configuration of the row header.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * fWorksheet.customizeRowHeader({
      *   headerStyle: {
@@ -296,7 +296,7 @@ export interface IFWorksheetSkeletonMixin {
      * @returns {FWorksheet} - The FWorksheet instance for chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * fWorksheet.setColumnHeaderHeight(100);
      * ```
@@ -309,7 +309,7 @@ export interface IFWorksheetSkeletonMixin {
      * @returns {FWorksheet} - The FWorksheet instance for chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * fWorksheet.setRowHeaderWidth(100);
      * ```
@@ -317,7 +317,7 @@ export interface IFWorksheetSkeletonMixin {
     setRowHeaderWidth(width: number): FWorksheet;
 
     /**
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.Scroll, (params) => {})` instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.Scroll, (params) => {})` instead
      */
     onScroll(callback: (params: Nullable<IViewportScrollState>) => void): IDisposable;
 }
@@ -579,7 +579,7 @@ export class FWorksheetSkeletonMixin extends FWorksheet implements IFWorksheetSk
 }
 
 FWorksheet.extend(FWorksheetSkeletonMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FWorksheet extends IFWorksheetSkeletonMixin { }
 }

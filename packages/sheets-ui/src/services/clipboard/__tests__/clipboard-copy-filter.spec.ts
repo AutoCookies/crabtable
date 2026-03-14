@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICellData, Injector, Nullable, Univer } from '@univerjs/core';
-import type { ISetSelectionsOperationParams } from '@univerjs/sheets';
-import { ICommandService, IUniverInstanceService, LocaleType, RANGE_TYPE, set, ThemeService } from '@univerjs/core';
+import type { CrabTable, ICellData, Injector, Nullable } from '@crabtable/core';
+import type { ISetSelectionsOperationParams } from '@crabtable/sheets';
+import { ICommandService, ICrabTableInstanceService, LocaleType, RANGE_TYPE, set, ThemeService } from '@crabtable/core';
 import {
     AddWorksheetMergeMutation,
     RemoveWorksheetMergeMutation,
@@ -25,14 +25,14 @@ import {
     SetWorksheetColWidthMutation,
     SetWorksheetRowAutoHeightMutation,
     SetWorksheetRowHeightMutation,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SheetCopyCommand, SheetPasteCommand } from '../../../commands/commands/clipboard.command';
 import { ISheetClipboardService } from '../clipboard.service';
 import { clipboardTestBed } from './clipboard-test-bed';
 
 describe('Test clipboard', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let sheetClipboardService: ISheetClipboardService;
@@ -105,8 +105,8 @@ describe('Test clipboard', () => {
             endRow: number,
             endColumn: number
         ): Array<Array<Nullable<ICellData>>> | undefined =>
-            get(IUniverInstanceService)
-                .getUniverSheetInstance('test')
+            get(ICrabTableInstanceService)
+                .getCrabTableSheetInstance('test')
                 ?.getSheetBySheetId('sheet1')
                 ?.getRange(startRow, startColumn, endRow, endColumn)
                 .getValues();
@@ -118,7 +118,7 @@ describe('Test clipboard', () => {
 
     describe('Copy area where have filtered out rows', () => {
         it('Paste content should not have filtered out rows', async () => {
-            const worksheet = get(IUniverInstanceService).getUniverSheetInstance('test')!.getSheetBySheetId('sheet1')!;
+            const worksheet = get(ICrabTableInstanceService).getCrabTableSheetInstance('test')!.getSheetBySheetId('sheet1')!;
             worksheet.__interceptViewModel((viewModel) => {
                 viewModel.registerRowFilteredInterceptor({
                     getRowFiltered(row: number): boolean {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { DependencyOverride } from '@univerjs/core';
+import type { DependencyOverride } from '@crabtable/core';
 import type { IWorkbenchOptions } from '../controllers/ui/ui.controller';
 import type { MenuConfig } from '../services/menu/menu';
 
@@ -23,7 +23,7 @@ export const UI_PLUGIN_CONFIG_KEY = 'ui.config';
 export const configSymbol = Symbol(UI_PLUGIN_CONFIG_KEY);
 
 export interface IUniverUIConfig extends IWorkbenchOptions {
-    /** Disable auto focus when Univer bootstraps. */
+    /** Disable auto focus when CrabTable bootstraps. */
     disableAutoFocus?: true;
 
     override?: DependencyOverride;

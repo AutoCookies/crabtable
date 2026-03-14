@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ISidebarService, useDependency } from '@univerjs/ui';
+import { ISidebarService, useDependency } from '@crabtable/ui';
 import { WATERMARK_PANEL, WATERMARK_PANEL_FOOTER } from '../menu/watermark.menu.controller';
 
 export function useWatermark() {

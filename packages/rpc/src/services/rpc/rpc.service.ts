@@ -17,7 +17,7 @@
 /* eslint-disable ts/no-explicit-any */
 
 import type { Subscription } from 'rxjs';
-import { RxDisposable } from '@univerjs/core';
+import { RxDisposable } from '@crabtable/core';
 import { BehaviorSubject, firstValueFrom, isObservable, Observable, of } from 'rxjs';
 import { filter, take, takeUntil } from 'rxjs/operators';
 

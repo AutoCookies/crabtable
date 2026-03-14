@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import {
     DataStreamTreeNodeType,
     DataStreamTreeTokenType,
     deleteContent,
     horizontalLineSegmentsSubtraction,
     insertTextToContent,
-} from '@univerjs/core';
+} from '@crabtable/core';
 
 export class DataStreamTreeNode {
     children: DataStreamTreeNode[] = [];

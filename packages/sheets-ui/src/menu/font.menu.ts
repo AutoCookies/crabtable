@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuButtonItem, IMenuSelectorItem } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuButtonItem, IMenuSelectorItem } from '@crabtable/ui';
 import {
+    CrabTableInstanceType,
     DEFAULT_STYLES,
     EDITOR_ACTIVATED,
     FOCUSING_SHAPE_TEXT_EDITOR,
     FOCUSING_SHEET,
     ICommandService,
     IContextService,
-    IUniverInstanceService,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { SetTextSelectionsOperation } from '@univerjs/docs';
-import { SetInlineFormatCommand } from '@univerjs/docs-ui';
+    ICrabTableInstanceService,
+} from '@crabtable/core';
+import { SetTextSelectionsOperation } from '@crabtable/docs';
+import { SetInlineFormatCommand } from '@crabtable/docs-ui';
 import {
     RangeProtectionPermissionEditPoint,
     SetRangeValuesMutation,
@@ -37,8 +37,8 @@ import {
     WorkbookEditablePermission,
     WorksheetEditPermission,
     WorksheetSetCellStylePermission,
-} from '@univerjs/sheets';
-import { FONT_SIZE_COMPONENT, FONT_SIZE_LIST, getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { FONT_SIZE_COMPONENT, FONT_SIZE_LIST, getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { Observable } from 'rxjs';
 import {
     SetRangeFontDecreaseCommand,
@@ -50,11 +50,11 @@ import { getFontStyleAtCursor } from './utils';
 
 function updateFontSizeValue(accessor: IAccessor, defaultValue: number) {
     const selectionManagerService = accessor.get(SheetsSelectionsService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const commandService = accessor.get(ICommandService);
     const contextService = accessor.get(IContextService);
 
-    return deriveStateFromActiveSheet$(univerInstanceService, defaultValue, ({ worksheet }) => new Observable((subscriber) => {
+    return deriveStateFromActiveSheet$(crabtableInstanceService, defaultValue, ({ worksheet }) => new Observable((subscriber) => {
         const updateSheet = () => {
             let fs = defaultValue;
             const primary = selectionManagerService.getCurrentLastSelection()?.primary;
@@ -120,7 +120,7 @@ export function FontSizeSelectorMenuItemFactory(accessor: IAccessor): IMenuSelec
         selections: FONT_SIZE_LIST,
         disabled$,
         value$: updateFontSizeValue(accessor, defaultValue),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -137,7 +137,7 @@ export function FontSizeIncreaseMenuItemFactory(accessor: IAccessor): IMenuButto
         icon: 'FontSizeIncreaseIcon',
         tooltip: 'toolbar.fontSizeIncrease',
         disabled$,
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -154,6 +154,6 @@ export function FontSizeDecreaseMenuItemFactory(accessor: IAccessor) {
         icon: 'FontSizeReduceIcon',
         tooltip: 'toolbar.fontSizeDecrease',
         disabled$,
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }

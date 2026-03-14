@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { IDirtyUnitOtherFormulaMap, IOtherFormulaData, IOtherFormulaDataItem } from '../basics/common';
 
-import { createIdentifier, Disposable } from '@univerjs/core';
+import { createIdentifier, Disposable } from '@crabtable/core';
 
 export interface IOtherFormulaManagerSearchParam {
     unitId: string;

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IDocumentBody } from '@univerjs/core';
-import { BooleanNumber } from '@univerjs/core';
+import type { IDocumentBody } from '@crabtable/core';
+import { BooleanNumber } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import { convertBodyToHtml, covertTextRunToHtml, getBodySliceHtml, UDMToHtmlService } from '../convertor';
 

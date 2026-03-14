@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IMutationInfo, IRange, Workbook } from '@univerjs/core';
-import type { ICopySheetCommandParams, IRemoveSheetCommandParams } from '@univerjs/sheets';
+import type { IMutationInfo, IRange, Workbook } from '@crabtable/core';
+import type { ICopySheetCommandParams, IRemoveSheetCommandParams } from '@crabtable/sheets';
 import type { ITableResource } from '../types/type';
-import { Disposable, generateRandomId, Inject, InterceptorEffectEnum, IResourceManagerService, IUniverInstanceService, Rectangle, RTree, UniverInstanceType } from '@univerjs/core';
-import { CopySheetCommand, INTERCEPTOR_POINT, RemoveSheetCommand, SheetInterceptorService } from '@univerjs/sheets';
+import { CrabTableInstanceType, Disposable, generateRandomId, ICrabTableInstanceService, Inject, InterceptorEffectEnum, IResourceManagerService, Rectangle, RTree } from '@crabtable/core';
+import { CopySheetCommand, INTERCEPTOR_POINT, RemoveSheetCommand, SheetInterceptorService } from '@crabtable/sheets';
 import { AddSheetTableMutation } from '../commands/mutations/add-sheet-table.mutation';
 import { DeleteSheetTableMutation } from '../commands/mutations/delete-sheet-table.mutation';
 import { PLUGIN_NAME } from '../const';
@@ -27,7 +27,7 @@ import { TableManager } from '../model/table-manager';
 export class SheetsTableController extends Disposable {
     private _tableRangeRTree = new Map<string, RTree>();
     constructor(
-        @Inject(IUniverInstanceService) private _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(SheetInterceptorService) private _sheetInterceptorService: SheetInterceptorService,
         @Inject(TableManager) private _tableManager: TableManager,
         @Inject(IResourceManagerService) private _resourceManagerService: IResourceManagerService
@@ -171,7 +171,7 @@ export class SheetsTableController extends Disposable {
                     return {};
                 }
             },
-            businesses: [UniverInstanceType.UNIVER_SHEET],
+            businesses: [CrabTableInstanceType.CRABTABLE_SHEET],
             pluginName: PLUGIN_NAME,
             onLoad: (unitId, resources) => {
                 this._fromJSON(unitId, resources);
@@ -190,8 +190,8 @@ export class SheetsTableController extends Disposable {
                 getMutations: (commandInfo) => {
                     if (commandInfo.id === RemoveSheetCommand.id) {
                         const params = commandInfo.params as IRemoveSheetCommandParams;
-                        const unitId = params.unitId || this._univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getUnitId();
-                        const subUnitId = params.subUnitId || this._univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()?.getSheetId();
+                        const unitId = params.unitId || this._crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getUnitId();
+                        const subUnitId = params.subUnitId || this._crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()?.getSheetId();
 
                         if (!unitId || !subUnitId) {
                             return { redos: [], undos: [] };

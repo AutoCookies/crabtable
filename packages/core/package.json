@@ -1,24 +1,24 @@
 {
-    "name": "@univerjs/core",
+    "name": "@crabtable/core",
     "version": "0.17.0",
     "private": false,
-    "description": "Core library for Univer.",
-    "author": "DreamNum <developer@univer.ai>",
+    "description": "Core library for CrabTable.",
+    "author": "DreamNum <developer@crabtable.dev>",
     "license": "Apache-2.0",
     "funding": {
         "type": "opencollective",
-        "url": "https://opencollective.com/univer"
+        "url": "https://opencollective.com/crabtable"
     },
-    "homepage": "https://univer.ai",
+    "homepage": "https://crabtable.dev",
     "repository": {
         "type": "git",
-        "url": "https://github.com/dream-num/univer"
+        "url": "https://github.com/AutoCookies/crabtable"
     },
     "bugs": {
-        "url": "https://github.com/dream-num/univer/issues"
+        "url": "https://github.com/AutoCookies/crabtable/issues"
     },
     "keywords": [
-        "univer"
+        "crabtable"
     ],
     "exports": {
         ".": "./src/index.ts",
@@ -74,7 +74,7 @@
     },
     "dependencies": {
         "@univerjs/protocol": "0.1.48",
-        "@univerjs/themes": "workspace:*",
+        "@crabtable/themes": "*",
         "@wendellhu/redi": "1.1.1",
         "async-lock": "^1.4.1",
         "dayjs": "^1.11.19",
@@ -90,7 +90,7 @@
         "@types/async-lock": "^1.4.2",
         "@types/lodash-es": "^4.17.12",
         "@types/rbush": "^4.0.0",
-        "@univerjs-infra/shared": "workspace:*",
+        "@crabtable-infra/shared": "*",
         "rxjs": "^7.8.2",
         "typescript": "^5.9.3",
         "vite": "^7.3.1",

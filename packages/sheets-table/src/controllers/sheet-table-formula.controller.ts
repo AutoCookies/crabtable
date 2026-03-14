@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ISetSuperTableMutationParam, ISetSuperTableMutationSearchParam } from '@univerjs/engine-formula';
+import type { ISetSuperTableMutationParam, ISetSuperTableMutationSearchParam } from '@crabtable/engine-formula';
 import type { Table } from '../model/table';
-import { Disposable, ICommandService, Inject } from '@univerjs/core';
-import { RemoveSuperTableMutation, SetSuperTableMutation } from '@univerjs/engine-formula';
+import { Disposable, ICommandService, Inject } from '@crabtable/core';
+import { RemoveSuperTableMutation, SetSuperTableMutation } from '@crabtable/engine-formula';
 import { TableManager } from '../model/table-manager';
 
 export class SheetTableFormulaController extends Disposable {

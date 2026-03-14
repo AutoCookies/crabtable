@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
 import type { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import type { ComponentType } from '../../common/component-manager';
-import { createIdentifier } from '@univerjs/core';
+import { createIdentifier } from '@crabtable/core';
 
 export const IZenZoneService = createIdentifier<IZenZoneService>('univer.zen-zone-service');
 

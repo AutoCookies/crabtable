@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICellData, ICustomRange, IDocumentData, IHyperLinkCustomRange, Injector, IWorkbookData, Nullable } from '@univerjs/core';
+import type { ICellData, ICustomRange, IDocumentData, IHyperLinkCustomRange, Injector, IWorkbookData, Nullable } from '@crabtable/core';
 import type { LexerNode } from '../../engine/analysis/lexer-node';
 import type { BaseAstNode } from '../../engine/ast-node/base-ast-node';
-import { CellValueType, CustomRangeType, LocaleType, RichTextValue } from '@univerjs/core';
+import { CellValueType, CustomRangeType, LocaleType, RichTextValue } from '@crabtable/core';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ErrorType } from '../../basics/error-type';
 import { Lexer } from '../../engine/analysis/lexer';
@@ -721,12 +721,12 @@ describe('Test nested functions', () => {
 
         it('Hyperlink formula test', () => {
             // test with a normal value
-            const result = calculateByRuntime('=HYPERLINK("https://univer.ai/", "Univer")');
+            const result = calculateByRuntime('=HYPERLINK("https://crabtable.dev/", "CrabTable")');
             const richTextValue = RichTextValue.create(result?.p as IDocumentData);
             expect(richTextValue.toPlainText()).toBe('Univer');
             const link = richTextValue.getLinks()[0] as ICustomRange;
             expect(link.rangeType).toBe(CustomRangeType.HYPERLINK);
-            expect((link as IHyperLinkCustomRange).properties?.url).toBe('https://univer.ai/');
+            expect((link as IHyperLinkCustomRange).properties?.url).toBe('https://crabtable.dev/');
 
             // test with a range reference
             const result2 = calculateByRuntime('=HYPERLINK("#Sheet1!A1", "Go to A1")');

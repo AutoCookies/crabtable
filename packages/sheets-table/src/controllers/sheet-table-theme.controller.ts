@@ -16,9 +16,9 @@
 
 import type { ITableDefaultThemeStyle, IUniverSheetsTableConfig } from '../config/config';
 
-import { Disposable, IConfigService, Inject } from '@univerjs/core';
+import { Disposable, IConfigService, Inject } from '@crabtable/core';
 
-import { RangeThemeStyle, SheetRangeThemeModel, SheetRangeThemeService } from '@univerjs/sheets';
+import { RangeThemeStyle, SheetRangeThemeModel, SheetRangeThemeService } from '@crabtable/sheets';
 import { SHEETS_TABLE_PLUGIN_CONFIG_KEY } from '../config/config';
 import { TableManager } from '../model/table-manager';
 import { tableThemeConfig } from './table-theme.factory';

@@ -21,19 +21,19 @@ export type { IUniverSheetsThreadCommentUIConfig } from './config/config';
 export { UniverSheetsThreadCommentUIPlugin } from './plugin';
 export { SheetsThreadCommentPopupService } from './services/sheets-thread-comment-popup.service';
 export { SHEETS_THREAD_COMMENT } from './types/const';
-export { IThreadCommentDataSourceService } from '@univerjs/thread-comment';
+export { IThreadCommentDataSourceService } from '@crabtable/thread-comment';
 export {
     AddCommentCommand,
     DeleteCommentCommand,
     DeleteCommentTreeCommand,
     ResolveCommentCommand,
     UpdateCommentCommand,
-} from '@univerjs/thread-comment';
+} from '@crabtable/thread-comment';
 export type {
     IAddCommentCommandParams,
     IDeleteCommentCommandParams,
     IDeleteCommentTreeCommandParams,
     IResolveCommentCommandParams,
     IUpdateCommentCommandParams,
-} from '@univerjs/thread-comment';
-export { UniverThreadCommentUIPlugin } from '@univerjs/thread-comment-ui';
+} from '@crabtable/thread-comment';
+export { UniverThreadCommentUIPlugin } from '@crabtable/thread-comment-ui';

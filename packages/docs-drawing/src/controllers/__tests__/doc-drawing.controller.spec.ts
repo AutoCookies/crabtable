@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { DocDrawingController, DOCS_DRAWING_PLUGIN } from '../doc-drawing.controller';
 
@@ -37,8 +37,8 @@ describe('DocDrawingController', () => {
             getDrawingsOrder: () => snapshot.drawingsOrder,
         };
 
-        const univerInstanceService = {
-            getUnit: vi.fn((_unitId: string, _type?: UniverInstanceType) => doc),
+        const crabtableInstanceService = {
+            getUnit: vi.fn((_unitId: string, _type?: CrabTableInstanceType) => doc),
         };
 
         let capturedResource: any;
@@ -53,12 +53,12 @@ describe('DocDrawingController', () => {
             { registerDrawingData } as any,
             { registerDrawingData: registerDrawingDataForManager } as any,
             resourceManagerService as any,
-            univerInstanceService as any
+            crabtableInstanceService as any
         );
 
         expect(resourceManagerService.registerPluginResource).toHaveBeenCalledTimes(1);
         expect(capturedResource.pluginName).toBe(DOCS_DRAWING_PLUGIN);
-        expect(capturedResource.businesses).toEqual([UniverInstanceType.UNIVER_DOC]);
+        expect(capturedResource.businesses).toEqual([CrabTableInstanceType.CRABTABLE_DOC]);
 
         const json = capturedResource.toJson('doc-1');
         const parsed = JSON.parse(json);

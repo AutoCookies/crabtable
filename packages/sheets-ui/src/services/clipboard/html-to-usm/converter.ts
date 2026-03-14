@@ -16,8 +16,8 @@
 
 /* eslint-disable complexity */
 
-import type { ICustomRange, IDocumentBody, IDocumentData, ITextRun, ITextStyle, Nullable } from '@univerjs/core';
-import type { SpreadsheetSkeleton } from '@univerjs/engine-render';
+import type { ICustomRange, IDocumentBody, IDocumentData, ITextRun, ITextStyle, Nullable } from '@crabtable/core';
+import type { SpreadsheetSkeleton } from '@crabtable/engine-render';
 import type { ISheetSkeletonManagerParam } from '../../sheet-skeleton-manager.service';
 import type {
     ICellDataWithSpanInfo,
@@ -26,8 +26,8 @@ import type {
     IUniverSheetCopyDataModel,
 } from '../type';
 import type { IAfterProcessRule, IPastePlugin } from './paste-plugins/type';
-import { CustomRangeType, DEFAULT_WORKSHEET_ROW_HEIGHT, generateRandomId, getNumfmtParseValueFilter, isRealNum, ObjectMatrix, skipParseTagNames } from '@univerjs/core';
-import { handleStringToStyle, textTrim } from '@univerjs/ui';
+import { CustomRangeType, DEFAULT_WORKSHEET_ROW_HEIGHT, generateRandomId, getNumfmtParseValueFilter, isRealNum, ObjectMatrix, skipParseTagNames } from '@crabtable/core';
+import { handleStringToStyle, textTrim } from '@crabtable/ui';
 import { extractNodeStyle } from './parse-node-style';
 import parseToDom, { convertToCellStyle, generateParagraphs } from './utils';
 

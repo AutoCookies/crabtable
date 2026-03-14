@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Direction, ISelectionCell, Nullable, Workbook, Worksheet } from '@univerjs/core';
-import type { ISelectionWithStyle, ISetSelectionsOperationParams } from '@univerjs/sheets';
-import { ICommandService, Inject, Injector, Rectangle } from '@univerjs/core';
-import { getNextPrimaryCell, getPrimaryForRange, SetSelectionsOperation } from '@univerjs/sheets';
+import type { Direction, ISelectionCell, Nullable, Workbook, Worksheet } from '@crabtable/core';
+import type { ISelectionWithStyle, ISetSelectionsOperationParams } from '@crabtable/sheets';
+import { ICommandService, Inject, Injector, Rectangle } from '@crabtable/core';
+import { getNextPrimaryCell, getPrimaryForRange, SetSelectionsOperation } from '@crabtable/sheets';
 
 import { FRange } from './f-range';
 import { FWorkbook } from './f-workbook';
@@ -28,7 +28,7 @@ import { FWorksheet } from './f-worksheet';
  *
  * @example
  * ```ts
- * const fWorkbook = univerAPI.getActiveWorkbook()
+ * const fWorkbook = crabtableAPI.getActiveWorkbook()
  * const fWorksheet = fWorkbook.getActiveSheet()
  * const fSelection = fWorksheet.getSelection();
  * const activeRange = fSelection.getActiveRange();
@@ -51,7 +51,7 @@ export class FSelection {
      * @returns {FRange | null} The active selection.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A10:B11');
      * fRange.activate();
@@ -73,7 +73,7 @@ export class FSelection {
      * @returns {FRange[]} The active selection list.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fSelection = fWorksheet.getSelection();
      * const activeRangeList = fSelection.getActiveRangeList();
@@ -93,7 +93,7 @@ export class FSelection {
      * @returns {ISelectionCell} The current select cell info.Pay attention to the type of the return value.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A10:B11');
      * fRange.activate();
@@ -118,7 +118,7 @@ export class FSelection {
      * @returns {FWorksheet} The active sheet in the spreadsheet.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fSelection = fWorksheet.getSelection();
      * const activeSheet = fSelection.getActiveSheet();
@@ -136,7 +136,7 @@ export class FSelection {
      * @returns {FSelection} The new selection after updating the primary cell.Because the selection is immutable, the return value is a new selection.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A10:B11');
      * fRange.activate();
@@ -199,7 +199,7 @@ export class FSelection {
      * @returns {FRange | null} The next primary cell in the specified direction.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * // make sure the active cell is A1 and selection is A1:B2
      * const fRange = fWorksheet.getRange('A1:B2');
@@ -207,12 +207,12 @@ export class FSelection {
      *
      * // get the next cell in the right direction, and update the primary cell to the next cell, now the active cell is B1
      * let fSelection = fWorksheet.getSelection();
-     * const nextCell = fSelection.getNextDataRange(univerAPI.Enum.Direction.RIGHT);
+     * const nextCell = fSelection.getNextDataRange(crabtableAPI.Enum.Direction.RIGHT);
      * console.log(nextCell?.getA1Notation()); // B1
      * fSelection = fSelection.updatePrimaryCell(nextCell);
      *
      * // get the next cell in the right direction, the next cell is A2
-     * const nextCell2 = fSelection.getNextDataRange(univerAPI.Enum.Direction.RIGHT);
+     * const nextCell2 = fSelection.getNextDataRange(crabtableAPI.Enum.Direction.RIGHT);
      * console.log(nextCell2?.getA1Notation()); // A2
      * ```
      */

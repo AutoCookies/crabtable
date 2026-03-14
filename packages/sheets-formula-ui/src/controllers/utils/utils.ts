@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICellData, IContextService, Nullable } from '@univerjs/core';
-import { CellValueType, FOCUSING_DOC, FOCUSING_UNIVER_EDITOR, isFormulaId, isFormulaString } from '@univerjs/core';
-import { stripErrorMargin } from '@univerjs/engine-formula';
+import type { ICellData, IContextService, Nullable } from '@crabtable/core';
+import { CellValueType, FOCUSING_DOC, FOCUSING_UNIVER_EDITOR, isFormulaId, isFormulaString } from '@crabtable/core';
+import { stripErrorMargin } from '@crabtable/engine-formula';
 
 export function whenEditorStandalone(contextService: IContextService) {
     return (

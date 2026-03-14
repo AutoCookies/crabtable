@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { MenuSchemaType } from '@univerjs/ui';
-import { ContextMenuGroup, ContextMenuPosition, RibbonDataGroup } from '@univerjs/ui';
+import type { MenuSchemaType } from '@crabtable/ui';
+import { ContextMenuGroup, ContextMenuPosition, RibbonDataGroup } from '@crabtable/ui';
 import {
     SortRangeAscCommand,
     SortRangeAscExtCommand,

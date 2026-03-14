@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IDocumentData } from '@univerjs/core';
-import { generateRandomId, LRUMap } from '@univerjs/core';
+import type { IDocumentData } from '@crabtable/core';
+import { generateRandomId, LRUMap } from '@crabtable/core';
 
 const COPY_CONTENT_CACHE_LIMIT = 10;
 const ID_LENGTH = 6;

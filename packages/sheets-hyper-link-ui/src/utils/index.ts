@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IAccessor, Workbook, Worksheet } from '@univerjs/core';
-import { DataValidationType, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { SheetsSelectionsService } from '@univerjs/sheets';
-import { SheetDataValidationModel } from '@univerjs/sheets-data-validation';
+import type { DocumentDataModel, IAccessor, Workbook, Worksheet } from '@crabtable/core';
+import { CrabTableInstanceType, DataValidationType, ICrabTableInstanceService } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { SheetsSelectionsService } from '@crabtable/sheets';
+import { SheetDataValidationModel } from '@crabtable/sheets-data-validation';
 
 export enum DisableLinkType {
     ALLOWED = 0,
@@ -55,7 +55,7 @@ export const getShouldDisableCellLink = (accessor: IAccessor, worksheet: Workshe
 };
 
 export const getShouldDisableCurrentCellLink = (accessor: IAccessor) => {
-    const unit = accessor.get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const unit = accessor.get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     if (!unit) {
         return true;
     }
@@ -71,13 +71,13 @@ export const getShouldDisableCurrentCellLink = (accessor: IAccessor) => {
 
 export const shouldDisableAddLink = (accessor: IAccessor) => {
     const textSelectionService = accessor.get(DocSelectionManagerService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const textRanges = textSelectionService.getTextRanges();
     if (!textRanges?.length) {
         return true;
     }
 
-    const doc = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+    const doc = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
     if (!doc || textRanges.every((range) => range.collapsed)) {
         return true;
     }

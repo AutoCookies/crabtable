@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import type { IRangeProtectionRule } from '@univerjs/sheets';
+import type { Nullable } from '@crabtable/core';
+import type { IRangeProtectionRule } from '@crabtable/sheets';
 import type { Observable, Subscription } from 'rxjs';
 import type { FRange } from '../f-range';
 import type { FWorksheet } from '../f-worksheet';
@@ -23,9 +23,9 @@ import type {
     IRangeProtectionOptions,
     RangePermissionSnapshot,
 } from './permission-types';
-import { IAuthzIoService, ICommandService, Inject, Injector, IPermissionService } from '@univerjs/core';
+import { IAuthzIoService, ICommandService, Inject, Injector, IPermissionService } from '@crabtable/core';
+import { EditStateEnum, RangeProtectionRuleModel, ViewStateEnum } from '@crabtable/sheets';
 import { UnitRole } from '@univerjs/protocol';
-import { EditStateEnum, RangeProtectionRuleModel, ViewStateEnum } from '@univerjs/sheets';
 import { BehaviorSubject } from 'rxjs';
 import { distinctUntilChanged, filter, map, shareReplay } from 'rxjs/operators';
 import { FPermission } from '../f-permission';
@@ -209,9 +209,9 @@ export class FRangePermission {
      * @returns {boolean} true if allowed, false if denied.
      * @example
      * ```ts
-     * const range = univerAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
+     * const range = crabtableAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
      * const permission = range?.getRangePermission();
-     * const canEdit = permission?.getPoint(univerAPI.Enum.RangePermissionPoint.Edit);
+     * const canEdit = permission?.getPoint(crabtableAPI.Enum.RangePermissionPoint.Edit);
      * console.log(canEdit);
      * ```
      */
@@ -243,7 +243,7 @@ export class FRangePermission {
      * @returns {RangePermissionSnapshot} Snapshot of all permission points.
      * @example
      * ```ts
-     * const range = univerAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
+     * const range = crabtableAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
      * const permission = range?.getRangePermission();
      * const snapshot = permission?.getSnapshot();
      * console.log(snapshot);
@@ -258,7 +258,7 @@ export class FRangePermission {
      * @returns {boolean} true if protected, false otherwise.
      * @example
      * ```ts
-     * const range = univerAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
+     * const range = crabtableAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
      * const permission = range?.getRangePermission();
      * const isProtected = permission?.isProtected();
      * console.log(isProtected);
@@ -273,7 +273,7 @@ export class FRangePermission {
      * @returns {boolean} true if editable, false otherwise.
      * @example
      * ```ts
-     * const range = univerAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
+     * const range = crabtableAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
      * const permission = range?.getRangePermission();
      * if (permission?.canEdit()) {
      *   console.log('You can edit this range');
@@ -291,7 +291,7 @@ export class FRangePermission {
      * @returns {boolean} true if viewable, false otherwise.
      * @example
      * ```ts
-     * const range = univerAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
+     * const range = crabtableAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
      * const permission = range?.getRangePermission();
      * if (permission?.canView()) {
      *   console.log('You can view this range');
@@ -309,7 +309,7 @@ export class FRangePermission {
      * @returns {boolean} true if can manage collaborators, false otherwise.
      * @example
      * ```ts
-     * const range = univerAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
+     * const range = crabtableAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
      * const permission = range?.getRangePermission();
      * if (permission?.canManageCollaborator()) {
      *   console.log('You can manage collaborators for this range');
@@ -327,7 +327,7 @@ export class FRangePermission {
      * @returns {boolean} true if can delete rule, false otherwise.
      * @example
      * ```ts
-     * const range = univerAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
+     * const range = crabtableAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
      * const permission = range?.getRangePermission();
      * if (permission?.canDelete()) {
      *   console.log('You can delete this protection rule');
@@ -359,15 +359,15 @@ export class FRangePermission {
      *
      * @example
      * ```ts
-     * const range = univerAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
+     * const range = crabtableAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
      * const permission = range?.getRangePermission();
      *
      * // First, create a protection rule
      * await permission?.protect({ name: 'My Range', allowEdit: true });
      *
      * // Then you can dynamically update permission points
-     * await permission?.setPoint(univerAPI.Enum.RangePermissionPoint.Edit, false); // Now disable edit
-     * await permission?.setPoint(univerAPI.Enum.RangePermissionPoint.View, true);  // Ensure view is enabled
+     * await permission?.setPoint(crabtableAPI.Enum.RangePermissionPoint.Edit, false); // Now disable edit
+     * await permission?.setPoint(crabtableAPI.Enum.RangePermissionPoint.View, true);  // Ensure view is enabled
      * ```
      */
     async setPoint(point: RangePermissionPoint, value: boolean): Promise<void> {
@@ -402,7 +402,7 @@ export class FRangePermission {
      * @returns {Promise<FRangeProtectionRule>} The created protection rule.
      * @example
      * ```ts
-     * const range = univerAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
+     * const range = crabtableAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
      * const permission = range?.getRangePermission();
      * const rule = await permission?.protect({
      *   name: 'My protected range',
@@ -519,7 +519,7 @@ export class FRangePermission {
      * @returns {Promise<void>} A promise that resolves when the range is unprotected.
      * @example
      * ```ts
-     * const range = univerAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
+     * const range = crabtableAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
      * const permission = range?.getRangePermission();
      * await permission?.unprotect();
      * ```
@@ -542,7 +542,7 @@ export class FRangePermission {
      * @returns {Promise<FRangeProtectionRule[]>} Array of protection rules.
      * @example
      * ```ts
-     * const range = univerAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
+     * const range = crabtableAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
      * const permission = range?.getRangePermission();
      * const rules = await permission?.listRules();
      * console.log(rules);
@@ -558,7 +558,7 @@ export class FRangePermission {
      * @returns {Function} Unsubscribe function.
      * @example
      * ```ts
-     * const range = univerAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
+     * const range = crabtableAPI.getActiveWorkbook()?.getActiveSheet()?.getRange('A1:B2');
      * const permission = range?.getRangePermission();
      * const unsubscribe = permission?.subscribe((snapshot) => {
      *   console.log('Permission changed:', snapshot);

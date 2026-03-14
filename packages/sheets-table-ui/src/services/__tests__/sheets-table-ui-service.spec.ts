@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { SetRangeValuesMutation } from '@univerjs/sheets';
-import { SetSheetTableFilterCommand, TableColumnFilterTypeEnum } from '@univerjs/sheets-table';
+import { SetRangeValuesMutation } from '@crabtable/sheets';
+import { SetSheetTableFilterCommand, TableColumnFilterTypeEnum } from '@crabtable/sheets-table';
 import { describe, expect, it, vi } from 'vitest';
 import { FilterByEnum } from '../../types';
 import { SheetsTableUiService } from '../sheets-table-ui-service';
@@ -65,7 +65,7 @@ describe('SheetsTableUiService', () => {
             isRowFiltered: (row: number) => row === 2,
         };
 
-        const univerInstanceService = {
+        const crabtableInstanceService = {
             getUnit: vi.fn(() => ({
                 getSheetBySheetId: vi.fn(() => worksheet),
             })),
@@ -74,7 +74,7 @@ describe('SheetsTableUiService', () => {
         const service = new SheetsTableUiService(
             tableManager as any,
             { getCellValueWithConditionType } as any,
-            univerInstanceService as any,
+            crabtableInstanceService as any,
             commandService as any,
             { t: (key: string) => (key === 'sheets-table.condition.empty' ? '(empty)' : key) } as any
         );

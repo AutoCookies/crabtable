@@ -16,8 +16,9 @@
 
 import type { IActionInfo, IAllowedRequest, IBatchAllowedResponse, ICollaborator, ICreateRequest, ICreateRequest_SelectRangeObject, IListPermPointRequest, IPermissionPoint, IPutCollaboratorsRequest, IUnitRoleKV, IUpdatePermPointRequest, UnitAction, UnitObject } from '@univerjs/protocol';
 import type { IAuthzIoService } from './type';
-import { ObjectScope, UnitRole, UniverType } from '@univerjs/protocol';
+import { ObjectScope, UnitRole } from '@univerjs/protocol';
 import { Inject } from '../../common/di';
+import { CrabTableInstanceType } from '../../common/unit';
 import { generateRandomId } from '../../shared/tools';
 import { IResourceManagerService } from '../resource-manager/type';
 import { createDefaultUser, isDevRole } from '../user-manager/const';
@@ -81,7 +82,7 @@ export class AuthzIoLocalService implements IAuthzIoService {
                 return JSON.parse(json);
             },
             pluginName: 'SHEET_AuthzIoMockService_PLUGIN',
-            businesses: [UniverType.UNIVER_SHEET, UniverType.UNIVER_DOC, UniverType.UNIVER_SLIDE],
+            businesses: [CrabTableInstanceType.CRABTABLE_SHEET, CrabTableInstanceType.CRABTABLE_DOC, CrabTableInstanceType.CRABTABLE_SLIDE],
             onLoad: (_unitId, resource) => {
                 for (const key in resource) {
                     this._permissionMap.set(key, resource[key]);

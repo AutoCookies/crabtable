@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import { ArrangeTypeEnum, Direction, ICommandService, IUniverInstanceService, JSONX, PositionedObjectLayoutType } from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation } from '@univerjs/docs';
-import { IDocDrawingService } from '@univerjs/docs-drawing';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import type { IAccessor } from '@crabtable/core';
+import { ArrangeTypeEnum, Direction, ICommandService, ICrabTableInstanceService, JSONX, PositionedObjectLayoutType } from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation } from '@crabtable/docs';
+import { IDocDrawingService } from '@crabtable/docs-drawing';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { describe, expect, it, vi } from 'vitest';
 import { DeleteDocDrawingsCommand } from '../delete-doc-drawing.command';
 import { InsertDocDrawingCommand } from '../insert-doc-drawing.command';
@@ -51,7 +51,7 @@ function createAccessor() {
         getDrawings: vi.fn(() => ({ 'shape-1': { id: 'shape-1' } })),
         getDrawingsOrder: vi.fn(() => ['shape-1']),
     };
-    const univerInstanceService = {
+    const crabtableInstanceService = {
         getCurrentUniverDocInstance: vi.fn(() => currentDocument),
         getUniverDocInstance: vi.fn(() => ({
             getSnapshot: () => ({
@@ -87,8 +87,8 @@ function createAccessor() {
                     return renderManagerService;
                 }
 
-                if (token === IUniverInstanceService) {
-                    return univerInstanceService;
+                if (token === ICrabTableInstanceService) {
+                    return crabtableInstanceService;
                 }
 
                 if (token === DocSelectionManagerService) {

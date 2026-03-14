@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { LocaleService } from '@univerjs/core';
-import { Radio, RadioGroup } from '@univerjs/design';
-import { useDependency } from '@univerjs/ui';
+import { LocaleService } from '@crabtable/core';
+import { Radio, RadioGroup } from '@crabtable/design';
+import { useDependency } from '@crabtable/ui';
 import { useState } from 'react';
 
 export interface IExtendConfirmProps {

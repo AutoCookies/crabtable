@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICellData, IRange, Nullable } from '@univerjs/core';
+import type { ICellData, IRange, Nullable } from '@crabtable/core';
 import type { IArrayFormulaRangeType, IRuntimeUnitDataType, IUnitData, IUnitSheetNameMap, IUnitStylesData } from '../../basics/common';
 import type { BaseValueObject, IArrayValueObject } from '../value-object/base-value-object';
-import { CellValueType, isTextFormat, moveRangeByOffset, ObjectMatrix } from '@univerjs/core';
+import { CellValueType, isTextFormat, moveRangeByOffset, ObjectMatrix } from '@crabtable/core';
 import { FormulaAstLRU } from '../../basics/cache-lru';
 import { ERROR_TYPE_SET, ErrorType } from '../../basics/error-type';
 import { isNullCellForFormula } from '../../basics/is-null-cell';

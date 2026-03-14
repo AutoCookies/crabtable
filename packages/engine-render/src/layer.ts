@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { UniverRenderingContext } from './context';
 
 import type { Scene } from './scene';
 import type { SceneViewer } from './scene-viewer';
-import { Disposable, requestImmediateMacroTask, sortRules, toDisposable } from '@univerjs/core';
+import { Disposable, requestImmediateMacroTask, sortRules, toDisposable } from '@crabtable/core';
 import { BaseObject } from './base-object';
 import { RENDER_CLASS_TYPE } from './basics/const';
 import { Canvas } from './canvas';

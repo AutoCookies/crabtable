@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IRange, IUnitRange, Nullable, Workbook } from '@univerjs/core';
+import type { IRange, IUnitRange, Nullable, Workbook } from '@crabtable/core';
 import type { IFeatureDirtyRangeType, IFormulaData, IFormulaDataItem, IOtherFormulaData, IUnitData } from '../../basics/common';
 import type { IFormulaDirtyData } from '../../services/current-data.service';
 import type { IFeatureCalculationManagerParam } from '../../services/feature-calculation-manager.service';
@@ -25,7 +25,7 @@ import type { BaseReferenceObject, FunctionVariantType } from '../reference-obje
 import type { IExecuteAstNodeData } from '../utils/ast-node-tool';
 import type { PreCalculateNodeType } from '../utils/node-type';
 import type { IFormulaDependencyTree, IFormulaDependencyTreeFullJson, IFormulaDependencyTreeJson, IFormulaDependentsAndInRangeResults } from './dependency-tree';
-import { createIdentifier, Disposable, Inject, IUniverInstanceService, ObjectMatrix, RTree, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, createIdentifier, Disposable, ICrabTableInstanceService, Inject, ObjectMatrix, RTree } from '@crabtable/core';
 import { prefixToken, suffixToken } from '../../basics/token';
 import { IFormulaCurrentConfigService } from '../../services/current-data.service';
 import { IDependencyManagerService } from '../../services/dependency-manager.service';
@@ -73,7 +73,7 @@ export class FormulaDependencyGenerator extends Disposable implements IFormulaDe
         @IOtherFormulaManagerService protected readonly _otherFormulaManagerService: IOtherFormulaManagerService,
         @IFeatureCalculationManagerService
         private readonly _featureCalculationManagerService: IFeatureCalculationManagerService,
-        @Inject(IUniverInstanceService) private readonly _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(Interpreter) private readonly _interpreter: Interpreter,
         @Inject(AstTreeBuilder) protected readonly _astTreeBuilder: AstTreeBuilder,
         @Inject(Lexer) protected readonly _lexer: Lexer,
@@ -94,7 +94,7 @@ export class FormulaDependencyGenerator extends Disposable implements IFormulaDe
 
     private _initUnitDispose() {
         this.disposeWithMe(
-            this._univerInstanceService.getTypeOfUnitDisposed$<Workbook>(UniverInstanceType.UNIVER_SHEET).subscribe((workbook) => {
+            this._crabtableInstanceService.getTypeOfUnitDisposed$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((workbook) => {
                 this._disposeByUnitId(workbook.getUnitId());
             })
         );

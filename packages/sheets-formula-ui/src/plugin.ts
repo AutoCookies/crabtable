@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverSheetsFormulaUIConfig } from './config/config';
-import { DependentOn, IConfigService, Inject, Injector, merge, Plugin, registerDependencies, touchDependencies, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { UniverSheetsFormulaPlugin } from '@univerjs/sheets-formula';
-import { EMBEDDING_FORMULA_EDITOR_COMPONENT_KEY, RANGE_SELECTOR_COMPONENT_KEY } from '@univerjs/sheets-ui';
-import { BuiltInUIPart, ComponentManager, connectInjector, IUIPartsService } from '@univerjs/ui';
+import { CrabTableInstanceType, DependentOn, IConfigService, Inject, Injector, merge, Plugin, registerDependencies, touchDependencies } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { UniverSheetsFormulaPlugin } from '@crabtable/sheets-formula';
+import { EMBEDDING_FORMULA_EDITOR_COMPONENT_KEY, RANGE_SELECTOR_COMPONENT_KEY } from '@crabtable/sheets-ui';
+import { BuiltInUIPart, ComponentManager, connectInjector, IUIPartsService } from '@crabtable/ui';
 import pkg from '../package.json';
 import { FORMULA_UI_PLUGIN_NAME } from './common/plugin-name';
 import {
@@ -49,7 +49,7 @@ export class UniverSheetsFormulaUIPlugin extends Plugin {
     static override pluginName = FORMULA_UI_PLUGIN_NAME;
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
     constructor(
         private readonly _config: Partial<IUniverSheetsFormulaUIConfig> = defaultPluginConfig,
@@ -91,7 +91,7 @@ export class UniverSheetsFormulaUIPlugin extends Plugin {
         ([
             [RefSelectionsRenderService],
         ] as Dependency[]).forEach((dep) => {
-            this.disposeWithMe(this._renderManagerService.registerRenderModule(UniverInstanceType.UNIVER_SHEET, dep));
+            this.disposeWithMe(this._renderManagerService.registerRenderModule(CrabTableInstanceType.CRABTABLE_SHEET, dep));
         });
     }
 
@@ -99,7 +99,7 @@ export class UniverSheetsFormulaUIPlugin extends Plugin {
         ([
             [FormulaAlertRenderController],
         ] as Dependency[]).forEach((dep) => {
-            this.disposeWithMe(this._renderManagerService.registerRenderModule(UniverInstanceType.UNIVER_SHEET, dep));
+            this.disposeWithMe(this._renderManagerService.registerRenderModule(CrabTableInstanceType.CRABTABLE_SHEET, dep));
         });
 
         touchDependencies(this._injector, [

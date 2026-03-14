@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDocumentData, Injector, ITextStyle, Univer } from '@univerjs/core';
-import { CustomRangeType, IUniverInstanceService } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { DocumentEditArea } from '@univerjs/engine-render';
+import type { CrabTable, IDocumentData, Injector, ITextStyle } from '@crabtable/core';
+import { CustomRangeType, ICrabTableInstanceService } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { DocumentEditArea } from '@crabtable/engine-render';
 import { Subject } from 'rxjs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createCommandTestBed } from '../../commands/commands/__tests__/create-command-test-bed';
@@ -67,7 +67,7 @@ function createDocData(): IDocumentData {
 }
 
 describe('docs ui services', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
 
     afterEach(() => {
@@ -77,8 +77,8 @@ describe('docs ui services', () => {
     it('matches auto-format handlers by priority and builds context from the current selection', () => {
         ({ univer, get } = createCommandTestBed(createDocData()));
         const selectionManager = get(DocSelectionManagerService);
-        const univerInstanceService = get(IUniverInstanceService);
-        const service = new DocAutoFormatService(univerInstanceService, selectionManager);
+        const crabtableInstanceService = get(ICrabTableInstanceService);
+        const service = new DocAutoFormatService(crabtableInstanceService, selectionManager);
         let highPriorityContext: Record<string, unknown> | null = null;
 
         selectionManager.__TEST_ONLY_setCurrentSelection({
@@ -132,7 +132,7 @@ describe('docs ui services', () => {
 
     it('returns no auto-format mutations when the current selection is unavailable', () => {
         ({ univer, get } = createCommandTestBed(createDocData()));
-        const service = new DocAutoFormatService(get(IUniverInstanceService), get(DocSelectionManagerService));
+        const service = new DocAutoFormatService(get(ICrabTableInstanceService), get(DocSelectionManagerService));
 
         expect(service.onAutoFormat('doc.command.tab', null)).toEqual([]);
     });
@@ -140,7 +140,7 @@ describe('docs ui services', () => {
     it('merges cached menu styles, clears them on selection changes, and derives body/header defaults', () => {
         ({ univer, get } = createCommandTestBed(createDocData()));
         const selectionManager = get(DocSelectionManagerService);
-        const univerInstanceService = get(IUniverInstanceService);
+        const crabtableInstanceService = get(ICrabTableInstanceService);
         const bodyRenderManagerService = {
             getRenderById: vi.fn(() => ({
                 with: vi.fn(() => ({
@@ -161,12 +161,12 @@ describe('docs ui services', () => {
         };
         const bodyService = new DocMenuStyleService(
             selectionManager,
-            univerInstanceService,
+            crabtableInstanceService,
             bodyRenderManagerService as never
         );
         const headerService = new DocMenuStyleService(
             selectionManager,
-            univerInstanceService,
+            crabtableInstanceService,
             headerRenderManagerService as never
         );
         const fallbackService = new DocMenuStyleService(

@@ -14,24 +14,23 @@
  * limitations under the License.
  */
 
-import type { Dependency, DocumentDataModel, IDocumentData } from '@univerjs/core';
+import type { Dependency, DocumentDataModel, IDocumentData } from '@crabtable/core';
 import {
+    CrabTableInstanceType,
+    ICrabTableInstanceService,
     ILogService,
     Inject,
     Injector,
-    IUniverInstanceService,
     LocaleService,
     LogLevel,
     Plugin,
-    Univer,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { FUniver } from '@univerjs/core/facade';
-import { DocSelectionManagerService, DocSkeletonManagerService, DocStateEmitService } from '@univerjs/docs';
-import { DocIMEInputManagerService, DocsRenderService, DocStateChangeManagerService } from '@univerjs/docs-ui';
-import enUS from '@univerjs/docs-ui/locale/en-US';
-import zhCN from '@univerjs/docs-ui/locale/zh-CN';
-import { DumbCanvasColorService, ICanvasColorService, IRenderManagerService, RenderManagerService } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { FCrabTable } from '@crabtable/core/facade';
+import { DocSelectionManagerService, DocSkeletonManagerService, DocStateEmitService } from '@crabtable/docs';
+import { DocIMEInputManagerService, DocsRenderService, DocStateChangeManagerService } from '@crabtable/docs-ui';
+import enUS from '@crabtable/docs-ui/locale/en-US';
+import zhCN from '@crabtable/docs-ui/locale/zh-CN';
+import { DumbCanvasColorService, ICanvasColorService, IRenderManagerService, RenderManagerService } from '@crabtable/engine-render';
 
 function getTestDocumentDataDemo(): IDocumentData {
     return {
@@ -53,14 +52,14 @@ function getTestDocumentDataDemo(): IDocumentData {
 }
 
 export interface ITestBed {
-    univer: Univer;
+    univer: CrabTable;
     get: Injector['get'];
     doc: DocumentDataModel;
-    univerAPI: FUniver;
+    crabtableAPI: FCrabTable;
 }
 
 export function createTestBed(documentConfig?: IDocumentData, dependencies?: Dependency[]): ITestBed {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
 
     class TestPlugin extends Plugin {
@@ -85,8 +84,8 @@ export function createTestBed(documentConfig?: IDocumentData, dependencies?: Dep
             dependencies?.forEach((d) => injector.add(d));
 
             const renderManagerService = injector.get(IRenderManagerService);
-            renderManagerService.registerRenderModule(UniverInstanceType.UNIVER_DOC, [DocSkeletonManagerService] as Dependency);
-            renderManagerService.registerRenderModule(UniverInstanceType.UNIVER_DOC, [DocIMEInputManagerService] as Dependency);
+            renderManagerService.registerRenderModule(CrabTableInstanceType.CRABTABLE_DOC, [DocSkeletonManagerService] as Dependency);
+            renderManagerService.registerRenderModule(CrabTableInstanceType.CRABTABLE_DOC, [DocIMEInputManagerService] as Dependency);
         }
 
         override onReady(): void {
@@ -98,20 +97,20 @@ export function createTestBed(documentConfig?: IDocumentData, dependencies?: Dep
     injector.get(LocaleService).load({ zhCN, enUS });
 
     univer.registerPlugin(TestPlugin);
-    const doc = univer.createUnit<IDocumentData, DocumentDataModel>(UniverInstanceType.UNIVER_DOC, documentConfig ?? getTestDocumentDataDemo());
+    const doc = univer.createUnit<IDocumentData, DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC, documentConfig ?? getTestDocumentDataDemo());
 
-    const univerInstanceService = injector.get(IUniverInstanceService);
-    univerInstanceService.focusUnit('test');
+    const crabtableInstanceService = injector.get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit('test');
     const logService = injector.get(ILogService);
 
     logService.setLogLevel(LogLevel.SILENT);
 
-    const univerAPI = FUniver.newAPI(injector);
+    const crabtableAPI = FCrabTable.newAPI(injector);
 
     return {
         univer,
         get: injector.get.bind(injector),
         doc,
-        univerAPI,
+        crabtableAPI,
     };
 }

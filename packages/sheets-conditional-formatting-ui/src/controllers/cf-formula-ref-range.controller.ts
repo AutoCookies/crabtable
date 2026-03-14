@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDisposable, IMutationInfo, IRange } from '@univerjs/core';
-import type { IColorScale, IConditionFormattingRule, IDataBar, IFormulaHighlightCell, IIconSet } from '@univerjs/sheets-conditional-formatting';
-import { Disposable, Inject, Injector, toDisposable, Tools } from '@univerjs/core';
+import type { IDisposable, IMutationInfo, IRange } from '@crabtable/core';
+import type { IColorScale, IConditionFormattingRule, IDataBar, IFormulaHighlightCell, IIconSet } from '@crabtable/sheets-conditional-formatting';
+import { Disposable, Inject, Injector, toDisposable, Tools } from '@crabtable/core';
 import {
     AddConditionalRuleMutation,
     AddConditionalRuleMutationUndoFactory,
@@ -28,8 +28,8 @@ import {
     DeleteConditionalRuleMutation,
     SetConditionalRuleMutation,
     setConditionalRuleMutationUndoFactory,
-} from '@univerjs/sheets-conditional-formatting';
-import { FormulaRefRangeService } from '@univerjs/sheets-formula';
+} from '@crabtable/sheets-conditional-formatting';
+import { FormulaRefRangeService } from '@crabtable/sheets-formula';
 
 export class ConditionalFormattingFormulaRefRangeController extends Disposable {
     private _disposableMap: Map<string, IDisposable> = new Map();

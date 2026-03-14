@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverDocsUIConfig } from './config/config';
 import {
+    CrabTableInstanceType,
     DependentOn,
     ICommandService,
     IConfigService,
+    ICrabTableInstanceService,
     ILogService,
     Inject,
     Injector,
-    IUniverInstanceService,
     merge,
     mergeOverrideWithDependencies,
     Plugin,
     touchDependencies,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { DocInterceptorService, DocSkeletonManagerService } from '@univerjs/docs';
-import { IRenderManagerService, UniverRenderEnginePlugin } from '@univerjs/engine-render';
-import { IShortcutService } from '@univerjs/ui';
+} from '@crabtable/core';
+import { DocInterceptorService, DocSkeletonManagerService } from '@crabtable/docs';
+import { IRenderManagerService, UniverRenderEnginePlugin } from '@crabtable/engine-render';
+import { IShortcutService } from '@crabtable/ui';
 import pkg from '../package.json';
 import { AfterSpaceCommand, EnterCommand, TabCommand } from './commands/commands/auto-format.command';
 import { BreakLineCommand } from './commands/commands/break-line.command';
@@ -145,7 +145,7 @@ export class UniverDocsUIPlugin extends Plugin {
     static override pluginName = 'DOC_UI_PLUGIN';
     static override packageName = pkg.name;
     static override version = pkg.version;
-    // static override type = UniverInstanceType.UNIVER_DOC;
+    // static override type = CrabTableInstanceType.CRABTABLE_DOC;
 
     constructor(
         private readonly _config: Partial<IUniverDocsUIConfig> = defaultPluginConfig,
@@ -338,10 +338,10 @@ export class UniverDocsUIPlugin extends Plugin {
     }
 
     private _markDocAsFocused() {
-        const currentService = this._injector.get(IUniverInstanceService);
+        const currentService = this._injector.get(ICrabTableInstanceService);
         const editorService = this._injector.get(IEditorService);
         try {
-            const doc = currentService.getCurrentUnitForType(UniverInstanceType.UNIVER_DOC);
+            const doc = currentService.getCurrentUnitForType(CrabTableInstanceType.CRABTABLE_DOC);
             if (!doc) return;
 
             const id = doc.getUnitId();
@@ -363,7 +363,7 @@ export class UniverDocsUIPlugin extends Plugin {
             [DocRenderController],
             [DocZoomRenderController],
         ] as Dependency[]).forEach((m) => {
-            this._renderManagerSrv.registerRenderModule(UniverInstanceType.UNIVER_DOC, m);
+            this._renderManagerSrv.registerRenderModule(CrabTableInstanceType.CRABTABLE_DOC, m);
         });
     }
 
@@ -383,7 +383,7 @@ export class UniverDocsUIPlugin extends Plugin {
             [DocIMEInputController],
             [DocEditorBridgeController],
         ] as Dependency[]).forEach((m) => {
-            this._renderManagerSrv.registerRenderModule(UniverInstanceType.UNIVER_DOC, m);
+            this._renderManagerSrv.registerRenderModule(CrabTableInstanceType.CRABTABLE_DOC, m);
         });
     }
 }

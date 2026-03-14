@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverSheetsDataValidationConfig } from './config/config';
 import {
+    CrabTableInstanceType,
     DependentOn,
     ICommandService,
     IConfigService,
@@ -24,10 +25,9 @@ import {
     Injector,
     merge,
     Plugin,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { UniverDataValidationPlugin } from '@univerjs/data-validation';
-import { UniverSheetsFormulaPlugin } from '@univerjs/sheets-formula';
+} from '@crabtable/core';
+import { UniverDataValidationPlugin } from '@crabtable/data-validation';
+import { UniverSheetsFormulaPlugin } from '@crabtable/sheets-formula';
 import pkg from '../package.json';
 import {
     AddSheetDataValidationCommand,
@@ -57,7 +57,7 @@ export class UniverSheetsDataValidationPlugin extends Plugin {
     static override pluginName = DATA_VALIDATION_PLUGIN_NAME;
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
     constructor(
         private readonly _config: Partial<IUniverSheetsDataValidationConfig> = defaultPluginConfig,

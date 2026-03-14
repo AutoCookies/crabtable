@@ -17,9 +17,9 @@
 import type { ISlideData, ISlidePage } from '../../types/interfaces';
 import type { SlideDataModel } from '../slide-model';
 import { afterEach, describe, expect, it } from 'vitest';
-import { UniverInstanceType } from '../../common/unit';
+import { CrabTableInstanceType } from '../../common/unit';
 import { PageElementType, PageType } from '../../types/interfaces';
-import { Univer } from '../../univer';
+import { CrabTable } from '../../univer';
 
 const slideSnapshotFactory = (): Partial<ISlideData> => ({
     id: 'slide-unit',
@@ -60,15 +60,15 @@ const slideSnapshotFactory = (): Partial<ISlideData> => ({
 });
 
 describe('SlideDataModel', () => {
-    let univer: Univer;
+    let univer: CrabTable;
 
     afterEach(() => {
         univer?.dispose();
     });
 
     it('should manage pages and active-page state through the real unit creation flow', () => {
-        univer = new Univer();
-        const slide = univer.createUnit<Partial<ISlideData>, SlideDataModel>(UniverInstanceType.UNIVER_SLIDE, slideSnapshotFactory());
+        univer = new CrabTable();
+        const slide = univer.createUnit<Partial<ISlideData>, SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE, slideSnapshotFactory());
         const activePages: string[] = [];
         const names: string[] = [];
         const activePageSubscription = slide.activePage$.subscribe((page) => {
@@ -129,8 +129,8 @@ describe('SlideDataModel', () => {
     });
 
     it('should keep empty slide snapshots stable when page collections are absent', () => {
-        univer = new Univer();
-        const slide = univer.createUnit<Partial<ISlideData>, SlideDataModel>(UniverInstanceType.UNIVER_SLIDE, {
+        univer = new CrabTable();
+        const slide = univer.createUnit<Partial<ISlideData>, SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE, {
             id: 'empty-slide',
             title: 'Empty deck',
         });

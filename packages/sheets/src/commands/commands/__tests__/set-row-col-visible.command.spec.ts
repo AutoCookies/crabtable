@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Injector, Univer, Workbook } from '@univerjs/core';
-import { ICommandService, IUniverInstanceService, RANGE_TYPE, RedoCommand, UndoCommand, UniverInstanceType } from '@univerjs/core';
+import type { Injector, Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, RANGE_TYPE, RedoCommand, UndoCommand } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SheetsSelectionsService } from '../../../services/selections/selection.service';
 import { SetColHiddenMutation, SetColVisibleMutation } from '../../mutations/set-col-visible.mutation';
@@ -34,7 +34,7 @@ import {
 import { createCommandTestBed } from './create-command-test-bed';
 
 describe('Test row col hide/unhine commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
@@ -65,27 +65,27 @@ describe('Test row col hide/unhine commands', () => {
     afterEach(() => univer.dispose());
 
     function getRowCount(): number {
-        const currentService = get(IUniverInstanceService);
-        const workbook = currentService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const currentService = get(ICrabTableInstanceService);
+        const workbook = currentService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet()!;
         return worksheet.getRowCount();
     }
 
     function getColCount(): number {
-        const currentService = get(IUniverInstanceService);
-        const workbook = currentService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const currentService = get(ICrabTableInstanceService);
+        const workbook = currentService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet()!;
         return worksheet.getColumnCount();
     }
 
     function getRowRawVisible(row: number): boolean {
-        const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet()!;
         return worksheet.getRowRawVisible(row);
     }
 
     function getColVisible(col: number): boolean {
-        const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet()!;
         return worksheet.getColVisible(col);
     }

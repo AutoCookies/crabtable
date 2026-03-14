@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { CellValue, ICellRenderContext, IRange, Nullable } from '@univerjs/core';
-import { DataValidationStatus, DataValidationType, ICommandService, Inject, InterceptorEffectEnum, IUniverInstanceService, Optional, RxDisposable, sequenceExecute } from '@univerjs/core';
-import { DataValidatorRegistryService } from '@univerjs/data-validation';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { InterceptCellContentPriority, INTERCEPTOR_POINT, SheetInterceptorService } from '@univerjs/sheets';
-import { DataValidationCacheService, getCellValueOrigin, SheetDataValidationModel } from '@univerjs/sheets-data-validation';
-import { AutoHeightController, IEditorBridgeService, SheetSkeletonManagerService } from '@univerjs/sheets-ui';
-import { IMenuManagerService } from '@univerjs/ui';
+import type { CellValue, ICellRenderContext, IRange, Nullable } from '@crabtable/core';
+import { DataValidationStatus, DataValidationType, ICommandService, ICrabTableInstanceService, Inject, InterceptorEffectEnum, Optional, RxDisposable, sequenceExecute } from '@crabtable/core';
+import { DataValidatorRegistryService } from '@crabtable/data-validation';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { InterceptCellContentPriority, INTERCEPTOR_POINT, SheetInterceptorService } from '@crabtable/sheets';
+import { DataValidationCacheService, getCellValueOrigin, SheetDataValidationModel } from '@crabtable/sheets-data-validation';
+import { AutoHeightController, IEditorBridgeService, SheetSkeletonManagerService } from '@crabtable/sheets-ui';
+import { IMenuManagerService } from '@crabtable/ui';
 import { bufferTime, filter } from 'rxjs';
 import { menuSchema } from '../menu/schema';
 import { DataValidationDropdownManagerService } from '../services/dropdown-manager.service';
@@ -38,7 +38,7 @@ export class SheetsDataValidationRenderController extends RxDisposable {
         @ICommandService private readonly _commandService: ICommandService,
         @IMenuManagerService private readonly _menuManagerService: IMenuManagerService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(AutoHeightController) private readonly _autoHeightController: AutoHeightController,
         @Inject(DataValidationDropdownManagerService) private readonly _dropdownManagerService: DataValidationDropdownManagerService,
         @Inject(SheetDataValidationModel) private readonly _sheetDataValidationModel: SheetDataValidationModel,
@@ -75,7 +75,7 @@ export class SheetsDataValidationRenderController extends RxDisposable {
             const state = this._editorBridgeService!.getEditCellState();
             if (state) {
                 const { unitId, sheetId, row, column } = state;
-                const workbook = this._univerInstanceService.getUniverSheetInstance(unitId);
+                const workbook = this._crabtableInstanceService.getCrabTableSheetInstance(unitId);
                 if (!workbook) {
                     return;
                 }

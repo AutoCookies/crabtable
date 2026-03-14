@@ -22,11 +22,11 @@ function createDefinedNamesService() {
     const workbook = {
         getSheetBySheetName: (sheetName: string) => (sheetName === 'Sheet1' ? worksheet : null),
     };
-    const univerInstanceService = {
+    const crabtableInstanceService = {
         getUnit: () => workbook,
     };
 
-    const service = new DefinedNamesService(univerInstanceService as never);
+    const service = new DefinedNamesService(crabtableInstanceService as never);
     return {
         service,
         worksheet,

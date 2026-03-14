@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IImageWatermarkConfig, ITextWatermarkConfig, IUserInfoWatermarkConfig } from '@univerjs/engine-render';
+import type { IImageWatermarkConfig, ITextWatermarkConfig, IUserInfoWatermarkConfig } from '@crabtable/engine-render';
 
 export const WATERMARK_PLUGIN_CONFIG_KEY = 'watermark.config';
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Tools } from '@univerjs/core';
+import { Tools } from '@crabtable/core';
 
 export function isLegalLink(link: string) {
     return Tools.isLegalUrl(link);

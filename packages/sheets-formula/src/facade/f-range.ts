@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ISheetFormulaError } from '@univerjs/engine-formula';
-import { extractFormulaError, FormulaDataModel } from '@univerjs/engine-formula';
-import { FRange } from '@univerjs/sheets/facade';
+import type { ISheetFormulaError } from '@crabtable/engine-formula';
+import { extractFormulaError, FormulaDataModel } from '@crabtable/engine-formula';
+import { FRange } from '@crabtable/sheets/facade';
 
 /**
  * @ignore
@@ -27,7 +27,7 @@ export interface IFRangeEngineFormulaMixin {
      * @returns {ISheetFormulaError[]} Array of formula errors in the range
      * @example
      * ```typescript
-     * const range = univerAPI.getActiveWorkbook()
+     * const range = crabtableAPI.getActiveWorkbook()
      *   .getActiveSheet()
      *   .getRange('A1:B10');
      * const errors = range.getFormulaError();
@@ -83,7 +83,7 @@ export class FRangeEngineFormulaMixin extends FRange implements IFRangeEngineFor
 }
 
 FRange.extend(FRangeEngineFormulaMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FRange extends IFRangeEngineFormulaMixin {}
 }

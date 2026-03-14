@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
-import type { ISheetLocationBase } from '@univerjs/sheets';
-import { Disposable, Inject } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import type { IDisposable } from '@crabtable/core';
+import type { ISheetLocationBase } from '@crabtable/sheets';
+import { Disposable, Inject } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { Subject } from 'rxjs';
 import { CELL_ALERT_KEY } from '../views/cell-alert';
 import { CellPopupManagerService } from './cell-popup-manager.service';

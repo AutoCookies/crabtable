@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IDisposable, Nullable } from '@univerjs/core';
-import type { BaseObject, Scene } from '@univerjs/engine-render';
-import { DrawingTypeEnum, FOCUSING_COMMON_DRAWINGS, IContextService, Inject, isInternalEditorID, IUniverInstanceService, RxDisposable, UniverInstanceType } from '@univerjs/core';
-import { DocCanvasPopManagerService } from '@univerjs/docs-ui';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { COMPONENT_IMAGE_POPUP_MENU, ImageCropperObject, ImageResetSizeOperation, OpenImageCropOperation } from '@univerjs/drawing-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import type { DocumentDataModel, IDisposable, Nullable } from '@crabtable/core';
+import type { BaseObject, Scene } from '@crabtable/engine-render';
+import { CrabTableInstanceType, DrawingTypeEnum, FOCUSING_COMMON_DRAWINGS, IContextService, ICrabTableInstanceService, Inject, isInternalEditorID, RxDisposable } from '@crabtable/core';
+import { DocCanvasPopManagerService } from '@crabtable/docs-ui';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { COMPONENT_IMAGE_POPUP_MENU, ImageCropperObject, ImageResetSizeOperation, OpenImageCropOperation } from '@crabtable/drawing-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { takeUntil } from 'rxjs';
 import { RemoveDocDrawingCommand } from '../commands/commands/remove-doc-drawing.command';
 import { EditDocDrawingOperation } from '../commands/operations/edit-doc-drawing.operation';
@@ -33,7 +33,7 @@ export class DocDrawingPopupMenuController extends RxDisposable {
         @IDrawingManagerService private readonly _drawingManagerService: IDrawingManagerService,
         @Inject(DocCanvasPopManagerService) private readonly _canvasPopManagerService: DocCanvasPopManagerService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IContextService private readonly _contextService: IContextService
 
     ) {
@@ -44,14 +44,14 @@ export class DocDrawingPopupMenuController extends RxDisposable {
 
     private _init(): void {
         this.disposeWithMe(
-            this._univerInstanceService.getCurrentTypeOfUnit$<DocumentDataModel>(UniverInstanceType.UNIVER_DOC).pipe(takeUntil(this.dispose$)).subscribe((documentDataModel) => this._create(documentDataModel))
+            this._crabtableInstanceService.getCurrentTypeOfUnit$<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC).pipe(takeUntil(this.dispose$)).subscribe((documentDataModel) => this._create(documentDataModel))
         );
 
         this.disposeWithMe(
-            this._univerInstanceService.getTypeOfUnitDisposed$<DocumentDataModel>(UniverInstanceType.UNIVER_DOC).pipe(takeUntil(this.dispose$)).subscribe((documentDataModel) => this._dispose(documentDataModel))
+            this._crabtableInstanceService.getTypeOfUnitDisposed$<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC).pipe(takeUntil(this.dispose$)).subscribe((documentDataModel) => this._dispose(documentDataModel))
         );
 
-        this._univerInstanceService.getAllUnitsForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC).forEach((documentDataModel) => this._create(documentDataModel));
+        this._crabtableInstanceService.getAllUnitsForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC).forEach((documentDataModel) => this._create(documentDataModel));
     }
 
     private _dispose(documentDataModel: DocumentDataModel) {

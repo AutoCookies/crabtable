@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
-import type { IMenuItem, IMenuSelectorItem } from '@univerjs/ui';
-import { ICommandService, NamedStyleType, UniverInstanceType } from '@univerjs/core';
-import { SetTextSelectionsOperation } from '@univerjs/docs';
+import type { IAccessor, ICommand } from '@crabtable/core';
+import type { IMenuItem, IMenuSelectorItem } from '@crabtable/ui';
+import { CrabTableInstanceType, ICommandService, NamedStyleType } from '@crabtable/core';
+import { SetTextSelectionsOperation } from '@crabtable/docs';
+import { ComponentManager, getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { H1Icon, H2Icon, H3Icon, H4Icon, H5Icon, TextTypeIcon } from '@univerjs/icons';
-import { ComponentManager, getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
 import { Observable } from 'rxjs';
 import { DocCopyCurrentParagraphCommand, DocCutCurrentParagraphCommand } from '../commands/commands/clipboard.command';
 import { DeleteCurrentParagraphCommand } from '../commands/commands/doc-delete.command';
@@ -67,7 +67,7 @@ const createHeadingSelectorMenuItemFactory = (headingType: NamedStyleType) => (a
         icon: icon.key,
         tooltip: 'toolbar.heading.tooltip',
         disabled$: disableMenuWhenNoDocRange(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
         activated$: new Observable((subscriber) => {
             const DEFAULT_TYPE = NamedStyleType.NORMAL_TEXT;
             const calc = () => {

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommand, IDocumentData, Injector, Univer } from '@univerjs/core';
-import { ICommandService, IUniverInstanceService, RedoCommand, UndoCommand, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation, SetTextSelectionsOperation } from '@univerjs/docs';
+import type { CrabTable, DocumentDataModel, ICommand, IDocumentData, Injector } from '@crabtable/core';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, RedoCommand, UndoCommand } from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation, SetTextSelectionsOperation } from '@crabtable/docs';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { CoverContentCommand, ReplaceContentCommand } from '../replace-content.command';
 import { createCommandTestBed } from './create-command-test-bed';
@@ -44,13 +44,13 @@ function getDocumentData() {
 }
 
 describe('replace or cover content of document', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
     function getDataStream() {
-        const univerInstanceService = get(IUniverInstanceService);
-        const docsModel = univerInstanceService.getUnit<DocumentDataModel>('test-doc', UniverInstanceType.UNIVER_DOC);
+        const crabtableInstanceService = get(ICrabTableInstanceService);
+        const docsModel = crabtableInstanceService.getUnit<DocumentDataModel>('test-doc', CrabTableInstanceType.CRABTABLE_DOC);
         const dataStream = docsModel?.getBody()?.dataStream;
 
         return typeof dataStream === 'string' ? dataStream : '';

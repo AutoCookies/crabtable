@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { BaseAstNode } from '../ast-node/base-ast-node';
 
 import type { LambdaNode } from '../ast-node/lambda-node';
-import { Disposable, Inject, sortRules } from '@univerjs/core';
+import { Disposable, Inject, sortRules } from '@crabtable/core';
 import { ErrorType } from '../../basics/error-type';
 import {
     DEFAULT_TOKEN_LAMBDA_FUNCTION_NAME,

@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { IMutationInfo, IRange, Nullable } from '@univerjs/core';
-import type { IDrawingJsonUndo1 } from '@univerjs/drawing';
-import type { IDiscreteRange } from '@univerjs/sheets';
-import type { ISheetDrawing, ISheetImage } from '@univerjs/sheets-drawing';
-import type { IPasteHookValueType, ISheetDiscreteRangeLocation } from '@univerjs/sheets-ui';
+import type { IMutationInfo, IRange, Nullable } from '@crabtable/core';
+import type { IDrawingJsonUndo1 } from '@crabtable/drawing';
+import type { IDiscreteRange } from '@crabtable/sheets';
+import type { ISheetDrawing, ISheetImage } from '@crabtable/sheets-drawing';
+import type { IPasteHookValueType, ISheetDiscreteRangeLocation } from '@crabtable/sheets-ui';
 import type { IDeleteDrawingCommandParams } from '../commands/commands/interfaces';
-import { Disposable, DrawingTypeEnum, generateRandomId, ICommandService } from '@univerjs/core';
-import { IDrawingManagerService, ImageSourceType } from '@univerjs/drawing';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { discreteRangeToRange } from '@univerjs/sheets';
-import { DrawingApplyType, SetDrawingApplyMutation, SheetDrawingAnchorType } from '@univerjs/sheets-drawing';
+import { Disposable, DrawingTypeEnum, generateRandomId, ICommandService } from '@crabtable/core';
+import { IDrawingManagerService, ImageSourceType } from '@crabtable/drawing';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { discreteRangeToRange } from '@crabtable/sheets';
+import { DrawingApplyType, SetDrawingApplyMutation, SheetDrawingAnchorType } from '@crabtable/sheets-drawing';
 import {
     COPY_TYPE,
     ISheetClipboardService,
@@ -32,8 +32,8 @@ import {
     PREDEFINED_HOOK_NAME_PASTE,
     SheetSkeletonManagerService,
     virtualizeDiscreteRanges,
-} from '@univerjs/sheets-ui';
-import { IClipboardInterfaceService } from '@univerjs/ui';
+} from '@crabtable/sheets-ui';
+import { IClipboardInterfaceService } from '@crabtable/ui';
 import { transformToAxisAlignPosition, transformToDrawingPosition } from '../basics/transform-position';
 import { InsertFloatImageCommand } from '../commands/commands/insert-image.command';
 import { RemoveSheetDrawingCommand } from '../commands/commands/remove-sheet-drawing.command';

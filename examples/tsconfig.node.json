@@ -1,5 +1,5 @@
 {
-    "extends": "@univerjs-infra/shared/tsconfigs/node",
+    "extends": "@crabtable-infra/shared/tsconfigs/node",
     "compilerOptions": {
         "target": "ESNext"
     },

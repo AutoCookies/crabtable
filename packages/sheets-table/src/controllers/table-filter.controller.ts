@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
+import type { Workbook } from '@crabtable/core';
 import type { Subscription } from 'rxjs';
 
-import { Disposable, Inject, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { getSheetCommandTarget, INTERCEPTOR_POINT, SheetInterceptorService, ZebraCrossingCacheController } from '@univerjs/sheets';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject } from '@crabtable/core';
+import { getSheetCommandTarget, INTERCEPTOR_POINT, SheetInterceptorService, ZebraCrossingCacheController } from '@crabtable/sheets';
 import { BehaviorSubject, filter, switchMap } from 'rxjs';
 import { TableManager } from '../model/table-manager';
 
@@ -30,7 +30,7 @@ export class TableFilterController extends Disposable {
     constructor(
         @Inject(TableManager) private _tableManager: TableManager,
         @Inject(SheetInterceptorService) private readonly _sheetInterceptorService: SheetInterceptorService,
-        @Inject(IUniverInstanceService) private readonly _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(ZebraCrossingCacheController) private readonly _zebraCrossingCacheController: ZebraCrossingCacheController
     ) {
         super();
@@ -63,13 +63,13 @@ export class TableFilterController extends Disposable {
         this._tableManager.tableInitStatus$.pipe(
             filter((initialized) => initialized),
             switchMap(() => {
-                return this._univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET);
+                return this._crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
             }),
             filter((workbook) => workbook !== null && workbook !== undefined),
             switchMap((workbook) => workbook.activeSheet$),
             filter((sheet) => sheet !== null && sheet !== undefined)
         ).subscribe(() => {
-            const target = getSheetCommandTarget(this._univerInstanceService);
+            const target = getSheetCommandTarget(this._crabtableInstanceService);
             if (!target) {
                 return;
             }
@@ -92,7 +92,7 @@ export class TableFilterController extends Disposable {
         this.disposeWithMe(
             this._tableManager.tableFilterChanged$.subscribe((event) => {
                 const { unitId, subUnitId, tableId } = event;
-                const worksheet = this._univerInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(subUnitId);
+                const worksheet = this._crabtableInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(subUnitId);
                 const table = this._tableManager.getTable(unitId, tableId);
                 if (!worksheet || !table) {
                     return;

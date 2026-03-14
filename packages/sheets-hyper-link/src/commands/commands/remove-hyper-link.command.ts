@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommand, IDocumentBody, IMutationInfo, Nullable } from '@univerjs/core';
+import type { DocumentDataModel, ICommand, IDocumentBody, IMutationInfo, Nullable } from '@crabtable/core';
 import type { IAddHyperLinkMutationParams } from '../mutations/add-hyper-link.mutation';
-import { BuildTextUtils, CellValueType, CommandType, ICommandService, IUndoRedoService, IUniverInstanceService, sequenceExecute, TextX, Tools, UniverInstanceType } from '@univerjs/core';
-import { deleteCustomRangeFactory } from '@univerjs/docs';
-import { getSheetCommandTarget, SetRangeValuesMutation, SetRangeValuesUndoMutationFactory } from '@univerjs/sheets';
+import { BuildTextUtils, CellValueType, CommandType, CrabTableInstanceType, ICommandService, ICrabTableInstanceService, IUndoRedoService, sequenceExecute, TextX, Tools } from '@crabtable/core';
+import { deleteCustomRangeFactory } from '@crabtable/docs';
+import { getSheetCommandTarget, SetRangeValuesMutation, SetRangeValuesUndoMutationFactory } from '@crabtable/sheets';
 import { HyperLinkModel } from '../../models/hyper-link.model';
 import { AddHyperLinkMutation } from '../mutations/add-hyper-link.mutation';
 import { RemoveHyperLinkMutation } from '../mutations/remove-hyper-link.mutation';
@@ -44,7 +44,7 @@ export const CancelHyperLinkCommand: ICommand<ICancelHyperLinkCommandParams> = {
 
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
-        const instanceSrv = accessor.get(IUniverInstanceService);
+        const instanceSrv = accessor.get(ICrabTableInstanceService);
         const hyperLinkModel = accessor.get(HyperLinkModel);
 
         const target = getSheetCommandTarget(instanceSrv, params);
@@ -149,8 +149,8 @@ export const CancelRichHyperLinkCommand: ICommand<ICancelRichHyperLinkCommandPar
         }
         const { id: linkId, documentId } = params;
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const doc = univerInstanceService.getUnit<DocumentDataModel>(documentId, UniverInstanceType.UNIVER_DOC);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const doc = crabtableInstanceService.getUnit<DocumentDataModel>(documentId, CrabTableInstanceType.CRABTABLE_DOC);
         const link = doc?.getBody()?.customRanges?.find((i) => i.rangeId === linkId);
         let insert: Nullable<IDocumentBody> = null;
         if (link && link.endIndex === doc!.getBody()!.dataStream.length - 3) {

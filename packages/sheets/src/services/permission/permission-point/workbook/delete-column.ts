@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IPermissionPoint } from '@univerjs/core';
-import { PermissionStatus } from '@univerjs/core';
+import type { IPermissionPoint } from '@crabtable/core';
+import { PermissionStatus } from '@crabtable/core';
 import { UnitAction, UnitObject } from '@univerjs/protocol';
 
 export class WorkbookDeleteColumnPermission implements IPermissionPoint {

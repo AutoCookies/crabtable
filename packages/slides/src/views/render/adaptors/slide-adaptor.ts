@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IColorStyle, IPageElement, ISlidePage } from '@univerjs/core';
-import type { Engine } from '@univerjs/engine-render';
-import { getColorStyle, Inject, Injector, PageElementType, SlideDataModel } from '@univerjs/core';
-import { Rect, Scene, Slide, Viewport } from '@univerjs/engine-render';
+import type { IColorStyle, IPageElement, ISlidePage } from '@crabtable/core';
+import type { Engine } from '@crabtable/engine-render';
+import { getColorStyle, Inject, Injector, PageElementType, SlideDataModel } from '@crabtable/core';
+import { Rect, Scene, Slide, Viewport } from '@crabtable/engine-render';
 import { CanvasObjectProviderRegistry, ObjectAdaptor } from '../adaptor';
 import { ObjectProvider } from '../object-provider';
 

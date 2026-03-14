@@ -30,22 +30,22 @@ import type {
     ObjectMatrix,
     Workbook,
     Worksheet,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import type { ISheetLocation } from './utils/interceptor';
 
 import {
     composeInterceptors,
+    CrabTableInstanceType,
     createInterceptorKey,
     Disposable,
     DisposableCollection,
+    ICrabTableInstanceService,
     InterceptorEffectEnum,
     InterceptorManager,
-    IUniverInstanceService,
     remove,
     toDisposable,
     Tools,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { INTERCEPTOR_POINT } from './interceptor-const';
 
 export interface IBeforeCommandInterceptor {
@@ -117,17 +117,17 @@ export class SheetInterceptorService extends Disposable {
 
     /** @ignore */
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
 
         // When a workbook is created or a worksheet is added after when workbook is created,
         // `SheetInterceptorService` inject interceptors to worksheet instances to it.
-        this.disposeWithMe(this._univerInstanceService.getTypeOfUnitAdded$<Workbook>(UniverInstanceType.UNIVER_SHEET).subscribe((workbook) => {
+        this.disposeWithMe(this._crabtableInstanceService.getTypeOfUnitAdded$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((workbook) => {
             this._interceptWorkbook(workbook);
         }));
 
-        this.disposeWithMe(this._univerInstanceService.getTypeOfUnitDisposed$<Workbook>(UniverInstanceType.UNIVER_SHEET).subscribe((workbook) =>
+        this.disposeWithMe(this._crabtableInstanceService.getTypeOfUnitDisposed$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((workbook) =>
             this._disposeWorkbookInterceptor(workbook)
         ));
 

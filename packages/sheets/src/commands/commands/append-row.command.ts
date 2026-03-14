@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICellData, ICommand, IMutationInfo, IObjectMatrixPrimitiveType } from '@univerjs/core';
+import type { IAccessor, ICellData, ICommand, IMutationInfo, IObjectMatrixPrimitiveType } from '@crabtable/core';
 import type {
     IInsertColMutationParams,
     IInsertRowMutationParams,
@@ -28,7 +28,7 @@ import {
     ICommandService,
     IUndoRedoService,
     sequenceExecute,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     InsertColMutation,
     InsertColMutationUndoFactory,

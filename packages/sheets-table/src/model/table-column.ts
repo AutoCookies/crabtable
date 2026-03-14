@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IStyleData } from '@univerjs/core';
+import type { IStyleData } from '@crabtable/core';
 import type { TableMetaType } from '../types/type';
 import { TableColumnDataTypeEnum } from '../types/enum';
 

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IDrawingParam } from '@univerjs/core';
-import { DrawingTypeEnum, ICommandService, LocaleService } from '@univerjs/core';
-import { Button, clsx } from '@univerjs/design';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { ComponentManager, useDependency } from '@univerjs/ui';
+import type { IDrawingParam } from '@crabtable/core';
+import { DrawingTypeEnum, ICommandService, LocaleService } from '@crabtable/core';
+import { Button, clsx } from '@crabtable/design';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { ComponentManager, useDependency } from '@crabtable/ui';
 import { useEffect, useState } from 'react';
 import { CancelDrawingGroupOperation, SetDrawingGroupOperation } from '../../commands/operations/drawing-group.operation';
 import { getUpdateParams } from '../../utils/get-update-params';

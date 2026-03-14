@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
+import type { Dependency } from '@crabtable/core';
 import type { Meta } from '@storybook/react';
-import type { Dependency } from '@univerjs/core';
-import { LocaleService, LocaleType } from '@univerjs/core';
-import { ColorPicker } from '@univerjs/design';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { IRenderManagerService, RenderManagerService } from '@univerjs/engine-render';
-import { COLOR_PICKER_COMPONENT, ComponentManager, DesktopLayoutService, FONT_FAMILY_COMPONENT, FONT_FAMILY_ITEM_COMPONENT, FONT_SIZE_COMPONENT, FontFamily, FontFamilyItem, FontSize, ILayoutService, IMenuManagerService, MenuManagerService, RediContext } from '@univerjs/ui';
+import { LocaleService, LocaleType } from '@crabtable/core';
+import { ColorPicker } from '@crabtable/design';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { IRenderManagerService, RenderManagerService } from '@crabtable/engine-render';
+import { COLOR_PICKER_COMPONENT, ComponentManager, DesktopLayoutService, FONT_FAMILY_COMPONENT, FONT_FAMILY_ITEM_COMPONENT, FONT_SIZE_COMPONENT, FontFamily, FontFamilyItem, FontSize, ILayoutService, IMenuManagerService, MenuManagerService, RediContext } from '@crabtable/ui';
 import { useContext, useEffect, useState } from 'react';
 import {
     SetInlineFormatBoldCommand,

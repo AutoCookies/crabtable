@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDrawingParam, IRotationSkewFlipTransform, Serializable } from '@univerjs/core';
-import type { IImageData, IUnitDrawingService } from '@univerjs/drawing';
-import type { ISheetOverGridPosition } from '@univerjs/sheets';
-import { createIdentifier } from '@univerjs/core';
-import { UnitDrawingService } from '@univerjs/drawing';
+import type { IDrawingParam, IRotationSkewFlipTransform, Serializable } from '@crabtable/core';
+import type { IImageData, IUnitDrawingService } from '@crabtable/drawing';
+import type { ISheetOverGridPosition } from '@crabtable/sheets';
+import { createIdentifier } from '@crabtable/core';
+import { UnitDrawingService } from '@crabtable/drawing';
 
 export enum SheetDrawingAnchorType {
     /**

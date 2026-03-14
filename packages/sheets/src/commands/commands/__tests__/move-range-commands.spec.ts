@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Injector, IRange, IWorkbookData, Nullable, Univer, Workbook } from '@univerjs/core';
-import { ICommandService, IUniverInstanceService, LocaleType, Tools, UniverInstanceType } from '@univerjs/core';
+import type { Injector, IRange, IWorkbookData, Nullable, Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, LocaleType, Tools } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { MergeCellController } from '../../../controllers/merge-cell.controller';
 import { RefRangeService } from '../../../services/ref-range/ref-range.service';
@@ -29,7 +29,7 @@ import { SetRangeValuesCommand } from '../set-range-values.command';
 import { createCommandTestBed } from './create-command-test-bed';
 
 describe('Test move range commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let sheetsSelectionsService: SheetsSelectionsService;
@@ -152,15 +152,15 @@ describe('Test move range commands', () => {
     });
 
     function getMergedInfo(row: number, col: number): Nullable<IRange> {
-        const currentService = get(IUniverInstanceService);
-        const workbook = currentService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const currentService = get(ICrabTableInstanceService);
+        const workbook = currentService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet()!;
         return worksheet.getMergedCell(row, col);
     }
 
     function getMergeData() {
-        const currentService = get(IUniverInstanceService);
-        const workbook = currentService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const currentService = get(ICrabTableInstanceService);
+        const workbook = currentService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet()!;
         return worksheet.getConfig().mergeData;
     }

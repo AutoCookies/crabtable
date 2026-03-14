@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import { ICommandService, IUndoRedoService, IUniverInstanceService } from '@univerjs/core';
-import { getSheetCommandTarget, SheetsSelectionsService } from '@univerjs/sheets';
+import type { IAccessor } from '@crabtable/core';
+import { ICommandService, ICrabTableInstanceService, IUndoRedoService } from '@crabtable/core';
+import { getSheetCommandTarget, SheetsSelectionsService } from '@crabtable/sheets';
 import { describe, expect, it, vi } from 'vitest';
 import { ConditionalFormattingRuleModel } from '../../../models/conditional-formatting-rule-model';
 import { DeleteConditionalRuleMutation } from '../../mutations/delete-conditional-rule.mutation';
@@ -24,8 +24,8 @@ import { SetConditionalRuleMutation } from '../../mutations/set-conditional-rule
 import { ClearRangeCfCommand } from '../clear-range-cf.command';
 import { ClearWorksheetCfCommand } from '../clear-worksheet-cf.command';
 
-vi.mock('@univerjs/sheets', async (importActual) => {
-    const actual = await importActual<typeof import('@univerjs/sheets')>();
+vi.mock('@crabtable/sheets', async (importActual) => {
+    const actual = await importActual<typeof import('@crabtable/sheets')>();
 
     return {
         ...actual,
@@ -79,7 +79,7 @@ function createAccessor(ruleModel: ConditionalFormattingRuleModel) {
             range: { startRow: 0, endRow: 0, startColumn: 2, endColumn: 2 },
         }]),
     };
-    const univerInstanceService = {};
+    const crabtableInstanceService = {};
 
     const accessor = {
         get(token: unknown) {
@@ -99,8 +99,8 @@ function createAccessor(ruleModel: ConditionalFormattingRuleModel) {
                 return selectionManagerService;
             }
 
-            if (token === IUniverInstanceService) {
-                return univerInstanceService;
+            if (token === ICrabTableInstanceService) {
+                return crabtableInstanceService;
             }
 
             throw new Error(`Unknown dependency: ${String(token)}`);

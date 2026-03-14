@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IDrawingSearch, Workbook } from '@univerjs/core';
-import type { IDocFloatDomData, IImageData } from '@univerjs/drawing';
-import type { IImageProps, IRectProps, Scene } from '@univerjs/engine-render';
-import { DrawingTypeEnum, IUniverInstanceService, IURLImageService, UniverInstanceType } from '@univerjs/core';
-import { getDrawingShapeKeyByDrawingSearch, IDrawingManagerService, IImageIoService, ImageSourceType } from '@univerjs/drawing';
-import { DRAWING_OBJECT_LAYER_INDEX, Image, Rect } from '@univerjs/engine-render';
-import { IGalleryService } from '@univerjs/ui';
+import type { IDrawingSearch, Workbook } from '@crabtable/core';
+import type { IDocFloatDomData, IImageData } from '@crabtable/drawing';
+import type { IImageProps, IRectProps, Scene } from '@crabtable/engine-render';
+import { CrabTableInstanceType, DrawingTypeEnum, ICrabTableInstanceService, IURLImageService } from '@crabtable/core';
+import { getDrawingShapeKeyByDrawingSearch, IDrawingManagerService, IImageIoService, ImageSourceType } from '@crabtable/drawing';
+import { DRAWING_OBJECT_LAYER_INDEX, Image, Rect } from '@crabtable/engine-render';
+import { IGalleryService } from '@crabtable/ui';
 import { insertGroupObject } from '../controllers/utils';
 
 // const IMAGE_VIEWER_DROPDOWN_PADDING = 50;
@@ -31,7 +31,7 @@ export class DrawingRenderService {
         @IImageIoService private readonly _imageIoService: IImageIoService,
         @IGalleryService private readonly _galleryService: IGalleryService,
         @IURLImageService private readonly _urlImageService: IURLImageService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) { }
 
     // eslint-disable-next-line max-lines-per-function, complexity
@@ -59,7 +59,7 @@ export class DrawingRenderService {
             return;
         }
 
-        if (this._univerInstanceService.getUnitType(unitId) === UniverInstanceType.UNIVER_SHEET && subUnitId !== this._getActiveSheetId()) {
+        if (this._crabtableInstanceService.getUnitType(unitId) === CrabTableInstanceType.CRABTABLE_SHEET && subUnitId !== this._getActiveSheetId()) {
             return;
         }
 
@@ -143,8 +143,8 @@ export class DrawingRenderService {
     }
 
     private _getActiveSheetId(): string | undefined {
-        return this._univerInstanceService
-            .getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)
+        return this._crabtableInstanceService
+            .getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)
             ?.getActiveSheet()
             ?.getSheetId();
     }

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
+import type { ICommand } from '@crabtable/core';
 import type { IRangeProtectionRule } from '../../model/range-protection-rule.model';
-import { CommandType, ICommandService, IUndoRedoService } from '@univerjs/core';
+import { CommandType, ICommandService, IUndoRedoService } from '@crabtable/core';
 import { RangeProtectionRuleModel } from '../../model/range-protection-rule.model';
 import { AddRangeProtectionMutation } from '../mutations/add-range-protection.mutation';
 import { DeleteRangeProtectionMutation } from '../mutations/delete-range-protection.mutation';

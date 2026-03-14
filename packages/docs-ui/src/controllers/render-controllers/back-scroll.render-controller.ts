@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ITextRange, Nullable } from '@univerjs/core';
-import type { Documents, INodePosition, IRenderContext, IRenderModule } from '@univerjs/engine-render';
-import { DOCS_NORMAL_EDITOR_UNIT_ID_KEY, Inject, RxDisposable } from '@univerjs/core';
-import { DocSelectionManagerService, DocSkeletonManagerService } from '@univerjs/docs';
+import type { DocumentDataModel, ITextRange, Nullable } from '@crabtable/core';
+import type { Documents, INodePosition, IRenderContext, IRenderModule } from '@crabtable/engine-render';
+import { DOCS_NORMAL_EDITOR_UNIT_ID_KEY, Inject, RxDisposable } from '@crabtable/core';
+import { DocSelectionManagerService, DocSkeletonManagerService } from '@crabtable/docs';
 import { takeUntil } from 'rxjs';
 import { VIEWPORT_KEY } from '../../basics/docs-view-key';
 import { IEditorService } from '../../services/editor/editor-manager.service';

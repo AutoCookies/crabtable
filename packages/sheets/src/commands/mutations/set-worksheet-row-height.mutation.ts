@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { BooleanNumber, IMutation, IObjectArrayPrimitiveType, IRange, IRowAutoHeightInfo, Nullable, Worksheet } from '@univerjs/core';
-import { CommandType, IUniverInstanceService, Tools } from '@univerjs/core';
+import type { BooleanNumber, IMutation, IObjectArrayPrimitiveType, IRange, IRowAutoHeightInfo, Nullable, Worksheet } from '@crabtable/core';
+import { CommandType, ICrabTableInstanceService, Tools } from '@crabtable/core';
 import { getSheetCommandTarget } from '../commands/utils/target-util';
 
 export interface ISetWorksheetRowHeightMutationParams {
@@ -112,8 +112,8 @@ export const SetWorksheetRowHeightMutation: IMutation<ISetWorksheetRowHeightMuta
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
         const { ranges, rowHeight } = params;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { worksheet } = target;
@@ -138,8 +138,8 @@ export const SetWorksheetRowIsAutoHeightMutation: IMutation<ISetWorksheetRowIsAu
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
         const { ranges, autoHeightInfo } = params;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const manager = target.worksheet.getRowManager();
@@ -164,8 +164,8 @@ export const SetWorksheetRowAutoHeightMutation: IMutation<ISetWorksheetRowAutoHe
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
         const { rowsAutoHeightInfo } = params;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const rowManager = target.worksheet.getRowManager();

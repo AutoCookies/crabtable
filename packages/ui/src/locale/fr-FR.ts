@@ -78,7 +78,7 @@ const locale: typeof enUS = {
     clipboard: {
         authentication: {
             title: 'Permission refusée',
-            content: 'Veuillez autoriser Univer à accéder à votre presse-papiers.',
+            content: 'Veuillez autoriser CrabTable à accéder à votre presse-papiers.',
         },
     },
     textEditor: {

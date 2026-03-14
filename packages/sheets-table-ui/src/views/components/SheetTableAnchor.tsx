@@ -15,12 +15,12 @@
  */
 
 import type { IUniverSheetsTableUIConfig } from '../../config/config';
-import { cellToRange, ICommandService, IConfigService, Injector, IUniverInstanceService, LocaleService, Rectangle } from '@univerjs/core';
-import { borderClassName, clsx, Dropdown, Input } from '@univerjs/design';
+import { cellToRange, ICommandService, IConfigService, ICrabTableInstanceService, Injector, LocaleService, Rectangle } from '@crabtable/core';
+import { borderClassName, clsx, Dropdown, Input } from '@crabtable/design';
+import { getSheetCommandTarget, SheetRangeThemeModel, SheetsSelectionsService, WorkbookPermissionService } from '@crabtable/sheets';
+import { DeleteSheetTableCommand, SetSheetTableCommand, TableManager } from '@crabtable/sheets-table';
+import { ISidebarService, useDependency, useObservable } from '@crabtable/ui';
 import { DeleteIcon, GridOutlineIcon, MoreDownIcon, PaintBucketDoubleIcon, RenameIcon } from '@univerjs/icons';
-import { getSheetCommandTarget, SheetRangeThemeModel, SheetsSelectionsService, WorkbookPermissionService } from '@univerjs/sheets';
-import { DeleteSheetTableCommand, SetSheetTableCommand, TableManager } from '@univerjs/sheets-table';
-import { ISidebarService, useDependency, useObservable } from '@univerjs/ui';
 import { useEffect, useState } from 'react';
 import { openRangeSelector } from '../../commands/operations/open-table-selector.operation';
 import { SHEETS_TABLE_UI_PLUGIN_CONFIG_KEY } from '../../config/config';
@@ -37,7 +37,7 @@ export const SheetTableAnchor = () => {
     const sheetTableAnchor = useDependency(SheetTableAnchorController);
     const anchorPosition = useObservable(sheetTableAnchor.anchorPosition$);
     const commandService = useDependency(ICommandService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const workbookPermissionService = useDependency(WorkbookPermissionService);
     const workbookPermissionInitState = useObservable(workbookPermissionService.unitPermissionInitStateChange$, false);
     const tableManager = useDependency(TableManager);
@@ -69,7 +69,7 @@ export const SheetTableAnchor = () => {
         return null;
     }
 
-    const target = getSheetCommandTarget(univerInstanceService);
+    const target = getSheetCommandTarget(crabtableInstanceService);
 
     if (!target) return null;
 

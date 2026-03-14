@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData } from '@univerjs/core';
-import { ICommandService, Inject, Injector, IUniverInstanceService, LocaleType, Plugin, Univer, UniverInstanceType } from '@univerjs/core';
-import { LexerTreeBuilder } from '@univerjs/engine-formula';
+import type { Dependency, IWorkbookData } from '@crabtable/core';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, Inject, Injector, LocaleType, Plugin } from '@crabtable/core';
+import { LexerTreeBuilder } from '@crabtable/engine-formula';
 import {
     INumfmtService,
     NumfmtService,
     RemoveNumfmtMutation,
     SetNumfmtMutation,
     SheetInterceptorService,
-} from '@univerjs/sheets';
-import { SheetSkeletonManagerService } from '@univerjs/sheets-ui';
+} from '@crabtable/sheets';
+import { SheetSkeletonManagerService } from '@crabtable/sheets-ui';
 
 const TEST_WORKBOOK_DATA_DEMO: () => IWorkbookData = () => ({
     id: 'test',
@@ -53,13 +53,13 @@ const TEST_WORKBOOK_DATA_DEMO: () => IWorkbookData = () => ({
 });
 
 export const createTestBed = (defaultWorkbook?: IWorkbookData, dependencies?: Dependency[]) => {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -88,13 +88,13 @@ export const createTestBed = (defaultWorkbook?: IWorkbookData, dependencies?: De
     univer.registerPlugin(TestPlugin);
 
     const workbookJson = defaultWorkbook ?? TEST_WORKBOOK_DATA_DEMO();
-    const sheet = univer.createUnit(UniverInstanceType.UNIVER_SHEET, workbookJson);
+    const sheet = univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, workbookJson);
 
-    const univerInstanceService = injector.get(IUniverInstanceService);
+    const crabtableInstanceService = injector.get(ICrabTableInstanceService);
     const commandService = injector.get(ICommandService);
     commandService.registerCommand(RemoveNumfmtMutation);
     commandService.registerCommand(SetNumfmtMutation);
-    univerInstanceService.focusUnit('test');
+    crabtableInstanceService.focusUnit('test');
     const unitId = workbookJson.id;
     const subUnitId = workbookJson.sheets.sheet1.id!;
 

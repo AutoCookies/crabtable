@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Injector, IWorkbookData } from '@univerjs/core';
-import { ICommandService, IConfirmService, IUniverInstanceService, LocaleService, LocaleType, RANGE_TYPE, TestConfirmService } from '@univerjs/core';
+import type { Injector, IWorkbookData } from '@crabtable/core';
+import { ICommandService, IConfirmService, ICrabTableInstanceService, LocaleService, LocaleType, RANGE_TYPE, TestConfirmService } from '@crabtable/core';
 import { beforeEach, describe, expect, it } from 'vitest';
 import enUS from '../../../locale/en-US';
 import zhCN from '../../../locale/zh-CN';
@@ -167,7 +167,7 @@ describe('add-merge-command', () => {
             })
         ).toBeTruthy();
 
-        const worksheet = get(IUniverInstanceService)?.getUniverSheetInstance('test')?.getSheetBySheetId('sheet1');
+        const worksheet = get(ICrabTableInstanceService)?.getCrabTableSheetInstance('test')?.getSheetBySheetId('sheet1');
         const mergeData = worksheet?.getConfig().mergeData;
         const { startRow, startColumn, endColumn, endRow } = mergeData![0];
         expect({

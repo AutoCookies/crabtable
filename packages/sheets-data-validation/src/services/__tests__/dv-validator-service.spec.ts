@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDataValidationRule, IRange, IUniverInstanceService, LifecycleService, Nullable, Workbook, Worksheet } from '@univerjs/core';
-import type { ISheetLocation } from '@univerjs/sheets';
+import type { ICrabTableInstanceService, IDataValidationRule, IRange, LifecycleService, Nullable, Workbook, Worksheet } from '@crabtable/core';
+import type { ISheetLocation } from '@crabtable/sheets';
 import type { SheetDataValidationModel } from '../../models/sheet-data-validation-model';
 import type { DataValidationCacheService } from '../dv-cache.service';
-import { ObjectMatrix as CoreObjectMatrix, DataValidationStatus, LifecycleStages } from '@univerjs/core';
+import { ObjectMatrix as CoreObjectMatrix, DataValidationStatus, LifecycleStages } from '@crabtable/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { SheetsDataValidationValidatorService } from '../dv-validator-service';
@@ -62,10 +62,10 @@ function createService() {
         getValue: vi.fn(() => DataValidationStatus.INVALID),
         ensureCache: vi.fn(() => cache),
     } as unknown as DataValidationCacheService;
-    const univerInstanceService = {
+    const crabtableInstanceService = {
         getUnit: vi.fn((unitId: string) => (unitId === 'unit-1' ? workbook : null)),
         getCurrentUnitForType: vi.fn(() => workbook),
-    } as unknown as IUniverInstanceService;
+    } as unknown as ICrabTableInstanceService;
     const lifecycleService = {
         lifecycle$,
         stage: LifecycleStages.Rendered,
@@ -79,9 +79,9 @@ function createService() {
         cache,
         model,
         cacheService,
-        univerInstanceService,
+        crabtableInstanceService,
         lifecycleService,
-        service: new SheetsDataValidationValidatorService(univerInstanceService, model, cacheService, lifecycleService),
+        service: new SheetsDataValidationValidatorService(crabtableInstanceService, model, cacheService, lifecycleService),
     };
 }
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { UNIVER_WATERMARK_STORAGE_KEY } from '@univerjs/engine-render';
+import { UNIVER_WATERMARK_STORAGE_KEY } from '@crabtable/engine-render';
 import { describe, expect, it, vi } from 'vitest';
 import { WatermarkService } from './watermark.service';
 

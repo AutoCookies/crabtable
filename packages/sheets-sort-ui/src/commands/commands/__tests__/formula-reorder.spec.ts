@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { ICellData, Injector, Nullable, Univer } from '@univerjs/core';
-import { ICommandService, IConfirmService, IUniverInstanceService, RANGE_TYPE, TestConfirmService } from '@univerjs/core';
-import { ReorderRangeCommand, ReorderRangeMutation, SetRangeValuesMutation, SheetsSelectionsService } from '@univerjs/sheets';
+import type { CrabTable, ICellData, Injector, Nullable } from '@crabtable/core';
+import { ICommandService, IConfirmService, ICrabTableInstanceService, RANGE_TYPE, TestConfirmService } from '@crabtable/core';
+import { ReorderRangeCommand, ReorderRangeMutation, SetRangeValuesMutation, SheetsSelectionsService } from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SheetsSortUIService } from '../../../services/sheets-sort-ui.service';
 import { createCommandTestBed } from './create-command-test-bed';
 
 describe('Test "Sort Range Commands"', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let sortService: SheetsSortUIService;
@@ -53,8 +53,8 @@ describe('Test "Sort Range Commands"', () => {
             endRow: number,
             endColumn: number
         ): Array<Array<Nullable<ICellData>>> | undefined =>
-            get(IUniverInstanceService)
-                .getUniverSheetInstance('test')
+            get(ICrabTableInstanceService)
+                .getCrabTableSheetInstance('test')
                 ?.getSheetBySheetId('sheet1')
                 ?.getRange(startRow, startColumn, endRow, endColumn)
                 .getValues();

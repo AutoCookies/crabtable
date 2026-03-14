@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICellData, Injector, IRange, IStyleData, Nullable, Univer } from '@univerjs/core';
+import type { CrabTable, ICellData, Injector, IRange, IStyleData, Nullable } from '@crabtable/core';
 import type { IClipboardItem } from './mock-clipboard';
-import { ICommandService, IUniverInstanceService, RANGE_TYPE, Rectangle, RedoCommand, UndoCommand } from '@univerjs/core';
+import { ICommandService, ICrabTableInstanceService, RANGE_TYPE, Rectangle, RedoCommand, UndoCommand } from '@crabtable/core';
 import {
     AddWorksheetMergeMutation,
     discreteRangeToRange,
@@ -28,7 +28,7 @@ import {
     SetWorksheetRowAutoHeightMutation,
     SetWorksheetRowHeightMutation,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { ISheetClipboardService, PREDEFINED_HOOK_NAME_PASTE } from '../clipboard.service';
 import { COPY_TYPE } from '../type';
@@ -36,7 +36,7 @@ import { clipboardTestBed } from './clipboard-test-bed';
 import { MockClipboard } from './mock-clipboard';
 
 describe('Test clipboard', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let sheetClipboardService: ISheetClipboardService;
@@ -84,8 +84,8 @@ describe('Test clipboard', () => {
             endRow: number,
             endColumn: number
         ): Array<Array<Nullable<ICellData>>> | undefined =>
-            get(IUniverInstanceService)
-                .getUniverSheetInstance('test')
+            get(ICrabTableInstanceService)
+                .getCrabTableSheetInstance('test')
                 ?.getSheetBySheetId('sheet1')
                 ?.getRange(startRow, startColumn, endRow, endColumn)
                 .getValues();
@@ -96,8 +96,8 @@ describe('Test clipboard', () => {
             endRow: number,
             endColumn: number
         ): IRange[] | undefined => {
-            return get(IUniverInstanceService)
-                .getUniverSheetInstance('test')
+            return get(ICrabTableInstanceService)
+                .getCrabTableSheetInstance('test')
                 ?.getSheetBySheetId('sheet1')
                 ?.getMergeData()
                 .filter((rect) => Rectangle.intersects({ startRow, startColumn, endRow, endColumn }, rect));
@@ -110,7 +110,7 @@ describe('Test clipboard', () => {
             endColumn: number
         ): Array<Array<Nullable<IStyleData>>> | undefined => {
             const values = getValues(startRow, startColumn, endRow, endColumn);
-            const styles = get(IUniverInstanceService).getUniverSheetInstance('test')?.getStyles();
+            const styles = get(ICrabTableInstanceService).getCrabTableSheetInstance('test')?.getStyles();
             if (values && styles) {
                 return values.map((row) => row.map((cell) => styles.getStyleByCell(cell)));
             }
@@ -153,8 +153,8 @@ describe('Test clipboard', () => {
             const values = getValues(startRow, startColumn, endRow, endColumn);
             const styles = getStyles(startRow, startColumn, endRow, endColumn);
             const mergedCells = getMergedCells(startRow, startColumn, endRow, endColumn);
-            const rowManager = get(IUniverInstanceService).getUniverSheetInstance('test')?.getSheetBySheetId('sheet1')?.getRowManager();
-            const columnManager = get(IUniverInstanceService).getUniverSheetInstance('test')?.getSheetBySheetId('sheet1')?.getColumnManager();
+            const rowManager = get(ICrabTableInstanceService).getCrabTableSheetInstance('test')?.getSheetBySheetId('sheet1')?.getRowManager();
+            const columnManager = get(ICrabTableInstanceService).getCrabTableSheetInstance('test')?.getSheetBySheetId('sheet1')?.getColumnManager();
             const columnWidth = columnManager?.getColumnWidth(0);
             expect(columnWidth).toBe(88);
             expect(values && values[0][0]?.v).toBe('row1col2');

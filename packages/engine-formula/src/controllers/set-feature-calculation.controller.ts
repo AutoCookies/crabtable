@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo } from '@univerjs/core';
+import type { ICommandInfo } from '@crabtable/core';
 import type {
     IRemoveFeatureCalculationMutationParam,
     ISetFeatureCalculationMutation,
 } from '../commands/mutations/set-feature-calculation.mutation';
-import { Disposable, ICommandService } from '@univerjs/core';
+import { Disposable, ICommandService } from '@crabtable/core';
 import {
     RemoveFeatureCalculationMutation,
     SetFeatureCalculationMutation,

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
-import { Inject, Injector, Plugin, UniverInstanceType } from '@univerjs/core';
-import { fromModule, IRPCChannelService } from '@univerjs/rpc';
+import type { Dependency } from '@crabtable/core';
+import { CrabTableInstanceType, Inject, Injector, Plugin } from '@crabtable/core';
+import { fromModule, IRPCChannelService } from '@crabtable/rpc';
 import pkg from '../../package.json';
 import { ISheetsGenerateFilterValuesService, SHEETS_GENERATE_FILTER_VALUES_SERVICE_NAME, SheetsGenerateFilterValuesService } from './generate-filter-values.service';
 
 export class UniverSheetsFilterUIWorkerPlugin extends Plugin {
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
     static override pluginName: string = 'SHEET_FILTER_UI_WORKER_PLUGIN';
     static override packageName = pkg.name;
     static override version = pkg.version;

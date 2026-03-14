@@ -15,7 +15,7 @@
  */
 
 import type { IColorScale } from '../../type';
-import { CellValueType } from '@univerjs/core';
+import { CellValueType } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { CFRuleType, CFValueType } from '../../../base/const';
 import { ColorScaleCalculateUnit } from '../color-scale-calculate-unit';

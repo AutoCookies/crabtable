@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, IDrawingParam, Nullable } from '@univerjs/core';
-import type { IDocDrawing } from '@univerjs/docs-drawing';
+import type { ICommandInfo, IDrawingParam, Nullable } from '@crabtable/core';
+import type { IDocDrawing } from '@crabtable/docs-drawing';
 import {
     BooleanNumber,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     LocaleService,
     PositionedObjectLayoutType,
     WrapTextType,
-} from '@univerjs/core';
-import { clsx, InputNumber, Radio, RadioGroup } from '@univerjs/design';
-import { RichTextEditingMutation } from '@univerjs/docs';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { useDependency } from '@univerjs/ui';
+} from '@crabtable/core';
+import { clsx, InputNumber, Radio, RadioGroup } from '@crabtable/design';
+import { RichTextEditingMutation } from '@crabtable/docs';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { useDependency } from '@crabtable/ui';
 import { useEffect, useState } from 'react';
 import {
     TextWrappingStyle,
@@ -56,7 +56,7 @@ export const DocDrawingTextWrap = (props: IDocDrawingTextWrapProps) => {
     const localeService = useDependency(LocaleService);
     const drawingManagerService = useDependency(IDrawingManagerService);
     const renderManagerService = useDependency(IRenderManagerService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
 
     const { drawings } = props;
 
@@ -68,7 +68,7 @@ export const DocDrawingTextWrap = (props: IDocDrawingTextWrapProps) => {
 
     const { unitId } = drawingParam;
 
-    const documentDataModel = univerInstanceService.getUniverDocInstance(unitId);
+    const documentDataModel = crabtableInstanceService.getUniverDocInstance(unitId);
 
     const renderObject = renderManagerService.getRenderById(unitId);
     const scene = renderObject?.scene;

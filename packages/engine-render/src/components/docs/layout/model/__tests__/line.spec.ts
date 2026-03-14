@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { PositionedObjectLayoutType, TableTextWrapType, WrapTextType } from '@univerjs/core';
+import { PositionedObjectLayoutType, TableTextWrapType, WrapTextType } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import { LineType } from '../../../../../basics/i-document-skeleton-cached';
 import {

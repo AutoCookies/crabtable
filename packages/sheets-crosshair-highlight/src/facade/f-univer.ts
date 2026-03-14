@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { Injector } from '@univerjs/core';
-import type { IEventBase } from '@univerjs/core/facade';
-import type { ISetCrosshairHighlightColorOperationParams } from '@univerjs/sheets-crosshair-highlight';
-import type { FWorkbook, FWorksheet } from '@univerjs/sheets/facade';
-import { ICommandService } from '@univerjs/core';
-import { FEventName, FUniver } from '@univerjs/core/facade';
-import { CROSSHAIR_HIGHLIGHT_COLORS, DisableCrosshairHighlightOperation, EnableCrosshairHighlightOperation, SetCrosshairHighlightColorOperation, SheetsCrosshairHighlightService, ToggleCrosshairHighlightOperation } from '@univerjs/sheets-crosshair-highlight';
+import type { Injector } from '@crabtable/core';
+import type { IEventBase } from '@crabtable/core/facade';
+import type { ISetCrosshairHighlightColorOperationParams } from '@crabtable/sheets-crosshair-highlight';
+import type { FWorkbook, FWorksheet } from '@crabtable/sheets/facade';
+import { ICommandService } from '@crabtable/core';
+import { FCrabTable, FEventName } from '@crabtable/core/facade';
+import { CROSSHAIR_HIGHLIGHT_COLORS, DisableCrosshairHighlightOperation, EnableCrosshairHighlightOperation, SetCrosshairHighlightColorOperation, SheetsCrosshairHighlightService, ToggleCrosshairHighlightOperation } from '@crabtable/sheets-crosshair-highlight';
 
 /**
  * @ignore
@@ -31,7 +31,7 @@ export interface IFSheetCrosshairHighlightEventMixin {
      * @see {@link ICrosshairHighlightEnabledChangedEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.CrosshairHighlightEnabledChanged, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.CrosshairHighlightEnabledChanged, (params) => {
      *   const { enabled, workbook, worksheet } = params;
      *   console.log(params);
      * });
@@ -46,7 +46,7 @@ export interface IFSheetCrosshairHighlightEventMixin {
      * @see {@link ICrosshairHighlightColorChangedEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.CrosshairHighlightColorChanged, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.CrosshairHighlightColorChanged, (params) => {
      *   const { color, workbook, worksheet } = params;
      *   console.log(params);
      * });
@@ -115,33 +115,33 @@ export interface IFUniverCrosshairHighlightMixin {
     /**
      * Enable or disable crosshair highlight.
      * @param {boolean} enabled - Whether to enable the crosshair highlight
-     * @returns {FUniver} The FUniver instance for chaining
+     * @returns {FUniver} The FCrabTable instance for chaining
      * @example
      * ```ts
-     * univerAPI.setCrosshairHighlightEnabled(true);
+     * crabtableAPI.setCrosshairHighlightEnabled(true);
      * ```
      */
-    setCrosshairHighlightEnabled(enabled: boolean): FUniver;
+    setCrosshairHighlightEnabled(enabled: boolean): FCrabTable;
 
     /**
      * Set the color of the crosshair highlight.
      * @param {string} color - The color of the crosshair highlight, if the color not has alpha channel, the alpha channel will be set to 0.5
-     * @returns {FUniver} The FUniver instance for chaining
+     * @returns {FUniver} The FCrabTable instance for chaining
      * @example
      * ```ts
-     * univerAPI.setCrosshairHighlightColor('#FF0000');
+     * crabtableAPI.setCrosshairHighlightColor('#FF0000');
      * // or
-     * univerAPI.setCrosshairHighlightColor('rgba(232, 11, 11, 0.2)');
+     * crabtableAPI.setCrosshairHighlightColor('rgba(232, 11, 11, 0.2)');
      * ```
      */
-    setCrosshairHighlightColor(color: string): FUniver;
+    setCrosshairHighlightColor(color: string): FCrabTable;
 
     /**
      * Get whether the crosshair highlight is enabled.
      * @returns {boolean} Whether the crosshair highlight is enabled
      * @example
      * ```ts
-     * console.log(univerAPI.getCrosshairHighlightEnabled());
+     * console.log(crabtableAPI.getCrosshairHighlightEnabled());
      * ```
      */
     getCrosshairHighlightEnabled(): boolean;
@@ -151,7 +151,7 @@ export interface IFUniverCrosshairHighlightMixin {
      * @returns {string} The color of the crosshair highlight
      * @example
      * ```ts
-     * console.log(univerAPI.getCrosshairHighlightColor());
+     * console.log(crabtableAPI.getCrosshairHighlightColor());
      * ```
      */
     getCrosshairHighlightColor(): string;
@@ -165,7 +165,7 @@ export interface IFUniverCrosshairHighlightMixin {
 /**
  * @ignore
  */
-export class FUniverCrosshairHighlightMixin extends FUniver implements IFUniverCrosshairHighlightMixin {
+export class FCrabTableCrosshairHighlightMixin extends FCrabTable implements IFUniverCrosshairHighlightMixin {
     /**
      * @ignore
      */
@@ -209,7 +209,7 @@ export class FUniverCrosshairHighlightMixin extends FUniver implements IFUniverC
         );
     }
 
-    override setCrosshairHighlightEnabled(enabled: boolean): FUniver {
+    override setCrosshairHighlightEnabled(enabled: boolean): FCrabTable {
         if (enabled) {
             this._commandService.syncExecuteCommand(EnableCrosshairHighlightOperation.id);
         } else {
@@ -219,7 +219,7 @@ export class FUniverCrosshairHighlightMixin extends FUniver implements IFUniverC
         return this;
     }
 
-    override setCrosshairHighlightColor(color: string): FUniver {
+    override setCrosshairHighlightColor(color: string): FCrabTable {
         this._commandService.syncExecuteCommand(SetCrosshairHighlightColorOperation.id, {
             value: color,
         } as ISetCrosshairHighlightColorOperationParams);
@@ -242,11 +242,11 @@ export class FUniverCrosshairHighlightMixin extends FUniver implements IFUniverC
 }
 
 FEventName.extend(FSheetCrosshairHighlightEventMixin);
-FUniver.extend(FUniverCrosshairHighlightMixin);
+FCrabTable.extend(FUniverCrosshairHighlightMixin);
 
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
-    interface FUniver extends IFUniverCrosshairHighlightMixin {}
+    interface FCrabTable extends IFUniverCrosshairHighlightMixin {}
 
     // eslint-disable-next-line ts/naming-convention
     interface FEventName extends IFSheetCrosshairHighlightEventMixin {

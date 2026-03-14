@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverSheetsGraphicsConfig } from './config/config';
-import { IConfigService, Inject, Injector, merge, Plugin, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { CrabTableInstanceType, IConfigService, Inject, Injector, merge, Plugin } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import pkg from '../package.json';
 import { defaultPluginConfig, PLUGIN_CONFIG_KEY } from './config/config';
 import { SheetGraphicsRenderController } from './controllers/graphics-render.controller';
 
 export class UniverSheetsGraphicsPlugin extends Plugin {
-    static override pluginName = 'UNIVER_SHEET_DRAWING_PLUGIN';
+    static override pluginName = 'CRABTABLE_SHEET_DRAWING_PLUGIN';
     static override packageName = pkg.name;
     static override version = pkg.version;
 
@@ -47,7 +47,7 @@ export class UniverSheetsGraphicsPlugin extends Plugin {
         ([
             [SheetGraphicsRenderController],
         ] as Dependency[]).forEach((dep) => {
-            this._renderManagerService.registerRenderModule(UniverInstanceType.UNIVER_SHEET, dep);
+            this._renderManagerService.registerRenderModule(CrabTableInstanceType.CRABTABLE_SHEET, dep);
         });
     }
 }

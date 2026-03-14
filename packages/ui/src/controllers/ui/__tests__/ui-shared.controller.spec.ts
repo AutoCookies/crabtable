@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
-import { LifecycleStages, LifecycleUnreachableError } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
+import { LifecycleStages, LifecycleUnreachableError } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { SingleUnitUIController } from '../ui-shared.controller';

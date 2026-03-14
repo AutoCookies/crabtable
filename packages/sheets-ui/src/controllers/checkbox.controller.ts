@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import { Disposable, ICommandService, Inject, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { CURSOR_TYPE, getCurrentTypeOfRenderer, IRenderManagerService } from '@univerjs/engine-render';
-import { ToggleCellCheckboxCommand } from '@univerjs/sheets';
+import { CrabTableInstanceType, Disposable, ICommandService, ICrabTableInstanceService, Inject } from '@crabtable/core';
+import { CURSOR_TYPE, getCurrentTypeOfRenderer, IRenderManagerService } from '@crabtable/engine-render';
+import { ToggleCellCheckboxCommand } from '@crabtable/sheets';
 import { HoverManagerService } from '../services/hover-manager.service';
 
 export class SheetCheckboxController extends Disposable {
     private _isPointer = false;
     constructor(
         @Inject(HoverManagerService) private _hoverManagerService: HoverManagerService,
-        @IUniverInstanceService private _instanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private _instanceService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService
     ) {
@@ -33,7 +33,7 @@ export class SheetCheckboxController extends Disposable {
     }
 
     private get _mainComponent() {
-        return getCurrentTypeOfRenderer(UniverInstanceType.UNIVER_SHEET, this._instanceService, this._renderManagerService)?.mainComponent;
+        return getCurrentTypeOfRenderer(CrabTableInstanceType.CRABTABLE_SHEET, this._instanceService, this._renderManagerService)?.mainComponent;
     }
 
     private _initHover() {

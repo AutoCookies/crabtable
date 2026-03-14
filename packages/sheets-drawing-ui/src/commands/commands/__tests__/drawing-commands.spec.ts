@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import { ArrangeTypeEnum, Direction, DrawingTypeEnum, ICommandService, IUndoRedoService } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { SheetInterceptorService } from '@univerjs/sheets';
-import { DrawingApplyType, ISheetDrawingService, SetDrawingApplyMutation } from '@univerjs/sheets-drawing';
-import { ISheetSelectionRenderService } from '@univerjs/sheets-ui';
+import type { IAccessor } from '@crabtable/core';
+import { ArrangeTypeEnum, Direction, DrawingTypeEnum, ICommandService, IUndoRedoService } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { SheetInterceptorService } from '@crabtable/sheets';
+import { DrawingApplyType, ISheetDrawingService, SetDrawingApplyMutation } from '@crabtable/sheets-drawing';
+import { ISheetSelectionRenderService } from '@crabtable/sheets-ui';
 import { describe, expect, it, vi } from 'vitest';
 import { ClearSheetDrawingTransformerOperation } from '../../operations/clear-drawing-transformer.operation';
 import { FlipSheetDrawingCommand } from '../flip-drawings.command';

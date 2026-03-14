@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { createIdentifier } from '@univerjs/core';
+import { createIdentifier } from '@crabtable/core';
 
 /**
- * Univer telemetry service interface. You should implement this interface to track telemetry data.
+ * CrabTable telemetry service interface. You should implement this interface to track telemetry data.
  */
 export interface ITelemetryService {
     /**
@@ -74,6 +74,6 @@ export interface ITelemetryService {
 };
 
 /**
- * Univer telemetry service identifier.
+ * CrabTable telemetry service identifier.
  */
 export const ITelemetryService = createIdentifier<ITelemetryService>('telemetry.service');

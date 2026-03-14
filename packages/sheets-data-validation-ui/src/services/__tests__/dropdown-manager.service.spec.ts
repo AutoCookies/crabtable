@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { ISelectionWithStyle, SheetsSelectionsService } from '@univerjs/sheets';
-import type { SheetDataValidationModel } from '@univerjs/sheets-data-validation';
-import type { IDropdownParam, IEditorBridgeService } from '@univerjs/sheets-ui';
-import { DataValidationRenderMode } from '@univerjs/core';
-import { DataValidatorDropdownType } from '@univerjs/data-validation';
-import { SetRangeValuesCommand } from '@univerjs/sheets';
-import { serializeListOptions } from '@univerjs/sheets-data-validation';
-import { SetCellEditVisibleOperation } from '@univerjs/sheets-ui';
+import type { ISelectionWithStyle, SheetsSelectionsService } from '@crabtable/sheets';
+import type { SheetDataValidationModel } from '@crabtable/sheets-data-validation';
+import type { IDropdownParam, IEditorBridgeService } from '@crabtable/sheets-ui';
+import { DataValidationRenderMode } from '@crabtable/core';
+import { DataValidatorDropdownType } from '@crabtable/data-validation';
+import { SetRangeValuesCommand } from '@crabtable/sheets';
+import { serializeListOptions } from '@crabtable/sheets-data-validation';
+import { SetCellEditVisibleOperation } from '@crabtable/sheets-ui';
 import { Subject } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import { OpenValidationPanelOperation } from '../../commands/operations/data-validation.operation';

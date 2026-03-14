@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import type { ICustomFilters, IFilterColumn } from '@univerjs/sheets-filter';
-import { BooleanNumber } from '@univerjs/core';
-import { CustomFilterOperator } from '@univerjs/sheets-filter';
+import type { Nullable } from '@crabtable/core';
+import type { ICustomFilters, IFilterColumn } from '@crabtable/sheets-filter';
+import { BooleanNumber } from '@crabtable/core';
+import { CustomFilterOperator } from '@crabtable/sheets-filter';
 import { ExtendCustomFilterOperator, OperatorOrder } from './extended-operators';
 
 // This file implements a simple form schema system for condition filters (and only for it!)

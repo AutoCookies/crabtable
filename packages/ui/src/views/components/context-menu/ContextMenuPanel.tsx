@@ -23,8 +23,8 @@ import type {
     MenuItemDefaultValueType,
 } from '../../../services/menu/menu';
 import type { IMenuSchema } from '../../../services/menu/menu-manager.service';
-import { isRealNum, LocaleService } from '@univerjs/core';
-import { borderBottomClassName, borderClassName, clsx, scrollbarClassName } from '@univerjs/design';
+import { isRealNum, LocaleService } from '@crabtable/core';
+import { borderBottomClassName, borderClassName, clsx, scrollbarClassName } from '@crabtable/design';
 import { CheckMarkIcon, MoreIcon } from '@univerjs/icons';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';

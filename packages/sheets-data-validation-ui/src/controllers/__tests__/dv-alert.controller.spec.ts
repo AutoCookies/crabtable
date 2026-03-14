@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { DataValidationStatus } from '@univerjs/core';
+import { DataValidationStatus } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { DataValidationAlertController } from '../dv-alert.controller';

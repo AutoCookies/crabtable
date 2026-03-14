@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { dayjs } from '@univerjs/core';
+import { dayjs } from '@crabtable/core';
 
 export function getDT(date?: Date) {
     return dayjs(date).format('YYYY/MM/DD HH:mm');

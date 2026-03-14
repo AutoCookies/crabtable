@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IFunctionInfo } from '@univerjs/engine-formula';
-import { FUNCTION_NAMES_INFORMATION, FunctionType } from '@univerjs/engine-formula';
+import type { IFunctionInfo } from '@crabtable/engine-formula';
+import { FUNCTION_NAMES_INFORMATION, FunctionType } from '@crabtable/engine-formula';
 
 export const FUNCTION_LIST_INFORMATION: IFunctionInfo[] = [
     {
@@ -159,7 +159,7 @@ export const FUNCTION_LIST_INFORMATION: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.ISEMAIL.functionParameter.value.name',
                 detail: 'formula.functionList.ISEMAIL.functionParameter.value.detail',
-                example: '"developer@univer.ai"',
+                example: '"developer@crabtable.dev"',
                 require: 1,
                 repeat: 0,
             },
@@ -361,7 +361,7 @@ export const FUNCTION_LIST_INFORMATION: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.ISURL.functionParameter.value.name',
                 detail: 'formula.functionList.ISURL.functionParameter.value.detail',
-                example: '"univer.ai"',
+                example: '"crabtable.dev"',
                 require: 1,
                 repeat: 0,
             },

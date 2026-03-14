@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IRange } from '@univerjs/core';
-import { cellToRange, IUniverInstanceService } from '@univerjs/core';
+import type { IAccessor, IRange } from '@crabtable/core';
+import { cellToRange, ICrabTableInstanceService } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import {
     createUniqueKey,
@@ -175,7 +175,7 @@ describe('Test utils', () => {
             getCurrentUnitForType: () => workbook,
         };
         const accessor = createAccessor((token) => {
-            if (token === IUniverInstanceService) {
+            if (token === ICrabTableInstanceService) {
                 return instanceService;
             }
             return null;
@@ -200,7 +200,7 @@ describe('Test utils', () => {
             getCurrentUnitForType: () => null,
         };
         const accessor = createAccessor((token) => {
-            if (token === IUniverInstanceService) {
+            if (token === ICrabTableInstanceService) {
                 return instanceService;
             }
             return null;
@@ -229,7 +229,7 @@ describe('Test utils', () => {
             getUnit: () => workbook,
         };
         const accessor = createAccessor((token) => {
-            if (token === IUniverInstanceService) {
+            if (token === ICrabTableInstanceService) {
                 return instanceService;
             }
             return null;
@@ -250,7 +250,7 @@ describe('Test utils', () => {
 
     it('Test getVisibleRanges fallback without target', () => {
         const accessor = createAccessor((token) => {
-            if (token === IUniverInstanceService) {
+            if (token === ICrabTableInstanceService) {
                 return {
                     getCurrentUnitOfType: () => null,
                 };

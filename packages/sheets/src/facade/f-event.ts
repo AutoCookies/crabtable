@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IWorkbookData, IWorksheetData, UniverInstanceType } from '@univerjs/core';
-import type { IEventBase } from '@univerjs/core/facade';
-import type { CommandListenerValueChange } from '@univerjs/sheets';
+import type { CrabTableInstanceType, IWorkbookData, IWorksheetData } from '@crabtable/core';
+import type { IEventBase } from '@crabtable/core/facade';
+import type { CommandListenerValueChange } from '@crabtable/sheets';
 import type { FRange } from './f-range';
 import type { FWorkbook } from './f-workbook';
 import type { FWorksheet } from './f-worksheet';
-import { FEventName } from '@univerjs/core/facade';
+import { FEventName } from '@crabtable/core/facade';
 
 /**
  * Interface for sheet-related events
@@ -33,7 +33,7 @@ export interface IFSheetEventMixin {
      * @see {@link ISheetCreatedEventParams}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SheetCreated, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetCreated, (params) => {
      *   const { workbook, worksheet } = params;
      *   console.log('sheet created', params);
      * });
@@ -48,7 +48,7 @@ export interface IFSheetEventMixin {
      * @see {@link IBeforeSheetCreateEventParams}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetCreate, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetCreate, (params) => {
      *   const { workbook, index, sheet } = params;
      *   console.log('before sheet create', params);
      *
@@ -66,7 +66,7 @@ export interface IFSheetEventMixin {
      * @see {@link IBeforeActiveSheetChangeEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeActiveSheetChange, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeActiveSheetChange, (params) => {
      *   const { workbook, activeSheet, oldActiveSheet } = params;
      *   console.log('before active sheet change', params);
      *
@@ -84,7 +84,7 @@ export interface IFSheetEventMixin {
      * @see {@link IActiveSheetChangedEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.ActiveSheetChanged, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.ActiveSheetChanged, (params) => {
      *   const { workbook, activeSheet } = params;
      *   console.log('after active sheet changed', params);
      * });
@@ -99,7 +99,7 @@ export interface IFSheetEventMixin {
      * @see {@link ISheetDeletedEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SheetDeleted, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetDeleted, (params) => {
      *   const { workbook, sheetId } = params;
      *   console.log('sheet deleted', params);
      * });
@@ -114,7 +114,7 @@ export interface IFSheetEventMixin {
      * @see {@link IBeforeSheetDeleteEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetDelete, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetDelete, (params) => {
      *   const { workbook, worksheet } = params;
      *   console.log('before sheet delete', params);
      *
@@ -132,7 +132,7 @@ export interface IFSheetEventMixin {
      * @see {@link ISheetMovedEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SheetMoved, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetMoved, (params) => {
      *   const { workbook, worksheet, newIndex } = params;
      *   console.log('sheet moved', params);
      * });
@@ -147,7 +147,7 @@ export interface IFSheetEventMixin {
      * @see {@link IBeforeSheetMoveEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetMove, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetMove, (params) => {
      *   const { workbook, worksheet, newIndex, oldIndex } = params;
      *   console.log('before sheet move', params);
      *
@@ -165,7 +165,7 @@ export interface IFSheetEventMixin {
      * @see {@link ISheetNameChangedEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SheetNameChanged, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetNameChanged, (params) => {
      *   const { workbook, worksheet, newName } = params;
      *   console.log('sheet name changed', params);
      * });
@@ -180,7 +180,7 @@ export interface IFSheetEventMixin {
      * @see {@link IBeforeSheetNameChangeEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetNameChange, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetNameChange, (params) => {
      *   const { workbook, worksheet, newName, oldName } = params;
      *   console.log('before sheet name change', params);
      *
@@ -198,7 +198,7 @@ export interface IFSheetEventMixin {
      * @see {@link ISheetTabColorChangedEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SheetTabColorChanged, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetTabColorChanged, (params) => {
      *   const { workbook, worksheet, newColor } = params;
      *   console.log('sheet tab color changed', params);
      * });
@@ -213,7 +213,7 @@ export interface IFSheetEventMixin {
      * @see {@link IBeforeSheetTabColorChangeEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetTabColorChange, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetTabColorChange, (params) => {
      *   const { workbook, worksheet, newColor, oldColor } = params;
      *   console.log('before sheet tab color change', params);
      *
@@ -231,7 +231,7 @@ export interface IFSheetEventMixin {
      * @see {@link ISheetHideChangedEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SheetHideChanged, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetHideChanged, (params) => {
      *   const { workbook, worksheet, hidden } = params;
      *   console.log('sheet hide changed', params);
      * });
@@ -246,7 +246,7 @@ export interface IFSheetEventMixin {
      * @see {@link IBeforeSheetHideChangeEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetHideChange, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetHideChange, (params) => {
      *   const { workbook, worksheet, hidden } = params;
      *   console.log('before sheet hide change', params);
      *
@@ -264,7 +264,7 @@ export interface IFSheetEventMixin {
      * @see {@link IWorkbookCreateParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.WorkbookCreated, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.WorkbookCreated, (params) => {
      *   const { unitId, type, workbook, unit } = params;
      *   console.log('workbook created', params);
      * });
@@ -279,7 +279,7 @@ export interface IFSheetEventMixin {
      * @see {@link IWorkbookDisposedEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.WorkbookDisposed, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.WorkbookDisposed, (params) => {
      *   const { unitId, unitType, snapshot } = params;
      *   console.log('workbook disposed', params);
      * });
@@ -294,7 +294,7 @@ export interface IFSheetEventMixin {
      * @see {@link IGridlineChangedEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.GridlineChanged, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.GridlineChanged, (params) => {
      *   const { workbook, worksheet, enabled, color } = params;
      *   console.log('gridline changed', params);
      * });
@@ -309,7 +309,7 @@ export interface IFSheetEventMixin {
      * @see {@link IBeforeGridlineEnableChange}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeGridlineEnableChange, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeGridlineEnableChange, (params) => {
      *   const { workbook, worksheet, enabled } = params;
      *   console.log('before gridline enable change', params);
      *
@@ -327,7 +327,7 @@ export interface IFSheetEventMixin {
      * @see {@link IBeforeGridlineColorChanged}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeGridlineColorChange, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeGridlineColorChange, (params) => {
      *   const { workbook, worksheet, color } = params;
      *   console.log('before gridline color change', params);
      *
@@ -345,7 +345,7 @@ export interface IFSheetEventMixin {
      * @see {@link ISheetValueChangedEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SheetValueChanged, (params)=> {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetValueChanged, (params)=> {
      *   const { effectedRanges, payload } = params;
      *   console.log('sheet value changed', params);
      * });
@@ -364,7 +364,7 @@ export interface IWorkbookCreateParam extends IEventBase {
     /** Unique identifier for the workbook unit */
     unitId: string;
     /** Type identifier specifying this is a sheet instance */
-    type: UniverInstanceType.UNIVER_SHEET;
+    type: CrabTableInstanceType.CRABTABLE_SHEET;
     /** The workbook instance being created */
     workbook: FWorkbook;
     /** The workbook unit reference */
@@ -379,7 +379,7 @@ export interface IWorkbookDisposedEvent extends IEventBase {
     /** Unique identifier of the disposed workbook unit */
     unitId: string;
     /** Type identifier specifying this was a sheet instance */
-    unitType: UniverInstanceType.UNIVER_SHEET;
+    unitType: CrabTableInstanceType.CRABTABLE_SHEET;
     /** Snapshot data of the workbook at the time of disposal */
     snapshot: IWorkbookData;
 }
@@ -747,7 +747,7 @@ export class FSheetEventName implements IFSheetEventMixin {
 }
 
 FEventName.extend(FSheetEventName);
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FEventName extends IFSheetEventMixin { }
     interface IEventParamConfig extends ISheetEventParamConfig { }

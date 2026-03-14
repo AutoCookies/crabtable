@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDataValidationRule, IDocumentData, IWorkbookData } from '@univerjs/core';
-import { BooleanNumber, CellValueType, DataValidationErrorStyle, DataValidationOperator, DataValidationType, LocaleType } from '@univerjs/core';
-import { DATA_VALIDATION_PLUGIN_NAME } from '@univerjs/sheets-data-validation';
+import type { IDataValidationRule, IDocumentData, IWorkbookData } from '@crabtable/core';
+import { BooleanNumber, CellValueType, DataValidationErrorStyle, DataValidationOperator, DataValidationType, LocaleType } from '@crabtable/core';
+import { DATA_VALIDATION_PLUGIN_NAME } from '@crabtable/sheets-data-validation';
 import { PAGE5_RICHTEXT_1 } from '../../slides/rich-text/page5-richtext1';
 
 const richTextDemo: IDocumentData = {
@@ -14361,7 +14361,7 @@ export const DEFAULT_WORKBOOK_DATA_DEMO: IWorkbookData = {
                                 },
                             },
                             body: {
-                                dataStream: 'https://univer.ai/\r\n',
+                                dataStream: 'https://crabtable.dev/\r\n',
                                 customRanges: [
                                     {
                                         startIndex: 0,
@@ -14369,7 +14369,7 @@ export const DEFAULT_WORKBOOK_DATA_DEMO: IWorkbookData = {
                                         rangeId: 'QY6zbQrxGw8IaLGXDgVVj',
                                         rangeType: 0,
                                         properties: {
-                                            url: 'https://univer.ai/',
+                                            url: 'https://crabtable.dev/',
                                         },
                                     },
                                 ],

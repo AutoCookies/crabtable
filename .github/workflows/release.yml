@@ -43,7 +43,7 @@ jobs:
 
     release-npm:
         needs: [prepare]
-        if: github.repository == 'dream-num/univer'
+        if: github.repository == 'AutoCookies/crabtable'
         runs-on: ubuntu-latest
 
         steps:
@@ -52,28 +52,24 @@ jobs:
               with:
                   ref: ${{ github.ref_name }}
 
-            - name: Install pnpm
-              uses: pnpm/action-setup@v4
-              with:
-                  run_install: false
-
             - name: Install Node.js
               uses: actions/setup-node@v4
               with:
                   node-version: 24.3.0
                   registry-url: https://registry.npmjs.org
+                  cache: yarn
 
             - name: 🚚 Install dependencies and build
               run: |
-                  pnpm install
-                  pnpm build
+                  yarn install --frozen-lockfile
+                  yarn build
 
             - name: 🐙 Publish
               run: |
                   if [[ ${{ needs.prepare.outputs.release_type }} == "stable" ]]; then
-                      pnpm publish --access public -r --no-git-checks
+                      yarn run publish:all --access public
                   else
-                      pnpm publish --access public --tag ${{ needs.prepare.outputs.release_type }} -r --no-git-checks
+                      yarn run publish:all --access public --tag ${{ needs.prepare.outputs.release_type }}
                   fi
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -94,7 +90,7 @@ jobs:
 
             #  ================= Deploy Demo =================
             - name: 📦 Build demo
-              run: pnpm build:demo
+              run: yarn build:demo
 
             - name: Copy demo to workspace
               run: |
@@ -125,7 +121,7 @@ jobs:
 
             # ================= Deploy Storybook =================
             - name: 📦 Build storybook
-              run: pnpm storybook:build
+              run: yarn storybook:build
 
             - name: 🚀 Deploy to Vercel (storybook)
               uses: amondnet/vercel-action@v25

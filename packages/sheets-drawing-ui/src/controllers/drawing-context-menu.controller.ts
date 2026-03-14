@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import type { Nullable, Workbook } from '@univerjs/core';
-import { IUniverInstanceService, RxDisposable, UniverInstanceType } from '@univerjs/core';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { ContextMenuPosition, IContextMenuService } from '@univerjs/ui';
+import type { Nullable, Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICrabTableInstanceService, RxDisposable } from '@crabtable/core';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { ContextMenuPosition, IContextMenuService } from '@crabtable/ui';
 
 export class DrawingContextMenuController extends RxDisposable {
     constructor(
         @IDrawingManagerService private readonly _drawingManagerService: IDrawingManagerService,
         @IContextMenuService private readonly _contextMenuService: IContextMenuService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
 
@@ -33,7 +33,7 @@ export class DrawingContextMenuController extends RxDisposable {
     }
 
     private _init(): void {
-        this._univerInstanceService.getAllUnitsForType<Workbook>(UniverInstanceType.UNIVER_SHEET).forEach((workbook) => this._contextMenuListener(workbook));
+        this._crabtableInstanceService.getAllUnitsForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).forEach((workbook) => this._contextMenuListener(workbook));
     }
 
     private _contextMenuListener(workbook: Nullable<Workbook>) {

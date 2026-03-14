@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { LocaleService, LocaleType } from '@univerjs/core';
-import { useDependency } from '@univerjs/ui';
+import { LocaleService, LocaleType } from '@crabtable/core';
+import { useDependency } from '@crabtable/ui';
 import { useEffect } from 'react';
 
 const locales = [
@@ -77,41 +77,41 @@ export function useLocale() {
         let locales;
         switch (value) {
             case LocaleType.ZH_CN:
-                locales = await import('@univerjs/mockdata/locales/zh-CN');
+                locales = await import('@crabtable/mockdata/locales/zh-CN');
                 break;
             case LocaleType.ZH_TW:
-                locales = await import('@univerjs/mockdata/locales/zh-TW');
+                locales = await import('@crabtable/mockdata/locales/zh-TW');
                 break;
             case LocaleType.FR_FR:
-                locales = await import('@univerjs/mockdata/locales/fr-FR');
+                locales = await import('@crabtable/mockdata/locales/fr-FR');
                 break;
             case LocaleType.RU_RU:
-                locales = await import('@univerjs/mockdata/locales/ru-RU');
+                locales = await import('@crabtable/mockdata/locales/ru-RU');
                 break;
             case LocaleType.VI_VN:
-                locales = await import('@univerjs/mockdata/locales/vi-VN');
+                locales = await import('@crabtable/mockdata/locales/vi-VN');
                 break;
             case LocaleType.JA_JP:
-                locales = await import('@univerjs/mockdata/locales/ja-JP');
+                locales = await import('@crabtable/mockdata/locales/ja-JP');
                 break;
             case LocaleType.FA_IR:
-                locales = await import('@univerjs/mockdata/locales/fa-IR');
+                locales = await import('@crabtable/mockdata/locales/fa-IR');
                 break;
             case LocaleType.KO_KR:
-                locales = await import('@univerjs/mockdata/locales/ko-KR');
+                locales = await import('@crabtable/mockdata/locales/ko-KR');
                 break;
             case LocaleType.ES_ES:
-                locales = await import('@univerjs/mockdata/locales/es-ES');
+                locales = await import('@crabtable/mockdata/locales/es-ES');
                 break;
             case LocaleType.CA_ES:
-                locales = await import('@univerjs/mockdata/locales/ca-ES');
+                locales = await import('@crabtable/mockdata/locales/ca-ES');
                 break;
             case LocaleType.SK_SK:
-                locales = await import('@univerjs/mockdata/locales/sk-SK');
+                locales = await import('@crabtable/mockdata/locales/sk-SK');
                 break;
             case LocaleType.EN_US:
             default:
-                locales = await import('@univerjs/mockdata/locales/en-US');
+                locales = await import('@crabtable/mockdata/locales/en-US');
                 break;
         }
 

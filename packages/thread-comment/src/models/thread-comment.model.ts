@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { IUpdateCommentPayload, IUpdateCommentRefPayload } from '../commands/mutations/comment.mutation';
 import type { IBaseComment, IThreadComment } from '../types/interfaces/i-thread-comment';
-import { Disposable, Inject, LifecycleService, LifecycleStages } from '@univerjs/core';
+import { Disposable, Inject, LifecycleService, LifecycleStages } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { IThreadCommentDataSourceService } from '../services/tc-datasource.service';
 

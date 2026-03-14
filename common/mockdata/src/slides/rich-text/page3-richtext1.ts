@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { PageElementType, PresetListType } from '@univerjs/core';
+import { PageElementType, PresetListType } from '@crabtable/core';
 
 export const PAGE3_RICHTEXT_1 = {
     id: 'detailContent1',

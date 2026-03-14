@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICustomDecoration, ICustomDecorationForInterceptor, ICustomRange, ICustomRangeForInterceptor } from '@univerjs/core';
-import { createInterceptorKey } from '@univerjs/core';
+import type { ICustomDecoration, ICustomDecorationForInterceptor, ICustomRange, ICustomRangeForInterceptor } from '@crabtable/core';
+import { createInterceptorKey } from '@crabtable/core';
 
 const CUSTOM_RANGE = createInterceptorKey<ICustomRangeForInterceptor, { index: number; unitId: string; customRanges: ICustomRange[] }>('CUSTOM_RANGE');
 const CUSTOM_DECORATION = createInterceptorKey<ICustomDecorationForInterceptor, { index: number; unitId: string; customDecorations: ICustomDecoration[] }>('CUSTOM_DECORATION');

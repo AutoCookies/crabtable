@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { ISheetCommandSharedParams } from '@univerjs/sheets';
-import { Disposable, Inject, IUniverInstanceService } from '@univerjs/core';
-import { IActiveDirtyManagerService, ISheetRowFilteredService } from '@univerjs/engine-formula';
+import type { Workbook } from '@crabtable/core';
+import type { ISheetCommandSharedParams } from '@crabtable/sheets';
+import { Disposable, ICrabTableInstanceService, Inject } from '@crabtable/core';
+import { IActiveDirtyManagerService, ISheetRowFilteredService } from '@crabtable/engine-formula';
 import { FILTER_MUTATIONS } from '../common/const';
 import { SheetsFilterService } from './sheet-filter.service';
 
@@ -29,7 +29,7 @@ export class SheetsFilterFormulaService extends Disposable {
         @Inject(IActiveDirtyManagerService) private _activeDirtyManagerService: IActiveDirtyManagerService,
         @Inject(ISheetRowFilteredService) private _sheetRowFilteredService: ISheetRowFilteredService,
         @Inject(SheetsFilterService) private _sheetsFilterService: SheetsFilterService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
 
@@ -63,7 +63,7 @@ export class SheetsFilterFormulaService extends Disposable {
     private _getHideRowMutation(unitId: string, subUnitId: string) {
         const range = this._sheetsFilterService.getFilterModel(unitId, subUnitId)?.getRange();
 
-        const sheet = this._univerInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(subUnitId);
+        const sheet = this._crabtableInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(subUnitId);
 
         if (range == null || sheet == null) {
             return [];

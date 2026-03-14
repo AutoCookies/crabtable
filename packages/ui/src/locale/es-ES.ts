@@ -78,7 +78,7 @@ const locale: typeof enUS = {
     clipboard: {
         authentication: {
             title: 'Permiso denegado',
-            content: 'Por favor, permite que Univer acceda a tu portapapeles.',
+            content: 'Por favor, permite que CrabTable acceda a tu portapapeles.',
         },
     },
     textEditor: {

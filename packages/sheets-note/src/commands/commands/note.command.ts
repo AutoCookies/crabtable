@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICommand, IMutationInfo } from '@univerjs/core';
+import type { ICommand, IMutationInfo } from '@crabtable/core';
 import type { IRemoveNoteMutationParams, IToggleNotePopupMutationParams, IUpdateNoteMutationParams } from '../mutations/note.mutation';
-import { CommandType, ICommandService, IUndoRedoService, IUniverInstanceService } from '@univerjs/core';
-import { getSheetCommandTarget, SheetsSelectionsService } from '@univerjs/sheets';
+import { CommandType, ICommandService, ICrabTableInstanceService, IUndoRedoService } from '@crabtable/core';
+import { getSheetCommandTarget, SheetsSelectionsService } from '@crabtable/sheets';
 import { SheetsNoteModel } from '../../models/sheets-note.model';
 import { RemoveNoteMutation, ToggleNotePopupMutation, UpdateNoteMutation } from '../mutations/note.mutation';
 
@@ -25,7 +25,7 @@ export const SheetDeleteNoteCommand: ICommand = {
     id: 'sheet.command.delete-note',
     type: CommandType.COMMAND,
     handler: (accessor) => {
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService));
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService));
         if (!target) return false;
 
         const sheetsSelectionsService = accessor.get(SheetsSelectionsService);
@@ -78,7 +78,7 @@ export const SheetToggleNotePopupCommand: ICommand = {
     id: 'sheet.command.toggle-note-popup',
     type: CommandType.COMMAND,
     handler: (accessor) => {
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService));
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService));
         if (!target) return false;
 
         const sheetsSelectionsService = accessor.get(SheetsSelectionsService);
@@ -129,7 +129,7 @@ export const SheetUpdateNoteCommand: ICommand<IUpdateNoteMutationParams> = {
     id: 'sheet.command.update-note',
     type: CommandType.COMMAND,
     handler: (accessor, params: IUpdateNoteMutationParams) => {
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService), params);
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService), params);
         if (!target) return false;
 
         const commandService = accessor.get(ICommandService);

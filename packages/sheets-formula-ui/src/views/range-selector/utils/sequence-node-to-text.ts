@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-import type { ISequenceNode } from '@univerjs/engine-formula';
+import type { ISequenceNode } from '@crabtable/engine-formula';
 
 export const sequenceNodeToText = (sequenceNode: (string | ISequenceNode)[]) => sequenceNode.map((item) => typeof item === 'string' ? item : item.token).join('');

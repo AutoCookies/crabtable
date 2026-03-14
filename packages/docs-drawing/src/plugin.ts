@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverDocsDrawingConfig } from './config/config';
-import { IConfigService, Inject, Injector, merge, Plugin, touchDependencies, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, IConfigService, Inject, Injector, merge, Plugin, touchDependencies } from '@crabtable/core';
 import pkg from '../package.json';
 import { defaultPluginConfig, DOCS_DRAWING_PLUGIN_CONFIG_KEY } from './config/config';
 import { DocDrawingController, DOCS_DRAWING_PLUGIN } from './controllers/doc-drawing.controller';
@@ -26,7 +26,7 @@ export class UniverDocsDrawingPlugin extends Plugin {
     static override pluginName = DOCS_DRAWING_PLUGIN;
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_DOC;
+    static override type = CrabTableInstanceType.CRABTABLE_DOC;
 
     constructor(
         private readonly _config: Partial<IUniverDocsDrawingConfig> = defaultPluginConfig,

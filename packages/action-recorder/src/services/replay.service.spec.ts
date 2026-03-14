@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { MessageType } from '@univerjs/design';
+import { MessageType } from '@crabtable/design';
 import { describe, expect, it, vi } from 'vitest';
 import { ActionReplayService, ReplayMode } from './replay.service';
 
-vi.mock('@univerjs/core', async () => {
-    const actual = await vi.importActual<typeof import('@univerjs/core')>('@univerjs/core');
+vi.mock('@crabtable/core', async () => {
+    const actual = await vi.importActual<typeof import('@crabtable/core')>('@crabtable/core');
     return {
         ...actual,
         awaitTime: vi.fn(async () => undefined),

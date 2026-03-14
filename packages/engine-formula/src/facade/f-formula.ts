@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, IDisposable, IUnitRange } from '@univerjs/core';
+import type { ICommandInfo, IDisposable, IUnitRange } from '@crabtable/core';
 import type {
     FormulaExecutedStateType,
     IExecutionInProgressParams,
@@ -31,9 +31,9 @@ import type {
     ISetFormulaDependencyCalculationResultMutation,
     ISetFormulaStringBatchCalculationResultMutation,
     ISetQueryFormulaDependencyAllResultMutation,
-} from '@univerjs/engine-formula';
-import { ICommandService, IConfigService, Inject, Injector } from '@univerjs/core';
-import { FBase } from '@univerjs/core/facade';
+} from '@crabtable/engine-formula';
+import { ICommandService, IConfigService, Inject, Injector } from '@crabtable/core';
+import { FBase } from '@crabtable/core/facade';
 import {
     ENGINE_FORMULA_CYCLE_REFERENCE_COUNT,
     ENGINE_FORMULA_RETURN_DEPENDENCY_TREE,
@@ -56,7 +56,7 @@ import {
     SetQueryFormulaDependencyMutation,
     SetQueryFormulaDependencyResultMutation,
     SetTriggerFormulaCalculationStartMutation,
-} from '@univerjs/engine-formula';
+} from '@crabtable/engine-formula';
 import { filter, firstValueFrom, map, race, timer } from 'rxjs';
 
 /**
@@ -103,7 +103,7 @@ export class FFormula extends FBase {
      *
      * @example
      * ```ts
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      * const result = formulaEngine.moveFormulaRefOffset('=SUM(A1,B2)', 1, 1);
      * console.log(result);
      * ```
@@ -119,7 +119,7 @@ export class FFormula extends FBase {
      *
      * @example
      * ```ts
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      * const nodes = formulaEngine.sequenceNodesBuilder('=SUM(A1,B2)');
      * console.log(nodes);
      * ```
@@ -133,7 +133,7 @@ export class FFormula extends FBase {
      *
      * @example
      * ```ts
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      * formulaEngine.executeCalculation();
      * ```
      */
@@ -146,7 +146,7 @@ export class FFormula extends FBase {
      *
      * @example
      * ```ts
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      * formulaEngine.stopCalculation();
      * ```
      */
@@ -161,7 +161,7 @@ export class FFormula extends FBase {
      *
      * @example
      * ```ts
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      * formulaEngine.calculationStart((forceCalculation) => {
      *   console.log('Calculation start', forceCalculation);
      * });
@@ -183,7 +183,7 @@ export class FFormula extends FBase {
      *
      * @example
      * ```ts
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      * formulaEngine.calculationEnd((functionsExecutedState) => {
      *   console.log('Calculation end', functionsExecutedState);
      * });
@@ -242,7 +242,7 @@ export class FFormula extends FBase {
      *
      * @example
      * ```ts
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      * formulaEngine.calculationProcessing((stageInfo) => {
      *   console.log('Calculation processing', stageInfo);
      * });
@@ -270,7 +270,7 @@ export class FFormula extends FBase {
      * ```ts
      * // Set the maximum number of iterations for the formula calculation to 5.
      * // The default value is 1.
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      * formulaEngine.setMaxIteration(5);
      * ```
      */
@@ -315,7 +315,7 @@ export class FFormula extends FBase {
      *
      * @example
      * ```ts
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      * const formulas = {
      *   Book1: {
      *     Sheet1: {
@@ -396,7 +396,7 @@ export class FFormula extends FBase {
      *
      * @example
      * ```ts
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      *
      * // Fetch all dependency trees generated for the current workbook.
      * const trees = await formulaEngine.getAllDependencyTrees();
@@ -456,7 +456,7 @@ export class FFormula extends FBase {
      *
      * @example
      * ```ts
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      *
      * // Query the dependency tree for cell B2 in a specific sheet.
      * const tree = await formulaEngine.getCellDependencyTree({
@@ -522,7 +522,7 @@ export class FFormula extends FBase {
      *
      * @example
      * ```ts
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      *
      * // Query all formulas that depend on A1:B10 in Sheet1.
      * const dependents = await formulaEngine.getRangeDependents([
@@ -592,7 +592,7 @@ export class FFormula extends FBase {
      *
      * @example
      * ```ts
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      *
      * // Query all formulas that lie within A1:D20 in Sheet1.
      * const formulasInRange = await formulaEngine.getInRangeFormulas([
@@ -657,7 +657,7 @@ export class FFormula extends FBase {
      *
      * @example
      * ```ts
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      *
      * // Enable dependency tree emission
      * formulaEngine.setFormulaReturnDependencyTree(true);
@@ -707,7 +707,7 @@ export class FFormula extends FBase {
      *
      * @example
      * ```ts
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      *
      * const formula = '=LET(x,SUM(A1,B1,A1:B10),y,OFFSET(A1:B10,0,1),SUM(x,y)+x)+1';
      *
@@ -787,7 +787,7 @@ export class FFormula extends FBase {
      *
      * @example
      * ```ts
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      *
      * const result = await formulaEngine.getRangeDependentsAndInRangeFormulas([
      *   {

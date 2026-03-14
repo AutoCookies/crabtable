@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
+import type { IAccessor, ICommand } from '@crabtable/core';
 import type { ISetWorksheetOrderMutationParams } from '../mutations/set-worksheet-order.mutation';
 
-import { CommandType, ICommandService, IUndoRedoService, IUniverInstanceService } from '@univerjs/core';
+import { CommandType, ICommandService, ICrabTableInstanceService, IUndoRedoService } from '@crabtable/core';
 import {
     SetWorksheetOrderMutation,
     SetWorksheetOrderUndoMutationFactory,
@@ -38,7 +38,7 @@ export const SetWorksheetOrderCommand: ICommand = {
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
 
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService), params);
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService), params);
         if (!target) return false;
 
         const { workbook, unitId, subUnitId } = target;

@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { Dependency, Workbook } from '@univerjs/core';
-import type { IUniverUIConfig } from '@univerjs/ui';
+import type { Dependency, Workbook } from '@crabtable/core';
+import type { IUniverUIConfig } from '@crabtable/ui';
 import type { IUniverSheetsUIConfig } from './config/config';
-import { DependentOn, IConfigService, Inject, Injector, IUniverInstanceService, merge, mergeOverrideWithDependencies, Plugin, registerDependencies, touchDependencies, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { IRefSelectionsService, RefSelectionsService, UniverSheetsPlugin } from '@univerjs/sheets';
-import { ComponentManager, UI_PLUGIN_CONFIG_KEY, UniverMobileUIPlugin } from '@univerjs/ui';
+import { CrabTableInstanceType, DependentOn, IConfigService, ICrabTableInstanceService, Inject, Injector, merge, mergeOverrideWithDependencies, Plugin, registerDependencies, touchDependencies } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { IRefSelectionsService, RefSelectionsService, UniverSheetsPlugin } from '@crabtable/sheets';
+import { ComponentManager, UI_PLUGIN_CONFIG_KEY, UniverMobileUIPlugin } from '@crabtable/ui';
 import { filter } from 'rxjs/operators';
 import pkg from '../package.json';
 import { defaultPluginConfig, SHEETS_UI_PLUGIN_CONFIG_KEY } from './config/config';
-import { UNIVER_SHEET_PERMISSION_USER_PART } from './consts/permission';
+import { CRABTABLE_SHEET_PERMISSION_USER_PART } from './consts/permission';
 import { AutoFillUIController } from './controllers/auto-fill-ui.controller';
 import { AutoHeightController } from './controllers/auto-height.controller';
 import { AutoWidthController } from './controllers/auto-width.controller';
@@ -98,7 +98,7 @@ export class UniverSheetsMobileUIPlugin extends Plugin {
     static override pluginName = 'SHEET_UI_PLUGIN';
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
     /** @ignore */
     constructor(
@@ -106,7 +106,7 @@ export class UniverSheetsMobileUIPlugin extends Plugin {
         @Inject(Injector) override readonly _injector: Injector,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
         @IConfigService private readonly _configService: IConfigService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(ComponentManager) private readonly _componentManager: ComponentManager
     ) {
         super();
@@ -123,7 +123,7 @@ export class UniverSheetsMobileUIPlugin extends Plugin {
 
             this.disposeWithMe(
                 this._componentManager.register(
-                    UNIVER_SHEET_PERMISSION_USER_PART,
+                    CRABTABLE_SHEET_PERMISSION_USER_PART,
                     component,
                     {
                         framework,
@@ -239,7 +239,7 @@ export class UniverSheetsMobileUIPlugin extends Plugin {
             [SheetScrollManagerService],
             [AutoHeightService],
         ] as Dependency[]).forEach((m) => {
-            this.disposeWithMe(this._renderManagerService.registerRenderModule(UniverInstanceType.UNIVER_SHEET, m));
+            this.disposeWithMe(this._renderManagerService.registerRenderModule(CrabTableInstanceType.CRABTABLE_SHEET, m));
         });
     }
 
@@ -287,14 +287,14 @@ export class UniverSheetsMobileUIPlugin extends Plugin {
         }
 
         modules.forEach((m) => {
-            this.disposeWithMe(this._renderManagerService.registerRenderModule(UniverInstanceType.UNIVER_SHEET, m));
+            this.disposeWithMe(this._renderManagerService.registerRenderModule(CrabTableInstanceType.CRABTABLE_SHEET, m));
         });
     }
 
     private _initAutoFocus(): void {
-        const univerInstanceService = this._univerInstanceService;
-        this.disposeWithMe(univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET)
+        const crabtableInstanceService = this._crabtableInstanceService;
+        this.disposeWithMe(crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)
             .pipe(filter((v) => !!v))
-            .subscribe((workbook) => univerInstanceService.focusUnit(workbook!.getUnitId())));
+            .subscribe((workbook) => crabtableInstanceService.focusUnit(workbook!.getUnitId())));
     }
 }

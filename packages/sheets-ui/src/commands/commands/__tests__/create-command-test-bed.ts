@@ -14,26 +14,25 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData, Workbook } from '@univerjs/core';
-import type { IRenderContext } from '@univerjs/engine-render';
+import type { Dependency, IWorkbookData, Workbook } from '@crabtable/core';
+import type { IRenderContext } from '@crabtable/engine-render';
 import {
     BooleanNumber,
     CellValueType,
+    CrabTableInstanceType,
     DisposableCollection,
+    ICrabTableInstanceService,
     ILogService,
     Inject,
     Injector,
-    IUniverInstanceService,
     LocaleService,
     LocaleType,
     LogLevel,
     Plugin,
     Tools,
-    Univer,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 
-import { LexerTreeBuilder } from '@univerjs/engine-formula';
+import { LexerTreeBuilder } from '@crabtable/engine-formula';
 import {
     BorderStyleManagerService,
     IRefSelectionsService,
@@ -45,7 +44,7 @@ import {
     WorksheetPermissionService,
     WorksheetProtectionPointModel,
     WorksheetProtectionRuleModel,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { BehaviorSubject } from 'rxjs';
 import enUS from '../../../locale/en-US';
 import { ISheetSelectionRenderService } from '../../../services/selection/base-selection-render.service';
@@ -101,7 +100,7 @@ const getTestWorkbookDataDemo = (): IWorkbookData => {
 };
 
 export interface ITestBed {
-    univer: Univer;
+    univer: CrabTable;
     get: Injector['get'];
     sheet: Workbook;
 }
@@ -111,12 +110,12 @@ export function createCommandTestBed(
     dependencies?: Dependency[],
     renderDependencies?: Dependency[]
 ): ITestBed {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
 
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -145,13 +144,13 @@ export function createCommandTestBed(
     univer.registerPlugin(TestPlugin);
 
     const snapshot = Tools.deepClone(workbookData || getTestWorkbookDataDemo());
-    const sheet = univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, snapshot);
+    const sheet = univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, snapshot);
 
     if (!dependencies || !dependencies.find((d) => d[0] === ISheetSelectionRenderService)) {
         const context: IRenderContext<Workbook> = {
             unitId: sheet.getUnitId(),
             unit: sheet,
-            type: UniverInstanceType.UNIVER_SHEET,
+            type: CrabTableInstanceType.CRABTABLE_SHEET,
             engine: new DisposableCollection() as any,
             scene: new DisposableCollection() as any,
             mainComponent: null as any,
@@ -165,8 +164,8 @@ export function createCommandTestBed(
         injector.add([ISheetSelectionRenderService, { useFactory: () => injector.createInstance(SheetSelectionRenderService, context) }]);
     }
 
-    const univerInstanceService = injector.get(IUniverInstanceService);
-    univerInstanceService.focusUnit('test');
+    const crabtableInstanceService = injector.get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit('test');
     const logService = injector.get(ILogService);
 
     logService.setLogLevel(LogLevel.VERBOSE); // change this to `LogLevel.VERBOSE` to debug tests via logs

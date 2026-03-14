@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Disposable, ICommandService, Inject } from '@univerjs/core';
-import { ComponentManager } from '@univerjs/ui';
+import { Disposable, ICommandService, Inject } from '@crabtable/core';
+import { ComponentManager } from '@crabtable/ui';
 import { DocCreateTableOperation } from '../commands/operations/doc-create-table.operation';
 import { COMPONENT_DOC_CREATE_TABLE_CONFIRM } from '../views/table/create/component-name';
 import { DocCreateTableConfirm } from '../views/table/create/TableCreate';

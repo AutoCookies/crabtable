@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { IPermissionService, IUniverInstanceService } from '@univerjs/core';
-import { getSheetCommandTarget, WorkbookEditablePermission, WorksheetEditPermission } from '@univerjs/sheets';
-import { useDependency } from '@univerjs/ui';
+import { ICrabTableInstanceService, IPermissionService } from '@crabtable/core';
+import { getSheetCommandTarget, WorkbookEditablePermission, WorksheetEditPermission } from '@crabtable/sheets';
+import { useDependency } from '@crabtable/ui';
 
 const menu = [
     {
@@ -30,11 +30,11 @@ const menu = [
 ];
 
 export function useEditable() {
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const permissionService = useDependency(IPermissionService);
 
     const onSelect = (value: string) => {
-        const target = getSheetCommandTarget(univerInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) {
             return false;
         }

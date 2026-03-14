@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, Workbook } from '@univerjs/core';
-import type { ISelectionWithStyle } from '@univerjs/sheets';
-import type { IMenuButtonItem } from '@univerjs/ui';
-import { CellValueType, isRealNum, isTextFormat, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
+import type { IAccessor, Workbook } from '@crabtable/core';
+import type { ISelectionWithStyle } from '@crabtable/sheets';
+import type { IMenuButtonItem } from '@crabtable/ui';
+import { CellValueType, CrabTableInstanceType, ICrabTableInstanceService, isRealNum, isTextFormat } from '@crabtable/core';
 import {
     RangeProtectionPermissionEditPoint,
     SheetsSelectionsService,
@@ -25,15 +25,15 @@ import {
     WorkbookEditablePermission,
     WorksheetEditPermission,
     WorksheetSetCellValuePermission,
-} from '@univerjs/sheets';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { combineLatest, map, Observable } from 'rxjs';
 import { getCurrentRangeDisable$, getObservableWithExclusiveRange$ } from './menu-util';
 
 const getMenuHiddenByCurrentSelectionChangedObservable$ = (accessor: IAccessor): Observable<boolean> => {
     const selectionManagerService = accessor.get(SheetsSelectionsService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
-    const worksheet = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getActiveSheet();
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+    const worksheet = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getActiveSheet();
 
     return new Observable((subscriber) => {
         const update = (selections?: ISelectionWithStyle[]) => {
@@ -85,7 +85,7 @@ export function Text2NumberToolbarMenuItemFactory(accessor: IAccessor): IMenuBut
             worksheetTypes: [WorksheetEditPermission, WorksheetSetCellValuePermission],
             rangeTypes: [RangeProtectionPermissionEditPoint],
         })),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -102,7 +102,7 @@ export function Text2NumberContextMenuItemFactory(accessor: IAccessor): IMenuBut
             worksheetTypes: [WorksheetEditPermission, WorksheetSetCellValuePermission],
             rangeTypes: [RangeProtectionPermissionEditPoint],
         })),
-        hidden$: combineLatest([getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET), getMenuHiddenByCurrentSelectionChangedObservable$(accessor)]).pipe(
+        hidden$: combineLatest([getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET), getMenuHiddenByCurrentSelectionChangedObservable$(accessor)]).pipe(
             map(([menuHidden, selectionHidden]) => menuHidden || selectionHidden)
         ),
     };

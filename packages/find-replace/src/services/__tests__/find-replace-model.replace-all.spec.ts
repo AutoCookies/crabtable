@@ -25,7 +25,7 @@ describe('FindReplaceModel', () => {
         const state = new FindReplaceState();
         state.changeState({ findString: 'a', replaceString: 'b', revealed: true });
 
-        const univerInstanceService = { getFocusedUnit: vi.fn(() => ({ getUnitId: () => 'u1' })) };
+        const crabtableInstanceService = { getFocusedUnit: vi.fn(() => ({ getUnitId: () => 'u1' })) };
         const commandService = { onCommandExecuted: vi.fn(() => ({ dispose: vi.fn() })) };
 
         const matchesUpdate$ = new Subject<IFindMatch[]>();
@@ -51,7 +51,7 @@ describe('FindReplaceModel', () => {
         };
 
         const providers = new Set([provider as any]);
-        const findReplaceModel = new FindReplaceModel(state, providers, univerInstanceService as any, commandService as any);
+        const findReplaceModel = new FindReplaceModel(state, providers, crabtableInstanceService as any, commandService as any);
 
         await findReplaceModel.start();
         const res = await findReplaceModel.replaceAll();

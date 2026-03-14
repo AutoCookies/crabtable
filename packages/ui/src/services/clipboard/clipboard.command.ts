@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IMultiCommand } from '@univerjs/core';
-import { CommandType } from '@univerjs/core';
+import type { IMultiCommand } from '@crabtable/core';
+import { CommandType } from '@crabtable/core';
 
 const CopyCommandName = 'univer.command.copy';
 export const CopyCommand: IMultiCommand = {

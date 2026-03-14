@@ -14,31 +14,31 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICellData, ICellDataWithSpanAndDisplay, IMutationInfo, IRange, Nullable, Workbook, Worksheet } from '@univerjs/core';
-import type { IDiscreteRange, ISetRangeValuesMutationParams } from '@univerjs/sheets';
-import type { ICellDataWithSpanInfo, ICopyPastePayload, IPasteHookValueType, ISheetClipboardHook, ISheetDiscreteRangeLocation } from '@univerjs/sheets-ui';
+import type { IAccessor, ICellData, ICellDataWithSpanAndDisplay, IMutationInfo, IRange, Nullable, Workbook, Worksheet } from '@crabtable/core';
+import type { IDiscreteRange, ISetRangeValuesMutationParams } from '@crabtable/sheets';
+import type { ICellDataWithSpanInfo, ICopyPastePayload, IPasteHookValueType, ISheetClipboardHook, ISheetDiscreteRangeLocation } from '@crabtable/sheets-ui';
 import {
+    CrabTableInstanceType,
     DEFAULT_EMPTY_DOCUMENT_VALUE,
     Disposable,
     generateRandomId,
     getEmptyCell,
+    ICrabTableInstanceService,
     Inject,
     Injector,
     isFormulaId,
     isFormulaString,
-    IUniverInstanceService,
     ObjectMatrix,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { FormulaDataModel, LexerTreeBuilder } from '@univerjs/engine-formula';
-import { SetRangeValuesMutation, SetRangeValuesUndoMutationFactory } from '@univerjs/sheets';
-import { COPY_TYPE, ISheetClipboardService, PREDEFINED_HOOK_NAME_COPY, PREDEFINED_HOOK_NAME_PASTE } from '@univerjs/sheets-ui';
+} from '@crabtable/core';
+import { FormulaDataModel, LexerTreeBuilder } from '@crabtable/engine-formula';
+import { SetRangeValuesMutation, SetRangeValuesUndoMutationFactory } from '@crabtable/sheets';
+import { COPY_TYPE, ISheetClipboardService, PREDEFINED_HOOK_NAME_COPY, PREDEFINED_HOOK_NAME_PASTE } from '@crabtable/sheets-ui';
 
 export const DEFAULT_PASTE_FORMULA = 'default-paste-formula';
 
 export class FormulaClipboardController extends Disposable {
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(LexerTreeBuilder) private readonly _lexerTreeBuilder: LexerTreeBuilder,
         @ISheetClipboardService private readonly _sheetClipboardService: ISheetClipboardService,
         @Inject(Injector) private readonly _injector: Injector,
@@ -152,10 +152,10 @@ export class FormulaClipboardController extends Disposable {
 
     private _getWorkbook(unitId?: string): Nullable<Workbook> {
         if (unitId) {
-            return this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+            return this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         }
 
-        return this._univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        return this._crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     }
 
     private _getWorksheet(unitId?: string, subUnitId?: string): Nullable<Worksheet> {

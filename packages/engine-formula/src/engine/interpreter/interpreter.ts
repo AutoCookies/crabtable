@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { BaseAstNode } from '../ast-node/base-ast-node';
 import type { FunctionNode } from '../ast-node/function-node';
 import type { LambdaNode } from '../ast-node/lambda-node';
@@ -22,7 +22,7 @@ import type { ReferenceNode } from '../ast-node/reference-node';
 import type { FunctionVariantType } from '../reference-object/base-reference-object';
 import type { IExecuteAstNodeData } from '../utils/ast-node-tool';
 import type { PreCalculateNodeType } from '../utils/node-type';
-import { Disposable } from '@univerjs/core';
+import { Disposable } from '@crabtable/core';
 import { AstNodePromiseType } from '../../basics/common';
 import { ErrorType } from '../../basics/error-type';
 import { DEFAULT_TOKEN_LAMBDA_FUNCTION_NAME } from '../../basics/token-type';

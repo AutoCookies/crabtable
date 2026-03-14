@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { RefObject } from 'react';
 import type { Observable } from 'rxjs';
 import { useEffect, useRef } from 'react';
@@ -31,7 +31,7 @@ function unwrap<T>(o: ObservableOrFn<T>): Observable<T> {
     return o;
 }
 
-declare module '@univerjs/ui' {
+declare module '@crabtable/ui' {
     export function useObservable<T>(observable: ObservableOrFn<T>, defaultValue: T | undefined, shouldHaveSyncValue?: true): T;
     export function useObservable<T>(observable: Nullable<ObservableOrFn<T>>, defaultValue: T): T;
     export function useObservable<T>(observable: Nullable<ObservableOrFn<T>>, defaultValue?: undefined): T | undefined;

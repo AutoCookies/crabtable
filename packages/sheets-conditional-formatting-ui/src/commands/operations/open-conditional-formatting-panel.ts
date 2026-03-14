@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
-import type { IClearRangeCfParams, IColorScale, IConditionFormattingRule, IDataBar, IFormulaHighlightCell, IIconSet, IRankHighlightCell } from '@univerjs/sheets-conditional-formatting';
-import { CommandType, ICommandService } from '@univerjs/core';
-import { SheetsSelectionsService } from '@univerjs/sheets';
-import { CFRuleType, CFSubRuleType, ClearRangeCfCommand, ClearWorksheetCfCommand, createDefaultRule } from '@univerjs/sheets-conditional-formatting';
+import type { IAccessor, ICommand } from '@crabtable/core';
+import type { IClearRangeCfParams, IColorScale, IConditionFormattingRule, IDataBar, IFormulaHighlightCell, IIconSet, IRankHighlightCell } from '@crabtable/sheets-conditional-formatting';
+import { CommandType, ICommandService } from '@crabtable/core';
+import { SheetsSelectionsService } from '@crabtable/sheets';
+import { CFRuleType, CFSubRuleType, ClearRangeCfCommand, ClearWorksheetCfCommand, createDefaultRule } from '@crabtable/sheets-conditional-formatting';
 import { ConditionalFormattingPanelController } from '../../controllers/cf.panel.controller';
 
 interface IOpenConditionalFormattingOperatorParams {

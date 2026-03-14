@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Dependency, ICommand, IRange, IWorkbookData, Nullable, Workbook } from '@univerjs/core';
+import type { Dependency, ICommand, IRange, IWorkbookData, Nullable, Workbook } from '@crabtable/core';
 import type { IInsertColMutationParams } from '../../../basics';
-import { ICommandService, ILogService, Inject, Injector, IUniverInstanceService, LocaleType, LogLevel, Plugin, Univer, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, ILogService, Inject, Injector, LocaleType, LogLevel, Plugin } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { InsertColMutation } from '../../../commands/mutations/insert-row-col.mutation';
 import { SheetsSelectionsService } from '../../selections/selection.service';
@@ -53,13 +53,13 @@ const TEST_WORKBOOK_DATA: IWorkbookData = {
 };
 
 export function createRefRangeTestBed() {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -82,10 +82,10 @@ export function createRefRangeTestBed() {
     ] as ICommand[]).forEach((command) => commandService.registerCommand(command));
 
     univer.registerPlugin(TestPlugin);
-    const sheet = univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, TEST_WORKBOOK_DATA);
+    const sheet = univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, TEST_WORKBOOK_DATA);
 
-    const univerInstanceService = get(IUniverInstanceService);
-    univerInstanceService.focusUnit('test');
+    const crabtableInstanceService = get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit('test');
 
     const logService = get(ILogService);
     logService.setLogLevel(LogLevel.SILENT);
@@ -98,7 +98,7 @@ export function createRefRangeTestBed() {
 }
 
 describe('test "RefRangeService"', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let refRangeService: RefRangeService;
     let commandService: ICommandService;
 

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IConfigService, IUniverInstanceService, Workbook } from '@univerjs/core';
-import type { RenderManagerService } from '@univerjs/engine-render';
-import type { SheetInterceptorService, SheetsSelectionsService } from '@univerjs/sheets';
+import type { IConfigService, ICrabTableInstanceService, Workbook } from '@crabtable/core';
+import type { RenderManagerService } from '@crabtable/engine-render';
+import type { SheetInterceptorService, SheetsSelectionsService } from '@crabtable/sheets';
 import {
     CancelMarkDirtyRowAutoHeightMutation,
     MarkDirtyRowAutoHeightMutation,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { describe, expect, it } from 'vitest';
 import { AutoHeightController } from '../auto-height.controller';
 
@@ -38,10 +38,10 @@ describe('AutoHeightController', () => {
             getSheetBySheetId: (sheetId: string) => (sheetId === 's-1' ? worksheet : null),
         } as unknown as Workbook;
 
-        const univerInstanceService = {
+        const crabtableInstanceService = {
             getCurrentUnitForType: () => workbook,
             getUnit: () => workbook,
-        } as unknown as IUniverInstanceService;
+        } as unknown as ICrabTableInstanceService;
 
         const renderManagerService = {
             getRenderById: () => ({
@@ -63,7 +63,7 @@ describe('AutoHeightController', () => {
             renderManagerService,
             sheetInterceptorService,
             { } as unknown as SheetsSelectionsService,
-            univerInstanceService,
+            crabtableInstanceService,
             {} as IConfigService
         );
 

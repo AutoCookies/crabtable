@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverFindReplaceConfig } from './config/config';
-import { IConfigService, Inject, Injector, merge, Plugin } from '@univerjs/core';
+import { IConfigService, Inject, Injector, merge, Plugin } from '@crabtable/core';
 import pkg from '../package.json';
 import { defaultPluginConfig, FIND_REPLACE_PLUGIN_CONFIG_KEY } from './config/config';
 import { FindReplaceController } from './controllers/find-replace.controller';

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDrawingParam, IOperation } from '@univerjs/core';
-import type { IDrawingGroupUpdateParam } from '@univerjs/drawing';
-import { CommandType, DrawingTypeEnum, generateRandomId } from '@univerjs/core';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { getGroupState, transformObjectOutOfGroup } from '@univerjs/engine-render';
+import type { IDrawingParam, IOperation } from '@crabtable/core';
+import type { IDrawingGroupUpdateParam } from '@crabtable/drawing';
+import { CommandType, DrawingTypeEnum, generateRandomId } from '@crabtable/core';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { getGroupState, transformObjectOutOfGroup } from '@crabtable/engine-render';
 
 /**
  * Now only support grouping images, shapes, and groups.

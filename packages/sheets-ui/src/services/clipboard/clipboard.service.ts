@@ -23,8 +23,8 @@ import type {
     Nullable,
     Workbook,
     Worksheet,
-} from '@univerjs/core';
-import type { IDiscreteRange, ISetRangeValuesMutationParams, ISetSelectionsOperationParams, ISetWorksheetRowAutoHeightMutationParams } from '@univerjs/sheets';
+} from '@crabtable/core';
+import type { IDiscreteRange, ISetRangeValuesMutationParams, ISetSelectionsOperationParams, ISetWorksheetRowAutoHeightMutationParams } from '@crabtable/sheets';
 import type { Observable } from 'rxjs';
 import type {
     ICellDataWithSpanInfo,
@@ -42,26 +42,26 @@ import type {
 import {
     CellModeEnum,
     cloneCellDataWithSpanAndDisplay,
+    CrabTableInstanceType,
     createIdentifier,
     Disposable,
     ErrorService,
     extractPureTextFromCell,
     getEmptyCell,
     ICommandService,
+    ICrabTableInstanceService,
     ILogService,
     Inject,
     Injector,
     isNotNullOrUndefined,
     IUndoRedoService,
-    IUniverInstanceService,
     LocaleService,
     ObjectMatrix,
     sequenceExecute,
     ThemeService,
     toDisposable,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { IRenderManagerService, withCurrentTypeOfRenderer } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { IRenderManagerService, withCurrentTypeOfRenderer } from '@crabtable/engine-render';
 import {
     getPrimaryForRange,
     rangeToDiscreteRange,
@@ -70,8 +70,8 @@ import {
     SetWorksheetRowAutoHeightMutation,
     SetWorksheetRowAutoHeightMutationFactory,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
-import { FILE__BMP_CLIPBOARD_MIME_TYPE, FILE__JPEG_CLIPBOARD_MIME_TYPE, FILE__WEBP_CLIPBOARD_MIME_TYPE, FILE_PNG_CLIPBOARD_MIME_TYPE, HTML_CLIPBOARD_MIME_TYPE, IClipboardInterfaceService, imageMimeTypeSet, INotificationService, IPlatformService, PLAIN_TEXT_CLIPBOARD_MIME_TYPE } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { FILE__BMP_CLIPBOARD_MIME_TYPE, FILE__JPEG_CLIPBOARD_MIME_TYPE, FILE__WEBP_CLIPBOARD_MIME_TYPE, FILE_PNG_CLIPBOARD_MIME_TYPE, HTML_CLIPBOARD_MIME_TYPE, IClipboardInterfaceService, imageMimeTypeSet, INotificationService, IPlatformService, PLAIN_TEXT_CLIPBOARD_MIME_TYPE } from '@crabtable/ui';
 import { BehaviorSubject } from 'rxjs';
 import { virtualizeDiscreteRanges } from '../../controllers/utils/range-tools';
 import { IMarkSelectionService } from '../mark-selection/mark-selection.service';
@@ -179,7 +179,7 @@ export class SheetClipboardService extends Disposable implements ISheetClipboard
 
     constructor(
         @ILogService private readonly _logService: ILogService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(SheetsSelectionsService) private readonly _selectionManagerService: SheetsSelectionsService,
         @IClipboardInterfaceService private readonly _clipboardInterfaceService: IClipboardInterfaceService,
         @IUndoRedoService private readonly _undoRedoService: IUndoRedoService,
@@ -197,9 +197,9 @@ export class SheetClipboardService extends Disposable implements ISheetClipboard
 
         this._htmlToUSM = new HtmlToUSMService({
             getCurrentSkeleton: () => withCurrentTypeOfRenderer(
-                UniverInstanceType.UNIVER_SHEET,
+                CrabTableInstanceType.CRABTABLE_SHEET,
                 SheetSkeletonManagerService,
-                this._univerInstanceService,
+                this._crabtableInstanceService,
                 this._renderManagerService
             )?.getCurrentParam(),
         });
@@ -247,7 +247,7 @@ export class SheetClipboardService extends Disposable implements ISheetClipboard
             return false; // maybe we should notify user that there is no selection
         }
 
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         const worksheet = workbook?.getActiveSheet();
         if (!workbook || !worksheet) {
             return false;
@@ -431,7 +431,7 @@ export class SheetClipboardService extends Disposable implements ISheetClipboard
     }
 
     private _generateCopyContent(unitId: string, subUnitId: string, range: IRange, hooks: ISheetClipboardHook[], copyHookType: ICopyHookValueType = PREDEFINED_HOOK_NAME_COPY.DEFAULT_COPY): Nullable<ICopyContent> {
-        const workbook = this._univerInstanceService.getUniverSheetInstance(unitId);
+        const workbook = this._crabtableInstanceService.getCrabTableSheetInstance(unitId);
         const worksheet = workbook?.getSheetBySheetId(subUnitId);
 
         if (!workbook || !worksheet) {
@@ -558,7 +558,7 @@ export class SheetClipboardService extends Disposable implements ISheetClipboard
         if (result) {
             // add to undo redo services
             this._undoRedoService.pushUndoRedo({
-                unitID: this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getUnitId(),
+                unitID: this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getUnitId(),
                 undoMutations: undoMutationsInfo,
                 redoMutations: redoMutationsInfo,
             });
@@ -623,8 +623,8 @@ export class SheetClipboardService extends Disposable implements ISheetClipboard
             return false;
         }
 
-        const worksheet = this._univerInstanceService
-            .getUniverSheetInstance(pasteTarget.unitId)
+        const worksheet = this._crabtableInstanceService
+            .getCrabTableSheetInstance(pasteTarget.unitId)
             ?.getSheetBySheetId(pasteTarget.subUnitId);
         if (!worksheet) {
             return false;
@@ -666,7 +666,7 @@ export class SheetClipboardService extends Disposable implements ISheetClipboard
         }
 
         const { mapFunc } = virtualizeDiscreteRanges([range]);
-        const worksheet = this._univerInstanceService.getUniverSheetInstance(copyUnitId)?.getSheetBySheetId(copySubUnitId);
+        const worksheet = this._crabtableInstanceService.getCrabTableSheetInstance(copyUnitId)?.getSheetBySheetId(copySubUnitId);
 
         const cellMatrix = new ObjectMatrix<ICellDataWithSpanInfo>();
         cachedMatrix.forValue((row, col, value) => {
@@ -697,8 +697,8 @@ export class SheetClipboardService extends Disposable implements ISheetClipboard
         const pasteTarget = this._getPastedRange(cellMatrix);
         if (!pasteTarget) return false;
 
-        const pasteToWorksheet = this._univerInstanceService
-            .getUniverSheetInstance(pasteTarget.unitId)
+        const pasteToWorksheet = this._crabtableInstanceService
+            .getCrabTableSheetInstance(pasteTarget.unitId)
             ?.getSheetBySheetId(pasteTarget.subUnitId);
         if (!pasteToWorksheet) {
             return false;
@@ -716,7 +716,7 @@ export class SheetClipboardService extends Disposable implements ISheetClipboard
             }
         }
 
-        const pasteFromWorkbook = this._univerInstanceService.getUnit<Workbook>(copyUnitId);
+        const pasteFromWorkbook = this._crabtableInstanceService.getUnit<Workbook>(copyUnitId);
         if (!pasteFromWorkbook) return false;
         const pasteFromWorksheet = pasteFromWorkbook.getSheetBySheetId(copySubUnitId);
         if (!pasteFromWorksheet) return false;
@@ -918,7 +918,7 @@ export class SheetClipboardService extends Disposable implements ISheetClipboard
         undo: IMutationInfo;
         redo: IMutationInfo;
     } | null {
-        const worksheet = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET)?.getSheetBySheetId(subUnitId);
+        const worksheet = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET)?.getSheetBySheetId(subUnitId);
         if (!worksheet) {
             return null;
         }
@@ -983,7 +983,7 @@ export class SheetClipboardService extends Disposable implements ISheetClipboard
         cellMatrix: ObjectMatrix<ICellDataWithSpanAndDisplay>,
         pasteType?: string
     ) {
-        const worksheet = this._univerInstanceService.getUniverSheetInstance(unitId)?.getSheetBySheetId(subUnitId);
+        const worksheet = this._crabtableInstanceService.getCrabTableSheetInstance(unitId)?.getSheetBySheetId(subUnitId);
         if (!worksheet) {
             return null;
         }
@@ -1049,7 +1049,7 @@ export class SheetClipboardService extends Disposable implements ISheetClipboard
     }
 
     private _getPastingTarget() {
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet();
         const selection = this._selectionManagerService.getCurrentLastSelection();
         return {
@@ -1127,7 +1127,7 @@ export class SheetClipboardService extends Disposable implements ISheetClipboard
         const destinationRows = endRow - startRow + 1;
         const destinationColumns = endColumn - startColumn + 1;
 
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         const worksheet = workbook?.getActiveSheet();
         if (!worksheet) {
             return null;
@@ -1258,8 +1258,8 @@ export class SheetClipboardService extends Disposable implements ISheetClipboard
         const pasteSelectionRangeRowLen = discreteRange.rows.length;
         const pasteSelectionRangeColLen = discreteRange.cols.length;
 
-        const worksheet = this._univerInstanceService
-            .getUniverSheetInstance(unitId)
+        const worksheet = this._crabtableInstanceService
+            .getCrabTableSheetInstance(unitId)
             ?.getSheetBySheetId(subUnitId);
         if (!worksheet) {
             return null;
@@ -1297,7 +1297,7 @@ export class SheetClipboardService extends Disposable implements ISheetClipboard
 
     private _expandOrShrinkRowsCols(unitId: string, subUnitId: string, range: IDiscreteRange, colCount: number, rowCount: number) {
         const { rows, cols } = range;
-        const workbook = this._univerInstanceService.getUniverSheetInstance(unitId);
+        const workbook = this._crabtableInstanceService.getCrabTableSheetInstance(unitId);
         const worksheet = workbook?.getSheetBySheetId(subUnitId);
         let newRows: number[];
         let newCols: number[];
@@ -1337,7 +1337,7 @@ export class SheetClipboardService extends Disposable implements ISheetClipboard
      * @param range
      */
     private _topLeftCellsMatch(rowCount: number, colCount: number, range: { topRow: number; leftCol: number }): boolean {
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook?.getActiveSheet();
         if (!worksheet) {
             return false;
@@ -1369,7 +1369,7 @@ export class SheetClipboardService extends Disposable implements ISheetClipboard
 
     private _initUnitDisposed() {
         this.disposeWithMe(
-            this._univerInstanceService.getTypeOfUnitDisposed$<Workbook>(UniverInstanceType.UNIVER_SHEET).subscribe((workbook) => {
+            this._crabtableInstanceService.getTypeOfUnitDisposed$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((workbook) => {
                 if (workbook) {
                     const copyCache = this.copyContentCache();
                     copyCache.clearWithUnitId(workbook.getUnitId());

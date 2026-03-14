@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICellData, Nullable } from '@univerjs/core';
-import { CellValueType, isSafeNumeric } from '@univerjs/core';
+import type { ICellData, Nullable } from '@crabtable/core';
+import { CellValueType, isSafeNumeric } from '@crabtable/core';
 
 /**
  * Get cell value from new value by type

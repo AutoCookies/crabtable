@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDrawingParam } from '@univerjs/core';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { DrawingCommonPanel } from '@univerjs/drawing-ui';
-import { useDependency } from '@univerjs/ui';
+import type { IDrawingParam } from '@crabtable/core';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { DrawingCommonPanel } from '@crabtable/drawing-ui';
+import { useDependency } from '@crabtable/ui';
 import { useEffect, useState } from 'react';
 import { DocDrawingPosition } from './DocDrawingPosition';
 import { DocDrawingTextWrap } from './DocDrawingTextWrap';

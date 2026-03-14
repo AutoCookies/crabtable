@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ISheetFormulaError } from '@univerjs/engine-formula';
-import { extractFormulaError, FormulaDataModel } from '@univerjs/engine-formula';
-import { FWorkbook } from '@univerjs/sheets/facade';
+import type { ISheetFormulaError } from '@crabtable/engine-formula';
+import { extractFormulaError, FormulaDataModel } from '@crabtable/engine-formula';
+import { FWorkbook } from '@crabtable/sheets/facade';
 
 /**
  * @ignore
@@ -27,7 +27,7 @@ export interface IFWorkbookEngineFormulaMixin {
      * @returns {ISheetFormulaError[]} Array of formula errors
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const errors = fWorkbook.getAllFormulaError();
      * console.log('Formula errors:', errors);
      * ```
@@ -76,7 +76,7 @@ export class FWorkbookEngineFormulaMixin extends FWorkbook implements IFWorkbook
 }
 
 FWorkbook.extend(FWorkbookEngineFormulaMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FWorkbook extends IFWorkbookEngineFormulaMixin { }
 }

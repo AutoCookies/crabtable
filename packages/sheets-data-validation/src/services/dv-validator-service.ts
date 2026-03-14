@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { IDataValidationRule, IRange, Nullable, ObjectMatrix, Workbook, Worksheet } from '@univerjs/core';
-import { bufferDebounceTime, DataValidationStatus, Disposable, getIntersectRange, Inject, IUniverInstanceService, LifecycleService, LifecycleStages, Range, Tools, UniverInstanceType } from '@univerjs/core';
+import type { IDataValidationRule, IRange, Nullable, ObjectMatrix, Workbook, Worksheet } from '@crabtable/core';
+import { bufferDebounceTime, CrabTableInstanceType, DataValidationStatus, Disposable, getIntersectRange, ICrabTableInstanceService, Inject, LifecycleService, LifecycleStages, Range, Tools } from '@crabtable/core';
 import { bufferWhen, filter } from 'rxjs';
 import { SheetDataValidationModel } from '../models/sheet-data-validation-model';
 import { DataValidationCacheService } from './dv-cache.service';
 
 export class SheetsDataValidationValidatorService extends Disposable {
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(SheetDataValidationModel) private readonly _sheetDataValidationModel: SheetDataValidationModel,
         @Inject(DataValidationCacheService) private readonly _dataValidationCacheService: DataValidationCacheService,
         @Inject(LifecycleService) private readonly _lifecycleService: LifecycleService
@@ -37,7 +37,7 @@ export class SheetsDataValidationValidatorService extends Disposable {
                 return;
             }
 
-            const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+            const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
             const worksheet = workbook?.getActiveSheet();
 
             const map: Record<string, Record<string, IRange[]>> = {};
@@ -49,7 +49,7 @@ export class SheetsDataValidationValidatorService extends Disposable {
                 if (!map[range.unitId][range.subUnitId]) {
                     map[range.unitId][range.subUnitId] = [];
                 }
-                const workbook = this._univerInstanceService.getUnit<Workbook>(range.unitId, UniverInstanceType.UNIVER_SHEET);
+                const workbook = this._crabtableInstanceService.getUnit<Workbook>(range.unitId, CrabTableInstanceType.CRABTABLE_SHEET);
                 const worksheet = workbook?.getSheetBySheetId(range.subUnitId);
                 if (!worksheet) {
                     return;
@@ -103,7 +103,7 @@ export class SheetsDataValidationValidatorService extends Disposable {
     }
 
     async validatorCell(unitId: string, subUnitId: string, row: number, col: number) {
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             throw new Error(`cannot find current workbook, unitId: ${unitId}`);
         }
@@ -121,7 +121,7 @@ export class SheetsDataValidationValidatorService extends Disposable {
             return Promise.resolve([]);
         }
 
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             throw new Error(`cannot find current workbook, unitId: ${unitId}`);
         }
@@ -180,7 +180,7 @@ export class SheetsDataValidationValidatorService extends Disposable {
     }
 
     async validatorWorksheet(unitId: string, subUnitId: string) {
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             throw new Error(`cannot find current workbook, unitId: ${unitId}`);
         }

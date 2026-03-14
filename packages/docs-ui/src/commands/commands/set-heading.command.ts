@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommand, IMutationInfo, ITextRangeParam } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { ITextRangeWithStyle } from '@univerjs/engine-render';
-import { BuildTextUtils, CommandType, generateRandomId, ICommandService, IUniverInstanceService, JSONX, NamedStyleType, TextX, TextXActionType, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation } from '@univerjs/docs';
+import type { DocumentDataModel, ICommand, IMutationInfo, ITextRangeParam } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { ITextRangeWithStyle } from '@crabtable/engine-render';
+import { BuildTextUtils, CommandType, CrabTableInstanceType, generateRandomId, ICommandService, ICrabTableInstanceService, JSONX, NamedStyleType, TextX, TextXActionType } from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation } from '@crabtable/docs';
 import { getRichTextEditPath } from '../util';
 
 export interface ISetParagraphNamedStyleCommandParams {
@@ -34,8 +34,8 @@ export const SetParagraphNamedStyleCommand: ICommand<ISetParagraphNamedStyleComm
             return false;
         }
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const doc = univerInstanceService.getCurrentUnitOfType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const doc = crabtableInstanceService.getCurrentUnitOfType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         if (!doc) {
             return false;
         }
@@ -89,9 +89,9 @@ export const QuickHeadingCommand: ICommand<ISetParagraphNamedStyleCommandParams>
         }
         const { value } = params;
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
-        const docDataModel = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         const activeRange = docSelectionManagerService.getActiveTextRange();
         if (docDataModel == null || activeRange == null || !activeRange.collapsed) {
             return false;

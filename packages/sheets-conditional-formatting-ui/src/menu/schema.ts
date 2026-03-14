@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { MenuSchemaType } from '@univerjs/ui';
-import { RibbonDataGroup } from '@univerjs/ui';
+import type { MenuSchemaType } from '@crabtable/ui';
+import { RibbonDataGroup } from '@crabtable/ui';
 import { OpenConditionalFormattingOperator } from '../commands/operations/open-conditional-formatting-panel';
 import { FactoryManageConditionalFormattingRule } from './manage-rule';
 

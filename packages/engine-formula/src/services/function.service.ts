@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Nullable } from '@univerjs/core';
+import type { IDisposable, Nullable } from '@crabtable/core';
 import type { IFunctionInfo, IFunctionNames } from '../basics/function';
 import type { BaseFunction } from '../functions/base-function';
-import { createIdentifier, Disposable, toDisposable } from '@univerjs/core';
+import { createIdentifier, Disposable, toDisposable } from '@crabtable/core';
 import { FORMULA_AST_CACHE } from '../engine/utils/generate-ast-node';
 
 export interface IFunctionService {

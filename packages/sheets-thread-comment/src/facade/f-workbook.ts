@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDisposable, IExecutionOptions } from '@univerjs/core';
-import type { CommentUpdate, IAddCommentCommandParams, IDeleteCommentCommandParams } from '@univerjs/thread-comment';
-import { toDisposable } from '@univerjs/core';
-import { FWorkbook } from '@univerjs/sheets/facade';
-import { AddCommentCommand, DeleteCommentCommand, DeleteCommentTreeCommand, ThreadCommentModel, UpdateCommentCommand } from '@univerjs/thread-comment';
+import type { IDisposable, IExecutionOptions } from '@crabtable/core';
+import type { CommentUpdate, IAddCommentCommandParams, IDeleteCommentCommandParams } from '@crabtable/thread-comment';
+import { toDisposable } from '@crabtable/core';
+import { FWorkbook } from '@crabtable/sheets/facade';
+import { AddCommentCommand, DeleteCommentCommand, DeleteCommentTreeCommand, ThreadCommentModel, UpdateCommentCommand } from '@crabtable/thread-comment';
 import { filter } from 'rxjs';
 import { FThreadComment } from './f-thread-comment';
 
@@ -34,7 +34,7 @@ export interface IFWorkbookThreadCommentMixin {
      * @returns {FThreadComment[]} All comments in the current workbook
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const comments = fWorkbook.getComments();
      * comments.forEach((comment) => {
      *   const isRoot = comment.getIsRoot();
@@ -57,7 +57,7 @@ export interface IFWorkbookThreadCommentMixin {
      * @returns {Promise<boolean>} Whether the comments are cleared successfully.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const result = await fWorkbook.clearComments();
      * console.log(result);
      * ```
@@ -65,12 +65,12 @@ export interface IFWorkbookThreadCommentMixin {
     clearComments(): Promise<boolean>;
 
     /**
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.CommentUpdated, (params) => {})` as instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.CommentUpdated, (params) => {})` as instead
      */
     onThreadCommentChange(callback: (commentUpdate: CommentUpdate) => void | false): IDisposable;
 
     /**
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.BeforeCommentAdd, (params) => {})` as instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.BeforeCommentAdd, (params) => {})` as instead
      */
     onBeforeAddThreadComment(
         this: FWorkbook,
@@ -78,7 +78,7 @@ export interface IFWorkbookThreadCommentMixin {
     ): IDisposable;
 
     /**
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.BeforeCommentUpdate, (params) => {})` as instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.BeforeCommentUpdate, (params) => {})` as instead
      */
     onBeforeUpdateThreadComment(
         this: FWorkbook,
@@ -86,7 +86,7 @@ export interface IFWorkbookThreadCommentMixin {
     ): IDisposable;
 
     /**
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.BeforeCommentDelete, (params) => {})` as instead
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.BeforeCommentDelete, (params) => {})` as instead
      */
     onBeforeDeleteThreadComment(
         this: FWorkbook,
@@ -188,7 +188,7 @@ export class FWorkbookThreadCommentMixin extends FWorkbook implements IFWorkbook
 }
 
 FWorkbook.extend(FWorkbookThreadCommentMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FWorkbook extends IFWorkbookThreadCommentMixin {}
 }

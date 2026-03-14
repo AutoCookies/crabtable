@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
+import type { Workbook } from '@crabtable/core';
 import type { BaseCalculateUnit, IContext } from './calculate-unit-v2/base-calculate-unit';
 import type { IConditionFormattingRule } from './type';
-import { Disposable, Inject, Injector, IUniverInstanceService, LRUMap, RTree } from '@univerjs/core';
+import { Disposable, ICrabTableInstanceService, Inject, Injector, LRUMap, RTree } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { bufferTime, filter, map } from 'rxjs/operators';
 import { CFRuleType, CFSubRuleType } from '../base/const';
@@ -50,7 +50,7 @@ export class ConditionalFormattingViewModel extends Disposable {
         @Inject(Injector) private _injector: Injector,
         @Inject(ConditionalFormattingRuleModel) private _conditionalFormattingRuleModel: ConditionalFormattingRuleModel,
         @Inject(ConditionalFormattingFormulaService) private _conditionalFormattingFormulaService: ConditionalFormattingFormulaService,
-        @IUniverInstanceService private _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
         this._initRuleListener();
@@ -250,7 +250,7 @@ export class ConditionalFormattingViewModel extends Disposable {
     }
 
     private _createRuleCalculateUnitInstance(unitId: string, subUnitId: string, rule: IConditionFormattingRule) {
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId);
         const worksheet = workbook?.getSheetBySheetId(subUnitId);
         if (!workbook || !worksheet) {
             return;

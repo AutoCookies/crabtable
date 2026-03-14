@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-import { LocaleType, LogLevel, Univer, UniverInstanceType, UserManagerService } from '@univerjs/core';
-import { FUniver } from '@univerjs/core/facade';
-import { UniverDebuggerPlugin } from '@univerjs/debugger';
-import { UniverDocsPlugin } from '@univerjs/docs';
-import { UniverDocsDrawingUIPlugin } from '@univerjs/docs-drawing-ui';
-import { UniverDocsHyperLinkUIPlugin } from '@univerjs/docs-hyper-link-ui';
-import { UniverDocsMentionUIPlugin } from '@univerjs/docs-mention-ui';
-import { UniverDocsQuickInsertUIPlugin } from '@univerjs/docs-quick-insert-ui';
-import { UniverDocsThreadCommentUIPlugin } from '@univerjs/docs-thread-comment-ui';
-import { UniverDocsUIPlugin } from '@univerjs/docs-ui';
-import { UniverFormulaEnginePlugin } from '@univerjs/engine-formula';
-import { UniverRenderEnginePlugin } from '@univerjs/engine-render';
-import { DEFAULT_DOCUMENT_DATA_SIMPLE } from '@univerjs/mockdata';
-import zhCN from '@univerjs/mockdata/locales/zh-CN';
-import { UniverUIPlugin } from '@univerjs/ui';
+import { CrabTableInstanceType, LocaleType, LogLevel, UserManagerService } from '@crabtable/core';
+import { FCrabTable } from '@crabtable/core/facade';
+import { CrabTableDebuggerPlugin } from '@crabtable/debugger';
+import { UniverDocsPlugin } from '@crabtable/docs';
+import { UniverDocsDrawingUIPlugin } from '@crabtable/docs-drawing-ui';
+import { UniverDocsHyperLinkUIPlugin } from '@crabtable/docs-hyper-link-ui';
+import { UniverDocsMentionUIPlugin } from '@crabtable/docs-mention-ui';
+import { UniverDocsQuickInsertUIPlugin } from '@crabtable/docs-quick-insert-ui';
+import { UniverDocsThreadCommentUIPlugin } from '@crabtable/docs-thread-comment-ui';
+import { UniverDocsUIPlugin } from '@crabtable/docs-ui';
+import { UniverFormulaEnginePlugin } from '@crabtable/engine-formula';
+import { UniverRenderEnginePlugin } from '@crabtable/engine-render';
+import { DEFAULT_DOCUMENT_DATA_SIMPLE } from '@crabtable/mockdata';
+import zhCN from '@crabtable/mockdata/locales/zh-CN';
+import { UniverUIPlugin } from '@crabtable/ui';
 
-import '@univerjs/docs-ui/facade';
+import '@crabtable/docs-ui/facade';
 
 import '../global.css';
 
@@ -38,7 +38,7 @@ import '../global.css';
 const IS_E2E: boolean = !!process.env.IS_E2E;
 
 // univer
-const univer = new Univer({
+const univer = new CrabTable({
     locale: LocaleType.ZH_CN,
     locales: {
         [LocaleType.ZH_CN]: zhCN,
@@ -66,12 +66,12 @@ univer.registerPlugin(UniverDocsMentionUIPlugin);
 univer.registerPlugin(UniverDocsQuickInsertUIPlugin);
 
 if (!IS_E2E) {
-    univer.createUnit(UniverInstanceType.UNIVER_DOC, DEFAULT_DOCUMENT_DATA_SIMPLE);
-    univer.registerPlugin(UniverDebuggerPlugin, {
-        fabEntryUnitType: UniverInstanceType.UNIVER_DOC,
+    univer.createUnit(CrabTableInstanceType.CRABTABLE_DOC, DEFAULT_DOCUMENT_DATA_SIMPLE);
+    univer.registerPlugin(CrabTableDebuggerPlugin, {
+        fabEntryUnitType: CrabTableInstanceType.CRABTABLE_DOC,
     });
 } else {
-    univer.registerPlugin(UniverDebuggerPlugin, {
+    univer.registerPlugin(CrabTableDebuggerPlugin, {
         fab: false,
         performanceMonitor: {
             enabled: false,
@@ -83,7 +83,7 @@ if (!IS_E2E) {
 declare global {
     // eslint-disable-next-line ts/naming-convention
     interface Window {
-        univer?: Univer;
+        univer?: CrabTable;
     }
 }
 
@@ -99,4 +99,4 @@ const mockUser = {
     canBindAnonymous: false,
 };
 userManagerService.setCurrentUser(mockUser);
-window.univerAPI = FUniver.newAPI(univer);
+window.crabtableAPI = FCrabTable.newAPI(univer);

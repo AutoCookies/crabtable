@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IRange, IUnitRange, Nullable } from '@univerjs/core';
+import type { IRange, IUnitRange, Nullable } from '@crabtable/core';
 import type { IFormulaReferenceMoveParam } from './ref-range-formula';
-import { Direction, getIntersectRange, RANGE_TYPE, Rectangle } from '@univerjs/core';
-import { ErrorType, serializeRangeToRefString } from '@univerjs/engine-formula';
+import { Direction, getIntersectRange, RANGE_TYPE, Rectangle } from '@crabtable/core';
+import { ErrorType, serializeRangeToRefString } from '@crabtable/engine-formula';
 import {
     EffectRefRangId,
     handleDeleteRangeMoveLeft,
@@ -32,7 +32,7 @@ import {
     handleMoveRange,
     handleMoveRows,
     runRefRangeMutations,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { checkIsSameUnitAndSheet, FormulaReferenceMoveType } from './ref-range-formula';
 
 export interface IUnitRangeWithOffset extends IUnitRange {

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { JSONXActions, Nullable } from '@univerjs/core';
-import type { ITextRangeWithStyle } from '@univerjs/engine-render';
-import { RxDisposable } from '@univerjs/core';
+import type { JSONXActions, Nullable } from '@crabtable/core';
+import type { ITextRangeWithStyle } from '@crabtable/engine-render';
+import { RxDisposable } from '@crabtable/core';
 import { BehaviorSubject } from 'rxjs';
 
 interface IDocChangeState {

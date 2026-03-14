@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IMutation } from '@univerjs/core';
-import { CommandType, IUniverInstanceService } from '@univerjs/core';
+import type { IAccessor, IMutation } from '@crabtable/core';
+import { CommandType, ICrabTableInstanceService } from '@crabtable/core';
 import { getSheetCommandTarget } from '../commands/utils/target-util';
 
 export interface ISetGridlinesColorMutationParams {
@@ -25,8 +25,8 @@ export interface ISetGridlinesColorMutationParams {
 }
 
 export const SetGridlinesColorUndoMutationFactory = (accessor: IAccessor, params: ISetGridlinesColorMutationParams) => {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
-    const universheet = univerInstanceService.getUniverSheetInstance(params.unitId);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+    const universheet = crabtableInstanceService.getCrabTableSheetInstance(params.unitId);
 
     if (universheet == null) {
         throw new Error('universheet is null error!');
@@ -43,7 +43,7 @@ export const SetGridlinesColorMutation: IMutation<ISetGridlinesColorMutationPara
     id: 'sheet.mutation.set-gridlines-color',
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService), params);
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService), params);
         if (!target) return false;
 
         const { worksheet } = target;

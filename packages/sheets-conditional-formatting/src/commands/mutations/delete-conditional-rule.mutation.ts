@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IMutation, IMutationInfo } from '@univerjs/core';
+import type { IAccessor, IMutation, IMutationInfo } from '@crabtable/core';
 import type { IAddConditionalRuleMutationParams } from './add-conditional-rule.mutation';
 import type { IMoveConditionalRuleMutationParams } from './move-conditional-rule.mutation';
-import { CommandType, Tools } from '@univerjs/core';
+import { CommandType, Tools } from '@crabtable/core';
 import { ConditionalFormattingRuleModel } from '../../models/conditional-formatting-rule-model';
 import { transformSupportSymmetryAnchor } from '../../utils/anchor';
 import { AddConditionalRuleMutation } from './add-conditional-rule.mutation';

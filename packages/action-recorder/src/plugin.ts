@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverActionRecorderConfig } from './config/config';
-import { IConfigService, Inject, Injector, merge, Plugin } from '@univerjs/core';
+import { IConfigService, Inject, Injector, merge, Plugin } from '@crabtable/core';
 import pkg from '../package.json';
 import { ACTION_RECORDER_PLUGIN_CONFIG_KEY, defaultPluginConfig } from './config/config';
 import { ActionRecorderController } from './controllers/action-recorder.controller';

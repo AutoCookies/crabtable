@@ -1,14 +1,14 @@
-# @univerjs/network
+# @crabtable/network
 
 ## Package Overview
 
 | Package Name | UMD Namespace | Version | License | Downloads | Contains CSS | Contains i18n locales |
 | --- | --- | --- | --- | --- | :---: | :---: |
-| `@univerjs/network` | `UniverNetwork` | [![][npm-version-shield]][npm-version-link] | ![][npm-license-shield] | ![][npm-downloads-shield] | ❌ | ❌ |
+| `@crabtable/network` | `UniverNetwork` | [![][npm-version-shield]][npm-version-link] | ![][npm-license-shield] | ![][npm-downloads-shield] | ❌ | ❌ |
 
 ## Introduction
 
-The `@univerjs/network` library provides basic network service capabilities, primarily for use in collaborative editing scenarios.
+The `@crabtable/network` library provides basic network service capabilities, primarily for use in collaborative editing scenarios.
 
 ## Usage
 
@@ -16,18 +16,18 @@ The `@univerjs/network` library provides basic network service capabilities, pri
 
 ```shell
 # Using npm
-npm install @univerjs/network
+npm install @crabtable/network
 
-# Using pnpm
-pnpm add @univerjs/network
+# Using yarn
+yarn add @crabtable/network
 ```
 
 ## Credit
 
-This package is inspired by [Angular's implementation](https://github.com/angular/angular/tree/main/packages/common/http). Removed zone.js dependency and features that are not necessary for Univer.
+This package is inspired by [Angular's implementation](https://github.com/angular/angular/tree/main/packages/common/http). Removed zone.js dependency and features that are not necessary for CrabTable.
 
 <!-- Links -->
-[npm-version-shield]: https://img.shields.io/npm/v/@univerjs/network?style=flat-square
-[npm-version-link]: https://npmjs.com/package/@univerjs/network
-[npm-license-shield]: https://img.shields.io/npm/l/@univerjs/network?style=flat-square
-[npm-downloads-shield]: https://img.shields.io/npm/dm/@univerjs/network?style=flat-square
+[npm-version-shield]: https://img.shields.io/npm/v/@crabtable/network?style=flat-square
+[npm-version-link]: https://npmjs.com/package/@crabtable/network
+[npm-license-shield]: https://img.shields.io/npm/l/@crabtable/network?style=flat-square
+[npm-downloads-shield]: https://img.shields.io/npm/dm/@crabtable/network?style=flat-square

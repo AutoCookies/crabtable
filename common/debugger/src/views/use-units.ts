@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import { IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { useDependency, useObservable } from '@univerjs/ui';
+import type { Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { useEffect, useState } from 'react';
 
 const defaultMenu = [
@@ -27,13 +27,13 @@ const defaultMenu = [
 ];
 
 export function useUnits() {
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const [menu, setMenu] = useState<{ label: string; value: string }[]>([...defaultMenu]);
-    const unitAdded = useObservable(univerInstanceService.unitAdded$);
-    const unitDisposed = useObservable(univerInstanceService.unitDisposed$);
+    const unitAdded = useObservable(crabtableInstanceService.unitAdded$);
+    const unitDisposed = useObservable(crabtableInstanceService.unitDisposed$);
 
     useEffect(() => {
-        const sheets = univerInstanceService.getAllUnitsForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const sheets = crabtableInstanceService.getAllUnitsForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         const options = sheets.map((sheet) => ({
             label: sheet.getName() || sheet.getUnitId(),
             value: sheet.getUnitId(),
@@ -47,10 +47,10 @@ export function useUnits() {
 
     const onSelect = (value: string) => {
         if (value === 'create') {
-            univerInstanceService.createUnit(UniverInstanceType.UNIVER_SHEET, {});
+            crabtableInstanceService.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, {});
         } else {
-            if (!univerInstanceService.getUnit(value)) return false;
-            univerInstanceService.setCurrentUnitForType(value);
+            if (!crabtableInstanceService.getUnit(value)) return false;
+            crabtableInstanceService.setCurrentUnitForType(value);
         }
     };
 

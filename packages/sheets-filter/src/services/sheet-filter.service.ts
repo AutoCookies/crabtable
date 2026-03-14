@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { Nullable, Workbook } from '@univerjs/core';
+import type { Nullable, Workbook } from '@crabtable/core';
 import type { IAutoFilter } from '../models/types';
 import {
     CommandType,
+    CrabTableInstanceType,
     Disposable,
     fromCallback,
     ICommandService,
+    ICrabTableInstanceService,
     IResourceManagerService,
-    IUniverInstanceService,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { BehaviorSubject, filter, merge, of, switchMap } from 'rxjs';
 import { FILTER_MUTATIONS } from '../common/const';
 import { FilterModel } from '../models/filter-model';
@@ -56,7 +56,7 @@ export class SheetsFilterService extends Disposable {
 
     constructor(
         @IResourceManagerService private readonly _resourcesManagerService: IResourceManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService
     ) {
         super();
@@ -76,7 +76,7 @@ export class SheetsFilterService extends Disposable {
             return already;
         }
 
-        const workbook = this._univerInstanceService.getUniverSheetInstance(unitId);
+        const workbook = this._crabtableInstanceService.getCrabTableSheetInstance(unitId);
         if (!workbook) {
             throw new Error(`[SheetsFilterService]: could not create "FilterModel" on a non-existing workbook ${unitId}!`);
         }
@@ -113,7 +113,7 @@ export class SheetsFilterService extends Disposable {
     private _updateActiveFilterModel(): void {
         let workbook: Nullable<Workbook>;
         try {
-            workbook = this._univerInstanceService.getCurrentUnitForType(UniverInstanceType.UNIVER_SHEET);
+            workbook = this._crabtableInstanceService.getCurrentUnitForType(CrabTableInstanceType.CRABTABLE_SHEET);
             if (!workbook) {
                 this._activeFilterModel$.next(null);
                 return;
@@ -144,7 +144,7 @@ export class SheetsFilterService extends Disposable {
                     .pipe(filter(([command]) => command.type === CommandType.MUTATION && FILTER_MUTATIONS.has(command.id))),
 
                 // source2: activate sheet changes
-                this._univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET)
+                this._crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)
                     .pipe(switchMap((workbook) => workbook?.activeSheet$ ?? of(null)))
             ).subscribe(() => this._updateActiveFilterModel())
         );
@@ -165,7 +165,7 @@ export class SheetsFilterService extends Disposable {
     }
 
     private _deserializeAutoFiltersForUnit(unitId: string, json: ISheetsFilterResource): void {
-        const workbook = this._univerInstanceService.getUniverSheetInstance(unitId)!;
+        const workbook = this._crabtableInstanceService.getCrabTableSheetInstance(unitId)!;
         Object.keys(json).forEach((worksheetId: WorksheetID) => {
             const autoFilter = json[worksheetId]!;
             const filterModel = FilterModel.deserialize(unitId, worksheetId, workbook.getSheetBySheetId(worksheetId)!, autoFilter);
@@ -189,7 +189,7 @@ export class SheetsFilterService extends Disposable {
     private _initModel(): void {
         this._resourcesManagerService.registerPluginResource<ISheetsFilterResource>({
             pluginName: SHEET_FILTER_SNAPSHOT_ID,
-            businesses: [UniverInstanceType.UNIVER_SHEET],
+            businesses: [CrabTableInstanceType.CRABTABLE_SHEET],
             toJson: (id) => this._serializeAutoFiltersForUnit(id),
             parseJson: (json) => JSON.parse(json),
             onLoad: (unitId, value) => {

@@ -34,7 +34,7 @@ export const GalleryBasic = {
     render() {
         const [open, setOpen] = useState(false);
 
-        const images = ['https://github.com/dream-num.png', 'https://github.com/awesome-univer.png', 'https://github.com/dream-num.png'];
+        const images = ['https://github.com/AutoCookies.png', 'https://github.com/awesome-univer.png', 'https://github.com/AutoCookies.png'];
 
         return (
             <>

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo } from '@univerjs/core';
+import type { ICommandInfo } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { RemoveDefinedNameMutation, SetDefinedNameMutation } from '../../commands/mutations/set-defined-name.mutation';
 import { SetSuperTableOptionMutation } from '../../commands/mutations/set-super-table.mutation';

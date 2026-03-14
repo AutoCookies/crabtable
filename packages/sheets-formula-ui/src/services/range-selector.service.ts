@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IUnitRangeName } from '@univerjs/core';
+import type { IUnitRangeName } from '@crabtable/core';
 import { BehaviorSubject } from 'rxjs';
 
 export interface IShowRangeSelectorDialogOptions {

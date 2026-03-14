@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ISequenceNode } from '@univerjs/engine-formula';
-import { LexerTreeBuilder } from '@univerjs/engine-formula';
-import { useDependency } from '@univerjs/ui';
+import type { ISequenceNode } from '@crabtable/engine-formula';
+import { LexerTreeBuilder } from '@crabtable/engine-formula';
+import { useDependency } from '@crabtable/ui';
 import { useCallback } from 'react';
 
 export type INode = (string | ISequenceNode);

@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import type { FUniver } from '@univerjs/core/facade';
-import { DataValidationOperator, DataValidationType } from '@univerjs/core';
-import { FDataValidationBuilder } from '@univerjs/sheets-data-validation/facade/f-data-validation-builder.js';
+import type { FCrabTable } from '@crabtable/core/facade';
+import { DataValidationOperator, DataValidationType } from '@crabtable/core';
+import { FDataValidationBuilder } from '@crabtable/sheets-data-validation/facade/f-data-validation-builder.js';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createFacadeTestBed } from './create-test-bed';
 
 describe('Test FDataValidationBuilder', () => {
-    let univerAPI: FUniver;
+    let crabtableAPI: FCrabTable;
 
     beforeEach(() => {
         const testBed = createFacadeTestBed();
 
-        univerAPI = testBed.univerAPI;
+        crabtableAPI = testBed.crabtableAPI;
     });
 
     it('should build checkbox', () => {
@@ -198,7 +198,7 @@ describe('Test FDataValidationBuilder', () => {
     });
 
     it('should build value in range', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()!.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()!.getActiveSheet();
 
         // // A1 sets the number
         const range1 = activeSheet!.getRange(0, 0, 1, 1)!;

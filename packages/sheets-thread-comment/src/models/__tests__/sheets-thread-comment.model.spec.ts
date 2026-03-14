@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { describe, expect, it } from 'vitest';
 import { SheetsThreadCommentModel } from '../sheets-thread-comment.model';
@@ -56,11 +56,11 @@ describe('SheetsThreadCommentModel', () => {
             getThread: () => thread,
             getUnit: () => [{ subUnitId: 'sheet-1', root }],
         };
-        const univerInstanceService = {
-            getUnitType: () => UniverInstanceType.UNIVER_SHEET,
+        const crabtableInstanceService = {
+            getUnitType: () => CrabTableInstanceType.CRABTABLE_SHEET,
         };
 
-        const model = new SheetsThreadCommentModel(threadCommentModel as any, univerInstanceService as any);
+        const model = new SheetsThreadCommentModel(threadCommentModel as any, crabtableInstanceService as any);
 
         expect(model.getByLocation('unit-1', 'sheet-1', 0, 0)).toBe(root.id);
         expect(model.getAllByLocation('unit-1', 'sheet-1', 0, 0)).toEqual([root]);
@@ -84,11 +84,11 @@ describe('SheetsThreadCommentModel', () => {
             getThread: () => null,
             getUnit: () => [],
         };
-        const univerInstanceService = {
-            getUnitType: (unitId: string) => (unitId === 'doc-unit' ? UniverInstanceType.UNIVER_DOC : UniverInstanceType.UNIVER_SHEET),
+        const crabtableInstanceService = {
+            getUnitType: (unitId: string) => (unitId === 'doc-unit' ? CrabTableInstanceType.CRABTABLE_DOC : CrabTableInstanceType.CRABTABLE_SHEET),
         };
 
-        const model = new SheetsThreadCommentModel(threadCommentModel as any, univerInstanceService as any);
+        const model = new SheetsThreadCommentModel(threadCommentModel as any, crabtableInstanceService as any);
         const received: Array<any> = [];
         const subscription = model.commentUpdate$.subscribe((update) => received.push(update));
 

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
+import type { ICommand } from '@crabtable/core';
 import type { IThreadComment } from '../../types/interfaces/i-thread-comment';
 import type { IUpdateCommentPayload } from '../mutations/comment.mutation';
-import { CommandType, ICommandService } from '@univerjs/core';
+import { CommandType, ICommandService } from '@crabtable/core';
 import { ThreadCommentModel } from '../../models/thread-comment.model';
 import { IThreadCommentDataSourceService } from '../../services/tc-datasource.service';
 import { AddCommentMutation, DeleteCommentMutation, ResolveCommentMutation, UpdateCommentMutation } from '../mutations/comment.mutation';

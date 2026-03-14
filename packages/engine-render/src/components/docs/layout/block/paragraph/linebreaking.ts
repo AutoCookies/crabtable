@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IBullet, IDocDrawingBase, IDrawings, IParagraph, Nullable } from '@univerjs/core';
+import type { IBullet, IDocDrawingBase, IDrawings, IParagraph, Nullable } from '@crabtable/core';
 import type { IDocumentSkeletonBullet, IDocumentSkeletonDrawing, IDocumentSkeletonPage, IDocumentSkeletonTable, IParagraphList } from '../../../../../basics/i-document-skeleton-cached';
 import type { IParagraphConfig, ISectionBreakConfig } from '../../../../../basics/interfaces';
 import type { DataStreamTreeNode } from '../../../view-model/data-stream-tree-node';
 import type { DocumentViewModel } from '../../../view-model/document-view-model';
 import type { ILayoutContext } from '../../tools';
 import type { IShapedText } from './shaping';
-import { DataStreamTreeTokenType, PositionedObjectLayoutType, Tools } from '@univerjs/core';
+import { DataStreamTreeTokenType, PositionedObjectLayoutType, Tools } from '@crabtable/core';
 import { BreakType } from '../../../../../basics/i-document-skeleton-cached';
 import { createSkeletonPage } from '../../model/page';
 import { setColumnFullState } from '../../model/section';

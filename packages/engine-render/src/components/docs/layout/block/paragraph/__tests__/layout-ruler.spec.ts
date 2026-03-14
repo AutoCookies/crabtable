@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { BooleanNumber, ColumnSeparatorType, DataStreamTreeTokenType, GridType, ObjectRelativeFromH, ObjectRelativeFromV, PositionedObjectLayoutType, SpacingRule } from '@univerjs/core';
+import { BooleanNumber, ColumnSeparatorType, DataStreamTreeTokenType, GridType, ObjectRelativeFromH, ObjectRelativeFromV, PositionedObjectLayoutType, SpacingRule } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import { BreakPointType } from '../../../line-breaker/break';
 import { createSkeletonPage } from '../../../model/page';

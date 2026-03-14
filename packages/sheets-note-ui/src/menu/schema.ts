@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { MenuSchemaType } from '@univerjs/ui';
-import { SheetDeleteNoteCommand, SheetToggleNotePopupCommand } from '@univerjs/sheets-note';
-import { ContextMenuGroup, ContextMenuPosition } from '@univerjs/ui';
+import type { MenuSchemaType } from '@crabtable/ui';
+import { SheetDeleteNoteCommand, SheetToggleNotePopupCommand } from '@crabtable/sheets-note';
+import { ContextMenuGroup, ContextMenuPosition } from '@crabtable/ui';
 import { AddNotePopupOperation } from '../commands/operations/add-note-popup.operation';
 import { sheetDeleteNoteMenuFactory, sheetNoteContextMenuFactory, sheetNoteToggleMenuFactory } from './note.menu';
 

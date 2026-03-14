@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDocumentData, IParagraph, ISectionBreak, ITable, ITableCell, ITableColumn, ITableRow } from '@univerjs/core';
-import { BooleanNumber, DocumentFlavor, HorizontalAlign, ObjectRelativeFromH, ObjectRelativeFromV, TableAlignmentType, TableRowHeightRule, TableSizeType, TableTextWrapType, Tools, VerticalAlignmentType } from '@univerjs/core';
-import { ptToPixel } from '@univerjs/engine-render';
+import type { IDocumentData, IParagraph, ISectionBreak, ITable, ITableCell, ITableColumn, ITableRow } from '@crabtable/core';
+import { BooleanNumber, DocumentFlavor, HorizontalAlign, ObjectRelativeFromH, ObjectRelativeFromV, TableAlignmentType, TableRowHeightRule, TableSizeType, TableTextWrapType, Tools, VerticalAlignmentType } from '@crabtable/core';
+import { ptToPixel } from '@crabtable/engine-render';
 
 const TABLE_START = '\x1A'; // 表格开始
 const TABLE_ROW_START = '\x1B'; // 表格行开始

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { CommandListener, DocumentDataModel, IDisposable, IDocumentData, IExecutionOptions, ILanguagePack, IParagraphStyle, ITextDecoration, ITextStyle, LifecycleStages, LocaleType } from '@univerjs/core';
+import type { CommandListener, DocumentDataModel, IDisposable, IDocumentData, IExecutionOptions, ILanguagePack, IParagraphStyle, ITextDecoration, ITextStyle, LifecycleStages, LocaleType } from '@crabtable/core';
 import type { Subscription } from 'rxjs';
 import type { ICommandEvent, IEventParamConfig } from './f-event';
-import { CanceledError, Disposable, ICommandService, Inject, Injector, IUniverInstanceService, LifecycleService, LocaleService, ParagraphStyleBuilder, ParagraphStyleValue, RedoCommand, RichTextBuilder, RichTextValue, TextDecorationBuilder, TextStyleBuilder, TextStyleValue, ThemeService, toDisposable, UndoCommand, Univer, UniverInstanceType } from '@univerjs/core';
+import { CanceledError, CrabTable, CrabTableInstanceType, Disposable, ICommandService, ICrabTableInstanceService, Inject, Injector, LifecycleService, LocaleService, ParagraphStyleBuilder, ParagraphStyleValue, RedoCommand, RichTextBuilder, RichTextValue, TextDecorationBuilder, TextStyleBuilder, TextStyleValue, ThemeService, toDisposable, UndoCommand } from '@crabtable/core';
 import { FBlob } from './f-blob';
 import { FDoc } from './f-doc';
 import { FEnum } from './f-enum';
@@ -38,26 +38,26 @@ const InitializerSymbol = Symbol('initializers');
 type Initializers = Array<(injector: Injector) => void>;
 
 /**
- * The root Facade API object to interact with Univer. Please use `newAPI` static method
+ * The root Facade API object to interact with CrabTable. Please use `newAPI` static method
  * to create a new instance.
  *
  * @hideconstructor
  */
-export class FUniver extends Disposable {
+export class FCrabTable extends Disposable {
     /**
-     * Create an FUniver instance, if the injector is not provided, it will create a new Univer instance.
+     * Create an FCrabTable instance, if the injector is not provided, it will create a new CrabTable instance.
      * @static
-     * @param {Univer | Injector} wrapped - The Univer instance or injector instance.
-     * @returns {FUniver} - The FUniver instance.
+     * @param {Univer | Injector} wrapped - The CrabTable instance or injector instance.
+     * @returns {FCrabTable} - The FCrabTable instance.
      *
      * @example
      * ```ts
-     * const univerAPI = FUniver.newAPI(univer);
+     * const crabtableAPI = FCrabTable.newAPI(univer);
      * ```
      */
-    static newAPI(wrapped: Univer | Injector): FUniver {
-        const injector = wrapped instanceof Univer ? wrapped.__getInjector() : wrapped;
-        return injector.createInstance(FUniver);
+    static newAPI(wrapped: CrabTable | Injector): FCrabTable {
+        const injector = wrapped instanceof CrabTable ? wrapped.__getInjector() : wrapped;
+        return injector.createInstance(FCrabTable);
     }
 
     declare private [InitializerSymbol]: Initializers | undefined;
@@ -103,7 +103,7 @@ export class FUniver extends Disposable {
     constructor(
         @Inject(Injector) protected readonly _injector: Injector,
         @ICommandService protected readonly _commandService: ICommandService,
-        @IUniverInstanceService protected readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService protected readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(LifecycleService) protected readonly _lifecycleService: LifecycleService
     ) {
         super();
@@ -241,13 +241,13 @@ export class FUniver extends Disposable {
     }
 
     private _initUnitEvent(injector: Injector): void {
-        const univerInstanceService = injector.get(IUniverInstanceService);
+        const crabtableInstanceService = injector.get(ICrabTableInstanceService);
 
         this.disposeWithMe(
             this.registerEventHandler(
                 this.Event.DocDisposed,
-                () => univerInstanceService.unitDisposed$.subscribe((unit) => {
-                    if (unit.type === UniverInstanceType.UNIVER_DOC) {
+                () => crabtableInstanceService.unitDisposed$.subscribe((unit) => {
+                    if (unit.type === CrabTableInstanceType.CRABTABLE_DOC) {
                         this.fireEvent(this.Event.DocDisposed, {
                             unitId: unit.getUnitId(),
                             unitType: unit.type,
@@ -261,8 +261,8 @@ export class FUniver extends Disposable {
         this.disposeWithMe(
             this.registerEventHandler(
                 this.Event.DocCreated,
-                () => univerInstanceService.unitAdded$.subscribe((unit) => {
-                    if (unit.type === UniverInstanceType.UNIVER_DOC) {
+                () => crabtableInstanceService.unitAdded$.subscribe((unit) => {
+                    if (unit.type === CrabTableInstanceType.CRABTABLE_DOC) {
                         const doc = unit as DocumentDataModel;
                         const docUnit = injector.createInstance(FDoc, doc);
                         this.fireEvent(this.Event.DocCreated, {
@@ -280,20 +280,20 @@ export class FUniver extends Disposable {
     /**
      * Dispose the UniverSheet by the `unitId`. The UniverSheet would be unload from the application.
      * @param unitId The unit id of the UniverSheet.
-     * @returns Whether the Univer instance is disposed successfully.
+     * @returns Whether the CrabTable instance is disposed successfully.
      *
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const unitId = fWorkbook?.getId();
      *
      * if (unitId) {
-     *   univerAPI.disposeUnit(unitId);
+     *   crabtableAPI.disposeUnit(unitId);
      * }
      * ```
      */
     disposeUnit(unitId: string): boolean {
-        return this._univerInstanceService.disposeUnit(unitId);
+        return this._crabtableInstanceService.disposeUnit(unitId);
     }
 
     /**
@@ -302,7 +302,7 @@ export class FUniver extends Disposable {
      *
      * @example
      * ```ts
-     * const stage = univerAPI.getCurrentLifecycleStage();
+     * const stage = crabtableAPI.getCurrentLifecycleStage();
      * console.log(stage);
      * ```
      */
@@ -317,7 +317,7 @@ export class FUniver extends Disposable {
      *
      * @example
      * ```ts
-     * await univerAPI.undo();
+     * await crabtableAPI.undo();
      * ```
      */
     undo(): Promise<boolean> {
@@ -330,7 +330,7 @@ export class FUniver extends Disposable {
      *
      * @example
      * ```ts
-     * await univerAPI.redo();
+     * await crabtableAPI.redo();
      * ```
      */
     redo(): Promise<boolean> {
@@ -342,7 +342,7 @@ export class FUniver extends Disposable {
      * @param {boolean} isDarkMode - Whether the dark mode is enabled.
      * @example
      * ```ts
-     * univerAPI.toggleDarkMode(true);
+     * crabtableAPI.toggleDarkMode(true);
      * ```
      */
     toggleDarkMode(isDarkMode: boolean): void {
@@ -357,7 +357,7 @@ export class FUniver extends Disposable {
      * @param {ILanguagePack} locales  - The locales object containing the translations.
      * @example
      * ```ts
-     * univerAPI.loadLocales('esES', {
+     * crabtableAPI.loadLocales('esES', {
      *   'Hello World': 'Hola Mundo',
      * });
      * ```
@@ -372,7 +372,7 @@ export class FUniver extends Disposable {
      * @param {string} locale - A unique locale identifier.
      * @example
      * ```ts
-     * univerAPI.setLocale('esES');
+     * crabtableAPI.setLocale('esES');
      * ```
      */
     setLocale(locale: string): void {
@@ -382,7 +382,7 @@ export class FUniver extends Disposable {
 
     /**
      * Register a callback that will be triggered before invoking a command.
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.BeforeCommandExecute, (event) => {})` instead.
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.BeforeCommandExecute, (event) => {})` instead.
      * @param {CommandListener} callback The callback.
      * @returns {IDisposable} The disposable instance.
      */
@@ -394,7 +394,7 @@ export class FUniver extends Disposable {
 
     /**
      * Register a callback that will be triggered when a command is invoked.
-     * @deprecated use `univerAPI.addEvent(univerAPI.Event.CommandExecuted, (event) => {})` instead.
+     * @deprecated use `crabtableAPI.addEvent(crabtableAPI.Event.CommandExecuted, (event) => {})` instead.
      * @param {CommandListener} callback The callback.
      * @returns {IDisposable} The disposable instance.
      */
@@ -413,7 +413,7 @@ export class FUniver extends Disposable {
      *
      * @example
      * ```ts
-     * univerAPI.executeCommand('sheet.command.set-range-values', {
+     * crabtableAPI.executeCommand('sheet.command.set-range-values', {
      *   value: { v: "Hello, Univer!" },
      *   range: { startRow: 0, startColumn: 0, endRow: 0, endColumn: 0 }
      * });
@@ -436,7 +436,7 @@ export class FUniver extends Disposable {
      *
      * @example
      * ```ts
-     * univerAPI.syncExecuteCommand('sheet.command.set-range-values', {
+     * crabtableAPI.syncExecuteCommand('sheet.command.set-range-values', {
      *   value: { v: "Hello, Univer!" },
      *   range: { startRow: 0, startColumn: 0, endRow: 0, endColumn: 0 }
      * });
@@ -479,7 +479,7 @@ export class FUniver extends Disposable {
      * @example
      * ```ts
      * // Add life cycle changed event listener
-     * const disposable = univerAPI.addEvent(univerAPI.Event.LifeCycleChanged, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.LifeCycleChanged, (params) => {
      *   const { stage } = params;
      *   console.log('life cycle changed', params);
      * });
@@ -499,7 +499,7 @@ export class FUniver extends Disposable {
      * @returns {boolean} should cancel
      * @example
      * ```ts
-     * this.fireEvent(univerAPI.Event.LifeCycleChanged, params);
+     * this.fireEvent(crabtableAPI.Event.LifeCycleChanged, params);
      * ```
      */
     fireEvent<T extends keyof IEventParamConfig>(event: T, params: IEventParamConfig[T]): boolean | undefined {
@@ -515,7 +515,7 @@ export class FUniver extends Disposable {
      * @returns {FBlob} The new blob instance
      * @example
      * ```ts
-     * const blob = univerAPI.newBlob();
+     * const blob = crabtableAPI.newBlob();
      * ```
      */
     newBlob(): FBlob {
@@ -528,8 +528,8 @@ export class FUniver extends Disposable {
      * @returns {RichTextBuilder} The new rich text instance
      * @example
      * ```ts
-     * const richText = univerAPI.newRichText({ body: { dataStream: 'Hello World\r\n' } });
-     * const range = univerAPI.getActiveWorkbook().getActiveSheet().getRange('A1');
+     * const richText = crabtableAPI.newRichText({ body: { dataStream: 'Hello World\r\n' } });
+     * const range = crabtableAPI.getActiveWorkbook().getActiveSheet().getRange('A1');
      * range.setRichTextValueForCell(richText);
      * ```
      */
@@ -543,8 +543,8 @@ export class FUniver extends Disposable {
      * @returns {RichTextValue} The new rich text value instance
      * @example
      * ```ts
-     * const richTextValue = univerAPI.newRichTextValue({ body: { dataStream: 'Hello World\r\n' } });
-     * const range = univerAPI.getActiveWorkbook().getActiveSheet().getRange('A1');
+     * const richTextValue = crabtableAPI.newRichTextValue({ body: { dataStream: 'Hello World\r\n' } });
+     * const range = crabtableAPI.getActiveWorkbook().getActiveSheet().getRange('A1');
      * range.setRichTextValueForCell(richTextValue);
      * ```
      */
@@ -558,10 +558,10 @@ export class FUniver extends Disposable {
      * @returns {ParagraphStyleBuilder} The new paragraph style instance
      * @example
      * ```ts
-     * const richText = univerAPI.newRichText({ body: { dataStream: 'Hello World\r\n' } });
-     * const paragraphStyle = univerAPI.newParagraphStyle({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const richText = crabtableAPI.newRichText({ body: { dataStream: 'Hello World\r\n' } });
+     * const paragraphStyle = crabtableAPI.newParagraphStyle({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * richText.insertParagraph(paragraphStyle);
-     * const range = univerAPI.getActiveWorkbook().getActiveSheet().getRange('A1');
+     * const range = crabtableAPI.getActiveWorkbook().getActiveSheet().getRange('A1');
      * range.setRichTextValueForCell(richText);
      * ```
      */
@@ -575,7 +575,7 @@ export class FUniver extends Disposable {
      * @returns {ParagraphStyleValue} The new paragraph style value instance
      * @example
      * ```ts
-     * const paragraphStyleValue = univerAPI.newParagraphStyleValue();
+     * const paragraphStyleValue = crabtableAPI.newParagraphStyleValue();
      * ```
      */
     newParagraphStyleValue(style?: IParagraphStyle): ParagraphStyleValue {
@@ -588,7 +588,7 @@ export class FUniver extends Disposable {
      * @returns {TextStyleBuilder} The new text style instance
      * @example
      * ```ts
-     * const textStyle = univerAPI.newTextStyle();
+     * const textStyle = crabtableAPI.newTextStyle();
      * ```
      */
     newTextStyle(style?: ITextStyle): TextStyleBuilder {
@@ -601,7 +601,7 @@ export class FUniver extends Disposable {
      * @returns {TextStyleValue} The new text style value instance
      * @example
      * ```ts
-     * const textStyleValue = univerAPI.newTextStyleValue();
+     * const textStyleValue = crabtableAPI.newTextStyleValue();
      * ```
      */
     newTextStyleValue(style?: ITextStyle): TextStyleValue {
@@ -614,7 +614,7 @@ export class FUniver extends Disposable {
      * @returns {TextDecorationBuilder} The new text decoration instance
      * @example
      * ```ts
-     * const decoration = univerAPI.newTextDecoration();
+     * const decoration = crabtableAPI.newTextDecoration();
      * ```
      */
     newTextDecoration(decoration?: ITextDecoration): TextDecorationBuilder {

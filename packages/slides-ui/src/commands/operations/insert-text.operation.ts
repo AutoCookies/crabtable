@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICommand, IPageElement, SlideDataModel } from '@univerjs/core';
-import { CommandType, generateRandomId, ICommandService, IUniverInstanceService, PageElementType } from '@univerjs/core';
+import type { ICommand, IPageElement, SlideDataModel } from '@crabtable/core';
+import { CommandType, generateRandomId, ICommandService, ICrabTableInstanceService, PageElementType } from '@crabtable/core';
 import { CanvasView } from '../../controllers/canvas-view';
 
 export interface ISlideAddTextParam {
@@ -28,8 +28,8 @@ export const SlideAddTextCommand: ICommand = {
     type: CommandType.COMMAND,
     handler: async (accessor) => {
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const unitId = univerInstanceService.getFocusedUnit()?.getUnitId();
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const unitId = crabtableInstanceService.getFocusedUnit()?.getUnitId();
         return await commandService.executeCommand(SlideAddTextOperation.id, { unitId });
     },
 
@@ -48,10 +48,10 @@ export const SlideAddTextOperation: ICommand<ISlideAddTextParam> = {
         const top = 142;
         const textContent = params?.text || 'A New Text';
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        // const slideData = univerInstanceService.getCurrentUnitForType<SlideDataModel>(UniverInstanceType.UNIVER_SLIDE);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        // const slideData = crabtableInstanceService.getCurrentUnitForType<SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE);
 
-        const slideData = univerInstanceService.getUnit<SlideDataModel>(unitId);
+        const slideData = crabtableInstanceService.getUnit<SlideDataModel>(unitId);
         if (!slideData) return false;
 
         const activePage = slideData.getActivePage()!;

@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import type { ICellData, Injector, IRange, IStyleData, Nullable, Univer } from '@univerjs/core';
+import type { CrabTable, ICellData, Injector, IRange, IStyleData, Nullable } from '@crabtable/core';
 import type { ISetRangeValuesCommandParams } from '../set-range-values.command';
 import {
     CellValueType,
     ICommandService,
     IConfirmService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     RANGE_TYPE,
     RedoCommand,
     TestConfirmService,
     UndoCommand,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { MergeCellController } from '../../../controllers/merge-cell.controller';
 import { RefRangeService } from '../../../services/ref-range/ref-range.service';
@@ -41,7 +41,7 @@ import { SetRangeValuesCommand } from '../set-range-values.command';
 import { createCommandTestBed } from './create-command-test-bed';
 
 describe('Test clear selection content commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
@@ -83,8 +83,8 @@ describe('Test clear selection content commands', () => {
                 ]);
 
                 function getValue(): Nullable<ICellData> {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(0, 0, 0, 0)
                         .getValue();
@@ -128,8 +128,8 @@ describe('Test clear selection content commands', () => {
                 ]);
 
                 function getValue(): Nullable<ICellData> {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(0, 0, 0, 0)
                         .getValue();
@@ -137,7 +137,7 @@ describe('Test clear selection content commands', () => {
 
                 function getStyle(): Nullable<IStyleData> {
                     const value = getValue();
-                    const styles = get(IUniverInstanceService).getUniverSheetInstance('test')?.getStyles();
+                    const styles = get(ICrabTableInstanceService).getCrabTableSheetInstance('test')?.getStyles();
                     if (value && styles) {
                         return styles.getStyleByCell(value);
                     }
@@ -187,8 +187,8 @@ describe('Test clear selection content commands', () => {
                 ]);
 
                 function getValue(): Nullable<ICellData> {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(0, 0, 0, 0)
                         .getValue();
@@ -196,15 +196,15 @@ describe('Test clear selection content commands', () => {
 
                 function getStyle(): Nullable<IStyleData> {
                     const value = getValue();
-                    const styles = get(IUniverInstanceService).getUniverSheetInstance('test')?.getStyles();
+                    const styles = get(ICrabTableInstanceService).getCrabTableSheetInstance('test')?.getStyles();
                     if (value && styles) {
                         return styles.getStyleByCell(value);
                     }
                 }
 
                 function getMerge(): IRange[] | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getConfig()
                         .mergeData;
@@ -279,8 +279,8 @@ describe('Test clear selection content commands', () => {
                 ]);
 
                 function getValue(): Nullable<ICellData> {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(0, 0, 0, 0)
                         .getValue();
@@ -288,7 +288,7 @@ describe('Test clear selection content commands', () => {
 
                 function getStyle(): Nullable<IStyleData> {
                     const value = getValue();
-                    const styles = get(IUniverInstanceService).getUniverSheetInstance('test')?.getStyles();
+                    const styles = get(ICrabTableInstanceService).getCrabTableSheetInstance('test')?.getStyles();
                     if (value && styles) {
                         return styles.getStyleByCell(value);
                     }
@@ -330,8 +330,8 @@ describe('Test clear selection content commands', () => {
                 ]);
 
                 function getValue(): Nullable<ICellData> {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(0, 0, 0, 0)
                         .getValue();
@@ -339,15 +339,15 @@ describe('Test clear selection content commands', () => {
 
                 function getStyle(): Nullable<IStyleData> {
                     const value = getValue();
-                    const styles = get(IUniverInstanceService).getUniverSheetInstance('test')?.getStyles();
+                    const styles = get(ICrabTableInstanceService).getCrabTableSheetInstance('test')?.getStyles();
                     if (value && styles) {
                         return styles.getStyleByCell(value);
                     }
                 }
 
                 function getMerge(): IRange[] | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getConfig()
                         .mergeData;

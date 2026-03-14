@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IMutation, IMutationInfo } from '@univerjs/core';
+import type { IMutation, IMutationInfo } from '@crabtable/core';
 import type { IRangeProtectionRule } from '../../model/range-protection-rule.model';
 
 import type { IDeleteRangeProtectionMutationParams } from './delete-range-protection.mutation';
-import { CommandType } from '@univerjs/core';
+import { CommandType } from '@crabtable/core';
 import { RangeProtectionRuleModel } from '../../model/range-protection-rule.model';
 import { DeleteRangeProtectionMutation } from './delete-range-protection.mutation';
 

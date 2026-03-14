@@ -15,7 +15,7 @@
  */
 
 import type { IFontConfig } from '../../services/font.service';
-import { createIdentifier } from '@univerjs/core';
+import { createIdentifier } from '@crabtable/core';
 
 export type RibbonType = 'collapsed' | 'simple' | 'classic';
 
@@ -23,12 +23,12 @@ export interface IWorkbenchOptions {
     container?: string | HTMLElement;
 
     /**
-     * If Univer should make the header bar visible.
+     * If CrabTable should make the header bar visible.
      */
     header?: boolean;
 
     /**
-     * If Univer should make the toolbar bar visible.
+     * If CrabTable should make the toolbar bar visible.
      */
     toolbar?: boolean;
 
@@ -46,17 +46,17 @@ export interface IWorkbenchOptions {
     };
 
     /**
-     * If Univer should make the footer bar visible.
+     * If CrabTable should make the footer bar visible.
      */
     footer?: boolean;
 
     /**
-     * If Univer should make the context menu usable.
+     * If CrabTable should make the context menu usable.
      */
     contextMenu?: boolean;
 
     /**
-     * If Univer should make the header menu visible.
+     * If CrabTable should make the header menu visible.
      */
     headerMenu?: boolean;
 }

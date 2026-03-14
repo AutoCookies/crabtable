@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { createIdentifier } from '@univerjs/core';
+import { createIdentifier } from '@crabtable/core';
 
 export const INumfmtController = createIdentifier<INumfmtController>('INumfmtController');
 export interface INumfmtController {

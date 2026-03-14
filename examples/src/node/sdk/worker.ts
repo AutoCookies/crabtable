@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { LocaleType, Univer } from '@univerjs/core';
-import { UniverFormulaEnginePlugin } from '@univerjs/engine-formula';
-import { UniverRPCNodeWorkerPlugin } from '@univerjs/rpc-node';
-import { UniverSheetsPlugin } from '@univerjs/sheets';
+import { CrabTable, LocaleType } from '@crabtable/core';
+import { UniverFormulaEnginePlugin } from '@crabtable/engine-formula';
+import { UniverRPCNodeWorkerPlugin } from '@crabtable/rpc-node';
+import { UniverSheetsPlugin } from '@crabtable/sheets';
 
-const univer = new Univer({
+const univer = new CrabTable({
     locale: LocaleType.ZH_CN,
 });
 

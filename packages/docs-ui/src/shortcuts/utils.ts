@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IContextService } from '@univerjs/core';
-import { FOCUSING_COMMON_DRAWINGS, FOCUSING_DOC, FOCUSING_UNIVER_EDITOR } from '@univerjs/core';
+import type { IContextService } from '@crabtable/core';
+import { FOCUSING_COMMON_DRAWINGS, FOCUSING_DOC, FOCUSING_UNIVER_EDITOR } from '@crabtable/core';
 
 export function whenDocAndEditorFocused(contextService: IContextService): boolean {
     return contextService.getContextValue(FOCUSING_DOC)

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
-import { CommandType, ICommandService, IConfirmService, LocaleService } from '@univerjs/core';
+import type { IAccessor, ICommand } from '@crabtable/core';
+import { CommandType, ICommandService, IConfirmService, LocaleService } from '@crabtable/core';
 import { COMPONENT_DOC_CREATE_TABLE_CONFIRM } from '../../views/table/create/component-name';
 import { CreateDocTableCommand } from '../commands/table/doc-table-create.command';
 

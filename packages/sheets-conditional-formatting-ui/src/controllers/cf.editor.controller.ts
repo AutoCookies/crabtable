@@ -18,9 +18,9 @@ import {
     Disposable,
     Inject,
     toDisposable,
-} from '@univerjs/core';
-import { AFTER_CELL_EDIT, SheetInterceptorService } from '@univerjs/sheets';
-import { ConditionalFormattingService } from '@univerjs/sheets-conditional-formatting';
+} from '@crabtable/core';
+import { AFTER_CELL_EDIT, SheetInterceptorService } from '@crabtable/sheets';
+import { ConditionalFormattingService } from '@crabtable/sheets-conditional-formatting';
 
 export class ConditionalFormattingEditorController extends Disposable {
     constructor(

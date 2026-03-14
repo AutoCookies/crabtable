@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import type { IBoundRectNoAngle } from '@univerjs/engine-render';
+import type { Nullable } from '@crabtable/core';
+import type { IBoundRectNoAngle } from '@crabtable/engine-render';
 import type { Observable } from 'rxjs';
 import type { IRectPopupProps } from '../../views/components/popup/RectPopup';
-import { createIdentifier, Disposable, generateRandomId } from '@univerjs/core';
+import { createIdentifier, Disposable, generateRandomId } from '@crabtable/core';
 import { BehaviorSubject } from 'rxjs';
 
 export interface IPopup<T = Record<string, unknown>> extends Omit<IRectPopupProps, 'children' | 'hidden' | 'excludeRects' | 'anchorRect$'> {

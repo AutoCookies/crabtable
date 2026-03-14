@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IDrawingSearch, IOperation } from '@univerjs/core';
+import type { IAccessor, IDrawingSearch, IOperation } from '@crabtable/core';
 import {
     CommandType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { IDrawingManagerService } from '../../services/drawing-manager.service';
 
 export const SetDrawingSelectedOperation: IOperation<IDrawingSearch[]> = {

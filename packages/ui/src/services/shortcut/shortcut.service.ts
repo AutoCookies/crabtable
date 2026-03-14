@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
 import type { Observable } from 'rxjs';
 import type { KeyCode } from './keycode';
-import { createIdentifier, Disposable, ICommandService, IContextService, Optional, toDisposable } from '@univerjs/core';
+import { createIdentifier, Disposable, ICommandService, IContextService, Optional, toDisposable } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { fromGlobalEvent } from '../../common/lifecycle';
 import { ILayoutService } from '../layout/layout.service';
@@ -266,7 +266,7 @@ export class ShortcutService extends Disposable implements IShortcutService {
     }
 
     dispatch(e: KeyboardEvent): IShortcutItem<object> | undefined {
-        // Should get the container element of the Univer instance and see if
+        // Should get the container element of the CrabTable instance and see if
         // the event target is a descendant of the container element.
         // Also we should check through escape list and force catching list.
         // if the target is not focused on the univer instance we should ignore the keyboard event.

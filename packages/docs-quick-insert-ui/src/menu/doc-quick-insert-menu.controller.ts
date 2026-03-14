@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, INeedCheckDisposable, Nullable } from '@univerjs/core';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
-import { Disposable, Inject } from '@univerjs/core';
-import { DocCanvasPopManagerService, DocEventManagerService } from '@univerjs/docs-ui';
+import type { DocumentDataModel, INeedCheckDisposable, Nullable } from '@crabtable/core';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
+import { Disposable, Inject } from '@crabtable/core';
+import { DocCanvasPopManagerService, DocEventManagerService } from '@crabtable/docs-ui';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { DocQuickInsertPopupService } from '../services/doc-quick-insert-popup.service';
 import { QuickInsertButtonComponentKey } from './const';

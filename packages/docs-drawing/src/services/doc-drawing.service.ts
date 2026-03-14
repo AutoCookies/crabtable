@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDocDrawingBase } from '@univerjs/core';
-import type { IDocFloatDomData, IImageData, IUnitDrawingService } from '@univerjs/drawing';
-import { createIdentifier } from '@univerjs/core';
-import { UnitDrawingService } from '@univerjs/drawing';
+import type { IDocDrawingBase } from '@crabtable/core';
+import type { IDocFloatDomData, IImageData, IUnitDrawingService } from '@crabtable/drawing';
+import { createIdentifier } from '@crabtable/core';
+import { UnitDrawingService } from '@crabtable/drawing';
 
 export interface IDocImage extends IImageData, IDocDrawingBase { }
 

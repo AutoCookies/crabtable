@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
-import { RANGE_TYPE, Rectangle } from '@univerjs/core';
+import type { IRange } from '@crabtable/core';
+import { RANGE_TYPE, Rectangle } from '@crabtable/core';
 
 export class CrossHairRangeCollection {
     private _selectedRanges: IRange[] = [];

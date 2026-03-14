@@ -27,7 +27,7 @@ const locale: typeof enUS = {
             },
         ],
         functionParameter: {
-            year: { name: 'any', detail: 'El valor de l\'argument any pot incloure d\'un a quatre dígits. Excel interpreta l\'argument any segons el sistema de dates que utilitzi el vostre equip. Per defecte, Univer utilitza el sistema de dates de 1900, el que significa que la primera data és l\'1 de gener de 1900.' },
+            year: { name: 'any', detail: 'El valor de l\'argument any pot incloure d\'un a quatre dígits. Excel interpreta l\'argument any segons el sistema de dates que utilitzi el vostre equip. Per defecte, CrabTable utilitza el sistema de dates de 1900, el que significa que la primera data és l\'1 de gener de 1900.' },
             month: { name: 'mes', detail: 'Un enter positiu o negatiu que representa el mes de l\'any de l\'1 al 12 (gener a desembre).' },
             day: { name: 'dia', detail: 'Un enter positiu o negatiu que representa el dia del mes de l\'1 al 31.' },
         },

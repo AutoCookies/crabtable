@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IMutationInfo } from '@univerjs/core';
-import type { IRemoveNumfmtMutationParams, ISetNumfmtMutationParams } from '@univerjs/sheets';
-import { Tools } from '@univerjs/core';
-import { rangeMerge, RemoveNumfmtMutation, SetNumfmtMutation } from '@univerjs/sheets';
+import type { IMutationInfo } from '@crabtable/core';
+import type { IRemoveNumfmtMutationParams, ISetNumfmtMutationParams } from '@crabtable/sheets';
+import { Tools } from '@crabtable/core';
+import { rangeMerge, RemoveNumfmtMutation, SetNumfmtMutation } from '@crabtable/sheets';
 
 export const mergeNumfmtMutations = (list: IMutationInfo[]) => {
     const removeMutation = list

@@ -76,7 +76,7 @@ const locale = {
     clipboard: {
         authentication: {
             title: 'Permission Denied',
-            content: 'Please allow Univer to access your clipboard.',
+            content: 'Please allow CrabTable to access your clipboard.',
         },
     },
     textEditor: {

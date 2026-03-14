@@ -14,7 +14,7 @@ import noFacadeImportsOutsideFacade from './plugins/no-facade-imports-outside-fa
 import noSelfPackageImports from './plugins/no-self-package-imports';
 
 /**
- * Base ESLint rules configuration for Univer project.
+ * Base ESLint rules configuration for CrabTable project.
  * These rules apply to all TypeScript and JavaScript files.
  */
 
@@ -129,7 +129,7 @@ export const baseRules: Partial<Rules> = {
             paths: [
                 {
                     name: 'clsx',
-                    message: 'Please use `import { clsx } from \'@univerjs/design\'` instead.',
+                    message: 'Please use `import { clsx } from \'@crabtable/design\'` instead.',
                 },
             ],
         },
@@ -183,7 +183,7 @@ export const baseRules: Partial<Rules> = {
 
 /**
  * TypeScript preset configuration for ESLint.
- * Applies TypeScript-specific rules and custom Univer rules.
+ * Applies TypeScript-specific rules and custom CrabTable rules.
  *
  * @returns ESLint configuration object for TypeScript files
  */
@@ -231,10 +231,10 @@ export const typescriptPreset = (): Linter.Config => {
 };
 
 /**
- * Univer source code preset configuration.
+ * CrabTable source code preset configuration.
  * Enforces package structure rules for source files.
  *
- * @returns ESLint configuration object for Univer source files
+ * @returns ESLint configuration object for CrabTable source files
  */
 export const univerSourcePreset = (options: {
     noFacadeImportsOutsideFacade?: {

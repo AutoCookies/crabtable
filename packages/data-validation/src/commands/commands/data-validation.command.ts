@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICommand, IDataValidationRule, IDataValidationRuleBase, IDataValidationRuleOptions, IMutationInfo, Injector, IRange, ISheetDataValidationRule } from '@univerjs/core';
+import type { ICommand, IDataValidationRule, IDataValidationRuleBase, IDataValidationRuleOptions, IMutationInfo, Injector, IRange, ISheetDataValidationRule } from '@crabtable/core';
 import type { IAddDataValidationMutationParams, IRemoveDataValidationMutationParams, IUpdateDataValidationMutationParams } from '../mutations/data-validation.mutation';
-import { CommandType, ICommandService, ILogService, IUndoRedoService } from '@univerjs/core';
+import { CommandType, ICommandService, ILogService, IUndoRedoService } from '@crabtable/core';
 import { getRuleOptions, getRuleSetting } from '../../common/util';
 import { DataValidationModel } from '../../models/data-validation-model';
 import { DataValidatorRegistryService } from '../../services/data-validator-registry.service';
@@ -36,14 +36,14 @@ export interface IAddDataValidationCommandParams extends ISheetCommandSharedPara
 }
 
 /**
- * @deprecated `AddDataValidationCommand` is deprecated, please use `AddSheetDataValidationCommand` in `@univerjs/sheets-data-validation` instead!
+ * @deprecated `AddDataValidationCommand` is deprecated, please use `AddSheetDataValidationCommand` in `@crabtable/sheets-data-validation` instead!
  */
 export const AddDataValidationCommand: ICommand<IAddDataValidationCommandParams> = {
     type: CommandType.COMMAND,
     id: 'data-validation.command.addRule',
     async handler(accessor, params) {
         const logService = accessor.get(ILogService);
-        logService.error('[Deprecated]: `AddDataValidationCommand` is deprecated, please use `AddSheetDataValidationCommand` in `@univerjs/sheets-data-validation` instead!');
+        logService.error('[Deprecated]: `AddDataValidationCommand` is deprecated, please use `AddSheetDataValidationCommand` in `@crabtable/sheets-data-validation` instead!');
         if (!params) {
             return false;
         }
@@ -117,14 +117,14 @@ export const removeDataValidationUndoFactory = (accessor: Injector, redoParams: 
 };
 
 /**
- * @deprecated `RemoveDataValidationCommand` is deprecated, please use `RemoveSheetDataValidationCommand` in `@univerjs/sheets-data-validation` instead!
+ * @deprecated `RemoveDataValidationCommand` is deprecated, please use `RemoveSheetDataValidationCommand` in `@crabtable/sheets-data-validation` instead!
  */
 export const RemoveDataValidationCommand: ICommand<IRemoveDataValidationCommandParams> = {
     type: CommandType.COMMAND,
     id: 'data-validation.command.removeRule',
     handler(accessor, params) {
         const logService = accessor.get(ILogService);
-        logService.error('[Deprecated]: `RemoveDataValidationCommand` is deprecated, please use `RemoveSheetDataValidationCommand` in `@univerjs/sheets-data-validation` instead!');
+        logService.error('[Deprecated]: `RemoveDataValidationCommand` is deprecated, please use `RemoveSheetDataValidationCommand` in `@crabtable/sheets-data-validation` instead!');
 
         if (!params) {
             return false;
@@ -167,14 +167,14 @@ export interface IUpdateDataValidationOptionsCommandParams extends ISheetCommand
 }
 
 /**
- * @deprecated `UpdateDataValidationOptionsCommand` is deprecated, please use `UpdateSheetDataValidationOptionsCommand` in `@univerjs/sheets-data-validation` instead!
+ * @deprecated `UpdateDataValidationOptionsCommand` is deprecated, please use `UpdateSheetDataValidationOptionsCommand` in `@crabtable/sheets-data-validation` instead!
  */
 export const UpdateDataValidationOptionsCommand: ICommand<IUpdateDataValidationOptionsCommandParams> = {
     type: CommandType.COMMAND,
     id: 'data-validation.command.updateDataValidationSetting',
     handler(accessor, params) {
         const logService = accessor.get(ILogService);
-        logService.warn('[Deprecated]: `UpdateDataValidationOptionsCommand` is deprecated, please use `UpdateSheetDataValidationOptionsCommand` in `@univerjs/sheets-data-validation` instead!');
+        logService.warn('[Deprecated]: `UpdateDataValidationOptionsCommand` is deprecated, please use `UpdateSheetDataValidationOptionsCommand` in `@crabtable/sheets-data-validation` instead!');
         if (!params) {
             return false;
         }
@@ -234,14 +234,14 @@ export interface IUpdateDataValidationSettingCommandParams extends ISheetCommand
 }
 
 /**
- * @deprecated `UpdateDataValidationSettingCommand` is deprecated, please use `UpdateSheetDataValidationSettingCommand` in `@univerjs/sheets-data-validation` instead!
+ * @deprecated `UpdateDataValidationSettingCommand` is deprecated, please use `UpdateSheetDataValidationSettingCommand` in `@crabtable/sheets-data-validation` instead!
  */
 export const UpdateDataValidationSettingCommand: ICommand<IUpdateDataValidationSettingCommandParams> = {
     type: CommandType.COMMAND,
     id: 'data-validation.command.updateDataValidationOptions',
     handler(accessor, params) {
         const logService = accessor.get(ILogService);
-        logService.error('[Deprecated]: `UpdateDataValidationSettingCommand` is deprecated, please use `UpdateSheetDataValidationSettingCommand` in `@univerjs/sheets-data-validation` instead!');
+        logService.error('[Deprecated]: `UpdateDataValidationSettingCommand` is deprecated, please use `UpdateSheetDataValidationSettingCommand` in `@crabtable/sheets-data-validation` instead!');
 
         if (!params) {
             return false;
@@ -313,14 +313,14 @@ export interface IRemoveAllDataValidationCommandParams extends ISheetCommandShar
 }
 
 /**
- * @deprecated `RemoveAllDataValidationCommand` is deprecated, please use `RemoveSheetAllDataValidationCommand` in `@univerjs/sheets-data-validation` instead!
+ * @deprecated `RemoveAllDataValidationCommand` is deprecated, please use `RemoveSheetAllDataValidationCommand` in `@crabtable/sheets-data-validation` instead!
  */
 export const RemoveAllDataValidationCommand: ICommand<IRemoveAllDataValidationCommandParams> = {
     type: CommandType.COMMAND,
     id: 'data-validation.command.removeAll',
     handler(accessor, params) {
         const logService = accessor.get(ILogService);
-        logService.error('[Deprecated]: `RemoveAllDataValidationCommand` is deprecated, please use `RemoveSheetAllDataValidationCommand` in `@univerjs/sheets-data-validation` instead!');
+        logService.error('[Deprecated]: `RemoveAllDataValidationCommand` is deprecated, please use `RemoveSheetAllDataValidationCommand` in `@crabtable/sheets-data-validation` instead!');
 
         if (!params) {
             return false;

@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import type { IDisposable, IMutation, IMutationInfo, Workbook } from '@univerjs/core';
+import type { IDisposable, IMutation, IMutationInfo, Workbook } from '@crabtable/core';
 import type { IRemoteSyncMutationOptions } from '../../services/remote-instance/remote-instance.service';
 import {
     CommandType,
+    CrabTableInstanceType,
     ICommandService,
+    ICrabTableInstanceService,
     Inject,
     Injector,
-    IUniverInstanceService,
     RxDisposable,
     toDisposable,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { takeUntil } from 'rxjs/operators';
 import {
     IRemoteInstanceService,
@@ -52,7 +52,7 @@ export class DataSyncPrimaryController extends RxDisposable {
     constructor(
         @Inject(Injector) private readonly _injector: Injector,
         @ICommandService private readonly _commandService: ICommandService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IRPCChannelService private readonly _rpcChannelService: IRPCChannelService,
         @IRemoteSyncService private readonly _remoteSyncService: IRemoteSyncService
     ) {
@@ -89,18 +89,18 @@ export class DataSyncPrimaryController extends RxDisposable {
     }
 
     private _init(): void {
-        this._univerInstanceService.getTypeOfUnitAdded$<Workbook>(UniverInstanceType.UNIVER_SHEET).pipe(takeUntil(this.dispose$)).subscribe((sheet) => {
+        this._crabtableInstanceService.getTypeOfUnitAdded$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).pipe(takeUntil(this.dispose$)).subscribe((sheet) => {
             this._syncingUnits.add(sheet.getUnitId());
 
             // If a sheet is created, it should sync the data to the worker thread.
             this._remoteInstanceService.createInstance({
                 unitID: sheet.getUnitId(),
-                type: UniverInstanceType.UNIVER_SHEET,
+                type: CrabTableInstanceType.CRABTABLE_SHEET,
                 snapshot: sheet.getSnapshot(),
             });
         });
 
-        this._univerInstanceService.getTypeOfUnitDisposed$<Workbook>(UniverInstanceType.UNIVER_SHEET).pipe(takeUntil(this.dispose$)).subscribe((workbook) => {
+        this._crabtableInstanceService.getTypeOfUnitDisposed$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).pipe(takeUntil(this.dispose$)).subscribe((workbook) => {
             this._syncingUnits.delete(workbook.getUnitId());
             // If a sheet is disposed, it should sync the data to the worker thread.
             this._remoteInstanceService.disposeInstance({

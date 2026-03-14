@@ -15,9 +15,9 @@
  */
 
 import type { IMenuItemInputProps } from './interface';
-import { LocaleService } from '@univerjs/core';
-import { InputNumber } from '@univerjs/design';
-import { IContextMenuService, useDependency } from '@univerjs/ui';
+import { LocaleService } from '@crabtable/core';
+import { InputNumber } from '@crabtable/design';
+import { IContextMenuService, useDependency } from '@crabtable/ui';
 import { useEffect, useState } from 'react';
 
 export const MenuItemInput = (props: IMenuItemInputProps) => {

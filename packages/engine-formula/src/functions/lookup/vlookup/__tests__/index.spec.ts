@@ -199,7 +199,7 @@ describe('Test vlookup', () => {
         it('LookupValue is array and gets error, colIndexNum is array and gets error', async () => {
             const resultObject = testFunction.calculate(
                 ArrayValueObject.create(/*ts*/ `{
-                    "Univer";
+                    "CrabTable";
                     2
                 }`),
                 arrayValueObject1.clone(),
@@ -216,7 +216,7 @@ describe('Test vlookup', () => {
         it('LookupValue is array and gets error, colIndexNum is array and gets error,rangeLookup gets error', async () => {
             const resultObject = testFunction.calculate(
                 ArrayValueObject.create(/*ts*/ `{
-                    "Univer";
+                    "CrabTable";
                     2
                 }`),
                 arrayValueObject1.clone(),
@@ -234,7 +234,7 @@ describe('Test vlookup', () => {
         it('LookupValue is array, tableArray is error', async () => {
             const resultObject = testFunction.calculate(
                 ArrayValueObject.create(/*ts*/ `{
-                    "Univer";
+                    "CrabTable";
                     2
                 }`),
                 ErrorValueObject.create(ErrorType.NAME),

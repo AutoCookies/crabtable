@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { CellValue, DataValidationOperator, IDataValidationRule, IDataValidationRuleBase, ISheetDataValidationRule, LocaleService, Nullable } from '@univerjs/core';
-import type { IFormulaResult, IFormulaValidResult, IValidatorCellInfo } from '@univerjs/data-validation';
-import { DataValidationType, isFormulaString, Tools, WrapStrategy } from '@univerjs/core';
-import { BaseDataValidator } from '@univerjs/data-validation';
+import type { CellValue, DataValidationOperator, IDataValidationRule, IDataValidationRuleBase, ISheetDataValidationRule, LocaleService, Nullable } from '@crabtable/core';
+import type { IFormulaResult, IFormulaValidResult, IValidatorCellInfo } from '@crabtable/data-validation';
+import { DataValidationType, isFormulaString, Tools, WrapStrategy } from '@crabtable/core';
+import { BaseDataValidator } from '@crabtable/data-validation';
 import { DataValidationFormulaService } from '../services/dv-formula.service';
 import { getFormulaResult, isLegalFormulaResult } from '../utils/formula';
 

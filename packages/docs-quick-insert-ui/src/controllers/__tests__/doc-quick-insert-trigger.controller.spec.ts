@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { DeleteDirection, Direction } from '@univerjs/core';
-import { RichTextEditingMutation } from '@univerjs/docs';
-import { DeleteCommand, DeleteLeftCommand, IMEInputCommand, InsertCommand, MoveCursorOperation } from '@univerjs/docs-ui';
-import { KeyCode } from '@univerjs/ui';
+import { DeleteDirection, Direction } from '@crabtable/core';
+import { RichTextEditingMutation } from '@crabtable/docs';
+import { DeleteCommand, DeleteLeftCommand, IMEInputCommand, InsertCommand, MoveCursorOperation } from '@crabtable/docs-ui';
+import { KeyCode } from '@crabtable/ui';
 import { describe, expect, it, vi } from 'vitest';
 import { CloseQuickInsertPopupOperation, ShowQuickInsertPopupOperation } from '../../commands/operations/quick-insert-popup.operation';
 import { numberedListMenu, textMenu } from '../../menu/built-in-menus';

@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Nullable } from '@univerjs/core';
+import type { IDisposable, Nullable } from '@crabtable/core';
 import {
     ICommandService,
+    ICrabTableInstanceService,
     Inject,
-    IUniverInstanceService,
     LocaleService,
     RxDisposable,
     toDisposable,
-} from '@univerjs/core';
+} from '@crabtable/core';
+import { ComponentManager, IDialogService, ILayoutService, IMenuManagerService, IShortcutService } from '@crabtable/ui';
 import { SearchIcon } from '@univerjs/icons';
-import { ComponentManager, IDialogService, ILayoutService, IMenuManagerService, IShortcutService } from '@univerjs/ui';
 import { takeUntil } from 'rxjs';
 import { ReplaceAllMatchesCommand, ReplaceCurrentMatchCommand } from '../commands/commands/replace.command';
 import {
@@ -54,7 +54,7 @@ const FIND_REPLACE_PANEL_TOP_PADDING = 64;
 
 export class FindReplaceController extends RxDisposable {
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IMenuManagerService private readonly _menuManagerService: IMenuManagerService,
         @IShortcutService private readonly _shortcutService: IShortcutService,
         @ICommandService private readonly _commandService: ICommandService,
@@ -138,8 +138,8 @@ export class FindReplaceController extends RxDisposable {
             onClose: () => this.closePanel(),
         });
 
-        this._closingListenerDisposable = toDisposable(this._univerInstanceService.focused$.pipe(takeUntil(this.dispose$)).subscribe((focused) => {
-            if (!focused || !this._univerInstanceService.getUniverSheetInstance(focused)) {
+        this._closingListenerDisposable = toDisposable(this._crabtableInstanceService.focused$.pipe(takeUntil(this.dispose$)).subscribe((focused) => {
+            if (!focused || !this._crabtableInstanceService.getCrabTableSheetInstance(focused)) {
                 this.closePanel();
             }
         }));

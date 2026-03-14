@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ListGlyphType } from '@univerjs/core';
+import { ListGlyphType } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import { dealWithBullet, getDefaultBulletSke } from '../bullet';
 

@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import { RANGE_TYPE } from '@univerjs/core';
+import { RANGE_TYPE } from '@crabtable/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import { SheetCrosshairHighlightRenderController } from './crosshair-highlight.render-controller';
 
 const mockShapes: Array<{ dispose: ReturnType<typeof vi.fn>; props: Record<string, unknown> }> = [];
 
-vi.mock('@univerjs/sheets-ui', async () => {
-    const actual = await vi.importActual<typeof import('@univerjs/sheets-ui')>('@univerjs/sheets-ui');
+vi.mock('@crabtable/sheets-ui', async () => {
+    const actual = await vi.importActual<typeof import('@crabtable/sheets-ui')>('@crabtable/sheets-ui');
     return {
         ...actual,
         getCoordByCell: vi.fn((row: number, col: number) => ({

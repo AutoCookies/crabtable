@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { IThreadComment } from '@univerjs/thread-comment';
-import { ICommandService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { singleReferenceToGrid } from '@univerjs/engine-formula';
-import { IMarkSelectionService } from '@univerjs/sheets-ui';
-import { ThreadCommentPanel, ThreadCommentPanelService } from '@univerjs/thread-comment-ui';
-import { useDependency, useObservable } from '@univerjs/ui';
+import type { Workbook } from '@crabtable/core';
+import type { IThreadComment } from '@crabtable/thread-comment';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { singleReferenceToGrid } from '@crabtable/engine-formula';
+import { IMarkSelectionService } from '@crabtable/sheets-ui';
+import { ThreadCommentPanel, ThreadCommentPanelService } from '@crabtable/thread-comment-ui';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { map } from 'rxjs';
 import { ShowAddSheetCommentModalOperation } from '../../commands/operations/comment.operation';
@@ -28,9 +28,9 @@ import { SheetsThreadCommentPopupService } from '../../services/sheets-thread-co
 
 export const SheetsThreadCommentPanel = () => {
     const markSelectionService = useDependency(IMarkSelectionService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const sheetsThreadCommentPopupService = useDependency(SheetsThreadCommentPopupService);
-    const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+    const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
     const unitId = workbook.getUnitId();
     const commandService = useDependency(ICommandService);
     const subUnitId$ = useMemo(() => workbook.activeSheet$.pipe(map((i) => i?.getSheetId())), [workbook.activeSheet$]);
@@ -145,7 +145,7 @@ export const SheetsThreadCommentPanel = () => {
         <ThreadCommentPanel
             unitId={unitId}
             subUnitId$={subUnitId$}
-            type={UniverInstanceType.UNIVER_SHEET}
+            type={CrabTableInstanceType.CRABTABLE_SHEET}
             onAdd={handleAdd}
             getSubUnitName={getSubUnitName}
             onResolve={handleResolve}

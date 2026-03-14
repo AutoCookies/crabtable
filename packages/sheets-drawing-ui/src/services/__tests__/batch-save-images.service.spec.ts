@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ImageSourceType, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, ImageSourceType } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import { BatchSaveImagesService, FileNamePart } from '../batch-save-images.service';
 
@@ -67,7 +67,7 @@ function createService() {
 
     return new BatchSaveImagesService(
         {
-            getCurrentUnitForType: (type: UniverInstanceType) => (type === UniverInstanceType.UNIVER_SHEET ? workbook : null),
+            getCurrentUnitForType: (type: CrabTableInstanceType) => (type === CrabTableInstanceType.CRABTABLE_SHEET ? workbook : null),
             getUnit: () => workbook,
         } as never,
         {

@@ -28,7 +28,7 @@ import { CellValueType } from '../types/enum';
  */
 export interface IWorkbookData {
     /**
-     * Id of the Univer Sheet.
+     * Id of the CrabTable Sheet.
      */
     id: string;
 
@@ -39,12 +39,12 @@ export interface IWorkbookData {
     rev?: number;
 
     /**
-     * Name of the Univer Sheet.
+     * Name of the CrabTable Sheet.
      */
     name: string;
 
     /**
-     * Version of Univer model definition.
+     * Version of CrabTable model definition.
      */
     appVersion: string;
 
@@ -58,11 +58,11 @@ export interface IWorkbookData {
      */
     styles: Record<string, Nullable<IStyleData>>;
 
-    /** Ids of {@link IWorksheetData}s of this Univer Sheet in sequence order. */
+    /** Ids of {@link IWorksheetData}s of this CrabTable Sheet in sequence order. */
     sheetOrder: string[];
 
     /**
-     * Data of each {@link IWorksheetData} in this Univer Sheet.
+     * Data of each {@link IWorksheetData} in this CrabTable Sheet.
      */
     sheets: { [sheetId: string]: Partial<IWorksheetData> };
 
@@ -72,7 +72,7 @@ export interface IWorkbookData {
     defaultStyle?: Nullable<IStyleData> | string;
 
     /**
-     * Resources of the Univer Sheet. It is used to store the data of other plugins.
+     * Resources of the CrabTable Sheet. It is used to store the data of other plugins.
      */
     resources?: IResources;
 

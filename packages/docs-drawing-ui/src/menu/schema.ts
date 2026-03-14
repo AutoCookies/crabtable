@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { MenuSchemaType } from '@univerjs/ui';
-import { RibbonInsertGroup } from '@univerjs/ui';
+import type { MenuSchemaType } from '@crabtable/ui';
+import { RibbonInsertGroup } from '@crabtable/ui';
 import {
     DOCS_IMAGE_MENU_ID,
     IMAGE_MENU_UPLOAD_FLOAT_ID,

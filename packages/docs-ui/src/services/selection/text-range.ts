@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ITextRange, Nullable } from '@univerjs/core';
-import type { Documents, DocumentSkeleton, IDocumentSkeletonGlyph, INodePosition, IPoint, ISuccinctDocRangeParam, ITextSelectionStyle, Scene } from '@univerjs/engine-render';
+import type { ITextRange, Nullable } from '@crabtable/core';
+import type { Documents, DocumentSkeleton, IDocumentSkeletonGlyph, INodePosition, IPoint, ISuccinctDocRangeParam, ITextSelectionStyle, Scene } from '@crabtable/engine-render';
 import type { IDocRange } from './range-interface';
-import { BooleanNumber, COLORS, DOC_RANGE_TYPE, generateRandomId, RANGE_DIRECTION } from '@univerjs/core';
-import { getColor, NORMAL_TEXT_SELECTION_PLUGIN_STYLE, Rect, RegularPolygon } from '@univerjs/engine-render';
+import { BooleanNumber, COLORS, DOC_RANGE_TYPE, generateRandomId, RANGE_DIRECTION } from '@crabtable/core';
+import { getColor, NORMAL_TEXT_SELECTION_PLUGIN_STYLE, Rect, RegularPolygon } from '@crabtable/engine-render';
 import {
     compareNodePosition,
     compareNodePositionLogic,

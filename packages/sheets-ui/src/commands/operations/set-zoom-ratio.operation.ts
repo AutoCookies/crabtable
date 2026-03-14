@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IOperation } from '@univerjs/core';
-import { CommandType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import type { IOperation } from '@crabtable/core';
+import { CommandType } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { SheetsZoomRenderController } from '../../controllers/render-controllers/zoom.render-controller';
 
 export interface ISetZoomRatioOperationParams {

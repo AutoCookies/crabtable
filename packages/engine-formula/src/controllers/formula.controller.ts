@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Ctor } from '@univerjs/core';
+import type { Ctor } from '@crabtable/core';
 import type { IFunctionNames } from '../basics/function';
 import type { IUniverEngineFormulaConfig } from '../config/config';
 import type { BaseFunction } from '../functions/base-function';
-import { Disposable, ICommandService, IConfigService, Optional } from '@univerjs/core';
-import { DataSyncPrimaryController } from '@univerjs/rpc';
+import { Disposable, ICommandService, IConfigService, Optional } from '@crabtable/core';
+import { DataSyncPrimaryController } from '@crabtable/rpc';
 import { RegisterFunctionMutation } from '../commands/mutations/register-function.mutation';
 import { SetArrayFormulaDataMutation } from '../commands/mutations/set-array-formula-data.mutation';
 import { RemoveDefinedNameMutation, SetDefinedNameMutation } from '../commands/mutations/set-defined-name.mutation';

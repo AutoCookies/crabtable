@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IFreeze, IRange, IWorksheetData, Nullable, Workbook } from '@univerjs/core';
-import type { IMouseEvent, IPoint, IPointerEvent, IRenderContext, IRenderModule, IScrollObserverParam } from '@univerjs/engine-render';
-import type { IScrollToCellOperationParams } from '@univerjs/sheets';
+import type { IFreeze, IRange, IWorksheetData, Nullable, Workbook } from '@crabtable/core';
+import type { IMouseEvent, IPoint, IPointerEvent, IRenderContext, IRenderModule, IScrollObserverParam } from '@crabtable/engine-render';
+import type { IScrollToCellOperationParams } from '@crabtable/sheets';
 import type { IExpandSelectionCommandParams } from '../../../commands/commands/set-selection.command';
 import type { IScrollState, IScrollStateSearchParam, IViewportScrollState } from '../../../services/scroll-manager.service';
 
@@ -26,13 +26,13 @@ import {
     Disposable,
     ICommandService,
     IContextService,
+    ICrabTableInstanceService,
     Inject,
-    IUniverInstanceService,
     RANGE_TYPE,
     toDisposable,
-} from '@univerjs/core';
-import { IRenderManagerService, SHEET_VIEWPORT_KEY } from '@univerjs/engine-render';
-import { ScrollToCellOperation, SheetsSelectionsService } from '@univerjs/sheets';
+} from '@crabtable/core';
+import { IRenderManagerService, SHEET_VIEWPORT_KEY } from '@crabtable/engine-render';
+import { ScrollToCellOperation, SheetsSelectionsService } from '@crabtable/sheets';
 import { ScrollCommand, SetScrollRelativeCommand } from '../../../commands/commands/set-scroll.command';
 import { ExpandSelectionCommand, MoveSelectionCommand, MoveSelectionEnterAndTabCommand } from '../../../commands/commands/set-selection.command';
 import { SetZoomRatioCommand } from '../../../commands/commands/set-zoom-ratio.command';
@@ -54,7 +54,7 @@ export class MobileSheetsScrollRenderController extends Disposable implements IR
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
         @Inject(SheetsSelectionsService) private readonly _selectionManagerService: SheetsSelectionsService,
         @Inject(SheetScrollManagerService) private readonly _scrollManagerService: SheetScrollManagerService,
-        @IUniverInstanceService protected readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService protected readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IContextService private readonly _contextService: IContextService
     ) {
         super();

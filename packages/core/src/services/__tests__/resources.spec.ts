@@ -15,11 +15,11 @@
  */
 
 import type { IDocumentData } from '../../types/interfaces';
-import type { Univer } from '../../univer';
+import type { CrabTable } from '../../univer';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { DOCS_NORMAL_EDITOR_UNIT_ID_KEY } from '../../common/const';
-import { UniverInstanceType } from '../../common/unit';
-import { IUniverInstanceService } from '../instance/instance.service';
+import { CrabTableInstanceType } from '../../common/unit';
+import { ICrabTableInstanceService } from '../instance/instance.service';
 import { IResourceLoaderService } from '../resource-loader/type';
 import { IResourceManagerService } from '../resource-manager/type';
 import { createTestBed } from './create-test-bed';
@@ -42,7 +42,7 @@ function createDocData(id: string, resources?: NonNullable<IDocumentData['resour
 }
 
 describe('Test resources service', () => {
-    let univer: Univer;
+    let univer: CrabTable;
 
     beforeEach(() => {
         univer?.dispose();
@@ -57,7 +57,7 @@ describe('Test resources service', () => {
         const model: Record<string, unknown> = {};
         resourceManagerService.registerPluginResource({
             pluginName,
-            businesses: [UniverInstanceType.UNIVER_SHEET],
+            businesses: [CrabTableInstanceType.CRABTABLE_SHEET],
             onLoad: () => { },
             onUnLoad: () => { },
             toJson: () => JSON.stringify(model),
@@ -80,7 +80,7 @@ describe('Test resources service', () => {
         let result = '';
         resourceManagerService.registerPluginResource({
             pluginName,
-            businesses: [UniverInstanceType.UNIVER_SHEET],
+            businesses: [CrabTableInstanceType.CRABTABLE_SHEET],
             onLoad: (_unitId, resource) => { result = resource; },
             onUnLoad: () => { },
             toJson: () => JSON.stringify(model),
@@ -93,23 +93,23 @@ describe('Test resources service', () => {
         const injector = univer.__getInjector();
         const resourceManagerService = injector.get(IResourceManagerService);
         const resourceLoaderService = injector.get(IResourceLoaderService);
-        const univerInstanceService = injector.get(IUniverInstanceService);
+        const crabtableInstanceService = injector.get(ICrabTableInstanceService);
         const loads: Array<[string, string]> = [];
         const unloads: string[] = [];
 
         resourceManagerService.registerPluginResource({
             pluginName: 'DOC_test_PLUGIN',
-            businesses: [UniverInstanceType.UNIVER_DOC],
+            businesses: [CrabTableInstanceType.CRABTABLE_DOC],
             onLoad: (unitId, model: { kind: string }) => loads.push([unitId, model.kind]),
             onUnLoad: (unitId) => unloads.push(unitId),
             toJson: (unitId) => JSON.stringify({ unitId, kind: 'saved' }),
             parseJson: (bytes) => JSON.parse(bytes),
         });
 
-        const doc = univer.createUnit(UniverInstanceType.UNIVER_DOC, createDocData('doc-resource', [
+        const doc = univer.createUnit(CrabTableInstanceType.CRABTABLE_DOC, createDocData('doc-resource', [
             { name: 'DOC_test_PLUGIN', data: '{"kind":"doc"}' },
         ]));
-        const internalDoc = univer.createUnit(UniverInstanceType.UNIVER_DOC, createDocData(DOCS_NORMAL_EDITOR_UNIT_ID_KEY, [
+        const internalDoc = univer.createUnit(CrabTableInstanceType.CRABTABLE_DOC, createDocData(DOCS_NORMAL_EDITOR_UNIT_ID_KEY, [
             { name: 'DOC_test_PLUGIN', data: '{"kind":"internal"}' },
         ]));
 
@@ -120,8 +120,8 @@ describe('Test resources service', () => {
             { name: 'DOC_test_PLUGIN', data: JSON.stringify({ unitId: 'doc-resource', kind: 'saved' }) },
         ]);
 
-        expect(univerInstanceService.disposeUnit(doc.getUnitId())).toBe(true);
-        expect(univerInstanceService.disposeUnit(internalDoc.getUnitId())).toBe(true);
+        expect(crabtableInstanceService.disposeUnit(doc.getUnitId())).toBe(true);
+        expect(crabtableInstanceService.disposeUnit(internalDoc.getUnitId())).toBe(true);
         expect(unloads).toEqual(expect.arrayContaining(['doc-resource', DOCS_NORMAL_EDITOR_UNIT_ID_KEY]));
     });
 
@@ -130,13 +130,13 @@ describe('Test resources service', () => {
         const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
         const onLoad = vi.fn();
 
-        univer.createUnit(UniverInstanceType.UNIVER_DOC, createDocData('doc-bad-resource', [
+        univer.createUnit(CrabTableInstanceType.CRABTABLE_DOC, createDocData('doc-bad-resource', [
             { name: 'DOC_BAD_PLUGIN', data: '{bad json}' },
         ]));
 
         resourceManagerService.registerPluginResource({
             pluginName: 'DOC_BAD_PLUGIN',
-            businesses: [UniverInstanceType.UNIVER_DOC],
+            businesses: [CrabTableInstanceType.CRABTABLE_DOC],
             onLoad,
             onUnLoad: () => undefined,
             toJson: () => '{}',

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Disposable, ICommandService, Inject } from '@univerjs/core';
-import { ComponentManager, ISidebarService } from '@univerjs/ui';
+import { Disposable, ICommandService, Inject } from '@crabtable/core';
+import { ComponentManager, ISidebarService } from '@crabtable/ui';
 import { ParagraphSettingIndex } from '../views/paragraph-setting/index';
 
 const paragraphSettingIndexKey = 'doc_ui_paragraph-setting-panel';

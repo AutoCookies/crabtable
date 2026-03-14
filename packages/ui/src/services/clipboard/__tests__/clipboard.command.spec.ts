@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IContextService } from '@univerjs/core';
-import { CommandType } from '@univerjs/core';
+import type { IAccessor, IContextService } from '@crabtable/core';
+import { CommandType } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import { CopyCommand, CutCommand, PasteCommand, SheetPasteShortKeyCommandName } from '../clipboard.command';
 

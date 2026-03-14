@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { SlideDataModel } from '@univerjs/core';
-import { ICommandService, IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
-import { borderClassName, clsx, scrollbarClassName } from '@univerjs/design';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { useDependency } from '@univerjs/ui';
+import type { SlideDataModel } from '@crabtable/core';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { borderClassName, clsx, scrollbarClassName } from '@crabtable/design';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { useDependency } from '@crabtable/ui';
 import { createRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ActivateSlidePageOperation } from '../../commands/operations/activate.operation';
 import { AppendSlideOperation } from '../../commands/operations/append-slide.operation';
@@ -29,16 +29,16 @@ import { SetSlidePageThumbOperation } from '../../commands/operations/set-thumb.
  */
 
 export function SlideSideBar() {
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const commandService = useDependency(ICommandService);
     const renderManagerService = useDependency(IRenderManagerService);
     const localeService = useDependency(LocaleService);
 
     const slideBarRef = useRef<HTMLDivElement>(null);
-    const currentSlide = univerInstanceService.getCurrentUnitForType<SlideDataModel>(UniverInstanceType.UNIVER_SLIDE);
+    const currentSlide = crabtableInstanceService.getCurrentUnitForType<SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE);
 
     // const currentSlide = useObservable(
-    //     () => univerInstanceService.getCurrentTypeOfUnit$<SlideDataModel>(UniverInstanceType.UNIVER_SLIDE),
+    //     () => crabtableInstanceService.getCurrentTypeOfUnit$<SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE),
     //     undefined,
     //     undefined,
     //     []

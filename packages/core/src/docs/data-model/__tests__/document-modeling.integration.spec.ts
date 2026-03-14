@@ -117,7 +117,7 @@ describe('DocumentDataModel + RichTextBuilder integration', () => {
                     direction: TextDirection.RIGHT_TO_LEFT,
                 })
             )
-            .insertLink(' Univer', 'https://univer.ai')
+            .insertLink(' Univer', 'https://crabtable.dev')
             .setStyle(0, 5, TextStyleBuilder.create({ ff: 'Inter', fs: 14, bl: BooleanNumber.TRUE }))
             .setLink(0, 5, 'https://example.com');
 

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICommand, IRange } from '@univerjs/core';
-import { CommandType, ICommandService, IConfirmService, IUniverInstanceService, LocaleService, Rectangle } from '@univerjs/core';
-import { DeleteRangeMoveUpCommand, getSheetCommandTarget, SheetsSelectionsService } from '@univerjs/sheets';
+import type { ICommand, IRange } from '@crabtable/core';
+import { CommandType, ICommandService, IConfirmService, ICrabTableInstanceService, LocaleService, Rectangle } from '@crabtable/core';
+import { DeleteRangeMoveUpCommand, getSheetCommandTarget, SheetsSelectionsService } from '@crabtable/sheets';
 
 export const DeleteRangeMoveUpConfirmCommand: ICommand = {
     type: CommandType.COMMAND,
@@ -26,12 +26,12 @@ export const DeleteRangeMoveUpConfirmCommand: ICommand = {
         const commandService = accessor.get(ICommandService);
         const localeService = accessor.get(LocaleService);
         const selectionManagerService = accessor.get(SheetsSelectionsService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
         const selection = selectionManagerService.getCurrentSelections();
         if (!selection) return false;
 
-        const target = getSheetCommandTarget(univerInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { worksheet } = target;

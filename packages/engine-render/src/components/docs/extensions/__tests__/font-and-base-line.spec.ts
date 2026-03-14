@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { BaselineOffset } from '@univerjs/core';
+import { BaselineOffset } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { GlyphType } from '../../../../basics/i-document-skeleton-cached';
 import { Vector2 } from '../../../../basics/vector2';

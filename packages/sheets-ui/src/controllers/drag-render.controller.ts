@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Nullable, Workbook } from '@univerjs/core';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
+import type { Nullable, Workbook } from '@crabtable/core';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
 import type { ISheetSkeletonManagerParam } from '../services/sheet-skeleton-manager.service';
-import { Disposable, DisposableCollection, Inject } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { Disposable, DisposableCollection, Inject } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { DragManagerService } from '../services/drag-manager.service';
 import { SheetSkeletonManagerService } from '../services/sheet-skeleton-manager.service';
 

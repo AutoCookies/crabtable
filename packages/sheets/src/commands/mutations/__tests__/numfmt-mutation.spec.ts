@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
+import type { IAccessor } from '@crabtable/core';
 import type { IRemoveNumfmtMutationParams, ISetNumfmtMutationParams } from '../numfmt-mutation';
-import { cellToRange } from '@univerjs/core';
+import { cellToRange } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { INumfmtService } from '../../../services/numfmt/type';
 import {

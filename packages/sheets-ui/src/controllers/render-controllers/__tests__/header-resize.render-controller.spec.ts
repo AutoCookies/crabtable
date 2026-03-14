@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { ICommandService } from '@univerjs/core';
-import { DeltaRowHeightCommand } from '@univerjs/sheets';
+import { ICommandService } from '@crabtable/core';
+import { DeltaRowHeightCommand } from '@crabtable/sheets';
 import { describe, expect, it, vi } from 'vitest';
 import { SHEET_VIEW_KEY } from '../../../common/keys';
 import { HeaderResizeRenderController } from '../header-resize.render-controller';

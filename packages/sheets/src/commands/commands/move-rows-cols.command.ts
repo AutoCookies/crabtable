@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, IRange, Worksheet } from '@univerjs/core';
+import type { IAccessor, ICommand, IRange, Worksheet } from '@crabtable/core';
 import type { ISelectionWithStyle } from '../../basics';
 
 import type { IMoveColumnsMutationParams, IMoveRowsMutationParams } from '../mutations/move-rows-cols.mutation';
@@ -23,13 +23,13 @@ import {
     CommandType,
     ErrorService,
     ICommandService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
     LocaleService,
     RANGE_TYPE,
     Rectangle,
     sequenceExecute,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { SheetsSelectionsService } from '../../services/selections/selection.service';
 import { SelectionMoveType } from '../../services/selections/type';
 import { SheetInterceptorService } from '../../services/sheet-interceptor/sheet-interceptor.service';
@@ -90,9 +90,9 @@ export const MoveRowsCommand: ICommand<IMoveRowsCommandParams> = {
         }
 
         const sheetInterceptorService = accessor.get(SheetInterceptorService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { workbook, worksheet } = target;
@@ -244,9 +244,9 @@ export const MoveColsCommand: ICommand<IMoveColsCommandParams> = {
         }
 
         const sheetInterceptorService = accessor.get(SheetInterceptorService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { workbook, worksheet } = target;

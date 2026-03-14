@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IBorderData, Injector, IRange, Univer } from '@univerjs/core';
-import { BorderStyleTypes, BorderType, ICommandService, IConfirmService, IUniverInstanceService, RANGE_TYPE, TestConfirmService } from '@univerjs/core';
+import type { CrabTable, IBorderData, Injector, IRange } from '@crabtable/core';
+import { BorderStyleTypes, BorderType, ICommandService, IConfirmService, ICrabTableInstanceService, RANGE_TYPE, TestConfirmService } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SheetsSelectionsService } from '../../../services/selections/selection.service';
 import { AddWorksheetMergeMutation } from '../../mutations/add-worksheet-merge.mutation';
@@ -33,7 +33,7 @@ import {
 import { createCommandTestBed } from './create-command-test-bed';
 
 describe('Test style commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let getBorder: ({ startRow, startColumn }: IRange) => IBorderData | undefined;
@@ -44,8 +44,8 @@ describe('Test style commands', () => {
         univer = testBed.univer;
         get = testBed.get;
         getBorder = ({ startRow, startColumn }: IRange): IBorderData | undefined => {
-            return get(IUniverInstanceService)
-                .getUniverSheetInstance('test')
+            return get(ICrabTableInstanceService)
+                .getCrabTableSheetInstance('test')
                 ?.getSheetBySheetId('sheet1')
                 ?.getRange(startRow, startColumn)
                 .getBorder();

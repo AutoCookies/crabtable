@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { MenuSchemaType } from '@univerjs/ui';
-import { RibbonStartGroup } from '@univerjs/ui';
+import type { MenuSchemaType } from '@crabtable/ui';
+import { RibbonStartGroup } from '@crabtable/ui';
 import { InsertSlideFloatImageCommand } from '../commands/operations/insert-image.operation';
 import { InsertSlideShapeEllipseCommand, InsertSlideShapeRectangleCommand } from '../commands/operations/insert-shape.operation';
 import { SlideAddTextCommand } from '../commands/operations/insert-text.operation';

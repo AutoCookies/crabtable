@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICellData, ICellDataForSheetInterceptor, ICommandInfo, IObjectMatrixPrimitiveType, IPermissionTypes, IRange, Nullable, Workbook, WorkbookPermissionPointConstructor, Worksheet } from '@univerjs/core';
+import type { ICellData, ICellDataForSheetInterceptor, ICommandInfo, IObjectMatrixPrimitiveType, IPermissionTypes, IRange, Nullable, Workbook, WorkbookPermissionPointConstructor, Worksheet } from '@crabtable/core';
 import type { IAutoFillCommandParams } from '../../commands/commands/auto-fill.command';
 import type { IClearSelectionContentCommandParams } from '../../commands/commands/clear-selection-content.command';
 import type { IMoveRangeCommandParams } from '../../commands/commands/move-range.command';
@@ -24,8 +24,8 @@ import type { ISetRangeValuesCommandParams } from '../../commands/commands/set-r
 import type { ISetSpecificRowsVisibleCommandParams } from '../../commands/commands/set-row-visible.command';
 import type { ISetWorksheetShowCommandParams } from '../../commands/commands/set-worksheet-show.command';
 import type { ISetWorksheetNameMutationParams } from '../../commands/mutations/set-worksheet-name.mutation';
-import { CustomCommandExecutionError, Disposable, DisposableCollection, ICommandService, IContextService, Inject, IPermissionService, isICellData, IUniverInstanceService, LocaleService, ObjectMatrix, Rectangle, Tools, UniverInstanceType } from '@univerjs/core';
-import { deserializeRangeWithSheet, deserializeRangeWithSheetWithCache, IDefinedNamesService, LexerTreeBuilder, operatorToken, sequenceNodeType } from '@univerjs/engine-formula';
+import { CrabTableInstanceType, CustomCommandExecutionError, Disposable, DisposableCollection, ICommandService, IContextService, ICrabTableInstanceService, Inject, IPermissionService, isICellData, LocaleService, ObjectMatrix, Rectangle, Tools } from '@crabtable/core';
+import { deserializeRangeWithSheet, deserializeRangeWithSheetWithCache, IDefinedNamesService, LexerTreeBuilder, operatorToken, sequenceNodeType } from '@crabtable/engine-formula';
 import { UnitAction } from '@univerjs/protocol';
 import { Subject } from 'rxjs';
 import { AutoFillCommand } from '../../commands/commands/auto-fill.command';
@@ -64,7 +64,7 @@ export class SheetPermissionCheckController extends Disposable {
 
     constructor(
         @ICommandService private readonly _commandService: ICommandService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IPermissionService private readonly _permissionService: IPermissionService,
         @Inject(SheetsSelectionsService) private readonly _selectionManagerService: SheetsSelectionsService,
         @Inject(RangeProtectionRuleModel) private _rangeProtectionRuleModel: RangeProtectionRuleModel,
@@ -253,7 +253,7 @@ export class SheetPermissionCheckController extends Disposable {
             this._commandService.onCommandExecuted((command: ICommandInfo) => {
                 if (command.id === SetWorksheetNameMutation.id) {
                     const params = command.params as ISetWorksheetNameMutationParams;
-                    const { unitId = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getUnitId(), subUnitId } = params;
+                    const { unitId = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getUnitId(), subUnitId } = params;
                     if (!unitId || !subUnitId) {
                         return;
                     }
@@ -271,7 +271,7 @@ export class SheetPermissionCheckController extends Disposable {
     }
 
     private _permissionCheckWithInsertRangeMove(direction: 'top' | 'bottom' | 'left' | 'right') {
-        const target = getSheetCommandTarget(this._univerInstanceService);
+        const target = getSheetCommandTarget(this._crabtableInstanceService);
         if (!target) {
             return false;
         }
@@ -297,7 +297,7 @@ export class SheetPermissionCheckController extends Disposable {
     }
 
     private _permissionCheckByWorksheetCommand(types: WorkbookPermissionPointConstructor[], targetUnitId?: string, targetSubUnitId?: string) {
-        const target = getSheetCommandTarget(this._univerInstanceService, { unitId: targetUnitId, subUnitId: targetSubUnitId });
+        const target = getSheetCommandTarget(this._crabtableInstanceService, { unitId: targetUnitId, subUnitId: targetSubUnitId });
         if (!target) {
             return false;
         }
@@ -312,7 +312,7 @@ export class SheetPermissionCheckController extends Disposable {
     }
 
     public permissionCheckWithoutRange(permissionTypes: IPermissionTypes) {
-        const target = getSheetCommandTarget(this._univerInstanceService);
+        const target = getSheetCommandTarget(this._crabtableInstanceService);
         if (!target) {
             return false;
         }
@@ -366,7 +366,7 @@ export class SheetPermissionCheckController extends Disposable {
     }
 
     public permissionCheckWithRanges(permissionTypes: IPermissionTypes, selectionRanges?: IRange[], unitId?: string, subUnitId?: string) {
-        const target = getSheetCommandTarget(this._univerInstanceService, { unitId, subUnitId });
+        const target = getSheetCommandTarget(this._crabtableInstanceService, { unitId, subUnitId });
         if (!target) return false;
 
         const ranges = selectionRanges ?? this._selectionManagerService.getCurrentSelections()?.map((selection) => {
@@ -405,7 +405,7 @@ export class SheetPermissionCheckController extends Disposable {
     }
 
     private _permissionCheckByMoveCommand(params: IMoveRowsCommandParams | IMoveColsCommandParams) {
-        const target = getSheetCommandTarget(this._univerInstanceService, params);
+        const target = getSheetCommandTarget(this._crabtableInstanceService, params);
         if (!target) return false;
 
         const { worksheet, unitId, subUnitId } = target;
@@ -441,7 +441,7 @@ export class SheetPermissionCheckController extends Disposable {
     }
 
     private _permissionCheckByMoveRangeCommand(params: IMoveRangeCommandParams) {
-        const target = getSheetCommandTarget(this._univerInstanceService);
+        const target = getSheetCommandTarget(this._crabtableInstanceService);
         if (!target) {
             return false;
         }
@@ -488,7 +488,7 @@ export class SheetPermissionCheckController extends Disposable {
         const formulaString = value.f;
         if (formulaString) {
             const definedNameStr = formulaString.substring(1);
-            const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+            const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
             const unitId = params.unitId ?? workbook.getUnitId();
             const definedName = this._definedNamesService.getValueByName(unitId, definedNameStr);
             if (definedName) {
@@ -530,7 +530,7 @@ export class SheetPermissionCheckController extends Disposable {
                     }
                     const { token } = node;
                     const sequenceGrid = deserializeRangeWithSheetWithCache(token);
-                    const workbook = sequenceGrid.unitId ? this._univerInstanceService.getUnit<Workbook>(sequenceGrid.unitId) : this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+                    const workbook = sequenceGrid.unitId ? this._crabtableInstanceService.getUnit<Workbook>(sequenceGrid.unitId) : this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
                     if (!workbook) return true;
                     let targetSheet: Nullable<Worksheet> = sequenceGrid.sheetName ? workbook.getSheetBySheetName(sequenceGrid.sheetName) : workbook.getActiveSheet();
                     const unitId = workbook.getUnitId();
@@ -560,7 +560,7 @@ export class SheetPermissionCheckController extends Disposable {
             }
         }
         if (range) {
-            const target = getSheetCommandTarget(this._univerInstanceService, params);
+            const target = getSheetCommandTarget(this._crabtableInstanceService, params);
             if (!target) return false;
 
             const { unitId, subUnitId } = target;
@@ -587,7 +587,7 @@ export class SheetPermissionCheckController extends Disposable {
 
         const { targetRange } = params;
 
-        const target = getSheetCommandTarget(this._univerInstanceService, params);
+        const target = getSheetCommandTarget(this._crabtableInstanceService, params);
         if (!target) {
             return false;
         }

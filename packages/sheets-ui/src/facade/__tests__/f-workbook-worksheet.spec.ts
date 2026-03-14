@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { ICommandService } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { EditorService, IEditorService } from '@univerjs/docs-ui';
-import { DefinedNamesService, IDefinedNamesService } from '@univerjs/engine-formula';
-import { IRenderManagerService, SHEET_VIEWPORT_KEY } from '@univerjs/engine-render';
-import { IRefSelectionsService, RefSelectionsService, SetWorksheetRowIsAutoHeightCommand, SheetsSelectionsService } from '@univerjs/sheets';
-import { ISheetSelectionRenderService, SetColumnHeaderHeightCommand, SetRowHeaderWidthCommand, SHEET_VIEW_KEY, SheetScrollManagerService, SheetSkeletonManagerService, SheetsScrollRenderController } from '@univerjs/sheets-ui';
+import { ICommandService } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { EditorService, IEditorService } from '@crabtable/docs-ui';
+import { DefinedNamesService, IDefinedNamesService } from '@crabtable/engine-formula';
+import { IRenderManagerService, SHEET_VIEWPORT_KEY } from '@crabtable/engine-render';
+import { IRefSelectionsService, RefSelectionsService, SetWorksheetRowIsAutoHeightCommand, SheetsSelectionsService } from '@crabtable/sheets';
+import { ISheetSelectionRenderService, SetColumnHeaderHeightCommand, SetRowHeaderWidthCommand, SHEET_VIEW_KEY, SheetScrollManagerService, SheetSkeletonManagerService, SheetsScrollRenderController } from '@crabtable/sheets-ui';
 import { describe, expect, it, vi } from 'vitest';
 import { SetWorksheetColAutoWidthCommand } from '../../commands/commands/set-worksheet-auto-col-width.command';
 import { SetCellEditVisibleOperation } from '../../commands/operations/cell-edit.operation';
@@ -40,7 +40,7 @@ describe('Test FWorkbook/FWorksheet UI mixin', () => {
             [SheetsSelectionsService],
         ]);
 
-        const workbook = testBed.univerAPI.getActiveWorkbook()!;
+        const workbook = testBed.crabtableAPI.getActiveWorkbook()!;
         const worksheet = workbook.getActiveSheet()!;
         const commandService = testBed.get(ICommandService);
         commandService.registerCommand(SetCellEditVisibleOperation);
@@ -158,7 +158,7 @@ describe('Test FWorkbook/FWorksheet UI mixin', () => {
             [SheetsSelectionsService],
         ]);
 
-        const workbook = testBed.univerAPI.getActiveWorkbook()!;
+        const workbook = testBed.crabtableAPI.getActiveWorkbook()!;
         const worksheet = workbook.getActiveSheet()!;
         const renderManagerService = testBed.get(IRenderManagerService);
         vi.spyOn(renderManagerService, 'getRenderById').mockReturnValue(render as never);

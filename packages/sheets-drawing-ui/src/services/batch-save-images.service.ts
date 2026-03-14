@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICellData, IDisposable, IRange, Nullable, Workbook } from '@univerjs/core';
-import type { IImageData } from '@univerjs/drawing';
-import { createIdentifier, Disposable, IImageIoService, ImageSourceType, Inject, IUniverInstanceService, IURLImageService, UniverInstanceType } from '@univerjs/core';
-import { SheetsSelectionsService } from '@univerjs/sheets';
+import type { ICellData, IDisposable, IRange, Nullable, Workbook } from '@crabtable/core';
+import type { IImageData } from '@crabtable/drawing';
+import { CrabTableInstanceType, createIdentifier, Disposable, ICrabTableInstanceService, IImageIoService, ImageSourceType, Inject, IURLImageService } from '@crabtable/core';
+import { SheetsSelectionsService } from '@crabtable/sheets';
 
 declare global {
     // eslint-disable-next-line ts/naming-convention
@@ -253,7 +253,7 @@ async function imageSourceToBlob(source: string, imageSourceType: ImageSourceTyp
 
 export class BatchSaveImagesService extends Disposable implements IBatchSaveImagesService {
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(SheetsSelectionsService) private readonly _selectionService: SheetsSelectionsService,
         @IImageIoService private readonly _imageIoService: IImageIoService,
         @IURLImageService private readonly _urlImageService: IURLImageService
@@ -269,7 +269,7 @@ export class BatchSaveImagesService extends Disposable implements IBatchSaveImag
     }
 
     getCellImagesInSelection(): ICellImageInfo[] {
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) return [];
 
         const worksheet = workbook.getActiveSheet();
@@ -309,7 +309,7 @@ export class BatchSaveImagesService extends Disposable implements IBatchSaveImag
     }
 
     getCellImagesFromRanges(unitId: string, subUnitId: string, ranges: IRange[]): ICellImageInfo[] {
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) return [];
 
         const worksheet = workbook.getSheetBySheetId(subUnitId);
@@ -346,7 +346,7 @@ export class BatchSaveImagesService extends Disposable implements IBatchSaveImag
     }
 
     getDataColumns(): Array<{ index: number; label: string }> {
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) return [];
 
         const worksheet = workbook.getActiveSheet();
@@ -409,7 +409,7 @@ export class BatchSaveImagesService extends Disposable implements IBatchSaveImag
     }
 
     getDataColumnsForRanges(unitId: string, subUnitId: string, ranges: IRange[]): Array<{ index: number; label: string }> {
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) return [];
 
         const worksheet = workbook.getSheetBySheetId(subUnitId);
@@ -505,7 +505,7 @@ export class BatchSaveImagesService extends Disposable implements IBatchSaveImag
     }
 
     generateFileName(imageInfo: ICellImageInfo, config: IBatchSaveImagesConfig): string {
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         const extension = getFileExtension(imageInfo.source, imageInfo.imageSourceType);
         const parts: string[] = [];
 
@@ -547,7 +547,7 @@ export class BatchSaveImagesService extends Disposable implements IBatchSaveImag
     }
 
     generateFileNameWithContext(imageInfo: ICellImageInfo, config: IBatchSaveImagesConfig, unitId: string, subUnitId: string): string {
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         const extension = getFileExtension(imageInfo.source, imageInfo.imageSourceType);
         const parts: string[] = [];
 

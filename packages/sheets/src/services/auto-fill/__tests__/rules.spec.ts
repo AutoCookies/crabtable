@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { CellValueType, Direction } from '@univerjs/core';
+import { CellValueType, Direction } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import AutoFillRules from '../rules';
 import { AUTO_FILL_APPLY_TYPE, AUTO_FILL_DATA_TYPE } from '../type';

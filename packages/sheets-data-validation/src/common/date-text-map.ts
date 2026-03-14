@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { DataValidationOperator } from '@univerjs/core';
+import { DataValidationOperator } from '@crabtable/core';
 
 export const DateOperatorNameMap: Record<DataValidationOperator, string> = {
     [DataValidationOperator.BETWEEN]: 'dataValidation.date.operators.between',

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Dependency, Injector, IWorkbookData, Workbook } from '@univerjs/core';
-import type { ISelectionWithStyle } from '@univerjs/sheets';
-import { CellValueType, ICommandService, ILogService, Inject, IUniverInstanceService, LocaleType, LogLevel, Plugin, RANGE_TYPE, touchDependencies, Univer, Injector as UniverInjector, UniverInstanceType } from '@univerjs/core';
-import { FormulaDataModel, FUNCTION_NAMES_MATH, FUNCTION_NAMES_STATISTICAL } from '@univerjs/engine-formula';
-import { INumfmtService, SetRangeValuesMutation, SetSelectionsOperation, SheetsSelectionsService } from '@univerjs/sheets';
+import type { Dependency, Injector, IWorkbookData, Workbook } from '@crabtable/core';
+import type { ISelectionWithStyle } from '@crabtable/sheets';
+import { CellValueType, CrabTableInstanceType, ICommandService, ICrabTableInstanceService, ILogService, Inject, LocaleType, LogLevel, Plugin, RANGE_TYPE, touchDependencies, Injector as UniverInjector } from '@crabtable/core';
+import { FormulaDataModel, FUNCTION_NAMES_MATH, FUNCTION_NAMES_STATISTICAL } from '@crabtable/engine-formula';
+import { INumfmtService, SetRangeValuesMutation, SetSelectionsOperation, SheetsSelectionsService } from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { IStatusBarService, StatusBarService } from '../../services/status-bar.service';
 import { StatusBarController } from '../status-bar.controller';
@@ -52,13 +52,13 @@ const TEST_WORKBOOK_DATA: IWorkbookData = {
 };
 
 function createTestBed() {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -83,12 +83,12 @@ function createTestBed() {
     }
 
     univer.registerPlugin(TestPlugin);
-    univer.createUnit(UniverInstanceType.UNIVER_SHEET, TEST_WORKBOOK_DATA);
+    univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, TEST_WORKBOOK_DATA);
     get(SheetsSelectionsService);
     get(StatusBarController);
 
     // Trigger SheetsSelectionsService's current workbook stream.
-    get(IUniverInstanceService).focusUnit(unitId);
+    get(ICrabTableInstanceService).focusUnit(unitId);
 
     get(ILogService).setLogLevel(LogLevel.SILENT);
 
@@ -104,7 +104,7 @@ function createTestBed() {
 }
 
 describe('StatusBarController', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
@@ -122,7 +122,7 @@ describe('StatusBarController', () => {
     });
 
     it('updates status bar values on selection changes and cell updates within selection', () => {
-        const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet()!;
 
         const statusBarService = get(IStatusBarService);

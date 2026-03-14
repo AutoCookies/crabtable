@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICellData, IRange, Nullable, Workbook } from '@univerjs/core';
-import type { IMenuItem } from '@univerjs/ui';
-import { IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { SheetsSelectionsService } from '@univerjs/sheets';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+import type { IAccessor, ICellData, IRange, Nullable, Workbook } from '@crabtable/core';
+import type { IMenuItem } from '@crabtable/ui';
+import { CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
+import { SheetsSelectionsService } from '@crabtable/sheets';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { combineLatest, map, of, switchMap } from 'rxjs';
 import { SaveCellImagesCommand } from '../commands/commands/save-cell-images.command';
 
@@ -64,13 +64,13 @@ function isFileSystemAccessSupported(): boolean {
 }
 
 export function SaveCellImagesMenuFactory(accessor: IAccessor): IMenuItem {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const selectionService = accessor.get(SheetsSelectionsService);
 
     // Hide menu if File System Access API is not supported or no images in selection
     const hidden$ = combineLatest([
-        getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
-        univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET).pipe(
+        getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
+        crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).pipe(
             switchMap((workbook) => {
                 if (!workbook) return of(true);
 

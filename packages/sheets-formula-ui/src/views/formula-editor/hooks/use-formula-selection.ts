@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IUnitRangeName, Workbook } from '@univerjs/core';
-import type { ISequenceNode } from '@univerjs/engine-formula';
-import { Injector, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { DocSelectionRenderService } from '@univerjs/docs-ui';
-import { deserializeRangeWithSheetWithCache, isFormulaLexerToken, LexerTreeBuilder, matchRefDrawToken, matchToken, sequenceNodeType } from '@univerjs/engine-formula';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { useDependency, useEvent } from '@univerjs/ui';
+import type { IAccessor, IUnitRangeName, Workbook } from '@crabtable/core';
+import type { ISequenceNode } from '@crabtable/engine-formula';
+import { CrabTableInstanceType, ICrabTableInstanceService, Injector } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { DocSelectionRenderService } from '@crabtable/docs-ui';
+import { deserializeRangeWithSheetWithCache, isFormulaLexerToken, LexerTreeBuilder, matchRefDrawToken, matchToken, sequenceNodeType } from '@crabtable/engine-formula';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { useDependency, useEvent } from '@crabtable/ui';
 import { useEffect, useRef, useState } from 'react';
 import { filter } from 'rxjs';
 import { RefSelectionsRenderService } from '../../../services/render-services/ref-selections.render-service';
 import { useStateRef } from './use-state-ref';
 
 function getCurrentBodyDataStreamAndOffset(accssor: IAccessor) {
-    const univerInstanceService = accssor.get(IUniverInstanceService);
-    const documentModel = univerInstanceService.getCurrentUniverDocInstance();
+    const crabtableInstanceService = accssor.get(ICrabTableInstanceService);
+    const documentModel = crabtableInstanceService.getCurrentUniverDocInstance();
 
     if (!documentModel?.getBody()) {
         return;
@@ -52,7 +52,7 @@ export enum FormulaSelectingType {
 export function useFormulaSelecting(opts: { editorId: string; isFocus: boolean; disableOnClick?: boolean; unitId: string; subUnitId: string }) {
     const { editorId, isFocus, disableOnClick, unitId, subUnitId } = opts;
     const renderManagerService = useDependency(IRenderManagerService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const sheetRenderer = renderManagerService.getRenderById(unitId);
     const renderer = renderManagerService.getRenderById(editorId);
     const docSelectionRenderService = renderer?.with(DocSelectionRenderService);
@@ -63,7 +63,7 @@ export function useFormulaSelecting(opts: { editorId: string; isFocus: boolean; 
     const isDisabledByPointer = useRef(true);
     const refSelectionsRenderService = sheetRenderer?.with(RefSelectionsRenderService);
     const isSelectingRef = useStateRef(isSelecting);
-    const workbook = univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+    const workbook = crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
     const sourceSheet = workbook?.getSheetBySheetId(subUnitId);
 
     const setIsSelecting = useEvent((v: FormulaSelectingType) => {
@@ -76,7 +76,7 @@ export function useFormulaSelecting(opts: { editorId: string; isFocus: boolean; 
 
     // eslint-disable-next-line complexity
     const calculateSelectingType = useEvent(() => {
-        const currentWorkbook = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const currentWorkbook = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!currentWorkbook) return;
         const currentSheet = currentWorkbook.getActiveSheet();
         const activeRange = docSelectionRenderService?.getActiveTextRange();
@@ -114,7 +114,7 @@ export function useFormulaSelecting(opts: { editorId: string; isFocus: boolean; 
                 }
 
                 const { sheetName, unitId } = focusingNode.range;
-                const currentUnitId = univerInstanceService.getCurrentUnitOfType(UniverInstanceType.UNIVER_SHEET)?.getUnitId();
+                const currentUnitId = crabtableInstanceService.getCurrentUnitOfType(CrabTableInstanceType.CRABTABLE_SHEET)?.getUnitId();
                 if (unitId && unitId !== currentUnitId) {
                     setIsSelecting(FormulaSelectingType.EDIT_OTHER_WORKBOOK_REFERENCE);
                 } else if (
@@ -166,7 +166,7 @@ export function useFormulaSelecting(opts: { editorId: string; isFocus: boolean; 
         const sub = workbook?.activeSheet$.subscribe(() => {
             calculateSelectingType();
         });
-        const sub2 = univerInstanceService.getCurrentTypeOfUnit$(UniverInstanceType.UNIVER_SHEET).subscribe(() => {
+        const sub2 = crabtableInstanceService.getCurrentTypeOfUnit$(CrabTableInstanceType.CRABTABLE_SHEET).subscribe(() => {
             calculateSelectingType();
         });
 
@@ -174,7 +174,7 @@ export function useFormulaSelecting(opts: { editorId: string; isFocus: boolean; 
             sub?.unsubscribe();
             sub2?.unsubscribe();
         };
-    }, [calculateSelectingType, isFocus, workbook?.activeSheet$, univerInstanceService.getCurrentTypeOfUnit$]);
+    }, [calculateSelectingType, isFocus, workbook?.activeSheet$, crabtableInstanceService.getCurrentTypeOfUnit$]);
 
     return { isSelecting, isSelectingRef };
 }

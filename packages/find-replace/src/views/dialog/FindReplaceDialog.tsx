@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Nullable } from '@univerjs/core';
+import type { IDisposable, Nullable } from '@crabtable/core';
 import type { ForwardedRef } from 'react';
-import { ICommandService, IContextService, LocaleService } from '@univerjs/core';
-import { Button, Checkbox, FormDualColumnLayout, FormLayout, Input, MessageType, Select } from '@univerjs/design';
-import { ILayoutService, IMessageService, useDebounceFn, useDependency, useObservable } from '@univerjs/ui';
+import { ICommandService, IContextService, LocaleService } from '@crabtable/core';
+import { Button, Checkbox, FormDualColumnLayout, FormLayout, Input, MessageType, Select } from '@crabtable/design';
+import { ILayoutService, IMessageService, useDebounceFn, useDependency, useObservable } from '@crabtable/ui';
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 import { fromEvent } from 'rxjs';
 import { ReplaceAllMatchesCommand, ReplaceCurrentMatchCommand } from '../../commands/commands/replace.command';

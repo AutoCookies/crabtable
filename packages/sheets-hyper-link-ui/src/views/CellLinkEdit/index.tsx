@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, Nullable, Workbook } from '@univerjs/core';
-import type { ISelectionWithStyle, ISetSelectionsOperationParams } from '@univerjs/sheets';
+import type { DocumentDataModel, Nullable, Workbook } from '@crabtable/core';
+import type { ISelectionWithStyle, ISetSelectionsOperationParams } from '@crabtable/sheets';
 import {
     BuildTextUtils,
     ColorKit,
+    CrabTableInstanceType,
     CustomRangeType,
     DataStreamTreeTokenType,
     DisposableCollection,
@@ -27,23 +28,22 @@ import {
     generateRandomId,
     ICommandService,
     IContextService,
+    ICrabTableInstanceService,
     isValidRange,
-    IUniverInstanceService,
     LocaleService,
     ThemeService,
     Tools,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { borderClassName, Button, clsx, FormLayout, Input, Select } from '@univerjs/design';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { DocBackScrollRenderController, DocSelectionRenderService } from '@univerjs/docs-ui';
-import { deserializeRangeWithSheet, IDefinedNamesService, serializeRange, serializeRangeToRefString, serializeRangeWithSheet } from '@univerjs/engine-formula';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { SetSelectionsOperation, SetWorksheetActiveOperation, SheetsSelectionsService } from '@univerjs/sheets';
-import { RangeSelector } from '@univerjs/sheets-formula-ui';
-import { AddHyperLinkCommand, AddRichHyperLinkCommand, SheetHyperLinkType, SheetsHyperLinkParserService, UpdateHyperLinkCommand, UpdateRichHyperLinkCommand } from '@univerjs/sheets-hyper-link';
-import { IEditorBridgeService, IMarkSelectionService, ScrollToRangeOperation } from '@univerjs/sheets-ui';
-import { IZenZoneService, KeyCode, useDependency, useEvent, useObservable } from '@univerjs/ui';
+} from '@crabtable/core';
+import { borderClassName, Button, clsx, FormLayout, Input, Select } from '@crabtable/design';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { DocBackScrollRenderController, DocSelectionRenderService } from '@crabtable/docs-ui';
+import { deserializeRangeWithSheet, IDefinedNamesService, serializeRange, serializeRangeToRefString, serializeRangeWithSheet } from '@crabtable/engine-formula';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { SetSelectionsOperation, SetWorksheetActiveOperation, SheetsSelectionsService } from '@crabtable/sheets';
+import { RangeSelector } from '@crabtable/sheets-formula-ui';
+import { AddHyperLinkCommand, AddRichHyperLinkCommand, SheetHyperLinkType, SheetsHyperLinkParserService, UpdateHyperLinkCommand, UpdateRichHyperLinkCommand } from '@crabtable/sheets-hyper-link';
+import { IEditorBridgeService, IMarkSelectionService, ScrollToRangeOperation } from '@crabtable/sheets-ui';
+import { IZenZoneService, KeyCode, useDependency, useEvent, useObservable } from '@crabtable/ui';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { CloseHyperLinkPopupOperation } from '../../commands/operations/popup.operations';
 import { isLegalLink, serializeUrl } from '../../common/util';
@@ -63,7 +63,7 @@ export const CellLinkEdit = () => {
     const localeService = useDependency(LocaleService);
     const definedNameService = useDependency(IDefinedNamesService);
     const editorBridgeService = useDependency(IEditorBridgeService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const popupService = useDependency(SheetsHyperLinkPopupService);
     const editing = useObservable(popupService.currentEditing$);
     const parserService = useDependency(SheetsHyperLinkParserService);
@@ -95,7 +95,7 @@ export const CellLinkEdit = () => {
 
     const setByPayload = useRef(false);
 
-    const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
 
     const subUnitId = workbook?.getActiveSheet().getSheetId() || '';
     // to polyfill the display value on old version data
@@ -123,7 +123,7 @@ export const CellLinkEdit = () => {
                 };
             } else {
                 if (editing.type === HyperLinkEditSourceType.VIEWING) {
-                    const workbook = univerInstanceService.getUnit<Workbook>(editing.unitId);
+                    const workbook = crabtableInstanceService.getUnit<Workbook>(editing.unitId);
                     const worksheet = workbook?.getSheetBySheetId(editing.subUnitId);
                     const cell = worksheet?.getCellRaw(editing.row, editing.col);
                     const range = cell?.p?.body?.customRanges?.find((range) => range.rangeType === CustomRangeType.HYPERLINK && range.properties?.url);
@@ -139,7 +139,7 @@ export const CellLinkEdit = () => {
                         column: col,
                     };
                 } else {
-                    const doc = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+                    const doc = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
                     const currentSelection = textSelectionService.getActiveTextRange();
                     const body = doc?.getBody();
                     const selection = currentSelection && body ? currentSelection : null;
@@ -179,7 +179,7 @@ export const CellLinkEdit = () => {
                 case SheetHyperLinkType.RANGE: {
                     const params = linkInfo.searchObj!;
                     const sheetName = params.gid ?
-                        univerInstanceService
+                        crabtableInstanceService
                             .getUnit<Workbook>(editing.unitId)
                             ?.getSheetBySheetId(params.gid)
                             ?.getName()
@@ -207,12 +207,12 @@ export const CellLinkEdit = () => {
                     break;
             }
         }
-    }, [editing, resolverService, sidePanelService, textSelectionService, univerInstanceService]);
+    }, [editing, resolverService, sidePanelService, textSelectionService, crabtableInstanceService]);
 
     useEffect(() => {
         let id: Nullable<string> = null;
         if (editing && !editing.customRangeId && editing.type === HyperLinkEditSourceType.VIEWING && Tools.isDefine(editing.row) && Tools.isDefine(editing.col)) {
-            const workbook = univerInstanceService.getUnit<Workbook>(editing.unitId, UniverInstanceType.UNIVER_SHEET);
+            const workbook = crabtableInstanceService.getUnit<Workbook>(editing.unitId, CrabTableInstanceType.CRABTABLE_SHEET);
             const worksheet = workbook?.getSheetBySheetId(editing.subUnitId);
             const mergeInfo = worksheet?.getMergedCell(editing.row, editing.col);
             const color = new ColorKit(themeService.getColorFromTheme('primary.600')).toRgb();
@@ -242,7 +242,7 @@ export const CellLinkEdit = () => {
                 markSelectionService.removeShape(id);
             }
         };
-    }, [editing, markSelectionService, themeService, univerInstanceService]);
+    }, [editing, markSelectionService, themeService, crabtableInstanceService]);
 
     useEffect(() => {
         isFocusRangeSelectorSet(type === SheetHyperLinkType.RANGE);

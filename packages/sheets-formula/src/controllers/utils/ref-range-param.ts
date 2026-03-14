@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, Nullable, Workbook } from '@univerjs/core';
-import type { ISetDefinedNameMutationParam } from '@univerjs/engine-formula';
+import type { ICommandInfo, Nullable, Workbook } from '@crabtable/core';
+import type { ISetDefinedNameMutationParam } from '@crabtable/engine-formula';
 import type {
     IDeleteRangeMoveLeftCommandParams,
     IDeleteRangeMoveUpCommandParams,
@@ -29,9 +29,9 @@ import type {
     IRemoveRowColCommandParams,
     IRemoveSheetCommandParams,
     ISetWorksheetNameCommandParams,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import type { IFormulaReferenceMoveParam } from './ref-range-formula';
-import { RANGE_TYPE } from '@univerjs/core';
+import { RANGE_TYPE } from '@crabtable/core';
 import {
     DeleteRangeMoveLeftCommand,
     DeleteRangeMoveUpCommand,
@@ -48,7 +48,7 @@ import {
     RemoveSheetCommand,
     SetDefinedNameCommand,
     SetWorksheetNameCommand,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { FormulaReferenceMoveType } from './ref-range-formula';
 
 export function getReferenceMoveParams(workbook: Workbook, command: ICommandInfo) {

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IContextMenuAnchorRect, IValueOption } from '@univerjs/ui';
+import type { IContextMenuAnchorRect, IValueOption } from '@crabtable/ui';
 import type { ReactElement } from 'react';
-import { generateRandomId } from '@univerjs/core';
-import { AnchoredContextMenu, ContextMenuPosition } from '@univerjs/ui';
+import { generateRandomId } from '@crabtable/core';
+import { AnchoredContextMenu, ContextMenuPosition } from '@crabtable/ui';
 import { useRef } from 'react';
 
 interface ISheetBarTabsContextMenuProps {

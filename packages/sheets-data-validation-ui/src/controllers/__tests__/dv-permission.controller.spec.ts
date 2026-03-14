@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { AddSheetDataValidationCommand, UpdateSheetDataValidationRangeCommand } from '@univerjs/sheets-data-validation';
+import { AddSheetDataValidationCommand, UpdateSheetDataValidationRangeCommand } from '@crabtable/sheets-data-validation';
 import { describe, expect, it, vi } from 'vitest';
 import { DataValidationPermissionController } from '../dv-permission.controller';
 

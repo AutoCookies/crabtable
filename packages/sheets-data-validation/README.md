@@ -1,14 +1,14 @@
-# @univerjs/sheets-data-validation
+# @crabtable/sheets-data-validation
 
 ## Package Overview
 
 | Package Name | UMD Namespace | Version | License | Downloads | Contains CSS | Contains i18n locales |
 | --- | --- | --- | --- | --- | :---: | :---: |
-| `@univerjs/sheets-data-validation` | `UniverSheetsDataValidation` | [![][npm-version-shield]][npm-version-link] | ![][npm-license-shield] | ![][npm-downloads-shield] | ️❌ | ❌️ |
+| `@crabtable/sheets-data-validation` | `UniverSheetsDataValidation` | [![][npm-version-shield]][npm-version-link] | ![][npm-license-shield] | ![][npm-downloads-shield] | ️❌ | ❌️ |
 
 ## Introduction
 
-> `@univerjs/sheets-data-validation` provides full capabilities for Univer Sheet data validation.
+> `@crabtable/sheets-data-validation` provides full capabilities for CrabTable Sheet data validation.
 
 ## Usage
 
@@ -16,28 +16,28 @@
 
 ```shell
 # Using npm
-npm i @univerjs/sheets-data-validation
+npm i @crabtable/sheets-data-validation
 
-# Using pnpm
+# Using yarn
 pnpm add
 ```
 
 ### Register the plugin
 
 ```typescript
-import type { IWorkbookData } from '@univerjs/core';
-import { DataValidationType, ICommandService, LocaleType, Univer, UniverInstanceType } from '@univerjs/core';
-import { UniverDataValidationPlugin } from '@univerjs/data-validation';
+import type { IWorkbookData } from '@crabtable/core';
+import { DataValidationType, ICommandService, LocaleType, Univer, CrabTableInstanceType } from '@crabtable/core';
+import { UniverDataValidationPlugin } from '@crabtable/data-validation';
 import {
     DATA_VALIDATION_PLUGIN_NAME,
     UniverSheetsDataValidationPlugin,
-} from '@univerjs/sheets-data-validation';
+} from '@crabtable/sheets-data-validation';
 
 univer.registerPlugin(UniverDataValidationPlugin);
 univer.registerPlugin(UniverSheetsDataValidationPlugin);
 
 // initial data validation
-// dentation: https://github.com/dream-num/univer/blob/dev/packages/core/src/types/interfaces/i-data-validation.ts#L48
+// dentation: https://github.com/AutoCookies/crabtable/blob/dev/packages/core/src/types/interfaces/i-data-validation.ts#L48
 const dataValidation = [
     {
         uid: 'xxx-2',
@@ -65,7 +65,7 @@ export const DEFAULT_WORKBOOK_DATA_DEMO: IWorkbookData = {
 };
 
 // load initial snapshot
-univer.createUnit(UniverInstanceType.UNIVER_SHEET, DEFAULT_WORKBOOK_DATA_DEMO);
+univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, DEFAULT_WORKBOOK_DATA_DEMO);
 ```
 
 ### API
@@ -77,7 +77,7 @@ import type {
     IUpdateSheetDataValidationOptionsCommandParams,
     IUpdateSheetDataValidationRangeCommandParams,
     IUpdateSheetDataValidationSettingCommandParams,
-} from '@univerjs/sheets-data-validation';
+} from '@crabtable/sheets-data-validation';
 import {
     AddSheetDataValidationCommand,
     DATA_VALIDATION_PLUGIN_NAME,
@@ -88,7 +88,7 @@ import {
     UpdateSheetDataValidationSettingCommand,
     // internal service
     SheetsDataValidationValidatorService
-} from '@univerjs/sheets-data-validation';
+} from '@crabtable/sheets-data-validation';
 
 // eg. Add data validation from command
 const commandService = univer.__getInjector().get(ICommandService);
@@ -114,7 +114,7 @@ sheetsDataValidationValidatorService.validatorWorksheet('unitId', 'sheetId')
 ```
 
 <!-- Links -->
-[npm-version-shield]: https://img.shields.io/npm/v/@univerjs/sheets-data-validation?style=flat-square
-[npm-version-link]: https://npmjs.com/package/@univerjs/sheets-data-validation
-[npm-license-shield]: https://img.shields.io/npm/l/@univerjs/sheets-data-validation?style=flat-square
-[npm-downloads-shield]: https://img.shields.io/npm/dm/@univerjs/sheets-data-validation?style=flat-square
+[npm-version-shield]: https://img.shields.io/npm/v/@crabtable/sheets-data-validation?style=flat-square
+[npm-version-link]: https://npmjs.com/package/@crabtable/sheets-data-validation
+[npm-license-shield]: https://img.shields.io/npm/l/@crabtable/sheets-data-validation?style=flat-square
+[npm-downloads-shield]: https://img.shields.io/npm/dm/@crabtable/sheets-data-validation?style=flat-square

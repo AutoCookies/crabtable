@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData } from '@univerjs/core';
-import type { IExecutionInProgressParams } from '@univerjs/engine-formula';
+import type { Dependency, IWorkbookData } from '@crabtable/core';
+import type { IExecutionInProgressParams } from '@crabtable/engine-formula';
 import {
     CommandType,
     ICommandService,
     IConfigService,
     LocaleType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     ActiveDirtyManagerService,
     ENGINE_FORMULA_CYCLE_REFERENCE_COUNT,
@@ -36,8 +36,8 @@ import {
     SetFormulaCalculationStopMutation,
     SetFormulaStringBatchCalculationMutation,
     SetTriggerFormulaCalculationStartMutation,
-} from '@univerjs/engine-formula';
-import { SetRangeValuesMutation, SetStyleCommand } from '@univerjs/sheets';
+} from '@crabtable/engine-formula';
+import { SetRangeValuesMutation, SetStyleCommand } from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { CalculationMode, PLUGIN_CONFIG_KEY_BASE } from '../../config/config';

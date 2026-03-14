@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { ILogService, RANGE_TYPE } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { CellAlertManagerService, CellAlertType, IMarkSelectionService, ISheetCellDropdownManagerService, ISheetClipboardService, SheetCanvasPopManagerService } from '@univerjs/sheets-ui';
-import { FRange } from '@univerjs/sheets/facade';
-import { ComponentManager } from '@univerjs/ui';
+import { ILogService, RANGE_TYPE } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { CellAlertManagerService, CellAlertType, IMarkSelectionService, ISheetCellDropdownManagerService, ISheetClipboardService, SheetCanvasPopManagerService } from '@crabtable/sheets-ui';
+import { FRange } from '@crabtable/sheets/facade';
+import { ComponentManager } from '@crabtable/ui';
 import { describe, expect, it, vi } from 'vitest';
 import { transformComponentKey } from '../f-range';
 

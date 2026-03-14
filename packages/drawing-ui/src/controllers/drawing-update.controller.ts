@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import type { DrawingTypeEnum, ICommandInfo, IDrawingParam, IDrawingSearch, ITransformState, Nullable } from '@univerjs/core';
-import type { IDrawingGroupUpdateParam, IDrawingOrderMapParam } from '@univerjs/drawing';
-import type { BaseObject, Image, IShapeProps, Scene, Shape } from '@univerjs/engine-render';
+import type { DrawingTypeEnum, ICommandInfo, IDrawingParam, IDrawingSearch, ITransformState, Nullable } from '@crabtable/core';
+import type { IDrawingGroupUpdateParam, IDrawingOrderMapParam } from '@crabtable/drawing';
+import type { BaseObject, Image, IShapeProps, Scene, Shape } from '@crabtable/engine-render';
 import type { ISetDrawingAlignOperationParams } from '../commands/operations/drawing-align.operation';
 import {
     checkIfMove,
     Disposable,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     toDisposable,
-} from '@univerjs/core';
-import { getDrawingShapeKeyByDrawingSearch, IDrawingManagerService, SetDrawingSelectedOperation } from '@univerjs/drawing';
-import { DRAWING_OBJECT_LAYER_INDEX, DrawingGroupObject, Group, IRenderManagerService, RENDER_CLASS_TYPE } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { getDrawingShapeKeyByDrawingSearch, IDrawingManagerService, SetDrawingSelectedOperation } from '@crabtable/drawing';
+import { DRAWING_OBJECT_LAYER_INDEX, DrawingGroupObject, Group, IRenderManagerService, RENDER_CLASS_TYPE } from '@crabtable/engine-render';
 import { AlignType, SetDrawingAlignOperation } from '../commands/operations/drawing-align.operation';
 import { CloseImageCropOperation } from '../commands/operations/image-crop.operation';
 import { getUpdateParams } from '../utils/get-update-params';
@@ -42,7 +42,7 @@ interface IDrawingTransformCache {
 
 export class DrawingUpdateController extends Disposable {
     constructor(
-        @IUniverInstanceService private readonly _currentUniverService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _currentUniverService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
         @IDrawingManagerService private readonly _drawingManagerService: IDrawingManagerService

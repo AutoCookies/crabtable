@@ -15,7 +15,7 @@
  */
 
 import type { IShortcutItem } from '../../services/shortcut/shortcut.service';
-import { Disposable, ICommandService, Inject, Injector } from '@univerjs/core';
+import { Disposable, ICommandService, Inject, Injector } from '@crabtable/core';
 import {
     ShortcutPanelComponentName,
     ToggleShortcutPanelOperation,

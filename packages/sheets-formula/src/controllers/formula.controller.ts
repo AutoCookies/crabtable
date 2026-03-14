@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Disposable, ICommandService } from '@univerjs/core';
-import { OtherFormulaMarkDirty } from '@univerjs/engine-formula';
+import { Disposable, ICommandService } from '@crabtable/core';
+import { OtherFormulaMarkDirty } from '@crabtable/engine-formula';
 import { InsertFunctionCommand } from '../commands/commands/insert-function.command';
 import { QuickSumCommand } from '../commands/commands/quick-sum.command';
 

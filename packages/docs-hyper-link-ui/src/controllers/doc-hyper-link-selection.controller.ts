@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel } from '@univerjs/core';
-import type { ISetTextSelectionsOperationParams } from '@univerjs/docs';
-import { Disposable, ICommandService, Inject, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { SetTextSelectionsOperation } from '@univerjs/docs';
+import type { DocumentDataModel } from '@crabtable/core';
+import type { ISetTextSelectionsOperationParams } from '@crabtable/docs';
+import { CrabTableInstanceType, Disposable, ICommandService, ICrabTableInstanceService, Inject } from '@crabtable/core';
+import { SetTextSelectionsOperation } from '@crabtable/docs';
 import { DocHyperLinkPopupService } from '../services/hyper-link-popup.service';
 
 export class DocHyperLinkSelectionController extends Disposable {
     constructor(
         @ICommandService private readonly _commandService: ICommandService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(DocHyperLinkPopupService) private readonly _docHyperLinkService: DocHyperLinkPopupService
     ) {
         super();
@@ -38,7 +38,7 @@ export class DocHyperLinkSelectionController extends Disposable {
                     const params = commandInfo.params as ISetTextSelectionsOperationParams;
                     const { unitId, ranges, segmentId } = params;
 
-                    const doc = this._univerInstanceService.getUnit<DocumentDataModel>(unitId, UniverInstanceType.UNIVER_DOC);
+                    const doc = this._crabtableInstanceService.getUnit<DocumentDataModel>(unitId, CrabTableInstanceType.CRABTABLE_DOC);
                     const primary = ranges[0];
                     if (primary && doc) {
                         const { startOffset, endOffset, collapsed, segmentPage } = primary;

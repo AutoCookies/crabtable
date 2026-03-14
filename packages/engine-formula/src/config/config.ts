@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Ctor } from '@univerjs/core';
+import type { Ctor } from '@crabtable/core';
 import type { IFunctionNames } from '../basics/function';
 import type { BaseFunction } from '../functions/base-function';
 

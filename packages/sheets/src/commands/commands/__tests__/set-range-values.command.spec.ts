@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import type { ICellData, IDocumentData, Injector, IStyleData, IWorkbookData, Nullable, Univer, Workbook } from '@univerjs/core';
+import type { ICellData, IDocumentData, Injector, IStyleData, IWorkbookData, Nullable, Workbook } from '@crabtable/core';
 import type { ISetRangeValuesCommandParams } from '../set-range-values.command';
 import {
     BooleanNumber,
     CellValueType,
+    CrabTableInstanceType,
     DEFAULT_TEXT_FORMAT_EXCEL,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     LocaleType,
     merge,
     RANGE_TYPE,
     RedoCommand,
     Tools,
     UndoCommand,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SheetsSelectionsService } from '../../../services/selections/selection.service';
 import { SetRangeValuesMutation } from '../../mutations/set-range-values.mutation';
@@ -131,7 +131,7 @@ const getTestWorkbookDataDemo = (): IWorkbookData => ({
 });
 
 describe('Test set range values commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let selectionManager: SheetsSelectionsService;
@@ -164,8 +164,8 @@ describe('Test set range values commands', () => {
         ]);
 
         getValue = (sheetId?: string): Nullable<ICellData> =>
-            get(IUniverInstanceService)
-                .getUniverSheetInstance('test')
+            get(ICrabTableInstanceService)
+                .getCrabTableSheetInstance('test')
                 ?.getSheetBySheetId(sheetId || 'sheet1')
                 ?.getRange(0, 0, 0, 0)
                 .getValue();
@@ -176,15 +176,15 @@ describe('Test set range values commands', () => {
             endRow: number,
             endColumn: number
         ): Nullable<Array<Array<Nullable<ICellData>>>> =>
-            get(IUniverInstanceService)
-                .getUniverSheetInstance('test')
+            get(ICrabTableInstanceService)
+                .getCrabTableSheetInstance('test')
                 ?.getSheetBySheetId('sheet1')
                 ?.getRange(startRow, startColumn, endRow, endColumn)
                 .getValues();
 
         getStyle = (): Nullable<IStyleData> => {
             const value = getValue();
-            const styles = get(IUniverInstanceService).getUniverSheetInstance('test')?.getStyles();
+            const styles = get(ICrabTableInstanceService).getCrabTableSheetInstance('test')?.getStyles();
             if (value && styles) {
                 return styles.getStyleByCell(value);
             }
@@ -192,7 +192,7 @@ describe('Test set range values commands', () => {
 
         getStyles = (startRow: number, startColumn: number, endRow: number, endColumn: number): Nullable<Nullable<IStyleData>[][]> => {
             const values = getValues(startRow, startColumn, endRow, endColumn);
-            const styles = get(IUniverInstanceService).getUniverSheetInstance('test')?.getStyles();
+            const styles = get(ICrabTableInstanceService).getCrabTableSheetInstance('test')?.getStyles();
 
             return values?.map((row, rowIndex) => {
                 return row?.map((cell, columnIndex) => {
@@ -480,7 +480,7 @@ describe('Test set range values commands', () => {
                     return params;
                 }
 
-                const unit = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+                const unit = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
                 const subUnitId = unit?.getActiveSheet()?.getSheetId();
 
                 // current sheet is sheet1

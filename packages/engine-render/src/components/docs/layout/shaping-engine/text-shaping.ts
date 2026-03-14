@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDocumentBody, IStyleBase, Nullable } from '@univerjs/core';
+import type { IDocumentBody, IStyleBase, Nullable } from '@crabtable/core';
 import type Opentype from 'opentype.js';
-import { BooleanNumber } from '@univerjs/core';
+import { BooleanNumber } from '@crabtable/core';
 // @ts-ignore
 import { parse } from 'opentype.js/dist/opentype.module';
 import { DEFAULT_FONTFACE_PLANE } from '../../../../basics/const';

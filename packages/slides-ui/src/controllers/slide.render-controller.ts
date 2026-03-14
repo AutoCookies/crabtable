@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { EventState, IColorStyle, IPageElement, ISlidePage, Nullable, SlideDataModel, UnitModel } from '@univerjs/core';
-import type { BaseObject, IRenderContext, IRenderModule, IWheelEvent } from '@univerjs/engine-render';
+import type { EventState, IColorStyle, IPageElement, ISlidePage, Nullable, SlideDataModel, UnitModel } from '@crabtable/core';
+import type { BaseObject, IRenderContext, IRenderModule, IWheelEvent } from '@crabtable/engine-render';
 import type { PageID } from '../type';
-import { debounce, getColorStyle, Inject, Injector, IUniverInstanceService, RxDisposable, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, debounce, getColorStyle, ICrabTableInstanceService, Inject, Injector, RxDisposable } from '@crabtable/core';
 import {
     getCurrentTypeOfRenderer,
     IRenderManagerService,
@@ -26,8 +26,8 @@ import {
     ScrollBar,
     Slide,
     Viewport,
-} from '@univerjs/engine-render';
-import { ObjectProvider, SLIDE_KEY } from '@univerjs/slides';
+} from '@crabtable/engine-render';
+import { ObjectProvider, SLIDE_KEY } from '@crabtable/slides';
 
 export class SlideRenderController extends RxDisposable implements IRenderModule {
     private _objectProvider: ObjectProvider | null = null;
@@ -35,7 +35,7 @@ export class SlideRenderController extends RxDisposable implements IRenderModule
     constructor(
         private readonly _renderContext: IRenderContext<UnitModel>,
         @Inject(Injector) private readonly _injector: Injector,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService
 
     ) {
@@ -50,7 +50,7 @@ export class SlideRenderController extends RxDisposable implements IRenderModule
 
         if (!slideDataModel) return;
 
-        // createRender moved to slideRenderService@this._instanceSrv.getAllUnitsForType<SlideDataModel>(UniverInstanceType.UNIVER_SLIDE).forEach((slideModel)
+        // createRender moved to slideRenderService@this._instanceSrv.getAllUnitsForType<SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE).forEach((slideModel)
         // this._renderManagerService.createRender(unitId);
 
         //#region scene subscribe
@@ -135,7 +135,7 @@ export class SlideRenderController extends RxDisposable implements IRenderModule
     }
 
     private _currentRender() {
-        return getCurrentTypeOfRenderer(UniverInstanceType.UNIVER_SLIDE, this._univerInstanceService, this._renderManagerService);
+        return getCurrentTypeOfRenderer(CrabTableInstanceType.CRABTABLE_SLIDE, this._crabtableInstanceService, this._renderManagerService);
     }
 
     private _refreshThumb = debounce(() => {
@@ -146,7 +146,7 @@ export class SlideRenderController extends RxDisposable implements IRenderModule
      * @param mainScene
      */
     private _createSlide(mainScene: Scene) {
-        const model = this._univerInstanceService.getCurrentUnitForType<SlideDataModel>(UniverInstanceType.UNIVER_SLIDE)!;
+        const model = this._crabtableInstanceService.getCurrentUnitForType<SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE)!;
 
         const { width: sceneWidth, height: sceneHeight } = mainScene;
 
@@ -172,7 +172,7 @@ export class SlideRenderController extends RxDisposable implements IRenderModule
     }
 
     private _addBackgroundRect(scene: Scene, fill: IColorStyle) {
-        const model = this._univerInstanceService.getCurrentUnitForType<SlideDataModel>(UniverInstanceType.UNIVER_SLIDE)!;
+        const model = this._crabtableInstanceService.getCurrentUnitForType<SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE)!;
 
         const pageSize = model.getPageSize();
 
@@ -274,7 +274,7 @@ export class SlideRenderController extends RxDisposable implements IRenderModule
      * SlideDataModel is UnitModel
      */
     private _getCurrUnitModel() {
-        // return this._univerInstanceService.getCurrentUnitForType<SlideDataModel>(UniverInstanceType.UNIVER_SLIDE)!;
+        // return this._crabtableInstanceService.getCurrentUnitForType<SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE)!;
 
         return this._renderContext.unit as SlideDataModel;
     }

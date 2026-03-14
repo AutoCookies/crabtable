@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
-import { useDependency } from '@univerjs/ui';
+import type { IRange } from '@crabtable/core';
+import { useDependency } from '@crabtable/ui';
 import { useEffect } from 'react';
 import { IMarkSelectionService } from '../services/mark-selection/mark-selection.service';
 

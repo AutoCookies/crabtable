@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { DrawingTypeEnum, ICommandInfo, INeedCheckDisposable, IRange, Nullable, Workbook, Worksheet } from '@univerjs/core';
-import type { BaseObject, IBoundRectNoAngle, IRender, IShapeProps, Shape, SpreadsheetSkeleton, Viewport } from '@univerjs/engine-render';
-import type { ISetWorksheetRowAutoHeightMutationParams, ISheetLocationBase } from '@univerjs/sheets';
-import type { IPopup } from '@univerjs/ui';
-import { Disposable, DisposableCollection, fromEventSubject, ICommandService, Inject, IUniverInstanceService, toDisposable, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService, RENDER_CLASS_TYPE } from '@univerjs/engine-render';
-import { COMMAND_LISTENER_SKELETON_CHANGE, IRefSelectionsService, RefRangeService, SetFrozenMutation, SetSelectionsOperation, SetWorksheetRowAutoHeightMutation, SheetsSelectionsService } from '@univerjs/sheets';
-import { ICanvasPopupService } from '@univerjs/ui';
+import type { DrawingTypeEnum, ICommandInfo, INeedCheckDisposable, IRange, Nullable, Workbook, Worksheet } from '@crabtable/core';
+import type { BaseObject, IBoundRectNoAngle, IRender, IShapeProps, Shape, SpreadsheetSkeleton, Viewport } from '@crabtable/engine-render';
+import type { ISetWorksheetRowAutoHeightMutationParams, ISheetLocationBase } from '@crabtable/sheets';
+import type { IPopup } from '@crabtable/ui';
+import { CrabTableInstanceType, Disposable, DisposableCollection, fromEventSubject, ICommandService, ICrabTableInstanceService, Inject, toDisposable } from '@crabtable/core';
+import { IRenderManagerService, RENDER_CLASS_TYPE } from '@crabtable/engine-render';
+import { COMMAND_LISTENER_SKELETON_CHANGE, IRefSelectionsService, RefRangeService, SetFrozenMutation, SetSelectionsOperation, SetWorksheetRowAutoHeightMutation, SheetsSelectionsService } from '@crabtable/sheets';
+import { ICanvasPopupService } from '@crabtable/ui';
 import { BehaviorSubject, map, throttleTime } from 'rxjs';
 import { SetScrollOperation } from '../commands/operations/scroll.operation';
 import { SetZoomRatioOperation } from '../commands/operations/set-zoom-ratio.operation';
@@ -51,7 +51,7 @@ export class SheetCanvasPopManagerService extends Disposable {
     constructor(
         @Inject(ICanvasPopupService) private readonly _globalPopupManagerService: ICanvasPopupService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(RefRangeService) private readonly _refRangeService: RefRangeService,
         @ICommandService private readonly _commandService: ICommandService,
         @IRefSelectionsService private readonly _refSelectionsService: ISheetSelectionRenderService,
@@ -259,7 +259,7 @@ export class SheetCanvasPopManagerService extends Disposable {
      * @returns disposable
      */
     attachPopupToObject(targetObject: BaseObject, popup: ICanvasPopup): INeedCheckDisposable {
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet();
         if (!worksheet || (this._isSelectionMoving && !popup.showOnSelectionMoving)) {
             return {
@@ -328,7 +328,7 @@ export class SheetCanvasPopManagerService extends Disposable {
 
     // #region attach to position
     attachPopupByPosition(bound: IBoundRectNoAngle, popup: ICanvasPopup, location: ISheetLocationBase): Nullable<INeedCheckDisposable> {
-        let workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        let workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         let worksheet = workbook.getActiveSheet();
         if (!worksheet) {
             return null;
@@ -389,7 +389,7 @@ export class SheetCanvasPopManagerService extends Disposable {
 
     // #region attach to absolute position
     attachPopupToAbsolutePosition(bound: IBoundRectNoAngle, popup: ICanvasPopup, _unitId?: string, _subUnitId?: string) {
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet();
         if (!worksheet) {
             return null;
@@ -447,8 +447,8 @@ export class SheetCanvasPopManagerService extends Disposable {
      */
     attachPopupToCell(row: number, col: number, popup: ICanvasPopup, _unitId?: string, _subUnitId?: string, viewport?: Viewport): Nullable<INeedCheckDisposable> {
         let workbook = _unitId
-            ? this._univerInstanceService.getUnit<Workbook>(_unitId)
-            : this._univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+            ? this._crabtableInstanceService.getUnit<Workbook>(_unitId)
+            : this._crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) return null;
 
         let worksheet = _subUnitId
@@ -532,7 +532,7 @@ export class SheetCanvasPopManagerService extends Disposable {
      * @param showOnSelectionMoving
      */
     attachRangePopup(range: IRange, popup: ICanvasPopup, _unitId?: string, _subUnitId?: string, viewport?: Viewport, showOnSelectionMoving = false): Nullable<INeedCheckDisposable> {
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet();
         if (!worksheet) {
             return null;

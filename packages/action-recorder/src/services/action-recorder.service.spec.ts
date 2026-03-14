@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { CommandType } from '@univerjs/core';
-import { SetSelectionsOperation } from '@univerjs/sheets';
+import { CommandType } from '@crabtable/core';
+import { SetSelectionsOperation } from '@crabtable/sheets';
 import { describe, expect, it, vi } from 'vitest';
 import { ActionRecorderService } from './action-recorder.service';
 

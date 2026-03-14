@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import { IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { useDependency, useObservable } from '@univerjs/ui';
+import type { Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { useMemo } from 'react';
 import { map, merge, of, startWith } from 'rxjs';
 import { SheetSkeletonManagerService } from '../services/sheet-skeleton-manager.service';
 
 export function useActiveWorkbook(): Workbook | null {
-    const univerInstanceService = useDependency(IUniverInstanceService);
-    const workbook = useObservable(() => univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET), undefined, undefined, []);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
+    const workbook = useObservable(() => crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET), undefined, undefined, []);
     return workbook ?? null;
 }
 
@@ -34,16 +34,16 @@ export function useActiveWorksheet(workbook?: Workbook | null) {
 }
 
 export function useWorkbooks(): Workbook[] {
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     return useObservable(() => {
         return merge([
-            univerInstanceService.getTypeOfUnitAdded$(UniverInstanceType.UNIVER_SHEET),
-            univerInstanceService.getTypeOfUnitDisposed$(UniverInstanceType.UNIVER_SHEET),
+            crabtableInstanceService.getTypeOfUnitAdded$(CrabTableInstanceType.CRABTABLE_SHEET),
+            crabtableInstanceService.getTypeOfUnitDisposed$(CrabTableInstanceType.CRABTABLE_SHEET),
         ]).pipe(
-            map(() => univerInstanceService.getAllUnitsForType<Workbook>(UniverInstanceType.UNIVER_SHEET)),
-            startWith(univerInstanceService.getAllUnitsForType<Workbook>(UniverInstanceType.UNIVER_SHEET))
+            map(() => crabtableInstanceService.getAllUnitsForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)),
+            startWith(crabtableInstanceService.getAllUnitsForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET))
         );
-    }, [], undefined, [univerInstanceService]);
+    }, [], undefined, [crabtableInstanceService]);
 }
 
 export function useSheetSkeleton() {

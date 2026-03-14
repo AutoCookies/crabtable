@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuItem } from '@univerjs/ui';
-import { UniverInstanceType } from '@univerjs/core';
-import { RangeProtectionPermissionEditPoint, WorkbookEditablePermission, WorksheetEditPermission, WorksheetSetCellStylePermission } from '@univerjs/sheets';
-import { getCurrentRangeDisable$ } from '@univerjs/sheets-ui';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuItem } from '@crabtable/ui';
+import { CrabTableInstanceType } from '@crabtable/core';
+import { RangeProtectionPermissionEditPoint, WorkbookEditablePermission, WorksheetEditPermission, WorksheetSetCellStylePermission } from '@crabtable/sheets';
+import { getCurrentRangeDisable$ } from '@crabtable/sheets-ui';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { AddSheetDataValidationAndOpenCommand } from '../commands/commands/data-validation-ui.command';
 import { OpenValidationPanelOperation } from '../commands/operations/data-validation.operation';
 
@@ -31,7 +31,7 @@ export function dataValidationMenuFactory(accessor: IAccessor): IMenuItem {
         type: MenuItemType.SUBITEMS,
         icon: 'DataValidationIcon',
         tooltip: 'dataValidation.title',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         disabled$: getCurrentRangeDisable$(accessor, { workbookTypes: [WorkbookEditablePermission], worksheetTypes: [WorksheetSetCellStylePermission, WorksheetEditPermission], rangeTypes: [RangeProtectionPermissionEditPoint] }),
     };
 }

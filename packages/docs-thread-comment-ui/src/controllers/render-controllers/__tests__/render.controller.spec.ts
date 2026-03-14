@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { CustomDecorationType } from '@univerjs/core';
-import { DOC_INTERCEPTOR_POINT, RichTextEditingMutation } from '@univerjs/docs';
+import { CustomDecorationType } from '@crabtable/core';
+import { DOC_INTERCEPTOR_POINT, RichTextEditingMutation } from '@crabtable/docs';
 import { Subject } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -43,7 +43,7 @@ describe('DocThreadCommentRenderController', () => {
             activeCommentId$,
         };
 
-        const univerInstanceService = {
+        const crabtableInstanceService = {
             getCurrentUnitForType: vi.fn(() => ({ getUnitId: () => 'doc-1' })),
         };
 
@@ -74,7 +74,7 @@ describe('DocThreadCommentRenderController', () => {
             docInterceptorService as any,
             threadCommentPanelService as any,
             docRenderController as any,
-            univerInstanceService as any,
+            crabtableInstanceService as any,
             threadCommentModel as any,
             commandService as any
         );

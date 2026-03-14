@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IDisposable, IRange, Nullable } from '@univerjs/core';
-import type { FilterColumn, FilterModel, IFilterColumn, ISetSheetsFilterCriteriaCommandParams } from '@univerjs/sheets-filter';
+import type { IDisposable, IRange, Nullable } from '@crabtable/core';
+import type { FilterColumn, FilterModel, IFilterColumn, ISetSheetsFilterCriteriaCommandParams } from '@crabtable/sheets-filter';
 import type { Observable } from 'rxjs';
 import type { FilterOperator, IFilterConditionFormParams, IFilterConditionItem } from '../models/conditions';
-import { ColorKit, createIdentifier, Disposable, ICommandService, Inject, Injector, IUniverInstanceService, LocaleService, Quantity, Tools } from '@univerjs/core';
-import { COLOR_BLACK_RGB } from '@univerjs/engine-render';
-import { RefRangeService } from '@univerjs/sheets';
-import { FilterBy, SetSheetsFilterCriteriaCommand } from '@univerjs/sheets-filter';
+import { ColorKit, createIdentifier, Disposable, ICommandService, ICrabTableInstanceService, Inject, Injector, LocaleService, Quantity, Tools } from '@crabtable/core';
+import { COLOR_BLACK_RGB } from '@crabtable/engine-render';
+import { RefRangeService } from '@crabtable/sheets';
+import { FilterBy, SetSheetsFilterCriteriaCommand } from '@crabtable/sheets-filter';
 import { BehaviorSubject, combineLatest, map, merge, of, ReplaySubject, shareReplay, startWith, Subject, throttleTime } from 'rxjs';
 import { FilterConditionItems } from '../models/conditions';
 import { statisticFilterByValueItems } from '../models/utils';
@@ -435,12 +435,12 @@ export class ByValuesModel extends Disposable implements IFilterByModel {
      * @returns the model to control the panel's state
      */
     static async fromFilterColumn(injector: Injector, filterModel: FilterModel, col: number): Promise<ByValuesModel> {
-        const univerInstanceService = injector.get(IUniverInstanceService);
+        const crabtableInstanceService = injector.get(ICrabTableInstanceService);
         const localeService = injector.get(LocaleService);
         const generateFilterValuesService = injector.get(ISheetsGenerateFilterValuesService, Quantity.OPTIONAL);
 
         const { unitId, subUnitId } = filterModel;
-        const workbook = univerInstanceService.getUniverSheetInstance(unitId);
+        const workbook = crabtableInstanceService.getCrabTableSheetInstance(unitId);
         if (!workbook) throw new Error(`[ByValuesModel]: Workbook not found for filter model with unitId: ${unitId}!`);
 
         const worksheet = workbook?.getSheetBySheetId(subUnitId);
@@ -699,10 +699,10 @@ export class ByColorsModel extends Disposable implements IFilterByModel {
      * @returns the model to control the panel's state
      */
     static async fromFilterColumn(injector: Injector, filterModel: FilterModel, col: number): Promise<ByColorsModel> {
-        const univerInstanceService = injector.get(IUniverInstanceService);
+        const crabtableInstanceService = injector.get(ICrabTableInstanceService);
 
         const { unitId, subUnitId } = filterModel;
-        const workbook = univerInstanceService.getUniverSheetInstance(unitId);
+        const workbook = crabtableInstanceService.getCrabTableSheetInstance(unitId);
         if (!workbook) throw new Error(`[ByColorsModel]: Workbook not found for filter model with unitId: ${unitId}!`);
 
         const worksheet = workbook?.getSheetBySheetId(subUnitId);

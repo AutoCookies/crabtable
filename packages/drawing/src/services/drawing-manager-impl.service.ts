@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDrawingParam, IDrawingSearch, Nullable } from '@univerjs/core';
+import type { IDrawingParam, IDrawingSearch, Nullable } from '@crabtable/core';
 import type { JSONOp, JSONOpList } from 'ot-json1';
 import type { Observable } from 'rxjs';
 import type { IDrawingGroupUpdateParam, IDrawingMap, IDrawingMapItemData, IDrawingOrderMapParam, IDrawingOrderUpdateParam, IDrawingSubunitMap, IDrawingVisibleParam, IUnitDrawingService } from './drawing-manager.service';
-import { sortRules, sortRulesByDesc } from '@univerjs/core';
+import { sortRules, sortRulesByDesc } from '@crabtable/core';
 import * as json1 from 'ot-json1';
 import { Subject } from 'rxjs';
 

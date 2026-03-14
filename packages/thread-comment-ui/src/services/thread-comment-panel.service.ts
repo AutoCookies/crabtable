@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import { Disposable, Inject, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { ISidebarService } from '@univerjs/ui';
+import type { Nullable } from '@crabtable/core';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject } from '@crabtable/core';
+import { ISidebarService } from '@crabtable/ui';
 import { BehaviorSubject, filter } from 'rxjs';
 
 export type ActiveCommentInfo = Nullable<{ unitId: string; subUnitId: string; commentId: string; trigger?: string }>;
@@ -33,7 +33,7 @@ export class ThreadCommentPanelService extends Disposable {
 
     constructor(
         @Inject(ISidebarService) private readonly _sidebarService: ISidebarService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
         this._init();
@@ -54,7 +54,7 @@ export class ThreadCommentPanelService extends Disposable {
         );
 
         this.disposeWithMe(
-            this._univerInstanceService.getCurrentTypeOfUnit$(UniverInstanceType.UNIVER_SHEET)
+            this._crabtableInstanceService.getCurrentTypeOfUnit$(CrabTableInstanceType.CRABTABLE_SHEET)
                 .pipe(filter((sheet) => !sheet)).subscribe(() => {
                     this._sidebarService.close();
                 })

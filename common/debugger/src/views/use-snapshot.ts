@@ -15,9 +15,9 @@
  */
 
 /* eslint-disable node/prefer-global/process */
-import type { DocumentDataModel, IStyleData, IWorkbookData, Workbook } from '@univerjs/core';
-import { IResourceLoaderService, IUniverInstanceService, ObjectMatrix, UniverInstanceType } from '@univerjs/core';
-import { ILocalFileService, useDependency } from '@univerjs/ui';
+import type { DocumentDataModel, IStyleData, IWorkbookData, Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICrabTableInstanceService, IResourceLoaderService, ObjectMatrix } from '@crabtable/core';
+import { ILocalFileService, useDependency } from '@crabtable/ui';
 import { RecordController } from '../controllers/local-save/record.controller';
 
 const menu = [
@@ -63,16 +63,16 @@ const filterStyle = (workbookData: IWorkbookData) => {
 };
 
 export function useSnapshot() {
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const resourceLoaderService = useDependency(IResourceLoaderService);
     const localFileService = useDependency(ILocalFileService);
     const recordController = useDependency(RecordController);
 
     const onSelect = async (value: string) => {
         const preName = new Date().toLocaleString();
-        const workbook = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         if (!workbook) {
-            const doc = univerInstanceService.getCurrentUnitOfType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC)!;
+            const doc = crabtableInstanceService.getCurrentUnitOfType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC)!;
             const snapshot = resourceLoaderService.saveUnit(doc.getUnitId());
 
             if (process.env.NODE_ENV === 'production') {
@@ -127,7 +127,7 @@ export function useSnapshot() {
             if (snapshotFile.length !== 1) return false;
 
             const text = await snapshotFile[0].text();
-            univerInstanceService.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, JSON.parse(text));
+            crabtableInstanceService.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, JSON.parse(text));
             return true;
         }
     };

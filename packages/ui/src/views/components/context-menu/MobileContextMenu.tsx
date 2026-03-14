@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IMouseEvent } from '@univerjs/engine-render';
-import { ICommandService, LocaleService } from '@univerjs/core';
-import { ConfigContext } from '@univerjs/design';
+import type { IMouseEvent } from '@crabtable/engine-render';
+import { ICommandService, LocaleService } from '@crabtable/core';
+import { ConfigContext } from '@crabtable/design';
 import { CloseIcon } from '@univerjs/icons';
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';

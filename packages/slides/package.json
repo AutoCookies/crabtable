@@ -1,21 +1,21 @@
 {
-    "name": "@univerjs/slides",
+    "name": "@crabtable/slides",
     "version": "0.17.0",
     "private": false,
     "description": "",
-    "author": "DreamNum <developer@univer.ai>",
+    "author": "DreamNum <developer@crabtable.dev>",
     "license": "Apache-2.0",
     "funding": {
         "type": "opencollective",
-        "url": "https://opencollective.com/univer"
+        "url": "https://opencollective.com/crabtable"
     },
-    "homepage": "https://univer.ai",
+    "homepage": "https://crabtable.dev",
     "repository": {
         "type": "git",
-        "url": "https://github.com/dream-num/univer"
+        "url": "https://github.com/AutoCookies/crabtable"
     },
     "bugs": {
-        "url": "https://github.com/dream-num/univer/issues"
+        "url": "https://github.com/AutoCookies/crabtable/issues"
     },
     "keywords": [
         "univer"
@@ -58,11 +58,11 @@
         "build": "univer-cli build"
     },
     "dependencies": {
-        "@univerjs/core": "workspace:*",
-        "@univerjs/engine-render": "workspace:*"
+        "@crabtable/core": "*",
+        "@crabtable/engine-render": "*"
     },
     "devDependencies": {
-        "@univerjs-infra/shared": "workspace:*",
+        "@crabtable-infra/shared": "*",
         "typescript": "^5.9.3",
         "vite": "^7.3.1",
         "vitest": "^4.0.18"

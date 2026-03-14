@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverDocsHyperLinkUIConfig } from './config/config';
-import { DependentOn, IConfigService, Inject, Injector, merge, Plugin, UniverInstanceType } from '@univerjs/core';
-import { UniverDocsHyperLinkPlugin } from '@univerjs/docs-hyper-link';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { CrabTableInstanceType, DependentOn, IConfigService, Inject, Injector, merge, Plugin } from '@crabtable/core';
+import { UniverDocsHyperLinkPlugin } from '@crabtable/docs-hyper-link';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import pkg from '../package.json';
 import { defaultPluginConfig, DOCS_HYPER_LINK_UI_PLUGIN_CONFIG_KEY } from './config/config';
 import { DocHyperLinkSelectionController } from './controllers/doc-hyper-link-selection.controller';
@@ -33,7 +33,7 @@ export class UniverDocsHyperLinkUIPlugin extends Plugin {
     static override pluginName = DOC_HYPER_LINK_UI_PLUGIN;
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_DOC;
+    static override type = CrabTableInstanceType.CRABTABLE_DOC;
 
     constructor(
         private readonly _config: Partial<IUniverDocsHyperLinkUIConfig> = defaultPluginConfig,
@@ -81,7 +81,7 @@ export class UniverDocsHyperLinkUIPlugin extends Plugin {
             [DocHyperLinkRenderController],
             [DocHyperLinkEventRenderController],
         ] as Dependency[]).forEach((dep) => {
-            this._renderManagerSrv.registerRenderModule(UniverInstanceType.UNIVER_DOC, dep);
+            this._renderManagerSrv.registerRenderModule(CrabTableInstanceType.CRABTABLE_DOC, dep);
         });
     }
 }

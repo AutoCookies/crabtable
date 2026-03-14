@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IMutation } from '@univerjs/core';
+import type { IAccessor, IMutation } from '@crabtable/core';
 import type { IAddWorksheetMergeMutationParams, IRemoveWorksheetMergeMutationParams } from '../../basics/interfaces/mutation-interface';
-import { CommandType, IUniverInstanceService, Tools } from '@univerjs/core';
+import { CommandType, ICrabTableInstanceService, Tools } from '@crabtable/core';
 import { getSheetMutationTarget } from '../commands/utils/target-util';
 
 export const AddMergeUndoMutationFactory = (
     accessor: IAccessor,
     params: IAddWorksheetMergeMutationParams
 ): IRemoveWorksheetMergeMutationParams => {
-    const target = getSheetMutationTarget(accessor.get(IUniverInstanceService), params);
+    const target = getSheetMutationTarget(accessor.get(ICrabTableInstanceService), params);
     if (!target) {
         throw new Error('Workbook or worksheet is null error!');
     }
@@ -39,7 +39,7 @@ export const AddWorksheetMergeMutation: IMutation<IAddWorksheetMergeMutationPara
     id: 'sheet.mutation.add-worksheet-merge',
     type: CommandType.MUTATION,
     handler: (accessor: IAccessor, params: IAddWorksheetMergeMutationParams) => {
-        const target = getSheetMutationTarget(accessor.get(IUniverInstanceService), params);
+        const target = getSheetMutationTarget(accessor.get(ICrabTableInstanceService), params);
         if (!target) {
             throw new Error('Workbook or worksheet is null error!');
         }

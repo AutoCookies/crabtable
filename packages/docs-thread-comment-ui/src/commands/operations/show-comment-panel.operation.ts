@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommand } from '@univerjs/core';
-import type { ActiveCommentInfo } from '@univerjs/thread-comment-ui';
-import { BuildTextUtils, CommandType, ICommandService, IUniverInstanceService, UniverInstanceType, UserManagerService } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { DocSelectionRenderService } from '@univerjs/docs-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { getDT } from '@univerjs/thread-comment';
-import { ThreadCommentPanelService } from '@univerjs/thread-comment-ui';
-import { ISidebarService } from '@univerjs/ui';
+import type { DocumentDataModel, ICommand } from '@crabtable/core';
+import type { ActiveCommentInfo } from '@crabtable/thread-comment-ui';
+import { BuildTextUtils, CommandType, CrabTableInstanceType, ICommandService, ICrabTableInstanceService, UserManagerService } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { DocSelectionRenderService } from '@crabtable/docs-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { getDT } from '@crabtable/thread-comment';
+import { ThreadCommentPanelService } from '@crabtable/thread-comment-ui';
+import { ISidebarService } from '@crabtable/ui';
 import { DEFAULT_DOC_SUBUNIT_ID } from '../../common/const';
 import { DocThreadCommentService } from '../../services/doc-thread-comment.service';
 import { DocThreadCommentPanel } from '../../views/doc-thread-comment-panel';
@@ -85,8 +85,8 @@ export const StartAddCommentOperation: ICommand = {
     type: CommandType.OPERATION,
     handler(accessor) {
         const panelService = accessor.get(ThreadCommentPanelService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const doc = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const doc = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
         const renderManagerService = accessor.get(IRenderManagerService);
         const userManagerService = accessor.get(UserManagerService);

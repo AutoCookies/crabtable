@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
-import { Disposable, Inject } from '@univerjs/core';
+import type { Workbook } from '@crabtable/core';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
+import { Disposable, Inject } from '@crabtable/core';
 import { filter } from 'rxjs';
 import { CellPopupManagerService } from '../services/cell-popup-manager.service';
 import { IEditorBridgeService } from '../services/editor-bridge.service';

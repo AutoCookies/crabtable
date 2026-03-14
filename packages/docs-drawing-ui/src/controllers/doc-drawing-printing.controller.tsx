@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IDocFloatDom } from '@univerjs/docs-drawing';
+import type { IDocFloatDom } from '@crabtable/docs-drawing';
 import type { IPrintingFloatDomProps } from '../views/printing-float-dom';
-import { Disposable, DOC_DRAWING_PRINTING_COMPONENT_KEY, DrawingTypeEnum, Inject, Injector } from '@univerjs/core';
-import { render, unmount } from '@univerjs/design';
-import { DocPrintInterceptorService } from '@univerjs/docs-ui';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { DrawingRenderService } from '@univerjs/drawing-ui';
-import { ComponentManager, connectInjector } from '@univerjs/ui';
+import { Disposable, DOC_DRAWING_PRINTING_COMPONENT_KEY, DrawingTypeEnum, Inject, Injector } from '@crabtable/core';
+import { render, unmount } from '@crabtable/design';
+import { DocPrintInterceptorService } from '@crabtable/docs-ui';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { DrawingRenderService } from '@crabtable/drawing-ui';
+import { ComponentManager, connectInjector } from '@crabtable/ui';
 import { DocPrintingFloatDom } from '../views/printing-float-dom';
 
 export class DocDrawingPrintingController extends Disposable {

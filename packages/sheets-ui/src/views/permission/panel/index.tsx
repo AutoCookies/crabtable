@@ -15,10 +15,10 @@
  */
 
 import type { IPermissionPanelRule } from '../../../services/permission/sheet-permission-panel.model';
-import { IUniverInstanceService } from '@univerjs/core';
-import { serializeRangeWithSheet } from '@univerjs/engine-formula';
-import { getSheetCommandTarget, SheetsSelectionsService } from '@univerjs/sheets';
-import { useDependency } from '@univerjs/ui';
+import { ICrabTableInstanceService } from '@crabtable/core';
+import { serializeRangeWithSheet } from '@crabtable/engine-formula';
+import { getSheetCommandTarget, SheetsSelectionsService } from '@crabtable/sheets';
+import { useDependency } from '@crabtable/ui';
 import { SheetPermissionPanelModel } from '../../../services/permission/sheet-permission-panel.model';
 import { SheetPermissionPanelDetail } from '../panel-detail/PermissionDetailPanel';
 import { SheetPermissionPanelList } from '../panel-list';
@@ -31,13 +31,13 @@ interface ISheetPermissionPanelProps {
 };
 
 export const SheetPermissionPanel = ({ showDetail, fromSheetBar, rule, oldRule }: ISheetPermissionPanelProps) => {
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const sheetsSelectionsService = useDependency(SheetsSelectionsService);
     const sheetPermissionPanelModel = useDependency(SheetPermissionPanelModel);
 
     if (!sheetPermissionPanelModel.getVisible()) return null;
 
-    const target = getSheetCommandTarget(univerInstanceService);
+    const target = getSheetCommandTarget(crabtableInstanceService);
     if (!target) return null;
     const { worksheet } = target;
 

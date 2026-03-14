@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IRange, IStyleData, Nullable } from '@univerjs/core';
+import type { IRange, IStyleData, Nullable } from '@crabtable/core';
 import type { SheetsTableButtonStateEnum, SheetsTableSortStateEnum, TableColumnDataTypeEnum, TableColumnFilterTypeEnum, TableConditionTypeEnum, TableDateCompareTypeEnum, TableNumberCompareTypeEnum, TableStringCompareTypeEnum } from './enum';
 
 export interface ITableRange {

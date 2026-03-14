@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { MenuConfig } from '@univerjs/ui';
+import type { MenuConfig } from '@crabtable/ui';
 
 export const FIND_REPLACE_PLUGIN_CONFIG_KEY = 'find-replace.config';
 

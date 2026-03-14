@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IDataValidationRule, IUniverInstanceService, Nullable, UnitModel } from '@univerjs/core';
-import type { ISidebarMethodOptions, ISidebarService } from '@univerjs/ui';
+import type { ICrabTableInstanceService, IDataValidationRule, Nullable, UnitModel } from '@crabtable/core';
+import type { ISidebarMethodOptions, ISidebarService } from '@crabtable/ui';
 import type { Observable } from 'rxjs';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -23,7 +23,7 @@ import { DATA_VALIDATION_PANEL } from '../../commands/operations/data-validation
 import { DataValidationPanelService } from '../data-validation-panel.service';
 
 type SidebarOptions = ISidebarMethodOptions;
-type UniverInstanceServiceStub = Pick<IUniverInstanceService, 'getCurrentTypeOfUnit$'>;
+type CrabTableInstanceServiceStub = Pick<ICrabTableInstanceService, 'getCurrentTypeOfUnit$'>;
 type SidebarServiceStub = Pick<ISidebarService, 'sidebarOptions$'>;
 
 describe('DataValidationPanelService', () => {
@@ -41,7 +41,7 @@ describe('DataValidationPanelService', () => {
     });
 
     function createService() {
-        const univerInstanceService: UniverInstanceServiceStub = {
+        const crabtableInstanceService: CrabTableInstanceServiceStub = {
             getCurrentTypeOfUnit$<T extends UnitModel<object, number>>(): Observable<Nullable<T>> {
                 return sheet$.asObservable() as Observable<Nullable<T>>;
             },
@@ -51,7 +51,7 @@ describe('DataValidationPanelService', () => {
         };
 
         return new DataValidationPanelService(
-            univerInstanceService as unknown as IUniverInstanceService,
+            crabtableInstanceService as unknown as ICrabTableInstanceService,
             sidebarService as unknown as ISidebarService
         );
     }

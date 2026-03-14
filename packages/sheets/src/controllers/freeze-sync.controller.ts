@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IExecutionOptions, IFreeze, Workbook } from '@univerjs/core';
+import type { IExecutionOptions, IFreeze, Workbook } from '@crabtable/core';
 import type { IInsertColMutationParams, IInsertRowMutationParams, IRemoveColMutationParams, IRemoveRowsMutationParams } from '../basics';
 import type { IMoveColumnsMutationParams, IMoveRowsMutationParams } from '../commands/mutations/move-rows-cols.mutation';
 import type { IUniverSheetsConfig } from '../config/config';
-import { Disposable, DisposableCollection, ICommandService, IConfigService, Inject, IUniverInstanceService, sequenceExecute, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, Disposable, DisposableCollection, ICommandService, IConfigService, ICrabTableInstanceService, Inject, sequenceExecute } from '@crabtable/core';
 import { InsertColMutation, InsertRowMutation } from '../commands/mutations/insert-row-col.mutation';
 import { MoveColsMutation, MoveRowsMutation } from '../commands/mutations/move-rows-cols.mutation';
 import { RemoveColMutation, RemoveRowMutation } from '../commands/mutations/remove-row-col.mutation';
@@ -43,7 +43,7 @@ export class SheetsFreezeSyncController extends Disposable {
     private _enabled: boolean = true;
 
     constructor(
-        @Inject(IUniverInstanceService) private readonly _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService,
         @IConfigService private readonly _configService: IConfigService
     ) {
@@ -230,7 +230,7 @@ export class SheetsFreezeSyncController extends Disposable {
     }
 
     private _getFreeze(unitId: string, subUnitId: string) {
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) return null;
         const worksheet = workbook.getSheetBySheetId(subUnitId);
         if (!worksheet) return null;

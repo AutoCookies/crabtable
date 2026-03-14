@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { DataStreamTreeNodeType, DataStreamTreeTokenType } from '@univerjs/core';
+import { DataStreamTreeNodeType, DataStreamTreeTokenType } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import { DataStreamTreeNode } from '../data-stream-tree-node';
 

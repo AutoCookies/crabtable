@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ISelectionWithStyle } from '@univerjs/sheets';
+import type { ISelectionWithStyle } from '@crabtable/sheets';
 import type { IMenuItemFrozenProps } from './interface';
-import { LocaleService, Tools } from '@univerjs/core';
-import { SheetsSelectionsService } from '@univerjs/sheets';
-import { IContextMenuService, useDependency } from '@univerjs/ui';
+import { LocaleService, Tools } from '@crabtable/core';
+import { SheetsSelectionsService } from '@crabtable/sheets';
+import { IContextMenuService, useDependency } from '@crabtable/ui';
 import { useEffect, useState } from 'react';
 
 const defaultValue = {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ICommandService, IUndoRedoService } from '@univerjs/core';
+import { ICommandService, IUndoRedoService } from '@crabtable/core';
 
 import { describe, expect, it, vi } from 'vitest';
 import { SheetReplaceCommand } from '../sheet-replace.command';

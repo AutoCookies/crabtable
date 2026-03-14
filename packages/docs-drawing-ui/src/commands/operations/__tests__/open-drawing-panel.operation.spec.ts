@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import { LocaleService } from '@univerjs/core';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { ISidebarService } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import { LocaleService } from '@crabtable/core';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { ISidebarService } from '@crabtable/ui';
 import { describe, expect, it, vi } from 'vitest';
 import { COMPONENT_DOC_DRAWING_PANEL } from '../../../views/doc-image-panel/component-name';
 import { SidebarDocDrawingOperation } from '../open-drawing-panel.operation';

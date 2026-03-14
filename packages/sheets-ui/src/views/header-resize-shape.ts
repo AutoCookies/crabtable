@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IShapeProps, UniverRenderingContext } from '@univerjs/engine-render';
-import { Rect, Shape } from '@univerjs/engine-render';
+import type { IShapeProps, UniverRenderingContext } from '@crabtable/engine-render';
+import { Rect, Shape } from '@crabtable/engine-render';
 
 export interface IHeaderMenuShapeResizeProps extends IShapeProps {
     size?: number;

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel } from '@univerjs/core';
+import type { DocumentDataModel } from '@crabtable/core';
 import type { IAddDocCommentComment } from '../../commands/commands/add-doc-comment.command';
 import type { IDeleteDocCommentComment } from '../../commands/commands/delete-doc-comment.command';
-import { ICommandService, Injector, isInternalEditorID, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation } from '@univerjs/docs';
-import { ThreadCommentPanel } from '@univerjs/thread-comment-ui';
-import { useDependency, useObservable } from '@univerjs/ui';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, Injector, isInternalEditorID } from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation } from '@crabtable/docs';
+import { ThreadCommentPanel } from '@crabtable/thread-comment-ui';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { useEffect, useMemo, useState } from 'react';
 import { debounceTime, filter, Observable } from 'rxjs';
 import { AddDocCommentComment } from '../../commands/commands/add-doc-comment.command';
@@ -31,9 +31,9 @@ import { shouldDisableAddComment } from '../../menu/menu';
 import { DocThreadCommentService } from '../../services/doc-thread-comment.service';
 
 export const DocThreadCommentPanel = () => {
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const injector = useDependency(Injector);
-    const doc$ = useMemo(() => univerInstanceService.getCurrentTypeOfUnit$<DocumentDataModel>(UniverInstanceType.UNIVER_DOC).pipe(filter((doc) => !!doc && !isInternalEditorID(doc.getUnitId()))), [univerInstanceService]);
+    const doc$ = useMemo(() => crabtableInstanceService.getCurrentTypeOfUnit$<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC).pipe(filter((doc) => !!doc && !isInternalEditorID(doc.getUnitId()))), [crabtableInstanceService]);
     const doc = useObservable(doc$);
     const subUnitId$ = useMemo(() => new Observable<string>((sub) => sub.next(DEFAULT_DOC_SUBUNIT_ID)), []);
     const docSelectionManagerService = useDependency(DocSelectionManagerService);
@@ -84,7 +84,7 @@ export const DocThreadCommentPanel = () => {
         <ThreadCommentPanel
             unitId={unitId}
             subUnitId$={subUnitId$}
-            type={UniverInstanceType.UNIVER_DOC}
+            type={CrabTableInstanceType.CRABTABLE_DOC}
             onAdd={() => {
                 commandService.executeCommand(StartAddCommentOperation.id);
             }}

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverSheetsThreadCommentUIConfig } from './config/config';
-import { DependentOn, ICommandService, IConfigService, Inject, Injector, merge, Plugin, UniverInstanceType } from '@univerjs/core';
-import { UniverSheetsThreadCommentPlugin } from '@univerjs/sheets-thread-comment';
-import { UniverThreadCommentUIPlugin } from '@univerjs/thread-comment-ui';
+import { CrabTableInstanceType, DependentOn, ICommandService, IConfigService, Inject, Injector, merge, Plugin } from '@crabtable/core';
+import { UniverSheetsThreadCommentPlugin } from '@crabtable/sheets-thread-comment';
+import { UniverThreadCommentUIPlugin } from '@crabtable/thread-comment-ui';
 import pkg from '../package.json';
 import { ShowAddSheetCommentModalOperation } from './commands/operations/comment.operation';
 import { defaultPluginConfig, SHEETS_THREAD_COMMENT_UI_PLUGIN_CONFIG_KEY } from './config/config';
@@ -35,7 +35,7 @@ export class UniverSheetsThreadCommentUIPlugin extends Plugin {
     static override pluginName = SHEETS_THREAD_COMMENT;
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
     constructor(
         private readonly _config: Partial<IUniverSheetsThreadCommentUIConfig> = defaultPluginConfig,

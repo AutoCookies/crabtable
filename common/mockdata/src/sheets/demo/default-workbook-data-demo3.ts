@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IDocumentData, IWorkbookData } from '@univerjs/core';
-import { BooleanNumber, BorderStyleTypes, LocaleType } from '@univerjs/core';
+import type { IDocumentData, IWorkbookData } from '@crabtable/core';
+import { BooleanNumber, BorderStyleTypes, LocaleType } from '@crabtable/core';
 
 const richTextDemo: IDocumentData = {
     id: 'd',

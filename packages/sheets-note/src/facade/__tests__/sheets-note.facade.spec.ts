@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData, UnitModel } from '@univerjs/core';
-import type { FUniver } from '@univerjs/core/facade';
+import type { Dependency, IWorkbookData, UnitModel } from '@crabtable/core';
+import type { FCrabTable } from '@crabtable/core/facade';
 import type { ISheetNote } from '../../models/sheets-note.model';
 import {
+    CrabTableInstanceType,
+    ICrabTableInstanceService,
     ILogService,
     Inject,
     Injector,
     IUndoRedoService,
-    IUniverInstanceService,
     LocaleType,
     LogLevel,
     Plugin,
     touchDependencies,
-    Univer,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { FUniver as FUniverFactory } from '@univerjs/core/facade';
+} from '@crabtable/core';
+import { FCrabTable as FCrabTableFactory } from '@crabtable/core/facade';
 import {
     DefinedNamesService,
     FormulaDataModel,
@@ -38,9 +37,9 @@ import {
     IDefinedNamesService,
     IFunctionService,
     LexerTreeBuilder,
-} from '@univerjs/engine-formula';
-import { Engine, IRenderingEngine, IRenderManagerService, RenderManagerService } from '@univerjs/engine-render';
-import { ISocketService, WebSocketService } from '@univerjs/network';
+} from '@crabtable/engine-formula';
+import { Engine, IRenderingEngine, IRenderManagerService, RenderManagerService } from '@crabtable/engine-render';
+import { ISocketService, WebSocketService } from '@crabtable/network';
 import {
     RangeProtectionRuleModel,
     RefRangeService,
@@ -51,11 +50,11 @@ import {
     WorksheetPermissionService,
     WorksheetProtectionPointModel,
     WorksheetProtectionRuleModel,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { SheetsNoteController } from '../../controllers/sheets.note.controller';
 import { SheetsNoteModel } from '../../models/sheets-note.model';
-import '@univerjs/sheets/facade';
+import '@crabtable/sheets/facade';
 import '../../facade';
 
 const unitId = 'test';
@@ -80,12 +79,12 @@ const TEST_WORKBOOK_DATA: IWorkbookData = {
 };
 
 function createFacadeTestBed(workbookData?: IWorkbookData, dependencies?: Dependency[]) {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
 
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -133,33 +132,33 @@ function createFacadeTestBed(workbookData?: IWorkbookData, dependencies?: Depend
     }
 
     univer.registerPlugin(TestPlugin);
-    const sheet = univer.createUnit<IWorkbookData, UnitModel<IWorkbookData>>(UniverInstanceType.UNIVER_SHEET, workbookData ?? TEST_WORKBOOK_DATA);
-    const univerInstanceService = injector.get(IUniverInstanceService);
-    univerInstanceService.focusUnit(unitId);
+    const sheet = univer.createUnit<IWorkbookData, UnitModel<IWorkbookData>>(CrabTableInstanceType.CRABTABLE_SHEET, workbookData ?? TEST_WORKBOOK_DATA);
+    const crabtableInstanceService = injector.get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit(unitId);
 
     const logService = injector.get(ILogService);
     logService.setLogLevel(LogLevel.SILENT);
 
-    const univerAPI = FUniverFactory.newAPI(injector);
+    const crabtableAPI = FCrabTableFactory.newAPI(injector);
 
     return {
         univer,
         injector,
         sheet,
-        univerAPI,
+        crabtableAPI,
     };
 }
 
 describe('sheets-note facade mixins', () => {
-    let univerAPI: FUniver;
+    let crabtableAPI: FCrabTable;
 
     beforeEach(() => {
         const testBed = createFacadeTestBed();
-        univerAPI = testBed.univerAPI;
+        crabtableAPI = testBed.crabtableAPI;
     });
 
     it('creates/reads/deletes note through FRange and reads all notes via FWorksheet', () => {
-        const workbook = univerAPI.getActiveWorkbook();
+        const workbook = crabtableAPI.getActiveWorkbook();
         expect(workbook).toBeTruthy();
         const sheet = workbook!.getActiveSheet();
 

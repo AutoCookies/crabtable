@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ISize, PaperType } from '@univerjs/core';
-import type { IConfirmChildrenProps } from '@univerjs/ui';
-import { IUniverInstanceService, LocaleService, PAGE_SIZE, PageOrientType, PAPER_TYPES, UniverInstanceType } from '@univerjs/core';
-import { InputNumber, Select } from '@univerjs/design';
-import { useDependency } from '@univerjs/ui';
+import type { DocumentDataModel, ISize, PaperType } from '@crabtable/core';
+import type { IConfirmChildrenProps } from '@crabtable/ui';
+import { CrabTableInstanceType, ICrabTableInstanceService, LocaleService, PAGE_SIZE, PageOrientType, PAPER_TYPES } from '@crabtable/core';
+import { InputNumber, Select } from '@crabtable/design';
+import { useDependency } from '@crabtable/ui';
 import { useEffect, useState } from 'react';
 
 export interface IPageSettingsProps {
@@ -58,8 +58,8 @@ const getPaperSize = (size: ISize) => {
 
 export function PageSettings(props: IConfirmChildrenProps) {
     const { hooks } = props;
-    const univerInstanceService = useDependency(IUniverInstanceService);
-    const currentDoc = univerInstanceService.getCurrentUnitOfType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC)!;
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
+    const currentDoc = crabtableInstanceService.getCurrentUnitOfType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC)!;
     const documentStyle = currentDoc.getDocumentStyle();
     const localeService = useDependency(LocaleService);
     const [settings, setSettings] = useState<IPageSettings>(() => ({

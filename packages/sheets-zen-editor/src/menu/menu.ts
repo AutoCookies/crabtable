@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuButtonItem } from '@univerjs/ui';
-import { RangeProtectionPermissionEditPoint, WorkbookEditablePermission, WorksheetEditPermission, WorksheetSetCellStylePermission, WorksheetSetCellValuePermission } from '@univerjs/sheets';
-import { getCurrentExclusiveRangeInterest$, getCurrentRangeDisable$, IEditorBridgeService } from '@univerjs/sheets-ui';
-import { MenuItemType } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuButtonItem } from '@crabtable/ui';
+import { RangeProtectionPermissionEditPoint, WorkbookEditablePermission, WorksheetEditPermission, WorksheetSetCellStylePermission, WorksheetSetCellValuePermission } from '@crabtable/sheets';
+import { getCurrentExclusiveRangeInterest$, getCurrentRangeDisable$, IEditorBridgeService } from '@crabtable/sheets-ui';
+import { MenuItemType } from '@crabtable/ui';
 import { map, switchMap } from 'rxjs';
 import { OpenZenEditorCommand } from '../commands/commands/zen-editor.command';
 

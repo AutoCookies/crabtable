@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Worksheet } from '@univerjs/core';
+import type { Worksheet } from '@crabtable/core';
 import type { ISelectionWithStyle } from '../../basics';
-import { Direction } from '@univerjs/core';
+import { Direction } from '@crabtable/core';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { getNextPrimaryCell } from '../selections/move-active-cell-util';
 import { createTestBase } from './util';

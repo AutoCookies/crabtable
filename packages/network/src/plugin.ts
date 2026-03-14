@@ -15,7 +15,7 @@
  */
 
 import type { IUniverNetworkConfig } from './config/config';
-import { IConfigService, ILogService, Inject, Injector, LookUp, merge, mergeOverrideWithDependencies, Plugin, Quantity, registerDependencies } from '@univerjs/core';
+import { IConfigService, ILogService, Inject, Injector, LookUp, merge, mergeOverrideWithDependencies, Plugin, Quantity, registerDependencies } from '@crabtable/core';
 import pkg from '../package.json';
 import { defaultPluginConfig, NETWORK_PLUGIN_CONFIG_KEY } from './config/config';
 import { HTTPService } from './services/http/http.service';
@@ -24,7 +24,7 @@ import { IHTTPImplementation } from './services/http/implementations/implementat
 import { XHRHTTPImplementation } from './services/http/implementations/xhr';
 
 /**
- * This plugin add network services to the Univer instance.
+ * This plugin add network services to the CrabTable instance.
  */
 export class UniverNetworkPlugin extends Plugin {
     static override pluginName = 'UNIVER_NETWORK_PLUGIN';

@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import type { ICellData, Injector, Nullable, Univer } from '@univerjs/core';
-import type { IEditorService } from '@univerjs/docs-ui';
+import type { CrabTable, ICellData, Injector, Nullable } from '@crabtable/core';
+import type { IEditorService } from '@crabtable/docs-ui';
 import type { IInsertFunctionOperationParams } from '../insert-function.operation';
-import { DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, ICommandService, IUniverInstanceService, ObjectMatrix, RANGE_TYPE, RedoCommand, UndoCommand } from '@univerjs/core';
-import { IEditorService as IEditorServiceToken } from '@univerjs/docs-ui';
+import { DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, ICommandService, ICrabTableInstanceService, ObjectMatrix, RANGE_TYPE, RedoCommand, UndoCommand } from '@crabtable/core';
+import { IEditorService as IEditorServiceToken } from '@crabtable/docs-ui';
 import {
     SetRangeValuesCommand,
     SetRangeValuesMutation,
     SetSelectionsOperation,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
-import { InsertFunctionCommand } from '@univerjs/sheets-formula';
-import { IEditorBridgeService, SetCellEditVisibleOperation } from '@univerjs/sheets-ui';
+} from '@crabtable/sheets';
+import { InsertFunctionCommand } from '@crabtable/sheets-formula';
+import { IEditorBridgeService, SetCellEditVisibleOperation } from '@crabtable/sheets-ui';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
     InsertFunctionOperation,
@@ -37,7 +37,7 @@ import {
 import { createCommandTestBed } from './create-command-test-bed';
 
 describe('Test insert function operation', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let editorService: IEditorService;
@@ -90,8 +90,8 @@ describe('Test insert function operation', () => {
                 ]);
 
                 function getValues() {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(2, 1, 3, 1)
                         .getValues();
@@ -127,8 +127,8 @@ describe('Test insert function operation', () => {
                 ]);
 
                 function getValues() {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(1, 2, 1, 3)
                         .getValues();
@@ -200,8 +200,8 @@ describe('Test insert function operation', () => {
                 });
 
                 function getValues(range: { startRow: number; startColumn: number; endRow: number; endColumn: number }) {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(range.startRow, range.startColumn, range.endRow, range.endColumn)
                         .getValues();

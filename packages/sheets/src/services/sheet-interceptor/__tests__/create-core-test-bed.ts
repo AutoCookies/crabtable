@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData, Workbook } from '@univerjs/core';
-import { ILogService, Inject, Injector, IUniverInstanceService, LocaleType, LogLevel, Plugin, Univer, UniverInstanceType } from '@univerjs/core';
+import type { Dependency, IWorkbookData, Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICrabTableInstanceService, ILogService, Inject, Injector, LocaleType, LogLevel, Plugin } from '@crabtable/core';
 import { SheetInterceptorService } from '../sheet-interceptor.service';
 
 const TEST_WORKBOOK_DATA: IWorkbookData = {
@@ -43,13 +43,13 @@ const TEST_WORKBOOK_DATA: IWorkbookData = {
 };
 
 export function createSheetTestBed(workbookData?: IWorkbookData, dependencies?: Dependency[]) {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -66,10 +66,10 @@ export function createSheetTestBed(workbookData?: IWorkbookData, dependencies?: 
     }
 
     univer.registerPlugin(TestPlugin);
-    const sheet = univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, workbookData || TEST_WORKBOOK_DATA);
+    const sheet = univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, workbookData || TEST_WORKBOOK_DATA);
 
-    const univerInstanceService = get(IUniverInstanceService);
-    univerInstanceService.focusUnit('test');
+    const crabtableInstanceService = get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit('test');
 
     const logService = get(ILogService);
     logService.setLogLevel(LogLevel.SILENT);

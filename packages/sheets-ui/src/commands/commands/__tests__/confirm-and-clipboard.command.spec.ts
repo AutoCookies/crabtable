@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
+import type { IRange } from '@crabtable/core';
 import {
     ICommandService,
     IConfirmService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     LocaleService,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     DeleteRangeMoveLeftCommand,
     DeleteRangeMoveUpCommand,
     InsertRangeMoveDownCommand,
     InsertRangeMoveRightCommand,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
-import * as sheets from '@univerjs/sheets';
-import { IClipboardInterfaceService } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import * as sheets from '@crabtable/sheets';
+import { IClipboardInterfaceService } from '@crabtable/ui';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ISheetClipboardService, PREDEFINED_HOOK_NAME_PASTE } from '../../../services/clipboard/clipboard.service';
 import {
@@ -101,7 +101,7 @@ describe('insert/delete range confirm commands', () => {
             [ICommandService, { executeCommand }],
             [LocaleService, locale],
             [SheetsSelectionsService, createSelectionService(rowSelection)],
-            [IUniverInstanceService, {}],
+            [ICrabTableInstanceService, {}],
         ]);
         expect(await InsertRangeMoveDownConfirmCommand.handler(accessorFiltered)).toBe(false);
         expect(executeCommand).not.toHaveBeenCalled();
@@ -117,7 +117,7 @@ describe('insert/delete range confirm commands', () => {
             [ICommandService, { executeCommand }],
             [LocaleService, locale],
             [SheetsSelectionsService, createSelectionService(rowSelection)],
-            [IUniverInstanceService, {}],
+            [ICrabTableInstanceService, {}],
         ]);
 
         expect(await InsertRangeMoveDownConfirmCommand.handler(accessorMerge)).toBe(true);
@@ -142,7 +142,7 @@ describe('insert/delete range confirm commands', () => {
             [ICommandService, { executeCommand }],
             [LocaleService, locale],
             [SheetsSelectionsService, createSelectionService(range)],
-            [IUniverInstanceService, {}],
+            [ICrabTableInstanceService, {}],
         ]);
 
         vi.spyOn(sheets, 'getSheetCommandTarget').mockReturnValue({
@@ -170,7 +170,7 @@ describe('insert/delete range confirm commands', () => {
             [ICommandService, { executeCommand }],
             [LocaleService, locale],
             [SheetsSelectionsService, createSelectionService(range)],
-            [IUniverInstanceService, {}],
+            [ICrabTableInstanceService, {}],
         ]);
 
         vi.spyOn(sheets, 'getSheetCommandTarget').mockReturnValue({
@@ -203,7 +203,7 @@ describe('insert/delete range confirm commands', () => {
             [ICommandService, { executeCommand }],
             [LocaleService, locale],
             [SheetsSelectionsService, createSelectionService(range)],
-            [IUniverInstanceService, {}],
+            [ICrabTableInstanceService, {}],
         ]);
 
         vi.spyOn(sheets, 'getSheetCommandTarget').mockReturnValue({
@@ -225,7 +225,7 @@ describe('insert/delete range confirm commands', () => {
             [ICommandService, { executeCommand }],
             [LocaleService, locale],
             [SheetsSelectionsService, createSelectionService(null)],
-            [IUniverInstanceService, {}],
+            [ICrabTableInstanceService, {}],
         ]);
         expect(await DeleteRangeMoveLeftConfirmCommand.handler(noSelectionAccessor)).toBe(false);
 

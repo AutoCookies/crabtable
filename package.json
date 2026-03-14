@@ -1,33 +1,37 @@
 {
-    "name": "univer",
+    "name": "crabtable",
     "type": "module",
     "version": "0.17.0",
     "private": true,
-    "packageManager": "pnpm@10.31.0",
-    "author": "DreamNum Co., Ltd. <developer@univer.ai>",
+    "author": "DreamNum Co., Ltd. <developer@crabtable.dev>",
     "license": "Apache-2.0",
     "funding": {
         "type": "opencollective",
-        "url": "https://opencollective.com/univer"
+        "url": "https://opencollective.com/crabtable"
     },
-    "homepage": "https://univer.ai",
+    "homepage": "https://crabtable.dev",
     "repository": {
         "type": "git",
-        "url": "https://github.com/dream-num/univer"
+        "url": "https://github.com/AutoCookies/crabtable"
     },
     "bugs": {
-        "url": "https://github.com/dream-num/univer/issues"
+        "url": "https://github.com/AutoCookies/crabtable/issues"
     },
     "engines": {
-        "node": ">=20",
-        "pnpm": ">=10"
+        "node": ">=20"
     },
+    "workspaces": [
+        "common/*",
+        "examples",
+        "packages/*",
+        "tests/*"
+    ],
     "scripts": {
         "prepare": "husky",
         "pre-commit": "lint-staged",
-        "dev": "pnpm --filter univer-examples dev:demo -- --host 0.0.0.0",
-        "dev:libs": "pnpm --filter univer-examples dev:demo-libs",
-        "dev:e2e": "pnpm --filter univer-examples dev:e2e",
+        "dev": "yarn workspace crabtable-examples dev:demo -- --host 0.0.0.0",
+        "dev:libs": "yarn workspace crabtable-examples dev:demo-libs",
+        "dev:e2e": "yarn workspace crabtable-examples dev:e2e",
         "use:react16": "tsx ./scripts/react-version-manager.ts --react=16",
         "use:react19": "tsx ./scripts/react-version-manager.ts --react=19",
         "typecheck": "turbo typecheck",
@@ -35,13 +39,14 @@
         "coverage": "turbo coverage -- --passWithNoTests",
         "build": "turbo build --concurrency=30% --filter=!./common/*",
         "build:ci": "turbo build --concurrency=100% --filter=!./common/*",
-        "build:demo": "pnpm --filter univer-examples build:demo",
-        "build:e2e": "pnpm --filter univer-examples build:e2e",
+        "build:demo": "yarn workspace crabtable-examples build:demo",
+        "build:e2e": "yarn workspace crabtable-examples build:e2e",
         "serve:e2e": "serve ./examples/local",
         "test:e2e": "playwright test",
         "lint": "eslint .",
-        "storybook:dev": "pnpm --filter @univerjs/storybook dev:storybook",
-        "storybook:build": "pnpm --filter @univerjs/storybook build:storybook",
+        "storybook:dev": "yarn workspace @crabtable/storybook dev:storybook",
+        "storybook:build": "yarn workspace @crabtable/storybook build:storybook",
+        "publish:all": "node scripts/publish-workspaces.mjs",
         "release": "release-it"
     },
     "devDependencies": {
@@ -57,8 +62,8 @@
         "@types/node": "^25.3.5",
         "@types/react": "19.2.14",
         "@types/react-dom": "19.2.3",
-        "@univerjs-infra/shared": "workspace:*",
-        "@univerjs/design": "workspace:*",
+        "@crabtable-infra/shared": "*",
+        "@crabtable/design": "*",
         "@vitejs/plugin-react": "^5.1.4",
         "eslint": "10.0.3",
         "eslint-plugin-format": "^2.0.1",
@@ -79,11 +84,6 @@
         "typescript": "^5.9.3",
         "vitest": "^4.0.18"
     },
-    "pnpm": {
-        "onlyBuiltDependencies": [
-            "esbuild"
-        ]
-    },
     "resolutions": {
         "@types/react": "19.2.14",
         "@types/react-dom": "19.2.3",
@@ -91,6 +91,6 @@
         "react-dom": "19.2.4"
     },
     "lint-staged": {
-        "*": "eslint --fix"
+        "*.{ts,tsx,js,mjs,cjs}": "eslint --fix"
     }
 }

@@ -97,13 +97,13 @@ describe('sheet util helpers', () => {
             cl: { rgb: '#123456' },
         });
 
-        addLinkToDocumentModel(documentModel, 'https://univer.ai', 'link-1');
-        addLinkToDocumentModel(documentModel, 'https://univer.ai/ignored', 'link-2');
+        addLinkToDocumentModel(documentModel, 'https://crabtable.dev', 'link-1');
+        addLinkToDocumentModel(documentModel, 'https://crabtable.dev/ignored', 'link-2');
 
         expect(documentModel.getBody()?.customRanges).toHaveLength(1);
         expect(documentModel.getBody()?.customRanges?.[0]).toMatchObject({
             rangeType: CustomRangeType.HYPERLINK,
-            properties: { url: 'https://univer.ai', refId: 'link-1' },
+            properties: { url: 'https://crabtable.dev', refId: 'link-1' },
         });
     });
 

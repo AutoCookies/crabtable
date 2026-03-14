@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { CURSOR_TYPE } from './basics/const';
 
 import type { IViewportInfo } from './basics/vector2';
 import type { UniverRenderingContext } from './context';
-import { sortRules } from '@univerjs/core';
+import { sortRules } from '@crabtable/core';
 import { BaseObject } from './base-object';
 import { RENDER_CLASS_TYPE } from './basics/const';
 import { getGroupState, transformObjectOutOfGroup } from './basics/group-transform';

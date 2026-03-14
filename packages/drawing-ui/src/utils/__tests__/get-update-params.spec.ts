@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDrawingManagerService } from '@univerjs/drawing';
-import type { BaseObject, Image } from '@univerjs/engine-render';
-import { DrawingTypeEnum } from '@univerjs/core';
+import type { IDrawingManagerService } from '@crabtable/drawing';
+import type { BaseObject, Image } from '@crabtable/engine-render';
+import { DrawingTypeEnum } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import { getUpdateParams } from '../get-update-params';
 

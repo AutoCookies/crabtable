@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDocumentData, Nullable } from '@univerjs/core';
+import type { IDocumentData, Nullable } from '@crabtable/core';
 import type { RefObject } from 'react';
 import type { Editor } from '../../../services/editor/editor';
-import { Tools } from '@univerjs/core';
-import { useDependency } from '@univerjs/ui';
+import { Tools } from '@crabtable/core';
+import { useDependency } from '@crabtable/ui';
 import { useLayoutEffect, useMemo, useState } from 'react';
 import { IEditorService } from '../../../services/editor/editor-manager.service';
 

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Nullable } from '@univerjs/core';
-import type { IFunctionNames } from '@univerjs/engine-formula';
+import type { IDisposable, Nullable } from '@crabtable/core';
+import type { IFunctionNames } from '@crabtable/engine-formula';
 import type { Observable } from 'rxjs';
-import { createIdentifier } from '@univerjs/core';
-import { FUNCTION_NAMES_MATH, FUNCTION_NAMES_STATISTICAL } from '@univerjs/engine-formula';
+import { createIdentifier } from '@crabtable/core';
+import { FUNCTION_NAMES_MATH, FUNCTION_NAMES_STATISTICAL } from '@crabtable/engine-formula';
 import { BehaviorSubject } from 'rxjs';
 
 export interface IStatusBarService {

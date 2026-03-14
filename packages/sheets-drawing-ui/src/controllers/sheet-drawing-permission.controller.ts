@@ -16,11 +16,11 @@
 
 /* eslint-disable max-lines-per-function */
 
-import type { Workbook, Worksheet } from '@univerjs/core';
-import { Disposable, Inject, IPermissionService, IUniverInstanceService, UniverInstanceType, UserManagerService } from '@univerjs/core';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { IRenderManagerService, RENDER_CLASS_TYPE } from '@univerjs/engine-render';
-import { WorkbookEditablePermission, WorkbookViewPermission, WorksheetEditPermission, WorksheetViewPermission } from '@univerjs/sheets';
+import type { Workbook, Worksheet } from '@crabtable/core';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject, IPermissionService, UserManagerService } from '@crabtable/core';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { IRenderManagerService, RENDER_CLASS_TYPE } from '@crabtable/engine-render';
+import { WorkbookEditablePermission, WorkbookViewPermission, WorksheetEditPermission, WorksheetViewPermission } from '@crabtable/sheets';
 import { combineLatest, distinctUntilChanged, EMPTY, map, switchMap, tap } from 'rxjs';
 
 export class SheetDrawingPermissionController extends Disposable {
@@ -28,7 +28,7 @@ export class SheetDrawingPermissionController extends Disposable {
         @IDrawingManagerService private readonly _drawingManagerService: IDrawingManagerService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
         @IPermissionService private readonly _permissionService: IPermissionService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(UserManagerService) private _userManagerService: UserManagerService
     ) {
         super();
@@ -39,7 +39,7 @@ export class SheetDrawingPermissionController extends Disposable {
     }
 
     private _initDrawingVisible() {
-        const workbook$ = this._univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook$ = this._crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         const currentUser$ = this._userManagerService.currentUser$;
         const combined$ = combineLatest([workbook$, currentUser$]);
 
@@ -110,7 +110,7 @@ export class SheetDrawingPermissionController extends Disposable {
     }
 
     private _initDrawingEditable() {
-        const workbook$ = this._univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook$ = this._crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         const currentUser$ = this._userManagerService.currentUser$;
 
         const combined$ = combineLatest([workbook$, currentUser$]);
@@ -182,7 +182,7 @@ export class SheetDrawingPermissionController extends Disposable {
     }
 
     private _initViewPermissionChange() {
-        const workbook$ = this._univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook$ = this._crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         const currentUser$ = this._userManagerService.currentUser$;
         this.disposeWithMe(
             combineLatest([workbook$, currentUser$])
@@ -254,7 +254,7 @@ export class SheetDrawingPermissionController extends Disposable {
                     },
                     complete: () => {
                         this._drawingManagerService.setDrawingVisible(true);
-                        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+                        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
                         const sheet = workbook?.getActiveSheet();
                         const unitId = workbook?.getUnitId();
                         const subUnitId = sheet?.getSheetId();
@@ -270,7 +270,7 @@ export class SheetDrawingPermissionController extends Disposable {
     }
 
     private _initEditPermissionChange() {
-        const workbook$ = this._univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook$ = this._crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         const currentUser$ = this._userManagerService.currentUser$;
 
         this.disposeWithMe(
@@ -354,7 +354,7 @@ export class SheetDrawingPermissionController extends Disposable {
                         }
                     },
                     complete: () => {
-                        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+                        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
                         if (!workbook) {
                             return;
                         }

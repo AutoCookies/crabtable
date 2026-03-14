@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { MenuConfig } from '@univerjs/ui';
+import type { MenuConfig } from '@crabtable/ui';
 
 export const SHEETS_TABLE_UI_PLUGIN_CONFIG_KEY = 'sheets-table-ui.config';
 

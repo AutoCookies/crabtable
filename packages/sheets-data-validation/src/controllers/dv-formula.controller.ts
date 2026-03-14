@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { ICellDataForSheetInterceptor, Nullable, Workbook, Worksheet } from '@univerjs/core';
-import type { ICellPermission } from '@univerjs/sheets';
-import { Disposable, Inject, IPermissionService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { deserializeRangeWithSheetWithCache, LexerTreeBuilder } from '@univerjs/engine-formula';
+import type { ICellDataForSheetInterceptor, Nullable, Workbook, Worksheet } from '@crabtable/core';
+import type { ICellPermission } from '@crabtable/sheets';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject, IPermissionService } from '@crabtable/core';
+import { deserializeRangeWithSheetWithCache, LexerTreeBuilder } from '@crabtable/engine-formula';
+import { WorksheetViewPermission } from '@crabtable/sheets';
 import { UnitAction } from '@univerjs/protocol';
-import { WorksheetViewPermission } from '@univerjs/sheets';
 
 export class DataValidationFormulaController extends Disposable {
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IPermissionService private readonly _permissionService: IPermissionService,
         @Inject(LexerTreeBuilder) private readonly _lexerTreeBuilder: LexerTreeBuilder
     ) {
@@ -42,7 +42,7 @@ export class DataValidationFormulaController extends Disposable {
             }
             const { token } = node;
             const sequenceGrid = deserializeRangeWithSheetWithCache(token);
-            const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+            const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
             let targetSheet: Nullable<Worksheet> = workbook.getActiveSheet();
             const unitId = workbook.getUnitId();
             if (sequenceGrid.sheetName) {

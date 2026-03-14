@@ -15,13 +15,13 @@
  */
 
 /* eslint-disable dot-notation */
-import type { ISelectionCell, IWorkbookData, Univer, Workbook, Worksheet } from '@univerjs/core';
-import { BorderType, ICommandService, IConfigService, IContextService, Injector, LocaleService, RANGE_TYPE } from '@univerjs/core';
-import { SpreadsheetSkeleton } from '@univerjs/engine-render';
+import type { ISelectionCell, IWorkbookData, Workbook, Worksheet } from '@crabtable/core';
+import { BorderType, ICommandService, IConfigService, IContextService, Injector, LocaleService, RANGE_TYPE } from '@crabtable/core';
+import { SpreadsheetSkeleton } from '@crabtable/engine-render';
 import {
     SetBorderPositionCommand,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import {
     createSelectionCommandTestBed,
@@ -29,7 +29,7 @@ import {
 } from './create-sheet-skeleton-test-bed';
 
 describe('Test commands used for change selections', () => {
-    let univer: Univer | null = null;
+    let univer: CrabTable | null = null;
     let workbook: Workbook;
     let worksheet: Worksheet;
     let get: Injector['get'];

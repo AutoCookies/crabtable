@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
-import type { Dependency, Injector, IWorkbookData, Workbook, Worksheet } from '@univerjs/core';
+import type { Dependency, Injector, IWorkbookData, Workbook, Worksheet } from '@crabtable/core';
 import {
     cellToRange,
     CellValueType,
+    CrabTableInstanceType,
     ICommandService,
     IConfigService,
+    ICrabTableInstanceService,
     ILogService,
     Inject,
     InterceptorEffectEnum,
-    IUniverInstanceService,
     LocaleType,
     LogLevel,
     Plugin,
     Injector as RediInjector,
-    Univer,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     INTERCEPTOR_POINT,
     INumfmtService,
@@ -38,7 +37,7 @@ import {
     SetNumfmtMutation,
     SetRangeValuesMutation,
     SheetInterceptorService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { SHEETS_NUMFMT_PLUGIN_CONFIG_KEY } from '../../config/config';
 import * as patternUtils from '../../utils/pattern';
@@ -93,12 +92,12 @@ function createWorkbookData(): IWorkbookData {
 }
 
 function createControllerTestBed(workbookData?: IWorkbookData) {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
 
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -119,10 +118,10 @@ function createControllerTestBed(workbookData?: IWorkbookData) {
     }
 
     univer.registerPlugin(TestPlugin);
-    const sheet = univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, workbookData ?? createWorkbookData());
+    const sheet = univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, workbookData ?? createWorkbookData());
 
     const get = injector.get.bind(injector);
-    get(IUniverInstanceService).focusUnit('test');
+    get(ICrabTableInstanceService).focusUnit('test');
     get(ILogService).setLogLevel(LogLevel.SILENT);
 
     return {
@@ -151,7 +150,7 @@ function getInterceptedCell(worksheet: Worksheet, workbook: Workbook, row: numbe
 }
 
 describe('SheetsNumfmtCellContentController', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let workbook: Workbook;
     let commandService: ICommandService;

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
-import { createIdentifier } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
+import { createIdentifier } from '@crabtable/core';
 
 import { INotificationService } from '../notification/notification.service';
 

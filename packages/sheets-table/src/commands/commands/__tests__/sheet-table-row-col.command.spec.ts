@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { ICommandService, IUndoRedoService, IUniverInstanceService } from '@univerjs/core';
-import { SheetsSelectionsService } from '@univerjs/sheets';
+import { ICommandService, ICrabTableInstanceService, IUndoRedoService } from '@crabtable/core';
+import { SheetsSelectionsService } from '@crabtable/sheets';
 
 import { describe, expect, it, vi } from 'vitest';
 import { SheetsTableController } from '../../../controllers/sheets-table.controller';
@@ -33,8 +33,8 @@ const sheetsMocks = vi.hoisted(() => ({
     SheetsSelectionsService: Symbol('SheetsSelectionsService'),
 }));
 
-vi.mock('@univerjs/sheets', async () => {
-    const actual = await vi.importActual('@univerjs/sheets');
+vi.mock('@crabtable/sheets', async () => {
+    const actual = await vi.importActual('@crabtable/sheets');
     return {
         ...actual,
         getSheetCommandTarget: sheetsMocks.getSheetCommandTarget,
@@ -60,7 +60,7 @@ describe('sheet-table-row-col commands', () => {
         sheetsMocks.getSheetCommandTarget.mockReturnValue(null);
 
         const accessor = createAccessor([
-            [IUniverInstanceService, {}],
+            [ICrabTableInstanceService, {}],
         ]);
 
         expect(SheetTableInsertRowCommand.handler(accessor)).toBe(false);
@@ -69,7 +69,7 @@ describe('sheet-table-row-col commands', () => {
 
     it('remove commands should return false for invalid params', () => {
         const accessor = createAccessor([
-            [IUniverInstanceService, {}],
+            [ICrabTableInstanceService, {}],
         ]);
 
         expect(SheetTableRemoveRowCommand.handler(accessor, undefined as any)).toBe(false);
@@ -89,7 +89,7 @@ describe('sheet-table-row-col commands', () => {
         });
 
         const accessor = createAccessor([
-            [IUniverInstanceService, {}],
+            [ICrabTableInstanceService, {}],
             [SheetsSelectionsService, { getCurrentSelections: () => [] }],
             [SheetsTableController, { getContainerTableWithRange: () => null }],
             [TableManager, {}],

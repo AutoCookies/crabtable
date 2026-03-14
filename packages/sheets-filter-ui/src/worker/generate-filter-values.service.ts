@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IRange, Nullable, Styles, Workbook, Worksheet } from '@univerjs/core';
-import type { FilterColumn } from '@univerjs/sheets-filter';
+import type { IRange, Nullable, Styles, Workbook, Worksheet } from '@crabtable/core';
+import type { FilterColumn } from '@crabtable/sheets-filter';
 import type { IFilterByValueItem, IFilterByValueWithTreeItem } from '../services/sheets-filter-panel.service';
-import { createIdentifier, Disposable, extractPureTextFromCell, ILogService, Inject, IUniverInstanceService, LocaleService, numfmt } from '@univerjs/core';
-import { FilterBy } from '@univerjs/sheets-filter';
+import { createIdentifier, Disposable, extractPureTextFromCell, ICrabTableInstanceService, ILogService, Inject, LocaleService, numfmt } from '@crabtable/core';
+import { FilterBy } from '@crabtable/sheets-filter';
 
 export interface ISheetsGenerateFilterValuesService {
     getFilterValues(params: {
@@ -41,7 +41,7 @@ export const ISheetsGenerateFilterValuesService = createIdentifier<ISheetsGenera
 export class SheetsGenerateFilterValuesService extends Disposable {
     constructor(
         @Inject(LocaleService) private readonly _localeService: LocaleService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ILogService private readonly _logService: ILogService
     ) {
         super();
@@ -58,8 +58,8 @@ export class SheetsGenerateFilterValuesService extends Disposable {
         alreadyChecked: string[];
     }) {
         const { unitId, subUnitId, filteredOutRowsByOtherColumns, filterColumn, filters, blankChecked, iterateRange, alreadyChecked } = params;
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId);
-        const worksheet = this._univerInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(subUnitId);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId);
+        const worksheet = this._crabtableInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(subUnitId);
 
         if (!workbook || !worksheet) return [];
 

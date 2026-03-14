@@ -15,10 +15,10 @@
  */
 
 import type { IBusinessComponentProps } from './interface';
-import { isPatternEqualWithoutDecimal, LocaleService } from '@univerjs/core';
-import { InputNumber, SelectList } from '@univerjs/design';
-import { getDecimalFromPattern, getNumberFormatOptions, isPatternHasDecimal, setPatternDecimal } from '@univerjs/sheets-numfmt';
-import { useDependency } from '@univerjs/ui';
+import { isPatternEqualWithoutDecimal, LocaleService } from '@crabtable/core';
+import { InputNumber, SelectList } from '@crabtable/design';
+import { getDecimalFromPattern, getNumberFormatOptions, isPatternHasDecimal, setPatternDecimal } from '@crabtable/sheets-numfmt';
+import { useDependency } from '@crabtable/ui';
 import { useMemo, useState } from 'react';
 
 export const isThousandthPercentilePanel = (pattern: string) =>

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IRange, Workbook } from '@univerjs/core';
+import type { IRange, Workbook } from '@crabtable/core';
 import type { ComponentType } from 'react';
 import type { IRangeSelectorProps } from '../../../basics/editor/range';
-import { Injector, isValidRange, IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
-import { FormLayout, Input } from '@univerjs/design';
-import { deserializeRangeWithSheet, serializeRange } from '@univerjs/engine-formula';
-import { setEndForRange } from '@univerjs/sheets';
-import { ComponentManager, useDependency } from '@univerjs/ui';
+import { CrabTableInstanceType, ICrabTableInstanceService, Injector, isValidRange, LocaleService } from '@crabtable/core';
+import { FormLayout, Input } from '@crabtable/design';
+import { deserializeRangeWithSheet, serializeRange } from '@crabtable/engine-formula';
+import { setEndForRange } from '@crabtable/sheets';
+import { ComponentManager, useDependency } from '@crabtable/ui';
 import { useMemo } from 'react';
 import { RANGE_SELECTOR_COMPONENT_KEY } from '../../../common/keys';
 import { checkRangeValid } from '../util';
@@ -39,11 +39,11 @@ export const PermissionDetailMainPart = (props: IPermissionDetailMainPartProps) 
     const { ranges, onRangesChange, desc, onDescChange, rangesErrMsg, permissionId } = props;
     const componentManager = useDependency(ComponentManager);
     const RangeSelector: ComponentType<IRangeSelectorProps> = useMemo(() => componentManager.get(RANGE_SELECTOR_COMPONENT_KEY), []) as any;
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const localeService = useDependency(LocaleService);
     const injector = useDependency(Injector);
 
-    const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     const worksheet = workbook?.getActiveSheet();
     if (!workbook || !worksheet) {
         return null;
@@ -57,7 +57,7 @@ export const PermissionDetailMainPart = (props: IPermissionDetailMainPartProps) 
             return;
         }
 
-        const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         const worksheet = workbook?.getActiveSheet();
         if (!workbook || !worksheet) {
             return;

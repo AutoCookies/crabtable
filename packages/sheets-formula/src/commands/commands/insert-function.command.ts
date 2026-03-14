@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICellData, ICommand, IRange } from '@univerjs/core';
-import type { ISetRangeValuesCommandParams } from '@univerjs/sheets';
-import { CommandType, generateRandomId, ICommandService, ObjectMatrix } from '@univerjs/core';
-import { SetRangeValuesCommand } from '@univerjs/sheets';
+import type { IAccessor, ICellData, ICommand, IRange } from '@crabtable/core';
+import type { ISetRangeValuesCommandParams } from '@crabtable/sheets';
+import { CommandType, generateRandomId, ICommandService, ObjectMatrix } from '@crabtable/core';
+import { SetRangeValuesCommand } from '@crabtable/sheets';
 
 export interface IInsertFunction {
     /**

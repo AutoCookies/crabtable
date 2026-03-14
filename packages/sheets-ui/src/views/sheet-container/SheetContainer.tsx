@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
+import type { Workbook } from '@crabtable/core';
 import type { IUniverSheetsUIConfig } from '../../config/config';
-import { IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { ComponentManager, ContextMenuPosition, IMenuManagerService, ToolbarItem, useConfigValue, useDependency, useObservable } from '@univerjs/ui';
+import { CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
+import { ComponentManager, ContextMenuPosition, IMenuManagerService, ToolbarItem, useConfigValue, useDependency, useObservable } from '@crabtable/ui';
 import { useMemo } from 'react';
 import { useActiveWorkbook } from '../../components/hook';
 import { SHEETS_UI_PLUGIN_CONFIG_KEY } from '../../config/config';
@@ -108,12 +108,12 @@ export function RenderSheetContent() {
 }
 
 function useHasWorkbook(): boolean {
-    const univerInstanceService = useDependency(IUniverInstanceService);
-    const workbook = useObservable(() => univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET), null, false, []);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
+    const workbook = useObservable(() => crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET), null, false, []);
     const hasWorkbook = !!workbook;
     return useMemo(
-        () => univerInstanceService.getAllUnitsForType(UniverInstanceType.UNIVER_SHEET).length > 0,
+        () => crabtableInstanceService.getAllUnitsForType(CrabTableInstanceType.CRABTABLE_SHEET).length > 0,
 
-        [univerInstanceService, hasWorkbook]
+        [crabtableInstanceService, hasWorkbook]
     );
 }

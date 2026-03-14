@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IDrawingParam } from '@univerjs/core';
-import type { IMenuButtonItem, IMenuSelectorItem } from '@univerjs/ui';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { MenuItemType } from '@univerjs/ui';
+import type { IAccessor, IDrawingParam } from '@crabtable/core';
+import type { IMenuButtonItem, IMenuSelectorItem } from '@crabtable/ui';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { MenuItemType } from '@crabtable/ui';
 import { Observable } from 'rxjs';
 import {
     SetDrawingAlignBottomOperation,

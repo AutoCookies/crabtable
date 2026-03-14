@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuSelectorItem } from '@univerjs/ui';
-import { DEFAULT_TEXT_FORMAT_EXCEL, fromCallback, ICommandService, isDefaultFormat, isPatternEqualWithoutDecimal, IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuSelectorItem } from '@crabtable/ui';
+import { CrabTableInstanceType, DEFAULT_TEXT_FORMAT_EXCEL, fromCallback, ICommandService, ICrabTableInstanceService, isDefaultFormat, isPatternEqualWithoutDecimal, LocaleService } from '@crabtable/core';
 import {
     RangeProtectionPermissionEditPoint,
     RemoveNumfmtMutation,
@@ -25,10 +25,10 @@ import {
     WorkbookEditablePermission,
     WorksheetEditPermission,
     WorksheetSetCellStylePermission,
-} from '@univerjs/sheets';
-import { AddDecimalCommand, getCurrencySymbolByLocale, getCurrencySymbolIconByLocale, SetCurrencyCommand, SetPercentCommand, SubtractDecimalCommand } from '@univerjs/sheets-numfmt';
-import { deriveStateFromActiveSheet$, getCurrentRangeDisable$ } from '@univerjs/sheets-ui';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { AddDecimalCommand, getCurrencySymbolByLocale, getCurrencySymbolIconByLocale, SetCurrencyCommand, SetPercentCommand, SubtractDecimalCommand } from '@crabtable/sheets-numfmt';
+import { deriveStateFromActiveSheet$, getCurrentRangeDisable$ } from '@crabtable/sheets-ui';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { filter, merge, Observable } from 'rxjs';
 import { OpenNumfmtPanelOperator } from '../commands/operations/open.numfmt.panel.operation';
 import { MORE_NUMFMT_TYPE_KEY, OPTIONS_KEY } from '../views/components/MoreNumfmtType';
@@ -111,7 +111,7 @@ export const CurrencySymbolIconMenuItem = (accessor: IAccessor) => {
         title: 'sheet.numfmt.currency',
         tooltip: 'sheet.numfmt.currency',
         type: MenuItemType.BUTTON,
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         disabled$: getCurrentRangeDisable$(accessor, { workbookTypes: [WorkbookEditablePermission], worksheetTypes: [WorksheetEditPermission, WorksheetSetCellStylePermission], rangeTypes: [RangeProtectionPermissionEditPoint] }),
     };
 };
@@ -123,7 +123,7 @@ export const AddDecimalMenuItem = (accessor: IAccessor) => {
         title: 'sheet.numfmt.addDecimal',
         tooltip: 'sheet.numfmt.addDecimal',
         type: MenuItemType.BUTTON,
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         disabled$: getCurrentRangeDisable$(accessor, { workbookTypes: [WorkbookEditablePermission], worksheetTypes: [WorksheetEditPermission, WorksheetSetCellStylePermission], rangeTypes: [RangeProtectionPermissionEditPoint] }),
     };
 };
@@ -135,7 +135,7 @@ export const SubtractDecimalMenuItem = (accessor: IAccessor) => {
         title: 'sheet.numfmt.subtractDecimal',
         tooltip: 'sheet.numfmt.subtractDecimal',
         type: MenuItemType.BUTTON,
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         disabled$: getCurrentRangeDisable$(accessor, { workbookTypes: [WorkbookEditablePermission], worksheetTypes: [WorksheetEditPermission, WorksheetSetCellStylePermission], rangeTypes: [RangeProtectionPermissionEditPoint] }),
     };
 };
@@ -147,21 +147,21 @@ export const PercentMenuItem = (accessor: IAccessor) => {
         title: 'sheet.numfmt.percent',
         tooltip: 'sheet.numfmt.percent',
         type: MenuItemType.BUTTON,
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         disabled$: getCurrentRangeDisable$(accessor, { workbookTypes: [WorkbookEditablePermission], worksheetTypes: [WorksheetEditPermission, WorksheetSetCellStylePermission], rangeTypes: [RangeProtectionPermissionEditPoint] }),
 
     };
 };
 
 export const FactoryOtherMenuItem = (accessor: IAccessor): IMenuSelectorItem => {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const commandService = accessor.get(ICommandService);
     const localeService = accessor.get(LocaleService);
 
     const selectionManagerService = accessor.get(SheetsSelectionsService);
     const commandList = [RemoveNumfmtMutation.id, SetNumfmtMutation.id];
     const value$ = deriveStateFromActiveSheet$(
-        univerInstanceService,
+        crabtableInstanceService,
         '',
         ({ workbook, worksheet }) => new Observable((subscribe) =>
             merge(
@@ -218,7 +218,7 @@ export const FactoryOtherMenuItem = (accessor: IAccessor): IMenuSelectorItem => 
             },
         }],
         value$,
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         disabled$: getCurrentRangeDisable$(accessor, { workbookTypes: [WorkbookEditablePermission], worksheetTypes: [WorksheetSetCellStylePermission, WorksheetEditPermission], rangeTypes: [RangeProtectionPermissionEditPoint] }),
     };
 };

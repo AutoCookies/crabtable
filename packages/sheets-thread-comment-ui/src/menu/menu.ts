@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IShortcutItem } from '@univerjs/ui';
-import { UniverInstanceType } from '@univerjs/core';
-import { RangeProtectionPermissionViewPoint, WorkbookCommentPermission, WorksheetViewPermission } from '@univerjs/sheets';
-import { getCurrentRangeDisable$, whenSheetEditorFocused } from '@univerjs/sheets-ui';
-import { ToggleSheetCommentPanelOperation } from '@univerjs/thread-comment-ui';
-import { getMenuHiddenObservable, KeyCode, MenuItemType, MetaKeys } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import type { IShortcutItem } from '@crabtable/ui';
+import { CrabTableInstanceType } from '@crabtable/core';
+import { RangeProtectionPermissionViewPoint, WorkbookCommentPermission, WorksheetViewPermission } from '@crabtable/sheets';
+import { getCurrentRangeDisable$, whenSheetEditorFocused } from '@crabtable/sheets-ui';
+import { ToggleSheetCommentPanelOperation } from '@crabtable/thread-comment-ui';
+import { getMenuHiddenObservable, KeyCode, MenuItemType, MetaKeys } from '@crabtable/ui';
 import { ShowAddSheetCommentModalOperation } from '../commands/operations/comment.operation';
 
 export const threadCommentMenuFactory = (accessor: IAccessor) => {
@@ -29,7 +29,7 @@ export const threadCommentMenuFactory = (accessor: IAccessor) => {
         type: MenuItemType.BUTTON,
         icon: 'CommentIcon',
         title: 'sheetThreadComment.menu.addComment',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         disabled$: getCurrentRangeDisable$(accessor, {
             workbookTypes: [WorkbookCommentPermission],
             worksheetTypes: [WorksheetViewPermission],
@@ -49,7 +49,7 @@ export const threadPanelMenuFactory = (accessor: IAccessor) => {
             worksheetTypes: [WorksheetViewPermission],
             rangeTypes: [RangeProtectionPermissionViewPoint],
         }),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 };
 

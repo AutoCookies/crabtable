@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { getOffsetRectForDom } from '@univerjs/engine-render';
+import { getOffsetRectForDom } from '@crabtable/engine-render';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { NodePositionConvertToRectRange } from '../convert-rect-range';
 import { RectRange } from '../rect-range';
@@ -29,8 +29,8 @@ import {
 } from '../selection-utils';
 import { TextRange } from '../text-range';
 
-vi.mock('@univerjs/engine-render', async (importOriginal) => {
-    const actual = await importOriginal<typeof import('@univerjs/engine-render')>();
+vi.mock('@crabtable/engine-render', async (importOriginal) => {
+    const actual = await importOriginal<typeof import('@crabtable/engine-render')>();
 
     return {
         ...actual,

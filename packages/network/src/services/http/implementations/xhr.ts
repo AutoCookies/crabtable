@@ -17,12 +17,12 @@
 /* eslint-disable max-lines-per-function */
 /* eslint-disable ts/no-explicit-any */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { Observer } from 'rxjs';
 import type { HTTPRequest } from '../request';
 import type { HTTPEvent } from '../response';
 import type { IHTTPImplementation } from './implementation';
-import { ILogService } from '@univerjs/core';
+import { ILogService } from '@crabtable/core';
 import { Observable } from 'rxjs';
 import { HTTPHeaders } from '../headers';
 import { ErrorStatusCodeLowerBound, HTTPStatusCode, SuccessStatusCodeLowerBound } from '../http';

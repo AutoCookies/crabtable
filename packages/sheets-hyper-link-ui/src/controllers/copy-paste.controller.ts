@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IMutationInfo, IRange, Nullable } from '@univerjs/core';
-import type { IDiscreteRange } from '@univerjs/sheets';
-import type { IPasteHookValueType, ISheetDiscreteRangeLocation } from '@univerjs/sheets-ui';
-import { Disposable, generateRandomId, Inject, Injector, ObjectMatrix, Range, Rectangle } from '@univerjs/core';
-import { rangeToDiscreteRange } from '@univerjs/sheets';
-import { AddHyperLinkMutation, HyperLinkModel, RemoveHyperLinkMutation } from '@univerjs/sheets-hyper-link';
-import { COPY_TYPE, getRepeatRange, ISheetClipboardService, PREDEFINED_HOOK_NAME_PASTE, virtualizeDiscreteRanges } from '@univerjs/sheets-ui';
+import type { IMutationInfo, IRange, Nullable } from '@crabtable/core';
+import type { IDiscreteRange } from '@crabtable/sheets';
+import type { IPasteHookValueType, ISheetDiscreteRangeLocation } from '@crabtable/sheets-ui';
+import { Disposable, generateRandomId, Inject, Injector, ObjectMatrix, Range, Rectangle } from '@crabtable/core';
+import { rangeToDiscreteRange } from '@crabtable/sheets';
+import { AddHyperLinkMutation, HyperLinkModel, RemoveHyperLinkMutation } from '@crabtable/sheets-hyper-link';
+import { COPY_TYPE, getRepeatRange, ISheetClipboardService, PREDEFINED_HOOK_NAME_PASTE, virtualizeDiscreteRanges } from '@crabtable/sheets-ui';
 import { isLegalLink } from '../common/util';
 import { SheetsHyperLinkResolverService } from '../services/resolver.service';
 import { SHEET_HYPER_LINK_UI_PLUGIN } from '../types/const';

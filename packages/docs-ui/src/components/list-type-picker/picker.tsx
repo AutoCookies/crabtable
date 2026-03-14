@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { PresetListType } from '@univerjs/core';
-import { borderClassName, clsx } from '@univerjs/design';
+import { PresetListType } from '@crabtable/core';
+import { borderClassName, clsx } from '@crabtable/design';
 
 export interface IListTypePickerBaseProps {
     value?: PresetListType;

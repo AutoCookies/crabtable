@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Injector, IWorkbookData, Univer, Workbook } from '@univerjs/core';
-import { ICommandService, IUniverInstanceService, LocaleType, RedoCommand, UndoCommand, UniverInstanceType } from '@univerjs/core';
+import type { Injector, IWorkbookData, Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, LocaleType, RedoCommand, UndoCommand } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SetFrozenMutation } from '../../mutations/set-frozen.mutation';
 import { SetFrozenCommand } from '../set-frozen.command';
@@ -85,7 +85,7 @@ const WORKBOOK_DATA_DEMO: IWorkbookData = {
 };
 
 describe('Test set frozen commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
@@ -106,7 +106,7 @@ describe('Test set frozen commands', () => {
     describe('set frozen', () => {
         describe('set frozen', async () => {
             it('correct situation: ', async () => {
-                const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                 if (!workbook) throw new Error('This is an error');
 
                 const targetActiveSheet = workbook.getActiveSheet()!;

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { FEnum } from '@univerjs/core/facade';
-import { CFNumberOperator, CFTimePeriodOperator } from '@univerjs/sheets-conditional-formatting';
+import { FEnum } from '@crabtable/core/facade';
+import { CFNumberOperator, CFTimePeriodOperator } from '@crabtable/sheets-conditional-formatting';
 
 /**
  * @ignore
@@ -43,7 +43,7 @@ export class FSheetsConditionalFormattingEnum implements IFSheetsConditionalForm
 }
 
 FEnum.extend(FSheetsConditionalFormattingEnum);
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
     export interface FEnum extends IFSheetsConditionalFormattingEnum {
     }

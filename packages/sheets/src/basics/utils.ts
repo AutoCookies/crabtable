@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICellData, IObjectMatrixPrimitiveType, IRange, Nullable, UniverInstanceService, Workbook, Worksheet } from '@univerjs/core';
+import type { CrabTableInstanceService, IAccessor, ICellData, IObjectMatrixPrimitiveType, IRange, Nullable, Workbook, Worksheet } from '@crabtable/core';
 import type { IDiscreteRange } from './interfaces';
-import { IUniverInstanceService, mergeIntervals, ObjectMatrix, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, ICrabTableInstanceService, mergeIntervals, ObjectMatrix } from '@crabtable/core';
 import { getSheetCommandTarget } from '../commands/commands/utils/target-util';
 
 export const groupByKey = <T = Record<string, unknown>>(arr: T[], key: string, blankKey = '') => {
@@ -136,8 +136,8 @@ export function generateNullCellStyle(ranges: IRange[]): IObjectMatrixPrimitiveT
     return cellValue.clone();
 }
 
-export function getActiveWorksheet(instanceService: UniverInstanceService): [Nullable<Workbook>, Nullable<Worksheet>] {
-    const workbook = instanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+export function getActiveWorksheet(instanceService: CrabTableInstanceService): [Nullable<Workbook>, Nullable<Worksheet>] {
+    const workbook = instanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     const worksheet = workbook?.getActiveSheet();
     return [workbook, worksheet];
 }
@@ -153,10 +153,10 @@ export function discreteRangeToRange(discreteRange: IDiscreteRange): IRange {
 }
 
 export function rangeToDiscreteRange(range: IRange, accessor: IAccessor, unitId?: string, subUnitId?: string): IDiscreteRange | null {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const workbook = unitId
-        ? univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET)
-        : univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        ? crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET)
+        : crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     const worksheet = subUnitId ? workbook?.getSheetBySheetId(subUnitId) : workbook?.getActiveSheet();
     if (!worksheet) {
         return null;
@@ -180,7 +180,7 @@ export function rangeToDiscreteRange(range: IRange, accessor: IAccessor, unitId?
 }
 
 export function getVisibleRanges(ranges: IRange[], accessor: IAccessor, unitId?: string, subUnitId?: string): IRange[] {
-    const target = getSheetCommandTarget(accessor.get(IUniverInstanceService), { unitId, subUnitId });
+    const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService), { unitId, subUnitId });
     if (!target) {
         return ranges;
     }

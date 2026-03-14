@@ -17,8 +17,8 @@
 import type { IDisplayMenuItem, IMenuButtonItem, IMenuItem, IMenuSelectorItem, IValueOption, MenuItemDefaultValueType } from '../../../services/menu/menu';
 import type { IMenuSchema } from '../../../services/menu/menu-manager.service';
 import type { IBaseMenuProps } from '../desktop/Menu';
-import { LocaleService } from '@univerjs/core';
-import { borderBottomClassName, clsx } from '@univerjs/design';
+import { LocaleService } from '@crabtable/core';
+import { borderBottomClassName, clsx } from '@crabtable/design';
 import { CheckMarkIcon, MoreIcon, MoreLeftIcon } from '@univerjs/icons';
 import { useEffect, useMemo, useState } from 'react';
 import { combineLatest, isObservable, of } from 'rxjs';

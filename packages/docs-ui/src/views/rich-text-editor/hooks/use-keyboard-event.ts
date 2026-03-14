@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { KeyCode, MetaKeys } from '@univerjs/ui';
+import type { KeyCode, MetaKeys } from '@crabtable/ui';
 import type { Editor } from '../../../services/editor/editor';
-import { CommandType, DisposableCollection, generateRandomId, ICommandService } from '@univerjs/core';
-import { DeviceInputEventType } from '@univerjs/engine-render';
-import { IShortcutService, useDependency } from '@univerjs/ui';
+import { CommandType, DisposableCollection, generateRandomId, ICommandService } from '@crabtable/core';
+import { DeviceInputEventType } from '@crabtable/engine-render';
+import { IShortcutService, useDependency } from '@crabtable/ui';
 import { useEffect, useMemo } from 'react';
 
 export interface IKeyboardEventConfig {

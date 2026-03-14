@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Nullable } from '@univerjs/core';
+import type { IDisposable, Nullable } from '@crabtable/core';
 import type { Subscription } from 'rxjs';
-import { Disposable } from '@univerjs/core';
+import { Disposable } from '@crabtable/core';
 import { BehaviorSubject, combineLatest, distinctUntilChanged, map } from 'rxjs';
 
 export type ComputingStatus = boolean;

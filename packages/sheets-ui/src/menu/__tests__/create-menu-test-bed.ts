@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IWorkbookData } from '@univerjs/core';
-import { Inject, Injector, LocaleType, Plugin, Univer, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService, RenderManagerService } from '@univerjs/engine-render';
+import type { IWorkbookData } from '@crabtable/core';
+import { CrabTableInstanceType, Inject, Injector, LocaleType, Plugin } from '@crabtable/core';
+import { IRenderManagerService, RenderManagerService } from '@crabtable/engine-render';
 import {
     RangeProtectionCache,
     RangeProtectionRefRangeService,
@@ -31,8 +31,8 @@ import {
     WorksheetPermissionService,
     WorksheetProtectionPointModel,
     WorksheetProtectionRuleModel,
-} from '@univerjs/sheets';
-import { IMenuManagerService, IPlatformService, IShortcutService, MenuManagerService, PlatformService, ShortcutService } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { IMenuManagerService, IPlatformService, IShortcutService, MenuManagerService, PlatformService, ShortcutService } from '@crabtable/ui';
 
 const TEST_WORKBOOK_DATA_DEMO: IWorkbookData = {
     id: 'test',
@@ -56,14 +56,14 @@ const TEST_WORKBOOK_DATA_DEMO: IWorkbookData = {
 };
 
 export function createMenuTestBed() {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
 
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(_config: unknown, @Inject(Injector) override readonly _injector: Injector) {
             super();
@@ -97,7 +97,7 @@ export function createMenuTestBed() {
     }
 
     univer.registerPlugin(TestPlugin);
-    const sheet = univer.createUnit(UniverInstanceType.UNIVER_SHEET, TEST_WORKBOOK_DATA_DEMO);
+    const sheet = univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, TEST_WORKBOOK_DATA_DEMO);
 
     return {
         univer,

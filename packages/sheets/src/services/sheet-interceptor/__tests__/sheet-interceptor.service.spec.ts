@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { ICellData, IInterceptor, Injector, Nullable, Univer, Workbook } from '@univerjs/core';
+import type { ICellData, IInterceptor, Injector, Nullable, Workbook } from '@crabtable/core';
 import type { ISheetLocation } from '../utils/interceptor';
-import { createInterceptorKey, InterceptorEffectEnum, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, createInterceptorKey, ICrabTableInstanceService, InterceptorEffectEnum } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { INTERCEPTOR_POINT } from '../interceptor-const';
 import { SheetInterceptorService } from '../sheet-interceptor.service';
 import { createSheetTestBed } from './create-core-test-bed';
 
 describe('Test SheetInterceptorService', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     const stringIntercept = createInterceptorKey<string, null>('stringIntercept');
     const numberIntercept = createInterceptorKey<number, { step: number }>('numberIntercept');
@@ -39,20 +39,20 @@ describe('Test SheetInterceptorService', () => {
     function getCell(row: number, col: number): Nullable<ICellData>;
     function getCell(row: number, col: number, key: string, filter: (interceptor: IInterceptor<any, any>) => boolean): Nullable<ICellData>;
     function getCell(row: number, col: number, key?: string, filter?: (interceptor: IInterceptor<any, any>) => boolean): Nullable<ICellData> {
-        const cus = get(IUniverInstanceService);
-        const sheet = cus.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()!;
+        const cus = get(ICrabTableInstanceService);
+        const sheet = cus.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()!;
         return (key && filter) ? sheet.getCellWithFilteredInterceptors(row, col, key, filter) : sheet.getCell(row, col);
     }
 
     function getRowFiltered(row: number): boolean {
-        const cus = get(IUniverInstanceService);
-        const sheet = cus.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()!;
+        const cus = get(ICrabTableInstanceService);
+        const sheet = cus.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()!;
         return sheet.getRowFiltered(row);
     }
 
     function getRowVisible(row: number): boolean {
-        const cus = get(IUniverInstanceService);
-        const sheet = cus.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()!;
+        const cus = get(ICrabTableInstanceService);
+        const sheet = cus.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()!;
         return sheet.getRowVisible(row);
     }
 

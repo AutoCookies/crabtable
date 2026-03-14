@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { SheetsHyperLinkParserService } from '@univerjs/sheets-hyper-link';
-import { FWorksheet } from '@univerjs/sheets/facade';
+import { SheetsHyperLinkParserService } from '@crabtable/sheets-hyper-link';
+import { FWorksheet } from '@crabtable/sheets/facade';
 
 /**
  * @ignore
@@ -26,7 +26,7 @@ export interface IFWorksheetHyperlinkMixin {
      * @returns {string} The url of this sheet
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const url = fWorksheet.getUrl();
      * console.log(url);
@@ -44,7 +44,7 @@ export class FWorksheetHyperlinkMixin extends FWorksheet implements IFWorksheetH
 
 FWorksheet.extend(FWorksheetHyperlinkMixin);
 
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FWorksheet extends IFWorksheetHyperlinkMixin {}
 }

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICustomDecorationForInterceptor, ITextStyle, Nullable } from '@univerjs/core';
-import { BooleanNumber, CustomDecorationType } from '@univerjs/core';
+import type { ICustomDecorationForInterceptor, ITextStyle, Nullable } from '@crabtable/core';
+import { BooleanNumber, CustomDecorationType } from '@crabtable/core';
 
 export function getCustomDecorationStyle(customDecoration: ICustomDecorationForInterceptor): Nullable<ITextStyle> {
     if (customDecoration.type === CustomDecorationType.COMMENT) {

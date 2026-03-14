@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommand, IDocumentBody, IMutationInfo, JSONXActions } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { ITextRangeWithStyle } from '@univerjs/engine-render';
-import { BooleanNumber, CommandType, generateRandomId, ICommandService, IUniverInstanceService, JSONX } from '@univerjs/core';
-import { DocSelectionManagerService, DocSkeletonManagerService, RichTextEditingMutation } from '@univerjs/docs';
-import { DocumentEditArea, IRenderManagerService } from '@univerjs/engine-render';
+import type { DocumentDataModel, ICommand, IDocumentBody, IMutationInfo, JSONXActions } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { ITextRangeWithStyle } from '@crabtable/engine-render';
+import { BooleanNumber, CommandType, generateRandomId, ICommandService, ICrabTableInstanceService, JSONX } from '@crabtable/core';
+import { DocSelectionManagerService, DocSkeletonManagerService, RichTextEditingMutation } from '@crabtable/docs';
+import { DocumentEditArea, IRenderManagerService } from '@crabtable/engine-render';
 import { findFirstCursorOffset } from '../../basics/selection';
 import { HeaderFooterType } from '../../controllers/doc-header-footer.controller';
 import { DocSelectionRenderService } from '../../services/selection/doc-selection-render.service';
@@ -145,11 +145,11 @@ export const CoreHeaderFooterCommand: ICommand<ICoreHeaderFooterParams> = {
     // eslint-disable-next-line max-lines-per-function
     handler: async (accessor, params: ICoreHeaderFooterParams) => {
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const renderManagerService = accessor.get(IRenderManagerService);
         const { unitId, segmentId, createType, headerFooterProps } = params;
         const docSkeletonManagerService = renderManagerService.getRenderById(unitId)?.with(DocSkeletonManagerService);
-        const docDataModel = univerInstanceService.getUniverDocInstance(unitId);
+        const docDataModel = crabtableInstanceService.getUniverDocInstance(unitId);
         const docViewModel = docSkeletonManagerService?.getViewModel();
 
         if (docDataModel == null || docViewModel == null) {
@@ -258,7 +258,7 @@ export const CloseHeaderFooterCommand: ICommand<ICloseHeaderFooterParams> = {
         const commandService = accessor.get(ICommandService);
         const renderManagerService = accessor.get(IRenderManagerService);
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const instanceService = accessor.get(IUniverInstanceService);
+        const instanceService = accessor.get(ICrabTableInstanceService);
 
         const { unitId } = params;
 

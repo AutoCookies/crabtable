@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { ICommand, IRange } from '@univerjs/core';
-import type { IAddConditionalRuleMutationParams, IConditionFormattingRule, INumberHighlightCell } from '@univerjs/sheets-conditional-formatting';
+import type { ICommand, IRange } from '@crabtable/core';
+import type { IAddConditionalRuleMutationParams, IConditionFormattingRule, INumberHighlightCell } from '@crabtable/sheets-conditional-formatting';
 import {
     CommandType,
     ICommandService,
-    IUniverInstanceService,
-} from '@univerjs/core';
-import { getSheetCommandTarget } from '@univerjs/sheets';
-import { AddConditionalRuleMutation, CFNumberOperator, CFRuleType, CFSubRuleType, ConditionalFormattingRuleModel } from '@univerjs/sheets-conditional-formatting';
+    ICrabTableInstanceService,
+} from '@crabtable/core';
+import { getSheetCommandTarget } from '@crabtable/sheets';
+import { AddConditionalRuleMutation, CFNumberOperator, CFRuleType, CFSubRuleType, ConditionalFormattingRuleModel } from '@crabtable/sheets-conditional-formatting';
 
 interface IAddNumberCfParams {
     ranges: IRange[];
@@ -41,8 +41,8 @@ export const AddNumberCfCommand: ICommand<IAddNumberCfParams> = {
         const { ranges, style, stopIfTrue, operator, value } = params;
         const conditionalFormattingRuleModel = accessor.get(ConditionalFormattingRuleModel);
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { unitId, subUnitId } = target;

@@ -15,7 +15,7 @@
  */
 
 import type { ITableColumnJson, ITableFilterItem, ITableInfo, ITableJson, ITableOptions, ITableRange } from '../types/type';
-import { generateRandomId } from '@univerjs/core';
+import { generateRandomId } from '@crabtable/core';
 import { tableThemeConfig } from '../controllers/table-theme.factory';
 import { TableColumn } from './table-column';
 import { TableFilters } from './table-filter';

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Injector } from '@univerjs/core';
-import type { IRemoveNoteMutationParams, IUpdateNoteMutationParams } from '@univerjs/sheets-note';
-import { CanceledError, ICommandService, IUniverInstanceService } from '@univerjs/core';
-import { FUniver } from '@univerjs/core/facade';
-import { getSheetCommandTarget, SheetsSelectionsService } from '@univerjs/sheets';
-import { SheetDeleteNoteCommand, SheetsNoteModel, SheetToggleNotePopupCommand, SheetUpdateNoteCommand } from '@univerjs/sheets-note';
+import type { Injector } from '@crabtable/core';
+import type { IRemoveNoteMutationParams, IUpdateNoteMutationParams } from '@crabtable/sheets-note';
+import { CanceledError, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { FCrabTable } from '@crabtable/core/facade';
+import { getSheetCommandTarget, SheetsSelectionsService } from '@crabtable/sheets';
+import { SheetDeleteNoteCommand, SheetsNoteModel, SheetToggleNotePopupCommand, SheetUpdateNoteCommand } from '@crabtable/sheets-note';
 
 /**
  * @ignore
@@ -28,7 +28,7 @@ export interface IFUniverSheetNoteMixin {
     // Add any note-specific methods here if needed
 }
 
-export class FUniverSheetNoteMixin extends FUniver implements IFUniverSheetNoteMixin {
+export class FCrabTableSheetNoteMixin extends FCrabTable implements IFUniverSheetNoteMixin {
     // eslint-disable-next-line max-lines-per-function
     override _initialize(injector: Injector): void {
         const commandService = injector.get(ICommandService);
@@ -263,7 +263,7 @@ export class FUniverSheetNoteMixin extends FUniver implements IFUniverSheetNoteM
                 this.Event.BeforeSheetNoteShow,
                 () => commandService.beforeCommandExecuted((command) => {
                     if (command.id === SheetToggleNotePopupCommand.id) {
-                        const target = getSheetCommandTarget(injector.get(IUniverInstanceService));
+                        const target = getSheetCommandTarget(injector.get(ICrabTableInstanceService));
                         if (!target) return;
 
                         const { unitId, subUnitId } = target;
@@ -300,7 +300,7 @@ export class FUniverSheetNoteMixin extends FUniver implements IFUniverSheetNoteM
                 this.Event.BeforeSheetNoteHide,
                 () => commandService.beforeCommandExecuted((command) => {
                     if (command.id === SheetToggleNotePopupCommand.id) {
-                        const target = getSheetCommandTarget(injector.get(IUniverInstanceService));
+                        const target = getSheetCommandTarget(injector.get(ICrabTableInstanceService));
                         if (!target) return;
 
                         const { unitId, subUnitId } = target;
@@ -334,8 +334,8 @@ export class FUniverSheetNoteMixin extends FUniver implements IFUniverSheetNoteM
     }
 }
 
-FUniver.extend(FUniverSheetNoteMixin);
-declare module '@univerjs/core/facade' {
+FCrabTable.extend(FUniverSheetNoteMixin);
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
-    interface FUniver extends IFUniverSheetNoteMixin {}
+    interface FCrabTable extends IFUniverSheetNoteMixin {}
 }

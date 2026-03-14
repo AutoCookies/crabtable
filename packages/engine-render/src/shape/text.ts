@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IKeyValue, Nullable } from '@univerjs/core';
+import type { IKeyValue, Nullable } from '@crabtable/core';
 import type { UniverRenderingContext } from '../context';
 import type { IShapeProps } from './shape';
-import { CellValueType, HorizontalAlign, TextDecoration, VerticalAlign } from '@univerjs/core';
+import { CellValueType, HorizontalAlign, TextDecoration, VerticalAlign } from '@crabtable/core';
 import { COLOR_BLACK_RGB } from '../basics';
 import { DocSimpleSkeleton } from '../components/docs/layout/doc-simple-skeleton';
 import { Shape } from './shape';

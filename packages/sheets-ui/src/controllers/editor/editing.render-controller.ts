@@ -29,13 +29,14 @@ import type {
     Nullable,
     Styles,
     Workbook,
-} from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { ISetRangeValuesCommandParams, MutationsAffectRange } from '@univerjs/sheets';
+} from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { ISetRangeValuesCommandParams, MutationsAffectRange } from '@crabtable/sheets';
 import type { IUniverSheetsUIConfig } from '../../config/config';
 import type { IEditorBridgeServiceVisibleParam } from '../../services/editor-bridge.service';
 import {
     CellValueType,
+    CrabTableInstanceType,
     DEFAULT_EMPTY_DOCUMENT_VALUE,
     Direction,
     Disposable,
@@ -51,21 +52,20 @@ import {
     ICommandService,
     IConfigService,
     IContextService,
+    ICrabTableInstanceService,
     Inject,
     isFormulaString,
     isTextFormat,
     IUndoRedoService,
-    IUniverInstanceService,
     LocaleService,
     toDisposable,
     Tools,
-    UniverInstanceType,
     WrapStrategy,
-} from '@univerjs/core';
-import { DocSelectionManagerService, DocSkeletonManagerService, RichTextEditingMutation } from '@univerjs/docs';
-import { VIEWPORT_KEY as DOC_VIEWPORT_KEY, DocSelectionRenderService, IEditorService, MoveCursorOperation, MoveSelectionOperation, ReplaceSnapshotCommand } from '@univerjs/docs-ui';
-import { IFunctionService, LexerTreeBuilder, matchToken } from '@univerjs/engine-formula';
-import { convertTextRotation, DeviceInputEventType, IRenderManagerService } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { DocSelectionManagerService, DocSkeletonManagerService, RichTextEditingMutation } from '@crabtable/docs';
+import { VIEWPORT_KEY as DOC_VIEWPORT_KEY, DocSelectionRenderService, IEditorService, MoveCursorOperation, MoveSelectionOperation, ReplaceSnapshotCommand } from '@crabtable/docs-ui';
+import { IFunctionService, LexerTreeBuilder, matchToken } from '@crabtable/engine-formula';
+import { convertTextRotation, DeviceInputEventType, IRenderManagerService } from '@crabtable/engine-render';
 import {
     adjustRangeOnMutation,
     COMMAND_LISTENER_SKELETON_CHANGE,
@@ -82,8 +82,8 @@ import {
     SetWorksheetActiveOperation,
     SheetInterceptorService,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
-import { KeyCode, MetaKeys } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { KeyCode, MetaKeys } from '@crabtable/ui';
 import { distinctUntilChanged, filter } from 'rxjs';
 import { getEditorObject } from '../../basics/editor/get-editor-object';
 import { MoveSelectionCommand, MoveSelectionEnterAndTabCommand } from '../../commands/commands/set-selection.command';
@@ -130,7 +130,7 @@ export class EditingRenderController extends Disposable {
         @ICommandService private readonly _commandService: ICommandService,
         @Inject(LocaleService) protected readonly _localService: LocaleService,
         @IEditorService private readonly _editorService: IEditorService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(SheetInterceptorService) private readonly _sheetInterceptorService: SheetInterceptorService,
         @Inject(SheetCellEditorResizeService) private readonly _sheetCellEditorResizeService: SheetCellEditorResizeService,
         @Inject(SheetsSelectionsService) private readonly _selectionManagerService: SheetsSelectionsService,
@@ -175,7 +175,7 @@ export class EditingRenderController extends Disposable {
     }
 
     private _initEditorVisibilityListener(): void {
-        this.disposeWithMe(this._univerInstanceService.getCurrentTypeOfUnit$(UniverInstanceType.UNIVER_SHEET).subscribe(async (unit) => {
+        this.disposeWithMe(this._crabtableInstanceService.getCurrentTypeOfUnit$(CrabTableInstanceType.CRABTABLE_SHEET).subscribe(async (unit) => {
             if (this._editingUnit && !this._editorBridgeService.isForceKeepVisible() && (!unit || unit.getUnitId() !== this._editingUnit)) {
                 this._commandService.syncExecuteCommand(SetCellEditVisibleOperation.id, {
                     visible: false,
@@ -213,7 +213,7 @@ export class EditingRenderController extends Disposable {
         if (!renderConfig) return;
 
         d.add(renderConfig.document.onPointerDown$.subscribeEvent(() => {
-            // fix https://github.com/dream-num/univer/issues/628, need to recalculate the cell editor size after
+            // fix https://github.com/AutoCookies/crabtable/issues/628, need to recalculate the cell editor size after
             // it acquire focus.
             if (this._editingUnit && this._editorBridgeService.isVisible()) {
                 const param = this._editorBridgeService.getEditCellState();
@@ -230,7 +230,7 @@ export class EditingRenderController extends Disposable {
 
     private _initialCursorSync(d: DisposableCollection) {
         d.add(this._cellEditorManagerService.focus$.pipe(filter((f) => !!f)).subscribe(() => {
-            const currentDoc = this._univerInstanceService.getCurrentUnitForType(UniverInstanceType.UNIVER_DOC);
+            const currentDoc = this._crabtableInstanceService.getCurrentUnitForType(CrabTableInstanceType.CRABTABLE_DOC);
             if (!currentDoc) return;
 
             const docSelectionRenderManager = this._renderManagerService.getRenderById(currentDoc?.getUnitId())?.with(DocSelectionRenderService);
@@ -339,7 +339,7 @@ export class EditingRenderController extends Disposable {
             const cellSelectionRenderManager = this._renderManagerService.getRenderById(DOCS_NORMAL_EDITOR_UNIT_ID_KEY)?.with(DocSelectionRenderService);
             const formulaSelectionRenderManager = this._renderManagerService.getRenderById(DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY)?.with(DocSelectionRenderService);
             if (cellSelectionRenderManager?.canFocusing || formulaSelectionRenderManager?.canFocusing) {
-                this._univerInstanceService.setCurrentUnitForType(DOCS_NORMAL_EDITOR_UNIT_ID_KEY);
+                this._crabtableInstanceService.setCurrentUnitForType(DOCS_NORMAL_EDITOR_UNIT_ID_KEY);
                 cellSelectionRenderManager?.activate(
                     HIDDEN_EDITOR_POSITION,
                     HIDDEN_EDITOR_POSITION,
@@ -533,7 +533,7 @@ export class EditingRenderController extends Disposable {
 
     private async _handleEditorInvisible(param: IEditorBridgeServiceVisibleParam) {
         const editCellState = this._editorBridgeService.getEditCellState();
-        const documentDataModel = this._univerInstanceService.getUnit<DocumentDataModel>(DOCS_NORMAL_EDITOR_UNIT_ID_KEY);
+        const documentDataModel = this._crabtableInstanceService.getUnit<DocumentDataModel>(DOCS_NORMAL_EDITOR_UNIT_ID_KEY);
         const snapshot = Tools.deepClone(documentDataModel?.getSnapshot());
         const { keycode } = param;
         this._cursorChange = CursorChange.InitialState;
@@ -543,7 +543,7 @@ export class EditingRenderController extends Disposable {
             return;
         }
 
-        const workbook = this._univerInstanceService.getUnit<Workbook>(currentUnitId, UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(currentUnitId, CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             return;
         }
@@ -582,7 +582,7 @@ export class EditingRenderController extends Disposable {
             if (res === false) return; // if the submit was rejected, don't move selection
         }
 
-        // moveSelection need to put behind of SetRangeValuesCommand, fix https://github.com/dream-num/univer/issues/1155
+        // moveSelection need to put behind of SetRangeValuesCommand, fix https://github.com/AutoCookies/crabtable/issues/1155
         if (keycode !== undefined) {
             this._moveSelection(keycode, currentUnitId, worksheetId);
         }
@@ -608,7 +608,7 @@ export class EditingRenderController extends Disposable {
         }
         const { unitId, sheetId, row, column } = editCellState;
 
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             return true;
         }
@@ -751,9 +751,9 @@ export class EditingRenderController extends Disposable {
                 direction = Direction.RIGHT;
                 break;
         }
-        const currentUnit = this._univerInstanceService.getCurrentUnitOfType(UniverInstanceType.UNIVER_SHEET);
+        const currentUnit = this._crabtableInstanceService.getCurrentUnitOfType(CrabTableInstanceType.CRABTABLE_SHEET);
         if (currentUnitId && currentUnit?.getUnitId() !== currentUnitId) {
-            this._univerInstanceService.setCurrentUnitForType(currentUnitId);
+            this._crabtableInstanceService.setCurrentUnitForType(currentUnitId);
         }
 
         if (keycode === KeyCode.ENTER || keycode === KeyCode.TAB) {
@@ -807,7 +807,7 @@ export class EditingRenderController extends Disposable {
     }
 
     private _getDocumentDataModel() {
-        return this._univerInstanceService.getUnit<DocumentDataModel>(DOCS_NORMAL_EDITOR_UNIT_ID_KEY, UniverInstanceType.UNIVER_DOC);
+        return this._crabtableInstanceService.getUnit<DocumentDataModel>(DOCS_NORMAL_EDITOR_UNIT_ID_KEY, CrabTableInstanceType.CRABTABLE_DOC);
     }
 
     private _getEditorSkeleton(editorId: string) {
@@ -819,7 +819,7 @@ export class EditingRenderController extends Disposable {
     }
 
     private _getEditingUnit() {
-        return this._editingUnit ? this._univerInstanceService.getUnit<Workbook>(this._editingUnit, UniverInstanceType.UNIVER_SHEET) : null;
+        return this._editingUnit ? this._crabtableInstanceService.getUnit<Workbook>(this._editingUnit, CrabTableInstanceType.CRABTABLE_SHEET) : null;
     }
 
     private _emptyDocumentDataModel(documentStyle: IDocumentStyle, removeStyle: boolean) {
@@ -843,7 +843,7 @@ export class EditingRenderController extends Disposable {
         const documentDataModel = this._getDocumentDataModel();
         documentDataModel && empty(documentDataModel, true);
 
-        const formulaDocument = this._univerInstanceService.getUnit<DocumentDataModel>(DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY, UniverInstanceType.UNIVER_DOC);
+        const formulaDocument = this._crabtableInstanceService.getUnit<DocumentDataModel>(DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY, CrabTableInstanceType.CRABTABLE_DOC);
         formulaDocument && empty(formulaDocument);
     }
 }

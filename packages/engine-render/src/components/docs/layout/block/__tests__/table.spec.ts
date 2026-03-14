@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { BooleanNumber, TableAlignmentType, TableRowHeightRule, VerticalAlignmentType } from '@univerjs/core';
+import { BooleanNumber, TableAlignmentType, TableRowHeightRule, VerticalAlignmentType } from '@crabtable/core';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {

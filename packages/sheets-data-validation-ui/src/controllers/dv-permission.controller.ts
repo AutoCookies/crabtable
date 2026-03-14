@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo } from '@univerjs/core';
-import type { IAddSheetDataValidationCommandParams, IUpdateSheetDataValidationRangeCommandParams } from '@univerjs/sheets-data-validation';
-import { Disposable, ICommandService, Inject, LocaleService } from '@univerjs/core';
-import { RangeProtectionPermissionEditPoint, SheetPermissionCheckController, WorkbookEditablePermission, WorksheetEditPermission, WorksheetSetCellStylePermission } from '@univerjs/sheets';
-import { AddSheetDataValidationCommand, UpdateSheetDataValidationRangeCommand } from '@univerjs/sheets-data-validation';
+import type { ICommandInfo } from '@crabtable/core';
+import type { IAddSheetDataValidationCommandParams, IUpdateSheetDataValidationRangeCommandParams } from '@crabtable/sheets-data-validation';
+import { Disposable, ICommandService, Inject, LocaleService } from '@crabtable/core';
+import { RangeProtectionPermissionEditPoint, SheetPermissionCheckController, WorkbookEditablePermission, WorksheetEditPermission, WorksheetSetCellStylePermission } from '@crabtable/sheets';
+import { AddSheetDataValidationCommand, UpdateSheetDataValidationRangeCommand } from '@crabtable/sheets-data-validation';
 
 export class DataValidationPermissionController extends Disposable {
     constructor(

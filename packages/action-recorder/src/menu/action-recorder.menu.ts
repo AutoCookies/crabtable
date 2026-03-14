@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuButtonItem, IMenuSelectorItem, MenuSchemaType } from '@univerjs/ui';
-import { MenuItemType, RibbonOthersGroup } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuButtonItem, IMenuSelectorItem, MenuSchemaType } from '@crabtable/ui';
+import { MenuItemType, RibbonOthersGroup } from '@crabtable/ui';
 import { ReplayLocalRecordCommand, ReplayLocalRecordOnActiveCommand, ReplayLocalRecordOnNamesakeCommand } from '../commands/commands/replay.command';
 import { OpenRecordPanelOperation } from '../commands/operations/operation';
 import { ActionRecorderService } from '../services/action-recorder.service';

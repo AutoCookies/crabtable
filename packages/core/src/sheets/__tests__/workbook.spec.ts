@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Univer } from '../../univer';
+import type { CrabTable } from '../../univer';
 import type { IWorkbookData } from '../typedef';
 import type { Workbook } from '../workbook';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
@@ -23,7 +23,7 @@ import { LocaleType } from '../../types/enum/locale-type';
 import { createCoreTestBed } from './create-core-test-bed';
 
 describe('Test workbook', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let workbook: Workbook;
 
     beforeEach(() => {

@@ -23,9 +23,9 @@ import type {
     IStyleData,
     ITextDecoration,
     ITextRun,
-} from '@univerjs/core';
-import { BaselineOffset, BorderStyleTypes, ColorKit, generateRandomId, getBorderStyleType, Tools } from '@univerjs/core';
-import { ptToPx } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { BaselineOffset, BorderStyleTypes, ColorKit, generateRandomId, getBorderStyleType, Tools } from '@crabtable/core';
+import { ptToPx } from '@crabtable/engine-render';
 
 import { textTrim } from './util';
 

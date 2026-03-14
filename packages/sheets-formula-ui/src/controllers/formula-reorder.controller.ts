@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-import type { ICellData, IMutationInfo, Nullable } from '@univerjs/core';
-import type { IReorderRangeMutationParams } from '@univerjs/sheets';
+import type { ICellData, IMutationInfo, Nullable } from '@crabtable/core';
+import type { IReorderRangeMutationParams } from '@crabtable/sheets';
 import {
     Disposable,
+    ICrabTableInstanceService,
     Inject,
-    IUniverInstanceService,
     ObjectMatrix,
     Range,
     Tools,
-} from '@univerjs/core';
-import { FormulaDataModel, LexerTreeBuilder } from '@univerjs/engine-formula';
-import { ReorderRangeCommand, SetRangeValuesMutation, SheetInterceptorService } from '@univerjs/sheets';
+} from '@crabtable/core';
+import { FormulaDataModel, LexerTreeBuilder } from '@crabtable/engine-formula';
+import { ReorderRangeCommand, SetRangeValuesMutation, SheetInterceptorService } from '@crabtable/sheets';
 
 export class FormulaReorderController extends Disposable {
     constructor(
         @Inject(SheetInterceptorService) private readonly _sheetInterceptorService: SheetInterceptorService,
-        @Inject(IUniverInstanceService) private readonly _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(FormulaDataModel) private readonly _formulaDataModel: FormulaDataModel,
         @Inject(LexerTreeBuilder) private readonly _lexerTreeBuilder: LexerTreeBuilder
     ) {
@@ -58,7 +58,7 @@ export class FormulaReorderController extends Disposable {
         const redos: IMutationInfo[] = [];
         const undos: IMutationInfo[] = [];
         const { unitId, subUnitId, range, order } = params;
-        const workbook = this._univerInstanceService.getUniverSheetInstance(unitId);
+        const workbook = this._crabtableInstanceService.getCrabTableSheetInstance(unitId);
         const worksheet = workbook?.getSheetBySheetId(subUnitId);
 
         if (!worksheet) {

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { NamedStyleType } from '@univerjs/core';
-import { LocaleService, NAMED_STYLE_MAP } from '@univerjs/core';
-import { clsx } from '@univerjs/design';
+import type { NamedStyleType } from '@crabtable/core';
+import { LocaleService, NAMED_STYLE_MAP } from '@crabtable/core';
+import { clsx } from '@crabtable/design';
 import { useDependency } from '../../utils/di';
 
 export const HeadingItem = (props: { value: NamedStyleType; text: string }) => {

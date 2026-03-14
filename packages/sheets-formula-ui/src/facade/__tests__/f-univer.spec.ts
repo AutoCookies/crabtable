@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IUnitRangeName } from '@univerjs/core';
+import type { IUnitRangeName } from '@crabtable/core';
 import { firstValueFrom, skip } from 'rxjs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { GlobalRangeSelectorService } from '../../services/range-selector.service';
 import { createFormulaTestBed } from './create-formula-test-bed';
 import '../../facade';
 
-describe('Test FUniver with sheets-formula-ui facade', () => {
+describe('Test FCrabTable with sheets-formula-ui facade', () => {
     let disposeUniver: () => void;
 
     beforeEach(() => {
@@ -50,7 +50,7 @@ describe('Test FUniver with sheets-formula-ui facade', () => {
         disposeUniver = () => testBed.univer.dispose();
 
         const selectorPromise = firstValueFrom(selectorService.currentSelector$.pipe(skip(1)));
-        const resultPromise = testBed.univerAPI.showRangeSelectorDialog({
+        const resultPromise = testBed.crabtableAPI.showRangeSelectorDialog({
             unitId: 'test',
             subUnitId: 'sheet1',
             initialValue: selectedRanges,

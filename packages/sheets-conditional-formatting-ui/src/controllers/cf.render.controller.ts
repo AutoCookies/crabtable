@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { ICellDataForSheetInterceptor, Workbook } from '@univerjs/core';
-import type { IConditionalFormattingCellData, IConditionFormattingRule } from '@univerjs/sheets-conditional-formatting';
-import { Disposable, Inject, InterceptorEffectEnum, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { INTERCEPTOR_POINT, SheetInterceptorService } from '@univerjs/sheets';
-import { ConditionalFormattingRuleModel, ConditionalFormattingService, ConditionalFormattingViewModel, DEFAULT_PADDING, DEFAULT_WIDTH } from '@univerjs/sheets-conditional-formatting';
-import { SheetSkeletonManagerService } from '@univerjs/sheets-ui';
+import type { ICellDataForSheetInterceptor, Workbook } from '@crabtable/core';
+import type { IConditionalFormattingCellData, IConditionFormattingRule } from '@crabtable/sheets-conditional-formatting';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject, InterceptorEffectEnum } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { INTERCEPTOR_POINT, SheetInterceptorService } from '@crabtable/sheets';
+import { ConditionalFormattingRuleModel, ConditionalFormattingService, ConditionalFormattingViewModel, DEFAULT_PADDING, DEFAULT_WIDTH } from '@crabtable/sheets-conditional-formatting';
+import { SheetSkeletonManagerService } from '@crabtable/sheets-ui';
 import { merge } from 'rxjs';
 import { bufferTime, filter } from 'rxjs/operators';
 
@@ -30,7 +30,7 @@ export class SheetsCfRenderController extends Disposable {
      * The solution here is to store all the asynchronous tasks and focus on processing after the last callback
      */
     private _ruleChangeCacheMap: Map<string, Array<{ oldRule: IConditionFormattingRule; rule: IConditionFormattingRule; dispose: () => boolean }>> = new Map();
-    constructor(@Inject(SheetInterceptorService) private _sheetInterceptorService: SheetInterceptorService, @Inject(ConditionalFormattingService) private _conditionalFormattingService: ConditionalFormattingService, @Inject(IUniverInstanceService) private _univerInstanceService: IUniverInstanceService, @Inject(IRenderManagerService) private _renderManagerService: IRenderManagerService, @Inject(ConditionalFormattingViewModel) private _conditionalFormattingViewModel: ConditionalFormattingViewModel, @Inject(ConditionalFormattingRuleModel) private _conditionalFormattingRuleModel: ConditionalFormattingRuleModel) {
+    constructor(@Inject(SheetInterceptorService) private _sheetInterceptorService: SheetInterceptorService, @Inject(ConditionalFormattingService) private _conditionalFormattingService: ConditionalFormattingService, @Inject(ICrabTableInstanceService) private _crabtableInstanceService: ICrabTableInstanceService, @Inject(IRenderManagerService) private _renderManagerService: IRenderManagerService, @Inject(ConditionalFormattingViewModel) private _conditionalFormattingViewModel: ConditionalFormattingViewModel, @Inject(ConditionalFormattingRuleModel) private _conditionalFormattingRuleModel: ConditionalFormattingRuleModel) {
         super();
 
         this._initViewModelInterceptor();
@@ -41,7 +41,7 @@ export class SheetsCfRenderController extends Disposable {
     }
 
     private _markDirtySkeleton() {
-        const unitId = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getUnitId();
+        const unitId = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getUnitId();
         this._renderManagerService.getRenderById(unitId)?.with(SheetSkeletonManagerService).reCalculate();
         this._renderManagerService.getRenderById(unitId)?.mainComponent?.makeDirty();
     }
@@ -52,7 +52,7 @@ export class SheetsCfRenderController extends Disposable {
                 bufferTime(16),
                 filter((v) => !!v.length),
                 filter((v) => {
-                    const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+                    const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
                     if (!workbook) return false;
 
                     const worksheet = workbook.getActiveSheet();

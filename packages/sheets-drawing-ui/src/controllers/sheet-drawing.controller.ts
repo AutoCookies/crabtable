@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { Disposable, ICommandService, Inject } from '@univerjs/core';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { SheetsSelectionsService } from '@univerjs/sheets';
-import { ComponentManager, IMenuManagerService, IShortcutService } from '@univerjs/ui';
+import { Disposable, ICommandService, Inject } from '@crabtable/core';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { SheetsSelectionsService } from '@crabtable/sheets';
+import { ComponentManager, IMenuManagerService, IShortcutService } from '@crabtable/ui';
 import { DeleteDrawingsCommand } from '../commands/commands/delete-drawings.command';
 import { FlipSheetDrawingCommand } from '../commands/commands/flip-drawings.command';
 import { GroupSheetDrawingCommand } from '../commands/commands/group-sheet-drawing.command';

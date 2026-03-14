@@ -1,14 +1,14 @@
-# @univerjs/ui
+# @crabtable/ui
 
 ## Package Overview
 
 | Package Name | UMD Namespace | Version | License | Downloads | Contains CSS | Contains i18n locales |
 | --- | --- | --- | --- | --- | :---: | :---: |
-| `@univerjs/ui` | `UniveUi` | [![][npm-version-shield]][npm-version-link] | ![][npm-license-shield] | ![][npm-downloads-shield] | ⭕️ | ⭕️ |
+| `@crabtable/ui` | `UniveUi` | [![][npm-version-shield]][npm-version-link] | ![][npm-license-shield] | ![][npm-downloads-shield] | ⭕️ | ⭕️ |
 
 ## Introduction
 
-`@univerjs/ui` defines basic UI services and provides a set of desktop Workbench implementations based on React.
+`@crabtable/ui` defines basic UI services and provides a set of desktop Workbench implementations based on React.
 
 Please note that this implementation can only display only 1 unit in the workbench. If you would like to embed units
 into a rich text document, or a mind node, you should implement a new UI plugin for that. Refer to our uniui
@@ -20,13 +20,13 @@ plugin for an example.
 
 ```shell
 # Using npm
-npm install @univerjs/ui
+npm install @crabtable/ui
 
-# Using pnpm
-pnpm add @univerjs/ui
+# Using yarn
+yarn add @crabtable/ui
 ```
 
-This package contains CSS and has the second highest priority. Please import it after `@univerjs/design` and before any other Univer style files.
+This package contains CSS and has the second highest priority. Please import it after `@crabtable/design` and before any other CrabTable style files.
 
 ### UI service
 
@@ -41,10 +41,10 @@ These UI services include:
 
 ### Workbench
 
-In addition to UI services, `@univerjs/ui` also implements a workspace based on React, which includes elements such as the title bar, toolbar, main content area, context menu, sidebar, and more. Businesses can customize the rendered content using the APIs provided by the Workbench.
+In addition to UI services, `@crabtable/ui` also implements a workspace based on React, which includes elements such as the title bar, toolbar, main content area, context menu, sidebar, and more. Businesses can customize the rendered content using the APIs provided by the Workbench.
 
 <!-- Links -->
-[npm-version-shield]: https://img.shields.io/npm/v/@univerjs/ui?style=flat-square
-[npm-version-link]: https://npmjs.com/package/@univerjs/ui
-[npm-license-shield]: https://img.shields.io/npm/l/@univerjs/ui?style=flat-square
-[npm-downloads-shield]: https://img.shields.io/npm/dm/@univerjs/ui?style=flat-square
+[npm-version-shield]: https://img.shields.io/npm/v/@crabtable/ui?style=flat-square
+[npm-version-link]: https://npmjs.com/package/@crabtable/ui
+[npm-license-shield]: https://img.shields.io/npm/l/@crabtable/ui?style=flat-square
+[npm-downloads-shield]: https://img.shields.io/npm/dm/@crabtable/ui?style=flat-square

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IDrawingParam } from '@univerjs/core';
-import { LocaleService } from '@univerjs/core';
-import { clsx } from '@univerjs/design';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { useDependency } from '@univerjs/ui';
+import type { IDrawingParam } from '@crabtable/core';
+import { LocaleService } from '@crabtable/core';
+import { clsx } from '@crabtable/design';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { useDependency } from '@crabtable/ui';
 import { useEffect, useState } from 'react';
 import { getUpdateParams } from '../../utils/get-update-params';
 import { DrawingAlign } from './DrawingAlign';

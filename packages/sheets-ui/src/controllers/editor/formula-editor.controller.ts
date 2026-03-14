@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type {
     IRichTextEditingMutationParams,
-} from '@univerjs/docs';
-import type { RenderComponentType } from '@univerjs/engine-render';
+} from '@crabtable/docs';
+import type { RenderComponentType } from '@crabtable/engine-render';
 import type { IEditorBridgeServiceVisibleParam } from '../../services/editor-bridge.service';
 import {
     DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY,
@@ -28,18 +28,18 @@ import {
     FOCUSING_FX_BAR_EDITOR,
     ICommandService,
     IContextService,
+    ICrabTableInstanceService,
     Inject,
     IUndoRedoService,
-    IUniverInstanceService,
     RxDisposable,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     DocSelectionManagerService,
     DocSkeletonManagerService,
     RichTextEditingMutation,
-} from '@univerjs/docs';
-import { CoverContentCommand, VIEWPORT_KEY as DOC_VIEWPORT_KEY, IEditorService } from '@univerjs/docs-ui';
-import { DeviceInputEventType, IRenderManagerService, ScrollBar } from '@univerjs/engine-render';
+} from '@crabtable/docs';
+import { CoverContentCommand, VIEWPORT_KEY as DOC_VIEWPORT_KEY, IEditorService } from '@crabtable/docs-ui';
+import { DeviceInputEventType, IRenderManagerService, ScrollBar } from '@crabtable/engine-render';
 import { combineLatest, filter, takeUntil } from 'rxjs';
 import { getEditorObject } from '../../basics/editor/get-editor-object';
 import { SetCellEditVisibleOperation } from '../../commands/operations/cell-edit.operation';
@@ -50,7 +50,7 @@ export class FormulaEditorController extends RxDisposable {
     private _loadedMap = new WeakSet<RenderComponentType>();
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
         @IEditorBridgeService private readonly _editorBridgeService: IEditorBridgeService,
         @ICommandService private readonly _commandService: ICommandService,
@@ -70,7 +70,7 @@ export class FormulaEditorController extends RxDisposable {
         this._listenFxBtnClick();
         this._handleContentChange();
 
-        this._univerInstanceService.focused$.pipe(takeUntil(this.dispose$)).subscribe((unitId) => {
+        this._crabtableInstanceService.focused$.pipe(takeUntil(this.dispose$)).subscribe((unitId) => {
             this._create(unitId);
         });
 
@@ -128,8 +128,8 @@ export class FormulaEditorController extends RxDisposable {
                 !this._contextService.getContextValue(EDITOR_ACTIVATED);
 
             if (isFocusButHidden) {
-                this._univerInstanceService.setCurrentUnitForType(DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY);
-                const formulaEditorDataModel = this._univerInstanceService.getUniverDocInstance(
+                this._crabtableInstanceService.setCurrentUnitForType(DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY);
+                const formulaEditorDataModel = this._crabtableInstanceService.getUniverDocInstance(
                     DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY
                 );
 
@@ -189,12 +189,12 @@ export class FormulaEditorController extends RxDisposable {
     }
 
     private _syncEditorSize() {
-        // this._univerInstanceService.
-        const addFOrmulaBar$ = this._univerInstanceService.unitAdded$.pipe(filter((unit) => unit.getUnitId() === DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY));
+        // this._crabtableInstanceService.
+        const addFOrmulaBar$ = this._crabtableInstanceService.unitAdded$.pipe(filter((unit) => unit.getUnitId() === DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY));
         this.disposeWithMe(combineLatest([this._formulaEditorManagerService.position$, addFOrmulaBar$]).subscribe(([position]) => {
             if (!position) return this._clearScheduledCallback();
             const editorObject = getEditorObject(DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY, this._renderManagerService);
-            const formulaEditorDataModel = this._univerInstanceService.getUniverDocInstance(
+            const formulaEditorDataModel = this._crabtableInstanceService.getUniverDocInstance(
                 DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY
             );
 
@@ -222,7 +222,7 @@ export class FormulaEditorController extends RxDisposable {
         const skeleton = this._renderManagerService.getRenderById(DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY)?.with(DocSkeletonManagerService).getSkeleton();
         const editorObject = this._renderManagerService.getRenderById(DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY);
 
-        const formulaEditorDataModel = this._univerInstanceService.getUniverDocInstance(
+        const formulaEditorDataModel = this._crabtableInstanceService.getUniverDocInstance(
             DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY
         );
 

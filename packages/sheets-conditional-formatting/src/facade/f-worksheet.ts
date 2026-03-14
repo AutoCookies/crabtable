@@ -22,7 +22,7 @@ import type {
     IDeleteCfCommandParams,
     IMoveCfCommandParams,
     ISetCfCommandParams,
-} from '@univerjs/sheets-conditional-formatting';
+} from '@crabtable/sheets-conditional-formatting';
 import {
     AddCfCommand,
     ClearWorksheetCfCommand,
@@ -30,8 +30,8 @@ import {
     DeleteCfCommand,
     MoveCfCommand,
     SetCfCommand,
-} from '@univerjs/sheets-conditional-formatting';
-import { FWorksheet } from '@univerjs/sheets/facade';
+} from '@crabtable/sheets-conditional-formatting';
+import { FWorksheet } from '@crabtable/sheets/facade';
 import { FConditionalFormattingBuilder } from './f-conditional-formatting-builder';
 
 /**
@@ -44,7 +44,7 @@ export interface IFWorksheetConditionalFormattingMixin {
      * @memberof IFWorksheetConditionalFormattingMixin
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const rules = fWorksheet.getConditionalFormattingRules();
      * console.log(rules);
@@ -66,7 +66,7 @@ export interface IFWorksheetConditionalFormattingMixin {
      * @memberof IFWorksheetConditionalFormattingMixin
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that sets the cell format to italic, red background, and green font color when the cell is not empty.
@@ -90,7 +90,7 @@ export interface IFWorksheetConditionalFormattingMixin {
      * @memberof IFWorksheetConditionalFormattingMixin
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that sets the cell format to italic, red background, and green font color when the cell is not empty.
@@ -114,7 +114,7 @@ export interface IFWorksheetConditionalFormattingMixin {
      * @memberof IFWorksheetConditionalFormattingMixin
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const rules = fWorksheet.getConditionalFormattingRules();
      *
@@ -133,7 +133,7 @@ export interface IFWorksheetConditionalFormattingMixin {
      * @memberof FWorksheetConditionalFormattingMixin
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const rules = fWorksheet.getConditionalFormattingRules();
      *
@@ -153,7 +153,7 @@ export interface IFWorksheetConditionalFormattingMixin {
      * @memberof IFWorksheetConditionalFormattingMixin
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that sets the cell format to italic, red background, and green font color when the cell is not empty.
@@ -181,7 +181,7 @@ export interface IFWorksheetConditionalFormattingMixin {
      * @memberof IFWorksheetConditionalFormattingMixin
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * fWorksheet.clearConditionalFormatRules();
      * console.log(fWorksheet.getConditionalFormattingRules()); // []
@@ -261,7 +261,7 @@ export class FWorksheetConditionalFormattingMixin extends FWorksheet implements 
 }
 
 FWorksheet.extend(FWorksheetConditionalFormattingMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FWorksheet extends IFWorksheetConditionalFormattingMixin { }
 }

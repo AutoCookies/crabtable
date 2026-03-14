@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDisposable, IPosition, Nullable } from '@univerjs/core';
+import type { IDisposable, IPosition, Nullable } from '@crabtable/core';
 import type { Observable } from 'rxjs';
-import { createIdentifier } from '@univerjs/core';
+import { createIdentifier } from '@crabtable/core';
 import { BehaviorSubject } from 'rxjs';
 
 export interface ICellEditorManagerParam extends Partial<IPosition> {

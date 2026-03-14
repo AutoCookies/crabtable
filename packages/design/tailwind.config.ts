@@ -15,7 +15,7 @@
  */
 
 import type { Config } from 'tailwindcss';
-import preset from '@univerjs-infra/shared/tailwind';
+import preset from '@crabtable-infra/shared/tailwind';
 import animate from 'tailwindcss-animate';
 
 const config: Config = {

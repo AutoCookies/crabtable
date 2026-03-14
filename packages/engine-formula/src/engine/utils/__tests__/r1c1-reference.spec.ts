@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
-import { AbsoluteRefType } from '@univerjs/core';
+import type { IRange } from '@crabtable/core';
+import { AbsoluteRefType } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import { deserializeRangeForR1C1, serializeRangeToR1C1 } from '../r1c1-reference';
 

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, IOperation, IRange } from '@univerjs/core';
+import type { IAccessor, ICommand, IOperation, IRange } from '@crabtable/core';
 import type { ISelectionWithStyle } from '../../basics/selection';
 import type { SelectionMoveType } from '../../services/selections/type';
-import { CommandType, ICommandService, IUniverInstanceService } from '@univerjs/core';
+import { CommandType, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
 import { getPrimaryForRange } from '../commands/utils/selection-utils';
 import { getSheetCommandTarget } from '../commands/utils/target-util';
 import { getSelectionsService } from '../utils/selection-command-util';
@@ -46,7 +46,7 @@ export const SetSelectionsOperation: IOperation<ISetSelectionsOperationParams> =
         const selectionManagerService = getSelectionsService(accessor);
 
         // Must update selections array ref.
-        // See https://github.com/dream-num/univer/issues/2199
+        // See https://github.com/AutoCookies/crabtable/issues/2199
         selectionManagerService.setSelections(unitId, subUnitId, [...selections], type);
         return true;
     },
@@ -70,7 +70,7 @@ export const SelectRangeCommand: ICommand<ISelectRangeCommandParams> = {
 
         const { unitId, subUnit, range } = params;
         const commandService = accessor.get(ICommandService);
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService), params);
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService), params);
         if (!target) return false;
 
         const selections: ISelectionWithStyle[] = [{

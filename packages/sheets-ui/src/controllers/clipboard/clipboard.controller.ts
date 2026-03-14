@@ -24,13 +24,13 @@ import type {
     IRange,
     Workbook,
     Worksheet,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import type {
     IInsertColMutationParams,
     IInsertRowMutationParams,
     ISetRangeValuesMutationParams,
     ISetWorksheetColWidthMutationParams,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import type { IUniverSheetsUIConfig } from '../../config/config';
 import type {
     ICellDataWithSpanInfo,
@@ -41,6 +41,7 @@ import type {
 } from '../../services/clipboard/type';
 import type { IScrollStateWithSearchParam } from '../../services/scroll-manager.service';
 import {
+    CrabTableInstanceType,
     DEFAULT_WORKSHEET_COLUMN_WIDTH,
     DEFAULT_WORKSHEET_COLUMN_WIDTH_KEY,
     DOCS_NORMAL_EDITOR_UNIT_ID_KEY,
@@ -50,19 +51,18 @@ import {
     ICommandService,
     IConfigService,
     IContextService,
+    ICrabTableInstanceService,
     Inject,
     Injector,
     isFormulaString,
-    IUniverInstanceService,
     LocaleService,
     ObjectMatrix,
     RxDisposable,
     Tools,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { MessageType } from '@univerjs/design';
-import { convertBodyToHtml, DocSelectionRenderService } from '@univerjs/docs-ui';
-import { IRenderManagerService, withCurrentTypeOfRenderer } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { MessageType } from '@crabtable/design';
+import { convertBodyToHtml, DocSelectionRenderService } from '@crabtable/docs-ui';
+import { IRenderManagerService, withCurrentTypeOfRenderer } from '@crabtable/engine-render';
 import {
     AddWorksheetMergeCommand,
     InsertColMutation,
@@ -77,8 +77,8 @@ import {
     SetRangeValuesUndoMutationFactory,
     SetWorksheetColWidthMutation,
     SetWorksheetColWidthMutationFactory,
-} from '@univerjs/sheets';
-import { BuiltInUIPart, connectInjector, IMessageService, IUIPartsService } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { BuiltInUIPart, connectInjector, IMessageService, IUIPartsService } from '@crabtable/ui';
 import { Subject, takeUntil } from 'rxjs';
 import {
     SheetCopyCommand,
@@ -128,7 +128,7 @@ export class SheetClipboardController extends RxDisposable {
 
     constructor(
         @Inject(Injector) private readonly _injector: Injector,
-        @IUniverInstanceService private readonly _instanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _instanceService: ICrabTableInstanceService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
         @ICommandService private readonly _commandService: ICommandService,
         @IContextService private readonly _contextService: IContextService,
@@ -476,7 +476,7 @@ export class SheetClipboardController extends RxDisposable {
 
     private _generateDocumentDataModelSnapshot(snapshot: Partial<IDocumentData>) {
         const currentSkeleton = withCurrentTypeOfRenderer(
-            UniverInstanceType.UNIVER_SHEET,
+            CrabTableInstanceType.CRABTABLE_SHEET,
             SheetSkeletonManagerService,
             this._instanceService,
             this._renderManagerService
@@ -729,7 +729,7 @@ export class SheetClipboardController extends RxDisposable {
                 label: 'specialPaste.besidesBorder',
             },
             onPasteCells: (pasteFrom, pasteTo, matrix, payload) => {
-                const workbook = self._instanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                const workbook = self._instanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                 const redoMutationsInfo: IMutationInfo[] = [];
                 const undoMutationsInfo: IMutationInfo[] = [];
                 const { range, unitId, subUnitId } = pasteTo;
@@ -790,7 +790,7 @@ export class SheetClipboardController extends RxDisposable {
     }
 
     private _getWorksheet(unitId: string, subUnitId: string): Worksheet {
-        const worksheet = this._instanceService.getUniverSheetInstance(unitId)?.getSheetBySheetId(subUnitId);
+        const worksheet = this._instanceService.getCrabTableSheetInstance(unitId)?.getSheetBySheetId(subUnitId);
 
         if (!worksheet) {
             throw new Error(

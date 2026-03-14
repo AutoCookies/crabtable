@@ -78,7 +78,7 @@ const locale: typeof enUS = {
     clipboard: {
         authentication: {
             title: '无法访问剪贴板',
-            content: '请允许 Univer 访问您的剪贴板。',
+            content: '请允许 CrabTable 访问您的剪贴板。',
         },
     },
     textEditor: {

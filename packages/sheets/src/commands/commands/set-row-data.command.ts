@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, IObjectArrayPrimitiveType, IRowData, Nullable } from '@univerjs/core';
+import type { IAccessor, ICommand, IObjectArrayPrimitiveType, IRowData, Nullable } from '@crabtable/core';
 import type { ISetRowDataMutationParams } from '../mutations/set-row-data.mutation';
 
 import type { ISheetCommandSharedParams } from '../utils/interface';
 import {
     CommandType,
     ICommandService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { SetRowDataMutation, SetRowDataMutationFactory } from '../mutations/set-row-data.mutation';
 import { getSheetCommandTarget } from './utils/target-util';
 
@@ -39,9 +39,9 @@ export const SetRowDataCommand: ICommand = {
     handler: (accessor: IAccessor, params: ISetRowDataCommandParams) => {
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { rowData } = params;

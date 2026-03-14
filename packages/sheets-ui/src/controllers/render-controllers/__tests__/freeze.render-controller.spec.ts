@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { ICommandService } from '@univerjs/core';
-import { SHEET_VIEWPORT_KEY, TRANSFORM_CHANGE_OBSERVABLE_TYPE } from '@univerjs/engine-render';
-import { SetWorksheetActiveOperation } from '@univerjs/sheets';
+import { ICommandService } from '@crabtable/core';
+import { SHEET_VIEWPORT_KEY, TRANSFORM_CHANGE_OBSERVABLE_TYPE } from '@crabtable/engine-render';
+import { SetWorksheetActiveOperation } from '@crabtable/sheets';
 import { BehaviorSubject } from 'rxjs';
 import { describe, expect, it } from 'vitest';
 import { SheetScrollManagerService } from '../../../services/scroll-manager.service';

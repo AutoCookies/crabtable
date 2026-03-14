@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
-import type { ISheetDrawing } from '@univerjs/sheets-drawing';
+import type { IAccessor, ICommand } from '@crabtable/core';
+import type { ISheetDrawing } from '@crabtable/sheets-drawing';
 import type { ISetDrawingCommandParams } from './interfaces';
-import { CommandType, Direction, ICommandService } from '@univerjs/core';
-import { ISheetDrawingService } from '@univerjs/sheets-drawing';
+import { CommandType, Direction, ICommandService } from '@crabtable/core';
+import { ISheetDrawingService } from '@crabtable/sheets-drawing';
 
-import { ISheetSelectionRenderService } from '@univerjs/sheets-ui';
+import { ISheetSelectionRenderService } from '@crabtable/sheets-ui';
 import { transformToAxisAlignPosition, transformToDrawingPosition } from '../../basics/transform-position';
 import { ClearSheetDrawingTransformerOperation } from '../operations/clear-drawing-transformer.operation';
 import { SetSheetDrawingCommand } from './set-sheet-drawing.command';

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IMention, ITypeMentionList } from '@univerjs/core';
-import { borderClassName, clsx } from '@univerjs/design';
+import type { IMention, ITypeMentionList } from '@crabtable/core';
+import { borderClassName, clsx } from '@crabtable/design';
 import { useRef, useState } from 'react';
 
 export interface IMentionListProps {

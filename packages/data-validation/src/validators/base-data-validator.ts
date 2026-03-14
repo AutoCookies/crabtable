@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { CellValue, IDataValidationRule, IDataValidationRuleBase, IStyleData, Nullable, Workbook, Worksheet } from '@univerjs/core';
+import type { CellValue, IDataValidationRule, IDataValidationRuleBase, IStyleData, Nullable, Workbook, Worksheet } from '@crabtable/core';
+import type { ISheetLocationBase } from '@crabtable/sheets';
 import type { CellValueType } from '@univerjs/protocol';
-import type { ISheetLocationBase } from '@univerjs/sheets';
 import type { IBaseDataValidationWidget } from './base-widget';
-import { DataValidationOperator, Inject, Injector, LocaleService } from '@univerjs/core';
+import { DataValidationOperator, Inject, Injector, LocaleService } from '@crabtable/core';
 import { OperatorErrorTitleMap, OperatorTitleMap } from '../types/const/operator-text-map';
 
 export const FORMULA1 = '{FORMULA1}';

@@ -1264,7 +1264,7 @@ export class Worksheet {
         documentData.documentStyle.marginLeft = paddingData.l ?? 2;
         documentData.documentStyle.marginRight = paddingData.r ?? 2;
 
-        // Fix https://github.com/dream-num/univer/issues/1586
+        // Fix https://github.com/AutoCookies/crabtable/issues/1586
         documentData.documentStyle.pageSize = {
             width: Number.POSITIVE_INFINITY,
             height: Number.POSITIVE_INFINITY,

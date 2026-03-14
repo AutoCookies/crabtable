@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel } from '@univerjs/core';
-import type { IPopup } from '@univerjs/ui';
-import { ICommandService, IUniverInstanceService, NamedStyleType, UniverInstanceType } from '@univerjs/core';
-import { borderClassName, clsx } from '@univerjs/design';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import type { DocumentDataModel } from '@crabtable/core';
+import type { IPopup } from '@crabtable/ui';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, NamedStyleType } from '@crabtable/core';
+import { borderClassName, clsx } from '@crabtable/design';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { ContextMenuPosition, DesktopMenu, ILayoutService, RectPopup, useDependency, useObservable } from '@crabtable/ui';
 import { DownIcon } from '@univerjs/icons';
-import { ContextMenuPosition, DesktopMenu, ILayoutService, RectPopup, useDependency, useObservable } from '@univerjs/ui';
 import { useMemo, useRef, useState } from 'react';
 import { BehaviorSubject } from 'rxjs';
 import { HEADING_ICON_MAP } from '../../menu/paragraph-menu';
@@ -35,9 +35,9 @@ export const ParagraphMenu = ({ popup }: { popup: IPopup }) => {
     const anchorRef = useRef<HTMLDivElement>(null);
     const isMouseOver = useRef(false);
     const renderManagerService = useDependency(IRenderManagerService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const renderUnit = renderManagerService.getRenderById(popup.unitId);
-    const doc = univerInstanceService.getUnit<DocumentDataModel>(popup.unitId, UniverInstanceType.UNIVER_DOC);
+    const doc = crabtableInstanceService.getUnit<DocumentDataModel>(popup.unitId, CrabTableInstanceType.CRABTABLE_DOC);
     const docParagraphMenuService = renderUnit?.with(DocParagraphMenuService);
     const docEventManagerService = renderUnit?.with(DocEventManagerService);
     const paragraph = useObservable(docEventManagerService?.hoverParagraph$);

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICommand, PaperType } from '@univerjs/core';
-import type { IConfirmPartMethodOptions } from '@univerjs/ui';
+import type { ICommand, PaperType } from '@crabtable/core';
+import type { IConfirmPartMethodOptions } from '@crabtable/ui';
 import type { IDocPageSetupCommandParams } from '../commands/doc-page-setup.command';
-import { CommandType, ICommandService, IConfirmService, LocaleService, PAGE_SIZE } from '@univerjs/core';
+import { CommandType, ICommandService, IConfirmService, LocaleService, PAGE_SIZE } from '@crabtable/core';
 import { PAGE_SETTING_COMPONENT_ID } from '../../views/page-settings';
 import { DocPageSetupCommand } from '../commands/doc-page-setup.command';
 

@@ -15,9 +15,9 @@
  */
 
 import type { DocPopupMenu, IDocPopupMenuItem } from '../services/doc-quick-insert-popup.service';
-import { CommandType, Direction, DisposableCollection, generateRandomId, ICommandService, LocaleService, toDisposable } from '@univerjs/core';
-import { clsx, Menu, MenuItem, MenuItemGroup, scrollbarClassName, Tooltip } from '@univerjs/design';
-import { ComponentManager, IShortcutService, KeyCode, useDependency, useObservable } from '@univerjs/ui';
+import { CommandType, Direction, DisposableCollection, generateRandomId, ICommandService, LocaleService, toDisposable } from '@crabtable/core';
+import { clsx, Menu, MenuItem, MenuItemGroup, scrollbarClassName, Tooltip } from '@crabtable/design';
+import { ComponentManager, IShortcutService, KeyCode, useDependency, useObservable } from '@crabtable/ui';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { CloseQuickInsertPopupOperation } from '../commands/operations/quick-insert-popup.operation';
 import { DocQuickInsertPopupService } from '../services/doc-quick-insert-popup.service';

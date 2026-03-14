@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
 import type { ComponentType } from '../../common/component-manager';
 import type { IZenZoneService } from './zen-zone.service';
 
-import { Inject, toDisposable } from '@univerjs/core';
+import { Inject, toDisposable } from '@crabtable/core';
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { ComponentManager } from '../../common/component-manager';
 

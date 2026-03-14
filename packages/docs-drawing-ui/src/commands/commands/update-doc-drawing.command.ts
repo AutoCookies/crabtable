@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IAccessor, ICommand, IDocDrawingBase, IDocDrawingPosition, IMutationInfo, IObjectPositionH, IObjectPositionV, ISize, JSONXActions, WrapTextType } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { IDocDrawing } from '@univerjs/docs-drawing';
+import type { DocumentDataModel, IAccessor, ICommand, IDocDrawingBase, IDocDrawingPosition, IMutationInfo, IObjectPositionH, IObjectPositionV, ISize, JSONXActions, WrapTextType } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { IDocDrawing } from '@crabtable/docs-drawing';
 import {
     BooleanNumber,
     CommandType,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     JSONX,
     ObjectRelativeFromH,
     ObjectRelativeFromV,
@@ -29,10 +29,10 @@ import {
     TextX,
     TextXActionType,
     Tools,
-} from '@univerjs/core';
-import { DocSkeletonManagerService, RichTextEditingMutation } from '@univerjs/docs';
-import { DocSelectionRenderService, getRichTextEditPath } from '@univerjs/docs-ui';
-import { DocumentEditArea, IRenderManagerService } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { DocSkeletonManagerService, RichTextEditingMutation } from '@crabtable/docs';
+import { DocSelectionRenderService, getRichTextEditPath } from '@crabtable/docs-ui';
+import { DocumentEditArea, IRenderManagerService } from '@crabtable/engine-render';
 import { DocRefreshDrawingsService } from '../../services/doc-refresh-drawings.service';
 
 export enum TextWrappingStyle {
@@ -224,7 +224,7 @@ export const UpdateDocDrawingWrappingStyleCommand: ICommand = {
         const { drawings, wrappingStyle, unitId } = params;
 
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const renderManagerService = accessor.get(IRenderManagerService);
 
         const renderObject = renderManagerService.getRenderById(unitId);
@@ -233,7 +233,7 @@ export const UpdateDocDrawingWrappingStyleCommand: ICommand = {
             .getSkeletonData();
         const viewModel = renderObject?.with(DocSkeletonManagerService).getViewModel();
         const scene = renderObject?.scene;
-        const documentDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const documentDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
 
         if (documentDataModel == null || skeletonData == null || scene == null || viewModel == null) {
             return false;
@@ -422,9 +422,9 @@ export const UpdateDocDrawingDistanceCommand: ICommand = {
         }
 
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const documentDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const documentDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
         if (documentDataModel == null) {
             return false;
         }
@@ -493,9 +493,9 @@ export const UpdateDocDrawingWrapTextCommand: ICommand = {
         }
 
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const documentDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const documentDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
         if (documentDataModel == null) {
             return false;
         }
@@ -568,7 +568,7 @@ export const UpdateDrawingDocTransformCommand: ICommand = {
         }
 
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const renderManagerService = accessor.get(IRenderManagerService);
 
         const renderObject = renderManagerService.getRenderById(params.unitId);
@@ -578,7 +578,7 @@ export const UpdateDrawingDocTransformCommand: ICommand = {
         }
         const transformer = scene.getTransformerByCreate();
 
-        const documentDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const documentDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
         if (documentDataModel == null) {
             return false;
         }
@@ -664,9 +664,9 @@ export const IMoveInlineDrawingCommand: ICommand = {
         const transformer = scene.getTransformerByCreate();
 
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const documentDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const documentDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
         if (documentDataModel == null) {
             return false;
         }
@@ -763,9 +763,9 @@ export const ITransformNonInlineDrawingCommand: ICommand = {
         const transformer = scene.getTransformerByCreate();
 
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const documentDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const documentDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
         if (documentDataModel == null) {
             return false;
         }

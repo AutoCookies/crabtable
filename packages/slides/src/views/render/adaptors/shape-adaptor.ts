@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Injector, IPageElement } from '@univerjs/core';
-import { BasicShapes, getColorStyle, PageElementType } from '@univerjs/core';
-import { Circle, Rect } from '@univerjs/engine-render';
+import type { Injector, IPageElement } from '@crabtable/core';
+import { BasicShapes, getColorStyle, PageElementType } from '@crabtable/core';
+import { Circle, Rect } from '@crabtable/engine-render';
 
 import { CanvasObjectProviderRegistry, ObjectAdaptor } from '../adaptor';
 

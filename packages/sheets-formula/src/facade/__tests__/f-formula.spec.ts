@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import type { Injector } from '@univerjs/core';
-import type { FUniver } from '@univerjs/core/facade';
-import { CommandType, ICommandService, IConfigService, LifecycleService, LifecycleStages } from '@univerjs/core';
-import { FormulaExecuteStageType, IFunctionService, ISuperTableService, SetFormulaCalculationResultMutation, SetTriggerFormulaCalculationStartMutation, SuperTableService } from '@univerjs/engine-formula';
-import { SetRangeValuesMutation } from '@univerjs/sheets';
+import type { Injector } from '@crabtable/core';
+import type { FCrabTable } from '@crabtable/core/facade';
+import { CommandType, ICommandService, IConfigService, LifecycleService, LifecycleStages } from '@crabtable/core';
+import { FormulaExecuteStageType, IFunctionService, ISuperTableService, SetFormulaCalculationResultMutation, SetTriggerFormulaCalculationStartMutation, SuperTableService } from '@crabtable/engine-formula';
+import { SetRangeValuesMutation } from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { CalculationMode, DescriptionService, IDescriptionService, IRegisterFunctionService, PLUGIN_CONFIG_KEY_BASE, RegisterFunctionService } from '../../index';
 import { createFacadeTestBed } from './create-test-bed';
 
-import '@univerjs/engine-formula/facade';
-import '@univerjs/sheets/facade';
+import '@crabtable/engine-formula/facade';
+import '@crabtable/sheets/facade';
 import '../../facade';
 
 describe('sheets-formula facade mixins', () => {
     let get: Injector['get'];
-    let univerAPI: FUniver;
+    let crabtableAPI: FCrabTable;
     let disposeUniver: () => void;
 
     beforeEach(() => {
@@ -39,7 +39,7 @@ describe('sheets-formula facade mixins', () => {
         testBed.injector.add([IRegisterFunctionService, { useClass: RegisterFunctionService }]);
 
         get = testBed.get;
-        univerAPI = testBed.univerAPI;
+        crabtableAPI = testBed.crabtableAPI;
         disposeUniver = () => testBed.univer.dispose();
     });
 
@@ -49,20 +49,20 @@ describe('sheets-formula facade mixins', () => {
         disposeUniver();
     });
 
-    it('registers functions through FUniver and FFormula and triggers a debounced recalculation command', async () => {
+    it('registers functions through FCrabTable and FFormula and triggers a debounced recalculation command', async () => {
         vi.useFakeTimers();
 
         const commandService = get(ICommandService);
         const functionService = get(IFunctionService);
         const executeCommandSpy = vi.spyOn(commandService, 'executeCommand').mockResolvedValue(true);
 
-        const univerDisposable = univerAPI.registerFunction({
+        const univerDisposable = crabtableAPI.registerFunction({
             calculate: [
-                [() => 1, 'UNIVER_SIDE', 'Registered from FUniver'],
+                [() => 1, 'UNIVER_SIDE', 'Registered from FCrabTable'],
             ],
         });
 
-        const formula = univerAPI.getFormula();
+        const formula = crabtableAPI.getFormula();
         const formulaDisposable = formula.registerFunction('FORMULA_SIDE', (value) => Number(value) + 1, 'Registered from FFormula');
         const asyncDisposable = formula.registerAsyncFunction('FORMULA_ASYNC', async () => 2, 'Async formula');
 
@@ -93,7 +93,7 @@ describe('sheets-formula facade mixins', () => {
     });
 
     it('updates initial calculation mode and warns after the Starting lifecycle', () => {
-        const formula = univerAPI.getFormula();
+        const formula = crabtableAPI.getFormula();
         const configService = get(IConfigService);
         const lifecycleService = get(LifecycleService);
 
@@ -122,7 +122,7 @@ describe('sheets-formula facade mixins', () => {
         commandService.registerCommand(SetFormulaCalculationResultMutation);
         commandService.registerCommand(SetRangeValuesMutation);
 
-        const formula = univerAPI.getFormula();
+        const formula = crabtableAPI.getFormula();
         const resultPayload = {
             unitData: {},
         };
@@ -152,7 +152,7 @@ describe('sheets-formula facade mixins', () => {
     it('resolves onCalculationResultApplied when no calculation actually starts', async () => {
         vi.useFakeTimers();
 
-        const formula = univerAPI.getFormula();
+        const formula = crabtableAPI.getFormula();
         const waitForResult = formula.onCalculationResultApplied();
 
         await vi.advanceTimersByTimeAsync(500);
@@ -170,7 +170,7 @@ describe('sheets-formula facade mixins', () => {
             handler: () => true,
         });
 
-        const formula = univerAPI.getFormula();
+        const formula = crabtableAPI.getFormula();
         vi.spyOn(formula, 'calculationProcessing').mockImplementation((callback) => {
             callback({
                 stage: FormulaExecuteStageType.START_CALCULATION,

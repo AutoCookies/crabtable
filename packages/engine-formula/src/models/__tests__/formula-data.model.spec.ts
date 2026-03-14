@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICellData, Injector, IWorkbookData, Nullable, Univer } from '@univerjs/core';
-import { LocaleType, ObjectMatrix, RANGE_TYPE } from '@univerjs/core';
+import type { CrabTable, ICellData, Injector, IWorkbookData, Nullable } from '@crabtable/core';
+import { LocaleType, ObjectMatrix, RANGE_TYPE } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { FormulaDataModel, initSheetFormulaData } from '../formula-data.model';
 import { createCommandTestBed } from './create-command-test-bed';
@@ -89,7 +89,7 @@ const TEST_WORKBOOK_DATA_EXTRA: IWorkbookData = {
 
 describe('Test formula data model', () => {
     describe('formulaDataModel function', () => {
-        let univer: Univer;
+        let univer: CrabTable;
         let get: Injector['get'];
         let formulaDataModel: FormulaDataModel;
 

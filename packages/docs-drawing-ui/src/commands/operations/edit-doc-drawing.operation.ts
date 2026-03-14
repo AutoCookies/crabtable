@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IDrawingSearch, IOperation } from '@univerjs/core';
+import type { IAccessor, IDrawingSearch, IOperation } from '@crabtable/core';
 import {
     CommandType,
     ICommandService,
 
-} from '@univerjs/core';
-import { IDrawingManagerService } from '@univerjs/drawing';
+} from '@crabtable/core';
+import { IDrawingManagerService } from '@crabtable/drawing';
 import { SidebarDocDrawingOperation } from './open-drawing-panel.operation';
 
 // Use to open drawing edit panel.

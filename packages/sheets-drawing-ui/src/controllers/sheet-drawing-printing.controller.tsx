@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
-import type { IFloatDomData } from '@univerjs/sheets-drawing';
+import type { IRange } from '@crabtable/core';
+import type { IFloatDomData } from '@crabtable/sheets-drawing';
 import type { IPrintingFloatDomProps } from '../views/printing-float-dom';
-import { Disposable, DrawingTypeEnum, Inject, Injector, PRINT_CHART_COMPONENT_KEY, Tools } from '@univerjs/core';
-import { render, unmount } from '@univerjs/design';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { DrawingRenderService } from '@univerjs/drawing-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { SheetPrintInterceptorService, SheetSkeletonManagerService } from '@univerjs/sheets-ui';
-import { ComponentManager, connectInjector } from '@univerjs/ui';
+import { Disposable, DrawingTypeEnum, Inject, Injector, PRINT_CHART_COMPONENT_KEY, Tools } from '@crabtable/core';
+import { render, unmount } from '@crabtable/design';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { DrawingRenderService } from '@crabtable/drawing-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { SheetPrintInterceptorService, SheetSkeletonManagerService } from '@crabtable/sheets-ui';
+import { ComponentManager, connectInjector } from '@crabtable/ui';
 import { SheetCanvasFloatDomManagerService } from '../services/canvas-float-dom-manager.service';
 import { PrintingFloatDom } from '../views/printing-float-dom';
 

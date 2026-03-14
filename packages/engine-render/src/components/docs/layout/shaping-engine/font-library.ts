@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IStyleBase, Nullable } from '@univerjs/core';
-import { BooleanNumber } from '@univerjs/core';
+import type { IStyleBase, Nullable } from '@crabtable/core';
+import { BooleanNumber } from '@crabtable/core';
 
 interface IFontData {
     readonly family: string;

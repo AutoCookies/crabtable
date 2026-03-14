@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Injector } from '@univerjs/core';
-import { UniverInstanceType } from '@univerjs/core';
+import type { Injector } from '@crabtable/core';
+import { CrabTableInstanceType } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import { Engine } from '../../engine';
@@ -35,7 +35,7 @@ describe('render manager service', () => {
         } as unknown as Injector;
         const instanceService = {
             getUnit: vi.fn(() => null),
-            getUnitType: vi.fn(() => UniverInstanceType.UNIVER_SHEET),
+            getUnitType: vi.fn(() => CrabTableInstanceType.CRABTABLE_SHEET),
             getCurrentUnitOfType: vi.fn(() => null),
         } as any;
         const themeService = { darkMode$ } as any;
@@ -50,7 +50,7 @@ describe('render manager service', () => {
         };
         const render = {
             unitId: 'u-1',
-            type: UniverInstanceType.UNIVER_SHEET,
+            type: CrabTableInstanceType.CRABTABLE_SHEET,
             engine,
             scene: engine.activeScene!,
             components: new Map([['c', component]]),
@@ -65,7 +65,7 @@ describe('render manager service', () => {
         expect(service.has('u-1')).toBe(true);
         expect(service.getRenderById('u-1')).toBe(render);
         expect(service.getRenderUnitById('u-1')).toBe(render);
-        expect(service.getAllRenderersOfType(UniverInstanceType.UNIVER_SHEET).length).toBe(1);
+        expect(service.getAllRenderersOfType(CrabTableInstanceType.CRABTABLE_SHEET).length).toBe(1);
 
         darkMode$.next(true);
         expect(component.makeForceDirty).toHaveBeenCalledWith(true);
@@ -80,7 +80,7 @@ describe('render manager service', () => {
         const darkMode$ = new Subject<boolean>();
         const createdRenderUnit = {
             unitId: 'u-2',
-            type: UniverInstanceType.UNIVER_SHEET,
+            type: CrabTableInstanceType.CRABTABLE_SHEET,
             engine: new Engine('u-2-engine', { elementWidth: 10, elementHeight: 10, dpr: 1 }),
             scene: { dispose: vi.fn() },
             components: new Map(),
@@ -107,7 +107,7 @@ describe('render manager service', () => {
         };
         const instanceService = {
             getUnit: vi.fn(() => unit),
-            getUnitType: vi.fn(() => UniverInstanceType.UNIVER_SHEET),
+            getUnitType: vi.fn(() => CrabTableInstanceType.CRABTABLE_SHEET),
             getCurrentUnitOfType: vi.fn(() => null),
         } as any;
         const themeService = { darkMode$ } as any;
@@ -116,8 +116,8 @@ describe('render manager service', () => {
 
         const depA = Symbol('dep-a') as any;
         const depB = Symbol('dep-b') as any;
-        const disposableA = service.registerRenderModule(UniverInstanceType.UNIVER_SHEET, depA);
-        const disposableB = service.registerRenderModules(UniverInstanceType.UNIVER_SHEET, [depB]);
+        const disposableA = service.registerRenderModule(CrabTableInstanceType.CRABTABLE_SHEET, depA);
+        const disposableB = service.registerRenderModules(CrabTableInstanceType.CRABTABLE_SHEET, [depB]);
 
         const created = service.createRender('u-2');
         expect(created).toBe(createdRenderUnit);
@@ -132,7 +132,7 @@ describe('render manager service', () => {
         expect(service.getRenderById('slide-unit')).toBe(thumbnailRender);
 
         const current = getCurrentTypeOfRenderer(
-            UniverInstanceType.UNIVER_SHEET,
+            CrabTableInstanceType.CRABTABLE_SHEET,
             instanceService,
             service
         );
@@ -140,7 +140,7 @@ describe('render manager service', () => {
         (instanceService.getCurrentUnitOfType as any).mockReturnValue(unit);
         expect(
             withCurrentTypeOfRenderer(
-                UniverInstanceType.UNIVER_SHEET,
+                CrabTableInstanceType.CRABTABLE_SHEET,
                 Symbol('token') as any,
                 instanceService,
                 service

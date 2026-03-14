@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IShortcutItem } from '@univerjs/ui';
-import { SmartToggleSheetsFilterCommand } from '@univerjs/sheets-filter';
-import { whenSheetEditorFocused } from '@univerjs/sheets-ui';
-import { KeyCode, MetaKeys } from '@univerjs/ui';
+import type { IShortcutItem } from '@crabtable/ui';
+import { SmartToggleSheetsFilterCommand } from '@crabtable/sheets-filter';
+import { whenSheetEditorFocused } from '@crabtable/sheets-ui';
+import { KeyCode, MetaKeys } from '@crabtable/ui';
 
 export const SmartToggleFilterShortcut: IShortcutItem = {
     id: SmartToggleSheetsFilterCommand.id,

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IDisposable, IDocumentBody, IDocumentData, Nullable } from '@univerjs/core';
-import type { ISuccinctDocRangeParam, Scene } from '@univerjs/engine-render';
+import type { DocumentDataModel, IDisposable, IDocumentBody, IDocumentData, Nullable } from '@crabtable/core';
+import type { ISuccinctDocRangeParam, Scene } from '@crabtable/engine-render';
 import type { Observable } from 'rxjs';
 import type { IEditorConfigParams } from './editor';
-import { createIdentifier, DEFAULT_EMPTY_DOCUMENT_VALUE, Disposable, EDITOR_ACTIVATED, FOCUSING_COMMENT_EDITOR, FOCUSING_EDITOR_STANDALONE, HorizontalAlign, ICommandService, IContextService, Inject, Injector, isCommentEditorID, isInternalEditorID, IUndoRedoService, IUniverInstanceService, toDisposable, UniverInstanceType, VerticalAlign } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { CrabTableInstanceType, createIdentifier, DEFAULT_EMPTY_DOCUMENT_VALUE, Disposable, EDITOR_ACTIVATED, FOCUSING_COMMENT_EDITOR, FOCUSING_EDITOR_STANDALONE, HorizontalAlign, ICommandService, IContextService, ICrabTableInstanceService, Inject, Injector, isCommentEditorID, isInternalEditorID, IUndoRedoService, toDisposable, VerticalAlign } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { fromEvent, Subject } from 'rxjs';
 import { Editor } from './editor';
 
@@ -78,7 +78,7 @@ export class EditorService extends Disposable implements IEditorService, IDispos
     readonly focus$ = this._focus$.asObservable();
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
         @Inject(DocSelectionManagerService) private readonly _docSelectionManagerService: DocSelectionManagerService,
         @IContextService private readonly _contextService: IContextService,
@@ -92,7 +92,7 @@ export class EditorService extends Disposable implements IEditorService, IDispos
     }
 
     // REFACTOR: @Gggpound The specific business processing should not be placed here,
-    // I moved from the layout service. https://github.com/dream-num/univer-pro/issues/1708
+    // I moved from the layout service. https://github.com/AutoCookies/crabtable-pro/issues/1708
     private _initUniverFocusListener() {
         this.disposeWithMe(
             fromEvent(window, 'focusin').subscribe((event) => {
@@ -166,7 +166,7 @@ export class EditorService extends Disposable implements IEditorService, IDispos
             return;
         }
 
-        this._univerInstanceService.setCurrentUnitForType(editorUnitId);
+        this._crabtableInstanceService.setCurrentUnitForType(editorUnitId);
         const valueCount = editor.getValue().length;
 
         this._contextService.setContextValue(EDITOR_ACTIVATED, true);
@@ -205,11 +205,11 @@ export class EditorService extends Disposable implements IEditorService, IDispos
         const { initialSnapshot, canvasStyle = {} } = config;
         const editorUnitId = initialSnapshot.id;
 
-        const documentDataModel = this._univerInstanceService.getUnit<DocumentDataModel>(editorUnitId, UniverInstanceType.UNIVER_DOC);
+        const documentDataModel = this._crabtableInstanceService.getUnit<DocumentDataModel>(editorUnitId, CrabTableInstanceType.CRABTABLE_DOC);
 
         if (documentDataModel == null) {
-            this._univerInstanceService.createUnit<IDocumentData, DocumentDataModel>(
-                UniverInstanceType.UNIVER_DOC,
+            this._crabtableInstanceService.createUnit<IDocumentData, DocumentDataModel>(
+                CrabTableInstanceType.CRABTABLE_DOC,
                 initialSnapshot || this._getBlank(editorUnitId),
                 { makeCurrent: false }
             );
@@ -226,7 +226,7 @@ export class EditorService extends Disposable implements IEditorService, IDispos
 
             const editor = new Editor(
                 { ...config, render, editorDom: container, canvasStyle },
-                this._univerInstanceService,
+                this._crabtableInstanceService,
                 this._docSelectionManagerService,
                 this._commandService,
                 this._undoRedoService,
@@ -254,11 +254,11 @@ export class EditorService extends Disposable implements IEditorService, IDispos
         this._renderManagerService.removeRender(editorUnitId);
         editor.dispose();
         this._editors.delete(editorUnitId);
-        this._univerInstanceService.disposeUnit(editorUnitId);
+        this._crabtableInstanceService.disposeUnit(editorUnitId);
     }
 
     private _getCurrentEditorUnitId() {
-        const current = this._univerInstanceService.getCurrentUniverDocInstance()!;
+        const current = this._crabtableInstanceService.getCurrentUniverDocInstance()!;
         return current.getUnitId();
     }
 

@@ -15,7 +15,7 @@
  */
 
 import type { Meta } from '@storybook/react';
-import { Inject, Injector, LocaleType, Plugin, Univer, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, Inject, Injector, LocaleType, Plugin } from '@crabtable/core';
 import { useState } from 'react';
 import { ComponentManager } from '../../../common';
 import { ContextMenuPosition } from '../../../services/menu/types';
@@ -35,7 +35,7 @@ const meta: Meta = {
 export default meta;
 
 function createMobileMenuStorybookBed() {
-    const univer = new Univer({
+    const univer = new CrabTable({
         locale: LocaleType.EN_US,
         locales: {
             [LocaleType.EN_US]: {},
@@ -44,7 +44,7 @@ function createMobileMenuStorybookBed() {
     const injector = univer.__getInjector();
 
     class TestPlugin extends Plugin {
-        static override type = UniverInstanceType.UNIVER_UNKNOWN;
+        static override type = CrabTableInstanceType.UNIVER_UNKNOWN;
         static override pluginName = 'test-plugin';
 
         constructor(

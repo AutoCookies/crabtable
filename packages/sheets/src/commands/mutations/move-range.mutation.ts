@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICellData, IMutation, IObjectMatrixPrimitiveType, IRange, Nullable, Workbook } from '@univerjs/core';
-import { CommandType, IUniverInstanceService, ObjectMatrix, UniverInstanceType } from '@univerjs/core';
+import type { ICellData, IMutation, IObjectMatrixPrimitiveType, IRange, Nullable, Workbook } from '@crabtable/core';
+import { CommandType, CrabTableInstanceType, ICrabTableInstanceService, ObjectMatrix } from '@crabtable/core';
 
 export interface IMoveRangeMutationParams {
     unitId: string;
@@ -41,8 +41,8 @@ export const MoveRangeMutation: IMutation<IMoveRangeMutationParams, boolean> = {
             return false;
         }
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             return false;
         }

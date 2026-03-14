@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
+import type { Workbook } from '@crabtable/core';
 import type { ICellLinkContent, ISheetHyperLink } from '../types/interfaces/i-hyper-link';
-import { Disposable, IUniverInstanceService, ObjectMatrix, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, ObjectMatrix } from '@crabtable/core';
 import { Subject } from 'rxjs';
 
 type LinkUpdate = {
@@ -64,7 +64,7 @@ export class HyperLinkModel extends Disposable {
     private _linkPositionMap: Map<string, Map<string, Map<string, { row: number; column: number; link: ISheetHyperLink }>>> = new Map();
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
         this.disposeWithMe({
@@ -215,7 +215,7 @@ export class HyperLinkModel extends Disposable {
 
     getHyperLinkByLocationSync(unitId: string, subUnitId: string, row: number, column: number) {
         const { matrix } = this._ensureMap(unitId, subUnitId);
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         const cell = workbook?.getSheetBySheetId(subUnitId)?.getCellRaw(row, column);
         const cellValueStr = (cell?.v ?? cell?.p?.body?.dataStream.slice(0, -2) ?? '').toString();
         const link = matrix.getValue(row, column);

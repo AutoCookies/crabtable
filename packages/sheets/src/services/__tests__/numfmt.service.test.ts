@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Injector, Styles, Univer, Workbook, Worksheet } from '@univerjs/core';
-import type { IRemoveNumfmtMutationParams, ISetNumfmtMutationParams } from '@univerjs/sheets';
-import { cellToRange, CellValueType, DEFAULT_TEXT_FORMAT_EXCEL, ICommandService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
+import type { Injector, Styles, Workbook, Worksheet } from '@crabtable/core';
+import type { IRemoveNumfmtMutationParams, ISetNumfmtMutationParams } from '@crabtable/sheets';
+import { cellToRange, CellValueType, CrabTableInstanceType, DEFAULT_TEXT_FORMAT_EXCEL, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { RemoveNumfmtMutation, SetNumfmtMutation } from '../../commands/mutations/numfmt-mutation';
 import { NumfmtService } from '../numfmt/numfmt.service';
@@ -24,10 +24,10 @@ import { INumfmtService } from '../numfmt/type';
 import { createTestBase } from './util';
 
 describe('test numfmt service', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
-    let univerInstanceService: IUniverInstanceService;
+    let crabtableInstanceService: ICrabTableInstanceService;
     let numfmtService: INumfmtService;
     let workbook: Workbook;
     let styles: Styles;
@@ -43,9 +43,9 @@ describe('test numfmt service', () => {
         commandService.registerCommand(SetNumfmtMutation);
         commandService.registerCommand(RemoveNumfmtMutation);
 
-        univerInstanceService = get(IUniverInstanceService);
+        crabtableInstanceService = get(ICrabTableInstanceService);
         numfmtService = get(INumfmtService);
-        workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         styles = workbook.getStyles();
         sheet = workbook.getActiveSheet()!;
         unitId = workbook.getUnitId();

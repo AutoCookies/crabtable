@@ -42,7 +42,7 @@ export { json1 as JSON1, JSONOp as JSONXActions, Path as JSONXPath };
 export class JSONX {
     // static name = 'json-x';
 
-    static uri = 'https://github.com/dream-num/univer#json-x';
+    static uri = 'https://github.com/AutoCookies/crabtable#json-x';
 
     private static _subTypes: Map<string, ISubType> = new Map();
 

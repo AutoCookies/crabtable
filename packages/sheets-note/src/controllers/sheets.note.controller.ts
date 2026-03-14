@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Disposable, ICommandService } from '@univerjs/core';
+import { Disposable, ICommandService } from '@crabtable/core';
 import { SheetDeleteNoteCommand, SheetToggleNotePopupCommand, SheetUpdateNoteCommand } from '../commands/commands/note.command';
 import { RemoveNoteMutation, ToggleNotePopupMutation, UpdateNoteMutation, UpdateNotePositionMutation } from '../commands/mutations/note.mutation';
 

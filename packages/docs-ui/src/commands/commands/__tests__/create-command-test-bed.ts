@@ -16,24 +16,23 @@
 
 /* eslint-disable ts/no-explicit-any */
 
-import type { Ctor, Dependency, DependencyIdentifier, DocumentDataModel, IDocumentData, Nullable } from '@univerjs/core';
-import type { DocumentSkeleton, IRender, IRenderContext, IRenderModule } from '@univerjs/engine-render';
+import type { Ctor, Dependency, DependencyIdentifier, DocumentDataModel, IDocumentData, Nullable } from '@crabtable/core';
+import type { DocumentSkeleton, IRender, IRenderContext, IRenderModule } from '@crabtable/engine-render';
 import {
     BooleanNumber,
+    CrabTableInstanceType,
     DOCS_NORMAL_EDITOR_UNIT_ID_KEY,
+    ICrabTableInstanceService,
     ILogService,
     Inject,
     Injector,
     IUndoRedoService,
-    IUniverInstanceService,
     LogLevel,
     Plugin,
     RxDisposable,
-    Univer,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { DocSelectionManagerService, DocSkeletonManagerService, DocStateEmitService } from '@univerjs/docs';
-import { DocumentViewModel, IRenderManagerService } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { DocSelectionManagerService, DocSkeletonManagerService, DocStateEmitService } from '@crabtable/docs';
+import { DocumentViewModel, IRenderManagerService } from '@crabtable/engine-render';
 import { BehaviorSubject, takeUntil } from 'rxjs';
 import { DocIMEInputManagerService } from '../../../services/doc-ime-input-manager.service';
 import { DocMenuStyleService } from '../../../services/doc-menu-style.service';
@@ -96,7 +95,7 @@ const TEST_DOCUMENT_DATA_EN: IDocumentData = {
 };
 
 export function createCommandTestBed(docData?: IDocumentData, dependencies?: Dependency[]) {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
@@ -133,9 +132,9 @@ export function createCommandTestBed(docData?: IDocumentData, dependencies?: Dep
 
     univer.registerPlugin(TestPlugin);
 
-    const doc = univer.createUnit<IDocumentData, DocumentDataModel>(UniverInstanceType.UNIVER_DOC, docData || TEST_DOCUMENT_DATA_EN);
+    const doc = univer.createUnit<IDocumentData, DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC, docData || TEST_DOCUMENT_DATA_EN);
 
-    const univerInstanceService = get(IUniverInstanceService);
+    const crabtableInstanceService = get(ICrabTableInstanceService);
 
     // NOTE: This is pretty hack for the test. But with these hacks we can avoid to create
     // real canvas-environment in univerjs/docs. If some we have to do that, this hack could be removed.
@@ -143,7 +142,7 @@ export function createCommandTestBed(docData?: IDocumentData, dependencies?: Dep
     const fakeDocSkeletonManager = new MockDocSkeletonManagerService({
         unit: doc,
         unitId: 'test-doc',
-        type: UniverInstanceType.UNIVER_DOC,
+        type: CrabTableInstanceType.CRABTABLE_DOC,
         engine: null as any,
         scene: null as any,
         mainComponent: null as any,
@@ -152,11 +151,11 @@ export function createCommandTestBed(docData?: IDocumentData, dependencies?: Dep
         activated$: new BehaviorSubject(true),
         activate: () => {},
         deactivate: () => {},
-    }, univerInstanceService);
+    }, crabtableInstanceService);
 
     injector.add([DocSkeletonManagerService, { useValue: fakeDocSkeletonManager as unknown as DocSkeletonManagerService }]);
 
-    univerInstanceService.focusUnit('test-doc');
+    crabtableInstanceService.focusUnit('test-doc');
 
     const logService = get(ILogService);
     logService.setLogLevel(LogLevel.SILENT);
@@ -194,13 +193,13 @@ export class MockDocSkeletonManagerService extends RxDisposable implements IRend
 
     constructor(
         private readonly _context: IRenderContext<DocumentDataModel>,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
 
         this._update();
 
-        this._univerInstanceService.getCurrentTypeOfUnit$<DocumentDataModel>(UniverInstanceType.UNIVER_DOC)
+        this._crabtableInstanceService.getCurrentTypeOfUnit$<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC)
             .pipe(takeUntil(this.dispose$))
             .subscribe((documentModel) => {
                 if (documentModel?.getUnitId() === this._context.unitId) {

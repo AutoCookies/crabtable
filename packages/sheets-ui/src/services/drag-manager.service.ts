@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Nullable, Workbook } from '@univerjs/core';
-import type { IDragEvent } from '@univerjs/engine-render';
+import type { Nullable, Workbook } from '@crabtable/core';
+import type { IDragEvent } from '@crabtable/engine-render';
 import type { IHoverCellPosition } from './hover-manager.service';
-import { Disposable, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { distinctUntilChanged, Subject } from 'rxjs';
 import { getHoverCellPosition } from '../common/utils';
 import { SheetScrollManagerService } from './scroll-manager.service';
@@ -43,7 +43,7 @@ export class DragManagerService extends Disposable {
     endCell$ = this._endCell$.asObservable();
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService
     ) {
         super();
@@ -58,7 +58,7 @@ export class DragManagerService extends Disposable {
     }
 
     private _initCellDisposableListener(): void {
-        this.disposeWithMe(this._univerInstanceService.getCurrentTypeOfUnit$(UniverInstanceType.UNIVER_SHEET).subscribe((workbook) => {
+        this.disposeWithMe(this._crabtableInstanceService.getCurrentTypeOfUnit$(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((workbook) => {
             if (!workbook) {
                 this._currentCell$.next(null);
                 this._endCell$.next(null);
@@ -67,7 +67,7 @@ export class DragManagerService extends Disposable {
     }
 
     private _calcActiveCell(offsetX: number, offsetY: number): Nullable<IHoverCellPosition> {
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             return null;
         }

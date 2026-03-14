@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IDocDrawingBase } from '@univerjs/core';
-import type { IInnerPasteCommandParams } from '@univerjs/docs-ui';
-import { BuildTextUtils, createDocumentModelWithStyle, Disposable, DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, DOCS_ZEN_EDITOR_UNIT_ID_KEY, ICommandService, Inject, IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
-import { InnerPasteCommand } from '@univerjs/docs-ui';
-import { getCurrentTypeOfRenderer, IRenderManagerService } from '@univerjs/engine-render';
-import { EditingRenderController, SetCellEditVisibleOperation } from '@univerjs/sheets-ui';
-import { IDialogService } from '@univerjs/ui';
+import type { DocumentDataModel, IDocDrawingBase } from '@crabtable/core';
+import type { IInnerPasteCommandParams } from '@crabtable/docs-ui';
+import { BuildTextUtils, CrabTableInstanceType, createDocumentModelWithStyle, Disposable, DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, DOCS_ZEN_EDITOR_UNIT_ID_KEY, ICommandService, ICrabTableInstanceService, Inject, LocaleService } from '@crabtable/core';
+import { InnerPasteCommand } from '@crabtable/docs-ui';
+import { getCurrentTypeOfRenderer, IRenderManagerService } from '@crabtable/engine-render';
+import { EditingRenderController, SetCellEditVisibleOperation } from '@crabtable/sheets-ui';
+import { IDialogService } from '@crabtable/ui';
 
 const DISABLE_UNITS = [
     DOCS_NORMAL_EDITOR_UNIT_ID_KEY,
@@ -30,7 +30,7 @@ const DISABLE_UNITS = [
 export class SheetCellImageCopyPasteController extends Disposable {
     constructor(
         @ICommandService private readonly _commandService: ICommandService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IDialogService private readonly _dialogService: IDialogService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
         @Inject(LocaleService) private readonly _localeService: LocaleService
@@ -41,7 +41,7 @@ export class SheetCellImageCopyPasteController extends Disposable {
 
     private _setCellImage(drwaing: IDocDrawingBase) {
         const docDataModel = createDocumentModelWithStyle('', {});
-        const editingRenderController = getCurrentTypeOfRenderer(UniverInstanceType.UNIVER_SHEET, this._univerInstanceService, this._renderManagerService)?.with(EditingRenderController);
+        const editingRenderController = getCurrentTypeOfRenderer(CrabTableInstanceType.CRABTABLE_SHEET, this._crabtableInstanceService, this._renderManagerService)?.with(EditingRenderController);
         const jsonXActions = BuildTextUtils.drawing.add({
             documentDataModel: docDataModel,
             drawings: [drwaing],
@@ -65,7 +65,7 @@ export class SheetCellImageCopyPasteController extends Disposable {
                 if (commandInfo.id === InnerPasteCommand.id) {
                     const params = commandInfo.params as IInnerPasteCommandParams;
                     const { doc } = params;
-                    const currentDoc = this._univerInstanceService.getCurrentUnitOfType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+                    const currentDoc = this._crabtableInstanceService.getCurrentUnitOfType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
                     if (currentDoc == null || !Object.keys(doc.drawings ?? {}).length) {
                         return;
                     }

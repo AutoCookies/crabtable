@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICommand, Nullable } from '@univerjs/core';
-import { CommandType, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { getCurrentTypeOfRenderer, IRenderManagerService } from '@univerjs/engine-render';
+import type { ICommand, Nullable } from '@crabtable/core';
+import { CommandType, CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
+import { getCurrentTypeOfRenderer, IRenderManagerService } from '@crabtable/engine-render';
 import { SheetDrawingUpdateController } from '../../controllers/sheet-drawing-update.controller';
 
 export interface IInsertImageCommandParams {
@@ -27,11 +27,11 @@ export const InsertFloatImageCommand: ICommand<IInsertImageCommandParams> = {
     id: 'sheet.command.insert-float-image',
     type: CommandType.COMMAND,
     handler: async (accessor, params) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const renderManagerService = accessor.get(IRenderManagerService);
         const sheetDrawingUpdateController = getCurrentTypeOfRenderer(
-            UniverInstanceType.UNIVER_SHEET,
-            univerInstanceService,
+            CrabTableInstanceType.CRABTABLE_SHEET,
+            crabtableInstanceService,
             renderManagerService
         )
             ?.with(SheetDrawingUpdateController);
@@ -55,12 +55,12 @@ export const InsertCellImageCommand: ICommand = {
     id: 'sheet.command.insert-cell-image',
     type: CommandType.COMMAND,
     handler: (accessor) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const renderManagerService = accessor.get(IRenderManagerService);
 
         return getCurrentTypeOfRenderer(
-            UniverInstanceType.UNIVER_SHEET,
-            univerInstanceService,
+            CrabTableInstanceType.CRABTABLE_SHEET,
+            crabtableInstanceService,
             renderManagerService
         )
             ?.with(SheetDrawingUpdateController)

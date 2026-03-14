@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, IMutationInfo } from '@univerjs/core';
-import type { RangeThemeStyle } from '@univerjs/sheets';
-import { CommandType, ICommandService, IUndoRedoService, sequenceExecute } from '@univerjs/core';
-import { AddRangeThemeMutation, RemoveRangeThemeMutation } from '@univerjs/sheets';
+import type { IAccessor, ICommand, IMutationInfo } from '@crabtable/core';
+import type { RangeThemeStyle } from '@crabtable/sheets';
+import { CommandType, ICommandService, IUndoRedoService, sequenceExecute } from '@crabtable/core';
+import { AddRangeThemeMutation, RemoveRangeThemeMutation } from '@crabtable/sheets';
 import { TableManager } from '../../model/table-manager';
 import { SetSheetTableMutation } from '../mutations/set-sheet-table.mutation';
 

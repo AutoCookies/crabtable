@@ -14,27 +14,27 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommand, IMutationInfo, IParagraph, ITextRange, JSONXActions, Nullable } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { IRectRangeWithStyle, ITextRangeWithStyle } from '@univerjs/engine-render';
+import type { DocumentDataModel, ICommand, IMutationInfo, IParagraph, ITextRange, JSONXActions, Nullable } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { IRectRangeWithStyle, ITextRangeWithStyle } from '@crabtable/engine-render';
 import {
     BlockType,
     BuildTextUtils,
     CommandType,
+    CrabTableInstanceType,
     DataStreamTreeTokenType,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     JSONX,
     PositionedObjectLayoutType,
     TextX,
     TextXActionType,
     Tools,
-    UniverInstanceType,
     UpdateDocsAttributeType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 
-import { DocSelectionManagerService, RichTextEditingMutation } from '@univerjs/docs';
-import { getParagraphByGlyph, hasListGlyph, isFirstGlyph, isIndentByGlyph } from '@univerjs/engine-render';
+import { DocSelectionManagerService, RichTextEditingMutation } from '@crabtable/docs';
+import { getParagraphByGlyph, hasListGlyph, isFirstGlyph, isIndentByGlyph } from '@crabtable/engine-render';
 import { DeleteDirection } from '../../types/delete-direction';
 import { getCommandSkeleton, getRichTextEditPath } from '../util';
 import { CutContentCommand } from './clipboard.inner.command';
@@ -54,11 +54,11 @@ export const DeleteCustomBlockCommand: ICommand<IDeleteCustomBlockParams> = {
     type: CommandType.COMMAND,
     handler: async (accessor, params: IDeleteCustomBlockParams) => {
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
 
         const activeRange = docSelectionManagerService.getActiveTextRange();
-        const documentDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const documentDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
 
         if (activeRange == null || documentDataModel == null) {
             return false;
@@ -141,7 +141,7 @@ export const MergeTwoParagraphCommand: ICommand<IMergeTwoParagraphParams> = {
     // eslint-disable-next-line max-lines-per-function
     handler: async (accessor, params: IMergeTwoParagraphParams) => {
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
 
         const { direction, range } = params;
@@ -153,7 +153,7 @@ export const MergeTwoParagraphCommand: ICommand<IMergeTwoParagraphParams> = {
             return false;
         }
         const { segmentId, style } = activeRange;
-        const docDataModel = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         const originBody = docDataModel?.getSelfOrHeaderFooterModel(segmentId).getBody();
         if (docDataModel == null || originBody == null) {
             return false;
@@ -263,7 +263,7 @@ export const RemoveHorizontalLineCommand: ICommand = {
     // eslint-disable-next-line max-lines-per-function
     handler: async (accessor) => {
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
 
         const activeRange = docSelectionManagerService.getActiveTextRange();
@@ -273,7 +273,7 @@ export const RemoveHorizontalLineCommand: ICommand = {
             return false;
         }
         const { segmentId, style } = activeRange;
-        const docDataModel = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         const originBody = docDataModel?.getSelfOrHeaderFooterModel(segmentId).getBody();
         if (docDataModel == null || originBody == null) {
             return false;
@@ -409,12 +409,12 @@ export const DeleteLeftCommand: ICommand = {
     // eslint-disable-next-line max-lines-per-function, complexity
     handler: async (accessor) => {
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
 
         let result = true;
 
-        const docDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const docDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
         if (docDataModel == null) {
             return false;
         }
@@ -636,8 +636,8 @@ export const DeleteRightCommand: ICommand = {
     // eslint-disable-next-line max-lines-per-function, complexity
     handler: async (accessor) => {
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const docDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const docDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
         if (!docDataModel) {
             return false;
         }
@@ -806,9 +806,9 @@ export const DeleteCurrentParagraphCommand: ICommand = {
     id: 'doc.command.delete-current-paragraph',
     type: CommandType.COMMAND,
     handler: async (accessor) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
-        const docDataModel = univerInstanceService.getCurrentUnitOfType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getCurrentUnitOfType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         if (!docDataModel) {
             return false;
         }

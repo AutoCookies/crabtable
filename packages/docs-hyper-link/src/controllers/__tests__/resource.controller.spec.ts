@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICustomRange, IDocumentData } from '@univerjs/core';
+import type { DocumentDataModel, ICustomRange, IDocumentData } from '@crabtable/core';
 import {
+    CrabTableInstanceType,
     CustomRangeType,
     IResourceManagerService,
     LocaleType,
-    Univer,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { DOC_HYPER_LINK_PLUGIN, DocHyperLinkResourceController } from '../resource.controller';
 
@@ -105,11 +104,11 @@ function getRange(model: DocumentDataModel, rangeId: string, segment: 'body' | '
 }
 
 describe('DocHyperLinkResourceController', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let resourceManagerService: IResourceManagerService;
 
     beforeEach(() => {
-        univer = new Univer();
+        univer = new CrabTable();
         const injector = univer.__getInjector();
 
         injector.add([DocHyperLinkResourceController]);
@@ -123,9 +122,9 @@ describe('DocHyperLinkResourceController', () => {
     });
 
     it('should serialize hyperlink resources from headers, footers and body only', () => {
-        univer.createUnit<IDocumentData, DocumentDataModel>(UniverInstanceType.UNIVER_DOC, createDocData());
+        univer.createUnit<IDocumentData, DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC, createDocData());
 
-        const resource = resourceManagerService.getResourcesByType('doc-1', UniverInstanceType.UNIVER_DOC)
+        const resource = resourceManagerService.getResourcesByType('doc-1', CrabTableInstanceType.CRABTABLE_DOC)
             .find((item) => item.name === DOC_HYPER_LINK_PLUGIN);
 
         expect(resource).toBeDefined();
@@ -139,7 +138,7 @@ describe('DocHyperLinkResourceController', () => {
     });
 
     it('should load hyperlink resources back into header, footer and body ranges', () => {
-        const doc = univer.createUnit<IDocumentData, DocumentDataModel>(UniverInstanceType.UNIVER_DOC, createDocData());
+        const doc = univer.createUnit<IDocumentData, DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC, createDocData());
 
         resourceManagerService.loadResources(doc.getUnitId(), [{
             name: DOC_HYPER_LINK_PLUGIN,
@@ -160,7 +159,7 @@ describe('DocHyperLinkResourceController', () => {
     });
 
     it('should return an empty resource payload when the document does not exist', () => {
-        const resource = resourceManagerService.getResourcesByType('missing-doc', UniverInstanceType.UNIVER_DOC)
+        const resource = resourceManagerService.getResourcesByType('missing-doc', CrabTableInstanceType.CRABTABLE_DOC)
             .find((item) => item.name === DOC_HYPER_LINK_PLUGIN);
 
         expect(resource).toBeDefined();

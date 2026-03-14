@@ -16,7 +16,7 @@
 
 import type { IAnchor } from '../utils/anchor';
 import type { IConditionFormattingRule, IRuleModel } from './type';
-import { Tools } from '@univerjs/core';
+import { Tools } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { findIndexByAnchor, moveByAnchor } from '../utils/anchor';
 

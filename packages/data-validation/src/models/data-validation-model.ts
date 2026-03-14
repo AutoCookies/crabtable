@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDataValidationRule } from '@univerjs/core';
+import type { IDataValidationRule } from '@crabtable/core';
 import type { IUpdateRulePayload } from '../types/interfaces/i-update-rule-payload';
-import { Disposable, ILogService, Tools } from '@univerjs/core';
+import { Disposable, ILogService, Tools } from '@crabtable/core';
 import { debounceTime, Subject } from 'rxjs';
 import { getRuleOptions, getRuleSetting } from '../common/util';
 import { UpdateRuleType } from '../types/enum/update-rule-type';

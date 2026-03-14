@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
+import type { Workbook } from '@crabtable/core';
 
 import type { ICollaborator, UnitAction } from '@univerjs/protocol';
-import { IAuthzIoService, ICommandService, IPermissionService, IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
-import { borderTopClassName, Button, clsx, Switch } from '@univerjs/design';
+import { CrabTableInstanceType, IAuthzIoService, ICommandService, ICrabTableInstanceService, IPermissionService, LocaleService } from '@crabtable/core';
+import { borderTopClassName, Button, clsx, Switch } from '@crabtable/design';
+import { getAllWorksheetPermissionPoint, SetWorksheetPermissionPointsCommand, WorksheetProtectionPointModel } from '@crabtable/sheets';
+import { IDialogService, useDependency } from '@crabtable/ui';
 import { ObjectScope, UnitObject, UnitRole } from '@univerjs/protocol';
-import { getAllWorksheetPermissionPoint, SetWorksheetPermissionPointsCommand, WorksheetProtectionPointModel } from '@univerjs/sheets';
-import { IDialogService, useDependency } from '@univerjs/ui';
 import { useEffect, useState } from 'react';
-import { defaultWorksheetUnitActionList, subUnitPermissionTypeMap, UNIVER_SHEET_PERMISSION_DIALOG_ID } from '../../../consts/permission';
+import { CRABTABLE_SHEET_PERMISSION_DIALOG_ID, defaultWorksheetUnitActionList, subUnitPermissionTypeMap } from '../../../consts/permission';
 import Spin from '../spin';
 
 interface IPermissionMap {
@@ -35,12 +35,12 @@ interface IPermissionMap {
 
 export const SheetPermissionDialog = () => {
     const localeService = useDependency(LocaleService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const authzIoService = useDependency(IAuthzIoService);
     const worksheetProtectionPointRuleModel = useDependency(WorksheetProtectionPointModel);
     const dialogService = useDependency(IDialogService);
     const permissionService = useDependency(IPermissionService);
-    const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+    const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
     const worksheet = workbook.getActiveSheet();
     if (!worksheet) {
         throw new Error('No active sheet found');
@@ -107,7 +107,7 @@ export const SheetPermissionDialog = () => {
     }, []);
 
     const handleChangeActionPermission = async () => {
-        const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook?.getActiveSheet();
         if (!worksheet) {
             throw new Error('No active sheet found');
@@ -211,7 +211,7 @@ export const SheetPermissionDialog = () => {
                 >
                     <Button
                         onClick={() => {
-                            dialogService.close(UNIVER_SHEET_PERMISSION_DIALOG_ID);
+                            dialogService.close(CRABTABLE_SHEET_PERMISSION_DIALOG_ID);
                         }}
                     >
                         {localeService.t('permission.button.cancel')}
@@ -220,7 +220,7 @@ export const SheetPermissionDialog = () => {
                         variant="primary"
                         onClick={() => {
                             handleChangeActionPermission();
-                            dialogService.close(UNIVER_SHEET_PERMISSION_DIALOG_ID);
+                            dialogService.close(CRABTABLE_SHEET_PERMISSION_DIALOG_ID);
                         }}
                     >
                         {localeService.t('permission.button.confirm')}

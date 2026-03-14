@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { ICanvasColorService } from './services/canvas-color.service';
 import { getDevicePixelRatio } from './basics/draw';
 import { createCanvasElement } from './basics/tools';

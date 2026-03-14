@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Disposable, Inject } from '@univerjs/core';
-import { IExclusiveRangeService } from '@univerjs/sheets';
+import { Disposable, Inject } from '@crabtable/core';
+import { IExclusiveRangeService } from '@crabtable/sheets';
 import { FEATURE_TABLE_ID } from '../const';
 import { TableManager } from '../model/table-manager';
 

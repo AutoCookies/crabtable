@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { BooleanNumber, BorderStyleTypes } from '@univerjs/core';
+import { BooleanNumber, BorderStyleTypes } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import { composeStyles, RangeThemeStyle } from '../range-theme-util';
 

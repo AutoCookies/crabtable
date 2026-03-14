@@ -15,7 +15,7 @@
  */
 
 import type { ILocalFileService, IOpenFileOptions } from './local-file.service';
-import { Disposable } from '@univerjs/core';
+import { Disposable } from '@crabtable/core';
 
 export class DesktopLocalFileService extends Disposable implements ILocalFileService {
     openFile(options?: IOpenFileOptions): Promise<File[]> {

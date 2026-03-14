@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
+import type { IAccessor, ICommand } from '@crabtable/core';
 import type { ISetWorksheetRightToLeftMutationParams } from '../mutations/set-worksheet-right-to-left.mutation';
-import { BooleanNumber, CommandType, ICommandService, IUndoRedoService, IUniverInstanceService } from '@univerjs/core';
+import { BooleanNumber, CommandType, ICommandService, ICrabTableInstanceService, IUndoRedoService } from '@crabtable/core';
 import {
     SetWorksheetRightToLeftMutation,
     SetWorksheetRightToLeftUndoMutationFactory,
@@ -37,7 +37,7 @@ export const SetWorksheetRightToLeftCommand: ICommand = {
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
 
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService), params);
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService), params);
         if (!target) return false;
 
         const { unitId, subUnitId } = target;

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import { IConfigService } from '@univerjs/core';
-import { isBrowser, resizeObserverCtor } from '@univerjs/design';
+import type { Nullable } from '@crabtable/core';
+import { IConfigService } from '@crabtable/core';
+import { isBrowser, resizeObserverCtor } from '@crabtable/design';
 import { useEffect, useMemo } from 'react';
 import { useDependency, useObservable } from '../../utils/di';
 import { useEvent } from './event';

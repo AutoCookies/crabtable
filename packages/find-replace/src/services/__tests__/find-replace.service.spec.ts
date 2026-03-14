@@ -29,7 +29,7 @@ describe('FindReplaceService', () => {
         const contextService = { setContextValue: vi.fn() };
 
         const focused$ = new Subject<any>();
-        const univerInstanceService = {
+        const crabtableInstanceService = {
             getFocusedUnit: vi.fn(() => ({ getUnitId: () => 'u1' })),
             focused$,
         };
@@ -63,7 +63,7 @@ describe('FindReplaceService', () => {
 
         const injector = {
             createInstance: vi.fn((_cls: any, _state: any, _providers: any) => {
-                return new FindReplaceModel(_state, _providers, univerInstanceService as any, commandService as any);
+                return new FindReplaceModel(_state, _providers, crabtableInstanceService as any, commandService as any);
             }),
         };
 

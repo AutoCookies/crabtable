@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type {
     IUniverRPCMainThreadConfig,
     IUniverRPCWorkerThreadConfig,
 } from './config/config';
-import { IConfigService, Inject, Injector, merge, Plugin } from '@univerjs/core';
+import { IConfigService, Inject, Injector, merge, Plugin } from '@crabtable/core';
 import pkg from '../package.json';
 import {
     defaultPluginMainThreadConfig,
@@ -43,7 +43,7 @@ import {
 
 /**
  * This plugin is used to register the RPC services on the main thread. It
- * is also responsible for booting up the Web Worker instance of Univer.
+ * is also responsible for booting up the Web Worker instance of CrabTable.
  */
 export class UniverRPCMainThreadPlugin extends Plugin {
     static override pluginName = 'UNIVER_RPC_MAIN_THREAD_PLUGIN';

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
+import type { IRange } from '@crabtable/core';
 
 import type { ArrayValueObject } from '../../../engine/value-object/array-value-object';
 import type { BaseValueObject } from '../../../engine/value-object/base-value-object';
-import { AbsoluteRefType } from '@univerjs/core';
+import { AbsoluteRefType } from '@crabtable/core';
 import { ErrorType } from '../../../basics/error-type';
 import { expandArrayValueObject } from '../../../engine/utils/array-object';
 import { serializeRangeToR1C1 } from '../../../engine/utils/r1c1-reference';

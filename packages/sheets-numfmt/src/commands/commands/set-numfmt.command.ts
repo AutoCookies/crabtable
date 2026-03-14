@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, IMutationInfo, Nullable } from '@univerjs/core';
+import type { IAccessor, ICommand, IMutationInfo, Nullable } from '@crabtable/core';
 import type {
     FormatType,
     IRemoveNumfmtMutationParams,
     ISetCellsNumfmt,
     ISetNumfmtMutationParams,
     ISetRangeValuesMutationParams,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import {
     CellValueType,
     CommandType,
     ICommandService,
+    ICrabTableInstanceService,
     isTextFormat,
     IUndoRedoService,
-    IUniverInstanceService,
     ObjectMatrix,
     sequenceExecute,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     checkCellValueType,
     factoryRemoveNumfmtUndoMutation,
@@ -42,7 +42,7 @@ import {
     SetNumfmtMutation,
     SetRangeValuesMutation,
     transformCellsToRange,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 
 export interface ISetNumfmtCommandParams {
     unitId?: string;
@@ -60,10 +60,10 @@ export const SetNumfmtCommand: ICommand<ISetNumfmtCommandParams> = {
         }
 
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const undoRedoService = accessor.get(IUndoRedoService);
 
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { unitId, subUnitId, worksheet } = target;

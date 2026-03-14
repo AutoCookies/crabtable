@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ISheetNote } from '@univerjs/sheets-note';
-import { SheetsNoteModel } from '@univerjs/sheets-note';
-import { FWorksheet } from '@univerjs/sheets/facade';
+import type { ISheetNote } from '@crabtable/sheets-note';
+import { SheetsNoteModel } from '@crabtable/sheets-note';
+import { FWorksheet } from '@crabtable/sheets/facade';
 
 /**
  * @ignore
@@ -27,7 +27,7 @@ export interface IFSheetsNoteWorksheet {
      * @returns {ISheetNote[]} An array of all annotations in the worksheet
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const notes = fWorksheet.getNotes();
      * console.log(notes);
@@ -53,7 +53,7 @@ export class FSheetsNoteWorksheet extends FWorksheet implements IFSheetsNoteWork
 }
 
 FWorksheet.extend(FSheetsNoteWorksheet);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FWorksheet extends IFSheetsNoteWorksheet { }
 }

@@ -17,7 +17,7 @@
 import type { modeSnglValueCountMapType } from '../../../basics/statistical';
 import type { ArrayValueObject } from '../../../engine/value-object/array-value-object';
 import type { BaseValueObject } from '../../../engine/value-object/base-value-object';
-import { isRealNum } from '@univerjs/core';
+import { isRealNum } from '@crabtable/core';
 import { ErrorType } from '../../../basics/error-type';
 import { getModeSnglResult } from '../../../basics/statistical';
 import { ErrorValueObject } from '../../../engine/value-object/base-value-object';

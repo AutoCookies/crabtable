@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Gallery } from '@univerjs/design';
+import { Gallery } from '@crabtable/design';
 import { IGalleryService } from '../../../services/gallery/gallery.service';
 import { useDependency, useObservable } from '../../../utils/di';
 

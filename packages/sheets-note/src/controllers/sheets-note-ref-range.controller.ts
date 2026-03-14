@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDisposable, IRange, Nullable } from '@univerjs/core';
-import type { EffectRefRangeParams } from '@univerjs/sheets';
+import type { IDisposable, IRange, Nullable } from '@crabtable/core';
+import type { EffectRefRangeParams } from '@crabtable/sheets';
 import type { ISheetNote } from '../models/sheets-note.model';
-import { Disposable, ICommandService, Inject, sequenceExecuteAsync } from '@univerjs/core';
-import { handleCommonRangeChangeWithEffectRefCommandsSkipNoInterests, RefRangeService, SheetsSelectionsService } from '@univerjs/sheets';
+import { Disposable, ICommandService, Inject, sequenceExecuteAsync } from '@crabtable/core';
+import { handleCommonRangeChangeWithEffectRefCommandsSkipNoInterests, RefRangeService, SheetsSelectionsService } from '@crabtable/sheets';
 import { RemoveNoteMutation, UpdateNoteMutation, UpdateNotePositionMutation } from '../commands/mutations/note.mutation';
 import { SheetsNoteModel } from '../models/sheets-note.model';
 

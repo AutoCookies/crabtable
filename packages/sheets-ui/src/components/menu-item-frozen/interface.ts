@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICustomComponentProps } from '@univerjs/ui';
+import type { ICustomComponentProps } from '@crabtable/ui';
 import { COMPONENT_PREFIX } from '../const';
 
 export const MENU_ITEM_FROZEN_COMPONENT = `${COMPONENT_PREFIX}_MENU_ITEM_FROZEN_COMPONENT`;

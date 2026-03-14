@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
-import { CommandType, ICommandService, sequenceExecute } from '@univerjs/core';
-import { deleteCustomDecorationFactory } from '@univerjs/docs-ui';
+import type { ICommand } from '@crabtable/core';
+import { CommandType, ICommandService, sequenceExecute } from '@crabtable/core';
+import { deleteCustomDecorationFactory } from '@crabtable/docs-ui';
 
 export interface IDeleteDocCommentComment {
     unitId: string;

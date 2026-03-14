@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { CellValueType, HorizontalAlign, ObjectMatrix, VerticalAlign, WrapStrategy } from '@univerjs/core';
+import { CellValueType, HorizontalAlign, ObjectMatrix, VerticalAlign, WrapStrategy } from '@crabtable/core';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { VERTICAL_ROTATE_ANGLE } from '../../../../basics/text-rotation';
 import { Text } from '../../../../shape/text';

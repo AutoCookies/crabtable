@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { BooleanNumber } from '@univerjs/core';
+import type { BooleanNumber } from '@crabtable/core';
 import type { CSSProperties, KeyboardEventHandler, ReactNode } from 'react';
-import { ColorKit, ThemeService } from '@univerjs/core';
-import { clsx } from '@univerjs/design';
-import { useDependency } from '@univerjs/ui';
+import { ColorKit, ThemeService } from '@crabtable/core';
+import { clsx } from '@crabtable/design';
+import { useDependency } from '@crabtable/ui';
 
 export interface IBaseSheetBarProps {
     label?: ReactNode;

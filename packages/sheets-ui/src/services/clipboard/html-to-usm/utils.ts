@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IParagraph, IParagraphStyle, ITextRun, Nullable } from '@univerjs/core';
+import type { IParagraph, IParagraphStyle, ITextRun, Nullable } from '@crabtable/core';
 import type { ICellDataWithSpanInfo } from '../type';
-import { DataStreamTreeTokenType, Tools } from '@univerjs/core';
-import { ptToPixel } from '@univerjs/engine-render';
+import { DataStreamTreeTokenType, Tools } from '@crabtable/core';
+import { ptToPixel } from '@crabtable/engine-render';
 
 function cleanTextNodes(node: Node) {
     if (node.nodeType === Node.TEXT_NODE) {

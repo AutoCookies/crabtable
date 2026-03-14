@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import { ICommandService, Inject, Injector, Plugin, UniverInstanceType } from '@univerjs/core';
-import { IShortcutService } from '@univerjs/ui';
+import { CrabTableInstanceType, ICommandService, Inject, Injector, Plugin } from '@crabtable/core';
+import { IShortcutService } from '@crabtable/ui';
 import { CustomClearSelectionContentCommand } from './commands/commands/custom.command';
 import { CustomClearSelectionValueShortcutItem } from './controllers/shortcuts/custom.shortcut';
 
 const SHEET_CUSTOM_SHORTCUT_PLUGIN = 'SHEET_CUSTOM_SHORTCUT_PLUGIN';
 
 export class UniverSheetsCustomShortcutPlugin extends Plugin {
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
     static override pluginName = SHEET_CUSTOM_SHORTCUT_PLUGIN;
 
     constructor(

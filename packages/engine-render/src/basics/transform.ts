@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ITransformState } from '@univerjs/core';
+import type { ITransformState } from '@crabtable/core';
 
 import type { IRect } from './interfaces';
 import { degToRad, precisionTo, radToDeg } from './tools';

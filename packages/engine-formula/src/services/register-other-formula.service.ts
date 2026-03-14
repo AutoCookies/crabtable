@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IRange, Nullable } from '@univerjs/core';
+import type { IRange, Nullable } from '@crabtable/core';
 
 import type { IOtherFormulaMarkDirtyParams } from '../commands/mutations/formula.mutation';
 import type { ISetFormulaCalculationResultMutation } from '../commands/mutations/set-formula-calculation.mutation';
 import type { IRemoveOtherFormulaMutationParams, ISetOtherFormulaMutationParams } from '../commands/mutations/set-other-formula.mutation';
 import type { IOtherFormulaResult } from './formula-common';
-import { Disposable, generateRandomId, ICommandService, Inject, LifecycleService, ObjectMatrix } from '@univerjs/core';
+import { Disposable, generateRandomId, ICommandService, Inject, LifecycleService, ObjectMatrix } from '@crabtable/core';
 import { BehaviorSubject, bufferWhen, filter, Subject } from 'rxjs';
 import { OtherFormulaMarkDirty } from '../commands/mutations/formula.mutation';
 import { SetFormulaCalculationResultMutation } from '../commands/mutations/set-formula-calculation.mutation';

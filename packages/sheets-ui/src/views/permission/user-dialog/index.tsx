@@ -15,13 +15,13 @@
  */
 
 import type { ICollaborator } from '@univerjs/protocol';
-import { LocaleService } from '@univerjs/core';
-import { Avatar, Button, clsx, Input, scrollbarClassName } from '@univerjs/design';
+import { LocaleService } from '@crabtable/core';
+import { Avatar, Button, clsx, Input, scrollbarClassName } from '@crabtable/design';
+import { IDialogService, useDependency, useObservable } from '@crabtable/ui';
 import { CheckMarkIcon } from '@univerjs/icons';
 import { UnitRole } from '@univerjs/protocol';
-import { IDialogService, useDependency, useObservable } from '@univerjs/ui';
 import { useState } from 'react';
-import { UNIVER_SHEET_PERMISSION_USER_DIALOG_ID } from '../../../consts/permission';
+import { CRABTABLE_SHEET_PERMISSION_USER_DIALOG_ID } from '../../../consts/permission';
 import { SheetPermissionUserManagerService } from '../../../services/permission/sheet-permission-user-list.service';
 import { UserEmptyBase64 } from './constant';
 
@@ -92,7 +92,7 @@ export const SheetPermissionUserDialog = () => {
             <div className="univer-h-px univer-w-full univer-bg-gray-200" />
             <div className="univer-flex univer-items-center univer-justify-end univer-gap-1 univer-py-2">
                 <Button
-                    onClick={() => dialogService.close(UNIVER_SHEET_PERMISSION_USER_DIALOG_ID)}
+                    onClick={() => dialogService.close(CRABTABLE_SHEET_PERMISSION_USER_DIALOG_ID)}
                 >
                     {localeService.t('permission.button.cancel')}
                 </Button>
@@ -100,7 +100,7 @@ export const SheetPermissionUserDialog = () => {
                     variant="primary"
                     onClick={() => {
                         sheetPermissionUserManagerService.setSelectUserList(selectUserInfo);
-                        dialogService.close(UNIVER_SHEET_PERMISSION_USER_DIALOG_ID);
+                        dialogService.close(CRABTABLE_SHEET_PERMISSION_USER_DIALOG_ID);
                     }}
                 >
                     {localeService.t('permission.button.confirm')}

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 
 import type { LambdaPrivacyVarType } from './base-ast-node';
 import { ErrorType } from '../../basics/error-type';

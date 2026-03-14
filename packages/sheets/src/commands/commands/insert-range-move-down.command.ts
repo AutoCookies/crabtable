@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICellData, ICommand, IMutationInfo, IObjectMatrixPrimitiveType, IRange } from '@univerjs/core';
+import type { IAccessor, ICellData, ICommand, IMutationInfo, IObjectMatrixPrimitiveType, IRange } from '@crabtable/core';
 import type {
     IInsertRangeMutationParams,
     IInsertRowMutationParams,
@@ -27,12 +27,12 @@ import {
     Dimension,
     ErrorService,
     ICommandService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
     LocaleService,
     Range,
     sequenceExecute,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { SheetsSelectionsService } from '../../services/selections/selection.service';
 import { SheetInterceptorService } from '../../services/sheet-interceptor/sheet-interceptor.service';
 import { InsertRowMutation, InsertRowMutationUndoFactory } from '../mutations/insert-row-col.mutation';
@@ -57,7 +57,7 @@ export const InsertRangeMoveDownCommand: ICommand = {
     handler: async (accessor: IAccessor, params?: IInsertRangeMoveDownCommandParams) => {
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const selectionManagerService = accessor.get(SheetsSelectionsService);
         const sheetInterceptorService = accessor.get(SheetInterceptorService);
         const errorService = accessor.get(ErrorService);
@@ -68,7 +68,7 @@ export const InsertRangeMoveDownCommand: ICommand = {
             return false;
         }
 
-        const target = getSheetCommandTarget(univerInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { unitId, subUnitId, worksheet, workbook } = target;

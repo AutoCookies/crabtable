@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IPosition, ITextRange, Nullable } from '@univerjs/core';
+import type { IPosition, ITextRange, Nullable } from '@crabtable/core';
 import type {
     DocumentSkeleton,
     IDocumentOffsetConfig,
@@ -27,8 +27,8 @@ import type {
     IDocumentSkeletonSection,
     INodePosition,
     IPoint,
-} from '@univerjs/engine-render';
-import { DocumentSkeletonPageType, getPageFromPath, GlyphType, Liquid } from '@univerjs/engine-render';
+} from '@crabtable/engine-render';
+import { DocumentSkeletonPageType, getPageFromPath, GlyphType, Liquid } from '@crabtable/engine-render';
 
 export enum NodePositionStateType {
     NORMAL,

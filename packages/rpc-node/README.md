@@ -1,7 +1,7 @@
-# @univerjs/rpc-node
+# @crabtable/rpc-node
 
-[![npm version](https://img.shields.io/npm/v/@univerjs/rpc-node)](https://npmjs.org/packages/@univerjs/rpc-node)
-[![license](https://img.shields.io/npm/l/@univerjs/rpc-node)](https://img.shields.io/npm/l/@univerjs/rpc-node)
+[![npm version](https://img.shields.io/npm/v/@crabtable/rpc-node)](https://npmjs.org/packages/@crabtable/rpc-node)
+[![license](https://img.shields.io/npm/l/@crabtable/rpc-node)](https://img.shields.io/npm/l/@crabtable/rpc-node)
 
 ## Introduction
 
@@ -12,5 +12,5 @@
 ### Installation
 
 ```shell
-npm i @univerjs/rpc-node
+npm i @crabtable/rpc-node
 ```

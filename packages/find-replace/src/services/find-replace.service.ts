@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Nullable } from '@univerjs/core';
+import type { IDisposable, Nullable } from '@crabtable/core';
 import type { Observable } from 'rxjs';
-import { createIdentifier, Disposable, DisposableCollection, ICommandService, IContextService, Inject, Injector, IUniverInstanceService, toDisposable } from '@univerjs/core';
-import { RENDER_RAW_FORMULA_KEY } from '@univerjs/engine-render';
+import { createIdentifier, Disposable, DisposableCollection, ICommandService, IContextService, ICrabTableInstanceService, Inject, Injector, toDisposable } from '@crabtable/core';
+import { RENDER_RAW_FORMULA_KEY } from '@crabtable/engine-render';
 import { BehaviorSubject, combineLatest, debounceTime, Subject, throttleTime } from 'rxjs';
 import { FIND_REPLACE_REPLACE_REVEALED } from './context-keys';
 
@@ -219,7 +219,7 @@ export class FindReplaceModel extends Disposable {
     constructor(
         private readonly _state: FindReplaceState,
         private readonly _providers: Set<IFindReplaceProvider>,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService
     ) {
         super();
@@ -451,7 +451,7 @@ export class FindReplaceModel extends Disposable {
     }
 
     private _moveToInitialMatch(findModels: FindModel[], noFocus = false): number {
-        const focusedUnitId = this._univerInstanceService.getFocusedUnit()?.getUnitId();
+        const focusedUnitId = this._crabtableInstanceService.getFocusedUnit()?.getUnitId();
         if (!focusedUnitId) {
             return -1;
         }

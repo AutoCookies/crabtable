@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
-import type { ISheetCommandSharedParams } from '@univerjs/sheets';
-import { CommandType, DOCS_ZEN_EDITOR_UNIT_ID_KEY, ICommandService, IUniverInstanceService } from '@univerjs/core';
-import { getSheetCommandTarget, SheetsSelectionsService } from '@univerjs/sheets';
-import { IEditorBridgeService } from '@univerjs/sheets-ui';
+import type { ICommand } from '@crabtable/core';
+import type { ISheetCommandSharedParams } from '@crabtable/sheets';
+import { CommandType, DOCS_ZEN_EDITOR_UNIT_ID_KEY, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { getSheetCommandTarget, SheetsSelectionsService } from '@crabtable/sheets';
+import { IEditorBridgeService } from '@crabtable/sheets-ui';
 import { SheetsHyperLinkPopupService } from '../../services/popup.service';
 import { HyperLinkEditSourceType } from '../../types/enums/edit-source';
 import { getShouldDisableCurrentCellLink } from '../../utils';
@@ -63,8 +63,8 @@ export const InsertHyperLinkOperation: ICommand = {
     type: CommandType.OPERATION,
     id: 'sheet.operation.insert-hyper-link',
     handler(accessor) {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         const editorBridgeService = accessor.get(IEditorBridgeService);
         if (!target) {
             return false;
@@ -79,7 +79,7 @@ export const InsertHyperLinkOperation: ICommand = {
         const row = selection.range.startRow;
         const col = selection.range.startColumn;
         const visible = editorBridgeService.isVisible();
-        const isZenEditor = univerInstanceService.getFocusedUnit()?.getUnitId() === DOCS_ZEN_EDITOR_UNIT_ID_KEY;
+        const isZenEditor = crabtableInstanceService.getFocusedUnit()?.getUnitId() === DOCS_ZEN_EDITOR_UNIT_ID_KEY;
         return commandService.executeCommand(OpenHyperLinkEditPanelOperation.id, {
             unitId: target.unitId,
             subUnitId: target.subUnitId,

@@ -15,7 +15,7 @@
  */
 
 import type { IRenderContext, IRenderModule } from '../render-unit';
-import { Disposable, Injector, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, Disposable, Injector } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import { RenderUnit } from '../render-unit';
 
@@ -43,7 +43,7 @@ function createRenderUnit() {
     const parentInjector = new Injector();
     const unit = {
         getUnitId: () => 'unit-1',
-        type: UniverInstanceType.UNIVER_SHEET,
+        type: CrabTableInstanceType.CRABTABLE_SHEET,
     } as any;
 
     const renderUnit = parentInjector.createInstance(RenderUnit, {
@@ -66,7 +66,7 @@ describe('render unit', () => {
         renderUnit.activate();
 
         expect(renderUnit.unitId).toBe('unit-1');
-        expect(renderUnit.type).toBe(UniverInstanceType.UNIVER_SHEET);
+        expect(renderUnit.type).toBe(CrabTableInstanceType.CRABTABLE_SHEET);
         expect(states).toEqual([true, false, true]);
 
         sub.unsubscribe();

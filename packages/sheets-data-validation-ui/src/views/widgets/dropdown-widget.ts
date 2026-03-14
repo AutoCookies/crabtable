@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { ICellRenderContext, IPaddingData } from '@univerjs/core';
-import type { IBaseDataValidationWidget } from '@univerjs/data-validation';
-import type { IMouseEvent, IPointerEvent, SpreadsheetSkeleton, UniverRenderingContext, UniverRenderingContext2D } from '@univerjs/engine-render';
-import type { ListValidator } from '@univerjs/sheets-data-validation';
+import type { ICellRenderContext, IPaddingData } from '@crabtable/core';
+import type { IBaseDataValidationWidget } from '@crabtable/data-validation';
+import type { IMouseEvent, IPointerEvent, SpreadsheetSkeleton, UniverRenderingContext, UniverRenderingContext2D } from '@crabtable/engine-render';
+import type { ListValidator } from '@crabtable/sheets-data-validation';
 import type { IShowDataValidationDropdownParams } from '../../commands/operations/data-validation.operation';
-import { DataValidationRenderMode, DataValidationType, DEFAULT_STYLES, HorizontalAlign, ICommandService, Inject, IUniverInstanceService, LocaleService, UniverInstanceType, VerticalAlign, WrapStrategy } from '@univerjs/core';
-import { CURSOR_TYPE, DocSimpleSkeleton, getCurrentTypeOfRenderer, getFontStyleString, IRenderManagerService, Rect, Text } from '@univerjs/engine-render';
-import { getCellValueOrigin, SheetDataValidationModel } from '@univerjs/sheets-data-validation';
+import { CrabTableInstanceType, DataValidationRenderMode, DataValidationType, DEFAULT_STYLES, HorizontalAlign, ICommandService, ICrabTableInstanceService, Inject, LocaleService, VerticalAlign, WrapStrategy } from '@crabtable/core';
+import { CURSOR_TYPE, DocSimpleSkeleton, getCurrentTypeOfRenderer, getFontStyleString, IRenderManagerService, Rect, Text } from '@crabtable/engine-render';
+import { getCellValueOrigin, SheetDataValidationModel } from '@crabtable/sheets-data-validation';
 import { ShowDataValidationDropdown } from '../../commands/operations/data-validation.operation';
 import { DROP_DOWN_DEFAULT_COLOR } from '../../const';
 
@@ -90,7 +90,7 @@ export class DropdownWidget implements IBaseDataValidationWidget {
     private _dropdownInfoMap: Map<string, Map<string, IDropdownInfo>> = new Map();
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(LocaleService) private readonly _localeService: LocaleService,
         @ICommandService private readonly _commandService: ICommandService,
         @Inject(IRenderManagerService) private readonly _renderManagerService: IRenderManagerService,
@@ -466,13 +466,13 @@ export class DropdownWidget implements IBaseDataValidationWidget {
     };
 
     onPointerEnter(_info: ICellRenderContext, _evt: IPointerEvent | IMouseEvent) {
-        getCurrentTypeOfRenderer(UniverInstanceType.UNIVER_SHEET, this._univerInstanceService, this._renderManagerService)
+        getCurrentTypeOfRenderer(CrabTableInstanceType.CRABTABLE_SHEET, this._crabtableInstanceService, this._renderManagerService)
             ?.mainComponent
             ?.setCursor(CURSOR_TYPE.POINTER);
     }
 
     onPointerLeave(_info: ICellRenderContext, _evt: IPointerEvent | IMouseEvent) {
-        getCurrentTypeOfRenderer(UniverInstanceType.UNIVER_SHEET, this._univerInstanceService, this._renderManagerService)
+        getCurrentTypeOfRenderer(CrabTableInstanceType.CRABTABLE_SHEET, this._crabtableInstanceService, this._renderManagerService)
             ?.mainComponent
             ?.setCursor(CURSOR_TYPE.DEFAULT);
     }

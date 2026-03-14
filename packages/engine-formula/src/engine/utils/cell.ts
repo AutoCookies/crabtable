@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICellData, Nullable } from '@univerjs/core';
+import type { ICellData, Nullable } from '@crabtable/core';
 import type { ErrorType } from '../../basics/error-type';
-import { BuildTextUtils, isFormulaId, isFormulaString } from '@univerjs/core';
+import { BuildTextUtils, isFormulaId, isFormulaString } from '@crabtable/core';
 import { ERROR_TYPE_SET } from '../../basics/error-type';
 
 export function getCellValue(cell: Nullable<ICellData>) {

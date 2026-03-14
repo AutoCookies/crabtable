@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IAccessor, Nullable } from '@univerjs/core';
-import type { IEditorBridgeServiceVisibleParam } from '@univerjs/sheets-ui';
-import type { IMenuItem, IShortcutItem } from '@univerjs/ui';
-import { DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, DOCS_ZEN_EDITOR_UNIT_ID_KEY, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionRenderService } from '@univerjs/docs-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { getSheetCommandTarget, RangeProtectionPermissionEditPoint, WorkbookEditablePermission, WorksheetEditPermission, WorksheetInsertHyperlinkPermission, WorksheetSetCellValuePermission } from '@univerjs/sheets';
-import { getCurrentRangeDisable$, IEditorBridgeService, whenSheetEditorFocused } from '@univerjs/sheets-ui';
-import { getMenuHiddenObservable, KeyCode, MenuItemType, MetaKeys } from '@univerjs/ui';
+import type { DocumentDataModel, IAccessor, Nullable } from '@crabtable/core';
+import type { IEditorBridgeServiceVisibleParam } from '@crabtable/sheets-ui';
+import type { IMenuItem, IShortcutItem } from '@crabtable/ui';
+import { CrabTableInstanceType, DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, DOCS_ZEN_EDITOR_UNIT_ID_KEY, ICrabTableInstanceService } from '@crabtable/core';
+import { DocSelectionRenderService } from '@crabtable/docs-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { getSheetCommandTarget, RangeProtectionPermissionEditPoint, WorkbookEditablePermission, WorksheetEditPermission, WorksheetInsertHyperlinkPermission, WorksheetSetCellValuePermission } from '@crabtable/sheets';
+import { getCurrentRangeDisable$, IEditorBridgeService, whenSheetEditorFocused } from '@crabtable/sheets-ui';
+import { getMenuHiddenObservable, KeyCode, MenuItemType, MetaKeys } from '@crabtable/ui';
 import { combineLatest, map, of, switchMap } from 'rxjs';
 import { InsertHyperLinkOperation, InsertHyperLinkToolbarOperation } from '../commands/operations/popup.operations';
 import { DisableLinkType, getShouldDisableCellLink, shouldDisableAddLink } from '../utils';
 
 const getEditingLinkDisable$ = (accessor: IAccessor, unitId = DOCS_ZEN_EDITOR_UNIT_ID_KEY) => {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const docSelctionService = accessor.get(IRenderManagerService).getRenderById(unitId)?.with(DocSelectionRenderService);
     if (!docSelctionService) {
         return of(true);
@@ -40,7 +40,7 @@ const getEditingLinkDisable$ = (accessor: IAccessor, unitId = DOCS_ZEN_EDITOR_UN
         if (!state) {
             return true;
         }
-        const target = getSheetCommandTarget(univerInstanceService, { unitId: state.unitId, subUnitId: state.sheetId });
+        const target = getSheetCommandTarget(crabtableInstanceService, { unitId: state.unitId, subUnitId: state.sheetId });
         if (!target?.worksheet) {
             return true;
         }
@@ -54,7 +54,7 @@ const getEditingLinkDisable$ = (accessor: IAccessor, unitId = DOCS_ZEN_EDITOR_UN
 };
 
 const getLinkDisable$ = (accessor: IAccessor) => {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const editorBridgeService = accessor.has(IEditorBridgeService) ? accessor.get(IEditorBridgeService) : null;
 
     const disableCell$ = editorBridgeService?.currentEditCellState$.pipe(
@@ -62,7 +62,7 @@ const getLinkDisable$ = (accessor: IAccessor) => {
             if (!state) {
                 return (DisableLinkType.DISABLED_BY_CELL);
             }
-            const target = getSheetCommandTarget(univerInstanceService, { unitId: state.unitId, subUnitId: state.sheetId });
+            const target = getSheetCommandTarget(crabtableInstanceService, { unitId: state.unitId, subUnitId: state.sheetId });
             if (!target) {
                 return (DisableLinkType.DISABLED_BY_CELL);
             }
@@ -75,7 +75,7 @@ const getLinkDisable$ = (accessor: IAccessor) => {
             }
 
             const isEditing$ = (editorBridgeService ? editorBridgeService.visible$ : of<Nullable<IEditorBridgeServiceVisibleParam>>(null));
-            return combineLatest([isEditing$, univerInstanceService.getCurrentTypeOfUnit$<DocumentDataModel>(UniverInstanceType.UNIVER_DOC)]).pipe(
+            return combineLatest([isEditing$, crabtableInstanceService.getCurrentTypeOfUnit$<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC)]).pipe(
                 switchMap(
                     ([editing, focusingDoc]) => {
                         return editing?.visible ?
@@ -113,7 +113,7 @@ export const insertLinkMenuFactory = (accessor: IAccessor) => {
     return {
         ...linkMenu,
         id: linkMenu.commandId,
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         disabled$: getLinkDisable$(accessor),
         // disabled$: getObservableWithExclusiveRange$(accessor, getCurrentRangeDisable$(accessor, { workbookTypes: [WorkbookEditablePermission], worksheetTypes: [WorksheetEditPermission, WorksheetSetCellValuePermission, WorksheetInsertHyperlinkPermission], rangeTypes: [RangeProtectionPermissionEditPoint] })),
     } as IMenuItem;
@@ -123,7 +123,7 @@ export const zenEditorInsertLinkMenuFactory = (accessor: IAccessor) => {
     return {
         ...linkMenu,
         id: genZenEditorMenuId(linkMenu.commandId),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC, DOCS_ZEN_EDITOR_UNIT_ID_KEY),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC, DOCS_ZEN_EDITOR_UNIT_ID_KEY),
         disabled$: getEditingLinkDisable$(accessor),
     } as IMenuItem;
 };
@@ -139,7 +139,7 @@ export const insertLinkMenuToolbarFactory = (accessor: IAccessor) => {
     return {
         ...linkToolbarMenu,
         id: linkToolbarMenu.commandId,
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         disabled$: getLinkDisable$(accessor),
     };
 };
@@ -148,7 +148,7 @@ export const zenEditorInsertLinkMenuToolbarFactory = (accessor: IAccessor) => {
     return {
         ...linkToolbarMenu,
         id: genZenEditorMenuId(linkToolbarMenu.commandId),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC, DOCS_ZEN_EDITOR_UNIT_ID_KEY),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC, DOCS_ZEN_EDITOR_UNIT_ID_KEY),
         disabled$: getEditingLinkDisable$(accessor),
     };
 };

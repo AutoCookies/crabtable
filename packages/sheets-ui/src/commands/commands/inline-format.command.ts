@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICommand, Workbook } from '@univerjs/core';
-import { CommandType, DEFAULT_STYLES, EDITOR_ACTIVATED, ICommandService, IContextService, IUniverInstanceService, ThemeService, UniverInstanceType } from '@univerjs/core';
+import type { ICommand, Workbook } from '@crabtable/core';
+import { CommandType, CrabTableInstanceType, DEFAULT_STYLES, EDITOR_ACTIVATED, ICommandService, IContextService, ICrabTableInstanceService, ThemeService } from '@crabtable/core';
 import {
     SetInlineFormatBoldCommand,
     SetInlineFormatFontFamilyCommand,
@@ -26,7 +26,7 @@ import {
     SetInlineFormatSuperscriptCommand,
     SetInlineFormatTextColorCommand,
     SetInlineFormatUnderlineCommand,
-} from '@univerjs/docs-ui';
+} from '@crabtable/docs-ui';
 import {
     SetBoldCommand,
     SetFontFamilyCommand,
@@ -36,7 +36,7 @@ import {
     SetTextColorCommand,
     SetUnderlineCommand,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { getFontStyleAtCursor } from '../../menu/utils';
 
 /**
@@ -161,7 +161,7 @@ export const SetRangeFontIncreaseCommand: ICommand = {
     type: CommandType.COMMAND,
     id: 'sheet.command.set-range-font-increase',
     handler: async (accessor) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
         const contextService = accessor.get(IContextService);
         const isCellEditorFocus = contextService.getContextValue(EDITOR_ACTIVATED);
@@ -169,7 +169,7 @@ export const SetRangeFontIncreaseCommand: ICommand = {
 
         const defaultValue = DEFAULT_STYLES.fs;
 
-        const workbook = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet();
         const primary = selectionManagerService.getCurrentLastSelection()?.primary;
 
@@ -203,7 +203,7 @@ export const SetRangeFontDecreaseCommand: ICommand = {
     type: CommandType.COMMAND,
     id: 'sheet.command.set-range-font-decrease',
     handler: async (accessor) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
         const contextService = accessor.get(IContextService);
         const isCellEditorFocus = contextService.getContextValue(EDITOR_ACTIVATED);
@@ -211,7 +211,7 @@ export const SetRangeFontDecreaseCommand: ICommand = {
 
         const defaultValue = DEFAULT_STYLES.fs;
 
-        const workbook = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet();
         const primary = selectionManagerService.getCurrentLastSelection()?.primary;
 

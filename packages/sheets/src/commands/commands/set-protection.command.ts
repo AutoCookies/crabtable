@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICommand, IRange } from '@univerjs/core';
+import type { ICommand, IRange } from '@crabtable/core';
 import type { IRangeProtectionRule } from '../../model/range-protection-rule.model';
 import type { IWorksheetProtectionRule } from '../../services/permission/type';
-import { CommandType, ICommandService, IUndoRedoService, sequenceExecute } from '@univerjs/core';
+import { CommandType, ICommandService, IUndoRedoService, sequenceExecute } from '@crabtable/core';
 import { UnitObject } from '@univerjs/protocol';
 import { RangeProtectionRuleModel } from '../../model/range-protection-rule.model';
 import { AddRangeProtectionMutation } from '../mutations/add-range-protection.mutation';

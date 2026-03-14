@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IRange } from '@univerjs/core';
-import { IPermissionService, Rectangle } from '@univerjs/core';
+import type { IAccessor, IRange } from '@crabtable/core';
+import { IPermissionService, Rectangle } from '@crabtable/core';
 import { RangeProtectionRuleModel } from '../../model/range-protection-rule.model';
 import { WorkbookEditablePermission, WorksheetEditPermission } from './permission-point';
 import { RangeProtectionPermissionEditPoint } from './permission-point/range/edit';

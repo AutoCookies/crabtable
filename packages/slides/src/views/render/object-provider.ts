@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IPageElement } from '@univerjs/core';
-import type { BaseObject, Scene } from '@univerjs/engine-render';
+import type { IPageElement } from '@crabtable/core';
+import type { BaseObject, Scene } from '@crabtable/engine-render';
 import type { ObjectAdaptor } from './adaptor';
-import { Inject, Injector, sortRules } from '@univerjs/core';
+import { Inject, Injector, sortRules } from '@crabtable/core';
 import { CanvasObjectProviderRegistry } from './adaptor';
 import './adaptors';
 

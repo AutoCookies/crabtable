@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { ICellData, Injector, Nullable } from '@univerjs/core';
-import type { FUniver } from '@univerjs/core/facade';
-import { ICommandService, IUniverInstanceService, LocaleType } from '@univerjs/core';
-import { CopySheetCommand, InsertSheetCommand, InsertSheetMutation, RemoveSheetCommand, RemoveSheetMutation, SetHorizontalTextAlignCommand, SetRangeValuesCommand, SetRangeValuesMutation, SetStyleCommand, SetTextWrapCommand, SetVerticalTextAlignCommand, SetWorksheetActiveOperation, SetWorksheetOrderCommand, SetWorksheetOrderMutation } from '@univerjs/sheets';
+import type { ICellData, Injector, Nullable } from '@crabtable/core';
+import type { FCrabTable } from '@crabtable/core/facade';
+import { ICommandService, ICrabTableInstanceService, LocaleType } from '@crabtable/core';
+import { CopySheetCommand, InsertSheetCommand, InsertSheetMutation, RemoveSheetCommand, RemoveSheetMutation, SetHorizontalTextAlignCommand, SetRangeValuesCommand, SetRangeValuesMutation, SetStyleCommand, SetTextWrapCommand, SetVerticalTextAlignCommand, SetWorksheetActiveOperation, SetWorksheetOrderCommand, SetWorksheetOrderMutation } from '@crabtable/sheets';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createFacadeTestBed } from './create-test-bed';
 
 describe('Test FWorkbook', () => {
     let get: Injector['get'];
     let commandService: ICommandService;
-    let univerAPI: FUniver;
+    let crabtableAPI: FCrabTable;
     let getValueByPosition: (
         startRow: number,
         startColumn: number,
@@ -35,7 +35,7 @@ describe('Test FWorkbook', () => {
     beforeEach(() => {
         const testBed = createFacadeTestBed();
         get = testBed.get;
-        univerAPI = testBed.univerAPI;
+        crabtableAPI = testBed.crabtableAPI;
 
         commandService = get(ICommandService);
         commandService.registerCommand(SetRangeValuesCommand);
@@ -59,26 +59,26 @@ describe('Test FWorkbook', () => {
             endRow: number,
             endColumn: number
         ): Nullable<ICellData> =>
-            get(IUniverInstanceService)
-                .getUniverSheetInstance('test')
+            get(ICrabTableInstanceService)
+                .getCrabTableSheetInstance('test')
                 ?.getSheetBySheetId('sheet1')
                 ?.getRange(startRow, startColumn, endRow, endColumn)
                 .getValue();
     });
 
     it('Workbook getSheets', () => {
-        const sheets = univerAPI.getActiveWorkbook()?.getSheets();
+        const sheets = crabtableAPI.getActiveWorkbook()?.getSheets();
         expect(sheets).not.toBeNull();
         expect(sheets?.length).toBe(1);
     });
 
     it('Workbook getSheetByName', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
         expect(activeSheet).not.toBeNull();
     });
 
     it('Workbook insertSheet, deleteSheet, and setActiveSheet', async () => {
-        const workbook = univerAPI.getActiveWorkbook();
+        const workbook = crabtableAPI.getActiveWorkbook();
 
         // insert a new sheet
         let activeSheet = workbook?.insertSheet();
@@ -101,7 +101,7 @@ describe('Test FWorkbook', () => {
     });
 
     it('Workbook deleteActiveSheet', async () => {
-        const activeSpreadsheet = univerAPI.getActiveWorkbook()!;
+        const activeSpreadsheet = crabtableAPI.getActiveWorkbook()!;
         activeSpreadsheet.insertSheet();
         expect(activeSpreadsheet.getNumSheets()).toBe(2);
         await activeSpreadsheet.deleteActiveSheet();

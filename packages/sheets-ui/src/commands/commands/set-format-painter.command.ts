@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, IRange } from '@univerjs/core';
+import type { IAccessor, ICommand, IRange } from '@crabtable/core';
 import {
     CommandType,
     ICommandService,
-} from '@univerjs/core';
+} from '@crabtable/core';
 
 import { FormatPainterStatus, IFormatPainterService } from '../../services/format-painter/format-painter.service';
 import { SetFormatPainterOperation } from '../operations/set-format-painter.operation';

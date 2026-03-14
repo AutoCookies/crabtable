@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
-import { Disposable, Inject } from '@univerjs/core';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { ISheetDrawingService } from '@univerjs/sheets-drawing';
-import { ISheetSelectionRenderService, SheetSkeletonManagerService } from '@univerjs/sheets-ui';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
+import { Disposable, Inject } from '@crabtable/core';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { ISheetDrawingService } from '@crabtable/sheets-drawing';
+import { ISheetSelectionRenderService, SheetSkeletonManagerService } from '@crabtable/sheets-ui';
 import { drawingPositionToTransform } from '../../basics/transform-position';
 
 export class SheetsDrawingRenderController extends Disposable implements IRenderModule {

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IUniverInstanceService } from '@univerjs/core';
-import type { DataValidationModel, DataValidatorRegistryService } from '@univerjs/data-validation';
-import type { RegisterOtherFormulaService } from '@univerjs/engine-formula';
+import type { ICrabTableInstanceService } from '@crabtable/core';
+import type { DataValidationModel, DataValidatorRegistryService } from '@crabtable/data-validation';
+import type { RegisterOtherFormulaService } from '@crabtable/engine-formula';
 import type { DataValidationCacheService } from '../dv-cache.service';
-import { DataValidationType, UniverInstanceType } from '@univerjs/core';
-import { OtherFormulaBizType } from '@univerjs/engine-formula';
+import { CrabTableInstanceType, DataValidationType } from '@crabtable/core';
+import { OtherFormulaBizType } from '@crabtable/engine-formula';
 import { Subject } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import { DataValidationCustomFormulaService } from '../dv-custom-formula.service';
@@ -52,7 +52,7 @@ describe('DataValidationCustomFormulaService', () => {
             markRangeDirty: vi.fn(),
         } as unknown as DataValidationCacheService;
         const service = new DataValidationCustomFormulaService(
-            { getUnitType: vi.fn(() => UniverInstanceType.UNIVER_SHEET) } as unknown as IUniverInstanceService,
+            { getUnitType: vi.fn(() => CrabTableInstanceType.CRABTABLE_SHEET) } as unknown as ICrabTableInstanceService,
             registerOtherFormulaService,
             dataValidationModel,
             cacheService,
@@ -102,7 +102,7 @@ describe('DataValidationCustomFormulaService', () => {
 
     it('skips non-offset rules and returns undefined for missing formulas', async () => {
         const service = new DataValidationCustomFormulaService(
-            { getUnitType: vi.fn(() => UniverInstanceType.UNIVER_DOC) } as unknown as IUniverInstanceService,
+            { getUnitType: vi.fn(() => CrabTableInstanceType.CRABTABLE_DOC) } as unknown as ICrabTableInstanceService,
             {
                 formulaResult$: new Subject<any>(),
                 registerFormulaWithRange: vi.fn(),

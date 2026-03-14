@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ITypeMentionList } from '@univerjs/core';
-import { generateRandomId, ICommandService, IMentionIOService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { IEditorService } from '@univerjs/docs-ui';
-import { useDependency, useObservable } from '@univerjs/ui';
+import type { DocumentDataModel, ITypeMentionList } from '@crabtable/core';
+import { CrabTableInstanceType, generateRandomId, ICommandService, ICrabTableInstanceService, IMentionIOService } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { IEditorService } from '@crabtable/docs-ui';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { useEffect, useMemo, useState } from 'react';
 import { filter } from 'rxjs';
 import { AddDocMentionCommand } from '../../commands/commands/doc-mention.command';
@@ -28,11 +28,11 @@ import { MentionList } from '../mention-list';
 export const MentionEditPopup = () => {
     const popupService = useDependency(DocMentionPopupService);
     const commandService = useDependency(ICommandService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const editPopup = useObservable(popupService.editPopup$);
     const mentionIOService = useDependency(IMentionIOService);
     const editorService = useDependency(IEditorService);
-    const documentDataModel = editPopup ? univerInstanceService.getUnit<DocumentDataModel>(editPopup.unitId) : null;
+    const documentDataModel = editPopup ? crabtableInstanceService.getUnit<DocumentDataModel>(editPopup.unitId) : null;
     const textSelectionService = useDependency(DocSelectionManagerService);
     const [mentions, setMentions] = useState<ITypeMentionList[]>([]);
     const textSelection$ = useMemo(() =>
@@ -65,7 +65,7 @@ export const MentionEditPopup = () => {
             mentions={mentions}
             onSelect={async (mention) => {
                 await commandService.executeCommand(AddDocMentionCommand.id, {
-                    unitId: univerInstanceService.getCurrentUnitOfType(UniverInstanceType.UNIVER_DOC)!.getUnitId(),
+                    unitId: crabtableInstanceService.getCurrentUnitOfType(CrabTableInstanceType.CRABTABLE_DOC)!.getUnitId(),
                     mention: {
                         ...mention,
                         id: generateRandomId(),

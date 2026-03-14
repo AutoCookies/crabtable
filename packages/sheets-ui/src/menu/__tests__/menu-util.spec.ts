@@ -19,17 +19,17 @@ import {
     FOCUSING_FX_BAR_EDITOR,
     FOCUSING_SHAPE_TEXT_EDITOR,
     IContextService,
+    ICrabTableInstanceService,
     IPermissionService,
-    IUniverInstanceService,
     UserManagerService,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     IExclusiveRangeService,
     RangeProtectionRuleModel,
     SheetsSelectionsService,
     WorkbookEditablePermission,
     WorksheetProtectionRuleModel,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { BehaviorSubject, firstValueFrom, of, skip, take } from 'rxjs';
 import { describe, expect, it } from 'vitest';
 import { IEditorBridgeService } from '../../services/editor-bridge.service';
@@ -144,7 +144,7 @@ function createMenuAccessor(option: Partial<IMenuAccessorOption> = {}) {
     };
 
     const pairs: Array<[unknown, unknown]> = [
-        [IUniverInstanceService, { getCurrentTypeOfUnit$: () => of(workbook), getCurrentUnitForType: () => workbook }],
+        [ICrabTableInstanceService, { getCurrentTypeOfUnit$: () => of(workbook), getCurrentUnitForType: () => workbook }],
         [SheetsSelectionsService, selectionService],
         [RangeProtectionRuleModel, rangeProtectionRuleModel],
         [WorksheetProtectionRuleModel, worksheetProtectionRuleModel],
@@ -186,7 +186,7 @@ describe('menu-util', () => {
 
     it('computes current-range disable with workbook/editor/drawing/permission states', async () => {
         const noWorkbookAccessor = createAccessor([
-            [IUniverInstanceService, { getCurrentTypeOfUnit$: () => of(null) }],
+            [ICrabTableInstanceService, { getCurrentTypeOfUnit$: () => of(null) }],
             [UserManagerService, { currentUser$: of({ userID: 'u1' }) }],
             [IContextService, { subscribeContextValue$: () => of(false) }],
         ]);
@@ -230,7 +230,7 @@ describe('menu-util', () => {
 
     it('computes workbook-permission disable with protection rules', async () => {
         const noWorkbookAccessor = createAccessor([
-            [IUniverInstanceService, { getCurrentTypeOfUnit$: () => of(null) }],
+            [ICrabTableInstanceService, { getCurrentTypeOfUnit$: () => of(null) }],
             [WorksheetProtectionRuleModel, { getRule: () => null }],
             [RangeProtectionRuleModel, { getSubunitRuleList: () => [] }],
             [IPermissionService, { composePermission$: () => of([{ value: true }]) }],

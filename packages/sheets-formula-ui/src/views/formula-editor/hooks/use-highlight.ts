@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import type { ITextRange, ITextRun, Workbook } from '@univerjs/core';
-import type { Editor } from '@univerjs/docs-ui';
-import type { ISequenceNode } from '@univerjs/engine-formula';
-import type { ISelectionWithStyle, SheetsSelectionsService } from '@univerjs/sheets';
+import type { ITextRange, ITextRun, Workbook } from '@crabtable/core';
+import type { Editor } from '@crabtable/docs-ui';
+import type { ISequenceNode } from '@crabtable/engine-formula';
+import type { ISelectionWithStyle, SheetsSelectionsService } from '@crabtable/sheets';
 import type { INode } from './use-formula-token';
-import { getBodySlice, ICommandService, IUniverInstanceService, ThemeService, UniverInstanceType } from '@univerjs/core';
-import { ReplaceTextRunsCommand } from '@univerjs/docs-ui';
-import { deserializeRangeWithSheet, sequenceNodeType } from '@univerjs/engine-formula';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { IRefSelectionsService, setEndForRange } from '@univerjs/sheets';
-import { IDescriptionService } from '@univerjs/sheets-formula';
-import { SheetSkeletonManagerService } from '@univerjs/sheets-ui';
-import { useDependency, useEvent, useObservable } from '@univerjs/ui';
+import { CrabTableInstanceType, getBodySlice, ICommandService, ICrabTableInstanceService, ThemeService } from '@crabtable/core';
+import { ReplaceTextRunsCommand } from '@crabtable/docs-ui';
+import { deserializeRangeWithSheet, sequenceNodeType } from '@crabtable/engine-formula';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { IRefSelectionsService, setEndForRange } from '@crabtable/sheets';
+import { IDescriptionService } from '@crabtable/sheets-formula';
+import { SheetSkeletonManagerService } from '@crabtable/sheets-ui';
+import { useDependency, useEvent, useObservable } from '@crabtable/ui';
 import { useEffect, useMemo } from 'react';
 import { genFormulaRefSelectionStyle } from '../../../common/selection';
 import { RefSelectionsRenderService } from '../../../services/render-services/ref-selections.render-service';
@@ -51,7 +51,7 @@ export function calcHighlightRanges(opts: {
     refSelectionsRenderService: RefSelectionsRenderService | undefined;
     sheetSkeletonManagerService: SheetSkeletonManagerService | undefined;
     themeService: ThemeService;
-    univerInstanceService: IUniverInstanceService;
+    crabtableInstanceService: ICrabTableInstanceService;
 }) {
     const {
         unitId,
@@ -63,10 +63,10 @@ export function calcHighlightRanges(opts: {
         refSelectionsRenderService,
         sheetSkeletonManagerService,
         themeService,
-        univerInstanceService,
+        crabtableInstanceService,
     } = opts;
     const currentUnitId = currentWorkbook.getUnitId();
-    const workbook = univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+    const workbook = crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
     const worksheet = workbook?.getActiveSheet();
     const selectionWithStyle: ISelectionWithStyle[] = [];
     if (!workbook || !worksheet) {
@@ -134,17 +134,17 @@ export function calcHighlightRanges(opts: {
  */
 
 export function useSheetHighlight(unitId: string, subUnitId: string) {
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const themeService = useDependency(ThemeService);
     const refSelectionsService = useDependency(IRefSelectionsService);
     const renderManagerService = useDependency(IRenderManagerService);
-    const currentWorkbook = useObservable(useMemo(() => univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET), [univerInstanceService]));
+    const currentWorkbook = useObservable(useMemo(() => crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET), [crabtableInstanceService]));
     const currentRender = currentWorkbook ? renderManagerService.getRenderById(currentWorkbook.getUnitId()) : null;
     const refSelectionsRenderService = currentRender?.with(RefSelectionsRenderService);
     const sheetSkeletonManagerService = currentRender?.with(SheetSkeletonManagerService);
 
     const highlightSheet = useEvent((refSelections: IRefSelection[], editor?: Editor) => {
-        const currentWorkbook = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const currentWorkbook = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!currentWorkbook) return;
         if (refSelectionsRenderService?.selectionMoving) return;
         const selectionWithStyle = calcHighlightRanges({
@@ -157,7 +157,7 @@ export function useSheetHighlight(unitId: string, subUnitId: string) {
             refSelectionsRenderService,
             sheetSkeletonManagerService,
             themeService,
-            univerInstanceService,
+            crabtableInstanceService,
         });
 
         if (!selectionWithStyle) return;

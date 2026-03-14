@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IContextService } from '@univerjs/core';
-import { EDITOR_ACTIVATED, FOCUSING_FX_BAR_EDITOR, FOCUSING_UNIVER_EDITOR } from '@univerjs/core';
+import type { IContextService } from '@crabtable/core';
+import { EDITOR_ACTIVATED, FOCUSING_FX_BAR_EDITOR, FOCUSING_UNIVER_EDITOR } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import {
     CopyShortcutItem,

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IMenuButtonItem, IMenuSelectorItem } from '@univerjs/ui';
-import { MenuItemType } from '@univerjs/ui';
+import type { IMenuButtonItem, IMenuSelectorItem } from '@crabtable/ui';
+import { MenuItemType } from '@crabtable/ui';
 import {
     SetDrawingArrangeBackOperation,
     SetDrawingArrangeBackwardOperation,

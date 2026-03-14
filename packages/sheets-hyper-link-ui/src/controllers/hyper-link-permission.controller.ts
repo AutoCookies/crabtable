@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo } from '@univerjs/core';
-import { Disposable, ICommandService, Inject, LocaleService } from '@univerjs/core';
-import { RangeProtectionPermissionEditPoint, SheetPermissionCheckController, WorkbookEditablePermission, WorksheetEditPermission, WorksheetInsertHyperlinkPermission, WorksheetSetCellValuePermission } from '@univerjs/sheets';
+import type { ICommandInfo } from '@crabtable/core';
+import { Disposable, ICommandService, Inject, LocaleService } from '@crabtable/core';
+import { RangeProtectionPermissionEditPoint, SheetPermissionCheckController, WorkbookEditablePermission, WorksheetEditPermission, WorksheetInsertHyperlinkPermission, WorksheetSetCellValuePermission } from '@crabtable/sheets';
 import { InsertLinkShortcut } from '../menu/menu';
 
 export class SheetsHyperLinkPermissionController extends Disposable {

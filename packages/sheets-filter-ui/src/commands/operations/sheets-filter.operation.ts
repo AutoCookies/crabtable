@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IOperation } from '@univerjs/core';
-import type { FilterBy } from '@univerjs/sheets-filter';
-import { CommandType, ICommandService, IContextService, Quantity } from '@univerjs/core';
-import { SheetsFilterService } from '@univerjs/sheets-filter';
-import { IEditorBridgeService, SetCellEditVisibleOperation } from '@univerjs/sheets-ui';
-import { ILayoutService } from '@univerjs/ui';
+import type { IOperation } from '@crabtable/core';
+import type { FilterBy } from '@crabtable/sheets-filter';
+import { CommandType, ICommandService, IContextService, Quantity } from '@crabtable/core';
+import { SheetsFilterService } from '@crabtable/sheets-filter';
+import { IEditorBridgeService, SetCellEditVisibleOperation } from '@crabtable/sheets-ui';
+import { ILayoutService } from '@crabtable/ui';
 import { SheetsFilterPanelService } from '../../services/sheets-filter-panel.service';
 
 export const FILTER_PANEL_OPENED_KEY = 'FILTER_PANEL_OPENED';

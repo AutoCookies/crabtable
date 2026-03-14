@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IContextService } from '@univerjs/core';
-import type { IShortcutItem } from '@univerjs/ui';
-import { EDITOR_ACTIVATED, FOCUSING_DOC, FOCUSING_EDITOR_STANDALONE, FOCUSING_UNIVER_EDITOR } from '@univerjs/core';
-import { KeyCode, MetaKeys } from '@univerjs/ui';
+import type { IContextService } from '@crabtable/core';
+import type { IShortcutItem } from '@crabtable/ui';
+import { EDITOR_ACTIVATED, FOCUSING_DOC, FOCUSING_EDITOR_STANDALONE, FOCUSING_UNIVER_EDITOR } from '@crabtable/core';
+import { KeyCode, MetaKeys } from '@crabtable/ui';
 import { CancelZenEditCommand, ConfirmZenEditCommand } from '../../commands/commands/zen-editor.command';
 
 export const ZenEditorConfirmShortcut: IShortcutItem = {

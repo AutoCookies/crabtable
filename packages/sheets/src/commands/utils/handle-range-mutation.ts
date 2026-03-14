@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICellData, IMutationInfo, IObjectMatrixPrimitiveType, IRange, Nullable } from '@univerjs/core';
+import type { IAccessor, ICellData, IMutationInfo, IObjectMatrixPrimitiveType, IRange, Nullable } from '@crabtable/core';
 import type { IDeleteRangeMutationParams, IInsertRangeMutationParams } from '../../basics/interfaces/mutation-interface';
 import type { ISetRangeValuesMutationParams } from '../mutations/set-range-values.mutation';
-import { Dimension, getArrayLength, IUniverInstanceService, ObjectMatrix, Tools } from '@univerjs/core';
+import { Dimension, getArrayLength, ICrabTableInstanceService, ObjectMatrix, Tools } from '@crabtable/core';
 import { generateNullCell } from '../../basics/utils';
 import { SheetInterceptorService } from '../../services/sheet-interceptor/sheet-interceptor.service';
 import { getMoveRangeUndoRedoMutations } from '../commands/move-range.command';
@@ -47,8 +47,8 @@ export const InsertRangeUndoMutationFactory = (
 //     type: CommandType.MUTATION,
 //     handler: (accessor, params) => {
 //         const { unitId, subUnitId, range, cellValue, shiftDimension } = params;
-//         const univerInstanceService = accessor.get(IUniverInstanceService);
-//         const workbook = univerInstanceService.getUniverSheetInstance(unitId);
+//         const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+//         const workbook = crabtableInstanceService.getCrabTableSheetInstance(unitId);
 //         if (!workbook) return false;
 //         const worksheet = workbook.getSheetBySheetId(subUnitId);
 //         if (!worksheet) return false;
@@ -74,10 +74,10 @@ export function getInsertRangeMutations(accessor: IAccessor, params: IInsertRang
     const redo: IMutationInfo[] = [];
     const undo: IMutationInfo[] = [];
     const { unitId, subUnitId, range, shiftDimension, cellValue = {} } = params;
-    const instanceService = accessor.get(IUniverInstanceService);
+    const instanceService = accessor.get(ICrabTableInstanceService);
     const sheetInterceptorService = accessor.get(SheetInterceptorService);
 
-    const workbook = instanceService.getUniverSheetInstance(unitId);
+    const workbook = instanceService.getCrabTableSheetInstance(unitId);
     const worksheet = workbook?.getSheetBySheetId(subUnitId);
     if (worksheet) {
         const cellMatrix = worksheet.getCellMatrix();
@@ -177,10 +177,10 @@ export function getRemoveRangeMutations(accessor: IAccessor, params: IDeleteRang
     const redo: IMutationInfo[] = [];
     const undo: IMutationInfo[] = [];
     const { unitId, subUnitId, range, shiftDimension } = params;
-    const instanceService = accessor.get(IUniverInstanceService);
+    const instanceService = accessor.get(ICrabTableInstanceService);
     const sheetInterceptorService = accessor.get(SheetInterceptorService);
 
-    const workbook = instanceService.getUniverSheetInstance(unitId);
+    const workbook = instanceService.getCrabTableSheetInstance(unitId);
     const worksheet = workbook?.getSheetBySheetId(subUnitId);
     if (worksheet) {
         const cellMatrix = worksheet.getCellMatrix();
@@ -342,8 +342,8 @@ export const DeleteRangeUndoMutationFactory = (
     accessor: IAccessor,
     params: IDeleteRangeMutationParams
 ): Nullable<IInsertRangeMutationParams> => {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
-    const target = getSheetMutationTarget(univerInstanceService, params);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+    const target = getSheetMutationTarget(crabtableInstanceService, params);
     if (!target) return null;
 
     const { worksheet } = target;

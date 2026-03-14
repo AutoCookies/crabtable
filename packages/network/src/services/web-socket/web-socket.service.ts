@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import { createIdentifier, Disposable, DisposableCollection, toDisposable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
+import { createIdentifier, Disposable, DisposableCollection, toDisposable } from '@crabtable/core';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 

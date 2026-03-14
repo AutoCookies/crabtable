@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-import type { ICellData, Injector, IStyleData, Nullable, Univer, Workbook } from '@univerjs/core';
+import type { ICellData, Injector, IStyleData, Nullable, Workbook } from '@crabtable/core';
 import {
     CellValueType,
+    CrabTableInstanceType,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     LocaleType,
     RedoCommand,
     set,
     ThemeService,
     UndoCommand,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { EditorService, IEditorService } from '@univerjs/docs-ui';
-import { IRenderManagerService, RenderManagerService } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { EditorService, IEditorService } from '@crabtable/docs-ui';
+import { IRenderManagerService, RenderManagerService } from '@crabtable/engine-render';
 import {
     AddWorksheetMergeMutation,
     AUTO_FILL_APPLY_TYPE,
@@ -42,8 +42,8 @@ import {
     SetRangeValuesMutation,
     SetSelectionsOperation,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
-import { IPlatformService, IShortcutService, PlatformService, ShortcutService } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { IPlatformService, IShortcutService, PlatformService, ShortcutService } from '@crabtable/ui';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { AutoFillUIController } from '../../../controllers/auto-fill-ui.controller';
 import { EditorBridgeService, IEditorBridgeService } from '../../../services/editor-bridge.service';
@@ -262,7 +262,7 @@ const TEST_WORKBOOK_DATA = {
 };
 
 describe('Test auto fill rules in controller', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let autoFillController: AutoFillUIController;
@@ -323,8 +323,8 @@ describe('Test auto fill rules in controller', () => {
             endRow: number,
             endColumn: number
         ): Array<Array<Nullable<ICellData>>> | undefined =>
-            get(IUniverInstanceService)
-                .getUniverSheetInstance('test')
+            get(ICrabTableInstanceService)
+                .getCrabTableSheetInstance('test')
                 ?.getSheetBySheetId('sheet1')
                 ?.getRange(startRow, startColumn, endRow, endColumn)
                 .getValues();
@@ -336,7 +336,7 @@ describe('Test auto fill rules in controller', () => {
             endColumn: number
         ): Array<Array<Nullable<IStyleData>>> | undefined => {
             const values = getValues(startRow, startColumn, endRow, endColumn);
-            const styles = get(IUniverInstanceService).getUniverSheetInstance('test')?.getStyles();
+            const styles = get(ICrabTableInstanceService).getCrabTableSheetInstance('test')?.getStyles();
             if (values && styles) {
                 return values.map((row) => row.map((cell) => styles.getStyleByCell(cell)));
             }
@@ -346,7 +346,7 @@ describe('Test auto fill rules in controller', () => {
     describe('auto fill', () => {
         describe('auto fill the numbers', async () => {
             it('correct situation', async () => {
-                const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                 if (!workbook) throw new Error('This is an error');
                 // test number
 
@@ -388,7 +388,7 @@ describe('Test auto fill rules in controller', () => {
 
         describe('auto fill the extend numbers', async () => {
             it('correct situation', async () => {
-                const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                 if (!workbook) throw new Error('This is an error');
                 // test extend number
                 commandService.executeCommand(AutoFillCommand.id, {
@@ -412,7 +412,7 @@ describe('Test auto fill rules in controller', () => {
 
         describe('auto fill the chinese numbers', async () => {
             it('correct situation', async () => {
-                const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                 if (!workbook) throw new Error('This is an error');
                 // test chinese number
                 commandService.executeCommand(AutoFillCommand.id, {
@@ -436,7 +436,7 @@ describe('Test auto fill rules in controller', () => {
 
         describe('auto fill the chinese week', async () => {
             it('correct situation', async () => {
-                const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                 if (!workbook) throw new Error('This is an error');
 
                 // test chinese week
@@ -461,7 +461,7 @@ describe('Test auto fill rules in controller', () => {
 
         describe('auto fill the loop series', async () => {
             it('correct situation', async () => {
-                const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                 if (!workbook) throw new Error('This is an error');
                 // test loop series
                 commandService.executeCommand(AutoFillCommand.id, {
@@ -485,7 +485,7 @@ describe('Test auto fill rules in controller', () => {
 
         describe('auto fill the other string', async () => {
             it('correct situation', async () => {
-                const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                 if (!workbook) throw new Error('This is an error');
                 // test other string
                 commandService.executeCommand(AutoFillCommand.id, {
@@ -509,7 +509,7 @@ describe('Test auto fill rules in controller', () => {
 
         describe('auto fill the mixed mode', async () => {
             it('correct situation', async () => {
-                const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                 if (!workbook) throw new Error('This is an error');
                 // test mixed mode
                 commandService.executeCommand(AutoFillCommand.id, {
@@ -548,7 +548,7 @@ describe('Test auto fill rules in controller', () => {
 
         describe('auto fill the merged cell', async () => {
             it('test primary', async () => {
-                const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                 if (!workbook) throw new Error('This is an error');
 
                 const selectionManagerService = get(SheetsSelectionsService);
@@ -598,7 +598,7 @@ describe('Test auto fill rules in controller', () => {
 
         describe('auto fill clear', async () => {
             it('test primary will move to upper left corner', async () => {
-                const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                 if (!workbook) throw new Error('This is an error');
 
                 const selectionManagerService = get(SheetsSelectionsService);
@@ -650,7 +650,7 @@ describe('Test auto fill rules in controller', () => {
 
     describe('auto fill range is auto detected', async () => {
         it('correct situation', async () => {
-            const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+            const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
             if (!workbook) throw new Error('This is an error');
             // test other string
             (autoFillController as any)._handleDbClickFill({
@@ -678,7 +678,7 @@ describe('Test auto fill rules in controller', () => {
 
     describe('auto fill in left direction', async () => {
         it('correct situation', async () => {
-            const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+            const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
             if (!workbook) throw new Error('This is an error');
             // test other string
             commandService.executeCommand(AutoFillCommand.id, {
@@ -710,7 +710,7 @@ describe('Test auto fill rules in controller', () => {
 
     describe('auto fill with equal ratio & style', async () => {
         it('correct situation', async () => {
-            const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+            const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
             if (!workbook) throw new Error('This is an error');
             // equal ratio
             commandService.executeCommand(AutoFillCommand.id, {
@@ -758,7 +758,7 @@ describe('Test auto fill rules in controller', () => {
 
     describe('auto fill without format', async () => {
         it('correct situation', async () => {
-            const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+            const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
             if (!workbook) throw new Error('This is an error');
             // equal ratio
             commandService.executeCommand(AutoFillCommand.id, {
@@ -819,7 +819,7 @@ describe('Test auto fill rules in controller', () => {
 
     describe('auto fill from single cell', async () => {
         it('correct situation', async () => {
-            const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+            const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
             if (!workbook) throw new Error('This is an error');
             // test right
             commandService.executeCommand(AutoFillCommand.id, {

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IUnitRange, Nullable, Workbook, Worksheet } from '@univerjs/core';
+import type { IUnitRange, Nullable, Workbook, Worksheet } from '@crabtable/core';
 import type { Observable } from 'rxjs';
-import { createIdentifier, Disposable, IUniverInstanceService } from '@univerjs/core';
+import { createIdentifier, Disposable, ICrabTableInstanceService } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { handleRefStringInfo, serializeRange } from '../engine/utils/reference';
 
@@ -104,7 +104,7 @@ export class DefinedNamesService extends Disposable implements IDefinedNamesServ
     private readonly _focusRange$ = new Subject<IDefinedNamesServiceFocusParam>();
     readonly focusRange$ = this._focusRange$.asObservable();
 
-    constructor(@IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService) {
+    constructor(@ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService) {
         super();
     }
 
@@ -119,7 +119,7 @@ export class DefinedNamesService extends Disposable implements IDefinedNamesServ
 
     getWorksheetByRef(unitId: string, ref: string) {
         const { sheetName } = handleRefStringInfo(ref);
-        return this._univerInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetName(sheetName);
+        return this._crabtableInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetName(sheetName);
     }
 
     focusRange(unitId: string, id: string) {

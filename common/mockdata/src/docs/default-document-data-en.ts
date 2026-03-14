@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { IDocumentData } from '@univerjs/core';
+import type { IDocumentData } from '@crabtable/core';
 import {
     BooleanNumber,
     ColumnSeparatorType,
     DocumentFlavor,
     PresetListType,
     SectionType,
-} from '@univerjs/core';
-import { ptToPixel } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { ptToPixel } from '@crabtable/engine-render';
 
 export const DEFAULT_DOCUMENT_DATA_EN: IDocumentData = {
     id: 'd-en',

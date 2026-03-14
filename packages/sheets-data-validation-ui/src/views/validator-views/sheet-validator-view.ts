@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import type { DataValidatorDropdownType, IBaseDataValidationWidget } from '@univerjs/data-validation';
-import { Inject, Injector } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
+import type { DataValidatorDropdownType, IBaseDataValidationWidget } from '@crabtable/data-validation';
+import { Inject, Injector } from '@crabtable/core';
 import { LIST_FORMULA_INPUT_NAME } from '../components/formula-input';
 
 /**

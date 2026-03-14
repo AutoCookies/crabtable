@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, Injector } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { IEditorBridgeServiceVisibleParam } from '@univerjs/sheets-ui';
-import type { IBeforeSheetEditEndEventParams, IBeforeSheetEditStartEventParams, ISheetEditChangingEventParams, ISheetEditEndedEventParams, ISheetEditStartedEventParams } from '@univerjs/sheets-ui/facade';
-import { CanceledError, DOCS_ZEN_EDITOR_UNIT_ID_KEY, ICommandService, IUniverInstanceService, RichTextValue } from '@univerjs/core';
-import { FUniver } from '@univerjs/core/facade';
-import { RichTextEditingMutation } from '@univerjs/docs';
+import type { DocumentDataModel, Injector } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { IEditorBridgeServiceVisibleParam } from '@crabtable/sheets-ui';
+import type { IBeforeSheetEditEndEventParams, IBeforeSheetEditStartEventParams, ISheetEditChangingEventParams, ISheetEditEndedEventParams, ISheetEditStartedEventParams } from '@crabtable/sheets-ui/facade';
+import { CanceledError, DOCS_ZEN_EDITOR_UNIT_ID_KEY, ICommandService, ICrabTableInstanceService, RichTextValue } from '@crabtable/core';
+import { FCrabTable } from '@crabtable/core/facade';
+import { RichTextEditingMutation } from '@crabtable/docs';
 
-import { IEditorBridgeService } from '@univerjs/sheets-ui';
-import { CancelZenEditCommand, ConfirmZenEditCommand, OpenZenEditorCommand } from '@univerjs/sheets-zen-editor';
+import { IEditorBridgeService } from '@crabtable/sheets-ui';
+import { CancelZenEditCommand, ConfirmZenEditCommand, OpenZenEditorCommand } from '@crabtable/sheets-zen-editor';
 
 /**
  * @ignore
  */
 export interface IFUniverSheetsZenEditorMixin {}
 
-export class FUniverSheetsZenEditorMixin extends FUniver implements IFUniverSheetsZenEditorMixin {
+export class FCrabTableSheetsZenEditorMixin extends FCrabTable implements IFUniverSheetsZenEditorMixin {
     // eslint-disable-next-line max-lines-per-function
     private _initSheetZenEditorEvent(injector: Injector): void {
         const commandService = injector.get(ICommandService);
@@ -83,7 +83,7 @@ export class FUniverSheetsZenEditorMixin extends FUniver implements IFUniverShee
                         }
                         const { workbook, worksheet } = target;
                         const editorBridgeService = injector.get(IEditorBridgeService);
-                        const univerInstanceService = injector.get(IUniverInstanceService);
+                        const crabtableInstanceService = injector.get(ICrabTableInstanceService);
                         const params = commandInfo.params as IEditorBridgeServiceVisibleParam;
                         const { keycode, eventType } = params;
                         const loc = editorBridgeService.getEditLocation()!;
@@ -96,7 +96,7 @@ export class FUniverSheetsZenEditorMixin extends FUniver implements IFUniverShee
                             workbook,
                             worksheet,
                             isZenEditor: true,
-                            value: RichTextValue.create(univerInstanceService.getUnit<DocumentDataModel>(DOCS_ZEN_EDITOR_UNIT_ID_KEY)!.getSnapshot()),
+                            value: RichTextValue.create(crabtableInstanceService.getUnit<DocumentDataModel>(DOCS_ZEN_EDITOR_UNIT_ID_KEY)!.getSnapshot()),
                             isConfirm: commandInfo.id === ConfirmZenEditCommand.id,
                         };
                         this.fireEvent(this.Event.BeforeSheetEditEnd, eventParams);
@@ -186,7 +186,7 @@ export class FUniverSheetsZenEditorMixin extends FUniver implements IFUniverShee
                         }
                         const { workbook, worksheet } = target;
                         const editorBridgeService = injector.get(IEditorBridgeService);
-                        const univerInstanceService = injector.get(IUniverInstanceService);
+                        const crabtableInstanceService = injector.get(ICrabTableInstanceService);
                         const params = commandInfo.params as IRichTextEditingMutationParams;
                         if (!editorBridgeService.isVisible().visible) return;
                         const { unitId } = params;
@@ -197,7 +197,7 @@ export class FUniverSheetsZenEditorMixin extends FUniver implements IFUniverShee
                                 worksheet,
                                 row,
                                 column,
-                                value: RichTextValue.create(univerInstanceService.getUnit<DocumentDataModel>(DOCS_ZEN_EDITOR_UNIT_ID_KEY)!.getSnapshot()),
+                                value: RichTextValue.create(crabtableInstanceService.getUnit<DocumentDataModel>(DOCS_ZEN_EDITOR_UNIT_ID_KEY)!.getSnapshot()),
                                 isZenEditor: true,
                             };
                             this.fireEvent(this.Event.SheetEditChanging, eventParams);
@@ -216,9 +216,9 @@ export class FUniverSheetsZenEditorMixin extends FUniver implements IFUniverShee
     }
 }
 
-FUniver.extend(FUniverSheetsZenEditorMixin);
+FCrabTable.extend(FUniverSheetsZenEditorMixin);
 
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
-    interface FUniver extends IFUniverSheetsZenEditorMixin { }
+    interface FCrabTable extends IFUniverSheetsZenEditorMixin { }
 }

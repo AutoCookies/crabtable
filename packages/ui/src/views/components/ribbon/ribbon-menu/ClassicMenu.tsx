@@ -15,8 +15,8 @@
  */
 
 import type { IMenuSchema } from '../../../../services/menu/menu-manager.service';
-import { LocaleService } from '@univerjs/core';
-import { clsx } from '@univerjs/design';
+import { LocaleService } from '@crabtable/core';
+import { clsx } from '@crabtable/design';
 import { useDependency } from '../../../../utils/di';
 
 export function ClassicMenu({

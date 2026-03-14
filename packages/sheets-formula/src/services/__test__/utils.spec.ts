@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { IFunctionInfo } from '@univerjs/engine-formula';
-import { LocaleService, LocaleType, Univer } from '@univerjs/core';
+import type { IFunctionInfo } from '@crabtable/engine-formula';
+import { CrabTable, LocaleService, LocaleType } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { generateParam, getFunctionName } from '../utils';
 
 describe('sheets-formula service utils', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let localeService: LocaleService;
 
     beforeEach(() => {
-        univer = new Univer();
+        univer = new CrabTable();
         localeService = univer.__getInjector().get(LocaleService);
         localeService.load({
             [LocaleType.ZH_CN]: {},

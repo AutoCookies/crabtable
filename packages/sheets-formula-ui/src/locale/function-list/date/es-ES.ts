@@ -27,7 +27,7 @@ const locale: typeof enUS = {
             },
         ],
         functionParameter: {
-            year: { name: 'año', detail: 'El valor del argumento año puede incluir de uno a cuatro dígitos. Excel interpreta el argumento año según el sistema de fechas que use su equipo. De forma predeterminada, Univer usa el sistema de fechas de 1900, lo que significa que la primera fecha es el 1 de enero de 1900.' },
+            year: { name: 'año', detail: 'El valor del argumento año puede incluir de uno a cuatro dígitos. Excel interpreta el argumento año según el sistema de fechas que use su equipo. De forma predeterminada, CrabTable usa el sistema de fechas de 1900, lo que significa que la primera fecha es el 1 de enero de 1900.' },
             month: { name: 'mes', detail: 'Un entero positivo o negativo que representa el mes del año del 1 al 12 (enero a diciembre).' },
             day: { name: 'día', detail: 'Un entero positivo o negativo que representa el día del mes del 1 al 31.' },
         },

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IRange, Worksheet } from '@univerjs/core';
-import type { ISelectionWithStyle } from '@univerjs/sheets';
-import { Rectangle } from '@univerjs/core';
+import type { IRange, Worksheet } from '@crabtable/core';
+import type { ISelectionWithStyle } from '@crabtable/sheets';
+import { Rectangle } from '@crabtable/core';
 
 export function isSamePosition(range1: IRange, range2: IRange): boolean {
     return range1.startRow === range2.startRow && range1.startColumn === range2.startColumn;

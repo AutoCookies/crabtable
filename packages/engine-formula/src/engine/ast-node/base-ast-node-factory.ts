@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 
 import { LexerNode } from '../analysis/lexer-node';
 import { BaseAstNode } from './base-ast-node';

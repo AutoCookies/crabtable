@@ -16,8 +16,8 @@
 
 import type { IDisplayMenuItem, IMenuItem, IMenuSelectorItem, IValueOption } from '../../../services/menu/menu';
 import type { ITooltipWrapperRef } from './TooltipButtonWrapper';
-import { ICommandService, LocaleService } from '@univerjs/core';
-import { clsx } from '@univerjs/design';
+import { ICommandService, LocaleService } from '@crabtable/core';
+import { clsx } from '@crabtable/design';
 import { MoreDownIcon } from '@univerjs/icons';
 import { forwardRef, useMemo } from 'react';
 import { isObservable, Observable } from 'rxjs';

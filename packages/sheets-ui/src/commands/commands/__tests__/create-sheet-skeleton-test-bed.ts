@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IWorkbookData } from '@univerjs/core';
-import { ICommandService, LocaleType } from '@univerjs/core';
-import { IRenderManagerService, RenderManagerService } from '@univerjs/engine-render';
-import { SetBorderCommand, SetBorderPositionCommand, SetRangeValuesMutation, SetSelectionsOperation } from '@univerjs/sheets';
+import type { IWorkbookData } from '@crabtable/core';
+import { ICommandService, LocaleType } from '@crabtable/core';
+import { IRenderManagerService, RenderManagerService } from '@crabtable/engine-render';
+import { SetBorderCommand, SetBorderPositionCommand, SetRangeValuesMutation, SetSelectionsOperation } from '@crabtable/sheets';
 
 import { SelectAllService } from '../../../services/select-all/select-all.service';
 import { ShortcutExperienceService } from '../../../services/shortcut-experience.service';

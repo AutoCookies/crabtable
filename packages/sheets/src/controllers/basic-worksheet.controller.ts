@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDisposable, IMutation, IStyleData } from '@univerjs/core';
-import { Disposable, ICommandService, IConfigService, Optional } from '@univerjs/core';
-import { DataSyncPrimaryController } from '@univerjs/rpc';
+import type { IDisposable, IMutation, IStyleData } from '@crabtable/core';
+import { Disposable, ICommandService, IConfigService, Optional } from '@crabtable/core';
+import { DataSyncPrimaryController } from '@crabtable/rpc';
 import { AddRangeProtectionCommand } from '../commands/commands/add-range-protection.command';
 import { AddWorksheetMergeAllCommand, AddWorksheetMergeCommand, AddWorksheetMergeHorizontalCommand, AddWorksheetMergeVerticalCommand } from '../commands/commands/add-worksheet-merge.command';
 import { AddWorksheetProtectionCommand } from '../commands/commands/add-worksheet-protection.command';

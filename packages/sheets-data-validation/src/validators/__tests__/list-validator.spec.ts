@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICellData } from '@univerjs/core';
-import { LexerTreeBuilder } from '@univerjs/engine-formula';
+import type { ICellData } from '@crabtable/core';
+import { LexerTreeBuilder } from '@crabtable/engine-formula';
 import { describe, expect, it } from 'vitest';
 import { getRuleFormulaResultSet, isValidListFormula } from '../list-validator';
 

@@ -18,7 +18,7 @@ import type { BaseReferenceObject, FunctionVariantType } from '../../../engine/r
 import type { MultiAreaValue } from '../../../engine/reference-object/multi-area-reference-object';
 import type { ArrayValueObject } from '../../../engine/value-object/array-value-object';
 import type { BaseValueObject } from '../../../engine/value-object/base-value-object';
-import { MAX_COLUMN_COUNT, MAX_ROW_COUNT } from '@univerjs/core';
+import { MAX_COLUMN_COUNT, MAX_ROW_COUNT } from '@crabtable/core';
 import { ErrorType } from '../../../basics/error-type';
 import { MultiAreaReferenceObject } from '../../../engine/reference-object/multi-area-reference-object';
 import { expandArrayValueObject } from '../../../engine/utils/array-object';

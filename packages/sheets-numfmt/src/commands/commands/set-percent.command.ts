@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
+import type { IAccessor, ICommand } from '@crabtable/core';
 import type { ISetNumfmtCommandParams } from './set-numfmt.command';
-import { CommandType, ICommandService, Range } from '@univerjs/core';
-import { SheetsSelectionsService } from '@univerjs/sheets';
+import { CommandType, ICommandService, Range } from '@crabtable/core';
+import { SheetsSelectionsService } from '@crabtable/sheets';
 import { SetNumfmtCommand } from './set-numfmt.command';
 
 export const SetPercentCommand: ICommand = {

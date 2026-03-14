@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import { EDITOR_ACTIVATED, FOCUSING_FX_BAR_EDITOR, IContextService, IUndoRedoService } from '@univerjs/core';
+import type { IAccessor } from '@crabtable/core';
+import { EDITOR_ACTIVATED, FOCUSING_FX_BAR_EDITOR, IContextService, IUndoRedoService } from '@crabtable/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { describe, expect, it } from 'vitest';
 import { RedoMenuItemFactory, UndoMenuItemFactory } from '../menus';

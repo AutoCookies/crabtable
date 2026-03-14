@@ -17,7 +17,7 @@
 import type { Observable } from 'rxjs';
 import type { HTTPRequest } from '../request';
 import type { HTTPEvent } from '../response';
-import { createIdentifier } from '@univerjs/core';
+import { createIdentifier } from '@crabtable/core';
 
 /**
  * HTTP service could be implemented differently on platforms.

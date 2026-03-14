@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import { ICommandService, IUniverInstanceService, LocaleService } from '@univerjs/core';
-import { SetDrawingSelectedOperation } from '@univerjs/drawing';
-import { getSheetCommandTarget } from '@univerjs/sheets';
-import { ISidebarService } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import { ICommandService, ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { SetDrawingSelectedOperation } from '@crabtable/drawing';
+import { getSheetCommandTarget } from '@crabtable/sheets';
+import { ISidebarService } from '@crabtable/ui';
 import { describe, expect, it, vi } from 'vitest';
 import { COMPONENT_SHEET_DRAWING_PANEL } from '../../../views/sheet-image-panel/component-name';
 import { SidebarSheetDrawingOperation } from '../open-drawing-panel.operation';
 
-vi.mock('@univerjs/sheets', async (importActual) => {
-    const actual = await importActual<typeof import('@univerjs/sheets')>();
+vi.mock('@crabtable/sheets', async (importActual) => {
+    const actual = await importActual<typeof import('@crabtable/sheets')>();
     return { ...actual, getSheetCommandTarget: vi.fn() };
 });
 
@@ -37,7 +37,7 @@ function createAccessor() {
         get(token: unknown) {
             if (token === ISidebarService) return sidebarService;
             if (token === LocaleService) return { t: (key: string) => key };
-            if (token === IUniverInstanceService) return {};
+            if (token === ICrabTableInstanceService) return {};
             if (token === ICommandService) return commandService;
             throw new Error(`Unknown dependency: ${String(token)}`);
         },

@@ -14,21 +14,20 @@
  * limitations under the License.
  */
 
-import type { IWorkbookData, Workbook } from '@univerjs/core';
+import type { IWorkbookData, Workbook } from '@crabtable/core';
 import type { IBoundRectNoAngle, IViewportInfo } from '../../../basics/vector2';
 import {
     BooleanNumber,
     BorderStyleTypes,
+    CrabTableInstanceType,
+    ICrabTableInstanceService,
     ILogService,
-    IUniverInstanceService,
     LocaleType,
     LogLevel,
     ObjectMatrix,
     RANGE_TYPE,
-    Univer,
-    UniverInstanceType,
     WrapStrategy,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { setupRenderTestEnv } from '../../../__tests__/render-test-utils';
 import { Vector2 } from '../../../basics/vector2';
@@ -104,7 +103,7 @@ const workbookDataFactory = (): IWorkbookData => ({
 });
 
 interface IFixture {
-    univer: Univer;
+    univer: CrabTable;
     workbook: Workbook;
     skeleton: SpreadsheetSkeleton;
     engine: Engine;
@@ -153,12 +152,12 @@ function createViewportInfo(scene: Scene, cacheCanvas: Canvas, overrides?: Parti
 function createFixture(): IFixture {
     const renderEnv = setupRenderTestEnv();
 
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
-    const workbook = univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, workbookDataFactory());
-    get(IUniverInstanceService).focusUnit('sheet-render-workbook');
+    const workbook = univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, workbookDataFactory());
+    get(ICrabTableInstanceService).focusUnit('sheet-render-workbook');
     get(ILogService).setLogLevel(LogLevel.SILENT);
 
     const worksheet = workbook.getActiveSheet()!;

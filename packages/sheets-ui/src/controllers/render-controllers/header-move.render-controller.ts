@@ -19,9 +19,9 @@ import type {
     IRange,
     Nullable,
     Workbook,
-} from '@univerjs/core';
-import type { IMouseEvent, IPointerEvent, IRenderContext, IRenderModule, SpreadsheetColumnHeader, SpreadsheetHeader } from '@univerjs/engine-render';
-import type { IMoveColsCommandParams, IMoveRowsCommandParams, ISelectionWithStyle, WorkbookSelectionModel } from '@univerjs/sheets';
+} from '@crabtable/core';
+import type { IMouseEvent, IPointerEvent, IRenderContext, IRenderModule, SpreadsheetColumnHeader, SpreadsheetHeader } from '@crabtable/engine-render';
+import type { IMoveColsCommandParams, IMoveRowsCommandParams, ISelectionWithStyle, WorkbookSelectionModel } from '@crabtable/sheets';
 import {
     createInterceptorKey,
     Disposable,
@@ -29,7 +29,7 @@ import {
     Inject,
     InterceptorManager,
     RANGE_TYPE,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     CURSOR_TYPE,
     Rect,
@@ -37,12 +37,12 @@ import {
     ScrollTimerType,
     SHEET_VIEWPORT_KEY,
     Vector2,
-} from '@univerjs/engine-render';
+} from '@crabtable/engine-render';
 import {
     MoveColsCommand,
     MoveRowsCommand,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 
 import { Subscription } from 'rxjs';
 import { SHEET_COMPONENT_HEADER_LAYER_INDEX, SHEET_VIEW_KEY } from '../../common/keys';

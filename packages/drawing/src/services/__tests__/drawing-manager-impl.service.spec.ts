@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IDrawingParam, IDrawingSearch } from '@univerjs/core';
-import { BooleanNumber, DrawingTypeEnum } from '@univerjs/core';
+import type { IDrawingParam, IDrawingSearch } from '@crabtable/core';
+import { BooleanNumber, DrawingTypeEnum } from '@crabtable/core';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { UnitDrawingService } from '../drawing-manager-impl.service';
 

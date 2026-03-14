@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICellData, ICommandInfo, IObjectMatrixPrimitiveType, IRange, IUnitRange, Nullable } from '@univerjs/core';
-import type { IDirtyUnitSheetDefinedNameMap, IDirtyUnitSheetNameMap, IFormulaDirtyData, ISetDefinedNameMutationParam } from '@univerjs/engine-formula';
+import type { ICellData, ICommandInfo, IObjectMatrixPrimitiveType, IRange, IUnitRange, Nullable } from '@crabtable/core';
+import type { IDirtyUnitSheetDefinedNameMap, IDirtyUnitSheetNameMap, IFormulaDirtyData, ISetDefinedNameMutationParam } from '@crabtable/engine-formula';
 import type {
     IInsertColMutationParams,
     IInsertRowMutationParams,
@@ -30,14 +30,14 @@ import type {
     ISetRangeValuesMutationParams,
     ISetRowHiddenMutationParams,
     ISetRowVisibleMutationParams,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import {
     Disposable,
+    ICrabTableInstanceService,
     Inject,
-    IUniverInstanceService,
     ObjectMatrix,
-} from '@univerjs/core';
-import { FormulaDataModel, IActiveDirtyManagerService, RemoveDefinedNameMutation, SetDefinedNameMutation, SetTriggerFormulaCalculationStartMutation } from '@univerjs/engine-formula';
+} from '@crabtable/core';
+import { FormulaDataModel, IActiveDirtyManagerService, RemoveDefinedNameMutation, SetDefinedNameMutation, SetTriggerFormulaCalculationStartMutation } from '@crabtable/engine-formula';
 import {
     InsertColMutation,
     InsertRowMutation,
@@ -53,12 +53,12 @@ import {
     SetRowHiddenMutation,
     SetRowVisibleMutation,
     SetStyleCommand,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 
 export class ActiveDirtyController extends Disposable {
     constructor(
         @IActiveDirtyManagerService private readonly _activeDirtyManagerService: IActiveDirtyManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(FormulaDataModel) private readonly _formulaDataModel: FormulaDataModel
     ) {
         super();
@@ -385,7 +385,7 @@ export class ActiveDirtyController extends Disposable {
 
         const dirtyRanges: IUnitRange[] = [];
 
-        const workbook = this._univerInstanceService.getUniverSheetInstance(unitId);
+        const workbook = this._crabtableInstanceService.getCrabTableSheetInstance(unitId);
 
         const worksheet = workbook?.getSheetBySheetId(sheetId);
 

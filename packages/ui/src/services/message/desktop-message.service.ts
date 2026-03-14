@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
-import type { IMessageProps } from '@univerjs/design';
+import type { IDisposable } from '@crabtable/core';
+import type { IMessageProps } from '@crabtable/design';
 import type { IMessageService } from './message.service';
-import { Disposable, Inject, Injector, toDisposable } from '@univerjs/core';
-import { message, removeMessage } from '@univerjs/design';
+import { Disposable, Inject, Injector, toDisposable } from '@crabtable/core';
+import { message, removeMessage } from '@crabtable/design';
 import { MessageContainer } from '../../components/message/MessageContainer';
 import { connectInjector } from '../../utils/di';
 import { BuiltInUIPart, IUIPartsService } from '../parts/parts.service';

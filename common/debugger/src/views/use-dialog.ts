@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { IConfirmService } from '@univerjs/core';
-import { IDialogService, useDependency } from '@univerjs/ui';
+import { IConfirmService } from '@crabtable/core';
+import { IDialogService, useDependency } from '@crabtable/ui';
 
 const menu = [
     {

@@ -25,8 +25,8 @@ import JavaScriptObfuscator from 'javascript-obfuscator';
  * @returns Library name
  * @example
  * convertLibNameFromPackageName('@univerjs-pro/sheets-print') // UniverProSheetsPrint
- * convertLibNameFromPackageName('@univerjs/sheets-ui') // UniverSheetsUi
- * convertLibNameFromPackageName(''@univerjs/watermark/facade') // UniverWatermarkFacade
+ * convertLibNameFromPackageName('@crabtable/sheets-ui') // UniverSheetsUi
+ * convertLibNameFromPackageName(''@crabtable/watermark/facade') // UniverWatermarkFacade
  */
 export function convertLibNameFromPackageName(name: string) {
     return name

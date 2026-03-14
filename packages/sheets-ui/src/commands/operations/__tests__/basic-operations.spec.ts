@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { IUniverInstanceService } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { ICrabTableInstanceService } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { describe, expect, it, vi } from 'vitest';
 import { IEditorBridgeService } from '../../../services/editor-bridge.service';
 import { IFormatPainterService } from '../../../services/format-painter/format-painter.service';
@@ -121,7 +121,7 @@ describe('sheets-ui basic operations', () => {
     it('ScrollToRangeOperation should guard params and call scroll controller', () => {
         const scrollToRange = vi.fn(() => true);
         const accessor = createAccessor([
-            [IUniverInstanceService, { getCurrentUnitForType: () => ({ getUnitId: () => 'u1' }) }],
+            [ICrabTableInstanceService, { getCurrentUnitForType: () => ({ getUnitId: () => 'u1' }) }],
             [IRenderManagerService, { getRenderById: () => ({ with: () => ({ scrollToRange }) }) }],
         ]);
 

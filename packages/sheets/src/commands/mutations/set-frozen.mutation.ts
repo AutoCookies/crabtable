@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IMutation } from '@univerjs/core';
-import { CommandType, IUniverInstanceService } from '@univerjs/core';
+import type { IAccessor, IMutation } from '@crabtable/core';
+import { CommandType, ICrabTableInstanceService } from '@crabtable/core';
 
 export interface ISetFrozenMutationParams {
     unitId: string;
@@ -39,8 +39,8 @@ export const SetFrozenMutationFactory = (
     accessor: IAccessor,
     params: ISetFrozenMutationParams
 ): ISetFrozenMutationParams => {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
-    const universheet = univerInstanceService.getUniverSheetInstance(params.unitId);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+    const universheet = crabtableInstanceService.getCrabTableSheetInstance(params.unitId);
 
     if (universheet == null) {
         throw new Error('universheet is null error!');
@@ -64,8 +64,8 @@ export const SetFrozenMutation: IMutation<ISetFrozenMutationParams> = {
     id: 'sheet.mutation.set-frozen',
     type: CommandType.MUTATION,
     handler: (accessor: IAccessor, params: ISetFrozenMutationParams) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const universheet = univerInstanceService.getUniverSheetInstance(params.unitId);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const universheet = crabtableInstanceService.getCrabTableSheetInstance(params.unitId);
 
         if (universheet == null) {
             throw new Error('universheet is null error!');

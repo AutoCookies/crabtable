@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
+import type { ICommand } from '@crabtable/core';
 import type { ISheetHyperLink } from '../../types/interfaces/i-hyper-link';
-import { CommandType } from '@univerjs/core';
+import { CommandType } from '@crabtable/core';
 import { HyperLinkModel } from '../../models/hyper-link.model';
 
 export interface IAddHyperLinkMutationParams {

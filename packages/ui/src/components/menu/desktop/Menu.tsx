@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { MenuRef } from '@univerjs/design';
+import type { MenuRef } from '@crabtable/design';
 import type {
     IDisplayMenuItem,
     IMenuButtonItem,
@@ -23,14 +23,14 @@ import type {
     IValueOption,
     MenuItemDefaultValueType,
 } from '../../../services/menu/menu';
-import { isRealNum, LocaleService } from '@univerjs/core';
+import { isRealNum, LocaleService } from '@crabtable/core';
 import {
     clsx,
     Menu as DesignMenu,
     MenuItem as DesignMenuItem,
     MenuItemGroup as DesignMenuItemGroup,
     SubMenu as DesignSubMenu,
-} from '@univerjs/design';
+} from '@crabtable/design';
 import { CheckMarkIcon, MoreIcon } from '@univerjs/icons';
 import { useEffect, useMemo, useState } from 'react';
 import { combineLatest, isObservable, of } from 'rxjs';

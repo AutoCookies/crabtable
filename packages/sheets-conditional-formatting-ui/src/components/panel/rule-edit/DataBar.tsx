@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { IConditionalFormattingRuleConfig, IValueConfig } from '@univerjs/sheets-conditional-formatting';
-import type { IFormulaEditorRef } from '@univerjs/sheets-formula-ui';
+import type { Workbook } from '@crabtable/core';
+import type { IConditionalFormattingRuleConfig, IValueConfig } from '@crabtable/sheets-conditional-formatting';
+import type { IFormulaEditorRef } from '@crabtable/sheets-formula-ui';
 import type { IStyleEditorProps } from './type';
-import { IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
-import { borderClassName, Checkbox, clsx, InputNumber, Radio, RadioGroup, Select } from '@univerjs/design';
-import { CFRuleType, CFValueType, createDefaultValueByValueType, defaultDataBarNativeColor, defaultDataBarPositiveColor } from '@univerjs/sheets-conditional-formatting';
-import { FormulaEditor } from '@univerjs/sheets-formula-ui';
-import { useDependency, useSidebarClick } from '@univerjs/ui';
+import { CrabTableInstanceType, ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { borderClassName, Checkbox, clsx, InputNumber, Radio, RadioGroup, Select } from '@crabtable/design';
+import { CFRuleType, CFValueType, createDefaultValueByValueType, defaultDataBarNativeColor, defaultDataBarPositiveColor } from '@crabtable/sheets-conditional-formatting';
+import { FormulaEditor } from '@crabtable/sheets-formula-ui';
+import { useDependency, useSidebarClick } from '@crabtable/ui';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ColorPicker } from '../../color-picker';
 import { Preview } from '../../preview';
@@ -32,9 +32,9 @@ const createOptionItem = (text: CFValueType, localeService: LocaleService) => ({
 
 const InputText = (props: { disabled?: boolean; id: string; className: string; type: CFValueType; value: string | number; onChange: (v: string | number) => void }) => {
     const { onChange, className, value, type, id, disabled = false } = props;
-    const univerInstanceService = useDependency(IUniverInstanceService);
-    const unitId = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getUnitId();
-    const subUnitId = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()?.getSheetId();
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
+    const unitId = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getUnitId();
+    const subUnitId = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()?.getSheetId();
 
     const formulaEditorRef = useRef<IFormulaEditorRef>(null);
     const [isFocusFormulaEditor, setIsFocusFormulaEditor] = useState(false);

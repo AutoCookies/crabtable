@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
+import type { Dependency } from '@crabtable/core';
 import type { Meta } from '@storybook/react';
-import type { Dependency } from '@univerjs/core';
-import { LocaleService, LocaleType } from '@univerjs/core';
-import { DesktopLayoutService, ILayoutService, RediContext } from '@univerjs/ui';
+import { LocaleService, LocaleType } from '@crabtable/core';
+import { DesktopLayoutService, ILayoutService, RediContext } from '@crabtable/ui';
 import { useContext, useMemo, useState } from 'react';
 import { FindReplaceController } from '../../controllers/find-replace.controller';
 import enUS from '../../locale/en-US';

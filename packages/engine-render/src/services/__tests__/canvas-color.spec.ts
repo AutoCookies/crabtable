@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Injector } from '@univerjs/core';
-import { ThemeService } from '@univerjs/core';
-import { ICanvasColorService } from '@univerjs/engine-render';
+import type { Injector } from '@crabtable/core';
+import { ThemeService } from '@crabtable/core';
+import { ICanvasColorService } from '@crabtable/engine-render';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { CanvasColorService, DumbCanvasColorService, hexToRgb, rgbToHex } from '../canvas-color.service';
 import { createCanvasColorTestBed } from './create-canvas-color-test-bed';

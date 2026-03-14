@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ISocket } from '@univerjs/network';
-import { FUniver } from '@univerjs/core/facade';
-import { WebSocketService } from '@univerjs/network';
+import type { ISocket } from '@crabtable/network';
+import { FCrabTable } from '@crabtable/core/facade';
+import { WebSocketService } from '@crabtable/network';
 import { FNetwork } from './f-network';
 
 /**
@@ -36,7 +36,7 @@ interface IFUniverNetworkMixin {
      * @example
      * ```typescript
      * // Replace the URL with the address of your own WebSocket service
-     * const ws = univerAPI.createSocket('ws://47.100.177.253:8449/ws');
+     * const ws = crabtableAPI.createSocket('ws://47.100.177.253:8449/ws');
      *
      * ws.open$.subscribe(() => {
      *   console.log('websocket opened');
@@ -55,7 +55,7 @@ interface IFUniverNetworkMixin {
      *   const { id, params } = command;
      *
      *   // Upon receiving collaborative data, it is locally saved
-     *   univerAPI.executeCommand(id, params, options);
+     *   crabtableAPI.executeCommand(id, params, options);
      * });
      *
      * ws.close$.subscribe(() => {
@@ -66,7 +66,7 @@ interface IFUniverNetworkMixin {
      *   console.log('websocket error', error);
      * });
      *
-     * univerAPI.onCommandExecuted((command, options) => {
+     * crabtableAPI.onCommandExecuted((command, options) => {
      *   // Only synchronize local mutations
      *   if (command.type !== 2 || options?.fromCollab || options?.onlyLocal || command.id === 'doc.mutation.rich-text-editing') {
      *     return;
@@ -80,7 +80,7 @@ interface IFUniverNetworkMixin {
     createSocket(url: string): ISocket;
 }
 
-export class FUniverNetworkMixin extends FUniver implements IFUniverNetworkMixin {
+export class FCrabTableNetworkMixin extends FCrabTable implements IFUniverNetworkMixin {
     override getNetwork(): FNetwork {
         return this._injector.createInstance(FNetwork);
     }
@@ -97,8 +97,8 @@ export class FUniverNetworkMixin extends FUniver implements IFUniverNetworkMixin
     }
 }
 
-FUniver.extend(FUniverNetworkMixin);
-declare module '@univerjs/core/facade' {
+FCrabTable.extend(FUniverNetworkMixin);
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
-    interface FUniver extends IFUniverNetworkMixin { }
+    interface FCrabTable extends IFUniverNetworkMixin { }
 }

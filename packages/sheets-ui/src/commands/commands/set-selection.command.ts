@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { ICommand, IMutationInfo, IRange } from '@univerjs/core';
+import type { ICommand, IMutationInfo, IRange } from '@crabtable/core';
 import type {
     ISetSelectionsOperationParams,
-} from '@univerjs/sheets';
-import { CommandType, Direction, ICommandService, IUniverInstanceService, RANGE_TYPE, Rectangle, sequenceExecute, Tools } from '@univerjs/core';
+} from '@crabtable/sheets';
+import { CommandType, Direction, ICommandService, ICrabTableInstanceService, RANGE_TYPE, Rectangle, sequenceExecute, Tools } from '@crabtable/core';
 
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import {
     expandToContinuousRange,
     getCellAtRowCol,
@@ -29,8 +29,8 @@ import {
     SelectionMoveType,
     SetSelectionsOperation,
     SheetInterceptorService,
-} from '@univerjs/sheets';
-import { KeyCode } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { KeyCode } from '@crabtable/ui';
 import { SelectAllService } from '../../services/select-all/select-all.service';
 import { ISheetSelectionRenderService } from '../../services/selection/base-selection-render.service';
 import { ShortcutExperienceService } from '../../services/shortcut-experience.service';
@@ -82,7 +82,7 @@ export const MoveSelectionCommand: ICommand<IMoveSelectionCommandParams> = {
             return false;
         }
 
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService));
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService));
         if (!target) return false;
 
         const { workbook, worksheet } = target;
@@ -176,7 +176,7 @@ export const MoveSelectionEnterAndTabCommand: ICommand<IMoveSelectionEnterAndTab
             return false;
         }
 
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService));
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService));
         if (!target) return false;
 
         const { workbook, worksheet } = target;
@@ -359,7 +359,7 @@ export const ExpandSelectionCommand: ICommand<IExpandSelectionCommandParams> = {
     handler: (accessor, params) => {
         if (!params) return false;
 
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService));
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService));
         if (!target) return false;
 
         const { worksheet, unitId, subUnitId } = target;
@@ -439,7 +439,7 @@ export const SelectAllCommand: ICommand<ISelectAllCommandParams> = {
     type: CommandType.COMMAND,
     // eslint-disable-next-line max-lines-per-function
     handler: async (accessor, params = { expandToGapFirst: true, loop: false }) => {
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService));
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService));
         if (!target) return false;
         const selection = getSelectionsService(accessor).getCurrentLastSelection();
         if (!selection) return false;

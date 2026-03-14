@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import { IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { clsx } from '@univerjs/design';
-import { useDependency, useObservable } from '@univerjs/ui';
+import type { Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
+import { clsx } from '@crabtable/design';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { useMemo } from 'react';
 
 export const SwitchUnits = () => {
-    const univerInstanceService = useDependency(IUniverInstanceService);
-    const activeSheet = useObservable(useMemo(() => univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET), [univerInstanceService]));
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
+    const activeSheet = useObservable(useMemo(() => crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET), [crabtableInstanceService]));
     if (!activeSheet) {
         return null;
     }
 
     const switchSheet = (sheet: Workbook) => {
-        univerInstanceService.focusUnit(sheet.getUnitId());
+        crabtableInstanceService.focusUnit(sheet.getUnitId());
     };
 
-    const allSheets = univerInstanceService.getAllUnitsForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const allSheets = crabtableInstanceService.getAllUnitsForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     const activeSheetId = activeSheet?.getUnitId();
 
     return (

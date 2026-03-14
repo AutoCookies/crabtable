@@ -14,33 +14,33 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IAccessor, PresetListType } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { IMenuButtonItem, IMenuItem, IMenuSelectorItem } from '@univerjs/ui';
+import type { DocumentDataModel, IAccessor, PresetListType } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { IMenuButtonItem, IMenuItem, IMenuSelectorItem } from '@crabtable/ui';
 import type { Subscription } from 'rxjs';
 import {
     BaselineOffset,
     BooleanNumber,
     BuildTextUtils,
+    CrabTableInstanceType,
     DEFAULT_STYLES,
     DOCS_ZEN_EDITOR_UNIT_ID_KEY,
     DocumentFlavor,
     HorizontalAlign,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     NAMED_STYLE_MAP,
     NamedStyleType,
     ThemeService,
     Tools,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     DocSelectionManagerService,
     DocSkeletonManagerService,
     RichTextEditingMutation,
     SetTextSelectionsOperation,
-} from '@univerjs/docs';
-import { DocumentEditArea, IRenderManagerService } from '@univerjs/engine-render';
+} from '@crabtable/docs';
+import { DocumentEditArea, IRenderManagerService } from '@crabtable/engine-render';
 import {
     COLOR_PICKER_COMPONENT,
     COMMON_LABEL_COMPONENT,
@@ -52,7 +52,7 @@ import {
     HEADING_ITEM_COMPONENT,
     HEADING_LIST,
     MenuItemType,
-} from '@univerjs/ui';
+} from '@crabtable/ui';
 
 import { combineLatest, map, Observable } from 'rxjs';
 import { OpenHeaderFooterPanelCommand } from '../commands/commands/doc-header-footer.command';
@@ -71,17 +71,17 @@ import { DocMenuStyleService } from '../services/doc-menu-style.service';
 function getInsertTableHiddenObservable(
     accessor: IAccessor
 ): Observable<boolean> {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const renderManagerService = accessor.get(IRenderManagerService);
 
     return new Observable((subscriber) => {
-        const subscription = univerInstanceService.focused$.subscribe((unitId) => {
+        const subscription = crabtableInstanceService.focused$.subscribe((unitId) => {
             if (unitId == null) {
                 return subscriber.next(true);
             }
 
-            const univerType = univerInstanceService.getUnitType(unitId);
-            if (univerType !== UniverInstanceType.UNIVER_DOC) {
+            const univerType = crabtableInstanceService.getUnitType(unitId);
+            if (univerType !== CrabTableInstanceType.CRABTABLE_DOC) {
                 return subscriber.next(true);
             }
 
@@ -104,14 +104,14 @@ function getInsertTableHiddenObservable(
 function getHeaderFooterMenuHiddenObservable(
     accessor: IAccessor
 ): Observable<boolean> {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const commandService = accessor.get(ICommandService);
 
     return new Observable((subscriber) => {
         const subscription0 = commandService.onCommandExecuted((command) => {
             if (command.id === RichTextEditingMutation.id) {
                 const { unitId } = command.params as IRichTextEditingMutationParams;
-                const docDataModel = univerInstanceService.getUnit<DocumentDataModel>(unitId);
+                const docDataModel = crabtableInstanceService.getUnit<DocumentDataModel>(unitId);
                 if (docDataModel == null) {
                     subscriber.next(true);
                     return;
@@ -122,17 +122,17 @@ function getHeaderFooterMenuHiddenObservable(
             }
         });
 
-        const subscription = univerInstanceService.focused$.subscribe((unitId) => {
+        const subscription = crabtableInstanceService.focused$.subscribe((unitId) => {
             if (unitId == null) {
                 return subscriber.next(true);
             }
-            const docDataModel = univerInstanceService.getUniverDocInstance(unitId);
+            const docDataModel = crabtableInstanceService.getUniverDocInstance(unitId);
             const documentFlavor = docDataModel?.getSnapshot().documentStyle.documentFlavor;
 
             subscriber.next(documentFlavor !== DocumentFlavor.TRADITIONAL);
         });
 
-        const docDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const docDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
 
         if (docDataModel == null) {
             return subscriber.next(true);
@@ -150,7 +150,7 @@ function getHeaderFooterMenuHiddenObservable(
 
 function getTableDisabledObservable(accessor: IAccessor): Observable<boolean> {
     const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
     return new Observable((subscriber) => {
         const subscription = docSelectionManagerService.textSelection$.subscribe((selection) => {
@@ -174,7 +174,7 @@ function getTableDisabledObservable(accessor: IAccessor): Observable<boolean> {
                 return;
             }
 
-            const docDataModel = univerInstanceService.getCurrentUniverDocInstance();
+            const docDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
 
             if (docDataModel == null) {
                 subscriber.next(true);
@@ -274,7 +274,7 @@ export function BoldMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
             return disposable.dispose;
         }),
         disabled$: disableMenuWhenNoDocRange(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 }
 
@@ -313,7 +313,7 @@ export function ItalicMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
             return disposable.dispose;
         }),
         disabled$: disableMenuWhenNoDocRange(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 }
 
@@ -352,7 +352,7 @@ export function UnderlineMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
             return disposable.dispose;
         }),
         disabled$: disableMenuWhenNoDocRange(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 }
 
@@ -391,7 +391,7 @@ export function StrikeThroughMenuItemFactory(accessor: IAccessor): IMenuButtonIt
             return disposable.dispose;
         }),
         disabled$: disableMenuWhenNoDocRange(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 }
 
@@ -429,7 +429,7 @@ export function SubscriptMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
             return disposable.dispose;
         }),
         disabled$: disableMenuWhenNoDocRange(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 }
 
@@ -467,7 +467,7 @@ export function SuperscriptMenuItemFactory(accessor: IAccessor): IMenuButtonItem
             return disposable.dispose;
         }),
         disabled$: disableMenuWhenNoDocRange(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 }
 
@@ -517,7 +517,7 @@ export function FontFamilySelectorMenuItemFactory(accessor: IAccessor): IMenuSel
             return disposable.dispose;
         }),
         disabled$: disableMenuWhenNoDocRange(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 }
 
@@ -563,7 +563,7 @@ export function FontSizeSelectorMenuItemFactory(accessor: IAccessor): IMenuSelec
             return disposable.dispose;
         }),
         disabled$: disableMenuWhenNoDocRange(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 }
 
@@ -616,7 +616,7 @@ export function HeadingSelectorMenuItemFactory(accessor: IAccessor): IMenuSelect
             return disposable.dispose;
         }),
         disabled$: disableMenuWhenNoDocRange(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 }
 
@@ -676,7 +676,7 @@ export function TextColorSelectorMenuItemFactory(accessor: IAccessor): IMenuSele
             return disposable.dispose;
         }),
         disabled$: disableMenuWhenNoDocRange(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
         // disabled$: getCurrentSheetDisabled$(accessor),
     };
 }
@@ -687,7 +687,7 @@ export function HeaderFooterMenuItemFactory(accessor: IAccessor): IMenuButtonIte
         type: MenuItemType.BUTTON,
         icon: 'HeaderFooterIcon',
         tooltip: 'toolbar.headerFooter',
-        hidden$: combineLatest(getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC, undefined, DOCS_ZEN_EDITOR_UNIT_ID_KEY), getHeaderFooterMenuHiddenObservable(accessor), (one, two) => {
+        hidden$: combineLatest(getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC, undefined, DOCS_ZEN_EDITOR_UNIT_ID_KEY), getHeaderFooterMenuHiddenObservable(accessor), (one, two) => {
             return one || two;
         }),
     };
@@ -704,7 +704,7 @@ export function TableMenuFactory(accessor: IAccessor): IMenuItem {
         tooltip: 'toolbar.table.main',
         disabled$: getTableDisabledObservable(accessor),
         // Do not show header footer menu and insert table at zen mode.
-        hidden$: combineLatest(getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC, undefined, DOCS_ZEN_EDITOR_UNIT_ID_KEY), getInsertTableHiddenObservable(accessor), (one, two) => {
+        hidden$: combineLatest(getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC, undefined, DOCS_ZEN_EDITOR_UNIT_ID_KEY), getInsertTableHiddenObservable(accessor), (one, two) => {
             return one || two;
         }),
     };
@@ -715,7 +715,7 @@ export function InsertTableMenuFactory(_accessor: IAccessor): IMenuButtonItem {
         id: DocCreateTableOperation.id,
         title: 'toolbar.table.insert',
         type: MenuItemType.BUTTON,
-        hidden$: getMenuHiddenObservable(_accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(_accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 }
 
@@ -749,7 +749,7 @@ export function AlignLeftMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
 
             return disposable.dispose;
         }),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC, undefined, DOCS_ZEN_EDITOR_UNIT_ID_KEY),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC, undefined, DOCS_ZEN_EDITOR_UNIT_ID_KEY),
     };
 }
 
@@ -783,7 +783,7 @@ export function AlignCenterMenuItemFactory(accessor: IAccessor): IMenuButtonItem
             return disposable.dispose;
         }),
         disabled$: disableMenuWhenNoDocRange(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC, undefined, DOCS_ZEN_EDITOR_UNIT_ID_KEY),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC, undefined, DOCS_ZEN_EDITOR_UNIT_ID_KEY),
     };
 }
 
@@ -817,7 +817,7 @@ export function AlignRightMenuItemFactory(accessor: IAccessor): IMenuButtonItem 
             return disposable.dispose;
         }),
         disabled$: disableMenuWhenNoDocRange(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC, undefined, DOCS_ZEN_EDITOR_UNIT_ID_KEY),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC, undefined, DOCS_ZEN_EDITOR_UNIT_ID_KEY),
     };
 }
 
@@ -851,7 +851,7 @@ export function AlignJustifyMenuItemFactory(accessor: IAccessor): IMenuButtonIte
             return disposable.dispose;
         }),
         disabled$: disableMenuWhenNoDocRange(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC, undefined, DOCS_ZEN_EDITOR_UNIT_ID_KEY),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC, undefined, DOCS_ZEN_EDITOR_UNIT_ID_KEY),
     };
 }
 
@@ -862,22 +862,22 @@ export function HorizontalLineFactory(accessor: IAccessor): IMenuButtonItem {
         icon: 'ReduceIcon',
         tooltip: 'toolbar.horizontalLine',
         disabled$: disableMenuWhenNoDocRange(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC, undefined, DOCS_ZEN_EDITOR_UNIT_ID_KEY),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC, undefined, DOCS_ZEN_EDITOR_UNIT_ID_KEY),
     };
 }
 
 const listValueFactory$ = (accessor: IAccessor) => {
     return new Observable<PresetListType | undefined>((subscriber) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
         let textSubscription: Subscription | undefined;
-        const subscription = univerInstanceService.focused$.subscribe((unitId) => {
+        const subscription = crabtableInstanceService.focused$.subscribe((unitId) => {
             textSubscription?.unsubscribe();
             if (unitId == null) {
                 return;
             }
 
-            const docDataModel = univerInstanceService.getUniverDocInstance(unitId);
+            const docDataModel = crabtableInstanceService.getUniverDocInstance(unitId);
             if (docDataModel == null) {
                 return;
             }
@@ -930,7 +930,7 @@ export function OrderListMenuItemFactory(accessor: IAccessor): IMenuSelectorItem
         ],
         icon: 'OrderIcon',
         tooltip: 'toolbar.order',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
         disabled$: disableMenuWhenNoDocRange(accessor),
         activated$: listValueFactory$(accessor).pipe(map((v) => Boolean(v && v.indexOf('ORDER_LIST') === 0))),
     };
@@ -954,7 +954,7 @@ export function BulletListMenuItemFactory(accessor: IAccessor): IMenuSelectorIte
         icon: 'UnorderIcon',
         tooltip: 'toolbar.unorder',
         disabled$: disableMenuWhenNoDocRange(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
         activated$: listValueFactory$(accessor).pipe(map((v) => Boolean(v && v.indexOf('BULLET_LIST') === 0))),
     };
 }
@@ -966,31 +966,31 @@ export function CheckListMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
         icon: 'TodoListDoubleIcon',
         tooltip: 'toolbar.checklist',
         disabled$: disableMenuWhenNoDocRange(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
         activated$: listValueFactory$(accessor).pipe(map((v) => Boolean(v && v.indexOf('CHECK_LIST') === 0))),
     };
 }
 
 export function DocSwitchModeMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
     const commandService = accessor.get(ICommandService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
     return {
         id: SwitchDocModeCommand.id,
         type: MenuItemType.BUTTON,
         icon: 'KeyboardIcon',
         tooltip: 'toolbar.documentFlavor',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC, undefined, DOCS_ZEN_EDITOR_UNIT_ID_KEY),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC, undefined, DOCS_ZEN_EDITOR_UNIT_ID_KEY),
         activated$: new Observable<boolean>((subscriber) => {
             const subscription = commandService.onCommandExecuted((c) => {
                 if (c.id === RichTextEditingMutation.id) {
-                    const instance = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+                    const instance = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
 
                     subscriber.next(instance?.getSnapshot()?.documentStyle.documentFlavor === DocumentFlavor.MODERN);
                 }
             });
 
-            const instance = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+            const instance = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
 
             subscriber.next(instance?.getSnapshot()?.documentStyle.documentFlavor === DocumentFlavor.MODERN);
 
@@ -1064,16 +1064,16 @@ export function BackgroundColorSelectorMenuItemFactory(accessor: IAccessor): IMe
             return disposable.dispose;
         }),
         disabled$: disableMenuWhenNoDocRange(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 }
 
 function getFontStyleAtCursor(accessor: IAccessor) {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const textSelectionService = accessor.get(DocSelectionManagerService);
     const docMenuStyleService = accessor.get(DocMenuStyleService);
 
-    const docDataModel = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+    const docDataModel = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
     const docRanges = textSelectionService.getDocRanges();
     const activeRange = docRanges.find((r) => r.isActive) ?? docRanges[0];
 
@@ -1117,10 +1117,10 @@ function getFontStyleAtCursor(accessor: IAccessor) {
 }
 
 export function getParagraphStyleAtCursor(accessor: IAccessor) {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const textSelectionService = accessor.get(DocSelectionManagerService);
 
-    const docDataModel = univerInstanceService.getCurrentUniverDocInstance();
+    const docDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
 
     const docRanges = textSelectionService.getDocRanges();
     const activeRange = docRanges.find((r) => r.isActive) ?? docRanges[0];
@@ -1157,6 +1157,6 @@ export function PageSettingMenuItemFactory(accessor: IAccessor): IMenuButtonItem
         type: MenuItemType.BUTTON,
         icon: 'DocumentSettingIcon',
         tooltip: 'toolbar.pageSetup',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 }

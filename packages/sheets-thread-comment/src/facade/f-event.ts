@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { RichTextValue } from '@univerjs/core';
-import type { IEventBase } from '@univerjs/core/facade';
-import type { FWorkbook, FWorksheet } from '@univerjs/sheets/facade';
+import type { RichTextValue } from '@crabtable/core';
+import type { IEventBase } from '@crabtable/core/facade';
+import type { FWorkbook, FWorksheet } from '@crabtable/sheets/facade';
 import type { FTheadCommentItem, FThreadComment } from './f-thread-comment';
-import { FEventName } from '@univerjs/core/facade';
+import { FEventName } from '@crabtable/core/facade';
 
 /**
  * @ignore
@@ -29,7 +29,7 @@ interface ICommentEventMixin {
      * @see {@link ISheetCommentAddEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.CommentAdded, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.CommentAdded, (params) => {
      *   const { comment, workbook, worksheet, row, col } = params;
      *   console.log(params);
      * });
@@ -44,7 +44,7 @@ interface ICommentEventMixin {
      * @see {@link IBeforeSheetCommentAddEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeCommentAdd, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeCommentAdd, (params) => {
      *   const { comment, workbook, worksheet, row, col } = params;
      *   console.log(params);
      *
@@ -62,7 +62,7 @@ interface ICommentEventMixin {
      * @see {@link ISheetCommentUpdateEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.CommentUpdated, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.CommentUpdated, (params) => {
      *   const { comment, workbook, worksheet, row, col } = params;
      *   console.log(params);
      * });
@@ -77,7 +77,7 @@ interface ICommentEventMixin {
      * @see {@link IBeforeSheetCommentUpdateEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeCommentUpdate, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeCommentUpdate, (params) => {
      *   const { comment, workbook, worksheet, row, col, newContent } = params;
      *   console.log(params);
      *
@@ -95,7 +95,7 @@ interface ICommentEventMixin {
      * @see {@link ISheetCommentDeleteEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.CommentDeleted, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.CommentDeleted, (params) => {
      *   const { commentId, workbook, worksheet } = params;
      *   console.log(params);
      * });
@@ -110,7 +110,7 @@ interface ICommentEventMixin {
      * @see {@link IBeforeSheetCommentDeleteEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeCommentDelete, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeCommentDelete, (params) => {
      *   const { comment, workbook, worksheet, row, col } = params;
      *   console.log(params);
      *
@@ -128,7 +128,7 @@ interface ICommentEventMixin {
      * @see {@link ISheetCommentResolveEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.CommentResolved, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.CommentResolved, (params) => {
      *   const { comment, row, col, resolved, workbook, worksheet } = params;
      *   console.log(params);
      * });
@@ -143,7 +143,7 @@ interface ICommentEventMixin {
      * @see {@link ISheetCommentResolveEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeCommentResolve, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeCommentResolve, (params) => {
      *   const { comment, row, col, resolved, workbook, worksheet } = params;
      *   console.log(params);
      *
@@ -353,7 +353,7 @@ export interface ISheetCommentEventConfig {
     CommentResolved: ISheetCommentResolveEvent;
 }
 
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FEventName extends ICommentEventMixin {
     }

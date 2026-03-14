@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { MessageType } from '@univerjs/design';
+import { MessageType } from '@crabtable/design';
 import { describe, expect, it, vi } from 'vitest';
 import { CompleteRecordingActionCommand, StartRecordingActionCommand, StopRecordingActionCommand } from './record.command';
 import { ReplayLocalRecordCommand, ReplayLocalRecordOnActiveCommand, ReplayLocalRecordOnNamesakeCommand } from './replay.command';

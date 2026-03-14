@@ -23,7 +23,7 @@ import type {
     ICommand,
     IRange,
     IStyleData,
-} from '@univerjs/core';
+} from '@crabtable/core';
 
 import type { IBorderInfo } from '../../services/border-style-manager.service';
 import type { ISetRangeValuesMutationParams } from '../mutations/set-range-values.mutation';
@@ -32,11 +32,11 @@ import {
     BorderType,
     CommandType,
     ICommandService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
     ObjectMatrix,
     Tools,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { BorderStyleManagerService } from '../../services/border-style-manager.service';
 import { SheetsSelectionsService } from '../../services/selections/selection.service';
 import { SetRangeValuesMutation, SetRangeValuesUndoMutationFactory } from '../mutations/set-range-values.mutation';
@@ -460,7 +460,7 @@ const clearBorder = (borderContext: ReturnType<typeof getBorderContext>) => {
                         },
                     });
                 }
-                // see https://github.com/dream-num/univer/pull/3506
+                // see https://github.com/AutoCookies/crabtable/pull/3506
                 // Remove the top border from all cells except for the top border of the topmost cell.
                 if (mergedRange.endRow !== range.endRow) {
                     const style = mr.getValue(mergedRange.startRow, mergedRange.startColumn)?.s as IStyleData;
@@ -546,11 +546,11 @@ export const SetBorderCommand: ICommand = {
     handler: (accessor: IAccessor, params?: ISetBorderCommandParams) => {
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const selectionManagerService = accessor.get(SheetsSelectionsService);
         const borderStyleManagerService = accessor.get(BorderStyleManagerService);
 
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const ranges = params?.ranges || selectionManagerService.getCurrentSelections()?.map((s) => s.range);

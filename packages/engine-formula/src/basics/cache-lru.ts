@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { hashAlgorithm, LRUMap } from '@univerjs/core';
+import { hashAlgorithm, LRUMap } from '@crabtable/core';
 
 export class FormulaAstLRU<T> {
     private _cache: LRUMap<string, T>;

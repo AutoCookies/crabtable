@@ -16,7 +16,7 @@
 
 import type { Observable } from 'rxjs';
 import type { ICustomComponentProps } from '../../services/menu/menu';
-import { NamedStyleType } from '@univerjs/core';
+import { NamedStyleType } from '@crabtable/core';
 
 export interface IFontSizeProps extends ICustomComponentProps<number> {
     value: number;

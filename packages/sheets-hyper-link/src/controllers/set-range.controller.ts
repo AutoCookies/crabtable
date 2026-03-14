@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IMutationInfo, Workbook } from '@univerjs/core';
-import type { ISetRangeValuesMutationParams } from '@univerjs/sheets';
-import { BuildTextUtils, CustomRangeType, Disposable, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, generateRandomId, Inject, IUniverInstanceService, ObjectMatrix, Range, TextX, Tools, UniverInstanceType } from '@univerjs/core';
-import { AFTER_CELL_EDIT, ClearSelectionAllCommand, ClearSelectionContentCommand, ClearSelectionFormatCommand, getSheetCommandTarget, SetRangeValuesCommand, SheetInterceptorService, SheetsSelectionsService } from '@univerjs/sheets';
+import type { IMutationInfo, Workbook } from '@crabtable/core';
+import type { ISetRangeValuesMutationParams } from '@crabtable/sheets';
+import { BuildTextUtils, CrabTableInstanceType, CustomRangeType, Disposable, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, generateRandomId, ICrabTableInstanceService, Inject, ObjectMatrix, Range, TextX, Tools } from '@crabtable/core';
+import { AFTER_CELL_EDIT, ClearSelectionAllCommand, ClearSelectionContentCommand, ClearSelectionFormatCommand, getSheetCommandTarget, SetRangeValuesCommand, SheetInterceptorService, SheetsSelectionsService } from '@crabtable/sheets';
 import { AddHyperLinkMutation } from '../commands/mutations/add-hyper-link.mutation';
 import { RemoveHyperLinkMutation } from '../commands/mutations/remove-hyper-link.mutation';
 import { HyperLinkModel } from '../models/hyper-link.model';
@@ -27,7 +27,7 @@ export class SheetHyperLinkSetRangeController extends Disposable {
         @Inject(SheetInterceptorService) private readonly _sheetInterceptorService: SheetInterceptorService,
         @Inject(HyperLinkModel) private readonly _hyperLinkModel: HyperLinkModel,
         @Inject(SheetsSelectionsService) private readonly _selectionManagerService: SheetsSelectionsService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
 
@@ -98,7 +98,7 @@ export class SheetHyperLinkSetRangeController extends Disposable {
                     const redos: IMutationInfo[] = [];
                     const undos: IMutationInfo[] = [];
                     const selection = this._selectionManagerService.getCurrentLastSelection();
-                    const target = getSheetCommandTarget(this._univerInstanceService, command.params);
+                    const target = getSheetCommandTarget(this._crabtableInstanceService, command.params);
                     if (selection && target) {
                         const { unitId, subUnitId } = target;
                         Range.foreach(selection.range, (row, col) => {
@@ -149,7 +149,7 @@ export class SheetHyperLinkSetRangeController extends Disposable {
                     const { unitId, subUnitId, row, col } = context;
 
                     const link = Tools.normalizeUrl(cell.v);
-                    const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+                    const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
                     const worksheet = workbook?.getSheetBySheetId(subUnitId);
                     if (!worksheet) {
                         return next(cell);

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { ICommand, IRange, Nullable } from '@univerjs/core';
+import type { ICommand, IRange, Nullable } from '@crabtable/core';
 import type { IScrollState } from '../../services/scroll-manager.service';
 
-import { CommandType, ICommandService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { getSheetCommandTarget } from '@univerjs/sheets';
+import { CommandType, CrabTableInstanceType, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { getSheetCommandTarget } from '@crabtable/sheets';
 import { SheetsScrollRenderController } from '../../controllers/render-controllers/scroll.render-controller';
 import { SheetScrollManagerService } from '../../services/scroll-manager.service';
 import { SetScrollOperation } from '../operations/scroll.operation';
@@ -64,10 +64,10 @@ export const SetScrollRelativeCommand: ICommand<ISetScrollRelativeCommandParams>
     // this._commandService.executeCommand(SetScrollRelativeCommand.id, { offsetY });
     handler: async (accessor, params: ISetScrollRelativeCommandParams) => {
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const renderManagerSrv = accessor.get(IRenderManagerService);
 
-        const target = getSheetCommandTarget(univerInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { unitId, subUnitId } = target;
@@ -111,10 +111,10 @@ export const ScrollCommand: ICommand<IScrollCommandParams> = {
             return false;
         }
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const renderManagerSrv = accessor.get(IRenderManagerService);
 
-        const target = getSheetCommandTarget(univerInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { workbook, worksheet, unitId } = target;
@@ -163,10 +163,10 @@ export const ScrollToCellCommand: ICommand<IScrollToCellCommandParams> = {
     id: 'sheet.command.scroll-to-cell',
     type: CommandType.COMMAND,
     handler: (accessor, params) => {
-        const instanceService = accessor.get(IUniverInstanceService);
+        const instanceService = accessor.get(ICrabTableInstanceService);
         const renderManagerService = accessor.get(IRenderManagerService);
         const scrollController = renderManagerService
-            .getRenderById(instanceService.getCurrentUnitForType(UniverInstanceType.UNIVER_SHEET)!.getUnitId())!
+            .getRenderById(instanceService.getCurrentUnitForType(CrabTableInstanceType.CRABTABLE_SHEET)!.getUnitId())!
             .with(SheetsScrollRenderController);
         return scrollController.scrollToRange(params!.range, params!.forceTop, params!.forceLeft);
     },
@@ -179,8 +179,8 @@ export const ResetScrollCommand: ICommand = {
     id: 'sheet.command.scroll-view-reset',
     type: CommandType.COMMAND,
     handler: async (accessor) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { subUnitId, unitId } = target;

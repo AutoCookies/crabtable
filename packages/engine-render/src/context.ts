@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { ICanvasColorService } from './services/canvas-color.service';
 import type { IRenderConfig } from './services/render-config';
-import { Tools } from '@univerjs/core';
+import { Tools } from '@crabtable/core';
 import { fixLineWidthByScale, getColor } from './basics/tools';
 
 export interface IUniverRenderingContextOptions {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICellData, ICommand, IMutationInfo, IRange, ISelectionCell, IStyleData, Nullable, Worksheet } from '@univerjs/core';
+import type { IAccessor, ICellData, ICommand, IMutationInfo, IRange, ISelectionCell, IStyleData, Nullable, Worksheet } from '@crabtable/core';
 import type { IMoveRangeMutationParams } from '../mutations/move-range.mutation';
 
 import type { ISetSelectionsOperationParams } from '../operations/selection.operation';
@@ -23,15 +23,15 @@ import {
     CommandType,
     ErrorService,
     ICommandService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
     LocaleService,
     ObjectMatrix,
     Range,
     Rectangle,
     sequenceExecute,
     Tools,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { SelectionMoveType } from '../../services/selections/type';
 import { SheetInterceptorService } from '../../services/sheet-interceptor/sheet-interceptor.service';
 import { MoveRangeMutation } from '../mutations/move-range.mutation';
@@ -53,12 +53,12 @@ export const MoveRangeCommand: ICommand = {
     handler: async (accessor: IAccessor, params: IMoveRangeCommandParams) => {
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const errorService = accessor.get(ErrorService);
         const localeService = accessor.get(LocaleService);
         const sheetInterceptorService = accessor.get(SheetInterceptorService);
 
-        const target = getSheetCommandTarget(univerInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const perform = await sheetInterceptorService.beforeCommandExecute({ id: MoveRangeCommand.id, params });
@@ -155,8 +155,8 @@ export function getMoveRangeUndoRedoMutations(
     const undos: IMutationInfo[] = [];
     const { range: fromRange, subUnitId: fromSubUnitId, unitId } = from;
     const { range: toRange, subUnitId: toSubUnitId } = to;
-    const univerInstanceService = accessor.get(IUniverInstanceService);
-    const workbook = univerInstanceService.getUniverSheetInstance(unitId);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+    const workbook = crabtableInstanceService.getCrabTableSheetInstance(unitId);
     const toWorksheet = workbook?.getSheetBySheetId(toSubUnitId);
     const fromWorksheet = workbook?.getSheetBySheetId(fromSubUnitId);
     const toCellMatrix = toWorksheet?.getCellMatrix();

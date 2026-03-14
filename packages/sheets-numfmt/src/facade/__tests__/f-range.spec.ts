@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-import type { FUniver } from '@univerjs/core/facade';
-import { LifecycleStages } from '@univerjs/core';
+import type { FCrabTable } from '@crabtable/core/facade';
+import { LifecycleStages } from '@crabtable/core';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createFacadeTestBed } from './create-test-bed';
 
 describe('Test FRange', () => {
-    let univerAPI: FUniver;
+    let crabtableAPI: FCrabTable;
 
     beforeEach(() => {
         const testBed = createFacadeTestBed();
 
-        univerAPI = testBed.univerAPI;
+        crabtableAPI = testBed.crabtableAPI;
     });
 
     it('Range setNumberFormat', () => {
-        univerAPI.addEvent(univerAPI.Event.LifeCycleChanged, ({ stage }) => {
+        crabtableAPI.addEvent(crabtableAPI.Event.LifeCycleChanged, ({ stage }) => {
             if (stage === LifecycleStages.Rendered) {
-                const activeSheet = univerAPI.getActiveWorkbook()!.getActiveSheet();
+                const activeSheet = crabtableAPI.getActiveWorkbook()!.getActiveSheet();
                 const range = activeSheet.getRange(0, 0, 1, 1);
                 range.setValue(1234.5678);
                 range.setNumberFormat('#,###');

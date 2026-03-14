@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { DependencyOverride } from '@univerjs/core';
+import type { DependencyOverride } from '@crabtable/core';
 
 export const NETWORK_PLUGIN_CONFIG_KEY = 'network.config';
 
@@ -22,7 +22,7 @@ export const configSymbol = Symbol(NETWORK_PLUGIN_CONFIG_KEY);
 
 export interface IUniverNetworkConfig {
     /**
-     * Use fetch instead of XMLHttpRequest. By default, Univer will use fetch on Node.js and XMLHttpRequest in browser.
+     * Use fetch instead of XMLHttpRequest. By default, CrabTable will use fetch on Node.js and XMLHttpRequest in browser.
      */
     useFetchImpl?: boolean;
 

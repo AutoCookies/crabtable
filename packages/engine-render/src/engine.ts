@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Nullable } from '@univerjs/core';
+import type { IDisposable, Nullable } from '@crabtable/core';
 
 import type { CURSOR_TYPE } from './basics/const';
 import type { IEvent, IKeyboardEvent, IPointerEvent } from './basics/i-events';
 import type { ITimeMetric, ITransformChangeState } from './basics/interfaces';
 import type { IBasicFrameInfo } from './basics/performance-monitor';
 import type { Scene } from './scene';
-import { Disposable, EventSubject, toDisposable, Tools } from '@univerjs/core';
+import { Disposable, EventSubject, toDisposable, Tools } from '@crabtable/core';
 import { Observable, shareReplay, Subject } from 'rxjs';
 import { RENDER_CLASS_TYPE } from './basics/const';
 import { DeviceType, PointerInput } from './basics/i-events';

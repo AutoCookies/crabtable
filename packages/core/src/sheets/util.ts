@@ -44,7 +44,7 @@ export const isUnitRangesEqual = (oldRanges: IUnitRange[], ranges: IUnitRange[])
 
 export const DEFAULT_PADDING_DATA = {
     t: 0,
-    b: 2, // must over 1, see https://github.com/dream-num/univer/issues/2727
+    b: 2, // must over 1, see https://github.com/AutoCookies/crabtable/issues/2727
     l: 2,
     r: 2,
 };

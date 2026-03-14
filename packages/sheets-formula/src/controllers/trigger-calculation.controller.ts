@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, IUnitRange, Nullable } from '@univerjs/core';
+import type { ICommandInfo, IUnitRange, Nullable } from '@crabtable/core';
 import type {
     IDirtyUnitFeatureMap,
     IDirtyUnitOtherFormulaMap,
@@ -23,10 +23,10 @@ import type {
     IFormulaDirtyData,
     ISetFormulaCalculationNotificationMutation,
     ISetFormulaCalculationStartMutation,
-} from '@univerjs/engine-formula';
-import type { ISetRangeValuesMutationParams } from '@univerjs/sheets';
+} from '@crabtable/engine-formula';
+import type { ISetRangeValuesMutationParams } from '@crabtable/sheets';
 import type { IUniverSheetsFormulaBaseConfig } from '../config/config';
-import { Disposable, ICommandService, IConfigService, ILogService, Inject, LocaleService } from '@univerjs/core';
+import { Disposable, ICommandService, IConfigService, ILogService, Inject, LocaleService } from '@crabtable/core';
 import {
     ENGINE_FORMULA_CYCLE_REFERENCE_COUNT,
     ENGINE_FORMULA_RETURN_DEPENDENCY_TREE,
@@ -40,13 +40,13 @@ import {
     SetFormulaCalculationStopMutation,
     SetFormulaStringBatchCalculationMutation,
     SetTriggerFormulaCalculationStartMutation,
-} from '@univerjs/engine-formula';
+} from '@crabtable/engine-formula';
 import {
     ClearSelectionFormatCommand,
     SetBorderCommand,
     SetRangeValuesMutation,
     SetStyleCommand,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { BehaviorSubject } from 'rxjs';
 import { CalculationMode, PLUGIN_CONFIG_KEY_BASE } from '../config/config';
 

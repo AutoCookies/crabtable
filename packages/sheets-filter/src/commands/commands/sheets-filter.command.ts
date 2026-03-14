@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, IMutationInfo, IRange, Nullable, Workbook } from '@univerjs/core';
-import type { ISheetCommandSharedParams } from '@univerjs/sheets';
+import type { IAccessor, ICommand, IMutationInfo, IRange, Nullable, Workbook } from '@crabtable/core';
+import type { ISheetCommandSharedParams } from '@crabtable/sheets';
 import type { FilterColumn } from '../../models/filter-model';
 import type { IAutoFilter, IFilterColumn } from '../../models/types';
 import type { ISetSheetsFilterCriteriaMutationParams, ISetSheetsFilterRangeMutationParams } from '../mutations/sheets-filter.mutation';
-import { CommandType, ErrorService, ICommandService, IUndoRedoService, IUniverInstanceService, LocaleService, sequenceExecute, UniverInstanceType } from '@univerjs/core';
-import { expandToContinuousRange, getSheetCommandTarget, isSingleCellSelection, SheetsSelectionsService } from '@univerjs/sheets';
+import { CommandType, CrabTableInstanceType, ErrorService, ICommandService, ICrabTableInstanceService, IUndoRedoService, LocaleService, sequenceExecute } from '@crabtable/core';
+import { expandToContinuousRange, getSheetCommandTarget, isSingleCellSelection, SheetsSelectionsService } from '@crabtable/sheets';
 import { SheetsFilterService } from '../../services/sheet-filter.service';
 import { ReCalcSheetsFilterMutation, RemoveSheetsFilterMutation, SetSheetsFilterCriteriaMutation, SetSheetsFilterRangeMutation } from '../mutations/sheets-filter.mutation';
 
@@ -43,7 +43,7 @@ export const SetSheetFilterRangeCommand: ICommand<ISetSheetFilterRangeCommandPar
         const sheetsFilterService = accessor.get(SheetsFilterService);
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
-        const instanceSrv = accessor.get(IUniverInstanceService);
+        const instanceSrv = accessor.get(ICrabTableInstanceService);
 
         const { unitId, subUnitId, range } = params;
 
@@ -83,13 +83,13 @@ export const RemoveSheetFilterCommand: ICommand<ISheetCommandSharedParams> = {
     id: 'sheet.command.remove-sheet-filter',
     type: CommandType.COMMAND,
     handler: (accessor, params: ISheetCommandSharedParams) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const sheetsFilterService = accessor.get(SheetsFilterService);
         const commandService = accessor.get(ICommandService);
 
         const undoRedoService = accessor.get(IUndoRedoService);
 
-        const commandTarget = getSheetCommandTarget(univerInstanceService, params);
+        const commandTarget = getSheetCommandTarget(crabtableInstanceService, params);
         if (!commandTarget) return false;
 
         // If there is a filter model, we should remove it and prepare undo redo.
@@ -119,11 +119,11 @@ export const SmartToggleSheetsFilterCommand: ICommand = {
     id: 'sheet.command.smart-toggle-filter',
     type: CommandType.COMMAND,
     handler: async (accessor: IAccessor) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const sheetsFilterService = accessor.get(SheetsFilterService);
         const commandService = accessor.get(ICommandService);
 
-        const currentWorkbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const currentWorkbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         const currentWorksheet = currentWorkbook?.getActiveSheet();
         if (!currentWorksheet || !currentWorkbook) return false;
 
@@ -225,7 +225,7 @@ export const ClearSheetsFilterCriteriaCommand: ICommand<ISheetCommandSharedParam
         const sheetsFilterService = accessor.get(SheetsFilterService);
         const undoRedoService = accessor.get(IUndoRedoService);
         const commandService = accessor.get(ICommandService);
-        const instanceSrv = accessor.get(IUniverInstanceService);
+        const instanceSrv = accessor.get(ICrabTableInstanceService);
 
         const commandTarget = getSheetCommandTarget(instanceSrv, params);
         if (!commandTarget) return false;
@@ -263,7 +263,7 @@ export const ReCalcSheetsFilterCommand: ICommand<ISheetCommandSharedParams> = {
     handler: (accessor, params) => {
         const sheetsFilterService = accessor.get(SheetsFilterService);
         const commandService = accessor.get(ICommandService);
-        const instanceSrv = accessor.get(IUniverInstanceService);
+        const instanceSrv = accessor.get(ICrabTableInstanceService);
 
         const commandTarget = getSheetCommandTarget(instanceSrv, params);
         if (!commandTarget) return false;

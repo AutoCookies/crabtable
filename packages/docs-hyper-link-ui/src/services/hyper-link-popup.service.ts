@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IDisposable, Nullable } from '@univerjs/core';
-import { Disposable, Inject, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { DocCanvasPopManagerService } from '@univerjs/docs-ui';
+import type { DocumentDataModel, IDisposable, Nullable } from '@crabtable/core';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { DocCanvasPopManagerService } from '@crabtable/docs-ui';
 import { BehaviorSubject } from 'rxjs';
 import { DocHyperLinkEdit } from '../views/hyper-link-edit';
 import { DocLinkPopup } from '../views/hyper-link-popup';
@@ -43,7 +43,7 @@ export class DocHyperLinkPopupService extends Disposable {
     constructor(
         @Inject(DocCanvasPopManagerService) private readonly _docCanvasPopupManagerService: DocCanvasPopManagerService,
         @Inject(DocSelectionManagerService) private readonly _textSelectionManagerService: DocSelectionManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
 
@@ -121,7 +121,7 @@ export class DocHyperLinkPopupService extends Disposable {
         if (this._infoPopup) {
             this._infoPopup.dispose();
         }
-        const doc = this._univerInstanceService.getUnit<DocumentDataModel>(unitId, UniverInstanceType.UNIVER_DOC);
+        const doc = this._crabtableInstanceService.getUnit<DocumentDataModel>(unitId, CrabTableInstanceType.CRABTABLE_DOC);
         if (!doc) {
             return;
         }

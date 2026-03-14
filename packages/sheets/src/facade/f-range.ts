@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { AbsoluteRefType, BorderStyleTypes, BorderType, CellValue, CustomData, ICellData, IColorStyle, IDocumentData, IObjectMatrixPrimitiveType, IRange, IStyleData, ITextDecoration, Nullable, Workbook, Worksheet } from '@univerjs/core';
+import type { AbsoluteRefType, BorderStyleTypes, BorderType, CellValue, CustomData, ICellData, IColorStyle, IDocumentData, IObjectMatrixPrimitiveType, IRange, IStyleData, ITextDecoration, Nullable, Workbook, Worksheet } from '@crabtable/core';
 import type {
     AUTO_FILL_APPLY_TYPE,
     IMergeCellsUtilOptions,
@@ -29,12 +29,12 @@ import type {
     ISetVerticalTextAlignCommandParams,
     IStyleTypeValue,
     SplitDelimiterEnum,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import type { IFacadeClearOptions } from './f-worksheet';
 import type { FHorizontalAlignment, FVerticalAlignment } from './utils';
-import { BooleanNumber, covertCellValue, covertCellValues, DEFAULT_STYLES, Dimension, ICommandService, Inject, Injector, isNullCell, Rectangle, RichTextValue, TextStyleValue, WrapStrategy } from '@univerjs/core';
-import { FBaseInitialable } from '@univerjs/core/facade';
-import { FormulaDataModel, serializeRange, serializeRangeWithSheet } from '@univerjs/engine-formula';
+import { BooleanNumber, covertCellValue, covertCellValues, DEFAULT_STYLES, Dimension, ICommandService, Inject, Injector, isNullCell, Rectangle, RichTextValue, TextStyleValue, WrapStrategy } from '@crabtable/core';
+import { FBaseInitialable } from '@crabtable/core/facade';
+import { FormulaDataModel, serializeRange, serializeRangeWithSheet } from '@crabtable/engine-formula';
 import {
     addMergeCellsUtil,
     AutoFillCommand,
@@ -61,7 +61,7 @@ import {
     SetWorksheetRangeThemeStyleCommand,
     SheetRangeThemeService,
     SplitTextToColumnsCommand,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { FWorkbook } from './f-workbook';
 import { FWorksheet } from './f-worksheet';
 import { FRangePermission } from './permission/f-range-permission';
@@ -125,7 +125,7 @@ export class FRange extends FBaseInitialable {
      * @returns {string} The unit ID of the workbook
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getUnitId());
@@ -140,7 +140,7 @@ export class FRange extends FBaseInitialable {
      * @returns {string} The name of the worksheet
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getSheetName());
@@ -155,7 +155,7 @@ export class FRange extends FBaseInitialable {
      * @returns {string} The ID of the worksheet
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getSheetId());
@@ -170,7 +170,7 @@ export class FRange extends FBaseInitialable {
      * @returns {IRange} The area where the statement is applied
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * const range = fRange.getRange();
@@ -187,7 +187,7 @@ export class FRange extends FBaseInitialable {
      * @returns {number} The starting row index of the range.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getRow()); // 0
@@ -202,7 +202,7 @@ export class FRange extends FBaseInitialable {
      * @returns {number} The ending row index of the range.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getLastRow()); // 1
@@ -217,7 +217,7 @@ export class FRange extends FBaseInitialable {
      * @returns {number} The starting column index of the range.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getColumn()); // 0
@@ -232,7 +232,7 @@ export class FRange extends FBaseInitialable {
      * @returns {number} The ending column index of the range.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getLastColumn()); // 1
@@ -247,7 +247,7 @@ export class FRange extends FBaseInitialable {
      * @returns {number} The width of the area
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getWidth());
@@ -262,7 +262,7 @@ export class FRange extends FBaseInitialable {
      * @returns {number} The height of the area
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getHeight());
@@ -277,7 +277,7 @@ export class FRange extends FBaseInitialable {
      * @returns {boolean} if true is merged
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.isMerged());
@@ -304,7 +304,7 @@ export class FRange extends FBaseInitialable {
      * @returns {IStyleData | null} The cell style data
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getCellStyleData());
@@ -329,7 +329,7 @@ export class FRange extends FBaseInitialable {
      * @returns {string | null} The font family of the cell
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getFontFamily());
@@ -350,7 +350,7 @@ export class FRange extends FBaseInitialable {
      * @returns {number | null} The font size of the cell
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getFontSize());
@@ -371,7 +371,7 @@ export class FRange extends FBaseInitialable {
      * @returns {TextStyleValue | null} The cell style
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getCellStyle());
@@ -393,7 +393,7 @@ export class FRange extends FBaseInitialable {
      * @returns {Array<Array<TextStyleValue | null>>} A two-dimensional array of cell styles.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getCellStyles());
@@ -417,7 +417,7 @@ export class FRange extends FBaseInitialable {
      * @returns {CellValue | null} The cell value
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getValue());
@@ -434,13 +434,13 @@ export class FRange extends FBaseInitialable {
      * @returns {CellValue | RichTextValue | null} The cell value
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getValue(true));
      *
      * // set the first cell value to 123
-     * const richText = univerAPI.newRichText({ body: { dataStream: 'Hello World\r\n' } })
+     * const richText = crabtableAPI.newRichText({ body: { dataStream: 'Hello World\r\n' } })
      *   .setStyle(0, 1, { bl: 1, cl: { rgb: '#c81e1e' } })
      *   .setStyle(6, 7, { bl: 1, cl: { rgb: '#c81e1e' } });
      * fRange.setRichTextValueForCell(richText);
@@ -461,7 +461,7 @@ export class FRange extends FBaseInitialable {
      * @returns {Nullable<CellValue>} The raw value of the cell. Returns `null` if the cell is empty.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setValueForCell({
@@ -486,7 +486,7 @@ export class FRange extends FBaseInitialable {
      * @returns {string} The displayed value of the cell. Returns an empty string if the cell is empty.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setValueForCell({
@@ -512,7 +512,7 @@ export class FRange extends FBaseInitialable {
      * @example
      * ```ts
      * // Get plain values
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getValues());
@@ -526,7 +526,7 @@ export class FRange extends FBaseInitialable {
      * @example
      * ```ts
      * // Get values with rich text if available
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getValues(true));
@@ -558,7 +558,7 @@ export class FRange extends FBaseInitialable {
      * @returns {Array<Array<Nullable<CellValue>>>} The raw value of the cell. Returns `null` if the cell is empty.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setValues([
@@ -623,7 +623,7 @@ export class FRange extends FBaseInitialable {
      * @returns {string[][]} A two-dimensional array of values.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setValues([
@@ -688,7 +688,7 @@ export class FRange extends FBaseInitialable {
      * @returns {ICellData | null} The cell model data
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getCellData());
@@ -703,7 +703,7 @@ export class FRange extends FBaseInitialable {
      * @returns {Nullable<ICellData>[][]} A two-dimensional array of cell data.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getCellDatas());
@@ -718,7 +718,7 @@ export class FRange extends FBaseInitialable {
      * @returns {Nullable<ICellData>[][]} A two-dimensional array of cell data.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getCellDataGrid());
@@ -745,7 +745,7 @@ export class FRange extends FBaseInitialable {
      * @beta
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getRichTextValue());
@@ -767,7 +767,7 @@ export class FRange extends FBaseInitialable {
      * @beta
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getRichTextValues());
@@ -785,7 +785,7 @@ export class FRange extends FBaseInitialable {
      * @beta
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getValueAndRichTextValue());
@@ -801,7 +801,7 @@ export class FRange extends FBaseInitialable {
      * @returns {Nullable<CellValue | RichTextValue>[][]} A two-dimensional array of value and rich text value
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getValueAndRichTextValues());
@@ -817,7 +817,7 @@ export class FRange extends FBaseInitialable {
      * @returns {string} The formula for the cell.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getFormula());
@@ -837,7 +837,7 @@ export class FRange extends FBaseInitialable {
      * @returns {string[][]} A two-dimensional array of formulas in string format.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getFormulas());
@@ -869,7 +869,7 @@ export class FRange extends FBaseInitialable {
      * @returns {boolean} whether text wrapping is enabled for the cell.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getWrap());
@@ -884,7 +884,7 @@ export class FRange extends FBaseInitialable {
      * @returns {boolean[][]} A two-dimensional array of whether text wrapping is enabled for each cell in the range.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getWraps());
@@ -900,7 +900,7 @@ export class FRange extends FBaseInitialable {
      * @returns {WrapStrategy} The text wrapping strategy
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getWrapStrategy());
@@ -915,7 +915,7 @@ export class FRange extends FBaseInitialable {
      * @returns {string} The horizontal alignment of the text in the cell.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getHorizontalAlignment());
@@ -931,7 +931,7 @@ export class FRange extends FBaseInitialable {
      * @returns {string[][]} A two-dimensional array of horizontal alignments of text associated with cells in the range.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getHorizontalAlignments());
@@ -947,7 +947,7 @@ export class FRange extends FBaseInitialable {
      * @returns {string} The vertical alignment of the text in the cell.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getVerticalAlignment());
@@ -962,7 +962,7 @@ export class FRange extends FBaseInitialable {
      * @returns {string[][]} A two-dimensional array of vertical alignments of text associated with cells in the range.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getVerticalAlignments());
@@ -978,7 +978,7 @@ export class FRange extends FBaseInitialable {
      * @param {CustomData} data The custom meta data
      * @returns {FRange} This range, for chaining
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setCustomMetaData({ key: 'value' });
@@ -1005,7 +1005,7 @@ export class FRange extends FBaseInitialable {
      * @param {CustomData[][]} datas The custom meta data
      * @returns {FRange} This range, for chaining
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setCustomMetaDatas([
@@ -1033,7 +1033,7 @@ export class FRange extends FBaseInitialable {
      * @returns {CustomData | null} The custom meta data
      * @example
      * ```
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getCustomMetaData());
@@ -1049,7 +1049,7 @@ export class FRange extends FBaseInitialable {
      * @returns {CustomData[][]} A two-dimensional array of custom meta data
      * @example
      * ```
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getCustomMetaDatas());
@@ -1068,10 +1068,10 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} This range, for chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
-     * fRange.setBorder(univerAPI.Enum.BorderType.ALL, univerAPI.Enum.BorderStyleTypes.THIN, '#ff0000');
+     * fRange.setBorder(crabtableAPI.Enum.BorderType.ALL, crabtableAPI.Enum.BorderStyleTypes.THIN, '#ff0000');
      * ```
      */
     setBorder(type: BorderType, style: BorderStyleTypes, color?: string): FRange {
@@ -1095,7 +1095,7 @@ export class FRange extends FBaseInitialable {
      * @returns {string} The color code of the background.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getBackground());
@@ -1111,7 +1111,7 @@ export class FRange extends FBaseInitialable {
      * @returns {string[][]} A two-dimensional array of color codes of the backgrounds.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getBackgrounds());
@@ -1128,7 +1128,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} This range, for chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setBackgroundColor('red');
@@ -1155,7 +1155,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} This range, for chaining
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setBackground('red');
@@ -1172,7 +1172,7 @@ export class FRange extends FBaseInitialable {
      * @returns This range, for chaining
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setTextRotation(45);
@@ -1193,7 +1193,7 @@ export class FRange extends FBaseInitialable {
      * @param {CellValue | ICellData} value The value can be a number, string, boolean, or standard cell format. If it begins with `=`, it is interpreted as a formula. The value is tiled to all cells in the range.
      * @returns {FRange} This range, for chaining
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('B2');
      * fRange.setValue(123);
@@ -1224,7 +1224,7 @@ export class FRange extends FBaseInitialable {
      * @param {CellValue | ICellData} value  The value can be a number, string, boolean, or standard cell format. If it begins with `=`, it is interpreted as a formula. The value is tiled to all cells in the range.
      * @returns {FRange} This range, for chaining
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setValueForCell(123);
@@ -1261,13 +1261,13 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} The range
      * @example
      * ```
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getValue(true));
      *
      * // Set A1 cell value to rich text
-     * const richText = univerAPI.newRichText()
+     * const richText = crabtableAPI.newRichText()
      *   .insertText('Hello World')
      *   .setStyle(0, 1, { bl: 1, cl: { rgb: '#c81e1e' } })
      *   .setStyle(6, 7, { bl: 1, cl: { rgb: '#c81e1e' } });
@@ -1298,13 +1298,13 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} The range
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getValue(true));
      *
      * // Set A1:B2 cell value to rich text
-     * const richText = univerAPI.newRichText()
+     * const richText = crabtableAPI.newRichText()
      *   .insertText('Hello World')
      *   .setStyle(0, 1, { bl: 1, cl: { rgb: '#c81e1e' } })
      *   .setStyle(6, 7, { bl: 1, cl: { rgb: '#c81e1e' } });
@@ -1336,7 +1336,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} this range, for chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setWrap(true);
@@ -1360,10 +1360,10 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} this range, for chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
-     * fRange.setWrapStrategy(univerAPI.Enum.WrapStrategy.WRAP);
+     * fRange.setWrapStrategy(crabtableAPI.Enum.WrapStrategy.WRAP);
      * console.log(fRange.getWrapStrategy());
      * ```
      */
@@ -1384,7 +1384,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} this range, for chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setVerticalAlignment('top');
@@ -1407,7 +1407,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} this range, for chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setHorizontalAlignment('left');
@@ -1430,7 +1430,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} This range, for chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setValues([
@@ -1464,7 +1464,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} This range, for chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setFontWeight('bold');
@@ -1505,7 +1505,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} This range, for chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setFontStyle('italic');
@@ -1546,7 +1546,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} This range, for chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setFontLine('underline');
@@ -1623,7 +1623,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} This range, for chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setFontFamily('Arial');
@@ -1652,7 +1652,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} This range, for chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setFontSize(24);
@@ -1681,7 +1681,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} This range, for chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setFontColor('#ff0000');
@@ -1718,7 +1718,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} This range, for chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.merge();
@@ -1726,7 +1726,7 @@ export class FRange extends FBaseInitialable {
      * ```
      *
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('B1:C2');
      * // Assume A1:B2 is already merged.
@@ -1751,7 +1751,7 @@ export class FRange extends FBaseInitialable {
      * @example
      * ```ts
      * // Assume the active sheet is a new sheet with no merged cells.
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.mergeAcross();
@@ -1763,7 +1763,7 @@ export class FRange extends FBaseInitialable {
      * ```
      *
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('B1:C2');
      * // Assume A1:B2 is already merged.
@@ -1789,7 +1789,7 @@ export class FRange extends FBaseInitialable {
      * @example
      * ```ts
      * // Assume the active sheet is a new sheet with no merged cells.
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.mergeVertically();
@@ -1801,7 +1801,7 @@ export class FRange extends FBaseInitialable {
      * ```
      *
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('B1:C2');
      * // Assume A1:B2 is already merged.
@@ -1823,7 +1823,7 @@ export class FRange extends FBaseInitialable {
      * @returns {boolean} is overlap with a merged cell
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.merge();
@@ -1841,7 +1841,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} This range, for chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.merge();
@@ -1869,7 +1869,7 @@ export class FRange extends FBaseInitialable {
      * @param {number} callback.col the column number of the cell
      * @param {ICellData} callback.cell the cell data
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.forEach((row, col, cell) => {
@@ -1894,7 +1894,7 @@ export class FRange extends FBaseInitialable {
      * @param {AbsoluteRefType} [endAbsoluteRefType] - The absolute reference type for the end cell.
      * @returns {string} The A1 notation of the range.
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // By default, the A1 notation is returned without the sheet name and without absolute reference types.
@@ -1906,17 +1906,17 @@ export class FRange extends FBaseInitialable {
      * console.log(fRange.getA1Notation(true)); // Sheet1!A1:B2
      *
      * // By setting startAbsoluteRefType, the absolute reference type for the start cell is included in the A1 notation.
-     * console.log(fRange.getA1Notation(false, univerAPI.Enum.AbsoluteRefType.ROW)); // A$1:B2
-     * console.log(fRange.getA1Notation(false, univerAPI.Enum.AbsoluteRefType.COLUMN)); // $A1:B2
-     * console.log(fRange.getA1Notation(false, univerAPI.Enum.AbsoluteRefType.ALL)); // $A$1:B2
+     * console.log(fRange.getA1Notation(false, crabtableAPI.Enum.AbsoluteRefType.ROW)); // A$1:B2
+     * console.log(fRange.getA1Notation(false, crabtableAPI.Enum.AbsoluteRefType.COLUMN)); // $A1:B2
+     * console.log(fRange.getA1Notation(false, crabtableAPI.Enum.AbsoluteRefType.ALL)); // $A$1:B2
      *
      * // By setting endAbsoluteRefType, the absolute reference type for the end cell is included in the A1 notation.
-     * console.log(fRange.getA1Notation(false, null, univerAPI.Enum.AbsoluteRefType.ROW)); // A1:B$2
-     * console.log(fRange.getA1Notation(false, null, univerAPI.Enum.AbsoluteRefType.COLUMN)); // A1:$B2
-     * console.log(fRange.getA1Notation(false, null, univerAPI.Enum.AbsoluteRefType.ALL)); // A1:$B$2
+     * console.log(fRange.getA1Notation(false, null, crabtableAPI.Enum.AbsoluteRefType.ROW)); // A1:B$2
+     * console.log(fRange.getA1Notation(false, null, crabtableAPI.Enum.AbsoluteRefType.COLUMN)); // A1:$B2
+     * console.log(fRange.getA1Notation(false, null, crabtableAPI.Enum.AbsoluteRefType.ALL)); // A1:$B$2
      *
      * // By setting all parameters example
-     * console.log(fRange.getA1Notation(true, univerAPI.Enum.AbsoluteRefType.ALL, univerAPI.Enum.AbsoluteRefType.ALL)); // Sheet1!$A$1:$B$2
+     * console.log(fRange.getA1Notation(true, crabtableAPI.Enum.AbsoluteRefType.ALL, crabtableAPI.Enum.AbsoluteRefType.ALL)); // Sheet1!$A$1:$B$2
      * ```
      */
     getA1Notation(withSheet?: boolean, startAbsoluteRefType?: AbsoluteRefType, endAbsoluteRefType?: AbsoluteRefType): string {
@@ -1934,7 +1934,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange}  This range, for chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.activate(); // the active cell will be A1
@@ -1954,7 +1954,7 @@ export class FRange extends FBaseInitialable {
      * @description If the range is not a single cell, an error will be thrown.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Set the range A1:B2 as the active range, default active cell is A1
@@ -2021,7 +2021,7 @@ export class FRange extends FBaseInitialable {
      * @param {boolean} [treatMultipleDelimitersAsOne] Whether to treat multiple continuous delimiters as one. The default value is false.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // A1:A3 has following values:
@@ -2055,7 +2055,7 @@ export class FRange extends FBaseInitialable {
      * @param {SplitDelimiterEnum} [delimiter] The delimiter to use to split the text. The default delimiter is Tab(1)、Comma(2)、Semicolon(4)、Space(8)、Custom(16).A delimiter like 6 (SplitDelimiterEnum.Comma|SplitDelimiterEnum.Semicolon) means using Comma and Semicolon to split the text.
      * @example Show how to split text to columns with combined delimiter. The bit operations are used to combine the delimiters.
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // A1:A3 has following values:
@@ -2069,17 +2069,17 @@ export class FRange extends FBaseInitialable {
      *   ['1;,2;3']
      * ]);
      *
-     * // After calling splitTextToColumns(false, univerAPI.Enum.SplitDelimiterType.Semicolon|univerAPI.Enum.SplitDelimiterType.Comma), the range will be:
+     * // After calling splitTextToColumns(false, crabtableAPI.Enum.SplitDelimiterType.Semicolon|crabtableAPI.Enum.SplitDelimiterType.Comma), the range will be:
      * //  A |   |   |
      * //  1 |   | 2 | 3
      * //  1 |   | 2 | 3
-     * fRange.splitTextToColumns(false, univerAPI.Enum.SplitDelimiterType.Semicolon|univerAPI.Enum.SplitDelimiterType.Comma);
+     * fRange.splitTextToColumns(false, crabtableAPI.Enum.SplitDelimiterType.Semicolon|crabtableAPI.Enum.SplitDelimiterType.Comma);
      *
-     * // After calling splitTextToColumns(true, univerAPI.Enum.SplitDelimiterType.Semicolon|univerAPI.Enum.SplitDelimiterType.Comma), the range will be:
+     * // After calling splitTextToColumns(true, crabtableAPI.Enum.SplitDelimiterType.Semicolon|crabtableAPI.Enum.SplitDelimiterType.Comma), the range will be:
      * //  A |   |
      * //  1 | 2 | 3
      * //  1 | 2 | 3
-     * fRange.splitTextToColumns(true, univerAPI.Enum.SplitDelimiterType.Semicolon|univerAPI.Enum.SplitDelimiterType.Comma);
+     * fRange.splitTextToColumns(true, crabtableAPI.Enum.SplitDelimiterType.Semicolon|crabtableAPI.Enum.SplitDelimiterType.Comma);
      * ```
      */
     splitTextToColumns(treatMultipleDelimitersAsOne?: boolean, delimiter?: SplitDelimiterEnum): void;
@@ -2090,7 +2090,7 @@ export class FRange extends FBaseInitialable {
      * @param {string} [customDelimiter] The custom delimiter to split the text. An error will be thrown if custom delimiter is set but the customDelimiter is not a character.
      * @example Show how to split text to columns with custom delimiter
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // A1:A3 has following values:
@@ -2104,17 +2104,17 @@ export class FRange extends FBaseInitialable {
      *   ['4##5#6']
      * ]);
      *
-     * // After calling splitTextToColumns(false, univerAPI.Enum.SplitDelimiterType.Custom, '#'), the range will be:
+     * // After calling splitTextToColumns(false, crabtableAPI.Enum.SplitDelimiterType.Custom, '#'), the range will be:
      * //  A |   |   |
      * //  1 | 2 | 3 |
      * //  4 |   | 5 | 6
-     * fRange.splitTextToColumns(false, univerAPI.Enum.SplitDelimiterType.Custom, '#');
+     * fRange.splitTextToColumns(false, crabtableAPI.Enum.SplitDelimiterType.Custom, '#');
      *
-     * // After calling splitTextToColumns(true, univerAPI.Enum.SplitDelimiterType.Custom, '#'), the range will be:
+     * // After calling splitTextToColumns(true, crabtableAPI.Enum.SplitDelimiterType.Custom, '#'), the range will be:
      * //  A |   |
      * //  1 | 2 | 3
      * //  4 | 5 | 6
-     * fRange.splitTextToColumns(true, univerAPI.Enum.SplitDelimiterType.Custom, '#');
+     * fRange.splitTextToColumns(true, crabtableAPI.Enum.SplitDelimiterType.Custom, '#');
      * ```
      */
     splitTextToColumns(treatMultipleDelimitersAsOne?: boolean, delimiter?: SplitDelimiterEnum, customDelimiter?: string): void {
@@ -2133,7 +2133,7 @@ export class FRange extends FBaseInitialable {
      * @param {string|undefined} themeName The name of the theme style to apply.If a undefined value is passed, the theme style will be removed if it exist.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:E20');
      * fRange.useThemeStyle('default');
@@ -2160,7 +2160,7 @@ export class FRange extends FBaseInitialable {
      * @param {string} themeName The name of the theme style to remove.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:E20');
      * fRange.removeThemeStyle('default');
@@ -2180,7 +2180,7 @@ export class FRange extends FBaseInitialable {
      * @returns {string | undefined} The name of the theme style applied to the range or not exist.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:E20');
      * console.log(fRange.getUsedThemeStyle()); // undefined
@@ -2204,7 +2204,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FWorksheet} Returns the current worksheet instance for method chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorkSheet = fWorkbook.getActiveSheet();
      * const fRange = fWorkSheet.getRange('A1:D10');
      *
@@ -2238,7 +2238,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FWorksheet} Returns the current worksheet instance for method chaining
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorkSheet = fWorkbook.getActiveSheet();
      * const fRange = fWorkSheet.getRange('A1:D10');
      *
@@ -2260,7 +2260,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FWorksheet} Returns the current worksheet instance for method chaining
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorkSheet = fWorkbook.getActiveSheet();
      * const fRange = fWorkSheet.getRange('A1:D10');
      * // clear the format only of the range A1:D10
@@ -2282,7 +2282,7 @@ export class FRange extends FBaseInitialable {
      * @example
      * ```ts
      * // Assume the active sheet empty sheet.
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const values = [
      *   [1, 2, 3, 4],
@@ -2309,7 +2309,7 @@ export class FRange extends FBaseInitialable {
      * // 4 | 5 | 6 | 7
      * // 5 | 6 | 7 | 8
      * const fRange2 = fWorksheet.getRange('A1:B2');
-     * fRange2.insertCells(univerAPI.Enum.Dimension.COLUMNS);
+     * fRange2.insertCells(crabtableAPI.Enum.Dimension.COLUMNS);
      * console.log(fWorksheet.getRange('A1:D5').getValues()); // [[null, null, 1, 2], [null, null, 2, 3], [3, 4, 5, 6], [4, 5, 6, 7], [5, 6, 7, 8]]
      *
      * // Set the range A1:D5 values again, the range A1:D5 will be:
@@ -2327,7 +2327,7 @@ export class FRange extends FBaseInitialable {
      * // 2 | 3 | 6 | 7
      * // 3 | 4 | 7 | 8
      * const fRange3 = fWorksheet.getRange('A1:B2');
-     * fRange3.insertCells(univerAPI.Enum.Dimension.ROWS);
+     * fRange3.insertCells(crabtableAPI.Enum.Dimension.ROWS);
      * console.log(fWorksheet.getRange('A1:D5').getValues()); // [[null, null, 3, 4], [null, null, 4, 5], [1, 2, 5, 6], [2, 3, 6, 7], [3, 4, 7, 8]]
      * ```
      */
@@ -2349,7 +2349,7 @@ export class FRange extends FBaseInitialable {
      * @example
      * ```ts
      * // Assume the active sheet empty sheet.
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const values = [
      *   [1, 2, 3, 4],
@@ -2376,7 +2376,7 @@ export class FRange extends FBaseInitialable {
      * // 4 | 5 | 6 | 7
      * // 5 | 6 | 7 | 8
      * const fRange2 = fWorksheet.getRange('A1:B2');
-     * fRange2.deleteCells(univerAPI.Enum.Dimension.COLUMNS);
+     * fRange2.deleteCells(crabtableAPI.Enum.Dimension.COLUMNS);
      * console.log(fWorksheet.getRange('A1:D5').getValues()); // [[3, 4, null, null], [4, 5, null, null], [3, 4, 5, 6], [4, 5, 6, 7], [5, 6, 7, 8]]
      *
      * // Set the range A1:D5 values again, the range A1:D5 will be:
@@ -2394,7 +2394,7 @@ export class FRange extends FBaseInitialable {
      * //   |   | 6 | 7
      * //   |   | 7 | 8
      * const fRange3 = fWorksheet.getRange('A1:B2');
-     * fRange3.deleteCells(univerAPI.Enum.Dimension.ROWS);
+     * fRange3.deleteCells(crabtableAPI.Enum.Dimension.ROWS);
      * console.log(fWorksheet.getRange('A1:D5').getValues()); // [[3, 4, 3, 4], [4, 5, 4, 5], [5, 6, 5, 6], [null, null, 6, 7], [null, null, 7, 8]]
      * ```
      */
@@ -2420,7 +2420,7 @@ export class FRange extends FBaseInitialable {
      * @example
      * ```ts
      * // Assume the active sheet is a new sheet with no data.
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Set the range A1:D4 with some values, the range A1:D4 will be:
@@ -2434,11 +2434,11 @@ export class FRange extends FBaseInitialable {
      * fWorksheet.getRange('C4').setValue(100);
      *
      * // Get C3 data region along the rows dimension, the range will be C2:D4
-     * const range = fWorksheet.getRange('C3').getDataRegion(univerAPI.Enum.Dimension.ROWS);
+     * const range = fWorksheet.getRange('C3').getDataRegion(crabtableAPI.Enum.Dimension.ROWS);
      * console.log(range.getA1Notation()); // C2:C4
      *
      * // Get C3 data region along the columns dimension, the range will be B3:D3
-     * const range2 = fWorksheet.getRange('C3').getDataRegion(univerAPI.Enum.Dimension.COLUMNS);
+     * const range2 = fWorksheet.getRange('C3').getDataRegion(crabtableAPI.Enum.Dimension.COLUMNS);
      * console.log(range2.getA1Notation()); // B3:D3
      *
      * // Get C3 data region along the both dimension, the range will be B2:D4
@@ -2529,7 +2529,7 @@ export class FRange extends FBaseInitialable {
      * @example
      * ```ts
      * // Assume the active sheet is a new sheet with no data.
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.isBlank()); // true
@@ -2569,7 +2569,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} The new range.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getA1Notation()); // A1:B2
@@ -2588,7 +2588,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} The new range.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getA1Notation()); // A1:B2
@@ -2608,7 +2608,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} The new range.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * console.log(fRange.getA1Notation()); // A1:B2
@@ -2644,7 +2644,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} This range instance for chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1');
      * fRange.setFormula('=SUM(A2:A5)');
@@ -2663,7 +2663,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FRange} This range instance for chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setFormulas([
@@ -2683,7 +2683,7 @@ export class FRange extends FBaseInitialable {
      * @returns {FRangePermission} - The RangePermission instance.
      * @example
      * ```ts
-     * const fWorksheet = univerAPI.getActiveWorkbook().getActiveSheet();
+     * const fWorksheet = crabtableAPI.getActiveWorkbook().getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B10');
      * const permission = fRange.getRangePermission();
      *
@@ -2725,7 +2725,7 @@ export class FRange extends FBaseInitialable {
      * @example
      * ```ts
      * // Auto-fill the range D1:D10 based on the data in the range C1:C2
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:A4');
      *
@@ -2741,7 +2741,7 @@ export class FRange extends FBaseInitialable {
      *
      * ```ts
      * // Operate on a specific worksheet
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getSheetBySheetId('sheetId');
      * const fRange = fWorksheet.getRange('A1:A4');
      *

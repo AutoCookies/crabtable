@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICellWithCoord, IRange, IRangeWithCoord, ISelectionCell } from '@univerjs/core';
-import type { SpreadsheetSkeleton } from '@univerjs/engine-render';
-import type { ISelectionWithCoord, ISelectionWithStyle } from '@univerjs/sheets';
+import type { ICellWithCoord, IRange, IRangeWithCoord, ISelectionCell } from '@crabtable/core';
+import type { SpreadsheetSkeleton } from '@crabtable/engine-render';
+import type { ISelectionWithCoord, ISelectionWithStyle } from '@crabtable/sheets';
 
 /**
  * Add startXY endXY to range, XY are no merge cell position.

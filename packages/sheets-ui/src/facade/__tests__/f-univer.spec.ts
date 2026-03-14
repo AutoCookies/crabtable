@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { DOCS_NORMAL_EDITOR_UNIT_ID_KEY, ICommandService, IPermissionService, IUniverInstanceService, LifecycleService, LifecycleStages } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { EditorService, IEditorService } from '@univerjs/docs-ui';
-import { DefinedNamesService, IDefinedNamesService } from '@univerjs/engine-formula';
-import { IRefSelectionsService, RefSelectionsService, SheetsSelectionsService } from '@univerjs/sheets';
-import { DragManagerService, EditorBridgeService, HoverManagerService, IEditorBridgeService, ISheetClipboardService, SheetPasteShortKeyCommand, SheetPermissionRenderManagerService } from '@univerjs/sheets-ui';
-import { IClipboardInterfaceService } from '@univerjs/ui';
+import { DOCS_NORMAL_EDITOR_UNIT_ID_KEY, ICommandService, ICrabTableInstanceService, IPermissionService, LifecycleService, LifecycleStages } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { EditorService, IEditorService } from '@crabtable/docs-ui';
+import { DefinedNamesService, IDefinedNamesService } from '@crabtable/engine-formula';
+import { IRefSelectionsService, RefSelectionsService, SheetsSelectionsService } from '@crabtable/sheets';
+import { DragManagerService, EditorBridgeService, HoverManagerService, IEditorBridgeService, ISheetClipboardService, SheetPasteShortKeyCommand, SheetPermissionRenderManagerService } from '@crabtable/sheets-ui';
+import { IClipboardInterfaceService } from '@crabtable/ui';
 import { Subject } from 'rxjs';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { SetCellEditVisibleOperation } from '../../commands/operations/cell-edit.operation';
@@ -66,7 +66,7 @@ interface ITestDragCell extends ITestHoverCell {
 }
 
 type ITestUniverAPI = typeof createFacadeTestBed extends (...args: never[]) => infer TResult
-    ? TResult extends { univerAPI: infer TApi }
+    ? TResult extends { crabtableAPI: infer TApi }
         ? TApi & {
             _generateClipboardCopyParam: () => ITestClipboardParam | undefined;
             _generateClipboardPasteParam: (params: ITestPasteParam) => ITestClipboardParam | undefined;
@@ -80,7 +80,7 @@ type ITestUniverAPI = typeof createFacadeTestBed extends (...args: never[]) => i
         : never
     : never;
 
-describe('Test FUniver UI mixin', () => {
+describe('Test FCrabTable UI mixin', () => {
     const clipboardService = {
         generateCopyContent: vi.fn(() => ({ html: '<b>a</b>', plain: 'a' })),
     };
@@ -112,54 +112,54 @@ describe('Test FUniver UI mixin', () => {
             [SheetsSelectionsService],
         ]);
 
-        const univerAPI = testBed.univerAPI as ITestUniverAPI;
+        const crabtableAPI = testBed.crabtableAPI as ITestUniverAPI;
         const commandService = testBed.get(ICommandService);
-        const sheet = testBed.univerAPI.getActiveWorkbook()!.getActiveSheet();
+        const sheet = testBed.crabtableAPI.getActiveWorkbook()!.getActiveSheet();
         const activeWorkbookMock = {
             getId: () => 'test',
             getActiveSheet: () => sheet,
             getActiveRange: () => ({ getRange: () => ({ startRow: 0, startColumn: 0, endRow: 0, endColumn: 0 }) }),
         };
-        vi.spyOn(univerAPI, 'getActiveWorkbook').mockReturnValue(activeWorkbookMock as never);
+        vi.spyOn(crabtableAPI, 'getActiveWorkbook').mockReturnValue(activeWorkbookMock as never);
 
         const executeSpy = vi.spyOn(commandService, 'executeCommand').mockResolvedValue(true as never);
-        await expect(testBed.univerAPI.pasteIntoSheet('<i>x</i>', 'x')).resolves.toBe(true);
+        await expect(testBed.crabtableAPI.pasteIntoSheet('<i>x</i>', 'x')).resolves.toBe(true);
         expect(executeSpy).toHaveBeenCalledWith(SheetPasteShortKeyCommand.id, {
             htmlContent: '<i>x</i>',
             textContent: 'x',
             files: undefined,
         });
 
-        testBed.univerAPI.setProtectedRangeShadowStrategy('none');
+        testBed.crabtableAPI.setProtectedRangeShadowStrategy('none');
         expect(renderPermissionService.setProtectedRangeShadowStrategy).toHaveBeenCalledWith('none');
-        expect(testBed.univerAPI.getProtectedRangeShadowStrategy()).toBe('always');
-        expect(testBed.univerAPI.getProtectedRangeShadowStrategy$()).toBeTruthy();
+        expect(testBed.crabtableAPI.getProtectedRangeShadowStrategy()).toBe('always');
+        expect(testBed.crabtableAPI.getProtectedRangeShadowStrategy$()).toBeTruthy();
 
         const permissionService = testBed.get(IPermissionService);
         const setShowComponentsSpy = vi.spyOn(permissionService, 'setShowComponents');
-        testBed.univerAPI.setPermissionDialogVisible(false);
+        testBed.crabtableAPI.setPermissionDialogVisible(false);
         expect(setShowComponentsSpy).toHaveBeenCalledWith(false);
 
-        const copyParams = univerAPI._generateClipboardCopyParam();
+        const copyParams = crabtableAPI._generateClipboardCopyParam();
         expect(copyParams?.text).toBe('a');
         expect(copyParams?.html).toBe('<b>a</b>');
 
-        const pasteParams = univerAPI._generateClipboardPasteParam({ htmlContent: '<p>1</p>', textContent: '1' });
+        const pasteParams = crabtableAPI._generateClipboardPasteParam({ htmlContent: '<p>1</p>', textContent: '1' });
         expect(pasteParams?.text).toBe('1');
         expect(pasteParams?.html).toBe('<p>1</p>');
 
-        const fireEventSpy = vi.spyOn(univerAPI, 'fireEvent');
-        univerAPI._beforeClipboardPaste({ htmlContent: '<p>2</p>', textContent: '2' });
-        univerAPI._clipboardPaste({ htmlContent: '<p>3</p>', textContent: '3' });
+        const fireEventSpy = vi.spyOn(crabtableAPI, 'fireEvent');
+        crabtableAPI._beforeClipboardPaste({ htmlContent: '<p>2</p>', textContent: '2' });
+        crabtableAPI._clipboardPaste({ htmlContent: '<p>3</p>', textContent: '3' });
         expect(fireEventSpy).toHaveBeenCalled();
 
-        await expect(univerAPI._generateClipboardPasteParamAsync()).resolves.toBeUndefined();
-        await expect(univerAPI._beforeClipboardPasteAsync()).resolves.toBeUndefined();
-        await expect(univerAPI._clipboardPasteAsync()).resolves.toBeUndefined();
+        await expect(crabtableAPI._generateClipboardPasteParamAsync()).resolves.toBeUndefined();
+        await expect(crabtableAPI._beforeClipboardPasteAsync()).resolves.toBeUndefined();
+        await expect(crabtableAPI._clipboardPasteAsync()).resolves.toBeUndefined();
 
         const eventTypes = fireEventSpy.mock.calls.map((i) => i[0]);
-        expect(eventTypes.includes(univerAPI.Event.BeforeClipboardPaste)).toBe(true);
-        expect(eventTypes.includes(univerAPI.Event.ClipboardPasted)).toBe(true);
+        expect(eventTypes.includes(crabtableAPI.Event.BeforeClipboardPaste)).toBe(true);
+        expect(eventTypes.includes(crabtableAPI.Event.ClipboardPasted)).toBe(true);
     });
 
     it('should bridge sheet edit lifecycle events through workbook editing flows', async () => {
@@ -175,11 +175,11 @@ describe('Test FUniver UI mixin', () => {
         const commandService = testBed.get(ICommandService);
         commandService.registerCommand(SetCellEditVisibleOperation);
 
-        const workbook = testBed.univerAPI.getActiveWorkbook()!;
+        const workbook = testBed.crabtableAPI.getActiveWorkbook()!;
         const worksheet = workbook.getActiveSheet()!;
         const editorBridgeService = testBed.get(IEditorBridgeService);
-        const univerInstanceService = testBed.get(IUniverInstanceService);
-        const getUnit = univerInstanceService.getUnit.bind(univerInstanceService);
+        const crabtableInstanceService = testBed.get(ICrabTableInstanceService);
+        const getUnit = crabtableInstanceService.getUnit.bind(crabtableInstanceService);
         vi.spyOn(editorBridgeService, 'getEditLocation').mockReturnValue({
             unitId: workbook.getId(),
             sheetId: worksheet.getSheetId(),
@@ -188,7 +188,7 @@ describe('Test FUniver UI mixin', () => {
             editorUnitId: 'editor-unit',
             documentLayoutObject: {} as never,
         });
-        vi.spyOn(univerInstanceService, 'getUnit').mockImplementation(((unitId: string) => {
+        vi.spyOn(crabtableInstanceService, 'getUnit').mockImplementation(((unitId: string) => {
             if (unitId === DOCS_NORMAL_EDITOR_UNIT_ID_KEY) {
                 return {
                     getSnapshot: () => ({ body: { dataStream: 'edit\r\n' } }),
@@ -200,10 +200,10 @@ describe('Test FUniver UI mixin', () => {
 
         const logs: string[] = [];
         const disposables = [
-            testBed.univerAPI.addEvent(testBed.univerAPI.Event.BeforeSheetEditStart, ({ row, column }) => logs.push(`before-start:${row},${column}`)),
-            testBed.univerAPI.addEvent(testBed.univerAPI.Event.SheetEditStarted, ({ row, column }) => logs.push(`start:${row},${column}`)),
-            testBed.univerAPI.addEvent(testBed.univerAPI.Event.BeforeSheetEditEnd, ({ isConfirm, row, column }) => logs.push(`before-end:${isConfirm}:${row},${column}`)),
-            testBed.univerAPI.addEvent(testBed.univerAPI.Event.SheetEditEnded, ({ isConfirm, row, column }) => logs.push(`end:${isConfirm}:${row},${column}`)),
+            testBed.crabtableAPI.addEvent(testBed.crabtableAPI.Event.BeforeSheetEditStart, ({ row, column }) => logs.push(`before-start:${row},${column}`)),
+            testBed.crabtableAPI.addEvent(testBed.crabtableAPI.Event.SheetEditStarted, ({ row, column }) => logs.push(`start:${row},${column}`)),
+            testBed.crabtableAPI.addEvent(testBed.crabtableAPI.Event.BeforeSheetEditEnd, ({ isConfirm, row, column }) => logs.push(`before-end:${isConfirm}:${row},${column}`)),
+            testBed.crabtableAPI.addEvent(testBed.crabtableAPI.Event.SheetEditEnded, ({ isConfirm, row, column }) => logs.push(`end:${isConfirm}:${row},${column}`)),
         ];
 
         expect(workbook.startEditing()).toBe(true);
@@ -262,15 +262,15 @@ describe('Test FUniver UI mixin', () => {
             [SheetsSelectionsService],
         ]);
 
-        const workbook = testBed.univerAPI.getActiveWorkbook()!;
+        const workbook = testBed.crabtableAPI.getActiveWorkbook()!;
         const worksheet = workbook.getActiveSheet()!;
         const logs: string[] = [];
         const disposables = [
-            testBed.univerAPI.addEvent(testBed.univerAPI.Event.CellClicked, ({ row, column }) => logs.push(`cell:${row},${column}`)),
-            testBed.univerAPI.addEvent(testBed.univerAPI.Event.RowHeaderHover, ({ row }) => logs.push(`row-hover:${row}`)),
-            testBed.univerAPI.addEvent(testBed.univerAPI.Event.ColumnHeaderPointerDown, ({ column }) => logs.push(`col-down:${column}`)),
-            testBed.univerAPI.addEvent(testBed.univerAPI.Event.DragOver, ({ row, column }) => logs.push(`drag:${row},${column}`)),
-            testBed.univerAPI.addEvent(testBed.univerAPI.Event.Drop, ({ row, column }) => logs.push(`drop:${row},${column}`)),
+            testBed.crabtableAPI.addEvent(testBed.crabtableAPI.Event.CellClicked, ({ row, column }) => logs.push(`cell:${row},${column}`)),
+            testBed.crabtableAPI.addEvent(testBed.crabtableAPI.Event.RowHeaderHover, ({ row }) => logs.push(`row-hover:${row}`)),
+            testBed.crabtableAPI.addEvent(testBed.crabtableAPI.Event.ColumnHeaderPointerDown, ({ column }) => logs.push(`col-down:${column}`)),
+            testBed.crabtableAPI.addEvent(testBed.crabtableAPI.Event.DragOver, ({ row, column }) => logs.push(`drag:${row},${column}`)),
+            testBed.crabtableAPI.addEvent(testBed.crabtableAPI.Event.Drop, ({ row, column }) => logs.push(`drop:${row},${column}`)),
         ];
 
         const lifecycleService = testBed.get(LifecycleService);

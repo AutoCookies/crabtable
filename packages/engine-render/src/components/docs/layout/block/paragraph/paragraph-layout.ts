@@ -19,7 +19,7 @@ import type { ISectionBreakConfig } from '../../../../../basics/interfaces';
 import type { DataStreamTreeNode } from '../../../view-model/data-stream-tree-node';
 import type { DocumentViewModel } from '../../../view-model/document-view-model';
 import type { ILayoutContext } from '../../tools';
-import { DataStreamTreeNodeType } from '@univerjs/core';
+import { DataStreamTreeNodeType } from '@crabtable/core';
 import { clearFontCreateConfigCache } from '../../tools';
 import { createTableSkeleton } from '../table';
 import { lineAdjustment } from './line-adjustment';

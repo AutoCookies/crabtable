@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IRange, IUnitRange, Nullable } from '@univerjs/core';
+import type { IRange, IUnitRange, Nullable } from '@crabtable/core';
 import type {
     IDirtyUnitSheetNameMap,
     IFeatureDirtyRangeType,
@@ -25,7 +25,7 @@ import type { IFormulaDirtyData } from '../../services/current-data.service';
 
 import type { IAllRuntimeData } from '../../services/runtime.service';
 import type { AstRootNode, FunctionNode } from '../ast-node';
-import { moveRangeByOffset } from '@univerjs/core';
+import { moveRangeByOffset } from '@crabtable/core';
 
 export enum FDtreeStateType {
     DEFAULT,

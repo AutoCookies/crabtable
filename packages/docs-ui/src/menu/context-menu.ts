@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IRectRangeWithStyle } from '@univerjs/engine-render';
-import type { IMenuButtonItem, IMenuSelectorItem } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import type { IRectRangeWithStyle } from '@crabtable/engine-render';
+import type { IMenuButtonItem, IMenuSelectorItem } from '@crabtable/ui';
 import type { Subscriber } from 'rxjs';
-import { DOC_RANGE_TYPE, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+import { CrabTableInstanceType, DOC_RANGE_TYPE, ICrabTableInstanceService } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { combineLatest, Observable } from 'rxjs';
 import { DocCopyCommand, DocCutCommand, DocPasteCommand } from '../commands/commands/clipboard.command';
 import { DeleteLeftCommand } from '../commands/commands/doc-delete.command';
@@ -54,7 +54,7 @@ function inSameTable(rectRanges: Readonly<IRectRangeWithStyle[]>) {
     return tableIds.every((tableId) => tableId === tableIds[0]);
 }
 
-function notInTableSubscriber(subscriber: Subscriber<boolean>, docSelectionManagerService: DocSelectionManagerService, univerInstanceService: IUniverInstanceService) {
+function notInTableSubscriber(subscriber: Subscriber<boolean>, docSelectionManagerService: DocSelectionManagerService, crabtableInstanceService: ICrabTableInstanceService) {
     const rectRanges = docSelectionManagerService.getRectRanges();
     const activeRange = docSelectionManagerService.getActiveTextRange();
 
@@ -65,7 +65,7 @@ function notInTableSubscriber(subscriber: Subscriber<boolean>, docSelectionManag
 
     if (activeRange && (rectRanges == null || rectRanges.length === 0)) {
         const { segmentId, startOffset, endOffset } = activeRange;
-        const docDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const docDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
         const tables = docDataModel?.getSelfOrHeaderFooterModel(segmentId).getBody()?.tables;
 
         if (tables && tables.length) {
@@ -83,14 +83,14 @@ function notInTableSubscriber(subscriber: Subscriber<boolean>, docSelectionManag
 
 const getDisableWhenSelectionNotInTableObservable = (accessor: IAccessor) => {
     const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
     return new Observable<boolean>((subscriber) => {
         const observable = docSelectionManagerService.textSelection$.subscribe(() => {
-            notInTableSubscriber(subscriber, docSelectionManagerService, univerInstanceService);
+            notInTableSubscriber(subscriber, docSelectionManagerService, crabtableInstanceService);
         });
 
-        notInTableSubscriber(subscriber, docSelectionManagerService, univerInstanceService);
+        notInTableSubscriber(subscriber, docSelectionManagerService, crabtableInstanceService);
 
         return () => observable.unsubscribe();
     });
@@ -104,7 +104,7 @@ export const CopyMenuFactory = (accessor: IAccessor): IMenuButtonItem => {
         icon: 'CopyDoubleIcon',
         title: 'rightClick.copy',
         disabled$: getDisableOnCollapsedObservable(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 };
 
@@ -114,7 +114,7 @@ export const ParagraphSettingMenuFactory = (accessor: IAccessor): IMenuButtonIte
         type: MenuItemType.BUTTON,
         icon: 'MenuIcon',
         title: 'doc.menu.paragraphSetting',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 };
 
@@ -125,7 +125,7 @@ export const CutMenuFactory = (accessor: IAccessor): IMenuButtonItem => {
         icon: 'CopyDoubleIcon',
         title: 'rightClick.cut',
         disabled$: getDisableOnCollapsedObservable(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 };
 
@@ -135,7 +135,7 @@ export const PasteMenuFactory = (accessor: IAccessor): IMenuButtonItem => {
         type: MenuItemType.BUTTON,
         icon: 'PasteSpecialDoubleIcon',
         title: 'rightClick.paste',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 };
 
@@ -146,7 +146,7 @@ export const DeleteMenuFactory = (accessor: IAccessor): IMenuButtonItem => {
         icon: 'PasteSpecialDoubleIcon',
         title: 'rightClick.delete',
         disabled$: getDisableOnCollapsedObservable(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 };
 
@@ -157,7 +157,7 @@ export function TableInsertMenuItemFactory(accessor: IAccessor): IMenuSelectorIt
         type: MenuItemType.SUBITEMS,
         title: 'table.insert',
         icon: 'InsertDoubleIcon',
-        hidden$: combineLatest(getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC), getDisableWhenSelectionNotInTableObservable(accessor), (one, two) => {
+        hidden$: combineLatest(getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC), getDisableWhenSelectionNotInTableObservable(accessor), (one, two) => {
             return one || two;
         }),
     };
@@ -170,7 +170,7 @@ export function InsertRowBeforeMenuItemFactory(accessor: IAccessor): IMenuButton
         title: 'table.insertRowAbove',
         icon: 'InsertRowAboveDoubleIcon',
         disabled$: getDisableWhenSelectionNotInTableObservable(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 }
 
@@ -181,7 +181,7 @@ export function InsertRowAfterMenuItemFactory(accessor: IAccessor): IMenuButtonI
         title: 'table.insertRowBelow',
         icon: 'InsertRowBelowDoubleIcon',
         disabled$: getDisableWhenSelectionNotInTableObservable(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 }
 
@@ -192,7 +192,7 @@ export function InsertColumnLeftMenuItemFactory(accessor: IAccessor): IMenuButto
         title: 'table.insertColumnLeft',
         icon: 'LeftInsertColumnDoubleIcon',
         disabled$: getDisableWhenSelectionNotInTableObservable(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 }
 
@@ -203,7 +203,7 @@ export function InsertColumnRightMenuItemFactory(accessor: IAccessor): IMenuButt
         title: 'table.insertColumnRight',
         icon: 'RightInsertColumnDoubleIcon',
         disabled$: getDisableWhenSelectionNotInTableObservable(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 }
 
@@ -214,7 +214,7 @@ export function TableDeleteMenuItemFactory(accessor: IAccessor): IMenuSelectorIt
         type: MenuItemType.SUBITEMS,
         title: 'table.delete',
         icon: 'ReduceDoubleIcon',
-        hidden$: combineLatest(getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC), getDisableWhenSelectionNotInTableObservable(accessor), (one, two) => {
+        hidden$: combineLatest(getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC), getDisableWhenSelectionNotInTableObservable(accessor), (one, two) => {
             return one || two;
         }),
     };
@@ -227,7 +227,7 @@ export function DeleteRowsMenuItemFactory(accessor: IAccessor): IMenuButtonItem 
         title: 'table.deleteRows',
         icon: 'DeleteRowDoubleIcon',
         disabled$: getDisableWhenSelectionNotInTableObservable(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 }
 
@@ -238,7 +238,7 @@ export function DeleteColumnsMenuItemFactory(accessor: IAccessor): IMenuButtonIt
         title: 'table.deleteColumns',
         icon: 'DeleteColumnDoubleIcon',
         disabled$: getDisableWhenSelectionNotInTableObservable(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 }
 
@@ -249,6 +249,6 @@ export function DeleteTableMenuItemFactory(accessor: IAccessor): IMenuButtonItem
         title: 'table.deleteTable',
         icon: 'GridIcon',
         disabled$: getDisableWhenSelectionNotInTableObservable(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
     };
 }

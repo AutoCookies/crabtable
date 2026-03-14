@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDocumentBody } from '@univerjs/core';
-import type { IThreadCommentMention } from '@univerjs/thread-comment';
-import { CustomRangeType, getBodySlice } from '@univerjs/core';
+import type { IDocumentBody } from '@crabtable/core';
+import type { IThreadCommentMention } from '@crabtable/thread-comment';
+import { CustomRangeType, getBodySlice } from '@crabtable/core';
 
 export type TextNode = {
     type: 'text';

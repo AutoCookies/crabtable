@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IDocumentBody } from '@univerjs/core';
+import type { IDocumentBody } from '@crabtable/core';
 import type { IThreadComment } from '../../types/interfaces/i-thread-comment';
 import { describe, expect, it, vi } from 'vitest';
 import { ThreadCommentDataSourceService } from '../tc-datasource.service';

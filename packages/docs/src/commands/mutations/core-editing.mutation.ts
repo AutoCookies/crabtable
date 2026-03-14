@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IMutation, IMutationCommonParams, JSONXActions, Nullable } from '@univerjs/core';
-import type { ITextRangeWithStyle } from '@univerjs/engine-render';
+import type { IMutation, IMutationCommonParams, JSONXActions, Nullable } from '@crabtable/core';
+import type { ITextRangeWithStyle } from '@crabtable/engine-render';
 import type { IDocStateChangeInfo } from '../../services/doc-state-emit.service';
-import { CommandType, IUniverInstanceService, JSONX } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { CommandType, ICrabTableInstanceService, JSONX } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { DocSelectionManagerService } from '../../services/doc-selection-manager.service';
 import { DocSkeletonManagerService } from '../../services/doc-skeleton-manager.service';
 import { DocStateEmitService } from '../../services/doc-state-emit.service';
@@ -69,11 +69,11 @@ export const RichTextEditingMutation: IMutation<IRichTextEditingMutationParams, 
             isSync,
             syncer,
         } = params;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const renderManagerService = accessor.get(IRenderManagerService);
         const docStateEmitService = accessor.get(DocStateEmitService);
 
-        const documentDataModel = univerInstanceService.getUniverDocInstance(unitId);
+        const documentDataModel = crabtableInstanceService.getUniverDocInstance(unitId);
         const documentViewModel = renderManagerService.getRenderById(unitId)?.with(DocSkeletonManagerService).getViewModel();
         if (documentDataModel == null || documentViewModel == null) {
             throw new Error(`DocumentDataModel or documentViewModel not found for unitId: ${unitId}`);

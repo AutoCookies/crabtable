@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-import type { ICellData, IDocumentBody, IRange, Nullable, Workbook } from '@univerjs/core';
+import type { ICellData, IDocumentBody, IRange, Nullable, Workbook } from '@crabtable/core';
 import type {
     INumfmtItemWithCache,
     IRemoveNumfmtMutationParams,
     ISetCellsNumfmt,
     ISetNumfmtMutationParams,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import {
     CellValueType,
+    CrabTableInstanceType,
     Disposable,
     getNumfmtParseValueFilter,
+    ICrabTableInstanceService,
     Inject,
     Injector,
     isRealNum,
     isTextFormat,
-    IUniverInstanceService,
     Optional,
     toDisposable,
-    UniverInstanceType,
     willLoseNumericPrecision,
-} from '@univerjs/core';
-import { stripErrorMargin } from '@univerjs/engine-formula';
+} from '@crabtable/core';
+import { stripErrorMargin } from '@crabtable/engine-formula';
 import {
     AFTER_CELL_EDIT,
     BEFORE_CELL_EDIT,
@@ -47,9 +47,9 @@ import {
     SetRangeValuesCommand,
     SheetInterceptorService,
     transformCellsToRange,
-} from '@univerjs/sheets';
-import { getPatternType } from '@univerjs/sheets-numfmt';
-import { IEditorBridgeService } from '@univerjs/sheets-ui';
+} from '@crabtable/sheets';
+import { getPatternType } from '@crabtable/sheets-numfmt';
+import { IEditorBridgeService } from '@crabtable/sheets-ui';
 
 const createCollectEffectMutation = () => {
     interface IConfig {
@@ -80,7 +80,7 @@ export class NumfmtEditorController extends Disposable {
     constructor(
         @Inject(SheetInterceptorService) private _sheetInterceptorService: SheetInterceptorService,
         @Inject(INumfmtService) private _numfmtService: INumfmtService,
-        @Inject(IUniverInstanceService) private _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(Injector) private _injector: Injector,
         @Optional(IEditorBridgeService) private _editorBridgeService?: IEditorBridgeService
     ) {
@@ -262,7 +262,7 @@ export class NumfmtEditorController extends Disposable {
                 getMutations(command) {
                     switch (command.id) {
                         case SetRangeValuesCommand.id: {
-                            const workbook = self._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                            const workbook = self._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                             const unitId = workbook.getUnitId();
                             const subUnitId = workbook.getActiveSheet()?.getSheetId();
                             if (!subUnitId) {

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IDisposable, IMutationInfo, IRange, IRowAutoHeightInfo, Nullable, Workbook, Worksheet } from '@univerjs/core';
+import type { IAccessor, IDisposable, IMutationInfo, IRange, IRowAutoHeightInfo, Nullable, Workbook, Worksheet } from '@crabtable/core';
 import type { Observable } from 'rxjs';
 import type { ISetRangeValuesMutationParams } from '../../commands/mutations/set-range-values.mutation';
 import type { ISetWorksheetRowAutoHeightMutationParams } from '../../commands/mutations/set-worksheet-row-height.mutation';
 import type { IAutoFillLocation, IAutoFillRule, ISheetAutoFillHook } from './type';
-import { createIdentifier, Direction, Disposable, ICommandService, Inject, Injector, IUndoRedoService, IUniverInstanceService, ObjectMatrix, RANGE_TYPE, Rectangle, toDisposable, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, createIdentifier, Direction, Disposable, ICommandService, ICrabTableInstanceService, Inject, Injector, IUndoRedoService, ObjectMatrix, RANGE_TYPE, Rectangle, toDisposable } from '@crabtable/core';
 import { BehaviorSubject } from 'rxjs';
 import { discreteRangeToRange, rangeToDiscreteRange } from '../../basics/utils';
 import { AutoClearContentCommand } from '../../commands/commands/auto-fill.command';
@@ -126,7 +126,7 @@ export class AutoFillService extends Disposable implements IAutoFillService {
     constructor(
         @ICommandService private _commandService: ICommandService,
         @IUndoRedoService private _undoRedoService: IUndoRedoService,
-        @Inject(IUniverInstanceService) private _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(Injector) private readonly _injector: Injector
     ) {
         super();
@@ -387,7 +387,7 @@ export class AutoFillService extends Disposable implements IAutoFillService {
     // eslint-disable-next-line max-lines-per-function
     fillData(applyType: AUTO_FILL_APPLY_TYPE) {
         this.applyType = applyType;
-        const activeWorkbook = this._univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const activeWorkbook = this._crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         const activeUnitId = activeWorkbook?.getUnitId();
         const activeSubUnitId = activeWorkbook?.getActiveSheet()?.getSheetId();
         const { source, target, unitId = activeUnitId, subUnitId = activeSubUnitId } = this.autoFillLocation || {};
@@ -396,7 +396,7 @@ export class AutoFillService extends Disposable implements IAutoFillService {
             return false;
         }
 
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) return false;
         const worksheet = workbook.getSheetBySheetId(subUnitId);
         if (!worksheet) return false;

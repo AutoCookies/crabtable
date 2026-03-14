@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ICellData, IDocumentData, Univer, Workbook } from '@univerjs/core';
-import type { IFunctionService } from '@univerjs/engine-formula';
-import { CellValueType, DEFAULT_TEXT_FORMAT_EXCEL, IConfigService, IContextService, Injector, LocaleService, LocaleType, Tools } from '@univerjs/core';
-import { LexerTreeBuilder } from '@univerjs/engine-formula';
-import { SpreadsheetSkeleton } from '@univerjs/engine-render';
+import type { ICellData, IDocumentData, Workbook } from '@crabtable/core';
+import type { IFunctionService } from '@crabtable/engine-formula';
+import { CellValueType, DEFAULT_TEXT_FORMAT_EXCEL, IConfigService, IContextService, Injector, LocaleService, LocaleType, Tools } from '@crabtable/core';
+import { LexerTreeBuilder } from '@crabtable/engine-formula';
+import { SpreadsheetSkeleton } from '@crabtable/engine-render';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { normalizeString } from '../../utils/char-tools';
 import { getCellDataByInput, isRichText } from '../editing.render-controller';
@@ -71,8 +71,8 @@ const richTextDemo: IDocumentData = {
     },
 };
 
-vi.mock('@univerjs/engine-formula', async () => {
-    const actual = await vi.importActual('@univerjs/engine-formula');
+vi.mock('@crabtable/engine-formula', async () => {
+    const actual = await vi.importActual('@crabtable/engine-formula');
     const { IMockFunctionService, MockFunctionService } = await import(
         './mock-function.service'
     );
@@ -85,7 +85,7 @@ vi.mock('@univerjs/engine-formula', async () => {
 });
 
 describe('Test EndEditController', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let workbook: Workbook;
     let get: Injector['get'];
     let localeService: LocaleService;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IGalleryProps, IMessageProps } from '@univerjs/design';
+import type { IGalleryProps, IMessageProps } from '@crabtable/design';
 import type { IConfirmPartMethodOptions } from '../../views/components/confirm-part/interface';
 import type { IDialogPartMethodOptions } from '../../views/components/dialog-part/interface';
 import localforage from 'localforage';
@@ -29,7 +29,7 @@ import { DesktopMessageService } from '../message/desktop-message.service';
 import { DesktopNotificationService } from '../notification/desktop-notification.service';
 import { BuiltInUIPart } from '../parts/parts.service';
 
-vi.mock('@univerjs/design', async (importOriginal) => {
+vi.mock('@crabtable/design', async (importOriginal) => {
     const actual = await importOriginal<any>();
     return {
         ...actual,
@@ -124,7 +124,7 @@ describe('DesktopDialogService', () => {
 });
 
 describe('DesktopMessageService', async () => {
-    const { message, removeMessage } = await import('@univerjs/design');
+    const { message, removeMessage } = await import('@crabtable/design');
 
     afterEach(() => {
         vi.restoreAllMocks();

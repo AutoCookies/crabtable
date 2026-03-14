@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IRange, Workbook } from '@univerjs/core';
+import type { IRange, Workbook } from '@crabtable/core';
 import type { IRangePermissionPoint } from '../services/permission/range-permission/util';
 import type { IRangeProtectionRule, IRuleChange } from './range-protection-rule.model';
-import { Disposable, Inject, IPermissionService, IUniverInstanceService, Range, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject, IPermissionService, Range } from '@crabtable/core';
 import { UnitAction, UnitObject } from '@univerjs/protocol';
 import { filter, map } from 'rxjs';
 import { RangeProtectionPermissionEditPoint, RangeProtectionPermissionViewPoint } from '../services/permission/permission-point';
@@ -36,7 +36,7 @@ export class RangeProtectionCache extends Disposable {
     constructor(
         @Inject(RangeProtectionRuleModel) private readonly _ruleModel: RangeProtectionRuleModel,
         @Inject(IPermissionService) private readonly _permissionService: IPermissionService,
-        @Inject(IUniverInstanceService) private readonly _univerInstanceService: IUniverInstanceService
+        @Inject(ICrabTableInstanceService) private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
         this._initUpdateCellRuleCache();
@@ -46,7 +46,7 @@ export class RangeProtectionCache extends Disposable {
     }
 
     private _initCache() {
-        this._univerInstanceService.getAllUnitsForType<Workbook>(UniverInstanceType.UNIVER_SHEET).forEach((workbook) => {
+        this._crabtableInstanceService.getAllUnitsForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).forEach((workbook) => {
             workbook.getSheets().forEach((sheet) => {
                 const unitId = workbook.getUnitId();
                 const subUnitId = sheet.getSheetId();
@@ -377,7 +377,7 @@ export class RangeProtectionCache extends Disposable {
         this._cellInfoCache.delete(unitId);
         this._rowInfoCache.delete(unitId);
         this._colInfoCache.delete(unitId);
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId);
         workbook?.getSheets().forEach((sheet) => {
             const subUnitId = sheet.getSheetId();
             this._ruleModel.getSubunitRuleList(unitId, subUnitId).forEach((rule) => {

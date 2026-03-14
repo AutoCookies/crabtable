@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
 import type { ComponentType } from 'react';
 import type { IUniverUIConfig } from '../../config/config';
 import type { IUniverWorkbenchProps } from '../../views/workbench/Workbench';
 import type { IUIController, IWorkbenchOptions } from './ui.controller';
-import { Inject, Injector, IUniverInstanceService, LifecycleService, toDisposable } from '@univerjs/core';
-import { ColorPicker, render as createRoot, unmount } from '@univerjs/design';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { ICrabTableInstanceService, Inject, Injector, LifecycleService, toDisposable } from '@crabtable/core';
+import { ColorPicker, render as createRoot, unmount } from '@crabtable/design';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { ComponentManager } from '../../common';
 import { HEADING_ITEM_COMPONENT, HeadingItem } from '../../components';
 import { COLOR_PICKER_COMPONENT } from '../../components/color-picker/interface';
@@ -48,7 +48,7 @@ export class MobileUIController extends SingleUnitUIController implements IUICon
         @Inject(LifecycleService) lifecycleService: LifecycleService,
         @IRenderManagerService renderManagerService: IRenderManagerService,
         @ILayoutService layoutService: ILayoutService,
-        @IUniverInstanceService instanceService: IUniverInstanceService,
+        @ICrabTableInstanceService instanceService: ICrabTableInstanceService,
         @IMenuManagerService menuManagerService: IMenuManagerService,
         @IUIPartsService uiPartsService: IUIPartsService,
         @Inject(ComponentManager) private readonly _componentManager: ComponentManager

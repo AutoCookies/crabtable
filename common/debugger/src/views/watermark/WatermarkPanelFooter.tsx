@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { Button } from '@univerjs/design';
-import { IWatermarkTypeEnum } from '@univerjs/engine-render';
-import { IClipboardInterfaceService, ISidebarService, useDependency } from '@univerjs/ui';
-import { WatermarkService, WatermarkTextBaseConfig } from '@univerjs/watermark';
+import { Button } from '@crabtable/design';
+import { IWatermarkTypeEnum } from '@crabtable/engine-render';
+import { IClipboardInterfaceService, ISidebarService, useDependency } from '@crabtable/ui';
+import { WatermarkService, WatermarkTextBaseConfig } from '@crabtable/watermark';
 
 export function WatermarkPanelFooter() {
     const sidebarService = useDependency(ISidebarService);

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Editor } from '@univerjs/docs-ui';
-import type { IFunctionInfo } from '@univerjs/engine-formula';
-import { LexerTreeBuilder, matchToken } from '@univerjs/engine-formula';
-import { IDescriptionService } from '@univerjs/sheets-formula';
-import { useDependency } from '@univerjs/ui';
+import type { Editor } from '@crabtable/docs-ui';
+import type { IFunctionInfo } from '@crabtable/engine-formula';
+import { LexerTreeBuilder, matchToken } from '@crabtable/engine-formula';
+import { IDescriptionService } from '@crabtable/sheets-formula';
+import { useDependency } from '@crabtable/ui';
 import { useEffect, useRef, useState } from 'react';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs';
 import { IFormulaPromptService } from '../../../services/prompt.service';

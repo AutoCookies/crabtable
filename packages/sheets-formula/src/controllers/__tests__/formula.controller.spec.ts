@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { ICommandService } from '@univerjs/core';
-import { OtherFormulaMarkDirty } from '@univerjs/engine-formula';
+import { ICommandService } from '@crabtable/core';
+import { OtherFormulaMarkDirty } from '@crabtable/engine-formula';
 import { afterEach, describe, expect, it } from 'vitest';
 import { InsertFunctionCommand } from '../../commands/commands/insert-function.command';
 import { QuickSumCommand } from '../../commands/commands/quick-sum.command';

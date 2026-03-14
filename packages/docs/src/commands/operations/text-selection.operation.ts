@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IOperation } from '@univerjs/core';
-import type { ITextRangeWithStyle, ITextSelectionStyle } from '@univerjs/engine-render';
-import { CommandType } from '@univerjs/core';
+import type { IOperation } from '@crabtable/core';
+import type { ITextRangeWithStyle, ITextSelectionStyle } from '@crabtable/engine-render';
+import { CommandType } from '@crabtable/core';
 
 export interface ISetTextSelectionsOperationParams {
     unitId: string;

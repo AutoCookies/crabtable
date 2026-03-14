@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { CustomRangeType, DocumentDataModel, IAccessor, IAddCustomRangeTextXParam, IDocumentBody, IMutationInfo, ITextRange, ITextRangeParam, Nullable, TextX } from '@univerjs/core';
+import type { CustomRangeType, DocumentDataModel, IAccessor, IAddCustomRangeTextXParam, IDocumentBody, IMutationInfo, ITextRange, ITextRangeParam, Nullable, TextX } from '@crabtable/core';
 import type { IRichTextEditingMutationParams } from '../commands/mutations/core-editing.mutation';
-import { BuildTextUtils, IUniverInstanceService, JSONX, UniverInstanceType } from '@univerjs/core';
+import { BuildTextUtils, CrabTableInstanceType, ICrabTableInstanceService, JSONX } from '@crabtable/core';
 import { RichTextEditingMutation } from '../commands/mutations/core-editing.mutation';
 import { DocSelectionManagerService } from '../services/doc-selection-manager.service';
 
@@ -49,8 +49,8 @@ export function getRichTextEditPath(docDataModel: DocumentDataModel, segmentId =
 
 export function addCustomRangeFactory(accessor: IAccessor, param: IAddCustomRangeParam, body: IDocumentBody) {
     const { unitId, segmentId } = param;
-    const univerInstanceService = accessor.get(IUniverInstanceService);
-    const documentDataModel = univerInstanceService.getUnit<DocumentDataModel>(unitId);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+    const documentDataModel = crabtableInstanceService.getUnit<DocumentDataModel>(unitId);
     if (!documentDataModel) {
         return false;
     }
@@ -86,14 +86,14 @@ interface IAddCustomRangeFactoryParam {
 export function addCustomRangeBySelectionFactory(accessor: IAccessor, param: IAddCustomRangeFactoryParam) {
     const { rangeId, rangeType, wholeEntity, properties, unitId, selections: propSelection } = param;
     const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const selections = propSelection ?? docSelectionManagerService.getTextRanges({ unitId, subUnitId: unitId });
     const segmentId = selections?.[0]?.segmentId;
     if (!selections?.length) {
         return false;
     }
 
-    const documentDataModel = univerInstanceService.getUnit<DocumentDataModel>(unitId, UniverInstanceType.UNIVER_DOC);
+    const documentDataModel = crabtableInstanceService.getUnit<DocumentDataModel>(unitId, CrabTableInstanceType.CRABTABLE_DOC);
     if (!documentDataModel) {
         return false;
     }
@@ -140,9 +140,9 @@ export interface IDeleteCustomRangeFactoryParams {
 
 export function deleteCustomRangeFactory(accessor: IAccessor, params: IDeleteCustomRangeFactoryParams) {
     const { unitId, segmentId, insert } = params;
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-    const documentDataModel = univerInstanceService.getUnit<DocumentDataModel>(unitId);
+    const documentDataModel = crabtableInstanceService.getUnit<DocumentDataModel>(unitId);
     if (!documentDataModel) {
         return false;
     }

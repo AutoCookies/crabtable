@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IMutation } from '@univerjs/core';
-import { CommandType, IUniverInstanceService } from '@univerjs/core';
+import type { IAccessor, IMutation } from '@crabtable/core';
+import { CommandType, ICrabTableInstanceService } from '@crabtable/core';
 import { getSheetMutationTarget } from '../commands/utils/target-util';
 
 export interface ISetWorksheetRowCountMutationParams {
@@ -28,7 +28,7 @@ export const SetWorksheetRowCountUndoMutationFactory = (
     accessor: IAccessor,
     params: ISetWorksheetRowCountMutationParams
 ): ISetWorksheetRowCountMutationParams => {
-    const target = getSheetMutationTarget(accessor.get(IUniverInstanceService), params);
+    const target = getSheetMutationTarget(accessor.get(ICrabTableInstanceService), params);
     if (!target) {
         throw new Error('[SetWorksheetRowCountUndoMutationFactory]: worksheet is null error!');
     }
@@ -44,8 +44,8 @@ export const SetWorksheetRowCountMutation: IMutation<ISetWorksheetRowCountMutati
     id: 'sheet.mutation.set-worksheet-row-count',
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetMutationTarget(univerInstanceService, params);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetMutationTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         target.worksheet.setRowCount(params.rowCount);

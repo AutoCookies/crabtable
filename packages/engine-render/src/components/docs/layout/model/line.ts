@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IDistFromText, Nullable } from '@univerjs/core';
+import type { IDistFromText, Nullable } from '@crabtable/core';
 import type { IParagraphConfig } from '../../../../basics';
 
 import type {
@@ -27,7 +27,7 @@ import type {
     LineType,
 } from '../../../../basics/i-document-skeleton-cached';
 import type { IFloatObject } from '../tools';
-import { PositionedObjectLayoutType, TableTextWrapType, WrapTextType } from '@univerjs/core';
+import { PositionedObjectLayoutType, TableTextWrapType, WrapTextType } from '@crabtable/core';
 import { Path2 } from '../../../../basics/path2';
 import { Transform } from '../../../../basics/transform';
 import { Vector2 } from '../../../../basics/vector2';

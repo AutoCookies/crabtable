@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICustomComponentProps } from '@univerjs/ui';
+import type { ICustomComponentProps } from '@crabtable/ui';
 import type { Observable } from 'rxjs';
 import { COMPONENT_PREFIX } from '../const';
 

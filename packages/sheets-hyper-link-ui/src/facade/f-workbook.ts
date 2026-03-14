@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { SheetsHyperLinkParserService } from '@univerjs/sheets-hyper-link';
-import { SheetsHyperLinkResolverService } from '@univerjs/sheets-hyper-link-ui';
-import { FWorkbookHyperLinkMixin } from '@univerjs/sheets-hyper-link/facade';
-import { FWorkbook } from '@univerjs/sheets/facade';
+import { SheetsHyperLinkParserService } from '@crabtable/sheets-hyper-link';
+import { SheetsHyperLinkResolverService } from '@crabtable/sheets-hyper-link-ui';
+import { FWorkbookHyperLinkMixin } from '@crabtable/sheets-hyper-link/facade';
+import { FWorkbook } from '@crabtable/sheets/facade';
 
 interface IFWorkbookHyperlinkUIMixin {
     /**
@@ -25,7 +25,7 @@ interface IFWorkbookHyperlinkUIMixin {
      * @param {string} hyperlink - The hyperlink string
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const sheets = fWorkbook.getSheets();
      *
      * // Create a hyperlink to the cell F6 in the first sheet
@@ -58,7 +58,7 @@ class FWorkbookHyperLinkUIMixin extends FWorkbookHyperLinkMixin implements IFWor
 }
 
 FWorkbook.extend(FWorkbookHyperLinkUIMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FWorkbook extends IFWorkbookHyperlinkUIMixin {}
 }

@@ -19,8 +19,8 @@ import { isLegalUrl, normalizeUrl, resolveWithBasePath } from '../url';
 
 describe('Test url utils', () => {
     it('should return true on legal url', () => {
-        expect(isLegalUrl('https://univer.ai/')).toBeTruthy();
-        expect(isLegalUrl('univer.ai')).toBeTruthy();
+        expect(isLegalUrl('https://crabtable.dev/')).toBeTruthy();
+        expect(isLegalUrl('crabtable.dev')).toBeTruthy();
     });
 
     it('should return false on illegal url', () => {
@@ -32,9 +32,9 @@ describe('Test url utils', () => {
     });
 
     it('should add protocol to no protocol url', () => {
-        expect(normalizeUrl('univer.ai')).toEqual('https://univer.ai');
-        expect(normalizeUrl('https://univer.ai')).toEqual('https://univer.ai');
-        expect(normalizeUrl('zhang@univer.ai')).toEqual('mailto://zhang@univer.ai');
+        expect(normalizeUrl('crabtable.dev')).toEqual('https://crabtable.dev');
+        expect(normalizeUrl('https://crabtable.dev')).toEqual('https://crabtable.dev');
+        expect(normalizeUrl('zhang@crabtable.dev')).toEqual('mailto://zhang@crabtable.dev');
     });
 
     it('should resolve url with base path', () => {

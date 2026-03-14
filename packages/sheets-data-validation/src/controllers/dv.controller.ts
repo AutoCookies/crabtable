@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import { Inject, Injector, IUniverInstanceService, RxDisposable, toDisposable, UniverInstanceType } from '@univerjs/core';
-import { DataValidatorRegistryService } from '@univerjs/data-validation';
-import { ClearSelectionAllCommand, SheetInterceptorService, SheetsSelectionsService } from '@univerjs/sheets';
+import type { Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICrabTableInstanceService, Inject, Injector, RxDisposable, toDisposable } from '@crabtable/core';
+import { DataValidatorRegistryService } from '@crabtable/data-validation';
+import { ClearSelectionAllCommand, SheetInterceptorService, SheetsSelectionsService } from '@crabtable/sheets';
 import { getDataValidationDiffMutations } from '../commands/commands/data-validation.command';
 import { SheetDataValidationModel } from '../models/sheet-data-validation-model';
 import { CheckboxValidator, DateValidator, DecimalValidator, ListValidator, TextLengthValidator } from '../validators';
@@ -28,7 +28,7 @@ import { WholeValidator } from '../validators/whole-validator';
 
 export class DataValidationController extends RxDisposable {
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(DataValidatorRegistryService) private readonly _dataValidatorRegistryService: DataValidatorRegistryService,
         @Inject(Injector) private readonly _injector: Injector,
         @Inject(SheetsSelectionsService) private _selectionManagerService: SheetsSelectionsService,
@@ -66,7 +66,7 @@ export class DataValidationController extends RxDisposable {
         this._sheetInterceptorService.interceptCommand({
             getMutations: (commandInfo) => {
                 if (commandInfo.id === ClearSelectionAllCommand.id) {
-                    const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                    const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                     const unitId = workbook.getUnitId();
                     const worksheet = workbook.getActiveSheet();
                     if (!worksheet) {

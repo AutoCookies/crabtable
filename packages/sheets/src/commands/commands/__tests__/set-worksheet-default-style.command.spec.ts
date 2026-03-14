@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { Injector, Univer, Workbook } from '@univerjs/core';
-import { ICommandService, IUniverInstanceService, RedoCommand, UndoCommand, UniverInstanceType } from '@univerjs/core';
+import type { Injector, Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, RedoCommand, UndoCommand } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SetWorksheetDefaultStyleMutation } from '../../mutations/set-worksheet-default-style.mutation';
 import { SetWorksheetDefaultStyleCommand } from '../set-worksheet-default-style.command';
 import { createCommandTestBed } from './create-command-test-bed';
 
 describe('Test set worksheet default style commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
@@ -42,7 +42,7 @@ describe('Test set worksheet default style commands', () => {
 
     describe('set worksheet default style', () => {
         it('correct situation', async () => {
-            const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+            const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
             const worksheet = workbook.getSheetBySheetId('sheet1');
             if (!workbook) throw new Error('This is an error');
 

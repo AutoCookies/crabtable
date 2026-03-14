@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { covertCellValue, covertCellValues } from '@univerjs/core';
+import { covertCellValue, covertCellValues } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 
 describe('Test utils', () => {

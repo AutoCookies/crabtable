@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
-import { IUniverInstanceService, LocaleService } from '@univerjs/core';
-import { Button, ButtonGroup } from '@univerjs/design';
+import type { IRange } from '@crabtable/core';
+import { ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { Button, ButtonGroup } from '@crabtable/design';
+import { getSheetCommandTarget } from '@crabtable/sheets';
+import { useDependency } from '@crabtable/ui';
 import { AscendingIcon, DescendingIcon } from '@univerjs/icons';
-import { getSheetCommandTarget } from '@univerjs/sheets';
-import { useDependency } from '@univerjs/ui';
 import { useCallback } from 'react';
 import { SheetsSortUIService } from '../services/sheets-sort-ui.service';
 
@@ -33,11 +33,11 @@ export default function EmbedSortBtn(props: IEmbedSortBtnProps) {
     const { range, colIndex, onClose } = props;
 
     const sheetsSortUIService = useDependency(SheetsSortUIService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const localeService = useDependency(LocaleService);
 
     const apply = useCallback((asc: boolean) => {
-        const { unitId, subUnitId } = getSheetCommandTarget(univerInstanceService) || {};
+        const { unitId, subUnitId } = getSheetCommandTarget(crabtableInstanceService) || {};
         if (range && unitId && subUnitId) {
             const noTitleRange = { ...range, startRow: range.startRow + 1 };
             sheetsSortUIService.triggerSortDirectly(asc, false, { unitId, subUnitId, range: noTitleRange, colIndex });
@@ -46,7 +46,7 @@ export default function EmbedSortBtn(props: IEmbedSortBtnProps) {
         }
 
         onClose();
-    }, [range, colIndex, sheetsSortUIService, univerInstanceService, onClose]);
+    }, [range, colIndex, sheetsSortUIService, crabtableInstanceService, onClose]);
 
     return (
         <ButtonGroup className="univer-mb-3 univer-w-full univer-grid-cols-2">

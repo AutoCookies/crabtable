@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IDialogProps } from '@univerjs/design';
+import type { IDialogProps } from '@crabtable/design';
 
 import type { ICustomLabelProps } from '../../../components/custom-label/CustomLabel';
 

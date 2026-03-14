@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { clsx, scrollbarClassName } from '@univerjs/design';
+import { clsx, scrollbarClassName } from '@crabtable/design';
 import { CatalogueIcon, LeftIcon } from '@univerjs/icons';
 import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef } from 'react';
 

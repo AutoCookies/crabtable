@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Ctor } from '@univerjs/core';
+import type { Ctor } from '@crabtable/core';
 import type { BaseSheetDataValidatorView } from '../views/validator-views/sheet-validator-view';
-import { Inject, Injector, RxDisposable } from '@univerjs/core';
-import { DataValidatorRegistryService } from '@univerjs/data-validation';
+import { Inject, Injector, RxDisposable } from '@crabtable/core';
+import { DataValidatorRegistryService } from '@crabtable/data-validation';
+import { ComponentManager } from '@crabtable/ui';
 import { DataValidationIcon } from '@univerjs/icons';
-import { ComponentManager } from '@univerjs/ui';
 import { DATA_VALIDATION_PANEL } from '../commands/operations/data-validation.operation';
 import { DataValidationPanel } from '../views/components';
 import { FORMULA_INPUTS } from '../views/components/formula-input';

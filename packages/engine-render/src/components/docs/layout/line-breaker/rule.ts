@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 
 export interface ILineBreakRule {
     (codePoint: number, lastCodePoint: Nullable<number>, className: number): boolean;

@@ -15,12 +15,12 @@
  */
 
 import type { ISheetFindReplaceHighlightShapeProps } from '../find-replace-highlight.shape';
-import { Rect } from '@univerjs/engine-render';
+import { Rect } from '@crabtable/engine-render';
 import { describe, expect, it, vi } from 'vitest';
 import { SheetFindReplaceHighlightShape } from '../find-replace-highlight.shape';
 
-vi.mock('@univerjs/engine-render', async () => {
-    const actual = await vi.importActual<typeof import('@univerjs/engine-render')>('@univerjs/engine-render');
+vi.mock('@crabtable/engine-render', async () => {
+    const actual = await vi.importActual<typeof import('@crabtable/engine-render')>('@crabtable/engine-render');
     return {
         ...actual,
         Rect: {

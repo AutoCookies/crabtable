@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IHighlightCell } from '@univerjs/sheets-conditional-formatting';
-import { BooleanNumber } from '@univerjs/core';
-import { clsx } from '@univerjs/design';
+import type { IHighlightCell } from '@crabtable/sheets-conditional-formatting';
+import { BooleanNumber } from '@crabtable/core';
+import { clsx } from '@crabtable/design';
+import { removeUndefinedAttr } from '@crabtable/sheets-conditional-formatting';
 import { BoldIcon, FontColorDoubleIcon, ItalicIcon, StrikethroughIcon, UnderlineIcon } from '@univerjs/icons';
-import { removeUndefinedAttr } from '@univerjs/sheets-conditional-formatting';
 import { useEffect, useState } from 'react';
 import { ColorPicker } from '../color-picker';
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { SetRangeThemeMutation } from '@univerjs/sheets';
+import { SetRangeThemeMutation } from '@crabtable/sheets';
 import { describe, expect, it, vi } from 'vitest';
 import { SheetTableThemeUIController } from '../sheet-table-theme-ui.controller';
 

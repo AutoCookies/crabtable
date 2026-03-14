@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IFunctionNames } from '@univerjs/engine-formula';
+import type { IFunctionNames } from '@crabtable/engine-formula';
 import type { FC } from 'react';
-import { LocaleService, numfmt } from '@univerjs/core';
-import { MessageType, Tooltip } from '@univerjs/design';
-import { FUNCTION_NAMES_MATH, FUNCTION_NAMES_STATISTICAL, FUNCTION_NAMES_TEXT } from '@univerjs/engine-formula';
-import { IClipboardInterfaceService, IMessageService, useDependency } from '@univerjs/ui';
+import { LocaleService, numfmt } from '@crabtable/core';
+import { MessageType, Tooltip } from '@crabtable/design';
+import { FUNCTION_NAMES_MATH, FUNCTION_NAMES_STATISTICAL, FUNCTION_NAMES_TEXT } from '@crabtable/engine-formula';
+import { IClipboardInterfaceService, IMessageService, useDependency } from '@crabtable/ui';
 
 export interface IStatisticItem {
     name: IFunctionNames;

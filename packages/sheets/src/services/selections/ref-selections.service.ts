@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
+import type { Workbook } from '@crabtable/core';
 import type { Observable } from 'rxjs';
 import type { WorkbookSelectionModel } from './selection-data-model';
-import { createIdentifier, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, createIdentifier, ICrabTableInstanceService } from '@crabtable/core';
 import { BehaviorSubject, map, merge, of, switchMap, takeUntil } from 'rxjs';
 import { SheetsSelectionsService } from './selection.service';
 
@@ -35,7 +35,7 @@ export const IRefSelectionsService = createIdentifier<SheetsSelectionsService>('
  */
 export class RefSelectionsService extends SheetsSelectionsService {
     constructor(
-        @IUniverInstanceService _instanceSrv: IUniverInstanceService
+        @ICrabTableInstanceService _instanceSrv: ICrabTableInstanceService
     ) {
         super(_instanceSrv);
     }
@@ -65,15 +65,15 @@ export class RefSelectionsService extends SheetsSelectionsService {
     }
 
     private _getAliveWorkbooks$(): Observable<WorkbookSelectionModel[]> {
-        const aliveWorkbooks = this._instanceSrv.getAllUnitsForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const aliveWorkbooks = this._instanceSrv.getAllUnitsForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         aliveWorkbooks.forEach((workbook) => this._ensureWorkbookSelection(workbook.getUnitId()));
 
         const workbooks$ = new BehaviorSubject(aliveWorkbooks);
-        this.disposeWithMe(this._instanceSrv.getTypeOfUnitAdded$<Workbook>(UniverInstanceType.UNIVER_SHEET).subscribe((workbook) => {
+        this.disposeWithMe(this._instanceSrv.getTypeOfUnitAdded$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((workbook) => {
             this._ensureWorkbookSelection(workbook.getUnitId());
             workbooks$.next([...workbooks$.getValue(), workbook]);
         }));
-        this.disposeWithMe(this._instanceSrv.getTypeOfUnitDisposed$<Workbook>(UniverInstanceType.UNIVER_SHEET).subscribe((workbook) => {
+        this.disposeWithMe(this._instanceSrv.getTypeOfUnitDisposed$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((workbook) => {
             this._removeWorkbookSelection(workbook.getUnitId());
             workbooks$.next(workbooks$.getValue().filter((unit) => unit !== workbook));
         }));

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
+import type { Workbook } from '@crabtable/core';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
 import {
     Disposable,
     ICommandService,
     toDisposable,
-} from '@univerjs/core';
-import { CURSOR_TYPE } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { CURSOR_TYPE } from '@crabtable/engine-render';
 
 import { ApplyFormatPainterCommand, SetOnceFormatPainterCommand } from '../../commands/commands/set-format-painter.command';
 import { FormatPainterStatus, IFormatPainterService } from '../../services/format-painter/format-painter.service';

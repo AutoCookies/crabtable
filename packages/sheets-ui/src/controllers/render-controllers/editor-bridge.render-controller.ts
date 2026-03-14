@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, IDisposable, IExecutionOptions, ISelectionCell, Nullable, Workbook } from '@univerjs/core';
-import type { IEditorInputConfig } from '@univerjs/docs-ui';
-import type { IRender, IRenderContext, IRenderModule } from '@univerjs/engine-render';
-import type { ISelectionWithStyle } from '@univerjs/sheets';
+import type { ICommandInfo, IDisposable, IExecutionOptions, ISelectionCell, Nullable, Workbook } from '@crabtable/core';
+import type { IEditorInputConfig } from '@crabtable/docs-ui';
+import type { IRender, IRenderContext, IRenderModule } from '@crabtable/engine-render';
+import type { ISelectionWithStyle } from '@crabtable/sheets';
 import type { ICurrentEditCellParam, IEditorBridgeServiceVisibleParam } from '../../services/editor-bridge.service';
-import { DisposableCollection, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, FOCUSING_FX_BAR_EDITOR, FOCUSING_SHEET, ICommandService, IContextService, Inject, IUniverInstanceService, RxDisposable, toDisposable, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionRenderService } from '@univerjs/docs-ui';
-import { DeviceInputEventType, IRenderManagerService } from '@univerjs/engine-render';
+import { CrabTableInstanceType, DisposableCollection, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, FOCUSING_FX_BAR_EDITOR, FOCUSING_SHEET, ICommandService, IContextService, ICrabTableInstanceService, Inject, RxDisposable, toDisposable } from '@crabtable/core';
+import { DocSelectionRenderService } from '@crabtable/docs-ui';
+import { DeviceInputEventType, IRenderManagerService } from '@crabtable/engine-render';
 import {
     ClearSelectionFormatCommand,
     SetWorksheetActiveOperation,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { filter, merge } from 'rxjs';
 import { SetZoomRatioCommand } from '../../commands/commands/set-zoom-ratio.command';
 import { SetActivateCellEditOperation } from '../../commands/operations/activate-cell-edit.operation';
@@ -42,7 +42,7 @@ export class EditorBridgeRenderController extends RxDisposable implements IRende
 
     constructor(
         private readonly _context: IRenderContext<Workbook>,
-        @IUniverInstanceService private readonly _instanceSrv: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _instanceSrv: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService,
         @IEditorBridgeService private readonly _editorBridgeService: IEditorBridgeService,
         @Inject(SheetsSelectionsService) private readonly _selectionManagerService: SheetsSelectionsService,
@@ -52,7 +52,7 @@ export class EditorBridgeRenderController extends RxDisposable implements IRende
     ) {
         super();
 
-        this.disposeWithMe(this._instanceSrv.getCurrentTypeOfUnit$(UniverInstanceType.UNIVER_SHEET).subscribe((workbook) => {
+        this.disposeWithMe(this._instanceSrv.getCurrentTypeOfUnit$(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((workbook) => {
             if (workbook && workbook.getUnitId() === this._context.unitId) {
                 this._d = this._init();
             } else {

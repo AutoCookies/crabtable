@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, IExecutionOptions, IMutationCommonParams, IRange, Nullable, UnitModel, Workbook } from '@univerjs/core';
-import type { IAutoFillLocation, IRemoveSheetMutationParams } from '@univerjs/sheets';
+import type { ICommandInfo, IExecutionOptions, IMutationCommonParams, IRange, Nullable, UnitModel, Workbook } from '@crabtable/core';
+import type { IAutoFillLocation, IRemoveSheetMutationParams } from '@crabtable/sheets';
 import {
+    CrabTableInstanceType,
     Disposable,
     DisposableCollection,
     ICommandService,
+    ICrabTableInstanceService,
     Inject,
-    IUniverInstanceService,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { DeviceInputEventType, getCurrentTypeOfRenderer, IRenderManagerService } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { DeviceInputEventType, getCurrentTypeOfRenderer, IRenderManagerService } from '@crabtable/engine-render';
 import {
     AUTO_FILL_HOOK_TYPE,
     AutoClearContentCommand,
@@ -46,7 +46,7 @@ import {
     SetWorksheetActiveOperation,
     SetWorksheetColWidthMutation,
     SetWorksheetRowHeightMutation,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { SetCellEditVisibleOperation } from '../commands/operations/cell-edit.operation';
 import { SetZoomRatioOperation } from '../commands/operations/set-zoom-ratio.operation';
 import { IEditorBridgeService } from '../services/editor-bridge.service';
@@ -57,7 +57,7 @@ export class AutoFillUIController extends Disposable {
     private _currentLocation: Nullable<IAutoFillLocation> = null;
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService,
         @IAutoFillService private readonly _autoFillService: IAutoFillService,
         @Inject(AutoFillController) private _autoFillController: AutoFillController,
@@ -132,7 +132,7 @@ export class AutoFillUIController extends Disposable {
                 }
             }
         }));
-        this.disposeWithMe(this._univerInstanceService.unitDisposed$.subscribe((unit: UnitModel) => {
+        this.disposeWithMe(this._crabtableInstanceService.unitDisposed$.subscribe((unit: UnitModel) => {
             if (unit.getUnitId() === this._currentLocation?.unitId) {
                 this._quit();
             }
@@ -151,7 +151,7 @@ export class AutoFillUIController extends Disposable {
             // Each range change requires re-listening.
             disposableCollection.dispose();
 
-            const currentRenderer = getCurrentTypeOfRenderer(UniverInstanceType.UNIVER_SHEET, this._univerInstanceService, this._renderManagerService);
+            const currentRenderer = getCurrentTypeOfRenderer(CrabTableInstanceType.CRABTABLE_SHEET, this._crabtableInstanceService, this._renderManagerService);
             if (!currentRenderer) return;
 
             const selectionRenderService = currentRenderer.with(ISheetSelectionRenderService);
@@ -221,7 +221,7 @@ export class AutoFillUIController extends Disposable {
             }
         }));
 
-        this.disposeWithMe(this._univerInstanceService.getCurrentTypeOfUnit$(UniverInstanceType.UNIVER_SHEET)
+        this.disposeWithMe(this._crabtableInstanceService.getCurrentTypeOfUnit$(CrabTableInstanceType.CRABTABLE_SHEET)
             .subscribe(() => updateListener()));
     }
 
@@ -238,7 +238,7 @@ export class AutoFillUIController extends Disposable {
 
     private _detectFillRange(source: IRange) {
         const { startRow, endRow, startColumn, endColumn } = source;
-        const worksheet = this._univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getActiveSheet();
+        const worksheet = this._crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getActiveSheet();
         if (!worksheet) {
             return source;
         }

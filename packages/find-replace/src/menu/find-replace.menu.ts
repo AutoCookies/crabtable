@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuButtonItem } from '@univerjs/ui';
-import { EDITOR_ACTIVATED, FOCUSING_SHEET, IContextService, UniverInstanceType } from '@univerjs/core';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuButtonItem } from '@crabtable/ui';
+import { CrabTableInstanceType, EDITOR_ACTIVATED, FOCUSING_SHEET, IContextService } from '@crabtable/core';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { combineLatest, map } from 'rxjs';
 
 import { OpenFindDialogOperation } from '../commands/operations/find-replace.operation';
@@ -30,7 +30,7 @@ export function FindReplaceMenuItemFactory(accessor: IAccessor): IMenuButtonItem
         icon: 'SearchIcon',
         tooltip: 'find-replace.toolbar',
         type: MenuItemType.BUTTON,
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         disabled$: combineLatest([
             contextService.subscribeContextValue$(EDITOR_ACTIVATED),
             contextService.subscribeContextValue$(FOCUSING_SHEET),

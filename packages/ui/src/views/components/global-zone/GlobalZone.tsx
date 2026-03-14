@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { clsx } from '@univerjs/design';
+import { clsx } from '@crabtable/design';
 import { useEffect, useMemo, useState } from 'react';
 import { ComponentManager } from '../../../common/component-manager';
 import { IGlobalZoneService } from '../../../services/global-zone/global-zone.service';

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { MenuConfig } from '@univerjs/ui';
-import { UniverInstanceType } from '@univerjs/core';
+import type { MenuConfig } from '@crabtable/ui';
+import { CrabTableInstanceType } from '@crabtable/core';
 
 export const DEBUGGER_PLUGIN_CONFIG_KEY = 'debugger.config';
 
@@ -24,7 +24,7 @@ export const configSymbol = Symbol(DEBUGGER_PLUGIN_CONFIG_KEY);
 export interface IUniverDebuggerConfig {
     menu?: MenuConfig;
     fab?: boolean;
-    fabEntryUnitType?: UniverInstanceType;
+    fabEntryUnitType?: CrabTableInstanceType;
     performanceMonitor?: {
         enabled: boolean;
     };
@@ -32,7 +32,7 @@ export interface IUniverDebuggerConfig {
 
 export const defaultPluginConfig: IUniverDebuggerConfig = {
     fab: true,
-    fabEntryUnitType: UniverInstanceType.UNIVER_SHEET,
+    fabEntryUnitType: CrabTableInstanceType.CRABTABLE_SHEET,
     performanceMonitor: {
         enabled: true,
     },

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IConditionFormattingRule } from '@univerjs/sheets-conditional-formatting';
+import type { IConditionFormattingRule } from '@crabtable/sheets-conditional-formatting';
 import { useState } from 'react';
 import { RuleEdit } from './rule-edit';
 import { RuleList } from './rule-list';

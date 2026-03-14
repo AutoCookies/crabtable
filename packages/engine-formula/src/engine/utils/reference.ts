@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IRange, IUnitRangeName, IUnitRangeWithName } from '@univerjs/core';
-import { AbsoluteRefType, columnLabelToNumber, MAX_COLUMN_COUNT, MAX_ROW_COUNT, RANGE_TYPE, Tools } from '@univerjs/core';
+import type { IRange, IUnitRangeName, IUnitRangeWithName } from '@crabtable/core';
+import { AbsoluteRefType, columnLabelToNumber, MAX_COLUMN_COUNT, MAX_ROW_COUNT, RANGE_TYPE, Tools } from '@crabtable/core';
 import { includeFormulaLexerToken } from '../../basics/match-token';
 import { isReferenceString, UNIT_NAME_REGEX_PRECOMPILING } from '../../basics/regex';
 import { prefixToken, SPACE_TOKEN } from '../../basics/token';
@@ -345,7 +345,7 @@ export function replaceRefPrefixString(token: string) {
 /**
  * implement getSheetIdByName
  * function getSheetIdByName(name: string) {
-        return univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getSheetBySheetName(name)?.getSheetId() || '';
+        return crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getSheetBySheetName(name)?.getSheetId() || '';
     }
  */
 export function getRangeWithRefsString(refString: string, getSheetIdByName: (name: string) => string): IUnitRangeWithName[] {

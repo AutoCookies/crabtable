@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { FEnum } from '@univerjs/core/facade';
-import { BuiltInUIPart, KeyCode } from '@univerjs/ui';
+import { FEnum } from '@crabtable/core/facade';
+import { BuiltInUIPart, KeyCode } from '@crabtable/ui';
 
 /**
  * @ignore
@@ -47,7 +47,7 @@ export class FUIEnum extends FEnum implements IFUIEnumMixin {
 
 FEnum.extend(FUIEnum);
 
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FEnum extends IFUIEnumMixin {}
 }

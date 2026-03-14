@@ -16,7 +16,7 @@
 
 import { Subject } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
-import { SHEETS_TABLE_FILTER_PANEL_OPENED_KEY, UNIVER_SHEET_TABLE_FILTER_PANEL_ID } from '../../const';
+import { CRABTABLE_SHEET_TABLE_FILTER_PANEL_ID, SHEETS_TABLE_FILTER_PANEL_OPENED_KEY } from '../../const';
 import { SheetsTableComponentController } from '../sheet-table-component.controller';
 
 describe('SheetsTableComponentController', () => {
@@ -59,7 +59,7 @@ describe('SheetsTableComponentController', () => {
         const options = popupCalls[0]?.[2] as { onClickOutside: () => void } | undefined;
         expect(options).toBeDefined();
         options?.onClickOutside();
-        expect(dialogClose).toHaveBeenCalledWith(UNIVER_SHEET_TABLE_FILTER_PANEL_ID);
+        expect(dialogClose).toHaveBeenCalledWith(CRABTABLE_SHEET_TABLE_FILTER_PANEL_ID);
         expect(setContextValue).toHaveBeenCalledWith(SHEETS_TABLE_FILTER_PANEL_OPENED_KEY, false);
 
         context$.next(false);

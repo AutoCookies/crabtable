@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, Injector } from '@univerjs/core';
-import type { IEventBase } from '@univerjs/core/facade';
-import type { ISetSheetsFilterCriteriaCommandParams } from '@univerjs/sheets-filter';
-import type { FWorkbook, FWorksheet } from '@univerjs/sheets/facade';
-import { ICommandService } from '@univerjs/core';
-import { FEventName, FUniver } from '@univerjs/core/facade';
-import { ClearSheetsFilterCriteriaCommand, SetSheetsFilterCriteriaCommand } from '@univerjs/sheets-filter';
-import { FSheetEventName } from '@univerjs/sheets/facade';
+import type { ICommandInfo, Injector } from '@crabtable/core';
+import type { IEventBase } from '@crabtable/core/facade';
+import type { ISetSheetsFilterCriteriaCommandParams } from '@crabtable/sheets-filter';
+import type { FWorkbook, FWorksheet } from '@crabtable/sheets/facade';
+import { ICommandService } from '@crabtable/core';
+import { FCrabTable, FEventName } from '@crabtable/core/facade';
+import { ClearSheetsFilterCriteriaCommand, SetSheetsFilterCriteriaCommand } from '@crabtable/sheets-filter';
+import { FSheetEventName } from '@crabtable/sheets/facade';
 
 /**
  * @ignore
@@ -32,7 +32,7 @@ export interface IFSheetFilterEventMixin {
      * @see {@link ISheetRangeFilteredParams}
      * @example
      * ```typescript
-     * const callbackDisposable = univerAPI.addEvent(univerAPI.Event.SheetRangeFiltered, (params) => {
+     * const callbackDisposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetRangeFiltered, (params) => {
      *   console.log(params);
      *   const { workbook, worksheet, col, criteria } = params;
      *
@@ -49,7 +49,7 @@ export interface IFSheetFilterEventMixin {
      * @see {@link ISheetRangeFilteredParams}
      * @example
      * ```typescript
-     * const callbackDisposable = univerAPI.addEvent(univerAPI.Event.SheetBeforeRangeFilter, (params) => {
+     * const callbackDisposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetBeforeRangeFilter, (params) => {
      *   console.log(params);
      *   const { workbook, worksheet, col, criteria } = params;
      *
@@ -69,7 +69,7 @@ export interface IFSheetFilterEventMixin {
      * @see {@link ISheetRangeFilterClearedEventParams}
      * @example
      * ```typescript
-     * const callbackDisposable = univerAPI.addEvent(univerAPI.Event.SheetRangeFilterCleared, (params) => {
+     * const callbackDisposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetRangeFilterCleared, (params) => {
      *   console.log(params);
      *   const { workbook, worksheet } = params;
      *
@@ -86,7 +86,7 @@ export interface IFSheetFilterEventMixin {
      * @see {@link ISheetRangeFilterClearedEventParams}
      * @example
      * ```typescript
-     * const callbackDisposable = univerAPI.addEvent(univerAPI.Event.SheetBeforeRangeFilterClear, (params) => {
+     * const callbackDisposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetBeforeRangeFilterClear, (params) => {
      *   console.log(params);
      *   const { workbook, worksheet } = params;
      *
@@ -110,7 +110,7 @@ export class FSheetFilterEventName extends FEventName implements IFSheetFilterEv
 }
 
 FEventName.extend(FSheetFilterEventName);
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FEventName extends IFSheetFilterEventMixin { }
 }
@@ -148,13 +148,13 @@ interface ISheetRangeFilterEventParamConfig {
 }
 
 FEventName.extend(FSheetEventName);
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FEventName extends IFSheetFilterEventMixin { }
     interface IEventParamConfig extends ISheetRangeFilterEventParamConfig { }
 }
 
-class FUniverSheetsFilterEventMixin extends FUniver {
+class FCrabTableSheetsFilterEventMixin extends FCrabTable {
     /**
      * @ignore
      */
@@ -265,4 +265,4 @@ class FUniverSheetsFilterEventMixin extends FUniver {
     }
 }
 
-FUniver.extend(FUniverSheetsFilterEventMixin);
+FCrabTable.extend(FUniverSheetsFilterEventMixin);

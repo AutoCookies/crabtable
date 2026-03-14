@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { ICellData, ICommandInfo, IObjectMatrixPrimitiveType, Nullable } from '@univerjs/core';
-import type { ISetFormulaCalculationResultMutation } from '@univerjs/engine-formula';
-import { Disposable, ICommandService, Inject, IUniverInstanceService, ObjectMatrix, sequenceExecute } from '@univerjs/core';
-import { handleNumfmtInCell, SetFormulaCalculationResultMutation } from '@univerjs/engine-formula';
+import type { ICellData, ICommandInfo, IObjectMatrixPrimitiveType, Nullable } from '@crabtable/core';
+import type { ISetFormulaCalculationResultMutation } from '@crabtable/engine-formula';
+import { Disposable, ICommandService, ICrabTableInstanceService, Inject, ObjectMatrix, sequenceExecute } from '@crabtable/core';
+import { handleNumfmtInCell, SetFormulaCalculationResultMutation } from '@crabtable/engine-formula';
 import { SetRangeValuesMutation } from '../commands/mutations/set-range-values.mutation';
 
 export class CalculateResultApplyController extends Disposable {
     constructor(
-        @Inject(IUniverInstanceService) private _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService
     ) {
         super();
@@ -101,7 +101,7 @@ export class CalculateResultApplyController extends Disposable {
      * @returns
      */
     private _getMergedCellData(unitId: string, sheetId: string, cellData: IObjectMatrixPrimitiveType<Nullable<ICellData>>) {
-        const workbook = this._univerInstanceService.getUniverSheetInstance(unitId);
+        const workbook = this._crabtableInstanceService.getCrabTableSheetInstance(unitId);
         const styles = workbook?.getStyles();
 
         const worksheet = workbook?.getSheetBySheetId(sheetId);

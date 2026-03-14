@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuButtonItem, IShortcutItem } from '@univerjs/ui';
-import { UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { whenDocAndEditorFocused } from '@univerjs/docs-ui';
-import { getMenuHiddenObservable, KeyCode, MenuItemType, MetaKeys } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuButtonItem, IShortcutItem } from '@crabtable/ui';
+import { CrabTableInstanceType } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { whenDocAndEditorFocused } from '@crabtable/docs-ui';
+import { getMenuHiddenObservable, KeyCode, MenuItemType, MetaKeys } from '@crabtable/ui';
 import { debounceTime, Observable } from 'rxjs';
 import { shouldDisableAddLink, ShowDocHyperLinkEditPopupOperation } from '../commands/operations/popup.operation';
 
@@ -32,7 +32,7 @@ export function AddHyperLinkMenuItemFactory(accessor: IAccessor): IMenuButtonIte
         icon: DOC_LINK_ICON,
         title: 'docLink.menu.tooltip',
         tooltip: 'docLink.menu.tooltip',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC),
         disabled$: new Observable(function (subscribe) {
             const textSelectionService = accessor.get(DocSelectionManagerService);
             const observer = textSelectionService.textSelection$.pipe(debounceTime(16)).subscribe(() => {

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IMutation, IRange, Nullable } from '@univerjs/core';
-import type { ISheetCommandSharedParams } from '@univerjs/sheets';
+import type { IMutation, IRange, Nullable } from '@crabtable/core';
+import type { ISheetCommandSharedParams } from '@crabtable/sheets';
 import type { IFilterColumn } from '../../models/types';
 
-import { CommandType } from '@univerjs/core';
+import { CommandType } from '@crabtable/core';
 import { ReCalcSheetsFilterMutationId, RemoveSheetsFilterMutationId, SetSheetsFilterCriteriaMutationId, SetSheetsFilterRangeMutationId } from '../../common/const';
 import { SheetsFilterService } from '../../services/sheet-filter.service';
 

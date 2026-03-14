@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { LifecycleStages } from '@univerjs/core';
-import { render, unmount } from '@univerjs/design';
+import { LifecycleStages } from '@crabtable/core';
+import { render, unmount } from '@crabtable/design';
 import { Subject } from 'rxjs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { DesktopUIController } from '../ui-desktop.controller';
@@ -25,7 +25,7 @@ vi.mock('../../../utils/di', () => ({
     connectInjector: vi.fn((Comp: any) => Comp),
 }));
 
-vi.mock('@univerjs/design', async (importOriginal) => {
+vi.mock('@crabtable/design', async (importOriginal) => {
     const actual = await importOriginal<any>();
     return {
         ...actual,

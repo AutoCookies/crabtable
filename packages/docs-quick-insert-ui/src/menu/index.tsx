@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel } from '@univerjs/core';
+import type { DocumentDataModel } from '@crabtable/core';
 import type { IDocPopup } from '../services/doc-quick-insert-popup.service';
-import { IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { borderClassName, clsx } from '@univerjs/design';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
+import { borderClassName, clsx } from '@crabtable/design';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { ILayoutService, useDependency, useEvent, useObservable } from '@crabtable/ui';
 import { IncreaseIcon } from '@univerjs/icons';
-import { ILayoutService, useDependency, useEvent, useObservable } from '@univerjs/ui';
 import { useMemo } from 'react';
 import { combineLatest, map } from 'rxjs';
 import { DocQuickInsertPopupService } from '../services/doc-quick-insert-popup.service';
@@ -34,9 +34,9 @@ interface IQuickInsertButtonProps {
 
 export const QuickInsertButton = ({ className = '' }: IQuickInsertButtonProps) => {
     const docQuickInsertPopupService = useDependency(DocQuickInsertPopupService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const renderManagerService = useDependency(IRenderManagerService);
-    const currentDoc = useObservable(useMemo(() => univerInstanceService.getCurrentTypeOfUnit$<DocumentDataModel>(UniverInstanceType.UNIVER_DOC), [univerInstanceService]));
+    const currentDoc = useObservable(useMemo(() => crabtableInstanceService.getCurrentTypeOfUnit$<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC), [crabtableInstanceService]));
     const currentUnit = currentDoc && renderManagerService.getRenderById(currentDoc.getUnitId());
     const docQuickInsertMenuController = currentUnit?.with(DocQuickInsertMenuController);
     const layoutService = useDependency(ILayoutService);

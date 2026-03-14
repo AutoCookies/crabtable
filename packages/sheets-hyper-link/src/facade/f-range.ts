@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAddHyperLinkCommandParams, ICancelHyperLinkCommandParams, IUpdateHyperLinkCommandParams } from '@univerjs/sheets-hyper-link';
-import { CustomRangeType, DataStreamTreeTokenType, generateRandomId } from '@univerjs/core';
-import { AddHyperLinkCommand, CancelHyperLinkCommand, SheetsHyperLinkParserService, UpdateHyperLinkCommand } from '@univerjs/sheets-hyper-link';
-import { FRange } from '@univerjs/sheets/facade';
+import type { IAddHyperLinkCommandParams, ICancelHyperLinkCommandParams, IUpdateHyperLinkCommandParams } from '@crabtable/sheets-hyper-link';
+import { CustomRangeType, DataStreamTreeTokenType, generateRandomId } from '@crabtable/core';
+import { AddHyperLinkCommand, CancelHyperLinkCommand, SheetsHyperLinkParserService, UpdateHyperLinkCommand } from '@crabtable/sheets-hyper-link';
+import { FRange } from '@crabtable/sheets/facade';
 
 export interface ICellHyperLink {
     id: string;
@@ -32,15 +32,15 @@ export interface ICellHyperLink {
  */
 export interface IFRangeHyperlinkMixin {
     /**
-     * @deprecated use `range.setRichTextValueForCell(univerAPI.newRichText().insertLink(label, url))` instead
+     * @deprecated use `range.setRichTextValueForCell(crabtableAPI.newRichText().insertLink(label, url))` instead
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
-     * // Create a hyperlink to Univer on cell A1
+     * // Create a hyperlink to CrabTable on cell A1
      * const fRange = fWorksheet.getRange('A1');
-     * const richText = univerAPI.newRichText().insertLink('Univer', 'https://univer.ai/');
+     * const richText = crabtableAPI.newRichText().insertLink('Univer', 'https://crabtable.dev/');
      * fRange.setRichTextValueForCell(richText);
      * ```
      */
@@ -50,12 +50,12 @@ export interface IFRangeHyperlinkMixin {
      * @deprecated use `range.setRichTextValueForCell(range.getValue(true).getLinks())` instead
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
-     * // Create a hyperlink to Univer on cell A1
+     * // Create a hyperlink to CrabTable on cell A1
      * const fRange = fWorksheet.getRange('A1');
-     * const richText = univerAPI.newRichText().insertLink('Univer', 'https://univer.ai/');
+     * const richText = crabtableAPI.newRichText().insertLink('Univer', 'https://crabtable.dev/');
      * fRange.setRichTextValueForCell(richText);
      *
      * // Get hyperlinks from cell A1
@@ -68,10 +68,10 @@ export interface IFRangeHyperlinkMixin {
      * @deprecated use `range.setRichTextValueForCell(range.getValue(true).copy().updateLink(id, url))` instead
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1');
-     * const richText = univerAPI.newRichText().insertLink('Univer', 'https://univer.ai/');
+     * const richText = crabtableAPI.newRichText().insertLink('Univer', 'https://crabtable.dev/');
      * fRange.setRichTextValueForCell(richText);
      *
      * // Update hyperlink after 3 seconds
@@ -79,7 +79,7 @@ export interface IFRangeHyperlinkMixin {
      *   const cellValue = fRange.getValue(true);
      *   const hyperlinks = cellValue.getLinks();
      *   const id = hyperlinks[0].rangeId;
-     *   const newUrl = 'https://insight.univer.ai/';
+     *   const newUrl = 'https://insight.crabtable.dev/';
      *   const newRichText = cellValue.copy().updateLink(id, newUrl);
      *   fRange.setRichTextValueForCell(newRichText);
      * }, 3000);
@@ -91,10 +91,10 @@ export interface IFRangeHyperlinkMixin {
      * @deprecated use `range.setRichTextValueForCell(range.getValue(true).copy().cancelLink(id))` instead
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1');
-     * const richText = univerAPI.newRichText().insertLink('Univer', 'https://univer.ai/');
+     * const richText = crabtableAPI.newRichText().insertLink('Univer', 'https://crabtable.dev/');
      * fRange.setRichTextValueForCell(richText);
      *
      * // Cancel hyperlink after 3 seconds
@@ -114,7 +114,7 @@ export interface IFRangeHyperlinkMixin {
      * @returns {string} The url of this range
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1');
      * const url = fRange.getUrl();
@@ -197,7 +197,7 @@ export class FRangeHyperlinkMixin extends FRange implements IFRangeHyperlinkMixi
 }
 
 FRange.extend(FRangeHyperlinkMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FRange extends IFRangeHyperlinkMixin {}
 }

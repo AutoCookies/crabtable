@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IBorderData, Nullable } from '@univerjs/core';
-import type { IBorderInfo } from '@univerjs/sheets';
+import type { IBorderData, Nullable } from '@crabtable/core';
+import type { IBorderInfo } from '@crabtable/sheets';
 import type { IBorderPanelProps } from './interface';
-import { BorderStyleTypes } from '@univerjs/core';
-import { clsx, ColorPicker, Dropdown, Separator } from '@univerjs/design';
+import { BorderStyleTypes } from '@crabtable/core';
+import { clsx, ColorPicker, Dropdown, Separator } from '@crabtable/design';
+import { BorderStyleManagerService, SheetsSelectionsService } from '@crabtable/sheets';
+import { ComponentManager, useDependency } from '@crabtable/ui';
 import { CheckMarkIcon, MoreDownIcon, PaintBucketDoubleIcon } from '@univerjs/icons';
-import { BorderStyleManagerService, SheetsSelectionsService } from '@univerjs/sheets';
-import { ComponentManager, useDependency } from '@univerjs/ui';
 import { BorderLine } from './border-line/BorderLine';
 import { BORDER_LINE_CHILDREN } from './interface';
 

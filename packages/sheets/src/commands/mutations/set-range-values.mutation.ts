@@ -25,8 +25,8 @@ import type {
     Nullable,
     Styles,
     Workbook,
-} from '@univerjs/core';
-import { CommandType, IUniverInstanceService, ObjectMatrix, Tools } from '@univerjs/core';
+} from '@crabtable/core';
+import { CommandType, ICrabTableInstanceService, ObjectMatrix, Tools } from '@crabtable/core';
 import { handleStyle, transformStyle } from '../../basics/cell-style';
 import { getCellType } from '../../basics/cell-type';
 import { getCellValue, setNull } from '../../basics/cell-value';
@@ -63,8 +63,8 @@ export const SetRangeValuesUndoMutationFactory = (
     params: ISetRangeValuesMutationParams
 ): ISetRangeValuesMutationParams => {
     const { unitId, subUnitId, cellValue } = params;
-    const univerInstanceService = accessor.get(IUniverInstanceService);
-    const workbook = univerInstanceService.getUniverSheetInstance(unitId);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+    const workbook = crabtableInstanceService.getCrabTableSheetInstance(unitId);
 
     if (workbook == null) {
         throw new Error('workbook is null error!');
@@ -106,8 +106,8 @@ export const SetRangeValuesMutation: IMutation<ISetRangeValuesMutationParams, bo
 
     handler: (accessor, params) => {
         const { cellValue, subUnitId, unitId } = params;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const workbook = univerInstanceService.getUnit<Workbook>(unitId);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const workbook = crabtableInstanceService.getUnit<Workbook>(unitId);
         if (!workbook) {
             return false;
         }

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { clsx, render } from '@univerjs/design';
-import { defaultTheme } from '@univerjs/themes';
-import { ThemeSwitcherService } from '@univerjs/ui';
+import { clsx, render } from '@crabtable/design';
+import { defaultTheme } from '@crabtable/themes';
+import { ThemeSwitcherService } from '@crabtable/ui';
 import { useState } from 'react';
 import pkg from '../../package.json';
 import { demos } from './demos';
@@ -130,7 +130,7 @@ function Examples() {
         >
             <section className="univer-mx-auto univer-max-w-3xl">
                 <header className="univer-mb-8 univer-flex univer-items-center univer-gap-4">
-                    <img className="univer-w-12" src="/favicon.svg" alt="Univer" draggable={false} />
+                    <img className="univer-w-12" src="/favicon.svg" alt="CrabTable" draggable={false} />
                     <div>
                         <h1 className="univer-text-3xl univer-font-semibold univer-text-slate-900">
                             Univer

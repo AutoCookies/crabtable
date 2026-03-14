@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommand } from '@univerjs/core';
-import type { ISuccinctDocRangeParam } from '@univerjs/engine-render';
-import { CommandType, DOC_RANGE_TYPE, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
+import type { DocumentDataModel, ICommand } from '@crabtable/core';
+import type { ISuccinctDocRangeParam } from '@crabtable/engine-render';
+import { CommandType, CrabTableInstanceType, DOC_RANGE_TYPE, ICrabTableInstanceService } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
 
 interface ISelectAllCommandParams { }
 
@@ -25,9 +25,9 @@ export const DocSelectAllCommand: ICommand<ISelectAllCommandParams> = {
     id: 'doc.command.select-all',
     type: CommandType.COMMAND,
     handler: async (accessor) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const docDataModel = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         const docRanges = docSelectionManagerService.getDocRanges();
         const activeRange = docRanges.find((range) => range.isActive) ?? docRanges[0];
         if (docDataModel == null || activeRange == null) {

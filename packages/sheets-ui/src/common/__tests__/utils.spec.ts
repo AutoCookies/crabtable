@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { SHEET_VIEWPORT_KEY } from '@univerjs/engine-render';
+import { SHEET_VIEWPORT_KEY } from '@crabtable/engine-render';
 import { describe, expect, it } from 'vitest';
 import {
     checkCellContentInRange,

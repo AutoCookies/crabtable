@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { ICellWithCoord, IDisposable, ISelectionCell, Nullable } from '@univerjs/core';
-import type { ISelectionStyle, ISheetLocation } from '@univerjs/sheets';
-import type { ICanvasPopup, ICellAlert, IDropdownParam } from '@univerjs/sheets-ui';
-import type { ComponentType } from '@univerjs/ui';
-import { DisposableCollection, generateRandomId, ILogService, toDisposable } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { CellAlertManagerService, IMarkSelectionService, ISheetCellDropdownManagerService, ISheetClipboardService, SheetCanvasPopManagerService, SheetSkeletonManagerService } from '@univerjs/sheets-ui';
-import { FRange } from '@univerjs/sheets/facade';
-import { ComponentManager } from '@univerjs/ui';
+import type { ICellWithCoord, IDisposable, ISelectionCell, Nullable } from '@crabtable/core';
+import type { ISelectionStyle, ISheetLocation } from '@crabtable/sheets';
+import type { ICanvasPopup, ICellAlert, IDropdownParam } from '@crabtable/sheets-ui';
+import type { ComponentType } from '@crabtable/ui';
+import { DisposableCollection, generateRandomId, ILogService, toDisposable } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { CellAlertManagerService, IMarkSelectionService, ISheetCellDropdownManagerService, ISheetClipboardService, SheetCanvasPopManagerService, SheetSkeletonManagerService } from '@crabtable/sheets-ui';
+import { FRange } from '@crabtable/sheets/facade';
+import { ComponentManager } from '@crabtable/ui';
 
 export interface IFComponentKey {
     /**
@@ -48,7 +48,7 @@ interface IFRangeSheetsUIMixin {
      * @returns {ICellWithCoord} cell location and coordinate.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('H6');
      * console.log(fRange.getCell());
@@ -61,7 +61,7 @@ interface IFRangeSheetsUIMixin {
      * @returns {DOMRect} coordinates of the cell， top, right, bottom, left
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('H6');
      * console.log(fRange.getCellRect());
@@ -74,7 +74,7 @@ interface IFRangeSheetsUIMixin {
      * @returns {string} HTML content of the range.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B2');
      * fRange.setValues([
@@ -95,7 +95,7 @@ interface IFRangeSheetsUIMixin {
      * @example
      * ```ts
      * // Register a custom popup component
-     * univerAPI.registerComponent(
+     * crabtableAPI.registerComponent(
      *   'myPopup',
      *   () => React.createElement('div', {
      *     style: {
@@ -106,7 +106,7 @@ interface IFRangeSheetsUIMixin {
      * );
      *
      * // Attach the popup to the start cell of range C3:E5
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('C3:E5');
      * const disposable = fRange.attachPopup({
@@ -128,7 +128,7 @@ interface IFRangeSheetsUIMixin {
      * @example
      * ```ts
      * // Attach an alert popup to the start cell of range C3:E5
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('C3:E5');
      *
@@ -153,7 +153,7 @@ interface IFRangeSheetsUIMixin {
      * @example
      * ```ts
      * // Register a custom popup component
-     * univerAPI.registerComponent(
+     * crabtableAPI.registerComponent(
      *   'myPopup',
      *   () => React.createElement('div', {
      *     style: {
@@ -164,7 +164,7 @@ interface IFRangeSheetsUIMixin {
      * );
      *
      * // Attach the popup to the range C3:E5
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('C3:E5');
      * const disposable = fRange.attachRangePopup({
@@ -182,7 +182,7 @@ interface IFRangeSheetsUIMixin {
      * @returns {IDisposable} The disposable object to remove the highlight.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Highlight the range C3:E5 with default style
@@ -218,7 +218,7 @@ interface IFRangeSheetsUIMixin {
      * @returns {IDisposable} The disposable object to hide the dropdown.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('C3:E5');
      * fRange.showDropdown({ type: 'list', props: { options: [{ label: 'Option 1', value: 'option1' }, { label: 'Option 2', value: 'option2' }] } });
@@ -309,9 +309,9 @@ class FRangeSheetsUIMixin extends FRange implements IFRangeSheetsUIMixin {
      * attachDOMPopup
      * @param popup
      * @returns {IDisposable} disposable
-        let sheet = univerAPI.getActiveWorkbook().getActiveSheet();
+        let sheet = crabtableAPI.getActiveWorkbook().getActiveSheet();
         let range = sheet.getRange(2, 2, 3, 3);
-        univerAPI.getActiveWorkbook().setActiveRange(range);
+        crabtableAPI.getActiveWorkbook().setActiveRange(range);
         let disposable = range.attachDOMPopup({
         componentKey: 'univer.sheet.single-dom-popup',
         extraProps: { alert: { type: 0, title: 'This is an Info', message: 'This is an info message' } },
@@ -358,7 +358,7 @@ class FRangeSheetsUIMixin extends FRange implements IFRangeSheetsUIMixin {
 }
 
 FRange.extend(FRangeSheetsUIMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FRange extends IFRangeSheetsUIMixin { }
 }

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Nullable } from '@univerjs/core';
-import { Disposable, IContextService, Inject } from '@univerjs/core';
-import { SheetCanvasPopManagerService } from '@univerjs/sheets-ui';
-import { ComponentManager, IDialogService } from '@univerjs/ui';
+import type { IDisposable, Nullable } from '@crabtable/core';
+import { Disposable, IContextService, Inject } from '@crabtable/core';
+import { SheetCanvasPopManagerService } from '@crabtable/sheets-ui';
+import { ComponentManager, IDialogService } from '@crabtable/ui';
 import { distinctUntilChanged, startWith } from 'rxjs';
-import { SHEETS_TABLE_FILTER_PANEL_OPENED_KEY, UNIVER_SHEET_TABLE_FILTER_PANEL_ID } from '../const';
+import { CRABTABLE_SHEET_TABLE_FILTER_PANEL_ID, SHEETS_TABLE_FILTER_PANEL_OPENED_KEY } from '../const';
 import { SheetTableFilterPanel } from '../views/components/SheetTableFilterPanel';
 
 interface ITableFilterPanelInfo {
@@ -93,7 +93,7 @@ export class SheetsTableComponentController extends Disposable {
             componentKey: SHEETS_TABLE_FILTER_PANEL_OPENED_KEY,
             direction: 'horizontal',
             onClickOutside: () => {
-                this._dialogService.close(UNIVER_SHEET_TABLE_FILTER_PANEL_ID);
+                this._dialogService.close(CRABTABLE_SHEET_TABLE_FILTER_PANEL_ID);
                 this._contextService.setContextValue(SHEETS_TABLE_FILTER_PANEL_OPENED_KEY, false);
             },
             offset: [5, 0],

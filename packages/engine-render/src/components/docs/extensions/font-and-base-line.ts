@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IScale } from '@univerjs/core';
+import type { IScale } from '@crabtable/core';
 import type { IBoundRectNoAngle } from '../../../basics';
 import type { IDocumentSkeletonGlyph } from '../../../basics/i-document-skeleton-cached';
 import type { UniverRenderingContext } from '../../../context';
 import type { IDrawInfo } from '../../extension';
-import { BaselineOffset, getColorStyle } from '@univerjs/core';
+import { BaselineOffset, getColorStyle } from '@crabtable/core';
 import { GlyphType, hasCJK } from '../../../basics';
 import { COLOR_BLACK_RGB } from '../../../basics/const';
 import { Vector2 } from '../../../basics/vector2';

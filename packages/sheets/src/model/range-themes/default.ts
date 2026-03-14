@@ -15,7 +15,7 @@
  */
 
 import type { IRangeThemeStyleJSON } from '../range-theme-util';
-import { BooleanNumber, BorderStyleTypes, HorizontalAlign } from '@univerjs/core';
+import { BooleanNumber, BorderStyleTypes, HorizontalAlign } from '@crabtable/core';
 import { RangeThemeStyle } from '../range-theme-util';
 
 const defaultRangeThemeStyleJSON: Omit<IRangeThemeStyleJSON, 'name'> = {

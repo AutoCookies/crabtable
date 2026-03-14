@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-import { borderClassName, clsx } from '@univerjs/design';
+import { borderClassName, clsx } from '@crabtable/design';
 
 export const previewClassName = clsx('univer-mt-5 univer-px-1 univer-py-2 univer-rounded', borderClassName);

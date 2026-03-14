@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ImageSourceType, ImageUploadStatusType } from '@univerjs/core';
+import { ImageSourceType, ImageUploadStatusType } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { DRAWING_IMAGE_ALLOW_SIZE } from '../../basics/config';
 import { ImageIoService } from '../image-io-impl.service';

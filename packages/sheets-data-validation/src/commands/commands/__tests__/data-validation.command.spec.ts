@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import { DataValidationType, IUniverInstanceService } from '@univerjs/core';
-import { AddDataValidationMutation, DataValidatorRegistryService, RemoveDataValidationMutation, UpdateDataValidationMutation, UpdateRuleType } from '@univerjs/data-validation';
-import { LexerTreeBuilder } from '@univerjs/engine-formula';
-import { SetRangeValuesMutation } from '@univerjs/sheets';
+import type { IAccessor } from '@crabtable/core';
+import { DataValidationType, ICrabTableInstanceService } from '@crabtable/core';
+import { AddDataValidationMutation, DataValidatorRegistryService, RemoveDataValidationMutation, UpdateDataValidationMutation, UpdateRuleType } from '@crabtable/data-validation';
+import { LexerTreeBuilder } from '@crabtable/engine-formula';
+import { SetRangeValuesMutation } from '@crabtable/sheets';
 import { describe, expect, it, vi } from 'vitest';
 import { SheetDataValidationModel } from '../../../models/sheet-data-validation-model';
 import { getDataValidationDiffMutations } from '../data-validation.command';
@@ -75,11 +75,11 @@ function createAccessor(withTarget = true, offset = true) {
                 if (token === SheetDataValidationModel) {
                     return sheetDataValidationModel;
                 }
-                if (token === IUniverInstanceService) {
+                if (token === ICrabTableInstanceService) {
                     return {
                         getUnit: vi.fn(() => (withTarget ? workbook : null)),
                         getCurrentUnitOfType: vi.fn(() => workbook),
-                        getUniverSheetInstance: vi.fn(() => workbook),
+                        getCrabTableSheetInstance: vi.fn(() => workbook),
                     };
                 }
 

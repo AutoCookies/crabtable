@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData } from '@univerjs/core';
-import { ILogService, Inject, Injector, IUniverInstanceService, LocaleType, LogLevel, Plugin, Univer, UniverInstanceType } from '@univerjs/core';
+import type { Dependency, IWorkbookData } from '@crabtable/core';
+import { CrabTableInstanceType, ICrabTableInstanceService, ILogService, Inject, Injector, LocaleType, LogLevel, Plugin } from '@crabtable/core';
 
 import { Lexer } from '../../engine/analysis/lexer';
 import { LexerTreeBuilder } from '../../engine/analysis/lexer-tree-builder';
@@ -51,7 +51,7 @@ const TEST_WORKBOOK_DATA: IWorkbookData = {
     styles: {},
 };
 export function createCommandTestBed(workbookData?: IWorkbookData, dependencies?: Dependency[]) {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
@@ -60,7 +60,7 @@ export function createCommandTestBed(workbookData?: IWorkbookData, dependencies?
      */
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -86,10 +86,10 @@ export function createCommandTestBed(workbookData?: IWorkbookData, dependencies?
     }
 
     univer.registerPlugin(TestPlugin);
-    const sheet = univer.createUnit(UniverInstanceType.UNIVER_SHEET, workbookData || TEST_WORKBOOK_DATA);
+    const sheet = univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, workbookData || TEST_WORKBOOK_DATA);
 
-    const univerInstanceService = get(IUniverInstanceService);
-    univerInstanceService.focusUnit('test');
+    const crabtableInstanceService = get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit('test');
 
     const logService = get(ILogService);
     logService.setLogLevel(LogLevel.SILENT); // change this to `true` to debug tests via logs

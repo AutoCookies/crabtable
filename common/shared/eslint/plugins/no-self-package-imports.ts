@@ -56,7 +56,7 @@ const rule: Rule.RuleModule = {
 
         const parentDir = parentDirMatch[1];
         const packagePrefix = parentDir === 'univer'
-            ? '@univerjs/' :
+            ? '@crabtable/' :
             parentDir === 'univer-pro'
                 ? '@univerjs-pro/' :
                 null;

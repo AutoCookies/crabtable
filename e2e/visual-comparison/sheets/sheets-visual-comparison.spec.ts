@@ -168,7 +168,7 @@ test('diff facade sheet hooks', async () => {
     await page.evaluate(() => window.E2EControllerAPI.loadDefaultStyleSheet());
     await page.waitForTimeout(1000);
 
-    await page.evaluate(() => window.univerAPI.getSheetHooks().onCellRender([{
+    await page.evaluate(() => window.crabtableAPI.getSheetHooks().onCellRender([{
         drawWith: (ctx, info) => {
             const { row, col } = info;
             // Update to any cell location you want
@@ -179,7 +179,7 @@ test('diff facade sheet hooks', async () => {
             }
         },
     }]));
-    await page.evaluate(() => window.univerAPI.getActiveWorkbook().getActiveSheet().refreshCanvas());
+    await page.evaluate(() => window.crabtableAPI.getActiveWorkbook().getActiveSheet().refreshCanvas());
 
     const filename = generateSnapshotName('facade-sheet-hooks');
     const screenshot = await page.locator(SHEET_MAIN_CANVAS_ID).screenshot();
@@ -202,13 +202,13 @@ test('diff set force string cell', async () => {
     await page.waitForTimeout(2000);
 
     await page.evaluate(async () => {
-        const activeWorkbook = window.univerAPI.getActiveWorkbook();
+        const activeWorkbook = window.crabtableAPI.getActiveWorkbook();
         const activeSheet = activeWorkbook.getActiveSheet();
 
         const sheetId = activeSheet.getSheetId();
         const unitId = activeWorkbook.getId();
 
-        await window.univerAPI.executeCommand('sheet.operation.set-selections', {
+        await window.crabtableAPI.executeCommand('sheet.operation.set-selections', {
             selections: [
                 {
                     range: {
@@ -257,7 +257,7 @@ test('diff set force string cell', async () => {
         });
 
         activeWorkbook.startEditing();
-        await window.univerAPI.getActiveDocument().appendText("'1");
+        await window.crabtableAPI.getActiveDocument().appendText("'1");
         activeWorkbook.endEditing(true);
 
         activeSheet.getRange('I1').setValue({
@@ -304,7 +304,7 @@ test('diff set text format number cell', async () => {
     await page.waitForTimeout(2000);
 
     await page.evaluate(async () => {
-        await window.univerAPI.executeCommand('sheet.command.numfmt.set.numfmt', {
+        await window.crabtableAPI.executeCommand('sheet.command.numfmt.set.numfmt', {
             values: [
                 {
                     row: 0,
@@ -315,11 +315,11 @@ test('diff set text format number cell', async () => {
             ],
         });
 
-        await window.univerAPI.getActiveWorkbook().getActiveSheet().getRange('H1').setValue(2);
+        await window.crabtableAPI.getActiveWorkbook().getActiveSheet().getRange('H1').setValue(2);
 
-        await window.univerAPI.getActiveWorkbook().getActiveSheet().getRange('I1').setValue(3);
+        await window.crabtableAPI.getActiveWorkbook().getActiveSheet().getRange('I1').setValue(3);
 
-        await window.univerAPI.executeCommand('sheet.command.numfmt.set.numfmt', {
+        await window.crabtableAPI.executeCommand('sheet.command.numfmt.set.numfmt', {
             values: [
                 {
                     row: 0,

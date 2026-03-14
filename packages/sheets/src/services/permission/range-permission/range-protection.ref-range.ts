@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, IMutationInfo, IRange, Workbook } from '@univerjs/core';
+import type { ICommandInfo, IMutationInfo, IRange, Workbook } from '@crabtable/core';
 import type { IInsertColMutationParams } from '../../../basics/interfaces/mutation-interface';
 import type { IInsertColCommandParams, IInsertRowCommandParams } from '../../../commands/commands/insert-row-col.command';
 import type { IMoveColsCommandParams, IMoveRowsCommandParams } from '../../../commands/commands/move-rows-cols.command';
@@ -26,7 +26,7 @@ import type { IMoveRowsMutationParams } from '../../../commands/mutations/move-r
 import type { ISetRangeProtectionMutationParams } from '../../../commands/mutations/set-range-protection.mutation';
 import type { IRangeProtectionRule } from '../../../model/range-protection-rule.model';
 import type { EffectRefRangeParams } from '../../ref-range/type';
-import { Disposable, DisposableCollection, ICommandService, Inject, IUniverInstanceService, Rectangle, Tools, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, Disposable, DisposableCollection, ICommandService, ICrabTableInstanceService, Inject, Rectangle, Tools } from '@crabtable/core';
 import { InsertColCommand, InsertRowCommand } from '../../../commands/commands/insert-row-col.command';
 import { MoveColsCommand, MoveRowsCommand } from '../../../commands/commands/move-rows-cols.command';
 import { RemoveColCommand, RemoveRowCommand } from '../../../commands/commands/remove-row-col.command';
@@ -54,7 +54,7 @@ export class RangeProtectionRefRangeService extends Disposable {
 
     constructor(
         @Inject(RangeProtectionRuleModel) private _selectionProtectionRuleModel: RangeProtectionRuleModel,
-        @Inject(IUniverInstanceService) private _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService,
         @Inject(RefRangeService) private readonly _refRangeService: RefRangeService,
         @Inject(RangeProtectionRenderModel) private readonly _selectionProtectionRenderModel: RangeProtectionRenderModel,
@@ -71,7 +71,7 @@ export class RangeProtectionRefRangeService extends Disposable {
 
     private _onRefRangeChange() {
         const registerRefRange = (unitId: string, subUnitId: string) => {
-            const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+            const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
             if (!workbook) {
                 return;
             }
@@ -117,7 +117,7 @@ export class RangeProtectionRefRangeService extends Disposable {
             })
         );
 
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         if (workbook) {
             const sheet = workbook.getActiveSheet();
             if (!sheet) return;
@@ -389,7 +389,7 @@ export class RangeProtectionRefRangeService extends Disposable {
         this.disposeWithMe(this._commandService.onCommandExecuted((command: ICommandInfo) => {
             if (mutationIdArrByMove.includes(command.id)) {
                 if (!command.params) return;
-                const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                 if (!workbook) return;
                 const worksheet = workbook.getSheetBySheetId((command.params as IMoveRowsMutationParams).subUnitId);
                 if (!worksheet) return;
@@ -455,7 +455,7 @@ export class RangeProtectionRefRangeService extends Disposable {
 
             // 2. InsertRowsOrCols / RemoveRowsOrCols Mutations
             if (mutationIdByRowCol.includes(command.id)) {
-                const workbook = this._univerInstanceService.getUniverSheetInstance((command.params as IInsertColMutationParams).unitId);
+                const workbook = this._crabtableInstanceService.getCrabTableSheetInstance((command.params as IInsertColMutationParams).unitId);
                 if (!workbook) return;
                 const worksheet = workbook.getSheetBySheetId((command.params as IInsertColMutationParams).subUnitId);
                 if (!worksheet) return;

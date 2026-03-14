@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { INotificationOptions } from '@univerjs/ui';
-import { INotificationService, useDependency } from '@univerjs/ui';
+import type { INotificationOptions } from '@crabtable/ui';
+import { INotificationService, useDependency } from '@crabtable/ui';
 
 const menu = [
     {

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ITextStyle } from '@univerjs/core';
-import { BaselineOffset, BooleanNumber, ColorKit } from '@univerjs/core';
+import type { ITextStyle } from '@crabtable/core';
+import { BaselineOffset, BooleanNumber, ColorKit } from '@crabtable/core';
 
 export function extractNodeStyle(node: HTMLElement, predefinedStyles?: Record<string, string>): ITextStyle {
     const styles = predefinedStyles ?? node.style;

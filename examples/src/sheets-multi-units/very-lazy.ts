@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { Plugin, PluginCtor } from '@univerjs/core';
-import { UniverActionRecorderPlugin } from '@univerjs/action-recorder';
-import { UniverDebuggerPlugin } from '@univerjs/debugger';
-import { UniverSheetsCrosshairHighlightPlugin } from '@univerjs/sheets-crosshair-highlight';
-import { UniverSheetsFindReplacePlugin } from '@univerjs/sheets-find-replace';
-import { UniverSheetsHyperLinkUIPlugin } from '@univerjs/sheets-hyper-link-ui';
-import { UniverSheetsSortUIPlugin } from '@univerjs/sheets-sort-ui';
-import { UniverUniscriptPlugin } from '@univerjs/uniscript';
-import { UniverWatermarkPlugin } from '@univerjs/watermark';
+import type { Plugin, PluginCtor } from '@crabtable/core';
+import { UniverActionRecorderPlugin } from '@crabtable/action-recorder';
+import { CrabTableDebuggerPlugin } from '@crabtable/debugger';
+import { UniverSheetsCrosshairHighlightPlugin } from '@crabtable/sheets-crosshair-highlight';
+import { UniverSheetsFindReplacePlugin } from '@crabtable/sheets-find-replace';
+import { UniverSheetsHyperLinkUIPlugin } from '@crabtable/sheets-hyper-link-ui';
+import { UniverSheetsSortUIPlugin } from '@crabtable/sheets-sort-ui';
+import { UniverUniscriptPlugin } from '@crabtable/uniscript';
+import { UniverWatermarkPlugin } from '@crabtable/watermark';
 
 /* eslint-disable-next-line node/prefer-global/process */
 const IS_E2E: boolean = !!process.env.IS_E2E;
@@ -39,7 +39,7 @@ export default function getVeryLazyPlugins() {
     ];
 
     if (!IS_E2E) {
-        plugins.push([UniverDebuggerPlugin]);
+        plugins.push([CrabTableDebuggerPlugin]);
         plugins.push([UniverUniscriptPlugin, {
             getWorkerUrl(_: string, label: string) {
                 if (label === 'json') {

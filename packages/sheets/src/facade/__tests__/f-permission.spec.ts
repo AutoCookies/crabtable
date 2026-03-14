@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-import type { Injector } from '@univerjs/core';
-import type { FUniver } from '@univerjs/core/facade';
-import { ICommandService, IPermissionService } from '@univerjs/core';
-import { AddRangeProtectionMutation, AddWorksheetProtectionMutation, DeleteRangeProtectionMutation, DeleteWorksheetProtectionMutation, RangeProtectionPermissionEditPoint, RangeProtectionRuleModel, SetRangeProtectionMutation, WorkbookEditablePermission, WorksheetEditPermission } from '@univerjs/sheets';
+import type { Injector } from '@crabtable/core';
+import type { FCrabTable } from '@crabtable/core/facade';
+import { ICommandService, IPermissionService } from '@crabtable/core';
+import { AddRangeProtectionMutation, AddWorksheetProtectionMutation, DeleteRangeProtectionMutation, DeleteWorksheetProtectionMutation, RangeProtectionPermissionEditPoint, RangeProtectionRuleModel, SetRangeProtectionMutation, WorkbookEditablePermission, WorksheetEditPermission } from '@crabtable/sheets';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createFacadeTestBed } from './create-test-bed';
 
 describe('Test FPermission', () => {
     let get: Injector['get'];
     let commandService: ICommandService;
-    let univerAPI: FUniver;
+    let crabtableAPI: FCrabTable;
     let permissionService: IPermissionService;
     let rangeProtectionRuleModel: RangeProtectionRuleModel;
 
     beforeEach(() => {
         const testBed = createFacadeTestBed();
         get = testBed.get;
-        univerAPI = testBed.univerAPI;
+        crabtableAPI = testBed.crabtableAPI;
 
         commandService = get(ICommandService);
         commandService.registerCommand(AddWorksheetProtectionMutation);
@@ -45,8 +45,8 @@ describe('Test FPermission', () => {
     });
 
     it('set workbook edit point false', () => {
-        const permission = univerAPI.getPermission();
-        const unitId = univerAPI.getActiveWorkbook()?.getId();
+        const permission = crabtableAPI.getPermission();
+        const unitId = crabtableAPI.getActiveWorkbook()?.getId();
         if (unitId) {
             permission.setWorkbookEditPermission(unitId, false);
             let editValue = permissionService.getPermissionPoint(new WorkbookEditablePermission(unitId).id)?.value;
@@ -58,9 +58,9 @@ describe('Test FPermission', () => {
     });
 
     it('set worksheet edit point false', async () => {
-        const permission = univerAPI.getPermission();
-        const unitId = univerAPI.getActiveWorkbook()?.getId();
-        const subUnitId = univerAPI.getActiveWorkbook()?.getActiveSheet().getSheetId();
+        const permission = crabtableAPI.getPermission();
+        const unitId = crabtableAPI.getActiveWorkbook()?.getId();
+        const subUnitId = crabtableAPI.getActiveWorkbook()?.getActiveSheet().getSheetId();
         if (unitId && subUnitId) {
             await permission.addWorksheetBasePermission(unitId, subUnitId);
             await permission.setWorksheetPermissionPoint(unitId, subUnitId, WorksheetEditPermission, false);
@@ -79,8 +79,8 @@ describe('Test FPermission', () => {
     });
 
     it('set range protection point false', async () => {
-        const permission = univerAPI.getPermission();
-        const workbook = univerAPI.getActiveWorkbook();
+        const permission = crabtableAPI.getPermission();
+        const workbook = crabtableAPI.getActiveWorkbook();
         const worksheet = workbook?.getActiveSheet();
         const unitId = workbook?.getId();
         const subUnitId = worksheet?.getSheetId();

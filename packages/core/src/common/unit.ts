@@ -14,11 +14,20 @@
  * limitations under the License.
  */
 
-import type { UniverType } from '@univerjs/protocol';
 import type { Observable } from 'rxjs';
+import { UniverType } from '@univerjs/protocol';
 import { Disposable } from '../shared/lifecycle';
 
-export { UniverType as UniverInstanceType } from '@univerjs/protocol';
+export type { UniverType as CrabTableType } from '@univerjs/protocol';
+
+/** Instance type enum for CrabTable (matches @univerjs/protocol UniverType values). */
+export enum CrabTableInstanceType {
+    CRABTABLE_SHEET = UniverType.UNIVER_SHEET,
+    CRABTABLE_DOC = UniverType.UNIVER_DOC,
+    CRABTABLE_SLIDE = UniverType.UNIVER_SLIDE,
+    UNRECOGNIZED = (UniverType as unknown as { UNRECOGNIZED: number }).UNRECOGNIZED ?? -1,
+    UNIVER_UNKNOWN = (UniverType as unknown as { UNIVER_UNKNOWN: number }).UNIVER_UNKNOWN ?? 0,
+}
 
 export type UnitType = UniverType | number;
 

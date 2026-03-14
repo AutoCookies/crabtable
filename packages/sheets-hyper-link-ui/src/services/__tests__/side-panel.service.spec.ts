@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { SheetHyperLinkType } from '@univerjs/sheets-hyper-link';
+import { SheetHyperLinkType } from '@crabtable/sheets-hyper-link';
 import { describe, expect, it, vi } from 'vitest';
 import { SheetsHyperLinkSidePanelService } from '../side-panel.service';
 

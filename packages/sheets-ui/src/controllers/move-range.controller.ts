@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import type { IRange, Workbook } from '@univerjs/core';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
-import type { IMoveRangeCommandParams } from '@univerjs/sheets';
+import type { IRange, Workbook } from '@crabtable/core';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
+import type { IMoveRangeCommandParams } from '@crabtable/sheets';
 import {
     Disposable,
     DisposableCollection,
     ICommandService,
     Inject,
     toDisposable,
-} from '@univerjs/core';
+} from '@crabtable/core';
 
-import { MoveRangeCommand, SheetsSelectionsService } from '@univerjs/sheets';
+import { MoveRangeCommand, SheetsSelectionsService } from '@crabtable/sheets';
 import { ISheetSelectionRenderService } from '../services/selection/base-selection-render.service';
 
 export class MoveRangeRenderController extends Disposable implements IRenderModule {

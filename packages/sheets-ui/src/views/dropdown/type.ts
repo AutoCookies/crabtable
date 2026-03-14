@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ISheetLocation } from '@univerjs/sheets';
+import type { ISheetLocation } from '@crabtable/sheets';
 
 export interface IBaseDropdownProps {
     location: ISheetLocation;

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverDocsThreadCommentUIConfig } from './config/config';
-import { DependentOn, IConfigService, Inject, Injector, merge, Plugin, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { UniverThreadCommentUIPlugin } from '@univerjs/thread-comment-ui';
+import { CrabTableInstanceType, DependentOn, IConfigService, Inject, Injector, merge, Plugin } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { UniverThreadCommentUIPlugin } from '@crabtable/thread-comment-ui';
 import pkg from '../package.json';
 import { PLUGIN_NAME } from './common/const';
 import { defaultPluginConfig, DOCS_THREAD_COMMENT_UI_PLUGIN_CONFIG_KEY } from './config/config';
@@ -32,7 +32,7 @@ export class UniverDocsThreadCommentUIPlugin extends Plugin {
     static override pluginName = PLUGIN_NAME;
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_DOC;
+    static override type = CrabTableInstanceType.CRABTABLE_DOC;
 
     constructor(
         private readonly _config: Partial<IUniverDocsThreadCommentUIConfig> = defaultPluginConfig,
@@ -73,7 +73,7 @@ export class UniverDocsThreadCommentUIPlugin extends Plugin {
 
     private _initRenderModule() {
         [DocThreadCommentRenderController].forEach((dep) => {
-            this._renderManagerSrv.registerRenderModule(UniverInstanceType.UNIVER_DOC, dep as unknown as Dependency);
+            this._renderManagerSrv.registerRenderModule(CrabTableInstanceType.CRABTABLE_DOC, dep as unknown as Dependency);
         });
     }
 }

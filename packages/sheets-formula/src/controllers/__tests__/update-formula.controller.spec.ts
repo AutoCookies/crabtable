@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Dependency, ICellData, IWorkbookData, Nullable, Workbook } from '@univerjs/core';
-import { CellValueType, ICommandService, IConfigService, IUniverInstanceService, LocaleType, UniverInstanceType } from '@univerjs/core';
-import { FormulaDataModel, SetArrayFormulaDataMutation, SetFormulaDataMutation, SetTriggerFormulaCalculationStartMutation } from '@univerjs/engine-formula';
-import { InsertSheetMutation, MoveRangeCommand, MoveRangeMutation, RemoveSheetCommand, RemoveSheetMutation, SetRangeValuesCommand, SetRangeValuesMutation, SetSelectionsOperation, SetStyleCommand, SetWorksheetNameCommand, SheetInterceptorService } from '@univerjs/sheets';
+import type { Dependency, ICellData, IWorkbookData, Nullable, Workbook } from '@crabtable/core';
+import { CellValueType, CrabTableInstanceType, ICommandService, IConfigService, ICrabTableInstanceService, LocaleType } from '@crabtable/core';
+import { FormulaDataModel, SetArrayFormulaDataMutation, SetFormulaDataMutation, SetTriggerFormulaCalculationStartMutation } from '@crabtable/engine-formula';
+import { InsertSheetMutation, MoveRangeCommand, MoveRangeMutation, RemoveSheetCommand, RemoveSheetMutation, SetRangeValuesCommand, SetRangeValuesMutation, SetSelectionsOperation, SetStyleCommand, SetWorksheetNameCommand, SheetInterceptorService } from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { CalculationMode, PLUGIN_CONFIG_KEY_BASE } from '../../config/config';
@@ -122,7 +122,7 @@ describe('UpdateFormulaController', () => {
         })).toBe(true);
 
         const values = testBed.injector
-            .get(IUniverInstanceService)
+            .get(ICrabTableInstanceService)
             .getUnit<Workbook>('test')
             ?.getSheetBySheetId('sheet1')
             ?.getRange(5, 2, 5, 2)
@@ -150,7 +150,7 @@ describe('UpdateFormulaController', () => {
         })).toBe(true);
 
         const values = testBed.injector
-            .get(IUniverInstanceService)
+            .get(ICrabTableInstanceService)
             .getUnit<Workbook>('test')
             ?.getSheetBySheetId('sheet1')
             ?.getRange(5, 2, 5, 3)
@@ -258,7 +258,7 @@ describe('UpdateFormulaController', () => {
     it('should initialize formula data for added sheets and workbooks, then clear removed sheets', async () => {
         const configService = testBed.injector.get(IConfigService);
         const executeCommandSpy = vi.spyOn(commandService, 'executeCommand');
-        const workbookSnapshot = testBed.injector.get(IUniverInstanceService).getUnit<Workbook>('test')?.getSnapshot();
+        const workbookSnapshot = testBed.injector.get(ICrabTableInstanceService).getUnit<Workbook>('test')?.getSnapshot();
 
         configService.setConfig(PLUGIN_CONFIG_KEY_BASE, {
             initialFormulaComputing: CalculationMode.FORCED,
@@ -288,7 +288,7 @@ describe('UpdateFormulaController', () => {
 
         expect(formulaDataModel.getFormulaData().test?.['sheet-added']).toBeUndefined();
 
-        testBed.univer.createUnit(UniverInstanceType.UNIVER_SHEET, {
+        testBed.univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, {
             id: 'secondary',
             appVersion: '3.0.0-alpha',
             locale: LocaleType.EN_US,

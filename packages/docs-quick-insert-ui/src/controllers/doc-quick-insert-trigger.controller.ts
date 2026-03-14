@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { IDeleteCommandParams, IIMEInputCommandParams, IInsertCommandParams, IMoveCursorOperationParams } from '@univerjs/docs-ui';
-import { DeleteDirection, Direction, Disposable, ICommandService, Inject, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation } from '@univerjs/docs';
-import { DeleteCommand, DeleteLeftCommand, IMEInputCommand, InsertCommand, MoveCursorOperation } from '@univerjs/docs-ui';
-import { IShortcutService, KeyCode } from '@univerjs/ui';
+import type { DocumentDataModel } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { IDeleteCommandParams, IIMEInputCommandParams, IInsertCommandParams, IMoveCursorOperationParams } from '@crabtable/docs-ui';
+import { CrabTableInstanceType, DeleteDirection, Direction, Disposable, ICommandService, ICrabTableInstanceService, Inject } from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation } from '@crabtable/docs';
+import { DeleteCommand, DeleteLeftCommand, IMEInputCommand, InsertCommand, MoveCursorOperation } from '@crabtable/docs-ui';
+import { IShortcutService, KeyCode } from '@crabtable/ui';
 import { CloseQuickInsertPopupOperation, ShowQuickInsertPopupOperation } from '../commands/operations/quick-insert-popup.operation';
 import { builtInMenuCommandIds, textMenu } from '../menu/built-in-menus';
 import { DocQuickInsertPopupService } from '../services/doc-quick-insert-popup.service';
@@ -31,7 +31,7 @@ export class DocQuickInsertTriggerController extends Disposable {
         @Inject(DocSelectionManagerService) private readonly _textSelectionManagerService: DocSelectionManagerService,
         @Inject(DocQuickInsertPopupService) private readonly _docQuickInsertPopupService: DocQuickInsertPopupService,
         @Inject(IShortcutService) private readonly _shortcutService: IShortcutService,
-        @Inject(IUniverInstanceService) private readonly _univerInstanceService: IUniverInstanceService
+        @Inject(ICrabTableInstanceService) private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
 
@@ -52,7 +52,7 @@ export class DocQuickInsertTriggerController extends Disposable {
             // eslint-disable-next-line complexity, max-lines-per-function
             this._commandService.onCommandExecuted((commandInfo) => {
                 const { _docQuickInsertPopupService, _textSelectionManagerService, _commandService } = this;
-                const documentDataModel = this._univerInstanceService.getCurrentUnitOfType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+                const documentDataModel = this._crabtableInstanceService.getCurrentUnitOfType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
                 if (documentDataModel?.getDisabled()) {
                     return;
                 }

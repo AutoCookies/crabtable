@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { Disposable, ICommandService, Inject } from '@univerjs/core';
+import { Disposable, ICommandService, Inject } from '@crabtable/core';
 
-import { ComponentManager, IMenuManagerService, IShortcutService } from '@univerjs/ui';
+import { ComponentManager, IMenuManagerService, IShortcutService } from '@crabtable/ui';
 import { DeleteDocDrawingsCommand } from '../commands/commands/delete-doc-drawing.command';
 import { GroupDocDrawingCommand } from '../commands/commands/group-doc-drawing.command';
 import { InsertDocDrawingCommand } from '../commands/commands/insert-doc-drawing.command';

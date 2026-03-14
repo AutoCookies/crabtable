@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, EventState, ICommandInfo, Nullable } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { DocumentSkeleton, IDocumentSkeletonPage, IRenderContext, IRenderModule, IWheelEvent } from '@univerjs/engine-render';
-import { DocumentFlavor, ICommandService, Inject, IUniverInstanceService, RxDisposable, UniverInstanceType } from '@univerjs/core';
-import { DocSkeletonManagerService, RichTextEditingMutation } from '@univerjs/docs';
-import { DocBackground, Documents, IRenderManagerService, Layer, PageLayoutType, ScrollBar, Viewport } from '@univerjs/engine-render';
+import type { DocumentDataModel, EventState, ICommandInfo, Nullable } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { DocumentSkeleton, IDocumentSkeletonPage, IRenderContext, IRenderModule, IWheelEvent } from '@crabtable/engine-render';
+import { CrabTableInstanceType, DocumentFlavor, ICommandService, ICrabTableInstanceService, Inject, RxDisposable } from '@crabtable/core';
+import { DocSkeletonManagerService, RichTextEditingMutation } from '@crabtable/docs';
+import { DocBackground, Documents, IRenderManagerService, Layer, PageLayoutType, ScrollBar, Viewport } from '@crabtable/engine-render';
 import { takeUntil } from 'rxjs';
 import { DOCS_COMPONENT_BACKGROUND_LAYER_INDEX, DOCS_COMPONENT_DEFAULT_Z_INDEX, DOCS_COMPONENT_HEADER_LAYER_INDEX, DOCS_COMPONENT_MAIN_LAYER_INDEX, DOCS_VIEW_KEY, VIEWPORT_KEY } from '../../basics/docs-view-key';
 import { IEditorService } from '../../services/editor/editor-manager.service';
@@ -33,7 +33,7 @@ export class DocRenderController extends RxDisposable implements IRenderModule {
         @Inject(DocSkeletonManagerService) private readonly _docSkeletonManagerService: DocSkeletonManagerService,
         @IEditorService private readonly _editorService: IEditorService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
 
@@ -82,7 +82,7 @@ export class DocRenderController extends RxDisposable implements IRenderModule {
         scene.attachControl();
 
         scene.onMouseWheel$.subscribeEvent((evt: unknown, state: EventState) => {
-            const currentDocUnit = this._univerInstanceService.getCurrentUnitForType(UniverInstanceType.UNIVER_DOC);
+            const currentDocUnit = this._crabtableInstanceService.getCurrentUnitForType(CrabTableInstanceType.CRABTABLE_DOC);
             if (currentDocUnit?.getUnitId() !== this._context.unitId) {
                 return;
             }

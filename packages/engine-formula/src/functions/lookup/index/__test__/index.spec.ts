@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Injector, IWorkbookData } from '@univerjs/core';
+import type { Injector, IWorkbookData } from '@crabtable/core';
 import type { LexerNode } from '../../../../engine/analysis/lexer-node';
 
 import type { BaseAstNode } from '../../../../engine/ast-node/base-ast-node';
-import { CellValueType, LocaleType } from '@univerjs/core';
+import { CellValueType, LocaleType } from '@crabtable/core';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ErrorType } from '../../../../basics/error-type';
 import { Lexer } from '../../../../engine/analysis/lexer';
@@ -735,7 +735,7 @@ describe('Test index', () => {
             expect(result).toBe(true);
 
           // string
-            result = await calculate('=INDEX("Univer",1,1)');
+            result = await calculate('=INDEX("CrabTable",1,1)');
 
             expect(result).toBe('Univer');
         });
@@ -757,7 +757,7 @@ describe('Test index', () => {
             expect(result).toBe(true);
 
             // string
-            result = await calculate('=INDEX({"Univer","JS";"Formula","Engine"},1,1)');
+            result = await calculate('=INDEX({"CrabTable","JS";"Formula","Engine"},1,1)');
 
             expect(result).toBe('Univer');
         });

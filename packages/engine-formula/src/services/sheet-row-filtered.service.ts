@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { createIdentifier, Disposable } from '@univerjs/core';
+import { createIdentifier, Disposable } from '@crabtable/core';
 
 type CallbackFunction = (unitId: string, subUnitId: string, row: number) => boolean;
 

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDisposable, IMutationInfo, ISheetDataValidationRule } from '@univerjs/core';
-import type { IUpdateDataValidationMutationParams } from '@univerjs/data-validation';
-import { Disposable, generateRandomId, Inject, toDisposable } from '@univerjs/core';
-import { AddDataValidationMutation, DataValidatorRegistryService, RemoveDataValidationMutation, UpdateDataValidationMutation, UpdateRuleType } from '@univerjs/data-validation';
-import { FormulaRefRangeService } from '@univerjs/sheets-formula';
+import type { IDisposable, IMutationInfo, ISheetDataValidationRule } from '@crabtable/core';
+import type { IUpdateDataValidationMutationParams } from '@crabtable/data-validation';
+import { Disposable, generateRandomId, Inject, toDisposable } from '@crabtable/core';
+import { AddDataValidationMutation, DataValidatorRegistryService, RemoveDataValidationMutation, UpdateDataValidationMutation, UpdateRuleType } from '@crabtable/data-validation';
+import { FormulaRefRangeService } from '@crabtable/sheets-formula';
 import { SheetDataValidationModel } from '../models/sheet-data-validation-model';
 import { shouldOffsetFormulaByRange } from '../utils/formula';
 

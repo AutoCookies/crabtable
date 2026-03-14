@@ -28,7 +28,7 @@ import { ILogService } from '../log/log.service';
 
 /**
  * The config key for enabling command execution logging.
- * Set via `logCommandExecution` in `IUniverConfig` when calling `new Univer()`.
+ * Set via `logCommandExecution` in `ICrabTableConfig` when calling `new CrabTable()`.
  * @default true
  */
 export const COMMAND_LOG_EXECUTION_CONFIG_KEY = 'command.logExecution';

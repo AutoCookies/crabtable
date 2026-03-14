@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { MenuSchemaType } from '@univerjs/ui';
+import type { MenuSchemaType } from '@crabtable/ui';
 import {
     ClearSheetsFilterCriteriaCommand,
     ReCalcSheetsFilterCommand,
     SmartToggleSheetsFilterCommand,
-} from '@univerjs/sheets-filter';
-import { RibbonDataGroup } from '@univerjs/ui';
+} from '@crabtable/sheets-filter';
+import { RibbonDataGroup } from '@crabtable/ui';
 import {
     ClearFilterCriteriaMenuItemFactory,
     ReCalcFilterMenuItemFactory,

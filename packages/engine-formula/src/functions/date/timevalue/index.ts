@@ -15,7 +15,7 @@
  */
 
 import type { BaseValueObject } from '../../../engine/value-object/base-value-object';
-import { getNumfmtParseValueFilter } from '@univerjs/core';
+import { getNumfmtParseValueFilter } from '@crabtable/core';
 import { excelDateTimeSerial, isDate } from '../../../basics/date';
 import { ErrorType } from '../../../basics/error-type';
 import { getFractionalPart } from '../../../engine/utils/math-kit';

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { Editor } from '../../../services/editor/editor';
-import { debounce } from '@univerjs/core';
-import { DocSkeletonManagerService } from '@univerjs/docs';
-import { ScrollBar } from '@univerjs/engine-render';
+import { debounce } from '@crabtable/core';
+import { DocSkeletonManagerService } from '@crabtable/docs';
+import { ScrollBar } from '@crabtable/engine-render';
 import { useCallback, useEffect, useMemo } from 'react';
 import { VIEWPORT_KEY } from '../../../basics/docs-view-key';
 

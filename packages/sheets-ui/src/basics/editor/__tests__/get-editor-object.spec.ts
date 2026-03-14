@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IRenderManagerService } from '@univerjs/engine-render';
-import { DOCS_VIEW_KEY } from '@univerjs/docs-ui';
+import type { IRenderManagerService } from '@crabtable/engine-render';
+import { DOCS_VIEW_KEY } from '@crabtable/docs-ui';
 import { describe, expect, it } from 'vitest';
 import { getEditorObject } from '../get-editor-object';
 

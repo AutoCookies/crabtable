@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IOperation } from '@univerjs/core';
+import type { IOperation } from '@crabtable/core';
 import type { ICurrentEditCellParam } from '../../services/editor-bridge.service';
 
-import { CommandType } from '@univerjs/core';
+import { CommandType } from '@crabtable/core';
 import { IEditorBridgeService } from '../../services/editor-bridge.service';
 
 export const SetActivateCellEditOperation: IOperation<ICurrentEditCellParam> = {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IUnitRange, LocaleType, Nullable, Workbook } from '@univerjs/core';
+import type { IUnitRange, LocaleType, Nullable, Workbook } from '@crabtable/core';
 import type {
     IArrayFormulaRangeType,
     IDirtyUnitFeatureMap,
@@ -32,7 +32,7 @@ import type {
     IUnitStylesData,
 } from '../basics/common';
 
-import { createIdentifier, Disposable, Inject, IUniverInstanceService, LocaleService, ObjectMatrix, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, createIdentifier, Disposable, ICrabTableInstanceService, Inject, LocaleService, ObjectMatrix } from '@crabtable/core';
 import { convertUnitDataToRuntime } from '../basics/runtime';
 import { FormulaDataModel } from '../models/formula-data.model';
 import { ISheetRowFilteredService } from './sheet-row-filtered.service';
@@ -153,7 +153,7 @@ export class FormulaCurrentConfigService extends Disposable implements IFormulaC
     private _executeSubUnitId: Nullable<string> = '';
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(LocaleService) private readonly _localeService: LocaleService,
         @Inject(FormulaDataModel) private readonly _formulaDataModel: FormulaDataModel,
         @Inject(ISheetRowFilteredService) private readonly _sheetRowFilteredService: ISheetRowFilteredService
@@ -268,7 +268,7 @@ export class FormulaCurrentConfigService extends Disposable implements IFormulaC
     }
 
     getSheetsInfo() {
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const { id, sheetOrder } = workbook.getSnapshot();
 
         return {
@@ -278,7 +278,7 @@ export class FormulaCurrentConfigService extends Disposable implements IFormulaC
     }
 
     getSheetRowColumnCount(unitId: string, sheetId: string) {
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId);
         const worksheet = workbook?.getSheetBySheetId(sheetId);
         const snapshot = worksheet?.getSnapshot();
 
@@ -401,9 +401,9 @@ export class FormulaCurrentConfigService extends Disposable implements IFormulaC
     }
 
     // private _loadOtherFormulaData() {
-    //     const unitAllDoc = this._univerInstanceService.getAllUniverDocsInstance();
+    //     const unitAllDoc = this._crabtableInstanceService.getAllUniverDocsInstance();
 
-    //     const unitAllSlide = this._univerInstanceService.getAllUniverSlidesInstance();
+    //     const unitAllSlide = this._crabtableInstanceService.getAllUniverSlidesInstance();
 
     //     const otherFormulaData: IOtherFormulaData = {};
 
@@ -502,7 +502,7 @@ export class FormulaCurrentConfigService extends Disposable implements IFormulaC
     }
 
     private _loadSheetData() {
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook?.getActiveSheet();
 
         this._executeUnitId = workbook?.getUnitId();

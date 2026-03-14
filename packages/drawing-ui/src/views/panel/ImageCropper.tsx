@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDrawingParam } from '@univerjs/core';
-import { ICommandService, LocaleService } from '@univerjs/core';
-import { Button, clsx, Select } from '@univerjs/design';
+import type { IDrawingParam } from '@crabtable/core';
+import { ICommandService, LocaleService } from '@crabtable/core';
+import { Button, clsx, Select } from '@crabtable/design';
+import { useDependency } from '@crabtable/ui';
 import { CreateCopyIcon } from '@univerjs/icons';
-import { useDependency } from '@univerjs/ui';
 import { useEffect, useRef, useState } from 'react';
 import { AutoImageCropOperation, CloseImageCropOperation, CropType } from '../../commands/operations/image-crop.operation';
 

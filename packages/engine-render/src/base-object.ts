@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IGroupBaseBound, IKeyValue, ITransformState, Nullable } from '@univerjs/core';
+import type { IGroupBaseBound, IKeyValue, ITransformState, Nullable } from '@crabtable/core';
 import type { IDragEvent, IMouseEvent, IPointerEvent, IWheelEvent } from './basics/i-events';
 
 import type { IObjectFullState, ITransformChangeState } from './basics/interfaces';
@@ -24,7 +24,7 @@ import type { UniverRenderingContext } from './context';
 import type { Engine } from './engine';
 import type { Layer } from './layer';
 import type { Scene } from './scene';
-import { Disposable, EventSubject } from '@univerjs/core';
+import { Disposable, EventSubject } from '@crabtable/core';
 import { getRenderTransformBaseOnParentBound } from './basics';
 import { CURSOR_TYPE, RENDER_CLASS_TYPE } from './basics/const';
 import { TRANSFORM_CHANGE_OBSERVABLE_TYPE } from './basics/interfaces';

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { getNumfmtParseValueFilter, isRealNum, numfmt, Tools } from '@univerjs/core';
+import { getNumfmtParseValueFilter, isRealNum, numfmt, Tools } from '@crabtable/core';
 import { FormulaAstLRU } from '../../basics/cache-lru';
 import { reverseCompareOperator } from '../../basics/calculate';
 import { BooleanValue, ConcatenateType } from '../../basics/common';
@@ -292,7 +292,7 @@ export class BooleanValueObject extends BaseValueObject {
 
     override compareBy(value: string | number | boolean, operator: compareToken): BaseValueObject {
         let result = false;
-        // FALSE > 0 and FALSE > "Univer" get TRUE
+        // FALSE > 0 and FALSE > "CrabTable" get TRUE
         if (typeof value === 'string' || typeof value === 'number') {
             result = this._compareString(operator);
         } else if (typeof value === 'boolean') {

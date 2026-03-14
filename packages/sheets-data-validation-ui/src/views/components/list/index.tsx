@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-import type { ISheetDataValidationRule, Workbook } from '@univerjs/core';
-import type { IAddSheetDataValidationCommandParams } from '@univerjs/sheets-data-validation';
-import { ICommandService, Injector, IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
-import { Button } from '@univerjs/design';
-import { checkRangesEditablePermission } from '@univerjs/sheets';
-import { AddSheetDataValidationCommand, createDefaultNewRule, RemoveSheetAllDataValidationCommand, SheetDataValidationModel } from '@univerjs/sheets-data-validation';
-import { useDependency, useObservable } from '@univerjs/ui';
+import type { ISheetDataValidationRule, Workbook } from '@crabtable/core';
+import type { IAddSheetDataValidationCommandParams } from '@crabtable/sheets-data-validation';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, Injector, LocaleService } from '@crabtable/core';
+import { Button } from '@crabtable/design';
+import { checkRangesEditablePermission } from '@crabtable/sheets';
+import { AddSheetDataValidationCommand, createDefaultNewRule, RemoveSheetAllDataValidationCommand, SheetDataValidationModel } from '@crabtable/sheets-data-validation';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { useEffect, useState } from 'react';
 import { DataValidationPanelService } from '../../../services/data-validation-panel.service';
 import { DataValidationItem } from '../item';
 
 export function DataValidationList(props: { workbook: Workbook }) {
     const sheetDataValidationModel = useDependency(SheetDataValidationModel);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const commandService = useDependency(ICommandService);
     const injector = useDependency(Injector);
     const dataValidationPanelService = useDependency(DataValidationPanelService);
@@ -76,7 +76,7 @@ export function DataValidationList(props: { workbook: Workbook }) {
     };
 
     const getDvRulesByPermissionCorrect = (rules: ISheetDataValidationRule[]) => {
-        const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet();
         const unitId = workbook.getUnitId();
         const subUnitId = worksheet.getSheetId();

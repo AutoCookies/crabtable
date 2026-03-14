@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { Disposable, ICommandService, Inject } from '@univerjs/core';
+import { Disposable, ICommandService, Inject } from '@crabtable/core';
+import { ComponentManager, IMenuManagerService } from '@crabtable/ui';
 import { AddNoteIcon, DeleteNoteIcon, HideNoteIcon } from '@univerjs/icons';
-import { ComponentManager, IMenuManagerService } from '@univerjs/ui';
 import { AddNotePopupOperation } from '../commands/operations/add-note-popup.operation';
 import { menuSchema } from '../menu/schema';
 import { SHEET_NOTE_COMPONENT } from '../views/config';

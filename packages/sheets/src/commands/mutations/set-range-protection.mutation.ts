@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IMutation, IMutationInfo } from '@univerjs/core';
+import type { IAccessor, IMutation, IMutationInfo } from '@crabtable/core';
 import type { IRangeProtectionRule } from '../../model/range-protection-rule.model';
 
-import { CommandType } from '@univerjs/core';
+import { CommandType } from '@crabtable/core';
 import { RangeProtectionRuleModel } from '../../model/range-protection-rule.model';
 
 export interface ISetRangeProtectionMutationParams {

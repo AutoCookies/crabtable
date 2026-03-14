@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICellData } from '@univerjs/core';
+import type { ICellData } from '@crabtable/core';
 import type { IIconType } from '../models/icon-map';
 
 export interface IDataBarRenderParams {

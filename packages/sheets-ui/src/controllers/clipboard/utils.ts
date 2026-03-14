@@ -16,7 +16,7 @@
 
 /* eslint-disable max-lines-per-function */
 
-import type { IAccessor, IBorderData, ICellData, ICustomRange, IDocumentBody, IMutationInfo, IParagraph, IRange, IStyleData, Nullable } from '@univerjs/core';
+import type { IAccessor, IBorderData, ICellData, ICustomRange, IDocumentBody, IMutationInfo, IParagraph, IRange, IStyleData, Nullable } from '@crabtable/core';
 import type {
     IAddWorksheetMergeMutationParams,
     IDiscreteRange,
@@ -24,7 +24,7 @@ import type {
     IRemoveWorksheetMergeMutationParams,
     ISetRangeValuesMutationParams,
     ISetSelectionsOperationParams,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import type { ICellDataWithSpanInfo, ICopyPastePayload, ISheetDiscreteRangeLocation } from '../../services/clipboard/type';
 import {
     cellToRange,
@@ -36,15 +36,15 @@ import {
     DEFAULT_STYLES,
     generateRandomId,
     getNumfmtParseValueFilter,
+    ICrabTableInstanceService,
     isTextFormat,
-    IUniverInstanceService,
     ObjectMatrix,
     Range,
     Rectangle,
     Tools,
     willLoseNumericPrecision,
-} from '@univerjs/core';
-import { DEFAULT_PADDING_DATA } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { DEFAULT_PADDING_DATA } from '@crabtable/engine-render';
 import {
     AddMergeUndoMutationFactory,
     AddWorksheetMergeMutation,
@@ -61,7 +61,7 @@ import {
     SetRangeValuesUndoMutationFactory,
     SetSelectionsOperation,
     SheetInterceptorService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { COPY_TYPE } from '../../services/clipboard/type';
 import { isRichText } from '../editor/editing.render-controller';
 import { virtualizeDiscreteRanges } from '../utils/range-tools';
@@ -159,9 +159,9 @@ export function getMoveRangeMutations(
     const fromRange = fromDiscreteRange ? discreteRangeToRange(fromDiscreteRange) : null;
 
     if (fromRange && toRange) {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const sheetInterceptorService = accessor.get(SheetInterceptorService);
-        const workbook = univerInstanceService.getUniverSheetInstance(unitId);
+        const workbook = crabtableInstanceService.getCrabTableSheetInstance(unitId);
         const fromWorksheet = workbook?.getSheetBySheetId(fromSubUnitId);
         const toWorksheet = workbook?.getSheetBySheetId(toSubUnitId);
         if (fromWorksheet && toWorksheet) {
@@ -347,7 +347,7 @@ export function getSetCellValueMutations(
     accessor: IAccessor
 ) {
     const { unitId, subUnitId, range } = pasteTo;
-    const worksheet = accessor.get(IUniverInstanceService).getUniverSheetInstance(unitId)?.getSheetBySheetId(subUnitId);
+    const worksheet = accessor.get(ICrabTableInstanceService).getCrabTableSheetInstance(unitId)?.getSheetBySheetId(subUnitId);
     const redoMutationsInfo: IMutationInfo[] = [];
     const undoMutationsInfo: IMutationInfo[] = [];
     const { mapFunc } = virtualizeDiscreteRanges([range]);
@@ -437,7 +437,7 @@ export function getSetCellStyleMutations(
     const redoMutationsInfo: IMutationInfo[] = [];
     const undoMutationsInfo: IMutationInfo[] = [];
     const { unitId, subUnitId, range } = pasteTo;
-    const worksheet = accessor.get(IUniverInstanceService).getUniverSheetInstance(unitId)?.getSheetBySheetId(subUnitId);
+    const worksheet = accessor.get(ICrabTableInstanceService).getCrabTableSheetInstance(unitId)?.getSheetBySheetId(subUnitId);
     const valueMatrix = new ObjectMatrix<ICellData>();
 
     const { mapFunc } = virtualizeDiscreteRanges([range]);
@@ -666,7 +666,7 @@ export function getClearAndSetMergeMutations(
     // clear merge
     // remove current range's all merged Cell
     // get all merged cells
-    const target = getSheetCommandTarget(accessor.get(IUniverInstanceService), { unitId, subUnitId });
+    const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService), { unitId, subUnitId });
     if (target && target.worksheet) {
         const mergeData = target.worksheet.getMergeData();
         const mergedCellsInRange = mergeData.filter((rect) =>

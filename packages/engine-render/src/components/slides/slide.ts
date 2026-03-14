@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { IMouseEvent, IPointerEvent } from '../../basics/i-events';
 
 import type { UniverRenderingContext } from '../../context';
 import type { Scene } from '../../scene';
-import { COLORS, EventSubject } from '@univerjs/core';
+import { COLORS, EventSubject } from '@crabtable/core';
 import { CURSOR_TYPE } from '../../basics/const';
 import { attachObjectHover } from '../../basics/quick-event';
 import { getColor } from '../../basics/tools';

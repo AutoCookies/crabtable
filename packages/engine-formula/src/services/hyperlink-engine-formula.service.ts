@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICellData, Workbook } from '@univerjs/core';
-import { createIdentifier, Disposable, IUniverInstanceService, RichTextBuilder, Tools, UniverInstanceType } from '@univerjs/core';
+import type { ICellData, Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, createIdentifier, Disposable, ICrabTableInstanceService, RichTextBuilder, Tools } from '@crabtable/core';
 import { isReferenceString } from '../basics/regex';
 import { deserializeRangeWithSheet, serializeRange } from '../engine/utils/reference';
 
@@ -28,7 +28,7 @@ export interface IHyperlinkEngineFormulaService {
  */
 export class HyperlinkEngineFormulaService extends Disposable implements IHyperlinkEngineFormulaService {
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
     }
@@ -45,7 +45,7 @@ export class HyperlinkEngineFormulaService extends Disposable implements IHyperl
         // # indicates that the url is a reference to a range within a workbook.
         if (url.startsWith('#') && isReferenceString(url.slice(1))) {
             const { unitId, sheetName, range } = deserializeRangeWithSheet(url.slice(1));
-            const workbook = this._univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+            const workbook = this._crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
 
             // range reference only works in the current workbook
             if (unitId === '' || unitId === workbook.getUnitId()) {

@@ -15,7 +15,7 @@
  */
 
 import type { IDefinedNameMap } from '../../services/defined-names.service';
-import { Disposable, Inject } from '@univerjs/core';
+import { Disposable, Inject } from '@crabtable/core';
 import { IFormulaCurrentConfigService } from '../../services/current-data.service';
 import { IDefinedNamesService } from '../../services/defined-names.service';
 import { LexerTreeBuilder } from './lexer-tree-builder';

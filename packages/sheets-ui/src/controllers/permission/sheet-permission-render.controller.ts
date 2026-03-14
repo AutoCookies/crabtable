@@ -14,31 +14,31 @@
  * limitations under the License.
  */
 
-import type { IRenderContext, IRenderModule, Spreadsheet } from '@univerjs/engine-render';
-import type { MenuConfig } from '@univerjs/ui';
+import type { IRenderContext, IRenderModule, Spreadsheet } from '@crabtable/engine-render';
+import type { MenuConfig } from '@crabtable/ui';
 import type { IUniverSheetsUIConfig } from '../../config/config';
-import { Disposable, IConfigService, Inject, Injector, IPermissionService } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { Disposable, IConfigService, Inject, Injector, IPermissionService } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { RangeProtectionRuleModel, WorksheetProtectionRuleModel } from '@crabtable/sheets';
+import { ComponentManager } from '@crabtable/ui';
 import { CheckMarkIcon, DeleteIcon, LockIcon, ProtectIcon, WriteIcon } from '@univerjs/icons';
-import { RangeProtectionRuleModel, WorksheetProtectionRuleModel } from '@univerjs/sheets';
-import { ComponentManager } from '@univerjs/ui';
 import { merge, throttleTime } from 'rxjs';
 import { convertToShadowStrategy, SHEETS_UI_PLUGIN_CONFIG_KEY } from '../../config/config';
 import {
+    CRABTABLE_SHEET_PERMISSION_DIALOG,
+    CRABTABLE_SHEET_PERMISSION_PANEL,
+    CRABTABLE_SHEET_PERMISSION_USER_DIALOG,
+    CRABTABLE_SHEET_PERMISSION_USER_PART,
     permissionCheckIconKey,
     permissionDeleteIconKey,
     permissionEditIconKey,
     permissionLockIconKey,
     permissionMenuIconKey,
-    UNIVER_SHEET_PERMISSION_DIALOG,
-    UNIVER_SHEET_PERMISSION_PANEL,
-    UNIVER_SHEET_PERMISSION_USER_DIALOG,
-    UNIVER_SHEET_PERMISSION_USER_PART,
 } from '../../consts/permission';
 import { SheetSkeletonManagerService } from '../../services/sheet-skeleton-manager.service';
 import { SheetPermissionDialog, SheetPermissionPanel, SheetPermissionUserDialog } from '../../views/permission';
 import { AlertDialog } from '../../views/permission/error-msg-dialog';
-import { UNIVER_SHEET_PERMISSION_ALERT_DIALOG } from '../../views/permission/error-msg-dialog/interface';
+import { CRABTABLE_SHEET_PERMISSION_ALERT_DIALOG } from '../../views/permission/error-msg-dialog/interface';
 import { RANGE_PROTECTION_CAN_NOT_VIEW_RENDER_EXTENSION_KEY, RANGE_PROTECTION_CAN_VIEW_RENDER_EXTENSION_KEY, RangeProtectionCanNotViewRenderExtension, RangeProtectionCanViewRenderExtension } from '../../views/permission/extensions/range-protection.render';
 import { worksheetProtectionKey, WorksheetProtectionRenderExtension } from '../../views/permission/extensions/worksheet-permission.render';
 
@@ -67,10 +67,10 @@ export class SheetPermissionRenderManagerController extends Disposable {
             [permissionEditIconKey, WriteIcon],
             [permissionCheckIconKey, CheckMarkIcon],
             [permissionLockIconKey, LockIcon],
-            [UNIVER_SHEET_PERMISSION_PANEL, SheetPermissionPanel],
-            [UNIVER_SHEET_PERMISSION_USER_DIALOG, SheetPermissionUserDialog],
-            [UNIVER_SHEET_PERMISSION_DIALOG, SheetPermissionDialog],
-            [UNIVER_SHEET_PERMISSION_ALERT_DIALOG, AlertDialog],
+            [CRABTABLE_SHEET_PERMISSION_PANEL, SheetPermissionPanel],
+            [CRABTABLE_SHEET_PERMISSION_USER_DIALOG, SheetPermissionUserDialog],
+            [CRABTABLE_SHEET_PERMISSION_DIALOG, SheetPermissionDialog],
+            [CRABTABLE_SHEET_PERMISSION_ALERT_DIALOG, AlertDialog],
         ] as const).forEach(([key, comp]) => {
             this.disposeWithMe(this._componentManager.register(
                 key,
@@ -86,7 +86,7 @@ export class SheetPermissionRenderManagerController extends Disposable {
         if (config?.protectedRangeUserSelector) {
             const { component, framework } = config.protectedRangeUserSelector;
             this.disposeWithMe(
-                this._componentManager.register(UNIVER_SHEET_PERMISSION_USER_PART, component, {
+                this._componentManager.register(CRABTABLE_SHEET_PERMISSION_USER_PART, component, {
                     framework,
                 })
             );

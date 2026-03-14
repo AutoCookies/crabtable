@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { LambdaPrivacyVarType } from './base-ast-node';
-import { generateRandomId, Inject } from '@univerjs/core';
+import { generateRandomId, Inject } from '@crabtable/core';
 import { ErrorType } from '../../basics/error-type';
 import {
     DEFAULT_TOKEN_LAMBDA_FUNCTION_NAME,

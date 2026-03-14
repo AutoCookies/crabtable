@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ISectionColumnProperties } from '@univerjs/core';
+import type { ISectionColumnProperties } from '@crabtable/core';
 import type { IDocumentSkeletonColumn } from '../../../../basics/i-document-skeleton-cached';
 
-import { ColumnSeparatorType } from '@univerjs/core';
+import { ColumnSeparatorType } from '@crabtable/core';
 
 export function createSkeletonColumn(
     columnIndex: number = 0,

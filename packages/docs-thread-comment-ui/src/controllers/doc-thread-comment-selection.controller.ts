@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ITextRange } from '@univerjs/core';
-import type { ISetTextSelectionsOperationParams } from '@univerjs/docs';
-import type { ITextRangeWithStyle } from '@univerjs/engine-render';
-import { Disposable, ICommandService, Inject, isInternalEditorID, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { SetTextSelectionsOperation } from '@univerjs/docs';
-import { DocBackScrollRenderController } from '@univerjs/docs-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { ThreadCommentModel } from '@univerjs/thread-comment';
-import { SetActiveCommentOperation, ThreadCommentPanelService } from '@univerjs/thread-comment-ui';
+import type { DocumentDataModel, ITextRange } from '@crabtable/core';
+import type { ISetTextSelectionsOperationParams } from '@crabtable/docs';
+import type { ITextRangeWithStyle } from '@crabtable/engine-render';
+import { CrabTableInstanceType, Disposable, ICommandService, ICrabTableInstanceService, Inject, isInternalEditorID } from '@crabtable/core';
+import { SetTextSelectionsOperation } from '@crabtable/docs';
+import { DocBackScrollRenderController } from '@crabtable/docs-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { ThreadCommentModel } from '@crabtable/thread-comment';
+import { SetActiveCommentOperation, ThreadCommentPanelService } from '@crabtable/thread-comment-ui';
 import { ShowCommentPanelOperation } from '../commands/operations/show-comment-panel.operation';
 import { DEFAULT_DOC_SUBUNIT_ID } from '../common/const';
 import { DocThreadCommentService } from '../services/doc-thread-comment.service';
@@ -30,7 +30,7 @@ import { DocThreadCommentService } from '../services/doc-thread-comment.service'
 export class DocThreadCommentSelectionController extends Disposable {
     constructor(
         @Inject(ThreadCommentPanelService) private readonly _threadCommentPanelService: ThreadCommentPanelService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService,
         @Inject(DocThreadCommentService) private readonly _docThreadCommentService: DocThreadCommentService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
@@ -50,7 +50,7 @@ export class DocThreadCommentSelectionController extends Disposable {
                     const params = commandInfo.params as ISetTextSelectionsOperationParams;
                     const { unitId, ranges } = params;
                     if (isInternalEditorID(unitId)) return;
-                    const doc = this._univerInstanceService.getUnit<DocumentDataModel>(unitId, UniverInstanceType.UNIVER_DOC);
+                    const doc = this._crabtableInstanceService.getUnit<DocumentDataModel>(unitId, CrabTableInstanceType.CRABTABLE_DOC);
                     const primary = ranges[0] as ITextRangeWithStyle | undefined;
                     if (lastSelection?.startOffset === primary?.startOffset && lastSelection?.endOffset === primary?.endOffset) {
                         return;
@@ -94,7 +94,7 @@ export class DocThreadCommentSelectionController extends Disposable {
     private _initActiveCommandChange() {
         this.disposeWithMe(this._threadCommentPanelService.activeCommentId$.subscribe((activeComment) => {
             if (activeComment) {
-                const doc = this._univerInstanceService.getUnit<DocumentDataModel>(activeComment.unitId);
+                const doc = this._crabtableInstanceService.getUnit<DocumentDataModel>(activeComment.unitId);
                 if (doc) {
                     const backScrollController = this._renderManagerService.getRenderById(activeComment.unitId)?.with(DocBackScrollRenderController);
                     const customRange = doc.getBody()?.customDecorations?.find((range) => range.id === activeComment.commentId);

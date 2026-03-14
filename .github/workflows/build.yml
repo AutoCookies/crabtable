@@ -17,7 +17,7 @@ permissions:
 
 jobs:
     build:
-        if: github.repository == 'dream-num/univer'
+        if: github.repository == 'AutoCookies/crabtable'
         runs-on: ubuntu-latest
 
         env:
@@ -35,7 +35,7 @@ jobs:
               uses: ./.github/actions/setup-node
 
             - name: 📦 Build
-              run: pnpm build:ci
+              run: yarn build:ci
 
             - name: Check for uncommitted changes
               run: |

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IConditionalFormattingRuleConfig } from '@univerjs/sheets-conditional-formatting';
-import { BooleanNumber, ColorKit } from '@univerjs/core';
-import { clsx } from '@univerjs/design';
+import type { IConditionalFormattingRuleConfig } from '@crabtable/sheets-conditional-formatting';
+import { BooleanNumber, ColorKit } from '@crabtable/core';
+import { clsx } from '@crabtable/design';
+import { CFRuleType, DEFAULT_BG_COLOR, DEFAULT_FONT_COLOR, defaultDataBarNativeColor, defaultDataBarPositiveColor, getColorScaleFromValue, iconMap } from '@crabtable/sheets-conditional-formatting';
 import { SlashDoubleIcon } from '@univerjs/icons';
-import { CFRuleType, DEFAULT_BG_COLOR, DEFAULT_FONT_COLOR, defaultDataBarNativeColor, defaultDataBarPositiveColor, getColorScaleFromValue, iconMap } from '@univerjs/sheets-conditional-formatting';
 import { useMemo } from 'react';
 
 export const Preview = (props: { rule?: IConditionalFormattingRuleConfig }) => {

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { ICellWithCoord, IRangeWithCoord, Nullable } from '@univerjs/core';
-import type { ISelectionWithCoord } from '@univerjs/sheets';
-import { convertCellToRange, RANGE_TYPE } from '@univerjs/core';
+import type { ICellWithCoord, IRangeWithCoord, Nullable } from '@crabtable/core';
+import type { ISelectionWithCoord } from '@crabtable/sheets';
+import { convertCellToRange, RANGE_TYPE } from '@crabtable/core';
 
 /**
  * Data model for SelectionControl.model
- * NOT Same as @univerjs/sheet.WorkbookSelectionModel, that's data model for Workbook
+ * NOT Same as @crabtable/sheet.WorkbookSelectionModel, that's data model for Workbook
  */
 export class SelectionRenderModel implements IRangeWithCoord {
     private _startColumn: number = -1;

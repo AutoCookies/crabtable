@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { ThemeService } from '@univerjs/core';
-import { Messager } from '@univerjs/design';
+import { ThemeService } from '@crabtable/core';
+import { Messager } from '@crabtable/design';
 import { useDependency, useObservable } from '../../utils/di';
 
 export function MessageContainer() {

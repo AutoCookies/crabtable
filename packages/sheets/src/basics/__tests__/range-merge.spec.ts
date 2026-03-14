@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
-import { cellToRange } from '@univerjs/core';
+import type { IRange } from '@crabtable/core';
+import { cellToRange } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import { rangeMerge, RangeMergeUtil } from '../range-merge';
 

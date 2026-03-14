@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { ISheetSelectionRenderService, SheetSkeletonManagerService } from '@univerjs/sheets-ui';
-import { convertPositionSheetOverGridToAbsolute } from '@univerjs/sheets-ui';
+import type { ISheetSelectionRenderService, SheetSkeletonManagerService } from '@crabtable/sheets-ui';
+import { convertPositionSheetOverGridToAbsolute } from '@crabtable/sheets-ui';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { drawingPositionToTransform, transformToAxisAlignPosition, transformToDrawingPosition } from '../transform-position';
 
-vi.mock('@univerjs/sheets-ui', () => ({
+vi.mock('@crabtable/sheets-ui', () => ({
     convertPositionSheetOverGridToAbsolute: vi.fn(),
 }));
 

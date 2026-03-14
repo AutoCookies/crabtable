@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
-import type { IOrderRule } from '@univerjs/sheets-sort';
-import { RANGE_TYPE } from '@univerjs/core';
-import { SortRangeCommand, SortType } from '@univerjs/sheets-sort';
-import { FWorksheet } from '@univerjs/sheets/facade';
+import type { IRange } from '@crabtable/core';
+import type { IOrderRule } from '@crabtable/sheets-sort';
+import { RANGE_TYPE } from '@crabtable/core';
+import { SortRangeCommand, SortType } from '@crabtable/sheets-sort';
+import { FWorksheet } from '@crabtable/sheets/facade';
 
 /**
  * @ignore
@@ -31,7 +31,7 @@ export interface IFWorksheetSort {
      * @returns {FWorksheet} The worksheet itself for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Sorts the worksheet by the column A in ascending order.
@@ -70,7 +70,7 @@ export class FWorksheetSort extends FWorksheet implements IFWorksheetSort {
 }
 
 FWorksheet.extend(FWorksheetSort);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FWorksheet extends IFWorksheetSort {}
 }

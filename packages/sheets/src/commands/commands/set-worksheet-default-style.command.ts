@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
+import type { IAccessor, ICommand } from '@crabtable/core';
 
 import type { ISetWorksheetDefaultStyleMutationParams } from '../mutations/set-worksheet-default-style.mutation';
 import {
     CommandType,
     ICommandService,
     IUndoRedoService,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { SetWorksheetDefaultStyleMutation, SetWorksheetDefaultStyleMutationFactory } from '../mutations/set-worksheet-default-style.mutation';
 
 export const SetWorksheetDefaultStyleCommand: ICommand = {

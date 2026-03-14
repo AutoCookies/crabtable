@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
-import type { ISetDefinedNameMutationParam } from '@univerjs/engine-formula';
+import type { IAccessor, ICommand } from '@crabtable/core';
+import type { ISetDefinedNameMutationParam } from '@crabtable/engine-formula';
 import {
     CommandType,
     ICommandService,
     IUndoRedoService,
     sequenceExecute,
-} from '@univerjs/core';
-import { RemoveDefinedNameMutation, SetDefinedNameMutation } from '@univerjs/engine-formula';
+} from '@crabtable/core';
+import { RemoveDefinedNameMutation, SetDefinedNameMutation } from '@crabtable/engine-formula';
 import { SheetInterceptorService } from '../../services/sheet-interceptor/sheet-interceptor.service';
 
 /**

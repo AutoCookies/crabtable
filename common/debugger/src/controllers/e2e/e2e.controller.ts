@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Univer } from '@univerjs/core';
-import type { FUniver } from '@univerjs/core/facade';
-import { awaitTime, Disposable, Inject, IUniverInstanceService, ThemeService, UniverInstanceType } from '@univerjs/core';
-import { DEFAULT_WORKBOOK_DATA_DEMO, DEFAULT_WORKBOOK_DATA_DEMO_DEFAULT_STYLE } from '@univerjs/mockdata';
+import type { CrabTable } from '@crabtable/core';
+import type { FCrabTable } from '@crabtable/core/facade';
+import { awaitTime, CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject, ThemeService } from '@crabtable/core';
+import { DEFAULT_WORKBOOK_DATA_DEMO, DEFAULT_WORKBOOK_DATA_DEMO_DEFAULT_STYLE } from '@crabtable/mockdata';
 import { getDefaultDocData } from './data/default-doc';
 import { getDefaultWorkbookData } from './data/default-sheet';
 
@@ -42,8 +42,8 @@ declare global {
     // eslint-disable-next-line ts/naming-convention
     interface Window {
         E2EControllerAPI: IE2EControllerAPI;
-        univer?: Univer;
-        univerAPI?: FUniver;
+        univer?: CrabTable;
+        crabtableAPI?: FCrabTable;
     }
 }
 
@@ -52,7 +52,7 @@ declare global {
  */
 export class E2EController extends Disposable {
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(ThemeService) private readonly _themeService: ThemeService
     ) {
         super();
@@ -88,20 +88,20 @@ export class E2EController extends Disposable {
         const snapshot = getDefaultWorkbookData();
         snapshot.id = unitId;
 
-        this._univerInstanceService.createUnit(UniverInstanceType.UNIVER_SHEET, snapshot);
+        this._crabtableInstanceService.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, snapshot);
         await awaitTime(loadingTimeout);
 
-        this._univerInstanceService.disposeUnit(unitId);
+        this._crabtableInstanceService.disposeUnit(unitId);
         await awaitTime(disposingTimeout);
     }
 
     private async _loadDefaultSheet(loadingTimeout: number = AWAIT_LOADING_TIMEOUT): Promise<void> {
-        this._univerInstanceService.createUnit(UniverInstanceType.UNIVER_SHEET, getDefaultWorkbookData());
+        this._crabtableInstanceService.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, getDefaultWorkbookData());
         await awaitTime(loadingTimeout);
     }
 
     private async _loadDemoSheet(): Promise<void> {
-        this._univerInstanceService.createUnit(UniverInstanceType.UNIVER_SHEET, DEFAULT_WORKBOOK_DATA_DEMO);
+        this._crabtableInstanceService.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, DEFAULT_WORKBOOK_DATA_DEMO);
         await awaitTime(AWAIT_LOADING_TIMEOUT);
     }
 
@@ -111,31 +111,31 @@ export class E2EController extends Disposable {
     private async _loadMergeCellSheet(loadingTimeout: number = AWAIT_LOADING_TIMEOUT): Promise<void> {
         const data = { ...DEFAULT_WORKBOOK_DATA_DEMO };
         data.sheetOrder = ['sheet-0003'];
-        this._univerInstanceService.createUnit(UniverInstanceType.UNIVER_SHEET, data);
+        this._crabtableInstanceService.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, data);
         await awaitTime(loadingTimeout);
     }
 
     private async _loadDefaultStyleSheet(loadingTimeout: number = AWAIT_LOADING_TIMEOUT): Promise<void> {
         const data = { ...DEFAULT_WORKBOOK_DATA_DEMO_DEFAULT_STYLE };
-        this._univerInstanceService.createUnit(UniverInstanceType.UNIVER_SHEET, data);
+        this._crabtableInstanceService.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, data);
         await awaitTime(loadingTimeout);
     }
 
     private async _loadDefaultDoc(loadingTimeout: number = AWAIT_LOADING_TIMEOUT): Promise<void> {
-        this._univerInstanceService.createUnit(UniverInstanceType.UNIVER_DOC, getDefaultDocData());
+        this._crabtableInstanceService.createUnit(CrabTableInstanceType.CRABTABLE_DOC, getDefaultDocData());
         await awaitTime(loadingTimeout);
     }
 
     private async _disposeUniver(): Promise<void> {
         window.univer?.dispose();
         window.univer = undefined;
-        window.univerAPI = undefined;
+        window.crabtableAPI = undefined;
     }
 
     private async _disposeDefaultSheetUnit(disposingTimeout: number = AWAIT_DISPOSING_TIMEOUT): Promise<void> {
-        const unit = this._univerInstanceService.getCurrentUnitForType(UniverInstanceType.UNIVER_SHEET);
+        const unit = this._crabtableInstanceService.getCurrentUnitForType(CrabTableInstanceType.CRABTABLE_SHEET);
         const unitId = unit?.getUnitId();
-        await this._univerInstanceService.disposeUnit(unitId || '');
+        await this._crabtableInstanceService.disposeUnit(unitId || '');
         await awaitTime(disposingTimeout);
     }
 }

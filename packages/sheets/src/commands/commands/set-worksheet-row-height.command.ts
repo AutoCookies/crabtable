@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, IRange } from '@univerjs/core';
+import type { IAccessor, ICommand, IRange } from '@crabtable/core';
 import type {
     ISetWorksheetRowHeightMutationParams,
     ISetWorksheetRowIsAutoHeightMutationParams,
@@ -24,12 +24,12 @@ import {
     BooleanNumber,
     CommandType,
     ICommandService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
     RANGE_TYPE,
     Rectangle,
     sequenceExecute,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { SheetsSelectionsService } from '../../services/selections/selection.service';
 import { SheetInterceptorService } from '../../services/sheet-interceptor/sheet-interceptor.service';
 import { SheetSkeletonService } from '../../skeleton/skeleton.service';
@@ -60,7 +60,7 @@ export const DeltaRowHeightCommand: ICommand = {
             return false;
         }
 
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService));
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService));
         if (!target) return false;
 
         const { worksheet, subUnitId, unitId } = target;
@@ -210,7 +210,7 @@ export const SetRowHeightCommand: ICommand = {
         const selectionManagerService = accessor.get(SheetsSelectionsService);
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const sheetInterceptorService = accessor.get(SheetInterceptorService);
 
         // user can specify the ranges to set row height, if not, use the current selection
@@ -219,7 +219,7 @@ export const SetRowHeightCommand: ICommand = {
             return false;
         }
 
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { unitId, subUnitId, worksheet } = target;
@@ -317,9 +317,9 @@ export const SetWorksheetRowIsAutoHeightCommand: ICommand = {
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
         const selectionManagerService = accessor.get(SheetsSelectionsService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { unitId, subUnitId, worksheet } = target;

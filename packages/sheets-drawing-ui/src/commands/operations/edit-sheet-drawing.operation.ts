@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IDrawingSearch, IOperation } from '@univerjs/core';
+import type { IAccessor, IDrawingSearch, IOperation } from '@crabtable/core';
 import {
     CommandType,
     ICommandService,
-} from '@univerjs/core';
-import { SetDrawingSelectedOperation } from '@univerjs/drawing';
+} from '@crabtable/core';
+import { SetDrawingSelectedOperation } from '@crabtable/drawing';
 import { SidebarSheetDrawingOperation } from './open-drawing-panel.operation';
 
 export const EditSheetDrawingOperation: IOperation<IDrawingSearch> = {

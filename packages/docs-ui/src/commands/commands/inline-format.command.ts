@@ -24,25 +24,25 @@ import type {
     ITextRun,
     ITextStyle,
     Nullable,
-} from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { ITextRangeWithStyle } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { ITextRangeWithStyle } from '@crabtable/engine-render';
 import {
     BaselineOffset,
     BooleanNumber,
     CommandType,
+    CrabTableInstanceType,
     DOC_RANGE_TYPE,
     getBodySlice,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     JSONX,
     MemoryCursor,
     TextX,
     TextXActionType,
     Tools,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation } from '@univerjs/docs';
+} from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation } from '@crabtable/docs';
 import { DocMenuStyleService } from '../../services/doc-menu-style.service';
 import { getRichTextEditPath } from '../util';
 
@@ -250,7 +250,7 @@ export const SetInlineFormatCommand: ICommand<ISetInlineFormatCommandParams> = {
         const { value, preCommandId } = params;
         const commandService = accessor.get(ICommandService);
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const docMenuStyleService = accessor.get(DocMenuStyleService);
 
         const docRanges = docSelectionManagerService.getDocRanges();
@@ -262,7 +262,7 @@ export const SetInlineFormatCommand: ICommand<ISetInlineFormatCommandParams> = {
 
         const { segmentId } = docRanges[0];
 
-        const docDataModel = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         if (docDataModel == null) {
             return false;
         }
@@ -347,7 +347,7 @@ export const SetInlineFormatCommand: ICommand<ISetInlineFormatCommandParams> = {
                 continue;
             }
 
-            // Use to fix https://github.com/dream-num/univer-pro/issues/3101
+            // Use to fix https://github.com/AutoCookies/crabtable-pro/issues/3101
             if (rangeType === DOC_RANGE_TYPE.RECT) {
                 startOffset = startOffset - 1;
             }

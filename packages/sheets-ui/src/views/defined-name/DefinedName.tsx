@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { Workbook, Worksheet } from '@univerjs/core';
-import type { IDefinedNamesServiceParam } from '@univerjs/engine-formula';
+import type { Workbook, Worksheet } from '@crabtable/core';
+import type { IDefinedNamesServiceParam } from '@crabtable/engine-formula';
 import type { ChangeEvent, KeyboardEvent } from 'react';
 import type { IScrollToCellCommandParams } from '../../commands/commands/set-scroll.command';
-import { AbsoluteRefType, debounce, ICommandService, IUniverInstanceService, ThemeService, UniverInstanceType } from '@univerjs/core';
-import { borderRightClassName, clsx, Dropdown } from '@univerjs/design';
-import { deserializeRangeWithSheet, IDefinedNamesService, isReferenceStringWithEffectiveColumn, LexerTreeBuilder, serializeRangeWithSheet } from '@univerjs/engine-formula';
+import { AbsoluteRefType, CrabTableInstanceType, debounce, ICommandService, ICrabTableInstanceService, ThemeService } from '@crabtable/core';
+import { borderRightClassName, clsx, Dropdown } from '@crabtable/design';
+import { deserializeRangeWithSheet, IDefinedNamesService, isReferenceStringWithEffectiveColumn, LexerTreeBuilder, serializeRangeWithSheet } from '@crabtable/engine-formula';
+import { getPrimaryForRange, SetSelectionsOperation, SetWorksheetShowCommand, SheetsSelectionsService } from '@crabtable/sheets';
+import { useDependency } from '@crabtable/ui';
 import { MoreDownIcon } from '@univerjs/icons';
-import { getPrimaryForRange, SetSelectionsOperation, SetWorksheetShowCommand, SheetsSelectionsService } from '@univerjs/sheets';
-import { useDependency } from '@univerjs/ui';
 import { useEffect, useState } from 'react';
 import { ScrollToCellCommand } from '../../commands/commands/set-scroll.command';
 import { genNormalSelectionStyle } from '../../services/selection/const';
@@ -34,11 +34,11 @@ export function DefinedName({ disable }: { disable: boolean }) {
     const [inputValue, setInputValue] = useState('');
     const definedNamesService = useDependency(IDefinedNamesService);
     const commandService = useDependency(ICommandService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const selectionManagerService = useDependency(SheetsSelectionsService);
     const lexerTreeBuilder = useDependency(LexerTreeBuilder);
 
-    const workbook = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+    const workbook = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
     const unitId = workbook?.getUnitId();
     const themeService = useDependency(ThemeService);
 

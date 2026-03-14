@@ -87,7 +87,7 @@ jobs:
                   body: |
                       ## View Deployment
 
-                      [#${{ github.run_id }}](https://github.com/dream-num/univer/actions/runs/${{ github.run_id }})
+                      [#${{ github.run_id }}](https://github.com/AutoCookies/crabtable/actions/runs/${{ github.run_id }})
 
                       <p align="center">
                         🥐 🍔 🥓 🥗 🥘 🌯 🍚 🍛 🍖 🍭 🍧 🍝 🥪 🥖 🍪 <br />
@@ -111,19 +111,14 @@ jobs:
                   repository: ${{ needs.setup.outputs.repo }}
                   ref: ${{ needs.setup.outputs.ref }}
 
-            - name: Setup pnpm
-              uses: pnpm/action-setup@v4
-              with:
-                  run_install: false
-
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
                   node-version: 24.3.0
-                  cache: pnpm
+                  cache: yarn
 
             - name: Install dependencies
-              run: pnpm install
+              run: yarn install --frozen-lockfile
 
             - name: Get commit message
               id: commit-message
@@ -131,7 +126,7 @@ jobs:
 
             #  ================= Deploy Demo =================
             - name: 📦 Build demo
-              run: pnpm build:demo
+              run: yarn build:demo
 
             - name: Copy demo to workspace
               run: |
@@ -140,8 +135,8 @@ jobs:
 
             - name: 📦 Build react16 demo
               run: |
-                  pnpm use:react16
-                  pnpm build:demo
+                  yarn use:react16
+                  yarn build:demo
 
             - name: Copy demo to workspace
               run: |
@@ -181,23 +176,18 @@ jobs:
                   repository: ${{ needs.setup.outputs.repo }}
                   ref: ${{ needs.setup.outputs.ref }}
 
-            - name: Setup pnpm
-              uses: pnpm/action-setup@v4
-              with:
-                  run_install: false
-
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
                   node-version: 24.3.0
-                  cache: pnpm
+                  cache: yarn
 
             - name: Install dependencies
-              run: pnpm install
+              run: yarn install --frozen-lockfile
 
             # ================= Deploy Storybook =================
             - name: 📦 Build storybook
-              run: pnpm storybook:build
+              run: yarn storybook:build
 
             - name: 🚀 Deploy to Vercel (demo)
               uses: amondnet/vercel-action@v25

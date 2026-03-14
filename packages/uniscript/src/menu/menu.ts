@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuButtonItem } from '@univerjs/ui';
-import { UniverInstanceType } from '@univerjs/core';
-import { RangeProtectionPermissionEditPoint, WorkbookEditablePermission, WorksheetEditPermission, WorksheetSetCellStylePermission, WorksheetSetCellValuePermission } from '@univerjs/sheets';
-import { getCurrentRangeDisable$ } from '@univerjs/sheets-ui';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuButtonItem } from '@crabtable/ui';
+import { CrabTableInstanceType } from '@crabtable/core';
+import { RangeProtectionPermissionEditPoint, WorkbookEditablePermission, WorksheetEditPermission, WorksheetSetCellStylePermission, WorksheetSetCellValuePermission } from '@crabtable/sheets';
+import { getCurrentRangeDisable$ } from '@crabtable/sheets-ui';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { ToggleScriptPanelOperation } from '../commands/operations/panel.operation';
 
 export function UniscriptMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
@@ -30,7 +30,7 @@ export function UniscriptMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
         icon: 'CodeIcon',
         type: MenuItemType.BUTTON,
         // FIXME hidden$ and disabled$ are not correctly in doc
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         disabled$: getCurrentRangeDisable$(accessor, { workbookTypes: [WorkbookEditablePermission], worksheetTypes: [WorksheetEditPermission, WorksheetSetCellStylePermission, WorksheetSetCellValuePermission], rangeTypes: [RangeProtectionPermissionEditPoint] }),
     };
 }

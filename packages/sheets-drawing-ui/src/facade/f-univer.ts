@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-import type { IDisposable, IDrawingSearch, Injector } from '@univerjs/core';
-import type { IEventBase } from '@univerjs/core/facade';
-import type { ISheetFloatDom, ISheetImage } from '@univerjs/sheets-drawing';
-import type { IDeleteDrawingCommandParams, IInsertDrawingCommandParams, ISetDrawingCommandParams } from '@univerjs/sheets-drawing-ui';
-import type { FWorkbook } from '@univerjs/sheets/facade';
+import type { IDisposable, IDrawingSearch, Injector } from '@crabtable/core';
+import type { IEventBase } from '@crabtable/core/facade';
+import type { ISheetFloatDom, ISheetImage } from '@crabtable/sheets-drawing';
+import type { IDeleteDrawingCommandParams, IInsertDrawingCommandParams, ISetDrawingCommandParams } from '@crabtable/sheets-drawing-ui';
+import type { FWorkbook } from '@crabtable/sheets/facade';
 import type {
     IBeforeFloatDomAddParam,
     IBeforeFloatDomDeleteParam,
     IBeforeFloatDomUpdateParam,
     IBeforeOverGridImageChangeParamObject,
 } from './f-event';
-import { CanceledError, DrawingTypeEnum, ICommandService, IURLImageService } from '@univerjs/core';
-import { FUniver } from '@univerjs/core/facade';
-import { IDrawingManagerService, SetDrawingSelectedOperation } from '@univerjs/drawing';
-import { InsertSheetDrawingCommand, RemoveSheetDrawingCommand, SetSheetDrawingCommand } from '@univerjs/sheets-drawing-ui';
+import { CanceledError, DrawingTypeEnum, ICommandService, IURLImageService } from '@crabtable/core';
+import { FCrabTable } from '@crabtable/core/facade';
+import { IDrawingManagerService, SetDrawingSelectedOperation } from '@crabtable/drawing';
+import { InsertSheetDrawingCommand, RemoveSheetDrawingCommand, SetSheetDrawingCommand } from '@crabtable/sheets-drawing-ui';
 import { FOverGridImage } from './f-over-grid-image';
 
 interface IBeforeOverGridImageInsertParam extends IEventBase {
@@ -59,7 +59,7 @@ export interface IFUniverDrawingUIMixin {
      * @returns A disposable object to unregister the downloader
      * @example
      * ```ts
-     * const disposable = univerAPI.registerURLImageDownloader(async (url) => {
+     * const disposable = crabtableAPI.registerURLImageDownloader(async (url) => {
      *   const response = await fetch(url);
      *   const blob = await response.blob();
      *   const base64 = await new Promise<string>((resolve) => {
@@ -77,7 +77,7 @@ export interface IFUniverDrawingUIMixin {
 /**
  * @ignore
  */
-export class FUniverDrawingUIMixin extends FUniver implements IFUniverDrawingUIMixin {
+export class FCrabTableDrawingUIMixin extends FCrabTable implements IFUniverDrawingUIMixin {
     /**
      * @ignore
      */
@@ -534,8 +534,8 @@ export class FUniverDrawingUIMixin extends FUniver implements IFUniverDrawingUIM
     }
 }
 
-FUniver.extend(FUniverDrawingUIMixin);
-declare module '@univerjs/core/facade' {
+FCrabTable.extend(FUniverDrawingUIMixin);
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
-    interface FUniver extends IFUniverDrawingUIMixin { }
+    interface FCrabTable extends IFUniverDrawingUIMixin { }
 }

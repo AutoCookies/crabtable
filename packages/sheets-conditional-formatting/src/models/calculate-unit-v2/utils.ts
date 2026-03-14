@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { CellValue, ICellData, IObjectMatrixPrimitiveType, IRange, Nullable } from '@univerjs/core';
+import type { CellValue, ICellData, IObjectMatrixPrimitiveType, IRange, Nullable } from '@crabtable/core';
 import type { IConditionFormattingRule, IValueConfig } from '../type';
 import type { IContext } from './base-calculate-unit';
-import { BooleanNumber, CellValueType, ColorKit, dayjs, ObjectMatrix, Range } from '@univerjs/core';
-import { BooleanValue, FormulaResultStatus } from '@univerjs/engine-formula';
+import { BooleanNumber, CellValueType, ColorKit, dayjs, ObjectMatrix, Range } from '@crabtable/core';
+import { BooleanValue, FormulaResultStatus } from '@crabtable/engine-formula';
 import { CFNumberOperator, CFValueType } from '../../base/const';
 import { ConditionalFormattingFormulaService } from '../../services/conditional-formatting-formula.service';
 import { ConditionalFormattingViewModel } from '../conditional-formatting-view-model';

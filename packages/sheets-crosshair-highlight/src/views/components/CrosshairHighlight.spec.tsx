@@ -23,8 +23,8 @@ const mocked = vi.hoisted(() => ({
     useObservable: vi.fn(),
 }));
 
-vi.mock('@univerjs/ui', async () => {
-    const actual = await vi.importActual<typeof import('@univerjs/ui')>('@univerjs/ui');
+vi.mock('@crabtable/ui', async () => {
+    const actual = await vi.importActual<typeof import('@crabtable/ui')>('@crabtable/ui');
     return {
         ...actual,
         useDependency: mocked.useDependency,
@@ -32,8 +32,8 @@ vi.mock('@univerjs/ui', async () => {
     };
 });
 
-vi.mock('@univerjs/design', async () => {
-    const actual = await vi.importActual<typeof import('@univerjs/design')>('@univerjs/design');
+vi.mock('@crabtable/design', async () => {
+    const actual = await vi.importActual<typeof import('@crabtable/design')>('@crabtable/design');
     return {
         ...actual,
         borderClassName: 'border-class',

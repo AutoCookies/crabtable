@@ -26,7 +26,7 @@ import { Disposable, toDisposable } from '../../shared/lifecycle';
 import { CommandType, ICommandService, sequenceExecute } from '../command/command.service';
 import { EDITOR_ACTIVATED, FOCUSING_FX_BAR_EDITOR, FOCUSING_SHEET } from '../context/context';
 import { IContextService } from '../context/context.service';
-import { IUniverInstanceService } from '../instance/instance.service';
+import { ICrabTableInstanceService } from '../instance/instance.service';
 
 export interface IUndoRedoItem {
     /** unitID maps to unitId for UniverSheet / UniverDoc / UniverSlide */
@@ -46,9 +46,9 @@ export interface IUndoRedoService {
 
     pushUndoRedo(item: IUndoRedoItem): void;
 
-    /** Pitch the top redo element of the currently focused Univer document instance. */
+    /** Pitch the top redo element of the currently focused CrabTable document instance. */
     pitchTopUndoElement(): Nullable<IUndoRedoItem>;
-    /** Pitch the top undo element of the currently focused Univer document instance. */
+    /** Pitch the top undo element of the currently focused CrabTable document instance. */
     pitchTopRedoElement(): Nullable<IUndoRedoItem>;
 
     popUndoToRedo(): void;
@@ -176,7 +176,7 @@ export class LocalUndoRedoService extends Disposable implements IUndoRedoService
     private _batchingStatus = new Map<string, BatchingStatus>();
 
     constructor(
-        @IUniverInstanceService protected readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService protected readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService protected readonly _commandService: ICommandService,
         @IContextService private readonly _contextService: IContextService
     ) {
@@ -188,7 +188,7 @@ export class LocalUndoRedoService extends Disposable implements IUndoRedoService
         this.disposeWithMe(this._commandService.registerCommand(RedoCommand));
 
         this.disposeWithMe(toDisposable(() => this._undoRedoStatus$.complete()));
-        this.disposeWithMe(toDisposable(this._univerInstanceService.focused$.subscribe(() => this._updateStatus())));
+        this.disposeWithMe(toDisposable(this._crabtableInstanceService.focused$.subscribe(() => this._updateStatus())));
     }
 
     pushUndoRedo(item: IUndoRedoItem): void {
@@ -375,10 +375,10 @@ export class LocalUndoRedoService extends Disposable implements IUndoRedoService
             } else if (isFocusEditor) {
                 unitID = DOCS_NORMAL_EDITOR_UNIT_ID_KEY;
             } else {
-                unitID = this._univerInstanceService.getFocusedUnit()?.getUnitId() ?? '';
+                unitID = this._crabtableInstanceService.getFocusedUnit()?.getUnitId() ?? '';
             }
         } else {
-            unitID = this._univerInstanceService.getFocusedUnit()?.getUnitId() ?? '';
+            unitID = this._crabtableInstanceService.getFocusedUnit()?.getUnitId() ?? '';
         }
 
         return unitID;

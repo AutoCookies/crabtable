@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, IUnitRange, Nullable } from '@univerjs/core';
+import type { ICommandInfo, IUnitRange, Nullable } from '@crabtable/core';
 import type { IDirtyUnitFeatureMap, IDirtyUnitOtherFormulaMap, IDirtyUnitSheetDefinedNameMap, IDirtyUnitSheetNameMap } from '../basics/common';
-import { createIdentifier, Disposable } from '@univerjs/core';
+import { createIdentifier, Disposable } from '@crabtable/core';
 
 export interface IDirtyConversionManagerParams {
     commandId: string;

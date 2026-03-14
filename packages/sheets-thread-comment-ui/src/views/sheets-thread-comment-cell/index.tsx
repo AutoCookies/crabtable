@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import { IUniverInstanceService, Tools, UniverInstanceType } from '@univerjs/core';
-import { SheetsThreadCommentModel } from '@univerjs/sheets-thread-comment';
-import { ThreadCommentTree } from '@univerjs/thread-comment-ui';
-import { useDependency, useObservable } from '@univerjs/ui';
+import type { Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICrabTableInstanceService, Tools } from '@crabtable/core';
+import { SheetsThreadCommentModel } from '@crabtable/sheets-thread-comment';
+import { ThreadCommentTree } from '@crabtable/thread-comment-ui';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { SheetsThreadCommentPopupService } from '../../services/sheets-thread-comment-popup.service';
 
 export const SheetsThreadCommentCell = () => {
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const sheetsThreadCommentPopupService = useDependency(SheetsThreadCommentPopupService);
     const activePopup = useObservable(sheetsThreadCommentPopupService.activePopup$);
     const sheetThreadCommentModel = useDependency(SheetsThreadCommentModel);
@@ -38,7 +38,7 @@ export const SheetsThreadCommentCell = () => {
     };
 
     const getSubUnitName = (id: string) => {
-        return univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getSheetBySheetId(id)?.getName() ?? '';
+        return crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getSheetBySheetId(id)?.getName() ?? '';
     };
 
     return (
@@ -50,7 +50,7 @@ export const SheetsThreadCommentCell = () => {
             id={rootId}
             unitId={unitId}
             subUnitId={subUnitId}
-            type={UniverInstanceType.UNIVER_SHEET}
+            type={CrabTableInstanceType.CRABTABLE_SHEET}
             refStr={ref}
             onClose={onClose}
             getSubUnitName={getSubUnitName}

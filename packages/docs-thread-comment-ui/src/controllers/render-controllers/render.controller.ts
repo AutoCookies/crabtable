@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
-import { CustomDecorationType, Disposable, ICommandService, Inject, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DOC_INTERCEPTOR_POINT, DocInterceptorService, RichTextEditingMutation } from '@univerjs/docs';
-import { DocRenderController } from '@univerjs/docs-ui';
-import { ThreadCommentModel } from '@univerjs/thread-comment';
-import { ThreadCommentPanelService } from '@univerjs/thread-comment-ui';
+import type { DocumentDataModel } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
+import { CrabTableInstanceType, CustomDecorationType, Disposable, ICommandService, ICrabTableInstanceService, Inject } from '@crabtable/core';
+import { DOC_INTERCEPTOR_POINT, DocInterceptorService, RichTextEditingMutation } from '@crabtable/docs';
+import { DocRenderController } from '@crabtable/docs-ui';
+import { ThreadCommentModel } from '@crabtable/thread-comment';
+import { ThreadCommentPanelService } from '@crabtable/thread-comment-ui';
 import { DEFAULT_DOC_SUBUNIT_ID } from '../../common/const';
 
 export class DocThreadCommentRenderController extends Disposable implements IRenderModule {
@@ -30,7 +30,7 @@ export class DocThreadCommentRenderController extends Disposable implements IRen
         @Inject(DocInterceptorService) private readonly _docInterceptorService: DocInterceptorService,
         @Inject(ThreadCommentPanelService) private readonly _threadCommentPanelService: ThreadCommentPanelService,
         @Inject(DocRenderController) private readonly _docRenderController: DocRenderController,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(ThreadCommentModel) private readonly _threadCommentModel: ThreadCommentModel,
         @ICommandService private readonly _commandService: ICommandService
     ) {
@@ -48,7 +48,7 @@ export class DocThreadCommentRenderController extends Disposable implements IRen
                 return;
             }
 
-            const unitId = this._univerInstanceService.getCurrentUnitForType(UniverInstanceType.UNIVER_DOC)?.getUnitId();
+            const unitId = this._crabtableInstanceService.getCurrentUnitForType(CrabTableInstanceType.CRABTABLE_DOC)?.getUnitId();
             if (unitId) {
                 this._docRenderController.reRender(unitId);
             }

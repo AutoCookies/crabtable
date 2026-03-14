@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverEngineFormulaConfig } from './config/config';
-import { IConfigService, Inject, Injector, merge, Plugin, touchDependencies } from '@univerjs/core';
+import { IConfigService, Inject, Injector, merge, Plugin, touchDependencies } from '@crabtable/core';
 import pkg from '../package.json';
 import { defaultPluginConfig, ENGINE_FORMULA_PLUGIN_CONFIG_KEY } from './config/config';
 import { CalculateController } from './controllers/calculate.controller';

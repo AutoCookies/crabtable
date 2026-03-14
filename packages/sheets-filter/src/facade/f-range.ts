@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import type { FilterModel, ISetSheetFilterRangeCommandParams } from '@univerjs/sheets-filter';
-import { SetSheetFilterRangeCommand, SheetsFilterService } from '@univerjs/sheets-filter';
-import { FRange } from '@univerjs/sheets/facade';
+import type { Nullable } from '@crabtable/core';
+import type { FilterModel, ISetSheetFilterRangeCommandParams } from '@crabtable/sheets-filter';
+import { SetSheetFilterRangeCommand, SheetsFilterService } from '@crabtable/sheets-filter';
+import { FRange } from '@crabtable/sheets/facade';
 import { FFilter } from './f-filter';
 
 // TODO: add jsdoc comments for the following API
@@ -31,7 +31,7 @@ export interface IFRangeFilter {
      * @returns {FFilter | null} The FFilter instance to handle the filter.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:D14');
      * let fFilter = fRange.createFilter();
@@ -52,7 +52,7 @@ export interface IFRangeFilter {
      * @returns {FFilter | null} The FFilter instance to handle the filter.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:D14');
      * let fFilter = fRange.getFilter();
@@ -103,7 +103,7 @@ export class FRangeFilter extends FRange implements IFRangeFilter {
 }
 
 FRange.extend(FRangeFilter);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FRange extends IFRangeFilter { }
 }

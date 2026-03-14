@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { CellValueType } from '@univerjs/core';
+import { CellValueType } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import { SheetsTableButtonStateEnum, SheetsTableSortStateEnum, TableColumnFilterTypeEnum } from '../types/enum';
 import {
@@ -83,7 +83,7 @@ describe('sheets-table util', () => {
         } as any;
 
         const names = getExistingNamesSet('unit-1', {
-            univerInstanceService: {
+            crabtableInstanceService: {
                 getUnit: () => workbook,
             } as any,
             tableManager: {

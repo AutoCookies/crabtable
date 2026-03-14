@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import type { IColAutoWidthInfo, IObjectArrayPrimitiveType, Nullable, Worksheet } from '@univerjs/core';
-import type { RenderManagerService } from '@univerjs/engine-render';
+import type { IColAutoWidthInfo, IObjectArrayPrimitiveType, Nullable, Worksheet } from '@crabtable/core';
+import type { RenderManagerService } from '@crabtable/engine-render';
 import type {
     ISetWorksheetColWidthMutationParams,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import type { ISetWorksheetColIsAutoWidthCommandParams } from '../commands/commands/set-worksheet-auto-col-width.command';
-import { Disposable, Inject, IUniverInstanceService } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { Disposable, ICrabTableInstanceService, Inject } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import {
     getSheetCommandTarget,
     SetWorksheetColWidthMutation,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { SheetSkeletonManagerService } from '../services/sheet-skeleton-manager.service';
 
 export const createAutoColWidthUndoMutationsByRedos = (
@@ -54,16 +54,16 @@ export const createAutoColWidthUndoMutationsByRedos = (
 export class AutoWidthController extends Disposable {
     constructor(
         @IRenderManagerService private readonly _renderManagerService: RenderManagerService,
-        @Inject(IUniverInstanceService) private readonly _univerInstanceService: IUniverInstanceService
+        @Inject(ICrabTableInstanceService) private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
     }
 
     getUndoRedoParamsOfColWidth(params: Required<ISetWorksheetColIsAutoWidthCommandParams>) {
         const defaultValue = { redos: [], undos: [] };
-        const { _univerInstanceService: univerInstanceService } = this;
+        const { _crabtableInstanceService: crabtableInstanceService } = this;
 
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return defaultValue;
 
         const { unitId, subUnitId, worksheet } = target;

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IShortcutItem } from '@univerjs/ui';
-import { whenSheetEditorFocused } from '@univerjs/sheets-ui';
-import { KeyCode } from '@univerjs/ui';
+import type { IShortcutItem } from '@crabtable/ui';
+import { whenSheetEditorFocused } from '@crabtable/sheets-ui';
+import { KeyCode } from '@crabtable/ui';
 import { CustomClearSelectionContentCommand } from '../../commands/commands/custom.command';
 
 export const CustomClearSelectionValueShortcutItem: IShortcutItem = {

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import { Disposable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
+import { Disposable } from '@crabtable/core';
 import { BehaviorSubject } from 'rxjs';
 
 export class DocMentionService extends Disposable {

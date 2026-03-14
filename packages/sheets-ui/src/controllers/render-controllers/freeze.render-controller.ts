@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, IFreeze, IRange, IWorksheetData, Nullable, Workbook } from '@univerjs/core';
-import type { IMouseEvent, IPointerEvent, IRenderContext, IRenderModule, Viewport } from '@univerjs/engine-render';
+import type { ICommandInfo, IFreeze, IRange, IWorksheetData, Nullable, Workbook } from '@crabtable/core';
+import type { IMouseEvent, IPointerEvent, IRenderContext, IRenderModule, Viewport } from '@crabtable/engine-render';
 import type {
     IInsertColCommandParams,
     IInsertRowCommandParams,
@@ -28,8 +28,8 @@ import type {
     ISetWorksheetColWidthMutationParams,
     ISetWorksheetRowAutoHeightMutationParams,
     ISetWorksheetRowHeightMutationParams,
-} from '@univerjs/sheets';
-import type { Theme } from '@univerjs/themes';
+} from '@crabtable/sheets';
+import type { Theme } from '@crabtable/themes';
 import type { IViewportScrollState } from '../../services/scroll-manager.service';
 import {
     ColorKit,
@@ -44,9 +44,9 @@ import {
     RANGE_TYPE,
     ThemeService,
     toDisposable,
-} from '@univerjs/core';
+} from '@crabtable/core';
 
-import { CURSOR_TYPE, Rect, SHEET_VIEWPORT_KEY, TRANSFORM_CHANGE_OBSERVABLE_TYPE, Vector2 } from '@univerjs/engine-render';
+import { CURSOR_TYPE, Rect, SHEET_VIEWPORT_KEY, TRANSFORM_CHANGE_OBSERVABLE_TYPE, Vector2 } from '@crabtable/engine-render';
 import {
     InsertColCommand,
     InsertRangeMoveDownCommand,
@@ -69,7 +69,7 @@ import {
     SetWorksheetRowHeightMutation,
     SheetInterceptorService,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { Subscription } from 'rxjs';
 import { SetColumnHeaderHeightCommand, SetRowHeaderWidthCommand } from '../../commands/commands/headersize-changed.command';
 
@@ -150,7 +150,7 @@ export class HeaderFreezeRenderController extends Disposable implements IRenderM
     constructor(
         private readonly _context: IRenderContext<Workbook>,
         @Inject(SheetSkeletonManagerService) private readonly _sheetSkeletonManagerService: SheetSkeletonManagerService,
-        // @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        // @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService,
         // @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
         @Inject(SheetsSelectionsService) private readonly _selectionManagerService: SheetsSelectionsService,

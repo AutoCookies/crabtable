@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IMutation } from '@univerjs/core';
+import type { IMutation } from '@crabtable/core';
 import type { IFeatureCalculationManagerParam } from '../../services/feature-calculation-manager.service';
-import { CommandType } from '@univerjs/core';
+import { CommandType } from '@crabtable/core';
 
 export interface ISetFeatureCalculationMutation {
     featureId: string;

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICascaderOption } from '@univerjs/design';
-import type { IPopup } from '@univerjs/ui';
+import type { ICascaderOption } from '@crabtable/design';
+import type { IPopup } from '@crabtable/ui';
 import type { IBaseDropdownProps } from '../type';
-import { CascaderList } from '@univerjs/design';
+import { CascaderList } from '@crabtable/design';
 import { useState } from 'react';
 
 export interface ICascaderDropdownProps {

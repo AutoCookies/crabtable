@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Nullable } from '@univerjs/core';
-import type { ISheetLocationBase } from '@univerjs/sheets';
-import { Disposable, DisposableCollection, Inject } from '@univerjs/core';
-import { CellPopupManagerService } from '@univerjs/sheets-ui';
-import { IZenZoneService } from '@univerjs/ui';
+import type { IDisposable, Nullable } from '@crabtable/core';
+import type { ISheetLocationBase } from '@crabtable/sheets';
+import { Disposable, DisposableCollection, Inject } from '@crabtable/core';
+import { CellPopupManagerService } from '@crabtable/sheets-ui';
+import { IZenZoneService } from '@crabtable/ui';
 import { BehaviorSubject } from 'rxjs';
 import { SHEET_NOTE_COMPONENT } from '../views/config';
 

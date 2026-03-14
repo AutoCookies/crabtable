@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IShortcutItem } from '@univerjs/ui';
-import { NilCommand } from '@univerjs/core';
-import { KeyCode, MetaKeys } from '@univerjs/ui';
+import type { IShortcutItem } from '@crabtable/ui';
+import { NilCommand } from '@crabtable/core';
+import { KeyCode, MetaKeys } from '@crabtable/ui';
 import { ChangeZoomRatioCommand } from '../../commands/commands/set-zoom-ratio.command';
 import { whenSheetEditorFocused } from './utils';
 

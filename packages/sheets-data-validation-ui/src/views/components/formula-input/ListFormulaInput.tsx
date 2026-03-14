@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { IFormulaInputProps } from '@univerjs/data-validation';
-import type { ListValidator } from '@univerjs/sheets-data-validation';
-import type { IFormulaEditorRef } from '@univerjs/sheets-formula-ui';
-import { DataValidationType, generateRandomId, isFormulaString, LocaleService } from '@univerjs/core';
-import { DataValidationModel, DataValidatorRegistryService } from '@univerjs/data-validation';
-import { borderClassName, clsx, DraggableList, Dropdown, FormLayout, Input, Radio, RadioGroup } from '@univerjs/design';
+import type { IFormulaInputProps } from '@crabtable/data-validation';
+import type { ListValidator } from '@crabtable/sheets-data-validation';
+import type { IFormulaEditorRef } from '@crabtable/sheets-formula-ui';
+import { DataValidationType, generateRandomId, isFormulaString, LocaleService } from '@crabtable/core';
+import { DataValidationModel, DataValidatorRegistryService } from '@crabtable/data-validation';
+import { borderClassName, clsx, DraggableList, Dropdown, FormLayout, Input, Radio, RadioGroup } from '@crabtable/design';
+import { DataValidationFormulaController, deserializeListOptions, serializeListOptions } from '@crabtable/sheets-data-validation';
+import { FormulaEditor } from '@crabtable/sheets-formula-ui';
+import { useDependency, useEvent, useObservable, useSidebarClick } from '@crabtable/ui';
 import { DeleteIcon, IncreaseIcon, MoreDownIcon, SequenceIcon } from '@univerjs/icons';
-import { DataValidationFormulaController, deserializeListOptions, serializeListOptions } from '@univerjs/sheets-data-validation';
-import { FormulaEditor } from '@univerjs/sheets-formula-ui';
-import { useDependency, useEvent, useObservable, useSidebarClick } from '@univerjs/ui';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { debounceTime } from 'rxjs';
 import { DROP_DOWN_DEFAULT_COLOR } from '../../../const';

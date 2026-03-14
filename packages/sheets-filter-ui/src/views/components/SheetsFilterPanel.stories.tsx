@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
+import type { IWorkbookData } from '@crabtable/core';
 import type { Meta } from '@storybook/react';
-import type { IWorkbookData } from '@univerjs/core';
 import type { IOpenFilterPanelOperationParams } from '../../commands/operations/sheets-filter.operation';
-import { CommandType, ICommandService, ILogService, Inject, Injector, LocaleService, LocaleType, LogLevel, Plugin, registerDependencies, Univer, UniverInstanceType } from '@univerjs/core';
-import { RefRangeService, SheetInterceptorService, SheetsSelectionsService, WorksheetProtectionPointModel } from '@univerjs/sheets';
-import { ClearSheetsFilterCriteriaCommand, ReCalcSheetsFilterCommand, SetSheetsFilterCriteriaCommand, SmartToggleSheetsFilterCommand, UniverSheetsFilterPlugin } from '@univerjs/sheets-filter';
-import { SetCellEditVisibleOperation } from '@univerjs/sheets-ui';
-import { IShortcutService, IUIPartsService, RediContext, ShortcutService, UIPartsService } from '@univerjs/ui';
+import { CommandType, CrabTableInstanceType, ICommandService, ILogService, Inject, Injector, LocaleService, LocaleType, LogLevel, Plugin, registerDependencies } from '@crabtable/core';
+import { RefRangeService, SheetInterceptorService, SheetsSelectionsService, WorksheetProtectionPointModel } from '@crabtable/sheets';
+import { ClearSheetsFilterCriteriaCommand, ReCalcSheetsFilterCommand, SetSheetsFilterCriteriaCommand, SmartToggleSheetsFilterCommand, UniverSheetsFilterPlugin } from '@crabtable/sheets-filter';
+import { SetCellEditVisibleOperation } from '@crabtable/sheets-ui';
+import { IShortcutService, IUIPartsService, RediContext, ShortcutService, UIPartsService } from '@crabtable/ui';
 import { useState } from 'react';
 import { WithCustomFilterModelFactory, WithValuesFilterModelFactory } from '../../__testing__/data';
 import { ChangeFilterByOperation, CloseFilterPanelOperation, OpenFilterPanelOperation } from '../../commands/operations/sheets-filter.operation';
@@ -46,11 +46,11 @@ const FakeCetCellEditVisibleOperation = {
 };
 
 function createFilterStorybookBed(workbookData: IWorkbookData, locale: LocaleType = LocaleType.EN_US) {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
 
     class TestPlugin extends Plugin {
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
         static override pluginName = 'test-plugin';
 
         constructor(
@@ -103,7 +103,7 @@ function createFilterStorybookBed(workbookData: IWorkbookData, locale: LocaleTyp
     injector.get(LocaleService).load({ enUS, zhCN, ruRU });
     injector.get(ILogService).setLogLevel(LogLevel.VERBOSE);
 
-    const sheet = univer.createUnit(UniverInstanceType.UNIVER_SHEET, workbookData);
+    const sheet = univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, workbookData);
 
     return { univer, injector, sheet };
 }

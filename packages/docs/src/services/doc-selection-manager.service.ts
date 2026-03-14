@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, Nullable } from '@univerjs/core';
+import type { DocumentDataModel, Nullable } from '@crabtable/core';
 import type {
     IDocSelectionInnerParam,
     IRectRangeWithStyle,
     ISuccinctDocRangeParam,
     ITextRangeWithStyle,
-} from '@univerjs/engine-render';
-import { ICommandService, IUniverInstanceService, RxDisposable, UniverInstanceType } from '@univerjs/core';
-import { NORMAL_TEXT_SELECTION_PLUGIN_STYLE } from '@univerjs/engine-render';
+} from '@crabtable/engine-render';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, RxDisposable } from '@crabtable/core';
+import { NORMAL_TEXT_SELECTION_PLUGIN_STYLE } from '@crabtable/engine-render';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { SetTextSelectionsOperation } from '../commands/operations/text-selection.operation';
 
@@ -59,7 +59,7 @@ export class DocSelectionManagerService extends RxDisposable {
 
     constructor(
         @ICommandService private readonly _commandService: ICommandService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
 
@@ -67,7 +67,7 @@ export class DocSelectionManagerService extends RxDisposable {
     }
 
     private _listenCurrentUnit() {
-        this._univerInstanceService.getCurrentTypeOfUnit$<DocumentDataModel>(UniverInstanceType.UNIVER_DOC)
+        this._crabtableInstanceService.getCurrentTypeOfUnit$<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC)
             .pipe(takeUntil(this.dispose$))
             .subscribe((documentModel) => {
                 if (documentModel == null) {

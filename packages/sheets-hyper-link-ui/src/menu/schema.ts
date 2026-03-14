@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { MenuSchemaType } from '@univerjs/ui';
-import { ContextMenuGroup, ContextMenuPosition, RibbonInsertGroup } from '@univerjs/ui';
+import type { MenuSchemaType } from '@crabtable/ui';
+import { ContextMenuGroup, ContextMenuPosition, RibbonInsertGroup } from '@crabtable/ui';
 import { InsertHyperLinkToolbarOperation } from '../commands/operations/popup.operations';
 import { genZenEditorMenuId, insertLinkMenuFactory, insertLinkMenuToolbarFactory, zenEditorInsertLinkMenuFactory, zenEditorInsertLinkMenuToolbarFactory } from './menu';
 

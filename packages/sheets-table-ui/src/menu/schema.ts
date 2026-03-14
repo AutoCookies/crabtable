@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { MenuSchemaType } from '@univerjs/ui';
-import { SheetTableInsertColCommand, SheetTableInsertRowCommand, SheetTableRemoveColCommand, SheetTableRemoveRowCommand } from '@univerjs/sheets-table';
-import { ContextMenuGroup, ContextMenuPosition, RibbonDataGroup } from '@univerjs/ui';
+import type { MenuSchemaType } from '@crabtable/ui';
+import { SheetTableInsertColCommand, SheetTableInsertRowCommand, SheetTableRemoveColCommand, SheetTableRemoveRowCommand } from '@crabtable/sheets-table';
+import { ContextMenuGroup, ContextMenuPosition, RibbonDataGroup } from '@crabtable/ui';
 import { OpenTableSelectorOperation } from '../commands/operations/open-table-selector.operation';
 import { SHEET_TABLE_CONTEXT_INSERT_MENU_ID, SHEET_TABLE_CONTEXT_REMOVE_MENU_ID, SheetTableInsertColMenuFactory, SheetTableInsertContextMenuFactory, SheetTableInsertRowMenuFactory, SheetTableRemoveColMenuFactory, SheetTableRemoveContextMenuFactory, SheetTableRemoveRowMenuFactory, sheetTableToolbarInsertMenuFactory } from './menu';
 

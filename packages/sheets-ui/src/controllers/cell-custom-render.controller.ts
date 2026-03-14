@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { ICellCustomRender, ICellDataForSheetInterceptor, ICellRenderContext, Nullable, Workbook } from '@univerjs/core';
-import type { IMouseEvent, IPointerEvent, IRenderContext, IRenderModule, RenderManagerService, Spreadsheet } from '@univerjs/engine-render';
-import type { ICellPermission } from '@univerjs/sheets';
+import type { ICellCustomRender, ICellDataForSheetInterceptor, ICellRenderContext, Nullable, Workbook } from '@crabtable/core';
+import type { IMouseEvent, IPointerEvent, IRenderContext, IRenderModule, RenderManagerService, Spreadsheet } from '@crabtable/engine-render';
+import type { ICellPermission } from '@crabtable/sheets';
 import type { ISheetSkeletonManagerParam } from '../services/sheet-skeleton-manager.service';
-import { Disposable, DisposableCollection, fromEventSubject, Inject, IPermissionService, sortRules } from '@univerjs/core';
-import { IRenderManagerService, Vector2 } from '@univerjs/engine-render';
-import { UnitAction, WorkbookEditablePermission, WorksheetEditPermission } from '@univerjs/sheets';
+import { Disposable, DisposableCollection, fromEventSubject, Inject, IPermissionService, sortRules } from '@crabtable/core';
+import { IRenderManagerService, Vector2 } from '@crabtable/engine-render';
+import { UnitAction, WorkbookEditablePermission, WorksheetEditPermission } from '@crabtable/sheets';
 import { throttleTime } from 'rxjs';
 import { SheetSkeletonManagerService } from '../services/sheet-skeleton-manager.service';
 

@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, IMutationInfo, JSONXActions } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { ITextRangeWithStyle } from '@univerjs/engine-render';
+import type { IAccessor, ICommand, IMutationInfo, JSONXActions } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { ITextRangeWithStyle } from '@crabtable/engine-render';
 import type { IDeleteDrawingCommandParams } from './interfaces';
 import {
     CommandType,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     JSONX,
     MemoryCursor,
     TextX,
     TextXActionType,
-} from '@univerjs/core';
-import { RichTextEditingMutation } from '@univerjs/docs';
-import { DocSelectionRenderService, getRichTextEditPath } from '@univerjs/docs-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { RichTextEditingMutation } from '@crabtable/docs';
+import { DocSelectionRenderService, getRichTextEditPath } from '@crabtable/docs-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
 
 /**
  * The command to remove new sheet image
@@ -40,9 +40,9 @@ export const RemoveDocDrawingCommand: ICommand = {
     // eslint-disable-next-line max-lines-per-function
     handler: (accessor: IAccessor, params?: IDeleteDrawingCommandParams) => {
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const renderManagerService = accessor.get(IRenderManagerService);
-        const documentDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const documentDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
 
         if (params == null || documentDataModel == null) {
             return false;

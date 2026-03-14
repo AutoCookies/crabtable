@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
-import { CommandType } from '@univerjs/core';
+import type { IAccessor, ICommand } from '@crabtable/core';
+import { CommandType } from '@crabtable/core';
 import { DocParagraphSettingController } from '../../controllers/doc-paragraph-setting.controller';
 
 export const DocParagraphSettingPanelOperation: ICommand = {

@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-import type { ICellData, IMutationInfo, IRange, Nullable, Workbook } from '@univerjs/core';
+import type { ICellData, IMutationInfo, IRange, Nullable, Workbook } from '@crabtable/core';
 import type { IAddWorksheetMergeMutationParams, IRemoveWorksheetMergeMutationParams } from '../basics';
 import type { ISetRangeValuesMutationParams } from '../commands/mutations/set-range-values.mutation';
 import type { AUTO_FILL_APPLY_FUNCTIONS, IAutoFillCopyDataInType, IAutoFillCopyDataPiece, IAutoFillLocation, IAutoFillRuleConfirmedData } from '../services/auto-fill/type';
 import {
     Direction,
     Disposable,
+    ICrabTableInstanceService,
     Inject,
     Injector,
-    IUniverInstanceService,
     ObjectMatrix,
     Rectangle,
     Tools,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { discreteRangeToRange } from '../basics/utils';
 import { AddMergeUndoMutationFactory, AddWorksheetMergeMutation } from '../commands/mutations/add-worksheet-merge.mutation';
 import { RemoveMergeUndoMutationFactory, RemoveWorksheetMergeMutation } from '../commands/mutations/remove-worksheet-merge.mutation';
@@ -46,7 +46,7 @@ export class AutoFillController extends Disposable {
     private _copyData: IAutoFillCopyDataPiece[] = [];
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IAutoFillService private readonly _autoFillService: IAutoFillService,
         @Inject(Injector) private readonly _injector: Injector
     ) {
@@ -81,7 +81,7 @@ export class AutoFillController extends Disposable {
     private _presetAndCacheData(location: IAutoFillLocation, direction: Direction) {
         const { unitId, subUnitId, target } = location;
         // cache original data of apply range
-        const worksheet = this._univerInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(subUnitId);
+        const worksheet = this._crabtableInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(subUnitId);
 
         if (!worksheet) {
             throw new Error(`Worksheet not found for unitId: ${unitId}, subUnitId: ${subUnitId}`);
@@ -223,7 +223,7 @@ export class AutoFillController extends Disposable {
 
     private _getCopyData(location: IAutoFillLocation, direction: Direction) {
         const { unitId, subUnitId, source } = location;
-        const worksheet = this._univerInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(subUnitId);
+        const worksheet = this._crabtableInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(subUnitId);
 
         if (!worksheet) {
             throw new Error('No worksheet found');
@@ -299,7 +299,7 @@ export class AutoFillController extends Disposable {
 
     private _getMergeApplyData(source: IRange, target: IRange, direction: Direction, csLen: number, location: IAutoFillLocation) {
         const { unitId, subUnitId } = location;
-        const worksheet = this._univerInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(subUnitId);
+        const worksheet = this._crabtableInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(subUnitId);
 
         if (!worksheet) {
             throw new Error('No active sheet found');
@@ -444,7 +444,7 @@ export class AutoFillController extends Disposable {
 
         // deal with styles
         let applyMergeRanges: IRange[] = [];
-        const style = this._univerInstanceService.getUnit<Workbook>(unitId)?.getStyles();
+        const style = this._crabtableInstanceService.getUnit<Workbook>(unitId)?.getStyles();
         if (hasStyle) {
             applyMergeRanges = this._getMergeApplyData(sourceRange, targetRange, direction, csLen, location);
             applyDatas.forEach((row) => {
@@ -483,8 +483,8 @@ export class AutoFillController extends Disposable {
         // delete cross merge
         if (hasStyle) {
             const deleteMergeRanges: IRange[] = [];
-            const mergeData = this._univerInstanceService
-                .getUniverSheetInstance(unitId)
+            const mergeData = this._crabtableInstanceService
+                .getCrabTableSheetInstance(unitId)
                 ?.getSheetBySheetId(subUnitId)
                 ?.getMergeData();
 

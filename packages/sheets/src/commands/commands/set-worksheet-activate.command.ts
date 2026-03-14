@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, IExecutionOptions } from '@univerjs/core';
+import type { IAccessor, ICommand, IExecutionOptions } from '@crabtable/core';
 import type { ISetWorksheetActiveOperationParams } from '../operations/set-worksheet-active.operation';
-import { CommandType, ICommandService, IUniverInstanceService } from '@univerjs/core';
+import { CommandType, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
 import { SetWorksheetActiveOperation } from '../operations/set-worksheet-active.operation';
 import { getSheetCommandTarget } from './utils/target-util';
 
@@ -34,7 +34,7 @@ export const SetWorksheetActivateCommand: ICommand = {
     handler: (accessor: IAccessor, params?: ISetWorksheetActivateCommandParams, options?: IExecutionOptions) => {
         const commandService = accessor.get(ICommandService);
 
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService), params);
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService), params);
         if (!target) return false;
 
         const { unitId, subUnitId } = target;

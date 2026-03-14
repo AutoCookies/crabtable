@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-import type { UnitAction } from '@univerjs/protocol';
+import type { UnitAction, UnitObject } from '@univerjs/protocol';
 
 import type { IObjectModel } from '../../../model/range-protection-rule.model';
-import { Disposable, Inject, IPermissionService, IResourceManagerService, IUniverInstanceService } from '@univerjs/core';
-import { UnitObject, UniverType } from '@univerjs/protocol';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject, IPermissionService, IResourceManagerService } from '@crabtable/core';
 import { RangeProtectionRuleModel } from '../../../model/range-protection-rule.model';
 
 import { RangeProtectionCache } from '../../../model/range-protection.cache';
@@ -32,7 +31,7 @@ export class RangeProtectionService extends Disposable {
         @Inject(IPermissionService) private _permissionService: IPermissionService,
         @Inject(IResourceManagerService) private _resourceManagerService: IResourceManagerService,
         @Inject(RangeProtectionCache) private _selectionProtectionCache: RangeProtectionCache,
-        @Inject(IUniverInstanceService) private _univerInstanceService: IUniverInstanceService
+        @Inject(ICrabTableInstanceService) private _crabtableInstanceService: ICrabTableInstanceService
 
     ) {
         super();
@@ -95,7 +94,7 @@ export class RangeProtectionService extends Disposable {
                 toJson,
                 parseJson,
                 pluginName: PLUGIN_NAME,
-                businesses: [UniverType.UNIVER_SHEET],
+                businesses: [CrabTableInstanceType.CRABTABLE_SHEET],
                 onLoad: (unitId, resources) => {
                     const result = this._selectionProtectionRuleModel.toObject();
                     result[unitId] = resources;

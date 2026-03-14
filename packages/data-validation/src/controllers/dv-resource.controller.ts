@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ISheetDataValidationRule } from '@univerjs/core';
-import { Disposable, Inject, IResourceManagerService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
+import type { ISheetDataValidationRule } from '@crabtable/core';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject, IResourceManagerService } from '@crabtable/core';
 import { DataValidationModel } from '../models/data-validation-model';
 
 type DataValidationJSON = Record<string, ISheetDataValidationRule[]>;
@@ -25,7 +25,7 @@ const DATA_VALIDATION_PLUGIN_NAME = 'SHEET_DATA_VALIDATION_PLUGIN';
 export class DataValidationResourceController extends Disposable {
     constructor(
         @IResourceManagerService private readonly _resourceManagerService: IResourceManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(DataValidationModel) private readonly _dataValidationModel: DataValidationModel
     ) {
         super();
@@ -57,7 +57,7 @@ export class DataValidationResourceController extends Disposable {
         this.disposeWithMe(
             this._resourceManagerService.registerPluginResource<DataValidationJSON>({
                 pluginName: DATA_VALIDATION_PLUGIN_NAME,
-                businesses: [UniverInstanceType.UNIVER_SHEET],
+                businesses: [CrabTableInstanceType.CRABTABLE_SHEET],
                 toJson: (unitID) => toJson(unitID),
                 parseJson: (json) => parseJson(json),
                 onUnLoad: (unitID) => {

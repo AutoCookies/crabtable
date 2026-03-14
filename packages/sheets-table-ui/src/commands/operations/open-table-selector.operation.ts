@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IRange } from '@univerjs/core';
-import type { IAddSheetTableCommandParams } from '@univerjs/sheets-table';
-import { CommandType, ICommandService, IUniverInstanceService, LocaleService } from '@univerjs/core';
-import { expandToContinuousRange, getSheetCommandTarget, isSingleCellSelection, SheetsSelectionsService } from '@univerjs/sheets';
-import { AddSheetTableCommand } from '@univerjs/sheets-table';
-import { IDialogService } from '@univerjs/ui';
+import type { IAccessor, IRange } from '@crabtable/core';
+import type { IAddSheetTableCommandParams } from '@crabtable/sheets-table';
+import { CommandType, ICommandService, ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { expandToContinuousRange, getSheetCommandTarget, isSingleCellSelection, SheetsSelectionsService } from '@crabtable/sheets';
+import { AddSheetTableCommand } from '@crabtable/sheets-table';
+import { IDialogService } from '@crabtable/ui';
 import { TABLE_SELECTOR_DIALOG } from '../../const';
 
 export const OpenTableSelectorOperation = {
     type: CommandType.OPERATION,
     id: 'sheet.operation.open-table-selector',
     async handler(accessor: IAccessor) {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
 
-        const target = getSheetCommandTarget(univerInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) {
             return false;
         }

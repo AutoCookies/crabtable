@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
+import type { ICommand } from '@crabtable/core';
 import type { IConditionFormattingRule } from '../../models/type';
 import type { ISetConditionalRuleMutationParams } from '../mutations/set-conditional-rule.mutation';
 import {
     CommandType,
     ICommandService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
-} from '@univerjs/core';
-import { getSheetCommandTarget } from '@univerjs/sheets';
+} from '@crabtable/core';
+import { getSheetCommandTarget } from '@crabtable/sheets';
 import { SetConditionalRuleMutation, setConditionalRuleMutationUndoFactory } from '../mutations/set-conditional-rule.mutation';
 
 export interface ISetCfCommandParams {
@@ -42,9 +42,9 @@ export const SetCfCommand: ICommand<ISetCfCommandParams> = {
 
         const undoRedoService = accessor.get(IUndoRedoService);
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { unitId, subUnitId } = target;

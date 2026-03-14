@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IAccessor, UniverInstanceType } from '@univerjs/core';
-import { DocumentFlavor } from '@univerjs/core';
+import type { CrabTableInstanceType, IAccessor } from '@crabtable/core';
+import { DocumentFlavor } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { getHeaderFooterMenuHiddenObservable, getMenuHiddenObservable } from '../menu-hidden-observable';
 
-const TARGET_TYPE = 'sheet' as unknown as UniverInstanceType;
-const OTHER_TYPE = 'doc' as unknown as UniverInstanceType;
+const TARGET_TYPE = 'sheet' as unknown as CrabTableInstanceType;
+const OTHER_TYPE = 'doc' as unknown as CrabTableInstanceType;
 
 function createDocModel(flavor: DocumentFlavor) {
     return {
@@ -35,7 +35,7 @@ function createDocModel(flavor: DocumentFlavor) {
 
 function createMenuAccessor(options?: {
     focusedUnitId?: string | null;
-    unitType?: UniverInstanceType;
+    unitType?: CrabTableInstanceType;
     docFlavorByUnitId?: Record<string, DocumentFlavor>;
     currentDocFlavor?: DocumentFlavor | null;
 }) {

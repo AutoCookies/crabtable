@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
-import type { ISelectionWithStyle } from '@univerjs/sheets';
-import { RANGE_TYPE } from '@univerjs/core';
-import { SetSelectionsOperation, SheetsSelectionsService } from '@univerjs/sheets';
-import { IShortcutService } from '@univerjs/ui';
+import type { IRange } from '@crabtable/core';
+import type { ISelectionWithStyle } from '@crabtable/sheets';
+import { RANGE_TYPE } from '@crabtable/core';
+import { SetSelectionsOperation, SheetsSelectionsService } from '@crabtable/sheets';
+import { IShortcutService } from '@crabtable/ui';
 import { describe, expect, it } from 'vitest';
 import { createRenderTestBed } from '../../../controllers/render-controllers/__tests__/render-test-bed';
 import { SheetSelectionRenderService } from '../selection-render.service';

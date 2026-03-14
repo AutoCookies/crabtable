@@ -1,20 +1,20 @@
 {
-    "name": "@univerjs/sheets-formula",
+    "name": "@crabtable/sheets-formula",
     "version": "0.17.0",
     "private": false,
-    "author": "DreamNum <developer@univer.ai>",
+    "author": "DreamNum <developer@crabtable.dev>",
     "license": "Apache-2.0",
     "funding": {
         "type": "opencollective",
-        "url": "https://opencollective.com/univer"
+        "url": "https://opencollective.com/crabtable"
     },
-    "homepage": "https://univer.ai",
+    "homepage": "https://crabtable.dev",
     "repository": {
         "type": "git",
-        "url": "https://github.com/dream-num/univer"
+        "url": "https://github.com/AutoCookies/crabtable"
     },
     "bugs": {
-        "url": "https://github.com/dream-num/univer/issues"
+        "url": "https://github.com/AutoCookies/crabtable/issues"
     },
     "keywords": [
         "univer"
@@ -77,15 +77,15 @@
         "rxjs": ">=7.0.0"
     },
     "dependencies": {
-        "@univerjs/core": "workspace:*",
-        "@univerjs/engine-formula": "workspace:*",
-        "@univerjs/rpc": "workspace:*",
-        "@univerjs/sheets": "workspace:*"
+        "@crabtable/core": "*",
+        "@crabtable/engine-formula": "*",
+        "@crabtable/rpc": "*",
+        "@crabtable/sheets": "*"
     },
     "devDependencies": {
-        "@univerjs-infra/shared": "workspace:*",
-        "@univerjs/docs": "workspace:*",
-        "@univerjs/engine-render": "workspace:*",
+        "@crabtable-infra/shared": "*",
+        "@crabtable/docs": "*",
+        "@crabtable/engine-render": "*",
         "rxjs": "^7.8.2",
         "typescript": "^5.9.3",
         "vite": "^7.3.1",

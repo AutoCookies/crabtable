@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
-import { CommandType, ICommandService, IUniverInstanceService } from '@univerjs/core';
-import { ClearSelectionContentCommand, getSheetCommandTarget, SheetsSelectionsService } from '@univerjs/sheets';
+import type { IAccessor, ICommand } from '@crabtable/core';
+import { CommandType, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { ClearSelectionContentCommand, getSheetCommandTarget, SheetsSelectionsService } from '@crabtable/sheets';
 
 /**
  * The command to clear content in current selected ranges.
@@ -27,7 +27,7 @@ export const CustomClearSelectionContentCommand: ICommand = {
     type: CommandType.COMMAND,
 
     handler: (accessor: IAccessor) => {
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService));
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService));
         if (!target) return false;
 
         const { unitId, subUnitId, worksheet } = target;

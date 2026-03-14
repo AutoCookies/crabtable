@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import { LocaleType, LogLevel, Univer, UniverInstanceType } from '@univerjs/core';
-import { UniverDocsPlugin } from '@univerjs/docs';
-import { UniverDocsUIPlugin } from '@univerjs/docs-ui';
-import { UniverFormulaEnginePlugin } from '@univerjs/engine-formula';
-import { UniverRenderEnginePlugin } from '@univerjs/engine-render';
-import { DEFAULT_DOCUMENT_DATA_CN } from '@univerjs/mockdata';
-import zhCN from '@univerjs/mockdata/locales/zh-CN';
-import { UniverSheetsPlugin } from '@univerjs/sheets';
-import { UniverSheetsUIPlugin } from '@univerjs/sheets-ui';
-import { UniverUIPlugin } from '@univerjs/ui';
-import { UniverUniscriptPlugin } from '@univerjs/uniscript';
+import { CrabTableInstanceType, LocaleType, LogLevel } from '@crabtable/core';
+import { UniverDocsPlugin } from '@crabtable/docs';
+import { UniverDocsUIPlugin } from '@crabtable/docs-ui';
+import { UniverFormulaEnginePlugin } from '@crabtable/engine-formula';
+import { UniverRenderEnginePlugin } from '@crabtable/engine-render';
+import { DEFAULT_DOCUMENT_DATA_CN } from '@crabtable/mockdata';
+import zhCN from '@crabtable/mockdata/locales/zh-CN';
+import { UniverSheetsPlugin } from '@crabtable/sheets';
+import { UniverSheetsUIPlugin } from '@crabtable/sheets-ui';
+import { UniverUIPlugin } from '@crabtable/ui';
+import { UniverUniscriptPlugin } from '@crabtable/uniscript';
 
 import '../global.css';
 
 // univer
-const univer = new Univer({
+const univer = new CrabTable({
     locale: LocaleType.ZH_CN,
     locales: {
         [LocaleType.ZH_CN]: zhCN,
@@ -64,12 +64,12 @@ univer.registerPlugin(UniverUniscriptPlugin, {
 });
 
 // create univer doc instance
-univer.createUnit(UniverInstanceType.UNIVER_DOC, DEFAULT_DOCUMENT_DATA_CN);
+univer.createUnit(CrabTableInstanceType.CRABTABLE_DOC, DEFAULT_DOCUMENT_DATA_CN);
 
 declare global {
     // eslint-disable-next-line ts/naming-convention
     interface Window {
-        univer?: Univer;
+        univer?: CrabTable;
     }
 }
 

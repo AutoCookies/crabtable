@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import type { ICommand, SlideDataModel } from '@univerjs/core';
-import { CommandType, IUniverInstanceService, PageElementType, UniverInstanceType } from '@univerjs/core';
-import { DRAWING_IMAGE_ALLOW_IMAGE_LIST, getImageSize, IImageIoService } from '@univerjs/drawing';
-import { ILocalFileService } from '@univerjs/ui';
+import type { ICommand, SlideDataModel } from '@crabtable/core';
+import { CommandType, CrabTableInstanceType, ICrabTableInstanceService, PageElementType } from '@crabtable/core';
+import { DRAWING_IMAGE_ALLOW_IMAGE_LIST, getImageSize, IImageIoService } from '@crabtable/drawing';
+import { ILocalFileService } from '@crabtable/ui';
 import { CanvasView } from '../../controllers/canvas-view';
 
 export const InsertSlideFloatImageCommand: ICommand<{}> = {
     id: 'slide.command.insert-float-image',
     type: CommandType.COMMAND,
     handler: async (accessor, params) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const unitId = univerInstanceService.getCurrentUnitForType(UniverInstanceType.UNIVER_SLIDE)?.getUnitId();
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const unitId = crabtableInstanceService.getCurrentUnitForType(CrabTableInstanceType.CRABTABLE_SLIDE)?.getUnitId();
         if (!unitId) return false;
 
         const fileOpenerService = accessor.get(ILocalFileService);
@@ -42,7 +42,7 @@ export const InsertSlideFloatImageCommand: ICommand<{}> = {
         const { imageId, imageSourceType, source, base64Cache } = imageParam;
         const { width, height, image } = await getImageSize(base64Cache || '');
 
-        const slideData = univerInstanceService.getUnit<SlideDataModel>(unitId);
+        const slideData = crabtableInstanceService.getUnit<SlideDataModel>(unitId);
         if (!slideData) return false;
 
         const activePage = slideData.getActivePage()!;

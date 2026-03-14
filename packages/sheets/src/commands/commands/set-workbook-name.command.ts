@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
+import type { IAccessor, ICommand } from '@crabtable/core';
 import type { ISetWorkbookNameMutationParams } from '../mutations/set-workbook-name.mutation';
-import { CommandType, ICommandService, IUniverInstanceService, sequenceExecute } from '@univerjs/core';
+import { CommandType, ICommandService, ICrabTableInstanceService, sequenceExecute } from '@crabtable/core';
 import { SheetInterceptorService } from '../../services/sheet-interceptor/sheet-interceptor.service';
 import { SetWorkbookNameMutation } from '../mutations/set-workbook-name.mutation';
 import { getSheetCommandTargetWorkbook } from './utils/target-util';
@@ -36,7 +36,7 @@ export const SetWorkbookNameCommand: ICommand = {
         const commandService = accessor.get(ICommandService);
         const sheetInterceptorService = accessor.get(SheetInterceptorService);
 
-        const target = getSheetCommandTargetWorkbook(accessor.get(IUniverInstanceService), params);
+        const target = getSheetCommandTargetWorkbook(accessor.get(ICrabTableInstanceService), params);
         if (!target) return false;
 
         const interceptedCommands = sheetInterceptorService.onCommandExecute({

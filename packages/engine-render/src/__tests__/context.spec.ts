@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Tools } from '@univerjs/core';
+import { Tools } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { UniverPrintingContext, UniverRenderingContext2D } from '../context';
 

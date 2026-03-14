@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ITransformState, Nullable } from '@univerjs/core';
-import type { ISheetDrawingPosition } from '@univerjs/sheets-drawing';
-import type { ISheetSelectionRenderService, SheetSkeletonManagerService } from '@univerjs/sheets-ui';
-import { precisionTo } from '@univerjs/engine-render';
-import { convertPositionSheetOverGridToAbsolute } from '@univerjs/sheets-ui';
+import type { ITransformState, Nullable } from '@crabtable/core';
+import type { ISheetDrawingPosition } from '@crabtable/sheets-drawing';
+import type { ISheetSelectionRenderService, SheetSkeletonManagerService } from '@crabtable/sheets-ui';
+import { precisionTo } from '@crabtable/engine-render';
+import { convertPositionSheetOverGridToAbsolute } from '@crabtable/sheets-ui';
 
 // eslint-disable-next-line max-lines-per-function
 export function drawingPositionToTransform(

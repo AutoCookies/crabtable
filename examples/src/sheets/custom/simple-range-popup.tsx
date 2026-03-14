@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { Univer } from '@univerjs/core';
-import type { FUniver } from '@univerjs/core/facade';
-import { LifecycleStages } from '@univerjs/core';
+import type { CrabTable } from '@crabtable/core';
+import type { FCrabTable } from '@crabtable/core/facade';
+import { LifecycleStages } from '@crabtable/core';
 
-export function simpleRangePopupDemo(univer: Univer, univerAPI: FUniver) {
+export function simpleRangePopupDemo(univer: CrabTable, crabtableAPI: FCrabTable) {
     // Register a custom component
-    univerAPI.registerComponent('MySimplePopup', () => (
+    crabtableAPI.registerComponent('MySimplePopup', () => (
         <div
             style={{
                 padding: '8px',
@@ -35,10 +35,10 @@ export function simpleRangePopupDemo(univer: Univer, univerAPI: FUniver) {
         </div>
     ));
 
-    univerAPI.addEvent(univerAPI.Event.LifeCycleChanged, (params) => {
+    crabtableAPI.addEvent(crabtableAPI.Event.LifeCycleChanged, (params) => {
         if (params.stage === LifecycleStages.Rendered) {
             // Get the active sheet and a range
-            const workbook = univerAPI.getActiveWorkbook();
+            const workbook = crabtableAPI.getActiveWorkbook();
             const worksheet = workbook!.getActiveSheet();
             const range = worksheet.getRange('B2:D100');
 

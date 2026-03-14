@@ -1,21 +1,21 @@
-# @univerjs/sheets-table
+# @crabtable/sheets-table
 
 ### Installation
 
 ```shell
-npm i @univerjs/sheets-table
+npm i @crabtable/sheets-table
 ```
 
 ### Import
 
 ```ts
-import { UniverSheetsTablePlugin } from '@univerjs/sheets-table';
+import { UniverSheetsTablePlugin } from '@crabtable/sheets-table';
 
 univer.registerPlugin(UniverSheetsTablePlugin);
 ```
 
 <!-- Links -->
-[npm-version-shield]: https://img.shields.io/npm/v/@univerjs/sheets-table?style=flat-square
-[npm-version-link]: https://npmjs.com/package/@univerjs/sheets-table
-[npm-license-shield]: https://img.shields.io/npm/l/@univerjs/sheets-table?style=flat-square
-[npm-downloads-shield]: https://img.shields.io/npm/dm/@univerjs/sheets-table?style=flat-square
+[npm-version-shield]: https://img.shields.io/npm/v/@crabtable/sheets-table?style=flat-square
+[npm-version-link]: https://npmjs.com/package/@crabtable/sheets-table
+[npm-license-shield]: https://img.shields.io/npm/l/@crabtable/sheets-table?style=flat-square
+[npm-downloads-shield]: https://img.shields.io/npm/dm/@crabtable/sheets-table?style=flat-square

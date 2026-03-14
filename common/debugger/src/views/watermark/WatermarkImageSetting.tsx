@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IImageWatermarkConfig } from '@univerjs/engine-render';
-import { Button, Checkbox, InputNumber } from '@univerjs/design';
-import { ILocalFileService, useDependency } from '@univerjs/ui';
-import { WATERMARK_IMAGE_ALLOW_IMAGE_LIST } from '@univerjs/watermark';
+import type { IImageWatermarkConfig } from '@crabtable/engine-render';
+import { Button, Checkbox, InputNumber } from '@crabtable/design';
+import { ILocalFileService, useDependency } from '@crabtable/ui';
+import { WATERMARK_IMAGE_ALLOW_IMAGE_LIST } from '@crabtable/watermark';
 
 interface IWatermarkImageSettingProps {
     config?: IImageWatermarkConfig;

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuItem } from '@univerjs/ui';
-import { DOCS_ZEN_EDITOR_UNIT_ID_KEY, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuItem } from '@crabtable/ui';
+import { CrabTableInstanceType, DOCS_ZEN_EDITOR_UNIT_ID_KEY, ICrabTableInstanceService } from '@crabtable/core';
 
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { Observable } from 'rxjs';
 import { InsertDocImageCommand } from '../commands/commands/insert-image.command';
 
@@ -29,7 +29,7 @@ export const IMAGE_MENU_UPLOAD_FLOAT_ID = InsertDocImageCommand.id;
 // TODO: @Jocs, remove this when cell support drawing.
 const getDisableWhenSelectionInTableObservable = (accessor: IAccessor) => {
     const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
     return new Observable<boolean>((subscriber) => {
         const observable = docSelectionManagerService.textSelection$.subscribe(() => {
@@ -37,7 +37,7 @@ const getDisableWhenSelectionInTableObservable = (accessor: IAccessor) => {
 
             if (activeRange) {
                 const { segmentId, startOffset, endOffset } = activeRange;
-                const docDataModel = univerInstanceService.getCurrentUniverDocInstance();
+                const docDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
                 const tables = docDataModel?.getSelfOrHeaderFooterModel(segmentId).getBody()?.tables;
 
                 if (tables && tables.length) {
@@ -68,7 +68,7 @@ export function ImageMenuFactory(accessor: IAccessor): IMenuItem {
         icon: 'AddImageIcon',
         tooltip: 'docImage.title',
         disabled$: getDisableWhenSelectionInTableObservable(accessor),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_DOC, undefined, DOCS_ZEN_EDITOR_UNIT_ID_KEY),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_DOC, undefined, DOCS_ZEN_EDITOR_UNIT_ID_KEY),
     };
 }
 
@@ -77,6 +77,6 @@ export function UploadFloatImageMenuFactory(_accessor: IAccessor): IMenuItem {
         id: IMAGE_MENU_UPLOAD_FLOAT_ID,
         title: 'docImage.upload.float',
         type: MenuItemType.BUTTON,
-        hidden$: getMenuHiddenObservable(_accessor, UniverInstanceType.UNIVER_DOC, undefined, DOCS_ZEN_EDITOR_UNIT_ID_KEY),
+        hidden$: getMenuHiddenObservable(_accessor, CrabTableInstanceType.CRABTABLE_DOC, undefined, DOCS_ZEN_EDITOR_UNIT_ID_KEY),
     };
 }

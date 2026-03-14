@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IRange, LocaleType, Nullable } from '@univerjs/core';
+import type { IRange, LocaleType, Nullable } from '@crabtable/core';
 import type { IFunctionNames } from '../basics/function';
 import type { BaseReferenceObject, FunctionVariantType, NodeValueType } from '../engine/reference-object/base-reference-object';
 import type { ArrayBinarySearchType } from '../engine/utils/compare';

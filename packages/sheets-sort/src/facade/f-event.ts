@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, Injector } from '@univerjs/core';
-import type { IEventBase } from '@univerjs/core/facade';
-import type { ISortRangeCommandParams } from '@univerjs/sheets-sort';
-import type { FRange, FWorkbook, FWorksheet } from '@univerjs/sheets/facade';
-import { ICommandService } from '@univerjs/core';
-import { FEventName, FUniver } from '@univerjs/core/facade';
-import { SortRangeCommand, SortType } from '@univerjs/sheets-sort';
-import { FSheetEventName } from '@univerjs/sheets/facade';
+import type { ICommandInfo, Injector } from '@crabtable/core';
+import type { IEventBase } from '@crabtable/core/facade';
+import type { ISortRangeCommandParams } from '@crabtable/sheets-sort';
+import type { FRange, FWorkbook, FWorksheet } from '@crabtable/sheets/facade';
+import { ICommandService } from '@crabtable/core';
+import { FCrabTable, FEventName } from '@crabtable/core/facade';
+import { SortRangeCommand, SortType } from '@crabtable/sheets-sort';
+import { FSheetEventName } from '@crabtable/sheets/facade';
 
 /**
  * @ignore
@@ -32,7 +32,7 @@ export interface IFSheetSortEventMixin {
      * @see {@link ISheetRangeSortParams}
      * @example
      * ```typescript
-     * const callbackDisposable = univerAPI.addEvent(univerAPI.Event.SheetRangeSorted, (params) => {
+     * const callbackDisposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetRangeSorted, (params) => {
      *   console.log(params);
      *   const { workbook, worksheet, range, sortColumn } = params;
      * });
@@ -47,7 +47,7 @@ export interface IFSheetSortEventMixin {
      * @see {@link ISheetRangeSortParams}
      * @example
      * ```typescript
-     * const callbackDisposable = univerAPI.addEvent(univerAPI.Event.SheetBeforeRangeSort, (params) => {
+     * const callbackDisposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetBeforeRangeSort, (params) => {
      *   console.log(params);
      *   const { workbook, worksheet, range, sortColumn } = params;
      *
@@ -88,7 +88,7 @@ export interface ISheetRangeSortEventParamConfig {
 
 FEventName.extend(FSheetEventName);
 
-class FUniverSheetsSortEventMixin extends FUniver {
+class FCrabTableSheetsSortEventMixin extends FCrabTable {
     /**
      * @ignore
      */
@@ -161,10 +161,10 @@ class FUniverSheetsSortEventMixin extends FUniver {
     }
 }
 
-FUniver.extend(FUniverSheetsSortEventMixin);
+FCrabTable.extend(FUniverSheetsSortEventMixin);
 FEventName.extend(FSheetSortEventName);
 
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FEventName extends IFSheetSortEventMixin { }
     interface IEventParamConfig extends ISheetRangeSortEventParamConfig { }

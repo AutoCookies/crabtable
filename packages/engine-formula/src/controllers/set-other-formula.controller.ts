@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo } from '@univerjs/core';
+import type { ICommandInfo } from '@crabtable/core';
 import type { IOtherFormulaData } from '../basics/common';
 
 import type { IRemoveOtherFormulaMutationParams, ISetOtherFormulaMutationParams } from '../commands/mutations/set-other-formula.mutation';
-import { Disposable, ICommandService } from '@univerjs/core';
+import { Disposable, ICommandService } from '@crabtable/core';
 import { RemoveOtherFormulaMutation, SetOtherFormulaMutation } from '../commands/mutations/set-other-formula.mutation';
 import { IDependencyManagerService } from '../services/dependency-manager.service';
 import {

@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import type { ICellData, Injector, IWorkbookData, Nullable, Univer, Workbook } from '@univerjs/core';
+import type { ICellData, Injector, IWorkbookData, Nullable, Workbook } from '@crabtable/core';
 import type { IRemoveRowColCommandParams } from '../remove-row-col.command';
 import {
+    CrabTableInstanceType,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     LocaleType,
     RANGE_TYPE,
     RedoCommand,
     Tools,
     UndoCommand,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { MergeCellController } from '../../../controllers/merge-cell.controller';
 import { RefRangeService } from '../../../services/ref-range/ref-range.service';
@@ -39,7 +39,7 @@ import { RemoveColByRangeCommand, RemoveColCommand, RemoveRowByRangeCommand, Rem
 import { createCommandTestBed } from './create-command-test-bed';
 
 describe('Test remove rows cols', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
@@ -89,15 +89,15 @@ describe('Test remove rows cols', () => {
     }
 
     function getColCount(): number {
-        const currentService = get(IUniverInstanceService);
-        const workbook = currentService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const currentService = get(ICrabTableInstanceService);
+        const workbook = currentService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet()!;
         return worksheet.getColumnCount();
     }
 
     function getCellInfo(row: number, col: number): Nullable<ICellData> {
-        const currentService = get(IUniverInstanceService);
-        const workbook = currentService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const currentService = get(ICrabTableInstanceService);
+        const workbook = currentService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet()!;
         return worksheet.getCellMatrix().getValue(row, col);
     }

@@ -14,22 +14,21 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData, Workbook } from '@univerjs/core';
+import type { Dependency, IWorkbookData, Workbook } from '@crabtable/core';
 import type { ISheetData } from '../../../basics/common';
 
 import {
     CellValueType,
+    CrabTableInstanceType,
+    ICrabTableInstanceService,
     ILogService,
     Inject,
     Injector,
-    IUniverInstanceService,
     LocaleType,
     LogLevel,
     ObjectMatrix,
     Plugin,
-    Univer,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { FormulaDataModel } from '../../../models/formula-data.model';
 import { CalculateFormulaService, ICalculateFormulaService } from '../../../services/calculate-formula.service';
 import { FormulaCurrentConfigService, IFormulaCurrentConfigService } from '../../../services/current-data.service';
@@ -228,7 +227,7 @@ const TEST_WORKBOOK_DATA: IWorkbookData = {
     styles: {},
 };
 export function createCommandTestBed(workbookData?: IWorkbookData, dependencies?: Dependency[]) {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
@@ -237,7 +236,7 @@ export function createCommandTestBed(workbookData?: IWorkbookData, dependencies?
      */
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         private _formulaDataModel: FormulaDataModel | null = null;
 
@@ -255,16 +254,16 @@ export function createCommandTestBed(workbookData?: IWorkbookData, dependencies?
     }
 
     univer.registerPlugin(TestPlugin);
-    const sheet = univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, workbookData || TEST_WORKBOOK_DATA);
+    const sheet = univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, workbookData || TEST_WORKBOOK_DATA);
 
-    const univerInstanceService = get(IUniverInstanceService);
-    univerInstanceService.focusUnit('test');
+    const crabtableInstanceService = get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit('test');
 
     const logService = get(ILogService);
     logService.setLogLevel(LogLevel.SILENT); // change this to `true` to debug tests via logs
 
     const sheetData: ISheetData = {};
-    const workbook = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+    const workbook = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
     const unitId = workbook.getUnitId();
     const sheetId = workbook.getActiveSheet()!.getSheetId();
     workbook.getSheets().forEach((sheet) => {

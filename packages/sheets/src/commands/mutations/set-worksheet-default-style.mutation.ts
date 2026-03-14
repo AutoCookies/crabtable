@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IMutation, IStyleData, Nullable } from '@univerjs/core';
-import { CommandType, IUniverInstanceService } from '@univerjs/core';
+import type { IAccessor, IMutation, IStyleData, Nullable } from '@crabtable/core';
+import { CommandType, ICrabTableInstanceService } from '@crabtable/core';
 import { getSheetCommandTarget, getSheetMutationTarget } from '../commands/utils/target-util';
 
 export interface ISetWorksheetDefaultStyleMutationParams {
@@ -28,7 +28,7 @@ export const SetWorksheetDefaultStyleMutation: IMutation<ISetWorksheetDefaultSty
     id: 'sheet.mutation.set-worksheet-default-style',
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService), params);
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService), params);
         if (!target) return false;
 
         const { worksheet } = target;
@@ -39,7 +39,7 @@ export const SetWorksheetDefaultStyleMutation: IMutation<ISetWorksheetDefaultSty
 };
 
 export const SetWorksheetDefaultStyleMutationFactory = (accessor: IAccessor, params: ISetWorksheetDefaultStyleMutationParams) => {
-    const target = getSheetMutationTarget(accessor.get(IUniverInstanceService), params);
+    const target = getSheetMutationTarget(accessor.get(ICrabTableInstanceService), params);
     if (!target) {
         throw new Error('[SetWorksheetDefaultStyleMutationFactory]: worksheet is null error!');
     }

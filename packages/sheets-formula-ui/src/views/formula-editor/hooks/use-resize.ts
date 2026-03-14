@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export { useResize } from '@univerjs/docs-ui';
+export { useResize } from '@crabtable/docs-ui';

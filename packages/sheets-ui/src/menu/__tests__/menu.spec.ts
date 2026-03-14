@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-import type { IRange, Univer } from '@univerjs/core';
+import type { CrabTable, IRange } from '@crabtable/core';
 import {
     DisposableCollection,
     ICommandService,
     Injector,
     RANGE_TYPE,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     SetBoldCommand,
     SetRangeValuesMutation,
     SetStyleCommand,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { BoldMenuItemFactory } from '../menu';
 import { createMenuTestBed } from './create-menu-test-bed';
 
 describe('test menu items', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let disposableCollection: DisposableCollection;

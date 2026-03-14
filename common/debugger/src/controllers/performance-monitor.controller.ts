@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { Subscription } from 'rxjs';
-import { Inject, IUniverInstanceService, LifecycleService, LifecycleStages, RxDisposable } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { ICrabTableInstanceService, Inject, LifecycleService, LifecycleStages, RxDisposable } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { distinctUntilChanged, filter, take, takeUntil } from 'rxjs';
 
 export class PerformanceMonitorController extends RxDisposable {
@@ -27,7 +27,7 @@ export class PerformanceMonitorController extends RxDisposable {
 
     constructor(
         @Inject(LifecycleService) lifecycleService: LifecycleService,
-        @IUniverInstanceService private readonly _instanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _instanceService: ICrabTableInstanceService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService
     ) {
         super();

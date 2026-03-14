@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel } from '@univerjs/core';
-import { BuildTextUtils, getBodySlice, ICommandService, IUniverInstanceService, LocaleService, Tools, UniverInstanceType } from '@univerjs/core';
-import { borderClassName, Button, clsx, FormLayout, Input } from '@univerjs/design';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { KeyCode, useDependency, useObservable } from '@univerjs/ui';
+import type { DocumentDataModel } from '@crabtable/core';
+import { BuildTextUtils, CrabTableInstanceType, getBodySlice, ICommandService, ICrabTableInstanceService, LocaleService, Tools } from '@crabtable/core';
+import { borderClassName, Button, clsx, FormLayout, Input } from '@crabtable/design';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { KeyCode, useDependency, useObservable } from '@crabtable/ui';
 import { useEffect, useState } from 'react';
 import { AddDocHyperLinkCommand } from '../../commands/commands/add-link.command';
 import { UpdateDocHyperLinkCommand } from '../../commands/commands/update-link.command';
@@ -43,7 +43,7 @@ export const DocHyperLinkEdit = () => {
     const localeService = useDependency(LocaleService);
     const editing = useObservable(hyperLinkService.editingLink$);
     const commandService = useDependency(ICommandService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
 
     const docSelectionManagerService = useDependency(DocSelectionManagerService);
     const [link, setLink] = useState('');
@@ -51,8 +51,8 @@ export const DocHyperLinkEdit = () => {
     const [showError, setShowError] = useState(false);
     const isLegal = Tools.isLegalUrl(link);
     const doc = editing
-        ? univerInstanceService.getUnit<DocumentDataModel>(editing.unitId, UniverInstanceType.UNIVER_DOC) :
-        univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        ? crabtableInstanceService.getUnit<DocumentDataModel>(editing.unitId, CrabTableInstanceType.CRABTABLE_DOC) :
+        crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
 
     useEffect(() => {
         const activeRange = docSelectionManagerService.getActiveTextRange();
@@ -76,7 +76,7 @@ export const DocHyperLinkEdit = () => {
         if (doc && matchedRange) {
             setLink(matchedRange?.properties?.url ?? '');
         }
-    }, [doc, editing, docSelectionManagerService, univerInstanceService]);
+    }, [doc, editing, docSelectionManagerService, crabtableInstanceService]);
 
     const handleCancel = () => {
         hyperLinkService.hideEditPopup();

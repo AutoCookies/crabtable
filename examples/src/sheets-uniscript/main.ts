@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-import { LocaleType, LogLevel, Univer, UniverInstanceType } from '@univerjs/core';
-import { UniverDebuggerPlugin } from '@univerjs/debugger';
-import { UniverDocsPlugin } from '@univerjs/docs';
-import { UniverDocsUIPlugin } from '@univerjs/docs-ui';
-import { UniverFormulaEnginePlugin } from '@univerjs/engine-formula';
-import { UniverRenderEnginePlugin } from '@univerjs/engine-render';
-import { UNISCRIT_WORKBOOK_DATA_DEMO } from '@univerjs/mockdata';
-import zhCN from '@univerjs/mockdata/locales/zh-CN';
-import { UniverSheetsPlugin } from '@univerjs/sheets';
-import { UniverSheetsFormulaPlugin } from '@univerjs/sheets-formula';
-import { UniverSheetsNumfmtPlugin } from '@univerjs/sheets-numfmt';
-import { UniverSheetsNumfmtUIPlugin } from '@univerjs/sheets-numfmt-ui';
-import { UniverSheetsUIPlugin } from '@univerjs/sheets-ui';
-import { UniverUIPlugin } from '@univerjs/ui';
-import { UniverUniscriptPlugin } from '@univerjs/uniscript';
+import { CrabTableInstanceType, LocaleType, LogLevel } from '@crabtable/core';
+import { CrabTableDebuggerPlugin } from '@crabtable/debugger';
+import { UniverDocsPlugin } from '@crabtable/docs';
+import { UniverDocsUIPlugin } from '@crabtable/docs-ui';
+import { UniverFormulaEnginePlugin } from '@crabtable/engine-formula';
+import { UniverRenderEnginePlugin } from '@crabtable/engine-render';
+import { UNISCRIT_WORKBOOK_DATA_DEMO } from '@crabtable/mockdata';
+import zhCN from '@crabtable/mockdata/locales/zh-CN';
+import { UniverSheetsPlugin } from '@crabtable/sheets';
+import { UniverSheetsFormulaPlugin } from '@crabtable/sheets-formula';
+import { UniverSheetsNumfmtPlugin } from '@crabtable/sheets-numfmt';
+import { UniverSheetsNumfmtUIPlugin } from '@crabtable/sheets-numfmt-ui';
+import { UniverSheetsUIPlugin } from '@crabtable/sheets-ui';
+import { UniverUIPlugin } from '@crabtable/ui';
+import { UniverUniscriptPlugin } from '@crabtable/uniscript';
 
 import '../global.css';
 
@@ -36,7 +36,7 @@ import '../global.css';
 const IS_E2E: boolean = !!process.env.IS_E2E;
 
 // univer
-const univer = new Univer({
+const univer = new CrabTable({
     locale: LocaleType.ZH_CN,
     locales: {
         [LocaleType.ZH_CN]: zhCN,
@@ -74,7 +74,7 @@ univer.registerPlugin(UniverUniscriptPlugin, {
 
 // If we are running in e2e platform, we should immediately register the debugger plugin.
 if (IS_E2E) {
-    univer.registerPlugin(UniverDebuggerPlugin, {
+    univer.registerPlugin(CrabTableDebuggerPlugin, {
         fab: false,
         performanceMonitor: {
             enabled: false,
@@ -83,12 +83,12 @@ if (IS_E2E) {
 }
 
 // create univer sheet instance
-univer.createUnit(UniverInstanceType.UNIVER_SHEET, UNISCRIT_WORKBOOK_DATA_DEMO);
+univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, UNISCRIT_WORKBOOK_DATA_DEMO);
 
 declare global {
     // eslint-disable-next-line ts/naming-convention
     interface Window {
-        univer?: Univer;
+        univer?: CrabTable;
     }
 }
 

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
-import { CommandType } from '@univerjs/core';
-import { MessageType } from '@univerjs/design';
-import { IMessageService } from '@univerjs/ui';
+import type { ICommand } from '@crabtable/core';
+import { CommandType } from '@crabtable/core';
+import { MessageType } from '@crabtable/design';
+import { IMessageService } from '@crabtable/ui';
 import { ActionReplayService, ReplayMode } from '../../services/replay.service';
 
 export const ReplayLocalRecordCommand: ICommand = {

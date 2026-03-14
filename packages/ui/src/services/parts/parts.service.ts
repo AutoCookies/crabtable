@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
 import type { Observable } from 'rxjs';
 import type { ComponentType } from '../../common/component-manager';
-import { createIdentifier, Disposable, toDisposable } from '@univerjs/core';
+import { createIdentifier, Disposable, toDisposable } from '@crabtable/core';
 import { Subject } from 'rxjs';
 
 export type ComponentRenderer = () => ComponentType;

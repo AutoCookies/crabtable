@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-import { Disposable, ICommandService, IConfigService, Inject, Injector, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionRenderService } from '@univerjs/docs-ui';
-import { getCurrentTypeOfRenderer, IRenderManagerService } from '@univerjs/engine-render';
-import { HideGridlinesDoubleIcon } from '@univerjs/icons';
+import { CrabTableInstanceType, Disposable, ICommandService, IConfigService, ICrabTableInstanceService, Inject, Injector } from '@crabtable/core';
+import { DocSelectionRenderService } from '@crabtable/docs-ui';
+import { getCurrentTypeOfRenderer, IRenderManagerService } from '@crabtable/engine-render';
 import {
     SetBoldCommand,
     SetFontFamilyCommand,
@@ -25,7 +24,7 @@ import {
     SetItalicCommand,
     SetStrikeThroughCommand,
     SetUnderlineCommand,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import {
     BuiltInUIPart,
     ComponentManager,
@@ -34,7 +33,8 @@ import {
     IMenuManagerService,
     IShortcutService,
     IUIPartsService,
-} from '@univerjs/ui';
+} from '@crabtable/ui';
+import { HideGridlinesDoubleIcon } from '@univerjs/icons';
 import { DeleteRangeMoveLeftConfirmCommand } from '../../commands/commands/delete-range-move-left-confirm.command';
 import { DeleteRangeMoveUpConfirmCommand } from '../../commands/commands/delete-range-move-up-confirm.command';
 import { SetColumnHeaderHeightCommand, SetRowHeaderWidthCommand } from '../../commands/commands/headersize-changed.command';
@@ -354,13 +354,13 @@ export class SheetUIMobileController extends Disposable {
 
     private _initFocusHandler(): void {
         this.disposeWithMe(
-            this._layoutService.registerFocusHandler(UniverInstanceType.UNIVER_SHEET, (_unitId: string) => {
-                // DEBT: `_unitId` is not used hence we cannot support Univer mode now
+            this._layoutService.registerFocusHandler(CrabTableInstanceType.CRABTABLE_SHEET, (_unitId: string) => {
+                // DEBT: `_unitId` is not used hence we cannot support CrabTable mode now
                 // TODO@wzhudev: focus is different on mobile devices
 
                 const renderManagerService = this._injector.get(IRenderManagerService);
-                const instanceService = this._injector.get(IUniverInstanceService);
-                const currentEditorRender = getCurrentTypeOfRenderer(UniverInstanceType.UNIVER_DOC, instanceService, renderManagerService);
+                const instanceService = this._injector.get(ICrabTableInstanceService);
+                const currentEditorRender = getCurrentTypeOfRenderer(CrabTableInstanceType.CRABTABLE_DOC, instanceService, renderManagerService);
                 const docSelectionRenderService = currentEditorRender?.with(DocSelectionRenderService);
 
                 docSelectionRenderService?.focus();

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Workbook, Worksheet } from '@univerjs/core';
+import type { Workbook, Worksheet } from '@crabtable/core';
 
 export interface ISheetLocationBase {
     unitId: string;

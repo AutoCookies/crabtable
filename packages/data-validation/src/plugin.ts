@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverDataValidationConfig } from './config/config';
-import { ICommandService, IConfigService, Inject, Injector, merge, Plugin, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, ICommandService, IConfigService, Inject, Injector, merge, Plugin } from '@crabtable/core';
 import pkg from '../package.json';
 import { AddDataValidationCommand, RemoveAllDataValidationCommand, RemoveDataValidationCommand, UpdateDataValidationOptionsCommand, UpdateDataValidationSettingCommand } from './commands/commands/data-validation.command';
 import { AddDataValidationMutation, RemoveDataValidationMutation, UpdateDataValidationMutation } from './commands/mutations/data-validation.mutation';
@@ -29,7 +29,7 @@ export class UniverDataValidationPlugin extends Plugin {
     static override pluginName = 'UNIVER_DATA_VALIDATION_PLUGIN';
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
     constructor(
         private readonly _config: Partial<IUniverDataValidationConfig> = defaultPluginConfig,

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import type { FilterModel } from '@univerjs/sheets-filter';
-import { SheetsFilterService } from '@univerjs/sheets-filter';
-import { FWorksheet } from '@univerjs/sheets/facade';
+import type { Nullable } from '@crabtable/core';
+import type { FilterModel } from '@crabtable/sheets-filter';
+import { SheetsFilterService } from '@crabtable/sheets-filter';
+import { FWorksheet } from '@crabtable/sheets/facade';
 import { FFilter } from './f-filter';
 
 /**
@@ -30,7 +30,7 @@ export interface IFWorksheetFilter {
      * this method would return `null`.
      * @example
      * ```typescript
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const worksheet = workbook.getActiveSheet();
      * const filter = worksheet.getFilter();
      * console.log(filter, filter?.getRange().getA1Notation());
@@ -56,7 +56,7 @@ export class FWorksheetFilter extends FWorksheet implements IFWorksheetFilter {
 }
 
 FWorksheet.extend(FWorksheetFilter);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FWorksheet extends IFWorksheetFilter { }
 }

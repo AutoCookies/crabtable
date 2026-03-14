@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Injector, IWorkbookData, Univer, Workbook } from '@univerjs/core';
-import { ICommandService, IUniverInstanceService, LocaleType, RedoCommand, UndoCommand, UniverInstanceType } from '@univerjs/core';
+import type { Injector, IWorkbookData, Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, LocaleType, RedoCommand, UndoCommand } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { AddWorksheetMergeMutation } from '../../mutations/add-worksheet-merge.mutation';
 import { RemoveWorksheetMergeMutation } from '../../mutations/remove-worksheet-merge.mutation';
@@ -66,7 +66,7 @@ const TEST_WORKBOOK: IWorkbookData = {
 };
 
 describe('remove-worksheet-merge.command', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
@@ -90,7 +90,7 @@ describe('remove-worksheet-merge.command', () => {
     });
 
     function getActiveWorksheet() {
-        return get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet();
+        return get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet();
     }
 
     it('returns false for empty ranges or no merge intersection', async () => {

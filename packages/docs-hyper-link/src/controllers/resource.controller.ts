@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICustomRange } from '@univerjs/core';
-import { CustomRangeType, Disposable, Inject, IResourceManagerService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
+import type { DocumentDataModel, ICustomRange } from '@crabtable/core';
+import { CrabTableInstanceType, CustomRangeType, Disposable, ICrabTableInstanceService, Inject, IResourceManagerService } from '@crabtable/core';
 
 export const DOC_HYPER_LINK_PLUGIN = 'DOC_HYPER_LINK_PLUGIN';
 
@@ -26,7 +26,7 @@ interface IDocHyperLinkJSON {
 export class DocHyperLinkResourceController extends Disposable {
     constructor(
         @Inject(IResourceManagerService) private readonly _resourceManagerService: IResourceManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
         this._init();
@@ -35,9 +35,9 @@ export class DocHyperLinkResourceController extends Disposable {
     private _init() {
         this._resourceManagerService.registerPluginResource({
             pluginName: DOC_HYPER_LINK_PLUGIN,
-            businesses: [UniverInstanceType.UNIVER_DOC],
+            businesses: [CrabTableInstanceType.CRABTABLE_DOC],
             onLoad: (unitID: string, resource: IDocHyperLinkJSON) => {
-                const doc = this._univerInstanceService.getUnit<DocumentDataModel>(unitID, UniverInstanceType.UNIVER_DOC);
+                const doc = this._crabtableInstanceService.getUnit<DocumentDataModel>(unitID, CrabTableInstanceType.CRABTABLE_DOC);
                 if (!doc) {
                     return;
                 }
@@ -72,7 +72,7 @@ export class DocHyperLinkResourceController extends Disposable {
             },
             onUnLoad: (unitID: string) => {},
             toJson: (unitID: string) => {
-                const doc = this._univerInstanceService.getUnit<DocumentDataModel>(unitID, UniverInstanceType.UNIVER_DOC);
+                const doc = this._crabtableInstanceService.getUnit<DocumentDataModel>(unitID, CrabTableInstanceType.CRABTABLE_DOC);
                 const links: { id: string; payload: string }[] = [];
                 if (doc) {
                     const handleDoc = (model: DocumentDataModel) => {

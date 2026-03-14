@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { Nullable, Workbook } from '@univerjs/core';
-import type { ISheetLocationBase } from '@univerjs/sheets';
+import type { Nullable, Workbook } from '@crabtable/core';
+import type { ISheetLocationBase } from '@crabtable/sheets';
 import type { Subscription } from 'rxjs';
-import { CustomRangeType, Disposable, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, DOCS_ZEN_EDITOR_UNIT_ID_KEY, ICommandService, Inject, IPermissionService, IUniverInstanceService, Rectangle, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { DocEventManagerService } from '@univerjs/docs-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { CrabTableInstanceType, CustomRangeType, Disposable, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, DOCS_ZEN_EDITOR_UNIT_ID_KEY, ICommandService, ICrabTableInstanceService, Inject, IPermissionService, Rectangle } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { DocEventManagerService } from '@crabtable/docs-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import {
     ClearSelectionAllCommand,
     ClearSelectionContentCommand,
@@ -35,9 +35,9 @@ import {
     WorksheetEditPermission,
     WorksheetInsertHyperlinkPermission,
     WorksheetViewPermission,
-} from '@univerjs/sheets';
-import { HoverManagerService, HoverRenderController, IEditorBridgeService, SheetSkeletonManagerService } from '@univerjs/sheets-ui';
-import { IZenZoneService } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { HoverManagerService, HoverRenderController, IEditorBridgeService, SheetSkeletonManagerService } from '@crabtable/sheets-ui';
+import { IZenZoneService } from '@crabtable/ui';
 import { debounceTime, map, Observable, switchMap } from 'rxjs';
 import { SheetsHyperLinkPopupService } from '../services/popup.service';
 import { HyperLinkEditSourceType } from '../types/enums/edit-source';
@@ -52,7 +52,7 @@ export class SheetsHyperLinkPopupController extends Disposable {
         @ICommandService private readonly _commandService: ICommandService,
         @IEditorBridgeService private readonly _editorBridgeService: IEditorBridgeService,
         @Inject(DocSelectionManagerService) private readonly _textSelectionManagerService: DocSelectionManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IZenZoneService private readonly _zenZoneService: IZenZoneService
     ) {
         super();
@@ -66,7 +66,7 @@ export class SheetsHyperLinkPopupController extends Disposable {
 
     private _getLinkPermission(location: ISheetLocationBase) {
         const { unitId, subUnitId, row: currentRow, col: currentCol } = location;
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         const worksheet = workbook?.getSheetBySheetId(subUnitId);
         if (!worksheet) {
             return {
@@ -116,7 +116,7 @@ export class SheetsHyperLinkPopupController extends Disposable {
                 if (!renderer) {
                     return;
                 }
-                const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+                const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
                 const worksheet = workbook?.getSheetBySheetId(subUnitId);
                 if (!worksheet) {
                     return;
@@ -264,7 +264,7 @@ export class SheetsHyperLinkPopupController extends Disposable {
         );
 
         this.disposeWithMe(
-            this._univerInstanceService.focused$.pipe(
+            this._crabtableInstanceService.focused$.pipe(
                 switchMap((id) => {
                     const render = id === DOCS_ZEN_EDITOR_UNIT_ID_KEY ? this._renderManagerService.getRenderById(id) : null;
                     if (render) {

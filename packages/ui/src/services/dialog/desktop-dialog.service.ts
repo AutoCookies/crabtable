@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
 import type { IDialogPartMethodOptions } from '../../views/components/dialog-part/interface';
 import type { IDialogService } from './dialog.service';
 
-import { Disposable, Inject, Injector, toDisposable } from '@univerjs/core';
+import { Disposable, Inject, Injector, toDisposable } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { connectInjector } from '../../utils/di';
 import { DialogPart } from '../../views/components/dialog-part/DialogPart';

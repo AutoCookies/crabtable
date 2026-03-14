@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { ICommandService, IUniverInstanceService, LocaleService } from '@univerjs/core';
-import { SheetsSelectionsService } from '@univerjs/sheets';
-import { AddSheetTableCommand } from '@univerjs/sheets-table';
-import { IDialogService } from '@univerjs/ui';
+import { ICommandService, ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { SheetsSelectionsService } from '@crabtable/sheets';
+import { AddSheetTableCommand } from '@crabtable/sheets-table';
+import { IDialogService } from '@crabtable/ui';
 
 import { describe, expect, it, vi } from 'vitest';
 import { openRangeSelector, OpenTableSelectorOperation } from '../open-table-selector.operation';
@@ -29,8 +29,8 @@ const sheetsMocks = vi.hoisted(() => ({
     SheetsSelectionsService: Symbol('SheetsSelectionsService'),
 }));
 
-vi.mock('@univerjs/sheets', async () => {
-    const actual = await vi.importActual('@univerjs/sheets');
+vi.mock('@crabtable/sheets', async () => {
+    const actual = await vi.importActual('@crabtable/sheets');
     return {
         ...actual,
         getSheetCommandTarget: sheetsMocks.getSheetCommandTarget,
@@ -98,7 +98,7 @@ describe('open-table-selector operation', () => {
         sheetsMocks.getSheetCommandTarget.mockReturnValue(null);
 
         const accessor = createAccessor([
-            [IUniverInstanceService, {}],
+            [ICrabTableInstanceService, {}],
             [ICommandService, { executeCommand: vi.fn() }],
             [SheetsSelectionsService, { getCurrentLastSelection: vi.fn() }],
             [IDialogService, { open: vi.fn(), close: vi.fn() }],
@@ -130,7 +130,7 @@ describe('open-table-selector operation', () => {
         };
 
         const accessor = createAccessor([
-            [IUniverInstanceService, {}],
+            [ICrabTableInstanceService, {}],
             [ICommandService, { executeCommand }],
             [SheetsSelectionsService, {
                 getCurrentLastSelection: () => ({
@@ -174,7 +174,7 @@ describe('open-table-selector operation', () => {
         };
 
         const accessor = createAccessor([
-            [IUniverInstanceService, {}],
+            [ICrabTableInstanceService, {}],
             [ICommandService, { executeCommand }],
             [SheetsSelectionsService, {
                 getCurrentLastSelection: () => ({

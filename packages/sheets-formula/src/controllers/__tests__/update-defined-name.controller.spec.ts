@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData } from '@univerjs/core';
-import { LocaleType } from '@univerjs/core';
-import { ErrorType, IDefinedNamesService, SetDefinedNameMutation } from '@univerjs/engine-formula';
-import { MoveRangeCommand, RemoveDefinedNameCommand, RemoveSheetCommand, SetDefinedNameCommand, SetWorksheetNameCommand, SheetInterceptorService } from '@univerjs/sheets';
+import type { Dependency, IWorkbookData } from '@crabtable/core';
+import { LocaleType } from '@crabtable/core';
+import { ErrorType, IDefinedNamesService, SetDefinedNameMutation } from '@crabtable/engine-formula';
+import { MoveRangeCommand, RemoveDefinedNameCommand, RemoveSheetCommand, SetDefinedNameCommand, SetWorksheetNameCommand, SheetInterceptorService } from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { createFacadeTestBed } from '../../facade/__tests__/create-test-bed';

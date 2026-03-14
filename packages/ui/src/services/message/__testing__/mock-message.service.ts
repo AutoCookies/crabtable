@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
-import type { IMessageProps } from '@univerjs/design';
+import type { IDisposable } from '@crabtable/core';
+import type { IMessageProps } from '@crabtable/design';
 
 import type { IMessageService } from '../message.service';
-import { toDisposable } from '@univerjs/core';
+import { toDisposable } from '@crabtable/core';
 
 /**
  * This is a mocked message service for testing purposes.

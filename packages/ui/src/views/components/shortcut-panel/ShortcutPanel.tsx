@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { dedupeBy, LocaleService } from '@univerjs/core';
+import { dedupeBy, LocaleService } from '@crabtable/core';
 
-import { clsx, divideYClassName, KBD } from '@univerjs/design';
+import { clsx, divideYClassName, KBD } from '@crabtable/design';
 import { useCallback, useEffect, useState } from 'react';
 import { IShortcutService } from '../../../services/shortcut/shortcut.service';
 import { useDependency, useObservable } from '../../../utils/di';

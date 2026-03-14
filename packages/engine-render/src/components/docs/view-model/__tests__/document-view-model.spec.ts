@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import { DataStreamTreeNodeType, DataStreamTreeTokenType } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
+import { DataStreamTreeNodeType, DataStreamTreeTokenType } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { DocumentEditArea, DocumentViewModel, parseDataStreamToTree } from '../document-view-model';
 

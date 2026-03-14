@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { IFunctionInfo, IFunctionParam } from '@univerjs/engine-formula';
-import type { ISearchItem, IUniverSheetsFormulaBaseConfig } from '@univerjs/sheets-formula';
-import type { ISidebarMethodOptions } from '@univerjs/ui';
+import type { IFunctionInfo, IFunctionParam } from '@crabtable/engine-formula';
+import type { ISearchItem, IUniverSheetsFormulaBaseConfig } from '@crabtable/sheets-formula';
+import type { ISidebarMethodOptions } from '@crabtable/ui';
 import type { KeyboardEvent } from 'react';
-import { IConfigService, LocaleService } from '@univerjs/core';
-import { borderClassName, clsx, Input, scrollbarClassName, Select } from '@univerjs/design';
+import { IConfigService, LocaleService } from '@crabtable/core';
+import { borderClassName, clsx, Input, scrollbarClassName, Select } from '@crabtable/design';
+import { IDescriptionService, PLUGIN_CONFIG_KEY_BASE } from '@crabtable/sheets-formula';
+import { ISidebarService, useDependency, useObservable } from '@crabtable/ui';
 import { CheckMarkIcon } from '@univerjs/icons';
-import { IDescriptionService, PLUGIN_CONFIG_KEY_BASE } from '@univerjs/sheets-formula';
-import { ISidebarService, useDependency, useObservable } from '@univerjs/ui';
 import { useEffect, useState } from 'react';
 import { getFunctionTypeValues } from '../../../services/utils';
 import { FunctionHelp } from '../function-help/FunctionHelp';

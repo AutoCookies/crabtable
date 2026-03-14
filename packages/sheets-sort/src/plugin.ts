@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverSheetsSortConfig } from './config/config';
-import { DependentOn, IConfigService, Inject, Injector, merge, Plugin, UniverInstanceType } from '@univerjs/core';
-import { UniverFormulaEnginePlugin } from '@univerjs/engine-formula';
-import { UniverSheetsPlugin } from '@univerjs/sheets';
+import { CrabTableInstanceType, DependentOn, IConfigService, Inject, Injector, merge, Plugin } from '@crabtable/core';
+import { UniverFormulaEnginePlugin } from '@crabtable/engine-formula';
+import { UniverSheetsPlugin } from '@crabtable/sheets';
 import pkg from '../package.json';
 import { defaultPluginConfig, SHEETS_SORT_PLUGIN_CONFIG_KEY } from './config/config';
 import { SheetsSortController } from './controllers/sheets-sort.controller';
@@ -26,7 +26,7 @@ import { SheetsSortService } from './services/sheets-sort.service';
 
 @DependentOn(UniverSheetsPlugin, UniverFormulaEnginePlugin)
 export class UniverSheetsSortPlugin extends Plugin {
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
     static override pluginName = 'SHEET_SORT_PLUGIN';
     static override packageName = pkg.name;
     static override version = pkg.version;

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
+import type { IAccessor } from '@crabtable/core';
 import type { IDataValidationDropdownParam } from '../../../services/dropdown-manager.service';
-import { ICommandService, IUniverInstanceService } from '@univerjs/core';
-import { DataValidationModel } from '@univerjs/data-validation';
-import { getSheetCommandTarget } from '@univerjs/sheets';
-import { ISidebarService } from '@univerjs/ui';
+import { ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { DataValidationModel } from '@crabtable/data-validation';
+import { getSheetCommandTarget } from '@crabtable/sheets';
+import { ISidebarService } from '@crabtable/ui';
 import { describe, expect, it, vi } from 'vitest';
 import { DataValidationPanelService } from '../../../services/data-validation-panel.service';
 import { DataValidationDropdownManagerService } from '../../../services/dropdown-manager.service';
@@ -32,8 +32,8 @@ import {
     ToggleValidationPanelOperation,
 } from '../data-validation.operation';
 
-vi.mock('@univerjs/sheets', async (importActual) => {
-    const actual = await importActual<typeof import('@univerjs/sheets')>();
+vi.mock('@crabtable/sheets', async (importActual) => {
+    const actual = await importActual<typeof import('@crabtable/sheets')>();
     return { ...actual, getSheetCommandTarget: vi.fn() };
 });
 
@@ -66,7 +66,7 @@ function createAccessor() {
             if (token === ICommandService) return commandService;
             if (token === DataValidationPanelService) return panelService;
             if (token === DataValidationModel) return { getRuleById: vi.fn(() => rule) };
-            if (token === IUniverInstanceService) return {};
+            if (token === ICrabTableInstanceService) return {};
             if (token === ISidebarService) return sidebarService;
             if (token === DataValidationDropdownManagerService) return dropdownService;
             throw new Error(`Unknown dependency: ${String(token)}`);

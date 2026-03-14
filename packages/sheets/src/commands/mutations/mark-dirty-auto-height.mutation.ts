@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IOperation, IRange } from '@univerjs/core';
-import { CommandType } from '@univerjs/core';
+import type { IOperation, IRange } from '@crabtable/core';
+import { CommandType } from '@crabtable/core';
 
 export interface IMarkDirtyRowAutoHeightMutationParams {
     unitId: string;

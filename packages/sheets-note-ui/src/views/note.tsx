@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { ISheetLocationBase } from '@univerjs/sheets';
-import type { ISheetNote } from '@univerjs/sheets-note';
-import type { IPopup } from '@univerjs/ui';
+import type { ISheetLocationBase } from '@crabtable/sheets';
+import type { ISheetNote } from '@crabtable/sheets-note';
+import type { IPopup } from '@crabtable/ui';
 import type { IUniverSheetsNoteUIConfig } from '../config/config';
-import { generateRandomId, ICommandService, LocaleService } from '@univerjs/core';
-import { clsx, Textarea } from '@univerjs/design';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { SheetsNoteModel, SheetUpdateNoteCommand } from '@univerjs/sheets-note';
-import { useConfigValue, useDebounceFn, useDependency } from '@univerjs/ui';
+import { generateRandomId, ICommandService, LocaleService } from '@crabtable/core';
+import { clsx, Textarea } from '@crabtable/design';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { SheetsNoteModel, SheetUpdateNoteCommand } from '@crabtable/sheets-note';
+import { useConfigValue, useDebounceFn, useDependency } from '@crabtable/ui';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { SHEETS_NOTE_UI_PLUGIN_CONFIG_KEY } from '../config/config';
 import { SheetsNotePopupService } from '../services/sheets-note-popup.service';

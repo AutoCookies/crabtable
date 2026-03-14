@@ -26,7 +26,7 @@ import type {
     ITextRotation,
     VerticalAlign,
     WrapStrategy,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import type { ISetRangeValuesMutationParams } from '../mutations/set-range-values.mutation';
 
 import type { ISheetCommandSharedParams } from '../utils/interface';
@@ -36,12 +36,12 @@ import {
     FontItalic,
     FontWeight,
     ICommandService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
     ObjectMatrix,
     sequenceExecute,
     Tools,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { SheetsSelectionsService } from '../../services/selections/selection.service';
 import { SheetInterceptorService } from '../../services/sheet-interceptor/sheet-interceptor.service';
 import { SheetSkeletonService } from '../../skeleton/skeleton.service';
@@ -75,9 +75,9 @@ export const SetStyleCommand: ICommand<ISetStyleCommandParams<unknown>> = {
 
     // eslint-disable-next-line max-lines-per-function
     handler: <T>(accessor: IAccessor, params: ISetStyleCommandParams<T>) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { unitId, subUnitId, worksheet } = target;
@@ -194,7 +194,7 @@ export const SetBoldCommand: ICommand = {
         const selection = accessor.get(SheetsSelectionsService).getCurrentLastSelection();
         if (!selection) return false;
 
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService));
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService));
         if (!target) return false;
 
         const { worksheet } = target;
@@ -223,7 +223,7 @@ export const SetItalicCommand: ICommand = {
         const selection = accessor.get(SheetsSelectionsService).getCurrentLastSelection();
         if (!selection) return false;
 
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService));
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService));
         if (!target) return false;
 
         const { worksheet } = target;
@@ -256,7 +256,7 @@ export const SetUnderlineCommand: ICommand = {
         const selection = accessor.get(SheetsSelectionsService).getCurrentLastSelection();
         if (!selection) return false;
 
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService));
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService));
         if (!target) return false;
 
         const { worksheet } = target;
@@ -292,7 +292,7 @@ export const SetStrikeThroughCommand: ICommand = {
         const selection = accessor.get(SheetsSelectionsService).getCurrentLastSelection();
         if (!selection) return false;
 
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService));
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService));
         if (!target) return false;
 
         const { worksheet } = target;
@@ -326,7 +326,7 @@ export const SetOverlineCommand: ICommand = {
         const selection = accessor.get(SheetsSelectionsService).getCurrentLastSelection();
         if (!selection) return false;
 
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService));
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService));
         if (!target) return false;
 
         const { worksheet } = target;

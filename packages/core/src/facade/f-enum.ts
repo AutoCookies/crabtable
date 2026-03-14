@@ -16,7 +16,7 @@
 
 /* eslint-disable ts/explicit-function-return-type */
 
-import { AbsoluteRefType, AutoFillSeries, BaselineOffset, BooleanNumber, BorderStyleTypes, BorderType, ColorType, CommandType, CommonHideTypes, CopyPasteType, DataValidationErrorStyle, DataValidationOperator, DataValidationRenderMode, DataValidationStatus, DataValidationType, DeleteDirection, DeveloperMetadataVisibility, Dimension, Direction, HorizontalAlign, InterpolationPointType, LifecycleStages, LocaleType, MentionType, ProtectionType, RelativeDate, SheetTypes, TextDecoration, TextDirection, ThemeColorType, UniverInstanceType, VerticalAlign, WrapStrategy } from '@univerjs/core';
+import { AbsoluteRefType, AutoFillSeries, BaselineOffset, BooleanNumber, BorderStyleTypes, BorderType, ColorType, CommandType, CommonHideTypes, CopyPasteType, CrabTableInstanceType, DataValidationErrorStyle, DataValidationOperator, DataValidationRenderMode, DataValidationStatus, DataValidationType, DeleteDirection, DeveloperMetadataVisibility, Dimension, Direction, HorizontalAlign, InterpolationPointType, LifecycleStages, LocaleType, MentionType, ProtectionType, RelativeDate, SheetTypes, TextDecoration, TextDirection, ThemeColorType, VerticalAlign, WrapStrategy } from '@crabtable/core';
 
 /**
  * @hideconstructor
@@ -68,7 +68,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.AbsoluteRefType);
+     * console.log(crabtableAPI.Enum.AbsoluteRefType);
      * ```
      */
     get AbsoluteRefType() {
@@ -76,15 +76,15 @@ export class FEnum {
     }
 
     /**
-     * Defines different types of Univer instances
+     * Defines different types of CrabTable instances
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.UniverInstanceType.UNIVER_SHEET);
+     * console.log(crabtableAPI.Enum.CrabTableInstanceType.CRABTABLE_SHEET);
      * ```
      */
-    get UniverInstanceType() {
-        return UniverInstanceType;
+    get CrabTableInstanceType() {
+        return CrabTableInstanceType;
     }
 
     /**
@@ -92,7 +92,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.LifecycleStages.Rendered);
+     * console.log(crabtableAPI.Enum.LifecycleStages.Rendered);
      * ```
      */
     get LifecycleStages() {
@@ -104,7 +104,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.DataValidationType.LIST);
+     * console.log(crabtableAPI.Enum.DataValidationType.LIST);
      * ```
      */
     get DataValidationType() {
@@ -116,7 +116,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.DataValidationErrorStyle.WARNING);
+     * console.log(crabtableAPI.Enum.DataValidationErrorStyle.WARNING);
      * ```
      */
     get DataValidationErrorStyle() {
@@ -128,7 +128,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.DataValidationRenderMode.TEXT);
+     * console.log(crabtableAPI.Enum.DataValidationRenderMode.TEXT);
      * ```
      */
     get DataValidationRenderMode() {
@@ -140,7 +140,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.DataValidationOperator.BETWEEN);
+     * console.log(crabtableAPI.Enum.DataValidationOperator.BETWEEN);
      * ```
      */
     get DataValidationOperator() {
@@ -152,7 +152,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.DataValidationStatus.VALID);
+     * console.log(crabtableAPI.Enum.DataValidationStatus.VALID);
      * ```
      */
     get DataValidationStatus() {
@@ -164,7 +164,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.CommandType.COMMAND);
+     * console.log(crabtableAPI.Enum.CommandType.COMMAND);
      * ```
      */
     get CommandType() {
@@ -176,7 +176,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.BaselineOffset.SUPERSCRIPT);
+     * console.log(crabtableAPI.Enum.BaselineOffset.SUPERSCRIPT);
      * ```
      */
     get BaselineOffset() {
@@ -188,7 +188,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.BooleanNumber.TRUE);
+     * console.log(crabtableAPI.Enum.BooleanNumber.TRUE);
      * ```
      */
     get BooleanNumber() {
@@ -200,7 +200,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.HorizontalAlign.CENTER);
+     * console.log(crabtableAPI.Enum.HorizontalAlign.CENTER);
      * ```
      */
     get HorizontalAlign() {
@@ -212,7 +212,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.TextDecoration.DOUBLE);
+     * console.log(crabtableAPI.Enum.TextDecoration.DOUBLE);
      * ```
      */
     get TextDecoration() {
@@ -224,7 +224,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.TextDirection.LEFT_TO_RIGHT);
+     * console.log(crabtableAPI.Enum.TextDirection.LEFT_TO_RIGHT);
      * ```
      */
     get TextDirection() {
@@ -236,7 +236,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.VerticalAlign.MIDDLE);
+     * console.log(crabtableAPI.Enum.VerticalAlign.MIDDLE);
      * ```
      */
     get VerticalAlign() {
@@ -248,7 +248,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.WrapStrategy.WRAP);
+     * console.log(crabtableAPI.Enum.WrapStrategy.WRAP);
      * ```
      */
     get WrapStrategy() {
@@ -260,7 +260,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.BorderType.OUTSIDE);
+     * console.log(crabtableAPI.Enum.BorderType.OUTSIDE);
      * ```
      */
     get BorderType() {
@@ -272,7 +272,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.BorderStyleTypes.NONE);
+     * console.log(crabtableAPI.Enum.BorderStyleTypes.NONE);
      * ```
      */
     get BorderStyleTypes() {
@@ -284,7 +284,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.AutoFillSeries.ALTERNATE_SERIES);
+     * console.log(crabtableAPI.Enum.AutoFillSeries.ALTERNATE_SERIES);
      * ```
      */
     get AutoFillSeries() {
@@ -296,7 +296,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.ColorType.RGB);
+     * console.log(crabtableAPI.Enum.ColorType.RGB);
      * ```
      */
     get ColorType() {
@@ -308,7 +308,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.CommonHideTypes.ON);
+     * console.log(crabtableAPI.Enum.CommonHideTypes.ON);
      * ```
      */
     get CommonHideTypes() {
@@ -320,7 +320,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.CopyPasteType.PASTE_VALUES);
+     * console.log(crabtableAPI.Enum.CopyPasteType.PASTE_VALUES);
      * ```
      */
     get CopyPasteType() {
@@ -332,7 +332,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.DeleteDirection.LEFT);
+     * console.log(crabtableAPI.Enum.DeleteDirection.LEFT);
      * ```
      */
     get DeleteDirection() {
@@ -344,7 +344,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.DeveloperMetadataVisibility.DOCUMENT);
+     * console.log(crabtableAPI.Enum.DeveloperMetadataVisibility.DOCUMENT);
      * ```
      */
     get DeveloperMetadataVisibility() {
@@ -356,7 +356,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.Dimension.ROWS);
+     * console.log(crabtableAPI.Enum.Dimension.ROWS);
      * ```
      */
     get Dimension() {
@@ -368,7 +368,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.Direction.UP);
+     * console.log(crabtableAPI.Enum.Direction.UP);
      * ```
      */
     get Direction() {
@@ -380,7 +380,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.InterpolationPointType.NUMBER);
+     * console.log(crabtableAPI.Enum.InterpolationPointType.NUMBER);
      * ```
      */
     get InterpolationPointType() {
@@ -392,7 +392,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.LocaleType.EN_US);
+     * console.log(crabtableAPI.Enum.LocaleType.EN_US);
      * ```
      */
     get LocaleType() {
@@ -404,7 +404,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.MentionType.PERSON);
+     * console.log(crabtableAPI.Enum.MentionType.PERSON);
      * ```
      */
     get MentionType() {
@@ -416,7 +416,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.ProtectionType.RANGE);
+     * console.log(crabtableAPI.Enum.ProtectionType.RANGE);
      * ```
      */
     get ProtectionType() {
@@ -428,7 +428,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.RelativeDate.TODAY);
+     * console.log(crabtableAPI.Enum.RelativeDate.TODAY);
      * ```
      */
     get RelativeDate() {
@@ -440,7 +440,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.SheetTypes.GRID);
+     * console.log(crabtableAPI.Enum.SheetTypes.GRID);
      * ```
      */
     get SheetTypes() {
@@ -452,7 +452,7 @@ export class FEnum {
      *
      * @example
      * ```ts
-     * console.log(univerAPI.Enum.ThemeColorType.ACCENT1);
+     * console.log(crabtableAPI.Enum.ThemeColorType.ACCENT1);
      * ```
      */
     get ThemeColorType() {

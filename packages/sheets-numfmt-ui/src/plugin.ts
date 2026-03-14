@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverSheetsNumfmtUIConfig } from './config/config';
-import { DependentOn, IConfigService, Inject, Injector, merge, Plugin, registerDependencies, touchDependencies, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { UniverSheetsNumfmtPlugin } from '@univerjs/sheets-numfmt';
-import { UniverSheetsUIPlugin } from '@univerjs/sheets-ui';
+import { CrabTableInstanceType, DependentOn, IConfigService, Inject, Injector, merge, Plugin, registerDependencies, touchDependencies } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { UniverSheetsNumfmtPlugin } from '@crabtable/sheets-numfmt';
+import { UniverSheetsUIPlugin } from '@crabtable/sheets-ui';
 import pkg from '../package.json';
 import { defaultPluginConfig } from './config/config';
 import { NumfmtAlertRenderController } from './controllers/numfmt-alert-render.controller';
@@ -33,7 +33,7 @@ export class UniverSheetsNumfmtUIPlugin extends Plugin {
     static override pluginName = 'SHEET_NUMFMT_UI_PLUGIN';
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
     constructor(
         private readonly _config: Partial<IUniverSheetsNumfmtUIConfig> = defaultPluginConfig,
@@ -80,7 +80,7 @@ export class UniverSheetsNumfmtUIPlugin extends Plugin {
         ];
 
         modules.forEach((m) => {
-            this.disposeWithMe(this._renderManagerService.registerRenderModule(UniverInstanceType.UNIVER_SHEET, m));
+            this.disposeWithMe(this._renderManagerService.registerRenderModule(CrabTableInstanceType.CRABTABLE_SHEET, m));
         });
     }
 }

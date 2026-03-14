@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommandService, IDocumentData } from '@univerjs/core';
-import { InsertCommand } from '@univerjs/docs-ui';
+import type { DocumentDataModel, ICommandService, IDocumentData } from '@crabtable/core';
+import { InsertCommand } from '@crabtable/docs-ui';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { FDocument } from '../f-document';
 
 describe('Test FDocument', () => {
     let commandService: Pick<ICommandService, 'executeCommand'>;
     let resourceManagerService: { getResourcesByType: ReturnType<typeof vi.fn> };
-    let univerInstanceService: { focusUnit: ReturnType<typeof vi.fn> };
+    let crabtableInstanceService: { focusUnit: ReturnType<typeof vi.fn> };
     let renderManagerService: { getRenderById: ReturnType<typeof vi.fn> };
     let documentDataModel: Pick<DocumentDataModel, 'getUnitId' | 'getSnapshot'>;
     let document: FDocument;
@@ -34,7 +34,7 @@ describe('Test FDocument', () => {
         resourceManagerService = {
             getResourcesByType: vi.fn(() => []),
         };
-        univerInstanceService = {
+        crabtableInstanceService = {
             focusUnit: vi.fn(),
         };
         renderManagerService = {
@@ -54,7 +54,7 @@ describe('Test FDocument', () => {
         document = new FDocument(
             documentDataModel as DocumentDataModel,
             {} as never,
-            univerInstanceService as never,
+            crabtableInstanceService as never,
             commandService as ICommandService,
             resourceManagerService as never,
             renderManagerService as never
@@ -86,7 +86,7 @@ describe('Test FDocument', () => {
                 getSnapshot: () => ({ id: 'test' } as IDocumentData),
             } as DocumentDataModel,
             {} as never,
-            univerInstanceService as never,
+            crabtableInstanceService as never,
             commandService as ICommandService,
             resourceManagerService as never,
             renderManagerService as never

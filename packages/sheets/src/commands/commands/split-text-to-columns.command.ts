@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICellData, IRange, Nullable } from '@univerjs/core';
+import type { IAccessor, ICellData, IRange, Nullable } from '@crabtable/core';
 import type { IInsertColMutationParams, IRemoveColMutationParams } from '../../basics';
 import type { SplitDelimiterEnum } from '../../basics/split-range-text';
 import type { ISetRangeValuesMutationParams } from '../mutations/set-range-values.mutation';
-import { CommandType, ICommandService, IUndoRedoService, IUniverInstanceService, ObjectMatrix, Range, sequenceExecute } from '@univerjs/core';
+import { CommandType, ICommandService, ICrabTableInstanceService, IUndoRedoService, ObjectMatrix, Range, sequenceExecute } from '@crabtable/core';
 import { splitRangeText } from '../../basics/split-range-text';
 import { InsertColMutation, InsertColMutationUndoFactory } from '../mutations/insert-row-col.mutation';
 import { RemoveColMutation } from '../mutations/remove-row-col.mutation';
@@ -39,7 +39,7 @@ export const SplitTextToColumnsCommand = {
     id: 'sheet.command.split-text-to-columns',
     // eslint-disable-next-line max-lines-per-function
     handler: (accessor: IAccessor, params: ISplitTextToColumnsCommandParams) => {
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService), params);
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService), params);
         if (!target) return false;
 
         const { unitId, subUnitId, worksheet } = target;

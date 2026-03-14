@@ -16,7 +16,7 @@
 
 import type { ArrayValueObject } from '../../../engine/value-object/array-value-object';
 import type { BaseValueObject } from '../../../engine/value-object/base-value-object';
-import { getNumfmtParseValueFilter, isRealNum } from '@univerjs/core';
+import { getNumfmtParseValueFilter, isRealNum } from '@crabtable/core';
 import { ErrorType } from '../../../basics/error-type';
 import { getFormatPreview } from '../../../basics/format';
 import { expandArrayValueObject } from '../../../engine/utils/array-object';

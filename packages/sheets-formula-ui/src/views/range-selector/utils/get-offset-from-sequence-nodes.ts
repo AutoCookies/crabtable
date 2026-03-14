@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ISequenceNode } from '@univerjs/engine-formula';
+import type { ISequenceNode } from '@crabtable/engine-formula';
 
 export const getOffsetFromSequenceNodes = (sequenceNode: (string | ISequenceNode)[]) => {
     return sequenceNode.reduce((pre, cur) => {

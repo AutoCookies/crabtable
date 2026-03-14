@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { ICellData, IDocDrawingBase, Nullable } from '@univerjs/core';
-import type { IReplaceSnapshotCommandParams } from '@univerjs/docs-ui';
-import type { IImageData } from '@univerjs/drawing';
-import type { ISheetLocationBase } from '@univerjs/sheets';
-import { Disposable, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, DOCS_ZEN_EDITOR_UNIT_ID_KEY, ICommandService, Inject, Injector, InterceptorEffectEnum } from '@univerjs/core';
-import { DocDrawingController } from '@univerjs/docs-drawing';
-import { ReplaceSnapshotCommand } from '@univerjs/docs-ui';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { InterceptCellContentPriority, INTERCEPTOR_POINT, SheetInterceptorService } from '@univerjs/sheets';
-import { IEditorBridgeService } from '@univerjs/sheets-ui';
+import type { ICellData, IDocDrawingBase, Nullable } from '@crabtable/core';
+import type { IReplaceSnapshotCommandParams } from '@crabtable/docs-ui';
+import type { IImageData } from '@crabtable/drawing';
+import type { ISheetLocationBase } from '@crabtable/sheets';
+import { Disposable, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, DOCS_ZEN_EDITOR_UNIT_ID_KEY, ICommandService, Inject, Injector, InterceptorEffectEnum } from '@crabtable/core';
+import { DocDrawingController } from '@crabtable/docs-drawing';
+import { ReplaceSnapshotCommand } from '@crabtable/docs-ui';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { InterceptCellContentPriority, INTERCEPTOR_POINT, SheetInterceptorService } from '@crabtable/sheets';
+import { IEditorBridgeService } from '@crabtable/sheets-ui';
 import { getDrawingSizeByCell } from './sheet-drawing-update.controller';
 
 export function resizeImageByCell(injector: Injector, location: ISheetLocationBase, cell: Nullable<ICellData>) {

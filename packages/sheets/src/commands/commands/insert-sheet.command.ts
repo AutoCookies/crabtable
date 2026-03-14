@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, IWorksheetData } from '@univerjs/core';
+import type { IAccessor, ICommand, IWorksheetData } from '@crabtable/core';
 import type { IInsertSheetMutationParams, IRemoveSheetMutationParams } from '../../basics/interfaces/mutation-interface';
 import {
     CommandType,
     generateRandomId,
     ICommandService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
     LocaleService,
     mergeWorksheetSnapshotWithDefault,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { InsertSheetMutation, InsertSheetUndoMutationFactory } from '../mutations/insert-sheet.mutation';
 import { RemoveSheetMutation } from '../mutations/remove-sheet.mutation';
 import { getSheetCommandTargetWorkbook } from './utils/target-util';
@@ -44,10 +44,10 @@ export const InsertSheetCommand: ICommand = {
     handler: (accessor: IAccessor, params?: IInsertSheetCommandParams) => {
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const localeService = accessor.get(LocaleService);
 
-        const target = getSheetCommandTargetWorkbook(univerInstanceService, { unitId: params?.unitId });
+        const target = getSheetCommandTargetWorkbook(crabtableInstanceService, { unitId: params?.unitId });
         if (!target) return false;
 
         const { unitId, workbook } = target;

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Injector, IRange, Univer, Workbook, Worksheet } from '@univerjs/core';
+import type { Injector, IRange, Workbook, Worksheet } from '@crabtable/core';
 import type { IMoveRangeCommandParams } from '../../commands/commands/move-range.command';
-import { ICommandService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { MoveRangeCommand } from '../../commands/commands/move-range.command';
 import { MoveRangeMutation } from '../../commands/mutations/move-range.mutation';
@@ -39,7 +39,7 @@ const getRangeByCell = (row: number, col: number): IRange => ({
     endColumn: col,
 });
 describe('Test ref-range.service', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let commandService: ICommandService;
     let get: Injector['get'];
     let sheetInterceptorService: SheetInterceptorService;
@@ -62,8 +62,8 @@ describe('Test ref-range.service', () => {
             commandService.registerCommand(item)
         );
 
-        const univerInstanceService = get(IUniverInstanceService);
-        workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const crabtableInstanceService = get(ICrabTableInstanceService);
+        workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         worksheet = workbook.getActiveSheet()!;
     });
     afterEach(() => {

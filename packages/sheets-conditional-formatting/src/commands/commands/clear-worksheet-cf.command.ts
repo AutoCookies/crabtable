@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { ICommand, IMutationInfo } from '@univerjs/core';
+import type { ICommand, IMutationInfo } from '@crabtable/core';
 import type { IDeleteConditionalRuleMutationParams } from '../mutations/delete-conditional-rule.mutation';
 import {
     CommandType,
     ICommandService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
     sequenceExecute,
-} from '@univerjs/core';
-import { getSheetCommandTarget } from '@univerjs/sheets';
+} from '@crabtable/core';
+import { getSheetCommandTarget } from '@crabtable/sheets';
 import { ConditionalFormattingRuleModel } from '../../models/conditional-formatting-rule-model';
 import { DeleteConditionalRuleMutation, DeleteConditionalRuleMutationUndoFactory } from '../mutations/delete-conditional-rule.mutation';
 
@@ -36,11 +36,11 @@ export const ClearWorksheetCfCommand: ICommand<IClearWorksheetCfParams> = {
     id: 'sheet.command.clear-worksheet-conditional-rule',
     handler(accessor, params) {
         const conditionalFormattingRuleModel = accessor.get(ConditionalFormattingRuleModel);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
 
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { unitId, subUnitId } = target;

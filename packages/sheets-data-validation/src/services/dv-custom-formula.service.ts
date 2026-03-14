@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IRange, ISheetDataValidationRule } from '@univerjs/core';
-import { Disposable, Inject, isFormulaString, IUniverInstanceService, Rectangle, UniverInstanceType } from '@univerjs/core';
-import { DataValidationModel, DataValidatorRegistryService } from '@univerjs/data-validation';
-import { OtherFormulaBizType, RegisterOtherFormulaService } from '@univerjs/engine-formula';
+import type { IRange, ISheetDataValidationRule } from '@crabtable/core';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject, isFormulaString, Rectangle } from '@crabtable/core';
+import { DataValidationModel, DataValidatorRegistryService } from '@crabtable/data-validation';
+import { OtherFormulaBizType, RegisterOtherFormulaService } from '@crabtable/engine-formula';
 import { getFormulaCellData, shouldOffsetFormulaByRange } from '../utils/formula';
 import { DataValidationCacheService } from './dv-cache.service';
 
@@ -40,7 +40,7 @@ export class DataValidationCustomFormulaService extends Disposable {
     private _ruleFormulaMap2: Map<UnitId, Map<SubUnitId, Map<RuleId, IFormulaData>>> = new Map();
 
     constructor(
-        @IUniverInstanceService private readonly _instanceSrv: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _instanceSrv: ICrabTableInstanceService,
         @Inject(RegisterOtherFormulaService) private _registerOtherFormulaService: RegisterOtherFormulaService,
         @Inject(DataValidationModel) private readonly _dataValidationModel: DataValidationModel,
         @Inject(DataValidationCacheService) private readonly _dataValidationCacheService: DataValidationCacheService,
@@ -64,7 +64,7 @@ export class DataValidationCustomFormulaService extends Disposable {
                 const unitMap = resultMap[unitId];
 
                 const type = this._instanceSrv.getUnitType(unitId);
-                if (type !== UniverInstanceType.UNIVER_SHEET) continue;
+                if (type !== CrabTableInstanceType.CRABTABLE_SHEET) continue;
 
                 for (const subUnitId in unitMap) {
                     const results = unitMap[subUnitId];

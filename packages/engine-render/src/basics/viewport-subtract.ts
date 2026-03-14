@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
+import type { IRange } from '@crabtable/core';
 
 export function subtractViewportRange(range1: IRange, range2: IRange): IRange[] {
     // If there is no intersection, return range1.

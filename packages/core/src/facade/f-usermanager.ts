@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IUser } from '@univerjs/core';
-import { Inject, Injector, UserManagerService } from '@univerjs/core';
+import type { IUser } from '@crabtable/core';
+import { Inject, Injector, UserManagerService } from '@crabtable/core';
 import { FBase } from './f-base';
 
 /**
@@ -34,7 +34,7 @@ export class FUserManager extends FBase {
      * @returns {IUser} Current user info.
      * @example
      * ```typescript
-     * univerAPI.getUserManager().getCurrentUser();
+     * crabtableAPI.getUserManager().getCurrentUser();
      * ```
      */
     getCurrentUser(): IUser {

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, Nullable } from '@univerjs/core';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
+import type { DocumentDataModel, Nullable } from '@crabtable/core';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
 import type { Subscription } from 'rxjs';
-import { Disposable, ICommandService, Inject, SHEET_EDITOR_UNITS } from '@univerjs/core';
-import { DocSkeletonManagerService } from '@univerjs/docs';
+import { Disposable, ICommandService, Inject, SHEET_EDITOR_UNITS } from '@crabtable/core';
+import { DocSkeletonManagerService } from '@crabtable/docs';
 import { getCustomDecorationAtPosition, getCustomRangeAtPosition, getTextRunAtPosition } from '../../basics/paragraph';
 import { AfterSpaceCommand } from '../../commands/commands/auto-format.command';
 import { InsertCommand } from '../../commands/commands/core-editing.command';

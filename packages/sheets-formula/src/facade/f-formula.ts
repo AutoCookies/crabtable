@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, IDisposable, ILocales } from '@univerjs/core';
-import type { IFunctionInfo, ISetFormulaCalculationResultMutation } from '@univerjs/engine-formula';
-import type { CalculationMode, IRegisterAsyncFunction, IRegisterFunction, ISingleFunctionRegisterParams, IUniverSheetsFormulaBaseConfig } from '@univerjs/sheets-formula';
-import { debounce, IConfigService, ILogService, LifecycleService, LifecycleStages } from '@univerjs/core';
-import { FormulaExecuteStageType, SetFormulaCalculationResultMutation, SetTriggerFormulaCalculationStartMutation } from '@univerjs/engine-formula';
-import { FFormula } from '@univerjs/engine-formula/facade';
-import { SetRangeValuesMutation } from '@univerjs/sheets';
-import { IRegisterFunctionService, PLUGIN_CONFIG_KEY_BASE, RegisterFunctionService } from '@univerjs/sheets-formula';
+import type { ICommandInfo, IDisposable, ILocales } from '@crabtable/core';
+import type { IFunctionInfo, ISetFormulaCalculationResultMutation } from '@crabtable/engine-formula';
+import type { CalculationMode, IRegisterAsyncFunction, IRegisterFunction, ISingleFunctionRegisterParams, IUniverSheetsFormulaBaseConfig } from '@crabtable/sheets-formula';
+import { debounce, IConfigService, ILogService, LifecycleService, LifecycleStages } from '@crabtable/core';
+import { FormulaExecuteStageType, SetFormulaCalculationResultMutation, SetTriggerFormulaCalculationStartMutation } from '@crabtable/engine-formula';
+import { FFormula } from '@crabtable/engine-formula/facade';
+import { SetRangeValuesMutation } from '@crabtable/sheets';
+import { IRegisterFunctionService, PLUGIN_CONFIG_KEY_BASE, RegisterFunctionService } from '@crabtable/sheets-formula';
 
 /**
  * @ignore
  */
 export interface IFFormulaSheetsMixin {
     /**
-     * Update the calculation mode of the formula. It will take effect the next time the Univer Sheet is constructed.
+     * Update the calculation mode of the formula. It will take effect the next time the CrabTable Sheet is constructed.
      * The calculation mode only handles formulas data when the workbook initializes data.
      * @param {CalculationMode} calculationMode - The calculation mode of the formula.
      * @example
      * ```ts
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      * formulaEngine.setInitialFormulaComputing(0);
      * ```
      */
@@ -48,7 +48,7 @@ export interface IFFormulaSheetsMixin {
      * @example
      * ```ts
      * // Register a simple greeting function
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      * formulaEngine.registerFunction(
      *   'HELLO',
      *   (name) => `Hello, ${name}!`,
@@ -56,7 +56,7 @@ export interface IFFormulaSheetsMixin {
      * );
      *
      * // Use the function in a cell
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const cellA1 = fWorksheet.getRange('A1');
      * cellA1.setValue('World');
@@ -73,7 +73,7 @@ export interface IFFormulaSheetsMixin {
      * @example
      * ```ts
      * // Register a discount calculation function
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      * formulaEngine.registerFunction(
      *   'DISCOUNT',
      *   (price, discountPercent) => price * (1 - discountPercent / 100),
@@ -81,7 +81,7 @@ export interface IFFormulaSheetsMixin {
      * );
      *
      * // Use the function in a cell
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const cellA1 = fWorksheet.getRange('A1');
      * cellA1.setValue(100);
@@ -98,7 +98,7 @@ export interface IFFormulaSheetsMixin {
      * @example
      * ```ts
      * // Registered formulas support lambda functions
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      * formulaEngine.registerFunction(
      *   'CUSTOMSUM',
      *   (...variants) => {
@@ -121,7 +121,7 @@ export interface IFFormulaSheetsMixin {
      * );
      *
      * // Use the function in a cell
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const cellA1 = fWorksheet.getRange('A1');
      * cellA1.setValue(1);
@@ -150,7 +150,7 @@ export interface IFFormulaSheetsMixin {
      * @example
      * ```js
      * // Register a simple greeting function
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      * formulaEngine.registerFunction(
      *   'HELLO',
      *   (name) => `Hello, ${name}!`,
@@ -176,7 +176,7 @@ export interface IFFormulaSheetsMixin {
      * );
      *
      * // Use the function in a cell
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const cellA1 = fWorksheet.getRange('A1');
      * cellA1.setValue('World');
@@ -201,7 +201,7 @@ export interface IFFormulaSheetsMixin {
      * @returns {IDisposable} A disposable object that will unregister the function when disposed.
      * @example
      * ```ts
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      * formulaEngine.registerAsyncFunction(
      *   'RANDOM_DELAYED',
      *   async () => {
@@ -212,7 +212,7 @@ export interface IFFormulaSheetsMixin {
      * );
      *
      * // Use the function in a cell
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const cellA1 = fWorksheet.getRange('A1');
      * cellA1.setValue({ f: '=RANDOM_DELAYED()' });
@@ -232,7 +232,7 @@ export interface IFFormulaSheetsMixin {
      * @example
      * ```ts
      * // Mock a user score fetching function
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      * formulaEngine.registerAsyncFunction(
      *   'FETCH_USER_SCORE',
      *   async (userId) => {
@@ -262,7 +262,7 @@ export interface IFFormulaSheetsMixin {
      * );
      *
      * // Use the function in a cell
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const cellA1 = fWorksheet.getRange('A1');
      * cellA1.setValue({ f: '=FETCH_USER_SCORE(42)' });
@@ -285,7 +285,7 @@ export interface IFFormulaSheetsMixin {
      *
      * @example
      * ```ts
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      *
      * const dispose = formulaEngine.calculationResultApplied((result) => {
      *   console.log('Calculation results applied:', result);
@@ -316,7 +316,7 @@ export interface IFFormulaSheetsMixin {
      *
      * @example
      * ```ts
-     * const formulaEngine = univerAPI.getFormula();
+     * const formulaEngine = crabtableAPI.getFormula();
      *
      * // Wait for formula updates to apply before reading values.
      * await formulaEngine.onCalculationResultApplied();
@@ -335,7 +335,7 @@ export class FFormulaSheetsMixin extends FFormula implements IFFormulaSheetsMixi
     declare private _debouncedFormulaCalculation: () => void;
 
     /**
-     * Initialize the FUniver instance.
+     * Initialize the FCrabTable instance.
      * @ignore
      */
     override _initialize(): void {
@@ -361,7 +361,7 @@ export class FFormulaSheetsMixin extends FFormula implements IFFormulaSheetsMixi
         const configService = this._injector.get(IConfigService);
 
         if (lifecycleStage > LifecycleStages.Starting) {
-            logService.warn('[FFormula]', 'CalculationMode is called after the Starting lifecycle and will take effect the next time the Univer Sheet is constructed. If you want it to take effect when the Univer Sheet is initialized this time, consider calling it before the Ready lifecycle or using configuration.');
+            logService.warn('[FFormula]', 'CalculationMode is called after the Starting lifecycle and will take effect the next time the CrabTable Sheet is constructed. If you want it to take effect when the CrabTable Sheet is initialized this time, consider calling it before the Ready lifecycle or using configuration.');
         }
 
         const config = configService.getConfig<Partial<IUniverSheetsFormulaBaseConfig>>(PLUGIN_CONFIG_KEY_BASE);
@@ -512,7 +512,7 @@ export class FFormulaSheetsMixin extends FFormula implements IFFormulaSheetsMixi
 }
 
 FFormula.extend(FFormulaSheetsMixin);
-declare module '@univerjs/engine-formula/facade' {
+declare module '@crabtable/engine-formula/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FFormula extends IFFormulaSheetsMixin {}
 }

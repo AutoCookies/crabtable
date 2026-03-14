@@ -21,28 +21,28 @@ import type {
     IUnitRange,
     Nullable,
     Workbook,
-} from '@univerjs/core';
-import type { IDirtyUnitFeatureMap, IDirtyUnitOtherFormulaMap, IDirtyUnitSheetNameMap, IFormulaData, IFormulaDataItem, IFormulaDirtyData, IUnitSheetNameMap } from '@univerjs/engine-formula';
+} from '@crabtable/core';
+import type { IDirtyUnitFeatureMap, IDirtyUnitOtherFormulaMap, IDirtyUnitSheetNameMap, IFormulaData, IFormulaDataItem, IFormulaDirtyData, IUnitSheetNameMap } from '@crabtable/engine-formula';
 import type {
     IInsertSheetMutationParams,
     IRemoveSheetMutationParams,
     ISetRangeValuesMutationParams,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import type { IUniverSheetsFormulaBaseConfig } from '../config/config';
 import type { IFormulaReferenceMoveParam } from './utils/ref-range-formula';
 import type { IUnitRangeWithOffset } from './utils/ref-range-move';
 import {
+    CrabTableInstanceType,
     Disposable,
     ICommandService,
     IConfigService,
+    ICrabTableInstanceService,
     Inject,
     Injector,
-    IUniverInstanceService,
     ObjectMatrix,
     Tools,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { deserializeRangeWithSheetWithCache, ErrorType, FormulaDataModel, generateStringWithSequence, IDefinedNamesService, initSheetFormulaData, LexerTreeBuilder, sequenceNodeType, serializeRangeToRefString, SetArrayFormulaDataMutation, SetFormulaDataMutation, SetTriggerFormulaCalculationStartMutation } from '@univerjs/engine-formula';
+} from '@crabtable/core';
+import { deserializeRangeWithSheetWithCache, ErrorType, FormulaDataModel, generateStringWithSequence, IDefinedNamesService, initSheetFormulaData, LexerTreeBuilder, sequenceNodeType, serializeRangeToRefString, SetArrayFormulaDataMutation, SetFormulaDataMutation, SetTriggerFormulaCalculationStartMutation } from '@crabtable/engine-formula';
 import {
     ClearSelectionFormatCommand,
     InsertSheetMutation,
@@ -52,7 +52,7 @@ import {
     SetRangeValuesMutation,
     SetStyleCommand,
     SheetInterceptorService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { map } from 'rxjs';
 import { CalculationMode, PLUGIN_CONFIG_KEY_BASE } from '../config/config';
 import { removeFormulaData } from './utils/offset-formula-data';
@@ -73,7 +73,7 @@ import { getReferenceMoveParams } from './utils/ref-range-param';
  */
 export class UpdateFormulaController extends Disposable {
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService,
         @Inject(LexerTreeBuilder) private readonly _lexerTreeBuilder: LexerTreeBuilder,
         @Inject(FormulaDataModel) private readonly _formulaDataModel: FormulaDataModel,
@@ -127,9 +127,9 @@ export class UpdateFormulaController extends Disposable {
             })
         );
 
-        this.disposeWithMe(this._univerInstanceService.getTypeOfUnitAdded$<Workbook>(UniverInstanceType.UNIVER_SHEET)
+        this.disposeWithMe(this._crabtableInstanceService.getTypeOfUnitAdded$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)
             .subscribe((unit) => this._handleWorkbookAdded(unit)));
-        this.disposeWithMe(this._univerInstanceService.getTypeOfUnitDisposed$<Workbook>(UniverInstanceType.UNIVER_SHEET)
+        this.disposeWithMe(this._crabtableInstanceService.getTypeOfUnitDisposed$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)
             .pipe(map((unit) => unit.getUnitId()))
             .subscribe((unitId) => this._handleWorkbookDisposed(unitId)));
     }
@@ -301,7 +301,7 @@ export class UpdateFormulaController extends Disposable {
     }
 
     private _getUpdateFormula(command: ICommandInfo) {
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
 
         if (!workbook) {
             return {

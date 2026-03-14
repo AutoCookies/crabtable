@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ITextRotation } from '@univerjs/core';
-import { BooleanNumber } from '@univerjs/core';
+import type { ITextRotation } from '@crabtable/core';
+import { BooleanNumber } from '@crabtable/core';
 
 export const VERTICAL_ROTATE_ANGLE = 90;
 

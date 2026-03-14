@@ -1,6 +1,6 @@
 # How to Contribute to Facade API
 
-Facade API is an API layer of all other packages of Univer and it helps users to use Univer easily. For a detailed introduction of Facade API, please visit [Facade API](https://docs.univer.ai/en-US/guides/sheets/getting-started/facade).
+Facade API is an API layer of all other packages of CrabTable and it helps users to use CrabTable easily. For a detailed introduction of Facade API, please visit [Facade API](https://docs.crabtable.dev/en-US/guides/sheets/getting-started/facade).
 
 Facade API is consists of multi classes such as `FUniver`, `FWorkbook` and `FRange` etc. You can refer to Google's [AppScripts](https://developers.google.com/apps-script/reference/spreadsheet) to design Facade API.
 
@@ -48,5 +48,5 @@ All APIs/constants/enums should be accessible from the `univerAPI` variable.
 
 ## Documentation
 
-It is strongly suggested to add documentation for your code [here](https://github.com/dream-num/univer.ai/tree/dev/packages/community/src/content/docs/guides/sheet/facade). Please refer to our [documentation repo](https://github.com/dream-num/docs) for more guidance.
+It is strongly suggested to add documentation for your code [here](https://github.com/AutoCookies/crabtable.dev/tree/dev/packages/community/src/content/docs/guides/sheet/facade). Please refer to our [documentation repo](https://github.com/AutoCookies/docs) for more guidance.
 

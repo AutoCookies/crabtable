@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICollaborator } from '@univerjs/protocol';
 import type {
     IRangeProtectionRule,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
+import type { ICollaborator } from '@univerjs/protocol';
 import type { Observable, Subscription } from 'rxjs';
 import type { FRange } from '../f-range';
 import type { FWorksheet } from '../f-worksheet';
@@ -29,8 +29,7 @@ import type {
     WorksheetMode,
     WorksheetPermissionSnapshot,
 } from './permission-types';
-import { IAuthzIoService, ICommandService, Inject, Injector, IPermissionService } from '@univerjs/core';
-import { UnitRole } from '@univerjs/protocol';
+import { IAuthzIoService, ICommandService, Inject, Injector, IPermissionService } from '@crabtable/core';
 import {
     AddRangeProtectionMutation,
     EditStateEnum,
@@ -39,7 +38,8 @@ import {
     ViewStateEnum,
     WorksheetProtectionPointModel,
     WorksheetProtectionRuleModel,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
+import { UnitRole } from '@univerjs/protocol';
 import { BehaviorSubject } from 'rxjs';
 import { distinctUntilChanged, filter, map, shareReplay } from 'rxjs/operators';
 import { FPermission } from '../f-permission';
@@ -321,7 +321,7 @@ export class FWorksheetPermission {
      * @returns {ICellPermissionDebugInfo | null} Debug information about which rules affect this cell, or null if no rules apply.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
      * const debugInfo = permission?.debugCellPermission(0, 0);
      * console.log(debugInfo);
@@ -347,7 +347,7 @@ export class FWorksheetPermission {
      * @returns {Promise<string>} The permissionId for the created protection.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
      *
      * // Create worksheet protection with collaborators
@@ -382,7 +382,7 @@ export class FWorksheetPermission {
      * @returns {Promise<void>} A promise that resolves when protection is removed.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
      * await permission?.unprotect();
      * ```
@@ -405,7 +405,7 @@ export class FWorksheetPermission {
      * @returns {boolean} true if protected, false otherwise.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
      * if (permission?.isProtected()) {
      *   console.log('Worksheet is protected');
@@ -424,7 +424,7 @@ export class FWorksheetPermission {
      * @returns {Promise<void>} A promise that resolves when the mode is set.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
      * await permission?.setMode('readOnly');
      * ```
@@ -509,7 +509,7 @@ export class FWorksheetPermission {
      * @returns {Promise<void>} A promise that resolves when the mode is set.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
      * await permission?.setReadOnly();
      * ```
@@ -523,7 +523,7 @@ export class FWorksheetPermission {
      * @returns {Promise<void>} A promise that resolves when the mode is set.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
      * await permission?.setEditable();
      * ```
@@ -537,7 +537,7 @@ export class FWorksheetPermission {
      * @returns {boolean} true if the worksheet can be edited, false otherwise.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
      * if (permission?.canEdit()) {
      *   console.log('Worksheet is editable');
@@ -555,7 +555,7 @@ export class FWorksheetPermission {
      * @returns {boolean} true if the cell can be edited, false otherwise.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
      * const canEdit = permission?.canEditCell(0, 0);
      * console.log(canEdit);
@@ -593,7 +593,7 @@ export class FWorksheetPermission {
      * @returns {boolean} true if the cell can be viewed, false otherwise.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
      * const canView = permission?.canViewCell(0, 0);
      * console.log(canView);
@@ -612,9 +612,9 @@ export class FWorksheetPermission {
      * @returns {Promise<void>} A promise that resolves when the point is set.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
-     * await permission?.setPoint(univerAPI.Enum.WorksheetPermissionPoint.InsertRow, false);
+     * await permission?.setPoint(crabtableAPI.Enum.WorksheetPermissionPoint.InsertRow, false);
      * ```
      */
     async setPoint(point: WorksheetPermissionPoint, value: boolean): Promise<void> {
@@ -644,9 +644,9 @@ export class FWorksheetPermission {
      * @returns {boolean} true if allowed, false if denied.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
-     * const canInsertRow = permission?.getPoint(univerAPI.Enum.WorksheetPermissionPoint.InsertRow);
+     * const canInsertRow = permission?.getPoint(crabtableAPI.Enum.WorksheetPermissionPoint.InsertRow);
      * console.log(canInsertRow);
      * ```
      */
@@ -667,7 +667,7 @@ export class FWorksheetPermission {
      * @returns {WorksheetPermissionSnapshot} An object containing all permission point values.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
      * const snapshot = permission?.getSnapshot();
      * console.log(snapshot);
@@ -683,13 +683,13 @@ export class FWorksheetPermission {
      * @returns {Promise<void>} A promise that resolves when the configuration is applied.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
      * await permission?.applyConfig({
      *   mode: 'readOnly',
      *   points: {
-     *     [univerAPI.Enum.WorksheetPermissionPoint.View]: true,
-     *     [univerAPI.Enum.WorksheetPermissionPoint.Edit]: false
+     *     [crabtableAPI.Enum.WorksheetPermissionPoint.View]: true,
+     *     [crabtableAPI.Enum.WorksheetPermissionPoint.Edit]: false
      *   }
      * });
      * ```
@@ -725,7 +725,7 @@ export class FWorksheetPermission {
      * @returns {Promise<FRangeProtectionRule[]>} Array of created protection rules.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
      * const rules = await permission?.protectRanges([
      *   {
@@ -916,7 +916,7 @@ export class FWorksheetPermission {
      * @returns {Promise<void>} A promise that resolves when the rules are removed.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
      * await permission?.unprotectRules(['rule1', 'rule2']);
      * ```
@@ -937,7 +937,7 @@ export class FWorksheetPermission {
      * @returns {Promise<FRangeProtectionRule[]>} Array of protection rules.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
      * const rules = await permission?.listRangeProtectionRules();
      * console.log(rules);
@@ -953,7 +953,7 @@ export class FWorksheetPermission {
      * @returns {UnsubscribeFn} Unsubscribe function.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
      * const unsubscribe = permission?.subscribe((snapshot) => {
      *   console.log('Permission changed:', snapshot);

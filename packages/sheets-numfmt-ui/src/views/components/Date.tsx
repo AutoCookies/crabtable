@@ -15,10 +15,10 @@
  */
 
 import type { IBusinessComponentProps } from './interface';
-import { LocaleService, numfmt } from '@univerjs/core';
-import { SelectList } from '@univerjs/design';
-import { getDateFormatOptions } from '@univerjs/sheets-numfmt';
-import { useDependency } from '@univerjs/ui';
+import { LocaleService, numfmt } from '@crabtable/core';
+import { SelectList } from '@crabtable/design';
+import { getDateFormatOptions } from '@crabtable/sheets-numfmt';
+import { useDependency } from '@crabtable/ui';
 import { useMemo, useState } from 'react';
 
 export const isDatePanel = (pattern: string) => {

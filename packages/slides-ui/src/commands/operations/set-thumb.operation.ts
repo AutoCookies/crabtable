@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IOperation } from '@univerjs/core';
-import { CommandType } from '@univerjs/core';
+import type { IAccessor, IOperation } from '@crabtable/core';
+import { CommandType } from '@crabtable/core';
 import { CanvasView } from '../../controllers/canvas-view';
 
 export interface ISlideSetThumbParam {

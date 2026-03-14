@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
+import type { IAccessor, ICommand } from '@crabtable/core';
 import type { ISetWorksheetColumnCountMutationParams } from '../mutations/set-worksheet-column-count.mutation';
 import {
     CommandType,
     ICommandService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { SetWorksheetColumnCountMutation, SetWorksheetColumnCountUndoMutationFactory } from '../mutations/set-worksheet-column-count.mutation';
 import { getSheetCommandTarget } from './utils/target-util';
 
@@ -34,9 +34,9 @@ export const SetWorksheetColumnCountCommand: ICommand = {
 
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const redoMutationParams: ISetWorksheetColumnCountMutationParams = {

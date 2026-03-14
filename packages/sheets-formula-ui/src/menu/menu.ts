@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuItem, IValueOption } from '@univerjs/ui';
-import { UniverInstanceType } from '@univerjs/core';
-import { FunctionType } from '@univerjs/engine-formula';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuItem, IValueOption } from '@crabtable/ui';
+import { CrabTableInstanceType } from '@crabtable/core';
+import { FunctionType } from '@crabtable/engine-formula';
 import {
     RangeProtectionPermissionEditPoint,
     RangeProtectionPermissionViewPoint,
@@ -26,10 +26,10 @@ import {
     WorksheetCopyPermission,
     WorksheetEditPermission,
     WorksheetSetCellValuePermission,
-} from '@univerjs/sheets';
-import { IDescriptionService } from '@univerjs/sheets-formula';
-import { getCurrentRangeDisable$, menuClipboardDisabledObservable } from '@univerjs/sheets-ui';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { IDescriptionService } from '@crabtable/sheets-formula';
+import { getCurrentRangeDisable$, menuClipboardDisabledObservable } from '@crabtable/sheets-ui';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { combineLatestWith, map } from 'rxjs';
 import { SheetCopyFormulaOnlyCommand, SheetOnlyPasteFormulaCommand } from '../commands/commands/formula-clipboard.command';
 import { InsertFunctionOperation } from '../commands/operations/insert-function.operation';
@@ -69,7 +69,7 @@ export function InsertCommonFunctionMenuItemFactory(accessor: IAccessor): IMenuI
         icon: 'FunctionIcon',
         type: MenuItemType.SELECTOR,
         selections,
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -98,7 +98,7 @@ function createInsertFunctionCategoryMenuItemFactory(functionType: FunctionType,
             icon,
             type: MenuItemType.SELECTOR,
             selections,
-            hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+            hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         };
     };
 }
@@ -121,7 +121,7 @@ export function AllFunctionsMenuItemFactory(accessor: IAccessor): IMenuItem {
         title: 'formula.moreFunctions.allFunctions',
         tooltip: 'formula.insert.tooltip',
         type: MenuItemType.BUTTON,
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         disabled$: getCurrentRangeDisable$(accessor, {
             workbookTypes: [WorkbookEditablePermission],
             worksheetTypes: [WorksheetEditPermission, WorksheetSetCellValuePermission],
@@ -141,7 +141,7 @@ export function CopyFormulaOnlyMenuItemFactory(accessor: IAccessor): IMenuItem {
             worksheetTypes: [WorksheetCopyPermission],
             rangeTypes: [RangeProtectionPermissionViewPoint],
         }),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -159,6 +159,6 @@ export function PasteFormulaMenuItemFactory(accessor: IAccessor): IMenuItem {
             })),
             map(([d1, d2]) => d1 || d2)
         ),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }

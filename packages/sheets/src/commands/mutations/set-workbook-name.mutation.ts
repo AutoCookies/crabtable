@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IMutation, Workbook } from '@univerjs/core';
-import { CommandType, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
+import type { IMutation, Workbook } from '@crabtable/core';
+import { CommandType, CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
 
 export interface ISetWorkbookNameMutationParams {
     name: string;
@@ -26,7 +26,7 @@ export const SetWorkbookNameMutation: IMutation<ISetWorkbookNameMutationParams> 
     id: 'sheet.mutation.set-workbook-name',
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
-        const workbook = accessor.get(IUniverInstanceService).getUnit<Workbook>(params.unitId, UniverInstanceType.UNIVER_SHEET);
+        const workbook = accessor.get(ICrabTableInstanceService).getUnit<Workbook>(params.unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) return false;
 
         workbook.setName(params.name);

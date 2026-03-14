@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
-import type { IMessageProps } from '@univerjs/design';
-import type { BuiltInUIPart, ComponentType, IComponentOptions, IDialogPartMethodOptions, IFontConfig, ISidebarMethodOptions } from '@univerjs/ui';
+import type { IDisposable } from '@crabtable/core';
+import type { IMessageProps } from '@crabtable/design';
+import type { BuiltInUIPart, ComponentType, IComponentOptions, IDialogPartMethodOptions, IFontConfig, ISidebarMethodOptions } from '@crabtable/ui';
 import type { IFacadeMenuItem, IFacadeSubmenuItem } from './f-menu-builder';
-import { FUniver } from '@univerjs/core/facade';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { ComponentManager, connectInjector, CopyCommand, IDialogService, IFontService, IMessageService, ISidebarService, IUIPartsService, PasteCommand } from '@univerjs/ui';
+import { FCrabTable } from '@crabtable/core/facade';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { ComponentManager, connectInjector, CopyCommand, IDialogService, IFontService, IMessageService, ISidebarService, IUIPartsService, PasteCommand } from '@crabtable/ui';
 import { FMenu, FSubmenu } from './f-menu-builder';
 import { FShortcut } from './f-shortcut';
 
@@ -33,7 +33,7 @@ export interface IFUniverUIMixin {
      * @returns {URL} the [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object
      * @example
      * ```ts
-     * console.log(univerAPI.getURL());
+     * console.log(crabtableAPI.getURL());
      * ```
      */
     getURL(): URL;
@@ -43,7 +43,7 @@ export interface IFUniverUIMixin {
      * @returns the {@link FShortcut} object
      * @example
      * ```ts
-     * const fShortcut = univerAPI.getShortcut();
+     * const fShortcut = crabtableAPI.getShortcut();
      *
      * // Disable shortcuts of Univer
      * fShortcut.disableShortcut();
@@ -52,7 +52,7 @@ export interface IFUniverUIMixin {
      * fShortcut.enableShortcut();
      *
      * // Trigger a shortcut
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1');
      * fRange.activate();
@@ -61,7 +61,7 @@ export interface IFUniverUIMixin {
      * const pseudoEvent = new KeyboardEvent('keydown', {
      *   key: 'b',
      *   ctrlKey: true,
-     *   keyCode: univerAPI.Enum.KeyCode.B
+     *   keyCode: crabtableAPI.Enum.KeyCode.B
      * });
      * const ifShortcutItem = fShortcut.triggerShortcut(pseudoEvent);
      * if (ifShortcutItem) {
@@ -79,8 +79,8 @@ export interface IFUniverUIMixin {
      * ```ts
      * // Prevent failure due to loss of focus when executing copy and paste code in the console,
      * // this example listens for the cell click event and executes the copy and paste code.
-     * univerAPI.addEvent(univerAPI.Event.CellClicked, async (params) => {
-     *   const fWorkbook = univerAPI.getActiveWorkbook();
+     * crabtableAPI.addEvent(crabtableAPI.Event.CellClicked, async (params) => {
+     *   const fWorkbook = crabtableAPI.getActiveWorkbook();
      *   const fWorksheet = fWorkbook.getActiveSheet();
      *
      *   // Copy the range A1:B2 to the clipboard
@@ -89,12 +89,12 @@ export interface IFUniverUIMixin {
      *     [1, 2],
      *     [3, 4]
      *   ]);
-     *   await univerAPI.copy();
+     *   await crabtableAPI.copy();
      *
      *   // Paste the copied content to the range C1:D2
      *   const fRange2 = fWorksheet.getRange('C1');
      *   fRange2.activate();
-     *   await univerAPI.paste();
+     *   await crabtableAPI.paste();
      *
      *   // Check the pasted content
      *   console.log(fWorksheet.getRange('C1:D2').getValues()); // [[1, 2], [3, 4]]
@@ -110,8 +110,8 @@ export interface IFUniverUIMixin {
      * ```ts
      * // Prevent failure due to loss of focus when executing copy and paste code in the console,
      * // this example listens for the cell click event and executes the copy and paste code.
-     * univerAPI.addEvent(univerAPI.Event.CellClicked, async (params) => {
-     *   const fWorkbook = univerAPI.getActiveWorkbook();
+     * crabtableAPI.addEvent(crabtableAPI.Event.CellClicked, async (params) => {
+     *   const fWorkbook = crabtableAPI.getActiveWorkbook();
      *   const fWorksheet = fWorkbook.getActiveSheet();
      *
      *   // Copy the range A1:B2 to the clipboard
@@ -120,12 +120,12 @@ export interface IFUniverUIMixin {
      *     [1, 2],
      *     [3, 4]
      *   ]);
-     *   await univerAPI.copy();
+     *   await crabtableAPI.copy();
      *
      *   // Paste the copied content to the range C1:D2
      *   const fRange2 = fWorksheet.getRange('C1');
      *   fRange2.activate();
-     *   await univerAPI.paste();
+     *   await crabtableAPI.paste();
      *
      *   // Check the pasted content
      *   console.log(fWorksheet.getRange('C1:D2').getValues()); // [[1, 2], [3, 4]]
@@ -140,12 +140,12 @@ export interface IFUniverUIMixin {
      * @returns the {@link FMenu} object
      * @example
      * ```ts
-     * // Univer Icon can be viewed at https://docs.univer.ai/icons
+     * // CrabTable Icon can be viewed at https://docs.crabtable.dev/icons
      * import { SmileIcon } from '@univerjs/icons'
      *
      * // Create a custom menu with an univer icon
-     * univerAPI.registerComponent('custom-menu-icon', SmileIcon);
-     * univerAPI.createMenu({
+     * crabtableAPI.registerComponent('custom-menu-icon', SmileIcon);
+     * crabtableAPI.createMenu({
      *   id: 'custom-menu',
      *   icon: 'custom-menu-icon',
      *   title: 'Custom Menu',
@@ -157,10 +157,10 @@ export interface IFUniverUIMixin {
      *
      * // Or
      * // Create a custom menu with an image icon
-     * univerAPI.registerComponent('custom-menu-icon', () => {
+     * crabtableAPI.registerComponent('custom-menu-icon', () => {
      *   return <img src="https://avatars.githubusercontent.com/u/61444807?s=48&v=4" alt="" style={{ width: '16px', height: '16px' }} />;
      * });
-     * univerAPI.createMenu({
+     * crabtableAPI.createMenu({
      *   id: 'custom-menu',
      *   icon: 'custom-menu-icon',
      *   title: 'Custom Menu',
@@ -172,7 +172,7 @@ export interface IFUniverUIMixin {
      *
      * // Or
      * // Create a custom menu without an icon
-     * univerAPI.createMenu({
+     * crabtableAPI.createMenu({
      *   id: 'custom-menu',
      *   title: 'Custom Menu',
      *   tooltip: 'Custom Menu Tooltip',
@@ -191,14 +191,14 @@ export interface IFUniverUIMixin {
      * @example
      * ```ts
      * // Create two leaf menus.
-     * const menu1 = univerAPI.createMenu({
+     * const menu1 = crabtableAPI.createMenu({
      *   id: 'submenu-nested-1',
      *   title: 'Item 1',
      *   action: () => {
      *     console.log('Item 1 clicked');
      *   }
      * });
-     * const menu2 = univerAPI.createMenu({
+     * const menu2 = crabtableAPI.createMenu({
      *   id: 'submenu-nested-2',
      *   title: 'Item 2',
      *   action: () => {
@@ -207,13 +207,13 @@ export interface IFUniverUIMixin {
      * });
      *
      * // Add the leaf menus to a submenu.
-     * const submenu = univerAPI.createSubmenu({ id: 'submenu-nested', title: 'Nested Submenu' })
+     * const submenu = crabtableAPI.createSubmenu({ id: 'submenu-nested', title: 'Nested Submenu' })
      *   .addSubmenu(menu1)
      *   .addSeparator()
      *   .addSubmenu(menu2);
      *
      * // Create a root submenu append to the `contextMenu.others` section.
-     * univerAPI.createSubmenu({ id: 'custom-submenu', title: 'Custom Submenu' })
+     * crabtableAPI.createSubmenu({ id: 'custom-submenu', title: 'Custom Submenu' })
      *   .addSubmenu(submenu)
      *   .appendTo('contextMenu.others');
      * ```
@@ -222,7 +222,7 @@ export interface IFUniverUIMixin {
 
     /**
      * Open a sidebar.
-     * @deprecated Please use `univerAPI.openSidebar` instead.
+     * @deprecated Please use `crabtableAPI.openSidebar` instead.
      * @param {ISidebarMethodOptions} params the sidebar options
      * @returns {IDisposable} the disposable object
      */
@@ -234,7 +234,7 @@ export interface IFUniverUIMixin {
      * @returns {IDisposable} the disposable object
      * @example
      * ```ts
-     * univerAPI.openSidebar({
+     * crabtableAPI.openSidebar({
      *   id: 'mock-sidebar-id',
      *   width: 300,
      *   header: {
@@ -260,9 +260,9 @@ export interface IFUniverUIMixin {
      * @returns {IDisposable} the disposable object
      * @example
      * ```ts
-     * import { Button } from '@univerjs/design';
+     * import { Button } from '@crabtable/design';
      *
-     * univerAPI.openDialog({
+     * crabtableAPI.openDialog({
      *   id: 'mock-dialog-id',
      *   width: 500,
      *   title: {
@@ -292,7 +292,7 @@ export interface IFUniverUIMixin {
      * @returns {ComponentManager} The component manager
      * @example
      * ```ts
-     * const componentManager = univerAPI.getComponentManager();
+     * const componentManager = crabtableAPI.getComponentManager();
      * console.log(componentManager);
      * ```
      */
@@ -300,39 +300,39 @@ export interface IFUniverUIMixin {
 
     /**
      * Show a message.
-     * @returns {FUniver} the {@link FUniver} instance for chaining
+     * @returns {FUniver} the {@link FCrabTable} instance for chaining
      * @example
      * ```ts
-     * univerAPI.showMessage({
+     * crabtableAPI.showMessage({
      *   content: 'Success',
      *   type: 'success',
      *   duration: 3000,
      * });
      * ```
      */
-    showMessage(options: IMessageProps): FUniver;
+    showMessage(options: IMessageProps): FCrabTable;
 
     /**
      * Set the visibility of a built-in UI part.
      * @param {BuiltInUIPart} key the built-in UI part
      * @param {boolean} visible the visibility
-     * @returns the {@link FUniver} instance for chaining
+     * @returns the {@link FCrabTable} instance for chaining
      * example
      * ```ts
      * // Hide header, footer, and toolbar
-     * univerAPI.setUIVisible(univerAPI.Enum.BuiltInUIPart.HEADER, false)
-     *   .setUIVisible(univerAPI.Enum.BuiltInUIPart.FOOTER, false)
-     *   .setUIVisible(univerAPI.Enum.BuiltInUIPart.TOOLBAR, false);
+     * crabtableAPI.setUIVisible(crabtableAPI.Enum.BuiltInUIPart.HEADER, false)
+     *   .setUIVisible(crabtableAPI.Enum.BuiltInUIPart.FOOTER, false)
+     *   .setUIVisible(crabtableAPI.Enum.BuiltInUIPart.TOOLBAR, false);
      *
      * // Show in 3 seconds
      * setTimeout(() => {
-     *   univerAPI.setUIVisible(univerAPI.Enum.BuiltInUIPart.HEADER, true)
-     *     .setUIVisible(univerAPI.Enum.BuiltInUIPart.FOOTER, true)
-     *     .setUIVisible(univerAPI.Enum.BuiltInUIPart.TOOLBAR, true);
+     *   crabtableAPI.setUIVisible(crabtableAPI.Enum.BuiltInUIPart.HEADER, true)
+     *     .setUIVisible(crabtableAPI.Enum.BuiltInUIPart.FOOTER, true)
+     *     .setUIVisible(crabtableAPI.Enum.BuiltInUIPart.TOOLBAR, true);
      * }, 3000);
      * ```
      */
-    setUIVisible(key: BuiltInUIPart, visible: boolean): FUniver;
+    setUIVisible(key: BuiltInUIPart, visible: boolean): FCrabTable;
 
     /**
      * Get the visibility of a built-in UI part.
@@ -341,8 +341,8 @@ export interface IFUniverUIMixin {
      * @example
      * ```ts
      * // Hide header
-     * univerAPI.setUIVisible(univerAPI.Enum.BuiltInUIPart.HEADER, false);
-     * console.log(univerAPI.isUIVisible(univerAPI.Enum.BuiltInUIPart.HEADER)); // false
+     * crabtableAPI.setUIVisible(crabtableAPI.Enum.BuiltInUIPart.HEADER, false);
+     * console.log(crabtableAPI.isUIVisible(crabtableAPI.Enum.BuiltInUIPart.HEADER)); // false
      * ```
      */
     isUIVisible(key: BuiltInUIPart): boolean;
@@ -353,7 +353,7 @@ export interface IFUniverUIMixin {
      * @param component the react component
      * @example
      * ```ts
-     * univerAPI.registerUIPart(univerAPI.Enum.BuiltInUIPart.CUSTOM_HEADER, () => React.createElement('h1', null, 'Custom Header'));
+     * crabtableAPI.registerUIPart(crabtableAPI.Enum.BuiltInUIPart.CUSTOM_HEADER, () => React.createElement('h1', null, 'Custom Header'));
      * ```
      */
     registerUIPart(key: BuiltInUIPart, component: any): IDisposable;
@@ -366,7 +366,7 @@ export interface IFUniverUIMixin {
      * @returns {IDisposable} The disposable object.
      * @example
      * ```ts
-     * const fWorksheet = univerAPI.getActiveWorkbook().getActiveSheet();
+     * const fWorksheet = crabtableAPI.getActiveWorkbook().getActiveSheet();
      *
      * // Register a range loading component
      * const RangeLoading = () => {
@@ -389,7 +389,7 @@ export interface IFUniverUIMixin {
      *     </div>
      *   );
      * };
-     * univerAPI.registerComponent('RangeLoading', RangeLoading);
+     * crabtableAPI.registerComponent('RangeLoading', RangeLoading);
      *
      * // Add the range loading component covering the range A1:C3
      * const range = fWorksheet.getRange('A1:C3');
@@ -408,11 +408,11 @@ export interface IFUniverUIMixin {
      * @param {string} unitId Unit to be rendered.
      *
      * @example
-     * Let's assume you have created two units, `unit1` and `unit2`. Univer is rendering `unit1` and you want to
+     * Let's assume you have created two units, `unit1` and `unit2`. CrabTable is rendering `unit1` and you want to
      * render `unit2`.
      *
      * ```ts
-     * univerAPI.setCurrent('unit2');
+     * crabtableAPI.setCurrent('unit2');
      * ```
      *
      * This will render `unit2` in the workbench's main area.
@@ -424,7 +424,7 @@ export interface IFUniverUIMixin {
      * @param fonts The array of font configurations to add.
      * @example
      * ```ts
-     * univerAPI.addFonts([
+     * crabtableAPI.addFonts([
      *   {
      *     value: 'CustomFont1',
      *     label: 'Custom Font 1',
@@ -444,7 +444,7 @@ export interface IFUniverUIMixin {
 /**
  * @ignore
  */
-export class FUniverUIMixin extends FUniver implements IFUniverUIMixin {
+export class FCrabTableUIMixin extends FCrabTable implements IFUniverUIMixin {
     override getURL(): URL {
         return new URL(window.location.href);
     }
@@ -493,13 +493,13 @@ export class FUniverUIMixin extends FUniver implements IFUniverUIMixin {
         return this._injector.get(ComponentManager);
     }
 
-    override showMessage(options: IMessageProps): FUniver {
+    override showMessage(options: IMessageProps): FCrabTable {
         const messageService = this._injector.get(IMessageService);
         messageService.show(options);
         return this;
     }
 
-    override setUIVisible(ui: BuiltInUIPart, visible: boolean): FUniver {
+    override setUIVisible(ui: BuiltInUIPart, visible: boolean): FCrabTable {
         const uiPartService = this._injector.get(IUIPartsService);
         uiPartService.setUIVisible(ui, visible);
         return this;
@@ -527,7 +527,7 @@ export class FUniverUIMixin extends FUniver implements IFUniverUIMixin {
             throw new Error('Unit not found');
         }
 
-        this._univerInstanceService.setCurrentUnitForType(unitId);
+        this._crabtableInstanceService.setCurrentUnitForType(unitId);
     }
 
     override addFonts(fonts: IFontConfig[]): void {
@@ -538,8 +538,8 @@ export class FUniverUIMixin extends FUniver implements IFUniverUIMixin {
     }
 }
 
-FUniver.extend(FUniverUIMixin);
-declare module '@univerjs/core/facade' {
+FCrabTable.extend(FUniverUIMixin);
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
-    interface FUniver extends IFUniverUIMixin { }
+    interface FCrabTable extends IFUniverUIMixin { }
 }

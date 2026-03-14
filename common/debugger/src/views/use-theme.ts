@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { ThemeService } from '@univerjs/core';
-import { defaultTheme, greenTheme } from '@univerjs/themes';
-import { useDependency } from '@univerjs/ui';
+import { ThemeService } from '@crabtable/core';
+import { defaultTheme, greenTheme } from '@crabtable/themes';
+import { useDependency } from '@crabtable/ui';
 import { useEffect } from 'react';
 
 const themes = [

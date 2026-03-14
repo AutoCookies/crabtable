@@ -15,7 +15,7 @@
  */
 
 import type { ITableStringFilterInfo } from '../../types/type';
-import { createREGEXFromWildChar } from '@univerjs/core';
+import { createREGEXFromWildChar } from '@crabtable/core';
 import { TableStringCompareTypeEnum } from '../../types/enum';
 
 export const textEqual = (compareValue: string, expectedValue: string) => {

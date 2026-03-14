@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { JSONXActions, Nullable } from '@univerjs/core';
-import type { IDocStateChangeParams, IRichTextEditingMutationParams } from '@univerjs/docs';
-import { ICommandService, Inject, IUndoRedoService, IUniverInstanceService, JSONX, RedoCommandId, RxDisposable, UndoCommandId } from '@univerjs/core';
-import { DocStateEmitService } from '@univerjs/docs';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import type { JSONXActions, Nullable } from '@crabtable/core';
+import type { IDocStateChangeParams, IRichTextEditingMutationParams } from '@crabtable/docs';
+import { ICommandService, ICrabTableInstanceService, Inject, IUndoRedoService, JSONX, RedoCommandId, RxDisposable, UndoCommandId } from '@crabtable/core';
+import { DocStateEmitService } from '@crabtable/docs';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { BehaviorSubject, takeUntil } from 'rxjs';
 import { DocIMEInputManagerService } from './doc-ime-input-manager.service';
 
@@ -47,7 +47,7 @@ export class DocStateChangeManagerService extends RxDisposable {
     constructor(
         @Inject(IUndoRedoService) private _undoRedoService: IUndoRedoService,
         @ICommandService private readonly _commandService: ICommandService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(DocStateEmitService) private readonly _docStateEmitService: DocStateEmitService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService
     ) {
@@ -79,7 +79,7 @@ export class DocStateChangeManagerService extends RxDisposable {
         this.disposeWithMe(
             this._commandService.beforeCommandExecuted((command) => {
                 if (command.id === UndoCommandId || command.id === RedoCommandId) {
-                    const univerDoc = this._univerInstanceService.getCurrentUniverDocInstance();
+                    const univerDoc = this._crabtableInstanceService.getCurrentUniverDocInstance();
                     if (univerDoc == null) {
                         return;
                     }

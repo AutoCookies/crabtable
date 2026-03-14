@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { ICommand, ITextRange } from '@univerjs/core';
-import type { IThreadComment } from '@univerjs/thread-comment';
-import { CommandType, CustomDecorationType, ICommandService, sequenceExecute } from '@univerjs/core';
-import { addCustomDecorationBySelectionFactory } from '@univerjs/docs-ui';
-import { AddCommentMutation, IThreadCommentDataSourceService } from '@univerjs/thread-comment';
-import { SetActiveCommentOperation } from '@univerjs/thread-comment-ui';
+import type { ICommand, ITextRange } from '@crabtable/core';
+import type { IThreadComment } from '@crabtable/thread-comment';
+import { CommandType, CustomDecorationType, ICommandService, sequenceExecute } from '@crabtable/core';
+import { addCustomDecorationBySelectionFactory } from '@crabtable/docs-ui';
+import { AddCommentMutation, IThreadCommentDataSourceService } from '@crabtable/thread-comment';
+import { SetActiveCommentOperation } from '@crabtable/thread-comment-ui';
 import { DEFAULT_DOC_SUBUNIT_ID } from '../../common/const';
 
 export interface IAddDocCommentComment {

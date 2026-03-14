@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { operatorToken } from '@univerjs/engine-formula';
+import { operatorToken } from '@crabtable/engine-formula';
 
 export const getFormulaText = (formula: string) => {
     if (formula.startsWith(operatorToken.EQUALS)) {

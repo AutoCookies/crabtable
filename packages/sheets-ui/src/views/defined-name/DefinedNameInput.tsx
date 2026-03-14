@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { Nullable, Workbook } from '@univerjs/core';
-import type { IDefinedNamesServiceParam } from '@univerjs/engine-formula';
+import type { Nullable, Workbook } from '@crabtable/core';
+import type { IDefinedNamesServiceParam } from '@crabtable/engine-formula';
 import type { ComponentType } from 'react';
 import type { IRangeSelectorProps } from '../../basics/editor/range';
-import { AbsoluteRefType, IUniverInstanceService, LocaleService, Tools, UniverInstanceType } from '@univerjs/core';
-import { borderBottomClassName, borderClassName, Button, clsx, Input, Radio, RadioGroup, Select } from '@univerjs/design';
-import { IDefinedNamesService, IFunctionService, isReferenceStrings, isReferenceStringWithEffectiveColumn, ISuperTableService, LexerTreeBuilder, operatorToken } from '@univerjs/engine-formula';
-import { hasCJKText } from '@univerjs/engine-render';
+import { AbsoluteRefType, CrabTableInstanceType, ICrabTableInstanceService, LocaleService, Tools } from '@crabtable/core';
+import { borderBottomClassName, borderClassName, Button, clsx, Input, Radio, RadioGroup, Select } from '@crabtable/design';
+import { IDefinedNamesService, IFunctionService, isReferenceStrings, isReferenceStringWithEffectiveColumn, ISuperTableService, LexerTreeBuilder, operatorToken } from '@crabtable/engine-formula';
+import { hasCJKText } from '@crabtable/engine-render';
+import { SCOPE_WORKBOOK_VALUE_DEFINED_NAME } from '@crabtable/sheets';
+import { ComponentManager, useDependency, useSidebarClick } from '@crabtable/ui';
 import { ErrorIcon } from '@univerjs/icons';
-import { SCOPE_WORKBOOK_VALUE_DEFINED_NAME } from '@univerjs/sheets';
-import { ComponentManager, useDependency, useSidebarClick } from '@univerjs/ui';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { EMBEDDING_FORMULA_EDITOR_COMPONENT_KEY, RANGE_SELECTOR_COMPONENT_KEY } from '../../common/keys';
 
@@ -51,8 +51,8 @@ export const DefinedNameInput = (props: IDefinedNameInputProps) => {
         hidden = false, // 是否对用户隐藏，与excel兼容，暂时用不上。
         id,
     } = props;
-    const univerInstanceService = useDependency(IUniverInstanceService);
-    const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
+    const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
     const localeService = useDependency(LocaleService);
     const definedNamesService = useDependency(IDefinedNamesService);
     const superTableService = useDependency(ISuperTableService);

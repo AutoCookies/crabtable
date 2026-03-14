@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData, LocaleType } from '@univerjs/core';
+import type { Dependency, IWorkbookData, LocaleType } from '@crabtable/core';
 import type {
     IInsertColCommandParams,
     IInsertRowCommandParams,
@@ -23,8 +23,8 @@ import type {
     IRemoveRowColCommandParams,
     IRemoveSheetCommandParams,
     ISetSelectionsOperationParams,
-} from '@univerjs/sheets';
-import { Direction, ICommandService, Inject, Injector, Plugin, RANGE_TYPE, Univer, UniverInstanceType } from '@univerjs/core';
+} from '@crabtable/sheets';
+import { CrabTableInstanceType, Direction, ICommandService, Inject, Injector, Plugin, RANGE_TYPE } from '@crabtable/core';
 import {
     InsertColByRangeCommand,
     InsertColCommand,
@@ -50,13 +50,13 @@ import {
     SheetRangeThemeModel,
     SheetsSelectionsService,
     ZebraCrossingCacheController,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SheetsFilterController } from '../../controllers/sheets-filter.controller';
 import { SHEET_FILTER_SNAPSHOT_ID, SheetsFilterService } from '../../services/sheet-filter.service';
 
 describe('Test "Filter Interceptor"', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let sheetsFilterService: SheetsFilterService;
     let commandService: ICommandService;
 
@@ -289,7 +289,7 @@ describe('Test "Filter Interceptor"', () => {
 });
 
 function createFilterTestUniver(dependencies?: Dependency[], workbookData?: IWorkbookData) {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
@@ -297,7 +297,7 @@ function createFilterTestUniver(dependencies?: Dependency[], workbookData?: IWor
      * This plugin hooks into Sheet's DI system to expose API to test scripts
      */
     class TestPlugin extends Plugin {
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
         static override pluginName = 'test-plugin';
 
         constructor(
@@ -328,7 +328,7 @@ function createFilterTestUniver(dependencies?: Dependency[], workbookData?: IWor
 
     univer.registerPlugin(TestPlugin);
 
-    univer.createUnit(UniverInstanceType.UNIVER_SHEET, workbookData || testWorkbookDataFactory());
+    univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, workbookData || testWorkbookDataFactory());
 
     const sheetsFilterService = injector.get(SheetsFilterService);
 

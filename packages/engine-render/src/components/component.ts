@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
 import type { IViewportInfo } from '../basics/vector2';
 import type { UniverRenderingContext } from '../context';
 import type { ComponentExtension } from './extension';
-import { DisposableCollection, sortRules, toDisposable } from '@univerjs/core';
+import { DisposableCollection, sortRules, toDisposable } from '@crabtable/core';
 import { BaseObject } from '../base-object';
 
 export class RenderComponent<T, U, V> extends BaseObject {

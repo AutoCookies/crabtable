@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IDrawingSearch, IUniverInstanceService, Nullable, Workbook } from '@univerjs/core';
-import type { IDrawingManagerService } from '@univerjs/drawing';
-import type { BaseObject, Scene } from '@univerjs/engine-render';
-import { UniverInstanceType } from '@univerjs/core';
-import { getDrawingShapeKeyByDrawingSearch } from '@univerjs/drawing';
-import { DRAWING_OBJECT_LAYER_INDEX, DrawingGroupObject, Group } from '@univerjs/engine-render';
+import type { ICrabTableInstanceService, IDrawingSearch, Nullable, Workbook } from '@crabtable/core';
+import type { IDrawingManagerService } from '@crabtable/drawing';
+import type { BaseObject, Scene } from '@crabtable/engine-render';
+import { CrabTableInstanceType } from '@crabtable/core';
+import { getDrawingShapeKeyByDrawingSearch } from '@crabtable/drawing';
+import { DRAWING_OBJECT_LAYER_INDEX, DrawingGroupObject, Group } from '@crabtable/engine-render';
 
 export function insertGroupObject(objectParam: IDrawingSearch, object: BaseObject, scene: Scene, drawingManagerService: IDrawingManagerService) {
     const groupParam = drawingManagerService.getDrawingByParam(objectParam);
@@ -68,7 +68,7 @@ export function insertGroupObject(objectParam: IDrawingSearch, object: BaseObjec
     );
 }
 
-export function getCurrentUnitInfo(currentUniverService: IUniverInstanceService, propUnitId?: string) {
+export function getCurrentUnitInfo(currentUniverService: ICrabTableInstanceService, propUnitId?: string) {
     const current = propUnitId ? currentUniverService.getUnit(propUnitId) : currentUniverService.getFocusedUnit();
     if (current == null) {
         return;
@@ -77,11 +77,11 @@ export function getCurrentUnitInfo(currentUniverService: IUniverInstanceService,
     const unitId = current.getUnitId();
     let subUnitId: Nullable<string>;
 
-    if (current.type === UniverInstanceType.UNIVER_SHEET) {
+    if (current.type === CrabTableInstanceType.CRABTABLE_SHEET) {
         subUnitId = (current as Workbook).getActiveSheet()?.getSheetId();
-    } else if (current.type === UniverInstanceType.UNIVER_DOC) {
+    } else if (current.type === CrabTableInstanceType.CRABTABLE_DOC) {
         subUnitId = unitId;
-    } else if (current.type === UniverInstanceType.UNIVER_SLIDE) {
+    } else if (current.type === CrabTableInstanceType.CRABTABLE_SLIDE) {
         subUnitId = unitId;
     }
 

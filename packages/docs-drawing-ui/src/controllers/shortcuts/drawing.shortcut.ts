@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IContextService } from '@univerjs/core';
-import type { IShortcutItem } from '@univerjs/ui';
+import type { IContextService } from '@crabtable/core';
+import type { IShortcutItem } from '@crabtable/ui';
 import type { IMoveDrawingsCommandParams } from '../../commands/commands/move-drawings.command';
-import { Direction, FOCUSING_COMMON_DRAWINGS, FOCUSING_DOC, FOCUSING_UNIVER_EDITOR } from '@univerjs/core';
-import { KeyCode } from '@univerjs/ui';
+import { Direction, FOCUSING_COMMON_DRAWINGS, FOCUSING_DOC, FOCUSING_UNIVER_EDITOR } from '@crabtable/core';
+import { KeyCode } from '@crabtable/ui';
 import { DeleteDocDrawingsCommand } from '../../commands/commands/delete-doc-drawing.command';
 import { MoveDocDrawingsCommand } from '../../commands/commands/move-drawings.command';
 

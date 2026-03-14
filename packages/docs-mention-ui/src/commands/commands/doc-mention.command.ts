@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICommand, IDocMention, IDocumentBody } from '@univerjs/core';
-import { CommandType, CustomRangeType, ICommandService } from '@univerjs/core';
-import { deleteCustomRangeFactory, DocSelectionManagerService, replaceSelectionFactory } from '@univerjs/docs';
+import type { ICommand, IDocMention, IDocumentBody } from '@crabtable/core';
+import { CommandType, CustomRangeType, ICommandService } from '@crabtable/core';
+import { deleteCustomRangeFactory, DocSelectionManagerService, replaceSelectionFactory } from '@crabtable/docs';
 
 export interface IAddDocMentionCommandParams {
     mention: IDocMention;

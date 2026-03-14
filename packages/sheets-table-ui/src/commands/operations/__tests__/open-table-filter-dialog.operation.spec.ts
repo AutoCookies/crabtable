@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { IContextService } from '@univerjs/core';
-import { TableManager } from '@univerjs/sheets-table';
+import { IContextService } from '@crabtable/core';
+import { TableManager } from '@crabtable/sheets-table';
 import { describe, expect, it, vi } from 'vitest';
 import { SHEETS_TABLE_FILTER_PANEL_OPENED_KEY } from '../../../const';
 import { SheetsTableComponentController } from '../../../controllers/sheet-table-component.controller';

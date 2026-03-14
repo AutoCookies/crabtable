@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
+import type { IAccessor } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { ShortcutPanelService } from '../../../services/shortcut/shortcut-panel.service';
 import { ISidebarService } from '../../../services/sidebar/sidebar.service';

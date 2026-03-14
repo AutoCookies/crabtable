@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverSheetsTableUIConfig } from './config/config';
-import { DependentOn, ICommandService, IConfigService, Inject, Injector, merge, Plugin, registerDependencies, touchDependencies, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { UniverSheetsTablePlugin } from '@univerjs/sheets-table';
+import { CrabTableInstanceType, DependentOn, ICommandService, IConfigService, Inject, Injector, merge, Plugin, registerDependencies, touchDependencies } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { UniverSheetsTablePlugin } from '@crabtable/sheets-table';
 import pkg from '../package.json';
 import { OpenTableFilterPanelOperation } from './commands/operations/open-table-filter-dialog.opration';
 import { OpenTableSelectorOperation } from './commands/operations/open-table-selector.operation';
@@ -38,7 +38,7 @@ export class UniverSheetsTableUIPlugin extends Plugin {
     static override pluginName = PLUGIN_NAME;
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
     constructor(
         private readonly _config: Partial<IUniverSheetsTableUIConfig> = defaultPluginConfig,
@@ -96,7 +96,7 @@ export class UniverSheetsTableUIPlugin extends Plugin {
         }
 
         renderDependencies.forEach((m) => {
-            this.disposeWithMe(this._renderManagerService.registerRenderModule(UniverInstanceType.UNIVER_SHEET, m));
+            this.disposeWithMe(this._renderManagerService.registerRenderModule(CrabTableInstanceType.CRABTABLE_SHEET, m));
         });
     }
 

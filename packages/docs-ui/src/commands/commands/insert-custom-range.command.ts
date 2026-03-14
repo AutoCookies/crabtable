@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
-import type { ITextRangeWithStyle } from '@univerjs/engine-render';
+import type { ICommand } from '@crabtable/core';
+import type { ITextRangeWithStyle } from '@crabtable/engine-render';
 import type { IReplaceSelectionCommandParams } from './replace-content.command';
-import { CommandType, CustomRangeType, generateRandomId, ICommandService } from '@univerjs/core';
+import { CommandType, CustomRangeType, generateRandomId, ICommandService } from '@crabtable/core';
 import { ReplaceSelectionCommand } from './replace-content.command';
 
 export interface IInsertCustomRangeCommandParams {

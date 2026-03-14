@@ -93,7 +93,7 @@ test('rendering after scrolling by API', async () => {
 
     await page.evaluate(() => window.E2EControllerAPI.loadMergeCellSheet());
     await page.evaluate(async () => {
-        const activeSheet = window.univerAPI.getActiveWorkbook().getActiveSheet();
+        const activeSheet = window.crabtableAPI.getActiveWorkbook().getActiveSheet();
         activeSheet.scrollToCell(2, 4);
     });
     await page.waitForTimeout(1000);
@@ -194,20 +194,20 @@ test('status bar count with array formula selection', async () => {
                 },
             },
         };
-        window.univerAPI.dispose();
+        window.crabtableAPI.dispose();
         setTimeout(() => {
-            window.univerAPI.createUniverSheet(snapshot);
+            window.crabtableAPI.createCrabTableSheet(snapshot);
         }, 500);
     });
     await page.waitForTimeout(1000);
 
     // Select the array formula range D1:E2
     await page.evaluate(() => {
-        const activeRange = window.univerAPI.getActiveWorkbook().getActiveSheet().getRange({ startRow: 0, startColumn: 3, endRow: 1, endColumn: 5 });
+        const activeRange = window.crabtableAPI.getActiveWorkbook().getActiveSheet().getRange({ startRow: 0, startColumn: 3, endRow: 1, endColumn: 5 });
         activeRange.activate();
 
         // set new value to trigger status bar update
-        const range = window.univerAPI.getActiveWorkbook().getActiveSheet().getRange({ startRow: 1, startColumn: 5, endRow: 1, endColumn: 5 });
+        const range = window.crabtableAPI.getActiveWorkbook().getActiveSheet().getRange({ startRow: 1, startColumn: 5, endRow: 1, endColumn: 5 });
         range.setValue(3);
     });
     await page.waitForTimeout(1000);

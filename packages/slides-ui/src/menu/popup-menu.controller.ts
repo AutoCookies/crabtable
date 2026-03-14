@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Nullable, SlideDataModel } from '@univerjs/core';
-import type { BaseObject, ObjectType, Scene } from '@univerjs/engine-render';
-import { FOCUSING_COMMON_DRAWINGS, ICommandService, IContextService, Inject, IUniverInstanceService, RxDisposable, toDisposable, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { ISidebarService } from '@univerjs/ui';
+import type { IDisposable, Nullable, SlideDataModel } from '@crabtable/core';
+import type { BaseObject, ObjectType, Scene } from '@crabtable/engine-render';
+import { CrabTableInstanceType, FOCUSING_COMMON_DRAWINGS, ICommandService, IContextService, ICrabTableInstanceService, Inject, RxDisposable, toDisposable } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { ISidebarService } from '@crabtable/ui';
 import { DeleteSlideElementOperation } from '../commands/operations/delete-element.operation';
 import { ToggleSlideEditSidebarOperation } from '../commands/operations/insert-shape.operation';
 import { UpdateSlideElementOperation } from '../commands/operations/update-element.operation';
@@ -32,7 +32,7 @@ export class SlidePopupMenuController extends RxDisposable {
     constructor(
         @Inject(SlideCanvasPopMangerService) private readonly _canvasPopManagerService: SlideCanvasPopMangerService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IContextService private readonly _contextService: IContextService,
         @Inject(CanvasView) private readonly _canvasView: CanvasView,
         @ISidebarService private readonly _sidebarService: ISidebarService,
@@ -44,7 +44,7 @@ export class SlidePopupMenuController extends RxDisposable {
     }
 
     private _init(): void {
-        this._univerInstanceService.getAllUnitsForType<SlideDataModel>(UniverInstanceType.UNIVER_SLIDE).forEach((slide) => this._create(slide));
+        this._crabtableInstanceService.getAllUnitsForType<SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE).forEach((slide) => this._create(slide));
     }
 
     private _create(slide: Nullable<SlideDataModel>) {
@@ -74,7 +74,7 @@ export class SlidePopupMenuController extends RxDisposable {
 
     // eslint-disable-next-line max-lines-per-function
     private _popupMenuListener(unitId: string) {
-        const model = this._univerInstanceService.getCurrentUnitForType<SlideDataModel>(UniverInstanceType.UNIVER_SLIDE);
+        const model = this._crabtableInstanceService.getCurrentUnitForType<SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE);
         const pages = model?.getPages() ?? {};
 
         // eslint-disable-next-line max-lines-per-function

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
-import { CommandType, ICommandService } from '@univerjs/core';
-import { ISheetClipboardService, PREDEFINED_HOOK_NAME_COPY, PREDEFINED_HOOK_NAME_PASTE, SheetPasteCommand } from '@univerjs/sheets-ui';
+import type { ICommand } from '@crabtable/core';
+import { CommandType, ICommandService } from '@crabtable/core';
+import { ISheetClipboardService, PREDEFINED_HOOK_NAME_COPY, PREDEFINED_HOOK_NAME_PASTE, SheetPasteCommand } from '@crabtable/sheets-ui';
 
 export const SheetCopyFormulaOnlyCommand: ICommand = {
     id: 'sheet.command.copy-formula-only',

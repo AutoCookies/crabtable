@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Injector, IPageElement } from '@univerjs/core';
-import type { IRichTextProps, Scene } from '@univerjs/engine-render';
-import { Inject, LocaleService, PageElementType } from '@univerjs/core';
-import { RichText } from '@univerjs/engine-render';
+import type { Injector, IPageElement } from '@crabtable/core';
+import type { IRichTextProps, Scene } from '@crabtable/engine-render';
+import { Inject, LocaleService, PageElementType } from '@crabtable/core';
+import { RichText } from '@crabtable/engine-render';
 import { CanvasObjectProviderRegistry, ObjectAdaptor } from '../adaptor';
 
 export class RichTextAdaptor extends ObjectAdaptor {

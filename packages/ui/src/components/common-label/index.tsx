@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { LocaleService } from '@univerjs/core';
+import { LocaleService } from '@crabtable/core';
 import { useMemo } from 'react';
 
 import { useDependency } from '../../utils/di';

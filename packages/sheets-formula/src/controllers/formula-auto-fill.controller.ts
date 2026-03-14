@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICellData, Nullable } from '@univerjs/core';
-import type { AutoFillService, IAutoFillCopyDataInTypeIndexInfo, IAutoFillCopyDataPiece, IAutoFillLocation, IAutoFillRule } from '@univerjs/sheets';
+import type { ICellData, Nullable } from '@crabtable/core';
+import type { AutoFillService, IAutoFillCopyDataInTypeIndexInfo, IAutoFillCopyDataPiece, IAutoFillLocation, IAutoFillRule } from '@crabtable/sheets';
 import {
     Direction,
     Disposable,
@@ -24,9 +24,9 @@ import {
     isFormulaId,
     isFormulaString,
     Tools,
-} from '@univerjs/core';
-import { LexerTreeBuilder } from '@univerjs/engine-formula';
-import { AUTO_FILL_APPLY_TYPE, AUTO_FILL_DATA_TYPE, IAutoFillService } from '@univerjs/sheets';
+} from '@crabtable/core';
+import { LexerTreeBuilder } from '@crabtable/engine-formula';
+import { AUTO_FILL_APPLY_TYPE, AUTO_FILL_DATA_TYPE, IAutoFillService } from '@crabtable/sheets';
 
 export class FormulaAutoFillController extends Disposable {
     constructor(

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { DataValidationType, ISheetDataValidationRule } from '@univerjs/core';
-import type { IRuleChange, IUpdateRulePayload } from '@univerjs/data-validation';
-import type { IRemoveSheetMutationParams, ISheetLocation } from '@univerjs/sheets';
-import { DataValidationStatus, Disposable, ICommandService, Inject, IUniverInstanceService } from '@univerjs/core';
-import { DataValidationModel, DataValidatorRegistryService, UpdateRuleType } from '@univerjs/data-validation';
-import { RemoveSheetMutation } from '@univerjs/sheets';
+import type { DataValidationType, ISheetDataValidationRule } from '@crabtable/core';
+import type { IRuleChange, IUpdateRulePayload } from '@crabtable/data-validation';
+import type { IRemoveSheetMutationParams, ISheetLocation } from '@crabtable/sheets';
+import { DataValidationStatus, Disposable, ICommandService, ICrabTableInstanceService, Inject } from '@crabtable/core';
+import { DataValidationModel, DataValidatorRegistryService, UpdateRuleType } from '@crabtable/data-validation';
+import { RemoveSheetMutation } from '@crabtable/sheets';
 import { Subject } from 'rxjs';
 import { DataValidationCacheService } from '../services/dv-cache.service';
 import { DataValidationCustomFormulaService } from '../services/dv-custom-formula.service';
@@ -46,7 +46,7 @@ export class SheetDataValidationModel extends Disposable {
 
     constructor(
         @Inject(DataValidationModel) private readonly _dataValidationModel: DataValidationModel,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(DataValidatorRegistryService) private _dataValidatorRegistryService: DataValidatorRegistryService,
         @Inject(DataValidationCacheService) private _dataValidationCacheService: DataValidationCacheService,
         @Inject(DataValidationFormulaService) private _dataValidationFormulaService: DataValidationFormulaService,
@@ -66,7 +66,7 @@ export class SheetDataValidationModel extends Disposable {
 
     private _initUniverInstanceListener() {
         this.disposeWithMe(
-            this._univerInstanceService.unitDisposed$.subscribe((unit) => {
+            this._crabtableInstanceService.unitDisposed$.subscribe((unit) => {
                 this._ruleMatrixMap.delete(unit.getUnitId());
             })
         );
@@ -131,7 +131,7 @@ export class SheetDataValidationModel extends Disposable {
 
         let matrix = unitMap.get(subUnitId);
         if (!matrix) {
-            matrix = new RuleMatrix(new Map(), unitId, subUnitId, this._univerInstanceService);
+            matrix = new RuleMatrix(new Map(), unitId, subUnitId, this._crabtableInstanceService);
             unitMap.set(subUnitId, matrix);
         }
 

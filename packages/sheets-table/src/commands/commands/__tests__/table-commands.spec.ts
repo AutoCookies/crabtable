@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { ICommandService, ILogService, IUndoRedoService, IUniverInstanceService, LocaleService } from '@univerjs/core';
-import { IDefinedNamesService } from '@univerjs/engine-formula';
-import { AddRangeThemeMutation, RemoveRangeThemeMutation, SheetRangeThemeModel } from '@univerjs/sheets';
+import { ICommandService, ICrabTableInstanceService, ILogService, IUndoRedoService, LocaleService } from '@crabtable/core';
+import { IDefinedNamesService } from '@crabtable/engine-formula';
+import { AddRangeThemeMutation, RemoveRangeThemeMutation, SheetRangeThemeModel } from '@crabtable/sheets';
 import { describe, expect, it, vi } from 'vitest';
 import { TableManager } from '../../../model/table-manager';
 import { IRangeOperationTypeEnum, IRowColTypeEnum } from '../../../types/type';
@@ -57,7 +57,7 @@ describe('sheets-table commands', () => {
             [IUndoRedoService, { pushUndoRedo }],
             [LocaleService, { t: (key: string) => (key === 'sheets-table.tablePrefix' ? 'Table' : 'Column') }],
             [TableManager, tableManager],
-            [IUniverInstanceService, {
+            [ICrabTableInstanceService, {
                 getUnit: () => ({ getSheets: () => [{ getName: () => 'SheetA' }] }),
             }],
             [IDefinedNamesService, {
@@ -159,7 +159,7 @@ describe('sheets-table commands', () => {
         const accessor = createAccessor([
             [TableManager, { getTableById: () => table, getTableList: () => [] }],
             [LocaleService, { t: () => 'invalid name' }],
-            [IUniverInstanceService, {
+            [ICrabTableInstanceService, {
                 getUnit: () => ({ getSheets: () => [{ getName: () => 'SheetA' }] }),
             }],
             [IDefinedNamesService, { getDefinedNameMap: () => ({}) }],
@@ -192,7 +192,7 @@ describe('sheets-table commands', () => {
         const accessor = createAccessor([
             [TableManager, { getTableById: () => table, getTableList: () => [] }],
             [LocaleService, { t: () => 'msg' }],
-            [IUniverInstanceService, { getUnit: () => ({ getSheets: () => [{ getName: () => 'SheetA' }] }) }],
+            [ICrabTableInstanceService, { getUnit: () => ({ getSheets: () => [{ getName: () => 'SheetA' }] }) }],
             [IDefinedNamesService, { getDefinedNameMap: () => ({}) }],
             [ICommandService, { executeCommand }],
             [IUndoRedoService, { pushUndoRedo }],

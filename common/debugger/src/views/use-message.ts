@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { MessageType } from '@univerjs/design';
-import { IMessageService, useDependency } from '@univerjs/ui';
+import { MessageType } from '@crabtable/design';
+import { IMessageService, useDependency } from '@crabtable/ui';
 
 const menu = [
     {

@@ -15,8 +15,8 @@
  */
 
 import type { IWorkbenchOptions } from '../../controllers/ui/ui.controller';
-import { LocaleService, ThemeService } from '@univerjs/core';
-import { borderBottomClassName, clsx, ConfigProvider } from '@univerjs/design';
+import { LocaleService, ThemeService } from '@crabtable/core';
+import { borderBottomClassName, clsx, ConfigProvider } from '@crabtable/design';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { BuiltInUIPart } from '../../services/parts/parts.service';
 import { ThemeSwitcherService } from '../../services/theme-switcher/theme-switcher.service';

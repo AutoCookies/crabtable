@@ -16,7 +16,7 @@
 
 /* eslint-disable ts/explicit-function-return-type */
 
-import type { CommandType, IDocumentData, IExecutionOptions, LifecycleStages, UniverInstanceType } from '@univerjs/core';
+import type { CommandType, CrabTableInstanceType, IDocumentData, IExecutionOptions, LifecycleStages } from '@crabtable/core';
 import type { FDoc } from './f-doc';
 
 /**
@@ -38,7 +38,7 @@ export interface IDocCreatedParam extends IEventBase {
     /** Unique identifier of the document unit */
     unitId: string;
     /** Type identifier for document instances */
-    type: UniverInstanceType.UNIVER_DOC;
+    type: CrabTableInstanceType.CRABTABLE_DOC;
     /** The created document instance */
     doc: FDoc;
     /** Reference to the document unit */
@@ -54,7 +54,7 @@ export interface IDocDisposedEvent extends IEventBase {
     /** Unique identifier of the disposed document unit */
     unitId: string;
     /** Type identifier for document instances */
-    unitType: UniverInstanceType.UNIVER_DOC;
+    unitType: CrabTableInstanceType.CRABTABLE_DOC;
     /** Final state snapshot of the disposed document */
     snapshot: IDocumentData;
 }
@@ -135,7 +135,7 @@ export class FEventName {
      * @see {@link IDocCreatedParam}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.DocCreated, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.DocCreated, (params) => {
      *   const { unitId, type, doc, unit } = params;
      *   console.log('doc created', params);
      * });
@@ -152,7 +152,7 @@ export class FEventName {
      * @see {@link IDocDisposedEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.DocDisposed, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.DocDisposed, (params) => {
      *   const { unitId, unitType, snapshot } = params;
      *   console.log('doc disposed', params);
      * });
@@ -169,7 +169,7 @@ export class FEventName {
      * @see {@link ILifeCycleChangedEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.LifeCycleChanged, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.LifeCycleChanged, (params) => {
      *   const { stage } = params;
      *   console.log('life cycle changed', params);
      * });
@@ -186,7 +186,7 @@ export class FEventName {
      * @see {@link ICommandEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.Redo, (event) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.Redo, (event) => {
      *   const { params, id, type } = event;
      *   console.log('redo command executed', event);
      * });
@@ -203,7 +203,7 @@ export class FEventName {
      * @see {@link ICommandEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.Undo, (event) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.Undo, (event) => {
      *   const { params, id, type } = event;
      *   console.log('undo command executed', event);
      * });
@@ -220,7 +220,7 @@ export class FEventName {
      * @see {@link ICommandEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeRedo, (event) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeRedo, (event) => {
      *   const { params, id, type } = event;
      *   console.log('before redo command executed', event);
      *
@@ -240,7 +240,7 @@ export class FEventName {
      * @see {@link ICommandEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeUndo, (event) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeUndo, (event) => {
      *   const { params, id, type } = event;
      *   console.log('before undo command executed', event);
      *
@@ -260,7 +260,7 @@ export class FEventName {
      * @see {@link ICommandEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.CommandExecuted, (event) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.CommandExecuted, (event) => {
      *   const { params, id, type, options } = event;
      *   console.log('command executed', event);
      * });
@@ -277,7 +277,7 @@ export class FEventName {
      * @see {@link ICommandEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeCommandExecute, (event) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeCommandExecute, (event) => {
      *   const { params, id, type, options } = event;
      *   console.log('before command executed', event);
      *

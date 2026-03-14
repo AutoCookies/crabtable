@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICommandService, IRange, IUniverInstanceService, ObjectMatrix } from '@univerjs/core';
-import type { DataValidationModel } from '@univerjs/data-validation';
-import { RemoveSheetMutation, SetRangeValuesMutation } from '@univerjs/sheets';
+import type { ICommandService, ICrabTableInstanceService, IRange, ObjectMatrix } from '@crabtable/core';
+import type { DataValidationModel } from '@crabtable/data-validation';
+import { RemoveSheetMutation, SetRangeValuesMutation } from '@crabtable/sheets';
 import { Subject } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import { DataValidationCacheService } from '../dv-cache.service';
@@ -34,9 +34,9 @@ function createService(ruleRanges: IRange[] = [{ startRow: 1, endRow: 2, startCo
             return { dispose: vi.fn() };
         }),
     } as unknown as ICommandService;
-    const univerInstanceService = {
+    const crabtableInstanceService = {
         unitDisposed$,
-    } as unknown as IUniverInstanceService;
+    } as unknown as ICrabTableInstanceService;
     const dataValidationModel = {
         getRules: vi.fn(() => [createRule(ruleRanges)]),
     } as unknown as DataValidationModel;
@@ -44,7 +44,7 @@ function createService(ruleRanges: IRange[] = [{ startRow: 1, endRow: 2, startCo
     return {
         commandCallbacks,
         unitDisposed$,
-        service: new DataValidationCacheService(commandService, univerInstanceService, dataValidationModel),
+        service: new DataValidationCacheService(commandService, crabtableInstanceService, dataValidationModel),
     };
 }
 

@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
+import type { ICommand } from '@crabtable/core';
 import type { IConditionFormattingRule } from '../../models/type';
 import type { MakePropertyOptional } from '../../utils/type';
 import type { IAddConditionalRuleMutationParams } from '../mutations/add-conditional-rule.mutation';
 import {
     CommandType,
     ICommandService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
-} from '@univerjs/core';
-import { getSheetCommandTarget } from '@univerjs/sheets';
+} from '@crabtable/core';
+import { getSheetCommandTarget } from '@crabtable/sheets';
 import { ConditionalFormattingRuleModel } from '../../models/conditional-formatting-rule-model';
 import { AddConditionalRuleMutation, AddConditionalRuleMutationUndoFactory } from '../mutations/add-conditional-rule.mutation';
 
@@ -45,8 +45,8 @@ export const AddCfCommand: ICommand<IAddCfCommandParams> = {
         const undoRedoService = accessor.get(IUndoRedoService);
         const commandService = accessor.get(ICommandService);
         const conditionalFormattingRuleModel = accessor.get(ConditionalFormattingRuleModel);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { unitId, subUnitId } = target;

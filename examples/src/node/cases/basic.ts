@@ -15,14 +15,14 @@
  */
 
 import process from 'node:process';
-import { awaitTime } from '@univerjs/core';
-import { FUniver } from '@univerjs/core/facade';
-import { createUniverOnNode } from '../sdk';
+import { awaitTime } from '@crabtable/core';
+import { FCrabTable } from '@crabtable/core/facade';
+import { createCrabTableOnNode } from '../sdk';
 
-// From now on, Univer is a full-stack SDK.
+// From now on, CrabTable is a full-stack SDK.
 
 async function run(): Promise<void> {
-    const API = FUniver.newAPI(createUniverOnNode());
+    const API = FCrabTable.newAPI(createCrabTableOnNode());
     const univerSheet = API.createWorkbook({});
 
     const a1 = univerSheet.getActiveSheet().getRange('A1');

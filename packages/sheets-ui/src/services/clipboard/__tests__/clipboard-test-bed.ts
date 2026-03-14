@@ -16,11 +16,11 @@
 
 /* eslint-disable ts/no-explicit-any */
 
-import type { Dependency, IDisposable, IWorkbookData, Workbook } from '@univerjs/core';
-import { DisposableCollection, ILogService, Inject, Injector, IUniverInstanceService, LocaleService, LocaleType, LogLevel, Plugin, Univer, UniverInstanceType } from '@univerjs/core';
-import { CalculateFormulaService, DefinedNamesService, FormulaCurrentConfigService, FormulaDataModel, FormulaRuntimeService, HyperlinkEngineFormulaService, ICalculateFormulaService, IDefinedNamesService, IFormulaCurrentConfigService, IFormulaRuntimeService, IHyperlinkEngineFormulaService, LexerTreeBuilder } from '@univerjs/engine-formula';
-import { IRenderManagerService, RenderManagerService } from '@univerjs/engine-render';
-import { SheetInterceptorService, SheetSkeletonService, SheetsSelectionsService } from '@univerjs/sheets';
+import type { Dependency, IDisposable, IWorkbookData, Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, DisposableCollection, ICrabTableInstanceService, ILogService, Inject, Injector, LocaleService, LocaleType, LogLevel, Plugin } from '@crabtable/core';
+import { CalculateFormulaService, DefinedNamesService, FormulaCurrentConfigService, FormulaDataModel, FormulaRuntimeService, HyperlinkEngineFormulaService, ICalculateFormulaService, IDefinedNamesService, IFormulaCurrentConfigService, IFormulaRuntimeService, IHyperlinkEngineFormulaService, LexerTreeBuilder } from '@crabtable/engine-formula';
+import { IRenderManagerService, RenderManagerService } from '@crabtable/engine-render';
+import { SheetInterceptorService, SheetSkeletonService, SheetsSelectionsService } from '@crabtable/sheets';
 
 import {
     BrowserClipboardService,
@@ -31,7 +31,7 @@ import {
     IPlatformService,
     IUIPartsService,
     UIPartsService,
-} from '@univerjs/ui';
+} from '@crabtable/ui';
 import { BehaviorSubject } from 'rxjs';
 import { SheetClipboardController } from '../../../controllers/clipboard/clipboard.controller';
 import { IMarkSelectionService } from '../../mark-selection/mark-selection.service';
@@ -527,7 +527,7 @@ export class testPlatformService {
 
 // eslint-disable-next-line max-lines-per-function
 export function clipboardTestBed(workbookData?: IWorkbookData, dependencies?: Dependency[]) {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
@@ -536,7 +536,7 @@ export function clipboardTestBed(workbookData?: IWorkbookData, dependencies?: De
      */
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -587,10 +587,10 @@ export function clipboardTestBed(workbookData?: IWorkbookData, dependencies?: De
     }
 
     univer.registerPlugin(TestPlugin);
-    const sheet = univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, workbookData || TEST_WORKBOOK_DATA_DEMO);
+    const sheet = univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, workbookData || TEST_WORKBOOK_DATA_DEMO);
 
-    const univerInstanceService = get(IUniverInstanceService);
-    univerInstanceService.focusUnit('test');
+    const crabtableInstanceService = get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit('test');
 
     const logService = get(ILogService);
     logService.setLogLevel(LogLevel.SILENT); // change this to `LogLevel.VERBOSE` to debug tests via logs
@@ -600,7 +600,7 @@ export function clipboardTestBed(workbookData?: IWorkbookData, dependencies?: De
     const fakeSheetSkeletonManagerService = new SheetSkeletonManagerService({
         unit: sheet,
         unitId: 'test',
-        type: UniverInstanceType.UNIVER_SHEET,
+        type: CrabTableInstanceType.CRABTABLE_SHEET,
         engine: null as any,
         scene: null as any,
         mainComponent: null as any,
@@ -613,7 +613,7 @@ export function clipboardTestBed(workbookData?: IWorkbookData, dependencies?: De
 
     injector.add([SheetSkeletonManagerService, { useValue: fakeSheetSkeletonManagerService }]);
     injector.get(IRenderManagerService).addRender('test', {
-        type: UniverInstanceType.UNIVER_SHEET,
+        type: CrabTableInstanceType.CRABTABLE_SHEET,
         unitId: 'test',
         engine: new DisposableCollection() as any,
         scene: new DisposableCollection() as any,

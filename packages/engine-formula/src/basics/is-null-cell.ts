@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICellData, Nullable } from '@univerjs/core';
+import type { ICellData, Nullable } from '@crabtable/core';
 
 /**
  * Examine if a cell is empty (null) in the formula-related modules. This is not

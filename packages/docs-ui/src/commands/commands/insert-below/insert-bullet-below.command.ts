@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommand, IDocumentBody, IMutationInfo, PresetListType } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import { BuildTextUtils, CommandType, ICommandService, IUniverInstanceService, JSONX, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation } from '@univerjs/docs';
+import type { DocumentDataModel, ICommand, IDocumentBody, IMutationInfo, PresetListType } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import { BuildTextUtils, CommandType, CrabTableInstanceType, ICommandService, ICrabTableInstanceService, JSONX } from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation } from '@crabtable/docs';
 import { getRichTextEditPath } from '../../util';
 
 interface IInsertBulletBelowCommandParams {
@@ -33,9 +33,9 @@ export const InsertBulletBelowCommand: ICommand<IInsertBulletBelowCommandParams>
         }
 
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
-        const docDataModel = univerInstanceService.getCurrentUnitOfType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getCurrentUnitOfType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         if (!docDataModel) {
             return false;
         }

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IAccessor, IDocumentBody, IMutationInfo, ITextRangeParam, Nullable, TextX } from '@univerjs/core';
-import type { ITextRangeWithStyle } from '@univerjs/engine-render';
+import type { DocumentDataModel, IAccessor, IDocumentBody, IMutationInfo, ITextRangeParam, Nullable, TextX } from '@crabtable/core';
+import type { ITextRangeWithStyle } from '@crabtable/engine-render';
 import type { IRichTextEditingMutationParams } from '../commands/mutations/core-editing.mutation';
-import { BuildTextUtils, IUniverInstanceService, JSONX } from '@univerjs/core';
+import { BuildTextUtils, ICrabTableInstanceService, JSONX } from '@crabtable/core';
 import { RichTextEditingMutation } from '../commands/mutations/core-editing.mutation';
 import { DocSelectionManagerService } from '../services/doc-selection-manager.service';
 
@@ -41,8 +41,8 @@ export function replaceSelectionFactory(accessor: IAccessor, params: IReplaceSel
     const { unitId, body: insertBody, doc } = params;
     let docDataModel: Nullable<DocumentDataModel> = doc;
     if (!docDataModel) {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        docDataModel = univerInstanceService.getUnit<DocumentDataModel>(unitId);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        docDataModel = crabtableInstanceService.getUnit<DocumentDataModel>(unitId);
     }
 
     if (!docDataModel) {

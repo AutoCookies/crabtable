@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
-import type { ISheetLocationBase } from '@univerjs/sheets';
+import type { IDisposable } from '@crabtable/core';
+import type { ISheetLocationBase } from '@crabtable/sheets';
 import type { ICanvasPopup } from './canvas-pop-manager.service';
-import { Disposable, generateRandomId, Inject, ObjectMatrix, toDisposable } from '@univerjs/core';
+import { Disposable, generateRandomId, Inject, ObjectMatrix, toDisposable } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { CELL_POPUP_COMPONENT_KEY } from '../views/cell-popup/config';
 import { SheetCanvasPopManagerService } from './canvas-pop-manager.service';

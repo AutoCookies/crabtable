@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Direction, RANGE_TYPE } from '@univerjs/core';
+import { Direction, RANGE_TYPE } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import {
     checkIfShrink,
@@ -30,8 +30,8 @@ import {
     shrinkToNextCell,
 } from '../utils/selection-utils';
 
-vi.mock('@univerjs/sheets', async (importOriginal) => {
-    const actual = await importOriginal<typeof import('@univerjs/sheets')>();
+vi.mock('@crabtable/sheets', async (importOriginal) => {
+    const actual = await importOriginal<typeof import('@crabtable/sheets')>();
     return {
         ...actual,
         alignToMergedCellsBorders: (range: any) => range,

@@ -7,14 +7,14 @@ on:
 
 jobs:
     update-submodules:
-        if: github.repository == 'dream-num/univer'
+        if: github.repository == 'AutoCookies/crabtable'
         runs-on: ubuntu-latest
 
         steps:
             - name: Checkout
               uses: actions/checkout@v4
               with:
-                  repository: dream-num/univer-pro
+                  repository: AutoCookies/crabtable-pro
                   token: ${{ secrets.GH_TOKEN }}
                   submodules: true
 
@@ -32,7 +32,7 @@ jobs:
                   commit_hash=$(git log -1 --pretty=format:"%h")
 
                   cd ../../
-                  pnpm install --no-frozen-lockfile
+                  yarn install
 
                   git add -A
                   git commit -m "chore(submodules): update submodules($commit_hash)" || exit 0

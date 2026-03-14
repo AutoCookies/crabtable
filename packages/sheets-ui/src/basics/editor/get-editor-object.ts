@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import type { DocBackground, Documents, Engine, IRenderManagerService, Scene } from '@univerjs/engine-render';
-import { DOCS_VIEW_KEY } from '@univerjs/docs-ui';
+import type { Nullable } from '@crabtable/core';
+import type { DocBackground, Documents, Engine, IRenderManagerService, Scene } from '@crabtable/engine-render';
+import { DOCS_VIEW_KEY } from '@crabtable/docs-ui';
 
 export interface IDocObjectParam {
     document: Documents;

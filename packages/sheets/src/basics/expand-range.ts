@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICellData, IRange, Worksheet } from '@univerjs/core';
-import { createRowColIter, ObjectMatrix, Rectangle } from '@univerjs/core';
+import type { ICellData, IRange, Worksheet } from '@crabtable/core';
+import { createRowColIter, ObjectMatrix, Rectangle } from '@crabtable/core';
 
 export interface IExpandParams {
     left?: boolean;

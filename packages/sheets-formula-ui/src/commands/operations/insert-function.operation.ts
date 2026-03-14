@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICellData, ICommand, IRange, Nullable, ObjectMatrix } from '@univerjs/core';
-import type { IInsertFunction } from '@univerjs/sheets-formula';
+import type { IAccessor, ICellData, ICommand, IRange, Nullable, ObjectMatrix } from '@crabtable/core';
+import type { IInsertFunction } from '@crabtable/sheets-formula';
 import {
     CellValueType,
     CommandType,
@@ -24,21 +24,21 @@ import {
     DOCS_NORMAL_EDITOR_UNIT_ID_KEY,
     getCellValueType,
     ICommandService,
+    ICrabTableInstanceService,
     isRealNum,
-    IUniverInstanceService,
     Rectangle,
-} from '@univerjs/core';
-import { IEditorService } from '@univerjs/docs-ui';
-import { serializeRange } from '@univerjs/engine-formula';
-import { DeviceInputEventType } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { IEditorService } from '@crabtable/docs-ui';
+import { serializeRange } from '@crabtable/engine-formula';
+import { DeviceInputEventType } from '@crabtable/engine-render';
 import {
     getCellAtRowCol,
     getSheetCommandTarget,
     SetSelectionsOperation,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
-import { InsertFunctionCommand } from '@univerjs/sheets-formula';
-import { IEditorBridgeService, SetCellEditVisibleOperation } from '@univerjs/sheets-ui';
+} from '@crabtable/sheets';
+import { InsertFunctionCommand } from '@crabtable/sheets-formula';
+import { IEditorBridgeService, SetCellEditVisibleOperation } from '@crabtable/sheets-ui';
 
 export interface IInsertFunctionOperationParams {
     /**
@@ -59,7 +59,7 @@ export const InsertFunctionOperation: ICommand = {
             return false;
         }
 
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService));
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService));
         if (!target) return false;
 
         const { worksheet, unitId, subUnitId } = target;

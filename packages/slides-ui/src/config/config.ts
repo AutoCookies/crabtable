@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { DependencyOverride } from '@univerjs/core';
-import type { MenuConfig } from '@univerjs/ui';
+import type { DependencyOverride } from '@crabtable/core';
+import type { MenuConfig } from '@crabtable/ui';
 
 export const SLIDES_UI_PLUGIN_CONFIG_KEY = 'slides-ui.config';
 

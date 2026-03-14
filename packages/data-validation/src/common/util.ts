@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IDataValidationRuleBase, IDataValidationRuleOptions } from '@univerjs/core';
+import type { IDataValidationRuleBase, IDataValidationRuleOptions } from '@crabtable/core';
 
 export function getRuleSetting(rule: IDataValidationRuleBase): IDataValidationRuleBase {
     return {

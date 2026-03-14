@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICommand, IMutationInfo, IRange } from '@univerjs/core';
+import type { ICommand, IMutationInfo, IRange } from '@crabtable/core';
 import type { ITableOptions } from '../../types/type';
-import { CommandType, customNameCharacterCheck, generateRandomId, ICommandService, IUndoRedoService, IUniverInstanceService, LocaleService, sequenceExecute } from '@univerjs/core';
-import { IDefinedNamesService } from '@univerjs/engine-formula';
+import { CommandType, customNameCharacterCheck, generateRandomId, ICommandService, ICrabTableInstanceService, IUndoRedoService, LocaleService, sequenceExecute } from '@crabtable/core';
+import { IDefinedNamesService } from '@crabtable/engine-formula';
 import { TableManager } from '../../model/table-manager';
 import { getExistingNamesSet } from '../../util';
 import { AddSheetTableMutation } from '../mutations/add-sheet-table.mutation';
@@ -46,7 +46,7 @@ export const AddSheetTableCommand: ICommand<IAddSheetTableCommandParams> = {
         const tableManager = accessor.get(TableManager);
         const tableId = params.id ?? generateRandomId();
         const existingNamesSet = getExistingNamesSet(params.unitId, {
-            univerInstanceService: accessor.get(IUniverInstanceService),
+            crabtableInstanceService: accessor.get(ICrabTableInstanceService),
             tableManager,
             definedNamesService: accessor.get(IDefinedNamesService),
         });

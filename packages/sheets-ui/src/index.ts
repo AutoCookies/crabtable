@@ -90,7 +90,7 @@ export { EMBEDDING_FORMULA_EDITOR_COMPONENT_KEY, RANGE_SELECTOR_COMPONENT_KEY, S
 export { getCellRealRange, getViewportByCell } from './common/utils';
 export { useActiveWorkbook, useActiveWorksheet, useWorkbooks } from './components/hook';
 export { type IUniverSheetsUIConfig } from './config/config';
-export { UNIVER_SHEET_PERMISSION_USER_PART } from './consts/permission';
+export { CRABTABLE_SHEET_PERMISSION_USER_PART } from './consts/permission';
 export { SHEET_UI_PLUGIN_NAME } from './consts/plugin-name';
 export { SheetsUIPart } from './consts/ui-name';
 export { AutoFillUIController } from './controllers/auto-fill-ui.controller';

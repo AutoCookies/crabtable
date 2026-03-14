@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { DataValidationType, IUniverInstanceService } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { SheetsSelectionsService } from '@univerjs/sheets';
-import { SheetDataValidationModel } from '@univerjs/sheets-data-validation';
+import { DataValidationType, ICrabTableInstanceService } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { SheetsSelectionsService } from '@crabtable/sheets';
+import { SheetDataValidationModel } from '@crabtable/sheets-data-validation';
 import { describe, expect, it } from 'vitest';
 import { DisableLinkType, getShouldDisableCellLink, getShouldDisableCurrentCellLink, shouldDisableAddLink } from '../index';
 
@@ -66,7 +66,7 @@ describe('hyper-link utils', () => {
         expect(getShouldDisableCellLink(createAccessor([]), worksheet as any, 0, 0)).toBe(DisableLinkType.ALLOW_ON_EDITING);
 
         const currentAccessor = createAccessor([
-            [IUniverInstanceService, { getCurrentUnitForType: () => ({ getActiveSheet: () => worksheet }) }],
+            [ICrabTableInstanceService, { getCurrentUnitForType: () => ({ getActiveSheet: () => worksheet }) }],
             [SheetsSelectionsService, { getCurrentSelections: () => [{ range: { startRow: 0, startColumn: 0 } }] }],
         ]);
 
@@ -76,13 +76,13 @@ describe('hyper-link utils', () => {
     it('should disable add-link when editor selection is missing and allow it with valid rich text context', () => {
         const noSelectionAccessor = createAccessor([
             [DocSelectionManagerService, { getTextRanges: () => [] }],
-            [IUniverInstanceService, { getCurrentUnitForType: () => null }],
+            [ICrabTableInstanceService, { getCurrentUnitForType: () => null }],
         ]);
         expect(shouldDisableAddLink(noSelectionAccessor)).toBe(true);
 
         const validAccessor = createAccessor([
             [DocSelectionManagerService, { getTextRanges: () => [{ collapsed: false, segmentId: 'body' }] }],
-            [IUniverInstanceService, {
+            [ICrabTableInstanceService, {
                 getCurrentUnitForType: () => ({
                     getSelfOrHeaderFooterModel: () => ({ getBody: () => ({ dataStream: 'hello\r\n' }) }),
                 }),

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { BorderStyleTypes, ObjectMatrix } from '@univerjs/core';
+import { BorderStyleTypes, ObjectMatrix } from '@crabtable/core';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { BORDER_TYPE } from '../../../../basics/const';
 import { Border } from '../border';

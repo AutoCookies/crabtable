@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Injector, Univer } from '@univerjs/core';
-import { ICommandService, IConfirmService, IUniverInstanceService, LocaleService, RANGE_TYPE, TestConfirmService } from '@univerjs/core';
+import type { CrabTable, Injector } from '@crabtable/core';
+import { ICommandService, IConfirmService, ICrabTableInstanceService, LocaleService, RANGE_TYPE, TestConfirmService } from '@crabtable/core';
 import {
     AddWorksheetMergeAllCommand,
     AddWorksheetMergeCommand,
@@ -35,13 +35,13 @@ import {
     SetRangeValuesMutation,
     SetSelectionsOperation,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { RemoveColConfirmCommand, RemoveRowConfirmCommand } from '../remove-row-col-confirm.command';
 import { createCommandTestBed } from './create-command-test-bed';
 
 describe('Test remove row col confirm commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
@@ -98,8 +98,8 @@ describe('Test remove row col confirm commands', () => {
             ]);
 
             function getRowCount(): number | undefined {
-                return get(IUniverInstanceService)
-                    .getUniverSheetInstance('test')
+                return get(ICrabTableInstanceService)
+                    .getCrabTableSheetInstance('test')
                     ?.getSheetBySheetId('sheet1')
                     ?.getRowCount();
             }
@@ -120,8 +120,8 @@ describe('Test remove row col confirm commands', () => {
             ]);
 
             function getRowCount(): number | undefined {
-                return get(IUniverInstanceService)
-                    .getUniverSheetInstance('test')
+                return get(ICrabTableInstanceService)
+                    .getCrabTableSheetInstance('test')
                     ?.getSheetBySheetId('sheet1')
                     ?.getRowCount();
             }
@@ -144,8 +144,8 @@ describe('Test remove row col confirm commands', () => {
             ]);
 
             function getColumnCount(): number | undefined {
-                return get(IUniverInstanceService)
-                    .getUniverSheetInstance('test')
+                return get(ICrabTableInstanceService)
+                    .getCrabTableSheetInstance('test')
                     ?.getSheetBySheetId('sheet1')
                     ?.getColumnCount();
             }
@@ -166,8 +166,8 @@ describe('Test remove row col confirm commands', () => {
             ]);
 
             function getColumnCount(): number | undefined {
-                return get(IUniverInstanceService)
-                    .getUniverSheetInstance('test')
+                return get(ICrabTableInstanceService)
+                    .getCrabTableSheetInstance('test')
                     ?.getSheetBySheetId('sheet1')
                     ?.getColumnCount();
             }

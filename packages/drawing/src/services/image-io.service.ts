@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export { IImageIoService, type IImageIoServiceParam, ImageSourceType, ImageUploadStatusType } from '@univerjs/core';
+export { IImageIoService, type IImageIoServiceParam, ImageSourceType, ImageUploadStatusType } from '@crabtable/core';

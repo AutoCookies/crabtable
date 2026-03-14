@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IEventBase } from '@univerjs/core/facade';
-import type { ICellLinkContent, ISheetHyperLink } from '@univerjs/sheets-hyper-link';
-import type { FWorkbook, FWorksheet } from '@univerjs/sheets/facade';
-import { FEventName } from '@univerjs/core/facade';
+import type { IEventBase } from '@crabtable/core/facade';
+import type { ICellLinkContent, ISheetHyperLink } from '@crabtable/sheets-hyper-link';
+import type { FWorkbook, FWorksheet } from '@crabtable/sheets/facade';
+import { FEventName } from '@crabtable/core/facade';
 
 /**
  * @ignore
@@ -28,7 +28,7 @@ interface IFSheetLinkEvent {
      * @see {@link IBeforeSheetLinkAddEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetLinkAdd, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetLinkAdd, (params) => {
      *   const { workbook, worksheet, row, col, link } = params;
      *   console.log('before sheet link add', params);
      *
@@ -46,7 +46,7 @@ interface IFSheetLinkEvent {
      * @see {@link IBeforeSheetLinkCancelEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetLinkCancel, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetLinkCancel, (params) => {
      *   const { workbook, worksheet, row, column, id } = params;
      *   console.log('before sheet link cancel', params);
      *
@@ -64,7 +64,7 @@ interface IFSheetLinkEvent {
      * @see {@link IBeforeSheetLinkUpdateEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetLinkUpdate, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetLinkUpdate, (params) => {
      *   const { workbook, worksheet, row, column, id, payload } = params;
      *   console.log('before sheet link update', params);
      *
@@ -144,7 +144,7 @@ export interface ISheetLinkEventConfig {
 
 FEventName.extend(FSheetLinkEvent);
 
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FEventName extends IFSheetLinkEvent {
     }

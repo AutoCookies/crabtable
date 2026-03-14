@@ -14,30 +14,30 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import { IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { SheetsSelectionsService } from '@univerjs/sheets';
-import { useDependency } from '@univerjs/ui';
+import type { Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
+import { SheetsSelectionsService } from '@crabtable/sheets';
+import { useDependency } from '@crabtable/ui';
 import { useCallback } from 'react';
 
 export const useResetSelection = (isNeed: boolean, unitId: string, subUnitId: string) => {
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const sheetsSelectionsService = useDependency(SheetsSelectionsService);
 
     const resetSelection = useCallback(() => {
         if (isNeed) {
             const selections = [...sheetsSelectionsService.getWorkbookSelections(unitId).getSelectionsOfWorksheet(subUnitId)];
-            const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+            const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
             const currentSheet = workbook?.getActiveSheet();
             if (workbook?.getUnitId() !== unitId) {
-                univerInstanceService.setCurrentUnitForType(unitId);
+                crabtableInstanceService.setCurrentUnitForType(unitId);
             }
 
             if (currentSheet && currentSheet.getSheetId() === subUnitId) {
                 sheetsSelectionsService.setSelections(selections);
             }
         };
-    }, [isNeed, sheetsSelectionsService, subUnitId, unitId, univerInstanceService]);
+    }, [isNeed, sheetsSelectionsService, subUnitId, unitId, crabtableInstanceService]);
 
     return resetSelection;
 };

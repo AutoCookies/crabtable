@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData } from '@univerjs/core';
-import { AuthzIoLocalService, IAuthzIoService, ILogService, Inject, Injector, IUniverInstanceService, LocaleType, LogLevel, Plugin, Univer, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { EditorService, IEditorService } from '@univerjs/docs-ui';
-import { LexerTreeBuilder } from '@univerjs/engine-formula';
-import { IRenderManagerService, RenderManagerService } from '@univerjs/engine-render';
-import { IRefSelectionsService, RangeProtectionRuleModel, RefSelectionsService, SheetInterceptorService, SheetsSelectionsService, WorkbookPermissionService, WorksheetPermissionService, WorksheetProtectionPointModel, WorksheetProtectionRuleModel } from '@univerjs/sheets';
-import { EditorBridgeService, IEditorBridgeService, ISheetSelectionRenderService, SheetSelectionRenderService, SheetSkeletonManagerService } from '@univerjs/sheets-ui';
+import type { Dependency, IWorkbookData } from '@crabtable/core';
+import { AuthzIoLocalService, CrabTableInstanceType, IAuthzIoService, ICrabTableInstanceService, ILogService, Inject, Injector, LocaleType, LogLevel, Plugin } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { EditorService, IEditorService } from '@crabtable/docs-ui';
+import { LexerTreeBuilder } from '@crabtable/engine-formula';
+import { IRenderManagerService, RenderManagerService } from '@crabtable/engine-render';
+import { IRefSelectionsService, RangeProtectionRuleModel, RefSelectionsService, SheetInterceptorService, SheetsSelectionsService, WorkbookPermissionService, WorksheetPermissionService, WorksheetProtectionPointModel, WorksheetProtectionRuleModel } from '@crabtable/sheets';
+import { EditorBridgeService, IEditorBridgeService, ISheetSelectionRenderService, SheetSelectionRenderService, SheetSkeletonManagerService } from '@crabtable/sheets-ui';
 import { FormulaPromptService, IFormulaPromptService } from '../../../services/prompt.service';
 
 const TEST_WORKBOOK_DATA_DEMO = (): IWorkbookData => ({
@@ -46,7 +46,7 @@ const TEST_WORKBOOK_DATA_DEMO = (): IWorkbookData => ({
 });
 
 export function createCommandTestBed(workbookData?: IWorkbookData, dependencies?: Dependency[]) {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
     const overrideTokens = new Set(dependencies?.map((dependency) => Array.isArray(dependency) ? dependency[0] : dependency));
@@ -66,7 +66,7 @@ export function createCommandTestBed(workbookData?: IWorkbookData, dependencies?
      */
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -104,10 +104,10 @@ export function createCommandTestBed(workbookData?: IWorkbookData, dependencies?
     }
 
     univer.registerPlugin(TestPlugin);
-    const sheet = univer.createUnit(UniverInstanceType.UNIVER_SHEET, workbookData || TEST_WORKBOOK_DATA_DEMO());
+    const sheet = univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, workbookData || TEST_WORKBOOK_DATA_DEMO());
 
-    const univerInstanceService = get(IUniverInstanceService);
-    univerInstanceService.focusUnit('test');
+    const crabtableInstanceService = get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit('test');
 
     const logService = get(ILogService);
     logService.setLogLevel(LogLevel.SILENT); // change this to `LogLevel.VERBOSE` to debug tests via logs

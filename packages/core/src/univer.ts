@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Theme } from '@univerjs/themes';
+import type { Theme } from '@crabtable/themes';
 import type { Dependency, IDisposable } from './common/di';
 import type { UnitModel, UnitType } from './common/unit';
 import type { LogLevel } from './services/log/log.service';
@@ -25,7 +25,7 @@ import type { IWorkbookData } from './sheets/typedef';
 import type { LocaleType } from './types/enum/locale-type';
 import type { IDocumentData, ISlideData } from './types/interfaces';
 import { Injector, touchDependencies } from './common/di';
-import { UniverInstanceType } from './common/unit';
+import { CrabTableInstanceType } from './common/unit';
 import { DocumentDataModel } from './docs/data-model/document-data-model';
 import { AuthzIoLocalService } from './services/authz-io/authz-io-local.service';
 import { IAuthzIoService } from './services/authz-io/type';
@@ -33,7 +33,7 @@ import { COMMAND_LOG_EXECUTION_CONFIG_KEY, CommandService, ICommandService } fro
 import { ConfigService, IConfigService } from './services/config/config.service';
 import { ContextService, IContextService } from './services/context/context.service';
 import { ErrorService } from './services/error/error.service';
-import { IUniverInstanceService, UniverInstanceService } from './services/instance/instance.service';
+import { CrabTableInstanceService, ICrabTableInstanceService } from './services/instance/instance.service';
 import { LifecycleStages } from './services/lifecycle/lifecycle';
 import { LifecycleService } from './services/lifecycle/lifecycle.service';
 import { LocaleService } from './services/locale/locale.service';
@@ -55,9 +55,9 @@ import { DisposableCollection, toDisposable } from './shared';
 import { Workbook } from './sheets/workbook';
 import { SlideDataModel } from './slides/slide-model';
 
-export interface IUniverConfig {
+export interface ICrabTableConfig {
     /**
-     * The theme of the Univer instance, default using the default theme.
+     * The theme of the CrabTable instance, default using the default theme.
      */
     theme?: Theme;
 
@@ -68,7 +68,7 @@ export interface IUniverConfig {
     darkMode?: boolean;
 
     /**
-     * The locale of the Univer instance.
+     * The locale of the CrabTable instance.
      */
     locale?: LocaleType;
 
@@ -78,7 +78,7 @@ export interface IUniverConfig {
     locales?: ILocales;
 
     /**
-     * The log level of the Univer instance.
+     * The log level of the CrabTable instance.
      */
     logLevel?: LogLevel;
 
@@ -89,7 +89,7 @@ export interface IUniverConfig {
     logCommandExecution?: boolean;
 
     /**
-     * The override dependencies of the Univer instance.
+     * The override dependencies of the CrabTable instance.
      */
     override?: DependencyOverride;
 }
@@ -97,12 +97,12 @@ export interface IUniverConfig {
 /**
  * @hideconstructor
  */
-export class Univer implements IDisposable {
+export class CrabTable implements IDisposable {
     private _startedTypes = new Set<UnitType>();
     private _injector: Injector;
 
-    private get _univerInstanceService(): IUniverInstanceService {
-        return this._injector.get(IUniverInstanceService);
+    private get _crabtableInstanceService(): ICrabTableInstanceService {
+        return this._injector.get(ICrabTableInstanceService);
     }
 
     private get _pluginService(): PluginService {
@@ -112,11 +112,11 @@ export class Univer implements IDisposable {
     private _disposingCallbacks = new DisposableCollection();
 
     /**
-     * Create a Univer instance.
-     * @param config Configuration data for Univer
-     * @param parentInjector An optional parent injector of the Univer injector. For more information, see https://redi.wendell.fun/docs/hierarchy.
+     * Create a CrabTable instance.
+     * @param config Configuration data for CrabTable
+     * @param parentInjector An optional parent injector of the CrabTable injector. For more information, see https://redi.wendell.fun/docs/hierarchy.
      */
-    constructor(config: Partial<IUniverConfig> = {}, parentInjector?: Injector) {
+    constructor(config: Partial<ICrabTableConfig> = {}, parentInjector?: Injector) {
         const injector = this._injector = createUniverInjector(parentInjector, config?.override);
 
         const { theme, darkMode, locale, locales, logLevel, logCommandExecution } = config;
@@ -140,12 +140,12 @@ export class Univer implements IDisposable {
     }
 
     /**
-     * Register a callback function which will be called when this Univer instance is disposing.
+     * Register a callback function which will be called when this CrabTable instance is disposing.
      *
      * @ignore
      *
      * @param callback The callback function.
-     * @returns To remove this callback function from this Univer instance's on disposing list.
+     * @returns To remove this callback function from this CrabTable instance's on disposing list.
      */
     onDispose(callback: () => void): IDisposable {
         const d = this._disposingCallbacks.add(toDisposable(callback));
@@ -162,49 +162,49 @@ export class Univer implements IDisposable {
     }
 
     createUnit<T, U extends UnitModel>(type: UnitType, data: Partial<T>): U {
-        return this._univerInstanceService.createUnit(type, data);
+        return this._crabtableInstanceService.createUnit(type, data);
     }
 
     /**
-     * Create a univer sheet instance with internal dependency injection.
+     * Create a CrabTable sheet instance with internal dependency injection.
      *
      * @deprecated use `createUnit` instead
      */
-    createUniverSheet(data: Partial<IWorkbookData>): Workbook {
-        this._injector.get(ILogService).warn('[Univer]', 'Univer.createUniverSheet is deprecated, use createUnit instead');
-        return this._univerInstanceService.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, data);
+    createCrabTableSheet(data: Partial<IWorkbookData>): Workbook {
+        this._injector.get(ILogService).warn('[CrabTable]', 'CrabTable.createCrabTableSheet is deprecated, use createUnit instead');
+        return this._crabtableInstanceService.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, data);
     }
 
     /**
      * @deprecated use `createUnit` instead
      */
-    createUniverDoc(data: Partial<IDocumentData>): DocumentDataModel {
-        this._injector.get(ILogService).warn('[Univer]', 'Univer.createUniverDoc is deprecated, use createUnit instead');
-        return this._univerInstanceService.createUnit<IDocumentData, DocumentDataModel>(UniverInstanceType.UNIVER_DOC, data);
+    createCrabTableDoc(data: Partial<IDocumentData>): DocumentDataModel {
+        this._injector.get(ILogService).warn('[CrabTable]', 'CrabTable.createCrabTableDoc is deprecated, use createUnit instead');
+        return this._crabtableInstanceService.createUnit<IDocumentData, DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC, data);
     }
 
     /**
      * @deprecated use `createUnit` instead
      */
-    createUniverSlide(data: Partial<ISlideData>): SlideDataModel {
-        this._injector.get(ILogService).warn('[Univer]', 'Univer.createUniverSlide is deprecated, use createUnit instead');
-        return this._univerInstanceService.createUnit<ISlideData, SlideDataModel>(UniverInstanceType.UNIVER_SLIDE, data);
+    createCrabTableSlide(data: Partial<ISlideData>): SlideDataModel {
+        this._injector.get(ILogService).warn('[CrabTable]', 'CrabTable.createCrabTableSlide is deprecated, use createUnit instead');
+        return this._crabtableInstanceService.createUnit<ISlideData, SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE, data);
     }
 
     private _init(injector: Injector): void {
-        this._univerInstanceService.registerCtorForType(UniverInstanceType.UNIVER_SHEET, Workbook);
-        this._univerInstanceService.registerCtorForType(UniverInstanceType.UNIVER_DOC, DocumentDataModel);
-        this._univerInstanceService.registerCtorForType(UniverInstanceType.UNIVER_SLIDE, SlideDataModel);
+        this._crabtableInstanceService.registerCtorForType(CrabTableInstanceType.CRABTABLE_SHEET, Workbook);
+        this._crabtableInstanceService.registerCtorForType(CrabTableInstanceType.CRABTABLE_DOC, DocumentDataModel);
+        this._crabtableInstanceService.registerCtorForType(CrabTableInstanceType.CRABTABLE_SLIDE, SlideDataModel);
 
-        const univerInstanceService = injector.get(IUniverInstanceService) as UniverInstanceService;
-        univerInstanceService.__setCreateHandler(
+        const crabtableInstanceService = injector.get(ICrabTableInstanceService) as CrabTableInstanceService;
+        crabtableInstanceService.__setCreateHandler(
             (type: UnitType, data, ctor, options) => {
                 if (!this._startedTypes.has(type)) {
                     this._pluginService.startPluginsForType(type);
                     this._startedTypes.add(type);
 
                     const model = injector.createInstance(ctor, data);
-                    univerInstanceService.__addUnit(model, options);
+                    crabtableInstanceService.__addUnit(model, options);
 
                     this._tryProgressToReady();
 
@@ -212,7 +212,7 @@ export class Univer implements IDisposable {
                 }
 
                 const model = injector.createInstance(ctor, data);
-                univerInstanceService.__addUnit(model, options);
+                crabtableInstanceService.__addUnit(model, options);
                 return model;
             }
         );
@@ -269,7 +269,7 @@ function createUniverInjector(parentInjector?: Injector, override?: DependencyOv
         [UserManagerService],
 
         // abstract services
-        [IUniverInstanceService, { useClass: UniverInstanceService }],
+        [ICrabTableInstanceService, { useClass: CrabTableInstanceService }],
         [IPermissionService, { useClass: PermissionService }],
         [ILogService, { useClass: DesktopLogService, lazy: true }],
         [ICommandService, { useClass: CommandService }],

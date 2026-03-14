@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
-import type { IDiscreteRange } from '@univerjs/sheets';
+import type { IRange } from '@crabtable/core';
+import type { IDiscreteRange } from '@crabtable/sheets';
 
 export function virtualizeDiscreteRanges(ranges: IDiscreteRange[]): {
     ranges: IRange[];

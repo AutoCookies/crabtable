@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IAccessor, IOperation } from '@univerjs/core';
-import { CommandType, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
+import type { DocumentDataModel, IAccessor, IOperation } from '@crabtable/core';
+import { CommandType, CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
 
 export interface ISetDocZoomRatioOperationParams {
     zoomRatio: number;
@@ -26,9 +26,9 @@ export const SetDocZoomRatioUndoMutationFactory = (
     accessor: IAccessor,
     params: ISetDocZoomRatioOperationParams
 ): ISetDocZoomRatioOperationParams => {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-    const documentModel = univerInstanceService.getUnit<DocumentDataModel>(params.unitId, UniverInstanceType.UNIVER_DOC);
+    const documentModel = crabtableInstanceService.getUnit<DocumentDataModel>(params.unitId, CrabTableInstanceType.CRABTABLE_DOC);
 
     documentModel?.setZoomRatio(params.zoomRatio);
 
@@ -41,9 +41,9 @@ export const SetDocZoomRatioOperation: IOperation<ISetDocZoomRatioOperationParam
     type: CommandType.OPERATION,
 
     handler: (accessor, params: ISetDocZoomRatioOperationParams) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const documentModel = univerInstanceService.getUnit<DocumentDataModel>(params.unitId, UniverInstanceType.UNIVER_DOC);
+        const documentModel = crabtableInstanceService.getUnit<DocumentDataModel>(params.unitId, CrabTableInstanceType.CRABTABLE_DOC);
         if (!documentModel) {
             return false;
         }

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
-import { Disposable, Inject } from '@univerjs/core';
-import { ComponentManager } from '@univerjs/ui';
+import type { Workbook } from '@crabtable/core';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
+import { Disposable, Inject } from '@crabtable/core';
+import { ComponentManager } from '@crabtable/ui';
 import { CELL_ALERT_KEY } from '../views/cell-alert';
 import { CellAlert } from '../views/cell-alert/CellAlertPopup';
 

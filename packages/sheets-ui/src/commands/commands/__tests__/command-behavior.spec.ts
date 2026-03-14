@@ -20,11 +20,11 @@ import {
     IConfigService,
     IConfirmService,
     IContextService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
     LocaleService,
     ThemeService,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     SetInlineFormatBoldCommand,
     SetInlineFormatFontFamilyCommand,
@@ -35,8 +35,8 @@ import {
     SetInlineFormatSuperscriptCommand,
     SetInlineFormatTextColorCommand,
     SetInlineFormatUnderlineCommand,
-} from '@univerjs/docs-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
+} from '@crabtable/docs-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import {
     AddRangeProtectionMutation,
     AddWorksheetProtectionCommand,
@@ -53,7 +53,7 @@ import {
     SetUnderlineCommand,
     SheetsSelectionsService,
     WorksheetProtectionRuleModel,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { describe, expect, it, vi } from 'vitest';
 import { SHEET_VIEW_KEY, SHEET_ZOOM_RANGE } from '../../../common/keys';
 import { AutoWidthController } from '../../../controllers/auto-width.controller';
@@ -122,7 +122,7 @@ describe('sheets-ui command behaviors', () => {
             [ICommandService, commandService],
             [IContextService, contextService],
             [ThemeService, { getColorFromTheme: vi.fn(() => '#111111') }],
-            [IUniverInstanceService, { getCurrentUnitOfType: () => ({ getActiveSheet: () => ({ getComposedCellStyle: () => ({ fs: 9 }) }) }) }],
+            [ICrabTableInstanceService, { getCurrentUnitOfType: () => ({ getActiveSheet: () => ({ getComposedCellStyle: () => ({ fs: 9 }) }) }) }],
             [SheetsSelectionsService, { getCurrentLastSelection: () => ({ primary: { startRow: 0, startColumn: 0 } }) }],
         ]);
 
@@ -157,7 +157,7 @@ describe('sheets-ui command behaviors', () => {
             [ICommandService, commandService],
             [IContextService, contextService],
             [ThemeService, { getColorFromTheme: vi.fn(() => '#000000') }],
-            [IUniverInstanceService, { getCurrentUnitOfType: () => ({ getActiveSheet: () => ({ getComposedCellStyle: () => ({ fs: 12 }) }) }) }],
+            [ICrabTableInstanceService, { getCurrentUnitOfType: () => ({ getActiveSheet: () => ({ getComposedCellStyle: () => ({ fs: 12 }) }) }) }],
             [SheetsSelectionsService, { getCurrentLastSelection: () => ({ primary: { startRow: 0, startColumn: 0 } }) }],
         ]);
 
@@ -198,7 +198,7 @@ describe('sheets-ui command behaviors', () => {
         const increaseInEditorAccessor = createAccessor([
             [ICommandService, { executeCommand }],
             [IContextService, { getContextValue: vi.fn((key: unknown) => key === EDITOR_ACTIVATED) }],
-            [IUniverInstanceService, { getCurrentUnitOfType: () => ({ getActiveSheet: () => ({ getComposedCellStyle: () => ({ fs: 11 }) }) }) }],
+            [ICrabTableInstanceService, { getCurrentUnitOfType: () => ({ getActiveSheet: () => ({ getComposedCellStyle: () => ({ fs: 11 }) }) }) }],
             [SheetsSelectionsService, { getCurrentLastSelection: () => ({ primary: { startRow: 1, startColumn: 1 } }) }],
         ]);
 
@@ -208,7 +208,7 @@ describe('sheets-ui command behaviors', () => {
         const decreaseInCellAccessor = createAccessor([
             [ICommandService, { executeCommand }],
             [IContextService, { getContextValue: vi.fn(() => false) }],
-            [IUniverInstanceService, { getCurrentUnitOfType: () => ({ getActiveSheet: () => ({ getComposedCellStyle: () => ({ fs: 6 }) }) }) }],
+            [ICrabTableInstanceService, { getCurrentUnitOfType: () => ({ getActiveSheet: () => ({ getComposedCellStyle: () => ({ fs: 6 }) }) }) }],
             [SheetsSelectionsService, { getCurrentLastSelection: () => ({ primary: { startRow: 2, startColumn: 2 } }) }],
         ]);
 
@@ -218,7 +218,7 @@ describe('sheets-ui command behaviors', () => {
         const noSelectionAccessor = createAccessor([
             [ICommandService, { executeCommand }],
             [IContextService, { getContextValue: vi.fn(() => false) }],
-            [IUniverInstanceService, { getCurrentUnitOfType: () => ({ getActiveSheet: () => ({ getComposedCellStyle: () => ({ fs: 10 }) }) }) }],
+            [ICrabTableInstanceService, { getCurrentUnitOfType: () => ({ getActiveSheet: () => ({ getComposedCellStyle: () => ({ fs: 10 }) }) }) }],
             [SheetsSelectionsService, { getCurrentLastSelection: () => null }],
         ]);
         expect(await SetRangeFontIncreaseCommand.handler(noSelectionAccessor, undefined as any)).toBe(false);
@@ -273,14 +273,14 @@ describe('sheets-ui command behaviors', () => {
                 })),
             })),
         };
-        const univerInstanceService = {
+        const crabtableInstanceService = {
             getCurrentUnitOfType: () => workbook,
             getCurrentUnitForType: () => workbook,
         };
 
         const accessor = createAccessor([
             [ICommandService, { executeCommand, syncExecuteCommand }],
-            [IUniverInstanceService, univerInstanceService],
+            [ICrabTableInstanceService, crabtableInstanceService],
             [IRenderManagerService, renderManager],
         ]);
 
@@ -306,7 +306,7 @@ describe('sheets-ui command behaviors', () => {
 
         const scrollToRange = vi.fn(() => true);
         const scrollAccessor = createAccessor([
-            [IUniverInstanceService, { getCurrentUnitForType: () => ({ getUnitId: () => 'unit-1' }) }],
+            [ICrabTableInstanceService, { getCurrentUnitForType: () => ({ getUnitId: () => 'unit-1' }) }],
             [IRenderManagerService, { getRenderById: () => ({ with: () => ({ scrollToRange }) }) }],
         ]);
         expect(ScrollToCellCommand.handler(scrollAccessor, { range: { startRow: 1, endRow: 1, startColumn: 2, endColumn: 2 } as any })).toBe(true);
@@ -324,7 +324,7 @@ describe('sheets-ui command behaviors', () => {
     it('guards scroll commands when params or targets are missing', async () => {
         const accessor = createAccessor([
             [ICommandService, { executeCommand: vi.fn(), syncExecuteCommand: vi.fn() }],
-            [IUniverInstanceService, { getCurrentUnitOfType: () => null, getCurrentUnitForType: () => null }],
+            [ICrabTableInstanceService, { getCurrentUnitOfType: () => null, getCurrentUnitForType: () => null }],
             [IRenderManagerService, { getRenderById: vi.fn() }],
         ]);
 
@@ -345,7 +345,7 @@ describe('sheets-ui command behaviors', () => {
             getActiveSheet: () => worksheet,
         };
         const accessor = createAccessor([
-            [IUniverInstanceService, { getCurrentUnitOfType: () => workbook }],
+            [ICrabTableInstanceService, { getCurrentUnitOfType: () => workbook }],
             [ICommandService, { executeCommand }],
             [IEditorBridgeService, { isVisible: () => ({ visible: false, unitId: 'other' }) }],
         ]);
@@ -365,7 +365,7 @@ describe('sheets-ui command behaviors', () => {
         });
 
         const hiddenByEditorAccessor = createAccessor([
-            [IUniverInstanceService, { getCurrentUnitOfType: () => workbook }],
+            [ICrabTableInstanceService, { getCurrentUnitOfType: () => workbook }],
             [ICommandService, { executeCommand }],
             [IEditorBridgeService, { isVisible: () => ({ visible: true, unitId: 'unit-1' }) }],
         ]);
@@ -375,7 +375,7 @@ describe('sheets-ui command behaviors', () => {
 
     it('guards zoom commands for invalid params or missing targets', () => {
         const accessor = createAccessor([
-            [IUniverInstanceService, { getCurrentUnitOfType: () => null }],
+            [ICrabTableInstanceService, { getCurrentUnitOfType: () => null }],
             [ICommandService, { executeCommand: vi.fn() }],
             [IEditorBridgeService, { isVisible: () => ({ visible: false, unitId: 'none' }) }],
         ]);
@@ -393,7 +393,7 @@ describe('sheets-ui command behaviors', () => {
             [SheetsSelectionsService, {
                 getCurrentSelections: () => [{ range: { startRow: 0, endRow: 1, startColumn: 0, endColumn: 1 } }],
             }],
-            [IUniverInstanceService, { getCurrentUnitOfType: () => ({ getUnitId: () => 'unit-1', getActiveSheet: () => ({ getSheetId: () => 'sheet-1' }) }) }],
+            [ICrabTableInstanceService, { getCurrentUnitOfType: () => ({ getUnitId: () => 'unit-1', getActiveSheet: () => ({ getSheetId: () => 'sheet-1' }) }) }],
             [AutoWidthController, {
                 getUndoRedoParamsOfColWidth: vi.fn(() => ({
                     redos: [{ id: 'redo-1', params: { a: 1 } }],
@@ -414,7 +414,7 @@ describe('sheets-ui command behaviors', () => {
             [ICommandService, { syncExecuteCommand: vi.fn(() => true) }],
             [IUndoRedoService, { pushUndoRedo: vi.fn() }],
             [SheetsSelectionsService, { getCurrentSelections: () => [] }],
-            [IUniverInstanceService, { getCurrentUnitOfType: () => ({ getUnitId: () => 'unit-1', getActiveSheet: () => ({ getSheetId: () => 'sheet-1' }) }) }],
+            [ICrabTableInstanceService, { getCurrentUnitOfType: () => ({ getUnitId: () => 'unit-1', getActiveSheet: () => ({ getSheetId: () => 'sheet-1' }) }) }],
             [AutoWidthController, { getUndoRedoParamsOfColWidth: vi.fn(() => ({ redos: [], undos: [] })) }],
         ]);
         expect(SetWorksheetColAutoWidthCommand.handler(emptySelectionAccessor, undefined as any)).toBe(false);
@@ -444,7 +444,7 @@ describe('sheets-ui command behaviors', () => {
             [ICommandService, { executeCommand }],
             [LocaleService, { t: (key: string) => key }],
             [IConfigService, { getConfig: () => ({ largeSheetOperation: { largeSheetCellCountThreshold: 1 } }) }],
-            [IUniverInstanceService, { getCurrentUnitOfType: () => workbook }],
+            [ICrabTableInstanceService, { getCurrentUnitOfType: () => workbook }],
         ]);
 
         expect(await RemoveSheetConfirmCommand.handler(accessor, { subUnitId: 'sheet-1' } as any)).toBe(false);
@@ -458,7 +458,7 @@ describe('sheets-ui command behaviors', () => {
             [ICommandService, { executeCommand: vi.fn() }],
             [LocaleService, { t: (key: string) => key }],
             [IConfigService, { getConfig: () => ({}) }],
-            [IUniverInstanceService, { getCurrentUnitOfType: () => null }],
+            [ICrabTableInstanceService, { getCurrentUnitOfType: () => null }],
         ]);
         expect(await RemoveSheetConfirmCommand.handler(accessor, { subUnitId: 'sheet-1' } as any)).toBe(false);
     });
@@ -477,7 +477,7 @@ describe('sheets-ui command behaviors', () => {
             [ICommandService, { executeCommand }],
             [IUndoRedoService, { pushUndoRedo }],
             [WorksheetProtectionRuleModel, { getRule: () => ({ permissionId: 'perm-1' }) }],
-            [IUniverInstanceService, { getCurrentUnitForType: () => workbook }],
+            [ICrabTableInstanceService, { getCurrentUnitForType: () => workbook }],
         ]);
 
         expect(await DeleteWorksheetProtectionFormSheetBarCommand.handler(accessor, { ok: true } as any)).toBe(true);
@@ -494,7 +494,7 @@ describe('sheets-ui command behaviors', () => {
             [ICommandService, { executeCommand: vi.fn() }],
             [IUndoRedoService, { pushUndoRedo: vi.fn() }],
             [WorksheetProtectionRuleModel, { getRule: vi.fn() }],
-            [IUniverInstanceService, { getCurrentUnitForType: () => ({ getUnitId: () => 'unit-1', getActiveSheet: () => null }) }],
+            [ICrabTableInstanceService, { getCurrentUnitForType: () => ({ getUnitId: () => 'unit-1', getActiveSheet: () => null }) }],
         ]);
         expect(await DeleteWorksheetProtectionFormSheetBarCommand.handler(noWorksheetAccessor, { ok: true } as any)).toBe(false);
         expect(await DeleteWorksheetProtectionFormSheetBarCommand.handler(noWorksheetAccessor, undefined as any)).toBe(false);
@@ -532,7 +532,7 @@ describe('sheets-ui command behaviors', () => {
 
         const accessorWithWorksheetRule = createAccessor([
             [ICommandService, { executeCommand }],
-            [IUniverInstanceService, { getCurrentUnitForType: () => workbook }],
+            [ICrabTableInstanceService, { getCurrentUnitForType: () => workbook }],
             [IUndoRedoService, { pushUndoRedo }],
             [SheetsSelectionsService, { getCurrentLastSelection: () => ({ range: { startRow: 1, endRow: 1, startColumn: 1, endColumn: 1 } }) }],
             [WorksheetProtectionRuleModel, { getRule: () => ({ permissionId: 'sheet-perm' }) }],
@@ -554,7 +554,7 @@ describe('sheets-ui command behaviors', () => {
 
         const accessorWithRangeRule = createAccessor([
             [ICommandService, { executeCommand }],
-            [IUniverInstanceService, { getCurrentUnitForType: () => workbook }],
+            [ICrabTableInstanceService, { getCurrentUnitForType: () => workbook }],
             [IUndoRedoService, { pushUndoRedo }],
             [SheetsSelectionsService, { getCurrentLastSelection: () => ({ range: { startRow: 1, endRow: 1, startColumn: 1, endColumn: 1 } }) }],
             [WorksheetProtectionRuleModel, { getRule: () => null }],
@@ -577,7 +577,7 @@ describe('sheets-ui command behaviors', () => {
 
         const accessorNoSelection = createAccessor([
             [ICommandService, { executeCommand }],
-            [IUniverInstanceService, { getCurrentUnitForType: () => workbook }],
+            [ICrabTableInstanceService, { getCurrentUnitForType: () => workbook }],
             [IUndoRedoService, { pushUndoRedo }],
             [SheetsSelectionsService, { getCurrentLastSelection: () => null }],
             [WorksheetProtectionRuleModel, { getRule: () => null }],

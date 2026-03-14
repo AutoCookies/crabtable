@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
+import type { IRange } from '@crabtable/core';
 import type { Observable } from 'rxjs';
 import type { ISelectionWithStyle } from '../../basics/selection';
-import { createIdentifier, Disposable, Rectangle } from '@univerjs/core';
+import { createIdentifier, Disposable, Rectangle } from '@crabtable/core';
 import { Subject } from 'rxjs';
 
 interface IFeatureRange {

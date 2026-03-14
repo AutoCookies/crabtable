@@ -77,7 +77,7 @@ export enum DrawingTypeEnum {
      */
     DRAWING_GROUP = 6,
     /**
-     * Univer object, allows inserting images, tables, documents, slides as floating objects into the document
+     * CrabTable object, allows inserting images, tables, documents, slides as floating objects into the document
      */
     DRAWING_UNIT = 7,
     /**

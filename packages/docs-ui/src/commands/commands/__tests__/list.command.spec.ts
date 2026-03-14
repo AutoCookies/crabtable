@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommand, IDocumentData, Injector, Univer } from '@univerjs/core';
-import { ICommandService, IUniverInstanceService, PRESET_LIST_TYPE, PresetListType, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation, SetTextSelectionsOperation } from '@univerjs/docs';
+import type { CrabTable, DocumentDataModel, ICommand, IDocumentData, Injector } from '@crabtable/core';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, PRESET_LIST_TYPE, PresetListType } from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation, SetTextSelectionsOperation } from '@crabtable/docs';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import {
     BulletListCommand,
@@ -59,13 +59,13 @@ function getDocumentData(): IDocumentData {
 }
 
 describe('list commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
     function getBody() {
-        const univerInstanceService = get(IUniverInstanceService);
-        return univerInstanceService.getUnit<DocumentDataModel>('test-doc', UniverInstanceType.UNIVER_DOC)?.getBody();
+        const crabtableInstanceService = get(ICrabTableInstanceService);
+        return crabtableInstanceService.getUnit<DocumentDataModel>('test-doc', CrabTableInstanceType.CRABTABLE_DOC)?.getBody();
     }
 
     function setSelections(ranges: Array<{ startOffset: number; endOffset: number; collapsed: boolean }>) {

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IRange, Nullable } from '@univerjs/core';
-import type { IOrderRule } from '@univerjs/sheets-sort';
+import type { IRange, Nullable } from '@crabtable/core';
+import type { IOrderRule } from '@crabtable/sheets-sort';
 import type { ICustomSortState } from '../services/sheets-sort-ui.service';
-import { LocaleService, throttle } from '@univerjs/core';
-import { Button, Checkbox, clsx, DraggableList, Dropdown, Radio, RadioGroup, scrollbarClassName } from '@univerjs/design';
+import { LocaleService, throttle } from '@crabtable/core';
+import { Button, Checkbox, clsx, DraggableList, Dropdown, Radio, RadioGroup, scrollbarClassName } from '@crabtable/design';
+import { SheetsSortService, SortType } from '@crabtable/sheets-sort';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { CheckMarkIcon, DeleteEmptyIcon, IncreaseIcon, MoreDownIcon, SequenceIcon } from '@univerjs/icons';
-import { SheetsSortService, SortType } from '@univerjs/sheets-sort';
-import { useDependency, useObservable } from '@univerjs/ui';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { SheetsSortUIService } from '../services/sheets-sort-ui.service';
 

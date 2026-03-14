@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IMutation, IObjectArrayPrimitiveType, IRange, Nullable, Worksheet } from '@univerjs/core';
-import { CommandType, IUniverInstanceService, Tools } from '@univerjs/core';
+import type { IMutation, IObjectArrayPrimitiveType, IRange, Nullable, Worksheet } from '@crabtable/core';
+import { CommandType, ICrabTableInstanceService, Tools } from '@crabtable/core';
 
 import { getSheetCommandTarget } from '../commands/utils/target-util';
 
@@ -62,8 +62,8 @@ export const SetWorksheetColWidthMutation: IMutation<ISetWorksheetColWidthMutati
     id: 'sheet.mutation.set-worksheet-col-width',
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { worksheet } = target;

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ICommand, IMutationInfo, JSONXActions } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { ITextRangeWithStyle } from '@univerjs/engine-render';
-import { CommandType, DataStreamTreeTokenType, ICommandService, IUniverInstanceService, JSONX, TextX, TextXActionType } from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation } from '@univerjs/docs';
+import type { ICommand, IMutationInfo, JSONXActions } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { ITextRangeWithStyle } from '@crabtable/engine-render';
+import { CommandType, DataStreamTreeTokenType, ICommandService, ICrabTableInstanceService, JSONX, TextX, TextXActionType } from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation } from '@crabtable/docs';
 import { getTextRunAtPosition } from '../../../basics/paragraph';
 import { DocMenuStyleService } from '../../../services/doc-menu-style.service';
 import { getCommandSkeleton, getRichTextEditPath } from '../../util';
@@ -42,7 +42,7 @@ export const CreateDocTableCommand: ICommand<ICreateDocTableCommandParams> = {
     handler: async (accessor, params: ICreateDocTableCommandParams) => {
         const { rowCount, colCount } = params;
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
         const docMenuStyleService = accessor.get(DocMenuStyleService);
 
@@ -51,7 +51,7 @@ export const CreateDocTableCommand: ICommand<ICreateDocTableCommandParams> = {
             return false;
         }
         const { segmentId, segmentPage } = activeRange;
-        const docDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const docDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
         const body = docDataModel?.getSelfOrHeaderFooterModel(segmentId).getBody();
         if (docDataModel == null || body == null) {
             return false;

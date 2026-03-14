@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ISheetDataValidationRule, Nullable } from '@univerjs/core';
-import type { IFormulaInfo, IOtherFormulaResult } from '@univerjs/engine-formula';
-import { DataValidationType, Disposable, Inject, isFormulaString, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DataValidationModel, DataValidatorRegistryService } from '@univerjs/data-validation';
-import { OtherFormulaBizType, RegisterOtherFormulaService } from '@univerjs/engine-formula';
+import type { ISheetDataValidationRule, Nullable } from '@crabtable/core';
+import type { IFormulaInfo, IOtherFormulaResult } from '@crabtable/engine-formula';
+import { CrabTableInstanceType, DataValidationType, Disposable, ICrabTableInstanceService, Inject, isFormulaString } from '@crabtable/core';
+import { DataValidationModel, DataValidatorRegistryService } from '@crabtable/data-validation';
+import { OtherFormulaBizType, RegisterOtherFormulaService } from '@crabtable/engine-formula';
 import { shouldOffsetFormulaByRange } from '../utils/formula';
 import { DataValidationCacheService } from './dv-cache.service';
 import { DataValidationListCacheService } from './dv-list-cache.service';
@@ -31,7 +31,7 @@ export class DataValidationFormulaService extends Disposable {
     private _formulaRuleMap: Map<UnitId, Map<SubUnitId, Map<RuleId, [IFormulaInfo | undefined, IFormulaInfo | undefined]>>> = new Map();
 
     constructor(
-        @IUniverInstanceService private readonly _instanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _instanceService: ICrabTableInstanceService,
         @Inject(RegisterOtherFormulaService) private _registerOtherFormulaService: RegisterOtherFormulaService,
         @Inject(DataValidationCacheService) private readonly _dataValidationCacheService: DataValidationCacheService,
         @Inject(DataValidationModel) private readonly _dataValidationModel: DataValidationModel,
@@ -48,7 +48,7 @@ export class DataValidationFormulaService extends Disposable {
                 const unitMap = resultMap[unitId];
 
                 const type = this._instanceService.getUnitType(unitId);
-                if (type !== UniverInstanceType.UNIVER_SHEET) continue;
+                if (type !== CrabTableInstanceType.CRABTABLE_SHEET) continue;
 
                 for (const subUnitId in unitMap) {
                     const results = unitMap[subUnitId];

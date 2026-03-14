@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IMutation } from '@univerjs/core';
+import type { IAccessor, IMutation } from '@crabtable/core';
 import type { IWorksheetRangeThemeStyleMutationParams } from '../../basics/interfaces/mutation-interface';
-import { CommandType, IUniverInstanceService } from '@univerjs/core';
+import { CommandType, ICrabTableInstanceService } from '@crabtable/core';
 import { SheetRangeThemeModel } from '../../model/range-theme-model';
 import { getSheetCommandTarget, getSheetMutationTarget } from '../commands/utils/target-util';
 
@@ -24,7 +24,7 @@ export const DeleteWorksheetRangeThemeStyleMutation: IMutation<IWorksheetRangeTh
     id: 'sheet.mutation.remove-worksheet-range-theme-style',
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService), params);
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService), params);
         if (!target) return false;
 
         const sheetRangeThemeModel = accessor.get(SheetRangeThemeModel);
@@ -36,7 +36,7 @@ export const DeleteWorksheetRangeThemeStyleMutation: IMutation<IWorksheetRangeTh
 };
 
 export const DeleteWorksheetRangeThemeStyleMutationFactory = (accessor: IAccessor, params: IWorksheetRangeThemeStyleMutationParams) => {
-    const target = getSheetMutationTarget(accessor.get(IUniverInstanceService), params);
+    const target = getSheetMutationTarget(accessor.get(ICrabTableInstanceService), params);
     if (!target) {
         throw new Error('[DeleteWorksheetRangeThemeStyleMutationFactory]: worksheet is null error!');
     }

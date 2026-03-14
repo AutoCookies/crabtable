@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
+import type { ICommand } from '@crabtable/core';
 import type { IPermissionPanelRule } from '../../services/permission/sheet-permission-panel.model';
-import { CommandType } from '@univerjs/core';
-import { ISidebarService } from '@univerjs/ui';
-import { UNIVER_SHEET_PERMISSION_PANEL } from '../../consts/permission';
+import { CommandType } from '@crabtable/core';
+import { ISidebarService } from '@crabtable/ui';
+import { CRABTABLE_SHEET_PERMISSION_PANEL } from '../../consts/permission';
 import { SheetPermissionPanelModel } from '../../services/permission/sheet-permission-panel.model';
 import { SheetPermissionUserManagerService } from '../../services/permission/sheet-permission-user-list.service';
 
@@ -42,7 +42,7 @@ export const SheetPermissionOpenPanelOperation: ICommand<IPermissionOpenPanelPar
         const sidebarProps = {
             header: { title: 'permission.panel.title' },
             children: {
-                label: UNIVER_SHEET_PERMISSION_PANEL,
+                label: CRABTABLE_SHEET_PERMISSION_PANEL,
                 showDetail,
                 fromSheetBar,
                 rule,

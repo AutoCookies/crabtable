@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import type { ISelectionWithStyle } from '@univerjs/sheets';
-import type { IHoverCellPosition } from '@univerjs/sheets-ui';
-import { Disposable, Inject, RANGE_TYPE, Rectangle } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { SheetsSelectionsService } from '@univerjs/sheets';
-import { SheetsNoteModel } from '@univerjs/sheets-note';
-import { HoverManagerService, IEditorBridgeService, SheetSkeletonManagerService } from '@univerjs/sheets-ui';
+import type { Nullable } from '@crabtable/core';
+import type { ISelectionWithStyle } from '@crabtable/sheets';
+import type { IHoverCellPosition } from '@crabtable/sheets-ui';
+import { Disposable, Inject, RANGE_TYPE, Rectangle } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { SheetsSelectionsService } from '@crabtable/sheets';
+import { SheetsNoteModel } from '@crabtable/sheets-note';
+import { HoverManagerService, IEditorBridgeService, SheetSkeletonManagerService } from '@crabtable/sheets-ui';
 import { debounceTime } from 'rxjs/operators';
 import { SheetsNotePopupService } from '../services/sheets-note-popup.service';
 

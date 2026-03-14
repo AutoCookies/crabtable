@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { MenuSchemaType } from '@univerjs/ui';
-import { ContextMenuGroup, ContextMenuPosition, RibbonInsertGroup } from '@univerjs/ui';
+import type { MenuSchemaType } from '@crabtable/ui';
+import { ContextMenuGroup, ContextMenuPosition, RibbonInsertGroup } from '@crabtable/ui';
 import { InsertCellImageCommand, InsertFloatImageCommand } from '../commands/commands/insert-image.command';
 import { SaveCellImagesCommand } from '../commands/commands/save-cell-images.command';
 import { ImageMenuFactory, SHEETS_IMAGE_MENU_ID, UploadCellImageMenuFactory, UploadFloatImageMenuFactory } from './image.menu';

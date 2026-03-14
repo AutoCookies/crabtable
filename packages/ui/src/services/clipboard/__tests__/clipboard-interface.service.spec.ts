@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ILogService, LocaleService } from '@univerjs/core';
+import type { ILogService, LocaleService } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { BrowserClipboardService } from '../clipboard-interface.service';
 import { supportClipboardAPI } from '../clipboard-utils';

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICommand, ITextRangeParam } from '@univerjs/core';
-import { CommandType, DashStyleType, ICommandService } from '@univerjs/core';
+import type { ICommand, ITextRangeParam } from '@crabtable/core';
+import { CommandType, DashStyleType, ICommandService } from '@crabtable/core';
 import { BreakLineCommand } from './break-line.command';
 import { getCurrentParagraph } from './util';
 

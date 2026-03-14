@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import { DataValidationOperator, DataValidationType } from '@univerjs/core';
-import { SheetsSelectionsService } from '@univerjs/sheets';
+import type { IAccessor } from '@crabtable/core';
+import { DataValidationOperator, DataValidationType } from '@crabtable/core';
+import { SheetsSelectionsService } from '@crabtable/sheets';
 import { describe, expect, it, vi } from 'vitest';
 import { createDefaultNewRule } from '../create';
 

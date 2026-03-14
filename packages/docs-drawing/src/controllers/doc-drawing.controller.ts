@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IDocumentData } from '@univerjs/core';
-import type { IDrawingMapItem, IDrawingMapItemData } from '@univerjs/drawing';
+import type { DocumentDataModel, IDocumentData } from '@crabtable/core';
+import type { IDrawingMapItem, IDrawingMapItemData } from '@crabtable/drawing';
 import type { IDocDrawing } from '../services/doc-drawing.service';
-import { Disposable, IResourceManagerService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { IDrawingManagerService } from '@univerjs/drawing';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, IResourceManagerService } from '@crabtable/core';
+import { IDrawingManagerService } from '@crabtable/drawing';
 import { IDocDrawingService } from '../services/doc-drawing.service';
 
 export const DOCS_DRAWING_PLUGIN = 'DOC_DRAWING_PLUGIN';
@@ -29,7 +29,7 @@ export class DocDrawingController extends Disposable {
         @IDocDrawingService private readonly _docDrawingService: IDocDrawingService,
         @IDrawingManagerService private readonly _drawingManagerService: IDrawingManagerService,
         @IResourceManagerService private _resourceManagerService: IResourceManagerService,
-        @IUniverInstanceService private _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
 
@@ -42,7 +42,7 @@ export class DocDrawingController extends Disposable {
 
     private _initSnapshot() {
         const toJson = (unitId: string) => {
-            const doc = this._univerInstanceService.getUnit<DocumentDataModel>(unitId, UniverInstanceType.UNIVER_DOC);
+            const doc = this._crabtableInstanceService.getUnit<DocumentDataModel>(unitId, CrabTableInstanceType.CRABTABLE_DOC);
             if (doc) {
                 const drawings = doc.getSnapshot().drawings;
                 const drawingOrder = doc.getSnapshot().drawingsOrder;
@@ -69,7 +69,7 @@ export class DocDrawingController extends Disposable {
         this.disposeWithMe(
             this._resourceManagerService.registerPluginResource<IDrawingMapItem<IDocDrawing>>({
                 pluginName: DOCS_DRAWING_PLUGIN,
-                businesses: [UniverInstanceType.UNIVER_DOC],
+                businesses: [CrabTableInstanceType.CRABTABLE_DOC],
                 toJson: (unitId) => toJson(unitId),
                 parseJson: (json) => parseJson(json),
                 onUnLoad: (unitId) => {
@@ -83,7 +83,7 @@ export class DocDrawingController extends Disposable {
     }
 
     private _setDrawingDataForUnit(unitId: string, drawingMapItem: IDrawingMapItem<IDocDrawing>) {
-        const documentDataModel = this._univerInstanceService.getUnit<DocumentDataModel>(unitId);
+        const documentDataModel = this._crabtableInstanceService.getUnit<DocumentDataModel>(unitId);
         if (documentDataModel == null) {
             return;
         }
@@ -93,7 +93,7 @@ export class DocDrawingController extends Disposable {
     }
 
     loadDrawingDataForUnit(unitId: string): boolean {
-        const dataModel = this._univerInstanceService.getUnit<DocumentDataModel>(unitId, UniverInstanceType.UNIVER_DOC);
+        const dataModel = this._crabtableInstanceService.getUnit<DocumentDataModel>(unitId, CrabTableInstanceType.CRABTABLE_DOC);
         if (!dataModel) {
             return false;
         }

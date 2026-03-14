@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, Workbook } from '@univerjs/core';
-import type { ISheetCommandSharedParams } from '@univerjs/sheets';
-import { awaitTime, Disposable, ICommandService, ILogService, IUniverInstanceService } from '@univerjs/core';
-import { MessageType } from '@univerjs/design';
-import { ILocalFileService, IMessageService } from '@univerjs/ui';
+import type { ICommandInfo, Workbook } from '@crabtable/core';
+import type { ISheetCommandSharedParams } from '@crabtable/sheets';
+import { awaitTime, Disposable, ICommandService, ICrabTableInstanceService, ILogService } from '@crabtable/core';
+import { MessageType } from '@crabtable/design';
+import { ILocalFileService, IMessageService } from '@crabtable/ui';
 
 export enum ReplayMode {
     DEFAULT = 'default',
@@ -32,7 +32,7 @@ export enum ReplayMode {
 export class ActionReplayService extends Disposable {
     constructor(
         @IMessageService private readonly _messageService: IMessageService,
-        @IUniverInstanceService private readonly _instanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _instanceService: ICrabTableInstanceService,
         @ILocalFileService private readonly _localFileService: ILocalFileService,
         @ILogService private readonly _logService: ILogService,
         @ICommandService private readonly _commandService: ICommandService

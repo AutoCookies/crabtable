@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverSheetsFormulaBaseConfig, IUniverSheetsFormulaRemoteConfig } from './config/config';
-import { DependentOn, IConfigService, Inject, Injector, isNodeEnv, merge, Plugin, touchDependencies, UniverInstanceType } from '@univerjs/core';
-import { UniverFormulaEnginePlugin } from '@univerjs/engine-formula';
-import { fromModule, IRPCChannelService, toModule } from '@univerjs/rpc';
-import { UniverSheetsPlugin } from '@univerjs/sheets';
+import { CrabTableInstanceType, DependentOn, IConfigService, Inject, Injector, isNodeEnv, merge, Plugin, touchDependencies } from '@crabtable/core';
+import { UniverFormulaEnginePlugin } from '@crabtable/engine-formula';
+import { fromModule, IRPCChannelService, toModule } from '@crabtable/rpc';
+import { UniverSheetsPlugin } from '@crabtable/sheets';
 import pkg from '../package.json';
 import { SHEETS_FORMULA_PLUGIN_NAME } from './common/plugin-name';
 import {
@@ -48,7 +48,7 @@ export class UniverRemoteSheetsFormulaPlugin extends Plugin {
     static override pluginName = 'SHEET_FORMULA_REMOTE_PLUGIN';
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
     constructor(
         private readonly _config: Partial<IUniverSheetsFormulaRemoteConfig> = defaultPluginRemoteConfig,
@@ -80,7 +80,7 @@ export class UniverSheetsFormulaPlugin extends Plugin {
     static override pluginName = SHEETS_FORMULA_PLUGIN_NAME;
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
     constructor(
         private readonly _config: Partial<IUniverSheetsFormulaBaseConfig> = defaultPluginBaseConfig,

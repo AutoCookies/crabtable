@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Univer } from '../../univer';
+import type { CrabTable } from '../../univer';
 import type { IRange, IWorkbookData } from '../typedef';
 import type { Worksheet } from '../worksheet';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
@@ -26,7 +26,7 @@ import { extractPureTextFromCell } from '../worksheet';
 import { createCoreTestBed } from './create-core-test-bed';
 
 describe('test worksheet', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let worksheet: Worksheet;
     let caseDisposable: DisposableCollection;
 

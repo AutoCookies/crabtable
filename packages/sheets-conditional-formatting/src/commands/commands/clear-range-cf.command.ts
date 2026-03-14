@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-import type { ICommand, IMutationInfo, IRange } from '@univerjs/core';
+import type { ICommand, IMutationInfo, IRange } from '@crabtable/core';
 import type { IConditionFormattingRule } from '../../models/type';
 import type { IDeleteConditionalRuleMutationParams } from '../mutations/delete-conditional-rule.mutation';
 import type { ISetConditionalRuleMutationParams } from '../mutations/set-conditional-rule.mutation';
 import {
     CommandType,
     ICommandService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
     ObjectMatrix,
     Range,
     sequenceExecute,
-} from '@univerjs/core';
-import { createTopMatrixFromMatrix, findAllRectangle, getSheetCommandTarget, SheetsSelectionsService } from '@univerjs/sheets';
+} from '@crabtable/core';
+import { createTopMatrixFromMatrix, findAllRectangle, getSheetCommandTarget, SheetsSelectionsService } from '@crabtable/sheets';
 import { ConditionalFormattingRuleModel } from '../../models/conditional-formatting-rule-model';
 import { DeleteConditionalRuleMutation, DeleteConditionalRuleMutationUndoFactory } from '../mutations/delete-conditional-rule.mutation';
 import { SetConditionalRuleMutation, setConditionalRuleMutationUndoFactory } from '../mutations/set-conditional-rule.mutation';
@@ -45,12 +45,12 @@ export const ClearRangeCfCommand: ICommand<IClearRangeCfParams> = {
             return false;
         }
         const conditionalFormattingRuleModel = accessor.get(ConditionalFormattingRuleModel);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
         const selectionManagerService = accessor.get(SheetsSelectionsService);
 
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { unitId, subUnitId } = target;

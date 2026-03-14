@@ -16,37 +16,36 @@
 
 /* eslint-disable max-lines-per-function */
 
-import type { Dependency, IWorkbookData, UnitModel } from '@univerjs/core';
-import type { IRender } from '@univerjs/engine-render';
+import type { Dependency, IWorkbookData, UnitModel } from '@crabtable/core';
+import type { IRender } from '@crabtable/engine-render';
 import {
+    CrabTableInstanceType,
+    ICrabTableInstanceService,
     ILogService,
     Inject,
     Injector,
-    IUniverInstanceService,
     LocaleService,
     LocaleType,
     LogLevel,
     Plugin,
     set,
     ThemeService,
-    Univer,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { FUniver } from '@univerjs/core/facade';
-import { ActiveDirtyManagerService, DefinedNamesService, FormulaDataModel, IActiveDirtyManagerService, IDefinedNamesService, ISheetRowFilteredService, LexerTreeBuilder, RegisterOtherFormulaService, SheetRowFilteredService } from '@univerjs/engine-formula';
-import { Engine, IRenderingEngine, IRenderManagerService, RenderManagerService } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { FCrabTable } from '@crabtable/core/facade';
+import { ActiveDirtyManagerService, DefinedNamesService, FormulaDataModel, IActiveDirtyManagerService, IDefinedNamesService, ISheetRowFilteredService, LexerTreeBuilder, RegisterOtherFormulaService, SheetRowFilteredService } from '@crabtable/engine-formula';
+import { Engine, IRenderingEngine, IRenderManagerService, RenderManagerService } from '@crabtable/engine-render';
 import {
     RefRangeService,
     SheetInterceptorService,
     SheetSkeletonService,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
-import { ConditionalFormattingFormulaService, ConditionalFormattingRuleModel, ConditionalFormattingService, ConditionalFormattingViewModel } from '@univerjs/sheets-conditional-formatting';
-import enUS from '@univerjs/sheets/locale/en-US';
-import zhCN from '@univerjs/sheets/locale/zh-CN';
+} from '@crabtable/sheets';
+import { ConditionalFormattingFormulaService, ConditionalFormattingRuleModel, ConditionalFormattingService, ConditionalFormattingViewModel } from '@crabtable/sheets-conditional-formatting';
+import enUS from '@crabtable/sheets/locale/en-US';
+import zhCN from '@crabtable/sheets/locale/zh-CN';
 
-import '@univerjs/sheets/facade';
-import '@univerjs/sheets-conditional-formatting/facade';
+import '@crabtable/sheets/facade';
+import '@crabtable/sheets-conditional-formatting/facade';
 
 function getTestWorkbookDataDemo(): IWorkbookData {
     return {
@@ -102,10 +101,10 @@ function getTestWorkbookDataDemo(): IWorkbookData {
 }
 
 export interface ITestBed {
-    univer: Univer;
+    univer: CrabTable;
     get: Injector['get'];
     sheet: UnitModel<IWorkbookData>;
-    univerAPI: FUniver;
+    crabtableAPI: FCrabTable;
     injector: Injector;
 }
 
@@ -117,12 +116,12 @@ class RenderManagerServiceTestBed extends RenderManagerService {
 }
 
 export function createFacadeTestBed(workbookData?: IWorkbookData, dependencies?: Dependency[]): ITestBed {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
 
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -182,22 +181,22 @@ export function createFacadeTestBed(workbookData?: IWorkbookData, dependencies?:
     // note that UI plugins are not registered here, because the unit test environment does not have a UI
     univer.registerPlugin(TestPlugin);
 
-    const sheet = univer.createUnit<IWorkbookData, UnitModel<IWorkbookData>>(UniverInstanceType.UNIVER_SHEET, workbookData || getTestWorkbookDataDemo());
-    const univerInstanceService = injector.get(IUniverInstanceService);
-    univerInstanceService.focusUnit('test');
+    const sheet = univer.createUnit<IWorkbookData, UnitModel<IWorkbookData>>(CrabTableInstanceType.CRABTABLE_SHEET, workbookData || getTestWorkbookDataDemo());
+    const crabtableInstanceService = injector.get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit('test');
 
     // set log level
     const logService = injector.get(ILogService);
     logService.setLogLevel(LogLevel.SILENT); // NOTE: change this to `LogLevel.VERBOSE` to debug tests via logs
 
     // init data validation
-    const univerAPI = FUniver.newAPI(injector);
+    const crabtableAPI = FCrabTable.newAPI(injector);
 
     return {
         univer,
         get: injector.get.bind(injector),
         sheet,
-        univerAPI,
+        crabtableAPI,
         injector,
     };
 }

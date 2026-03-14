@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import { IUniverInstanceService, LocaleService } from '@univerjs/core';
-import { DocSkeletonManagerService } from '@univerjs/docs';
-import { DocumentEditArea, IRenderManagerService } from '@univerjs/engine-render';
-import { useDependency } from '@univerjs/ui';
+import { ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { DocSkeletonManagerService } from '@crabtable/docs';
+import { DocumentEditArea, IRenderManagerService } from '@crabtable/engine-render';
+import { useDependency } from '@crabtable/ui';
 import { useEffect, useState } from 'react';
 import { DocHeaderFooterOptions } from './DocHeaderFooterOptions';
 
 export const DocHeaderFooterPanel = () => {
     const localeService = useDependency(LocaleService);
     const renderManagerService = useDependency(IRenderManagerService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
-    const documentDataModel = univerInstanceService.getCurrentUniverDocInstance()!;
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
+    const documentDataModel = crabtableInstanceService.getCurrentUniverDocInstance()!;
     const unitId = documentDataModel.getUnitId()!;
     const docSkeletonManagerService = renderManagerService.getRenderById(unitId)?.with(DocSkeletonManagerService);
 

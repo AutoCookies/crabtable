@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel } from '@univerjs/core';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
+import type { DocumentDataModel } from '@crabtable/core';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
 
 import {
     ICommandService,
     IContextService,
     Inject,
     RxDisposable,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     HTML_CLIPBOARD_MIME_TYPE,
     imageMimeTypeSet,
     PLAIN_TEXT_CLIPBOARD_MIME_TYPE,
-} from '@univerjs/ui';
+} from '@crabtable/ui';
 import { takeUntil } from 'rxjs';
 import { whenDocOrEditor } from '../../commands/commands/clipboard.command';
 import { IDocClipboardService } from '../../services/clipboard/clipboard.service';
@@ -69,7 +69,7 @@ export class DocClipboardController extends RxDisposable implements IRenderModul
                 .map((item) => item.getAsFile()!)
                 .filter((e) => !!e);
 
-            // TODO: @JOCS, work around to fix https://github.com/dream-num/univer-pro/issues/2006. and then when you paste it,
+            // TODO: @JOCS, work around to fix https://github.com/AutoCookies/crabtable-pro/issues/2006. and then when you paste it,
             // you need to distinguish between different editors,
             // because different editors have different pasting effects. For example, when editing a state, you can't paste a table
             const editor = this._editorService.getEditor(this._context.unitId);

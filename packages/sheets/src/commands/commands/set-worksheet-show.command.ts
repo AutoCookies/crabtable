@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
+import type { IAccessor, ICommand } from '@crabtable/core';
 import type { ISetWorksheetHideMutationParams } from '../mutations/set-worksheet-hide.mutation';
 import type { ISetWorksheetActiveOperationParams } from '../operations/set-worksheet-active.operation';
-import { BooleanNumber, CommandType, ICommandService, IUndoRedoService, IUniverInstanceService } from '@univerjs/core';
+import { BooleanNumber, CommandType, ICommandService, ICrabTableInstanceService, IUndoRedoService } from '@crabtable/core';
 import { SetWorksheetHideMutation, SetWorksheetHideMutationFactory } from '../mutations/set-worksheet-hide.mutation';
 import {
     SetWorksheetActiveOperation,
@@ -35,7 +35,7 @@ export const SetWorksheetShowCommand: ICommand = {
     id: 'sheet.command.set-worksheet-show',
 
     handler: (accessor: IAccessor, params: ISetWorksheetShowCommandParams) => {
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService), params);
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService), params);
         if (!target) return false;
 
         const { unitId, subUnitId, worksheet } = target;

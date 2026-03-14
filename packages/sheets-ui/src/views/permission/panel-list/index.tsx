@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-import type { IRange, Workbook } from '@univerjs/core';
+import type { IRange, Workbook } from '@crabtable/core';
+import type { IRangeProtectionRule, IWorksheetProtectionRule } from '@crabtable/sheets';
 import type { IPermissionPoint } from '@univerjs/protocol';
-import type { IRangeProtectionRule, IWorksheetProtectionRule } from '@univerjs/sheets';
 import type { IPermissionPanelRule } from '../../../services/permission/sheet-permission-panel.model';
-import { IAuthzIoService, ICommandService, IPermissionService, IUniverInstanceService, LocaleService, Tools, UniverInstanceType, UserManagerService } from '@univerjs/core';
-import { Avatar, borderClassName, Button, clsx, Tooltip } from '@univerjs/design';
-import { serializeRange } from '@univerjs/engine-formula';
+import { CrabTableInstanceType, IAuthzIoService, ICommandService, ICrabTableInstanceService, IPermissionService, LocaleService, Tools, UserManagerService } from '@crabtable/core';
+import { Avatar, borderClassName, Button, clsx, Tooltip } from '@crabtable/design';
+import { serializeRange } from '@crabtable/engine-formula';
+import { baseProtectionActions, DeleteRangeProtectionCommand, DeleteWorksheetProtectionCommand, RangeProtectionRuleModel, SetWorksheetActiveOperation, WorkbookCreateProtectPermission, WorksheetProtectionRuleModel } from '@crabtable/sheets';
+import { ISidebarService, useDependency, useObservable } from '@crabtable/ui';
 import { DeleteIcon, WriteIcon } from '@univerjs/icons';
 import { UnitAction, UnitObject } from '@univerjs/protocol';
-import { baseProtectionActions, DeleteRangeProtectionCommand, DeleteWorksheetProtectionCommand, RangeProtectionRuleModel, SetWorksheetActiveOperation, WorkbookCreateProtectPermission, WorksheetProtectionRuleModel } from '@univerjs/sheets';
-import { ISidebarService, useDependency, useObservable } from '@univerjs/ui';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { distinctUntilChanged, merge } from 'rxjs';
-import { UNIVER_SHEET_PERMISSION_PANEL } from '../../../consts/permission';
+import { CRABTABLE_SHEET_PERMISSION_PANEL } from '../../../consts/permission';
 import { useHighlightRange } from '../../../hooks/use-highlight-range';
 import { SheetPermissionUserManagerService } from '../../../services/permission/sheet-permission-user-list.service';
 import { panelListEmptyBase64 } from './constant';
@@ -42,7 +42,7 @@ export function SheetPermissionPanelList() {
     const localeService = useDependency(LocaleService);
     const rangeProtectionRuleModel = useDependency(RangeProtectionRuleModel);
     const worksheetProtectionModel = useDependency(WorksheetProtectionRuleModel);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const commandService = useDependency(ICommandService);
     const sidebarService = useDependency(ISidebarService);
     const authzIoService = useDependency(IAuthzIoService);
@@ -54,7 +54,7 @@ export function SheetPermissionPanelList() {
     const sheetRuleRefresh = useObservable(worksheetProtectionModel.ruleRefresh$, '');
     const rangeRuleRefresh = useObservable(rangeProtectionRuleModel.ruleRefresh$, '');
 
-    const workbook = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const workbook = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
 
     if (!workbook) return null;
 
@@ -192,7 +192,7 @@ export function SheetPermissionPanelList() {
         const sidebarProps = {
             header: { title: 'permission.panel.title' },
             children: {
-                label: UNIVER_SHEET_PERMISSION_PANEL,
+                label: CRABTABLE_SHEET_PERMISSION_PANEL,
                 showDetail: true,
                 rule: Tools.deepClone(rule),
                 oldRule: Tools.deepClone(rule),
@@ -414,7 +414,7 @@ export function SheetPermissionPanelList() {
                             const sidebarProps = {
                                 header: { title: `${localeService.t('permission.panel.title')}` },
                                 children: {
-                                    label: UNIVER_SHEET_PERMISSION_PANEL,
+                                    label: CRABTABLE_SHEET_PERMISSION_PANEL,
                                     showDetail: true,
                                 },
                                 width: 330,

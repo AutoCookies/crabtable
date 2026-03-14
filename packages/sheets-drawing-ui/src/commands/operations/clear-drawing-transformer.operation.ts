@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IMutation } from '@univerjs/core';
-import { CommandType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import type { IMutation } from '@crabtable/core';
+import { CommandType } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 
 export const ClearSheetDrawingTransformerOperation: IMutation<string[]> = {
     id: 'sheet.operation.clear-drawing-transformer',

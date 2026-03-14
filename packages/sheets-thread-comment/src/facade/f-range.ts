@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IDocumentBody, Nullable } from '@univerjs/core';
-import type { IThreadComment } from '@univerjs/thread-comment';
-import { generateRandomId, ICommandService, Range, Tools, UserManagerService } from '@univerjs/core';
-import { SheetsThreadCommentModel } from '@univerjs/sheets-thread-comment';
-import { FRange } from '@univerjs/sheets/facade';
-import { AddCommentCommand, DeleteCommentTreeCommand, getDT } from '@univerjs/thread-comment';
+import type { IDocumentBody, Nullable } from '@crabtable/core';
+import type { IThreadComment } from '@crabtable/thread-comment';
+import { generateRandomId, ICommandService, Range, Tools, UserManagerService } from '@crabtable/core';
+import { SheetsThreadCommentModel } from '@crabtable/sheets-thread-comment';
+import { FRange } from '@crabtable/sheets/facade';
+import { AddCommentCommand, DeleteCommentTreeCommand, getDT } from '@crabtable/thread-comment';
 import { FTheadCommentBuilder, FThreadComment } from './f-thread-comment';
 
 /**
@@ -31,7 +31,7 @@ export interface IFRangeCommentMixin {
      * @returns {FThreadComment | null} The comment of the start cell in the current range. If the cell does not have a comment, return `null`.
      * @example
      * ```ts
-     * const range = univerAPI.getActiveWorkbook()
+     * const range = crabtableAPI.getActiveWorkbook()
      *  .getActiveSheet()
      *  .getActiveRange();
      * const comment = range.getComment();
@@ -44,7 +44,7 @@ export interface IFRangeCommentMixin {
      * @returns {FThreadComment[]} The comments in the current range.
      * @example
      * ```ts
-     * const range = univerAPI.getActiveWorkbook()
+     * const range = crabtableAPI.getActiveWorkbook()
      *  .getActiveSheet()
      *  .getActiveRange();
      * const comments = range.getComments();
@@ -67,13 +67,13 @@ export interface IFRangeCommentMixin {
      * @example
      * ```ts
      * // Create a new comment
-     * const richText = univerAPI.newRichText().insertText('hello univer');
-     * const commentBuilder = univerAPI.newTheadComment()
+     * const richText = crabtableAPI.newRichText().insertText('hello univer');
+     * const commentBuilder = crabtableAPI.newTheadComment()
      *   .setContent(richText);
      * console.log(commentBuilder.content.toPlainText());
      *
      * // Add the comment to the cell A1
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const cell = fWorksheet.getRange('A1');
      * const result = await cell.addCommentAsync(commentBuilder);
@@ -103,7 +103,7 @@ export interface IFRangeCommentMixin {
      * @returns Whether the comments are cleared successfully.
      * @example
      * ```ts
-     * const range = univerAPI.getActiveWorkbook()
+     * const range = crabtableAPI.getActiveWorkbook()
      *  .getActiveSheet()
      *  .getActiveRange();
      * const success = await range.clearCommentsAsync();
@@ -222,7 +222,7 @@ export class FRangeCommentMixin extends FRange implements IFRangeCommentMixin {
 }
 
 FRange.extend(FRangeCommentMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FRange extends IFRangeCommentMixin {}
 }

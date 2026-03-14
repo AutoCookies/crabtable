@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { DocumentEditArea } from '@univerjs/engine-render';
+import { DocumentEditArea } from '@crabtable/engine-render';
 import { describe, expect, it, vi } from 'vitest';
 
 import { AddDocCommentMenuItemFactory, shouldDisableAddComment, ToolbarDocCommentMenuItemFactory } from '../menu';
 
-vi.mock('@univerjs/engine-render', async () => {
-    const actual = await vi.importActual<typeof import('@univerjs/engine-render')>('@univerjs/engine-render');
+vi.mock('@crabtable/engine-render', async () => {
+    const actual = await vi.importActual<typeof import('@crabtable/engine-render')>('@crabtable/engine-render');
     return {
         ...actual,
         withCurrentTypeOfRenderer: vi.fn(() => ({
@@ -33,8 +33,8 @@ vi.mock('@univerjs/engine-render', async () => {
     };
 });
 
-vi.mock('@univerjs/ui', async () => {
-    const actual = await vi.importActual<typeof import('@univerjs/ui')>('@univerjs/ui');
+vi.mock('@crabtable/ui', async () => {
+    const actual = await vi.importActual<typeof import('@crabtable/ui')>('@crabtable/ui');
     return {
         ...actual,
         getMenuHiddenObservable: vi.fn(() => null),
@@ -49,7 +49,7 @@ describe('docs-thread-comment-ui menu', () => {
                 if (token.name === 'DocSelectionManagerService') {
                     return { getActiveTextRange: () => ({ collapsed: true }) };
                 }
-                if (token.name === 'IUniverInstanceService') return {};
+                if (token.name === 'ICrabTableInstanceService') return {};
                 return {};
             }),
         } as any;

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Injector, IRange, Univer, Workbook } from '@univerjs/core';
+import type { Injector, IRange, Workbook } from '@crabtable/core';
 import type { IRangeProtectionRule } from '../../../../model/range-protection-rule.model';
-import { ICommandService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
 import { UnitObject } from '@univerjs/protocol';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { RemoveSheetCommand } from '../../../../commands/commands/remove-sheet.command';
@@ -35,7 +35,7 @@ import { SheetInterceptorService } from '../../../sheet-interceptor/sheet-interc
 import { RangeProtectionRefRangeService } from '../range-protection.ref-range';
 
 describe('RangeProtectionRefRangeService', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let service: RangeProtectionRefRangeService;
@@ -81,7 +81,7 @@ describe('RangeProtectionRefRangeService', () => {
         ruleModel = get(RangeProtectionRuleModel);
         sheetInterceptorService = get(SheetInterceptorService);
 
-        const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         unitId = workbook.getUnitId();
         subUnitId = workbook.getActiveSheet()!.getSheetId();
 

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommand, IDocumentBody, IMutationInfo, IParagraph, IParagraphBorder, ITextRangeParam } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import { BuildTextUtils, CommandType, DataStreamTreeTokenType, generateRandomId, ICommandService, IUniverInstanceService, JSONX, PresetListType, TextX, TextXActionType, Tools, UniverInstanceType, UpdateDocsAttributeType } from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation } from '@univerjs/docs';
+import type { DocumentDataModel, ICommand, IDocumentBody, IMutationInfo, IParagraph, IParagraphBorder, ITextRangeParam } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import { BuildTextUtils, CommandType, CrabTableInstanceType, DataStreamTreeTokenType, generateRandomId, ICommandService, ICrabTableInstanceService, JSONX, PresetListType, TextX, TextXActionType, Tools, UpdateDocsAttributeType } from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation } from '@crabtable/docs';
 import { getTextRunAtPosition } from '../../basics/paragraph';
 import { DocMenuStyleService } from '../../services/doc-menu-style.service';
 import { getRichTextEditPath } from '../util';
@@ -82,7 +82,7 @@ export const BreakLineCommand: ICommand<IBreakLineCommandParams> = {
     // eslint-disable-next-line max-lines-per-function, complexity
     handler: (accessor, params: IBreakLineCommandParams) => {
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
         const docMenuStyleService = accessor.get(DocMenuStyleService);
         const activeTextRange = params?.textRange ?? docSelectionManagerService.getActiveTextRange();
@@ -105,7 +105,7 @@ export const BreakLineCommand: ICommand<IBreakLineCommandParams> = {
 
         const { horizontalLine } = params ?? {};
         const { segmentId } = activeTextRange;
-        const docDataModel = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         const originBody = docDataModel?.getSelfOrHeaderFooterModel(segmentId ?? '').getBody();
 
         if (docDataModel == null || originBody == null) {

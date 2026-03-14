@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Injector, Univer } from '@univerjs/core';
+import type { CrabTable, Injector } from '@crabtable/core';
 import type { IFindReplaceProvider } from '../../../services/find-replace.service';
-import { ICommandService } from '@univerjs/core';
+import { ICommandService } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createTestBed, IFindReplaceService } from '../../../__tests__/create-test-bed';
 import { FindReplaceService } from '../../../services/find-replace.service';
@@ -36,7 +36,7 @@ function createProvider(): IFindReplaceProvider {
 }
 
 describe('find-replace.operation', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
 
     beforeEach(() => {

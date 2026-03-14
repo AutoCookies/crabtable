@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IDataValidationRule, IDisposable, IExecutionOptions, IRange, Nullable, ObjectMatrix } from '@univerjs/core';
-import type { IRuleChange } from '@univerjs/data-validation';
+import type { IDataValidationRule, IDisposable, IExecutionOptions, IRange, Nullable, ObjectMatrix } from '@crabtable/core';
+import type { IRuleChange } from '@crabtable/data-validation';
 import type {
     IAddSheetDataValidationCommandParams,
     IRemoveSheetAllDataValidationCommandParams,
@@ -24,8 +24,8 @@ import type {
     IUpdateSheetDataValidationRangeCommandParams,
     IUpdateSheetDataValidationSettingCommandParams,
     IValidStatusChange,
-} from '@univerjs/sheets-data-validation';
-import { DataValidationStatus, toDisposable } from '@univerjs/core';
+} from '@crabtable/sheets-data-validation';
+import { DataValidationStatus, toDisposable } from '@crabtable/core';
 
 import {
     AddSheetDataValidationCommand,
@@ -36,8 +36,8 @@ import {
     UpdateSheetDataValidationOptionsCommand,
     UpdateSheetDataValidationRangeCommand,
     UpdateSheetDataValidationSettingCommand,
-} from '@univerjs/sheets-data-validation';
-import { FWorkbook } from '@univerjs/sheets/facade';
+} from '@crabtable/sheets-data-validation';
+import { FWorkbook } from '@crabtable/sheets/facade';
 import { filter } from 'rxjs';
 
 export interface IDataValidationError {
@@ -67,7 +67,7 @@ export interface IFWorkbookDataValidationMixin {
      * @returns A promise that resolves to a matrix of validator status.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const status = await fWorkbook.getValidatorStatus();
      * console.log(status);
      * ```
@@ -79,7 +79,7 @@ export interface IFWorkbookDataValidationMixin {
      * @returns A promise that resolves to an array of validation errors.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const errors = await fWorkbook.getAllDataValidationError();
      * console.log(errors);
      * ```
@@ -87,21 +87,21 @@ export interface IFWorkbookDataValidationMixin {
     getAllDataValidationErrorAsync(): Promise<IDataValidationError[]>;
 
     /**
-     * @deprecated Use `univerAPI.addEvent(univerAPI.Event.SheetDataValidationChanged, (event) => { ... })` instead
+     * @deprecated Use `crabtableAPI.addEvent(crabtableAPI.Event.SheetDataValidationChanged, (event) => { ... })` instead
      */
     onDataValidationChange(
         callback: (ruleChange: IRuleChange) => void
     ): IDisposable;
 
     /**
-     * @deprecated Use `univerAPI.addEvent(univerAPI.Event.SheetDataValidatorStatusChanged, (event) => { ... })` instead
+     * @deprecated Use `crabtableAPI.addEvent(crabtableAPI.Event.SheetDataValidatorStatusChanged, (event) => { ... })` instead
      */
     onDataValidationStatusChange(
         callback: (statusChange: IValidStatusChange) => void
     ): IDisposable;
 
     /**
-     * @deprecated Use `univerAPI.addEvent(univerAPI.Event.BeforeSheetDataValidationAdd, (event) => { ... })` instead
+     * @deprecated Use `crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetDataValidationAdd, (event) => { ... })` instead
      */
     onBeforeAddDataValidation(
         this: FWorkbook,
@@ -109,7 +109,7 @@ export interface IFWorkbookDataValidationMixin {
     ): IDisposable;
 
     /**
-     * @deprecated Use `univerAPI.addEvent(univerAPI.Event.BeforeSheetDataValidationCriteriaUpdate, (event) => { ... })` instead
+     * @deprecated Use `crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetDataValidationCriteriaUpdate, (event) => { ... })` instead
      */
     onBeforeUpdateDataValidationCriteria(
         this: FWorkbook,
@@ -117,7 +117,7 @@ export interface IFWorkbookDataValidationMixin {
     ): IDisposable;
 
     /**
-     * @deprecated Use `univerAPI.addEvent(univerAPI.Event.BeforeSheetDataValidationRangeUpdate, (event) => { ... })` instead
+     * @deprecated Use `crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetDataValidationRangeUpdate, (event) => { ... })` instead
      */
     onBeforeUpdateDataValidationRange(
         this: FWorkbook,
@@ -125,7 +125,7 @@ export interface IFWorkbookDataValidationMixin {
     ): IDisposable;
 
     /**
-     * @deprecated Use `univerAPI.addEvent(univerAPI.Event.BeforeSheetDataValidationOptionsUpdate, (event) => { ... })` instead
+     * @deprecated Use `crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetDataValidationOptionsUpdate, (event) => { ... })` instead
      */
     onBeforeUpdateDataValidationOptions(
         this: FWorkbook,
@@ -133,7 +133,7 @@ export interface IFWorkbookDataValidationMixin {
     ): IDisposable;
 
     /**
-     * @deprecated Use `univerAPI.addEvent(univerAPI.Event.BeforeSheetDataValidationDelete, (event) => { ... })` instead
+     * @deprecated Use `crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetDataValidationDelete, (event) => { ... })` instead
      */
     onBeforeDeleteDataValidation(
         this: FWorkbook,
@@ -141,7 +141,7 @@ export interface IFWorkbookDataValidationMixin {
     ): IDisposable;
 
     /**
-     * @deprecated Use `univerAPI.addEvent(univerAPI.Event.BeforeSheetDataValidationDeleteAll, (event) => { ... })` instead
+     * @deprecated Use `crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetDataValidationDeleteAll, (event) => { ... })` instead
      */
     onBeforeDeleteAllDataValidation(
         this: FWorkbook,
@@ -374,7 +374,7 @@ export class FWorkbookDataValidationMixin extends FWorkbook implements IFWorkboo
 }
 
 FWorkbook.extend(FWorkbookDataValidationMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FWorkbook extends IFWorkbookDataValidationMixin { }
 }

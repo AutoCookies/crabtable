@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { cellToRange, DEFAULT_NUMBER_FORMAT, isPatternEqualWithoutDecimal, LocaleType } from '@univerjs/core';
-import { RemoveNumfmtMutation, SetNumfmtMutation } from '@univerjs/sheets';
+import { cellToRange, DEFAULT_NUMBER_FORMAT, isPatternEqualWithoutDecimal, LocaleType } from '@crabtable/core';
+import { RemoveNumfmtMutation, SetNumfmtMutation } from '@crabtable/sheets';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { currencySymbols, getCurrencyFormat, getCurrencySymbolByLocale, getCurrencySymbolIconByLocale } from '../base/const/currency-symbols';
 import { getCurrencyType } from '../utils/currency';

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IExecutionOptions, IMutation, IUnitRange, Nullable } from '@univerjs/core';
+import type { IExecutionOptions, IMutation, IUnitRange, Nullable } from '@crabtable/core';
 import type {
     IFormulaExecuteResultMap,
     IFormulaStringMap,
@@ -25,7 +25,7 @@ import type {
 import type { IFormulaDependencyTreeFullJson, IFormulaDependencyTreeJson, IFormulaDependentsAndInRangeResults } from '../../engine/dependency/dependency-tree';
 import type { IFormulaDirtyData } from '../../services/current-data.service';
 import type { FormulaExecutedStateType, IExecutionInProgressParams } from '../../services/runtime.service';
-import { CommandType } from '@univerjs/core';
+import { CommandType } from '@crabtable/core';
 
 export interface ISetFormulaCalculationStartMutation extends IFormulaDirtyData {
     options: Nullable<IExecutionOptions>;

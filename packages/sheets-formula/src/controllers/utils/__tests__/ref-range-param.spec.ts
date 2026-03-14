@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IWorkbookData, Workbook } from '@univerjs/core';
-import { LocaleType, RANGE_TYPE } from '@univerjs/core';
+import type { IWorkbookData, Workbook } from '@crabtable/core';
+import { LocaleType, RANGE_TYPE } from '@crabtable/core';
 import {
     DeleteRangeMoveLeftCommand,
     DeleteRangeMoveUpCommand,
@@ -32,7 +32,7 @@ import {
     RemoveSheetCommand,
     SetDefinedNameCommand,
     SetWorksheetNameCommand,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { afterEach, describe, expect, it } from 'vitest';
 
 import { createFacadeTestBed } from '../../../facade/__tests__/create-test-bed';

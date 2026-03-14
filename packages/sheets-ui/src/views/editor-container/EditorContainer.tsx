@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { KeyCode } from '@univerjs/ui';
-import { DOCS_NORMAL_EDITOR_UNIT_ID_KEY, ICommandService, IContextService } from '@univerjs/core';
-import { IEditorService } from '@univerjs/docs-ui';
-import { DeviceInputEventType } from '@univerjs/engine-render';
-import { ComponentManager, DISABLE_AUTO_FOCUS_KEY, MetaKeys, useDependency, useEvent, useObservable, useSidebarClick } from '@univerjs/ui';
+import type { KeyCode } from '@crabtable/ui';
+import { DOCS_NORMAL_EDITOR_UNIT_ID_KEY, ICommandService, IContextService } from '@crabtable/core';
+import { IEditorService } from '@crabtable/docs-ui';
+import { DeviceInputEventType } from '@crabtable/engine-render';
+import { ComponentManager, DISABLE_AUTO_FOCUS_KEY, MetaKeys, useDependency, useEvent, useObservable, useSidebarClick } from '@crabtable/ui';
 import * as React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { SetCellEditVisibleArrowOperation, SetCellEditVisibleOperation } from '../../commands/operations/cell-edit.operation';

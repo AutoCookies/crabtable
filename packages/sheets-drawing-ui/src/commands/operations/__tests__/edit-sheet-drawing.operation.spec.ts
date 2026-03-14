@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IDrawingSearch } from '@univerjs/core';
-import { ICommandService } from '@univerjs/core';
-import { SetDrawingSelectedOperation } from '@univerjs/drawing';
+import type { IAccessor, IDrawingSearch } from '@crabtable/core';
+import { ICommandService } from '@crabtable/core';
+import { SetDrawingSelectedOperation } from '@crabtable/drawing';
 import { describe, expect, it, vi } from 'vitest';
 import { EditSheetDrawingOperation } from '../edit-sheet-drawing.operation';
 import { SidebarSheetDrawingOperation } from '../open-drawing-panel.operation';

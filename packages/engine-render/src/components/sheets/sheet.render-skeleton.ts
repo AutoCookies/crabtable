@@ -35,7 +35,7 @@ import type {
     Nullable,
     Styles,
     Worksheet,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import type { IDocumentSkeletonColumn } from '../../basics/i-document-skeleton-cached';
 import type { ITransformChangeState } from '../../basics/interfaces';
 import type { IBoundRectNoAngle, IPoint, IViewportInfo } from '../../basics/vector2';
@@ -63,7 +63,7 @@ import {
     Tools,
     VerticalAlign,
     WrapStrategy,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { distinctUntilChanged, startWith } from 'rxjs';
 import { FontCache } from '../../basics';
 import { BORDER_TYPE as BORDER_LTRB, COLOR_BLACK_RGB, MAXIMUM_COL_WIDTH, MAXIMUM_ROW_HEIGHT, MIN_COL_WIDTH } from '../../basics/const';
@@ -107,7 +107,7 @@ export interface IDocumentLayoutObject {
 
 export const DEFAULT_PADDING_DATA = {
     t: 0,
-    b: 2, // must over 1, see https://github.com/dream-num/univer/issues/2727
+    b: 2, // must over 1, see https://github.com/AutoCookies/crabtable/issues/2727
     l: 2,
     r: 2,
 };

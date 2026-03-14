@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IMutationInfo } from '@univerjs/core';
+import type { IMutationInfo } from '@crabtable/core';
 import type { IRemoteSyncMutationOptions } from '../../services/remote-instance/remote-instance.service';
-import { CommandType, Disposable, ICommandService, Inject, Injector } from '@univerjs/core';
+import { CommandType, Disposable, ICommandService, Inject, Injector } from '@crabtable/core';
 import {
     IRemoteInstanceService,
     IRemoteSyncService,

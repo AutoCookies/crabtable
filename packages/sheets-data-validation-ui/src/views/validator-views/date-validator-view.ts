@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { DataValidationType } from '@univerjs/core';
-import { DataValidatorDropdownType } from '@univerjs/data-validation';
+import { DataValidationType } from '@crabtable/core';
+import { DataValidatorDropdownType } from '@crabtable/data-validation';
 import { BASE_FORMULA_INPUT_NAME } from '../components/formula-input/formula-input';
 import { DateShowTimeOption } from '../components/show-time';
 import { BaseSheetDataValidatorView } from './sheet-validator-view';

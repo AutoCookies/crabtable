@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { BooleanNumber } from '@univerjs/core';
+import type { BooleanNumber } from '@crabtable/core';
 
 /**
  * Column ruler data type

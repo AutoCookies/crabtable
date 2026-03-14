@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IPosition, IRange, Nullable } from '@univerjs/core';
+import type { IPosition, IRange, Nullable } from '@crabtable/core';
 import type { IBoundRectNoAngle, IViewportInfo, Vector2 } from '../../basics/vector2';
 import type { Canvas } from '../../canvas';
 import type { UniverRenderingContext2D } from '../../context';
@@ -27,7 +27,7 @@ import type { Border } from './extensions/border';
 import type { Font } from './extensions/font';
 import type { IPaintForRefresh, IPaintForScrolling, SHEET_VIEWPORT_KEY } from './interfaces';
 import type { SpreadsheetSkeleton } from './sheet.render-skeleton';
-import { BooleanNumber, sortRules, Tools } from '@univerjs/core';
+import { BooleanNumber, sortRules, Tools } from '@crabtable/core';
 import { FIX_ONE_PIXEL_BLUR_OFFSET, RENDER_CLASS_TYPE } from '../../basics/const';
 import { getColor } from '../../basics/tools';
 import { Documents } from '../docs/document';

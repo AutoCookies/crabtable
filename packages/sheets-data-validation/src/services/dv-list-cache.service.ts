@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICellData, IDataValidationRule, Nullable } from '@univerjs/core';
-import type { IOtherFormulaResult } from '@univerjs/engine-formula';
-import { Disposable, Inject, Injector, isFormulaString, numfmt } from '@univerjs/core';
-import { DataValidationModel } from '@univerjs/data-validation';
+import type { ICellData, IDataValidationRule, Nullable } from '@crabtable/core';
+import type { IOtherFormulaResult } from '@crabtable/engine-formula';
+import { Disposable, Inject, Injector, isFormulaString, numfmt } from '@crabtable/core';
+import { DataValidationModel } from '@crabtable/data-validation';
 import { isLegalFormulaResult } from '../utils/formula';
 import { getCellValueOrigin } from '../utils/get-cell-data-origin';
 import { deserializeListOptions } from '../validators/util';

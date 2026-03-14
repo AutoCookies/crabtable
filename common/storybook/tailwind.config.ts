@@ -17,7 +17,7 @@
 import type { Config } from 'tailwindcss';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import preset from '@univerjs-infra/shared/tailwind';
+import preset from '@crabtable-infra/shared/tailwind';
 import fs from 'fs-extra';
 import animate from 'tailwindcss-animate';
 

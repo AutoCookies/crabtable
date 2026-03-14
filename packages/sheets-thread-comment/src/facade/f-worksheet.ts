@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
-import type { IAddCommentCommandParams } from '@univerjs/thread-comment';
-import { ICommandService } from '@univerjs/core';
-import { SheetsThreadCommentModel } from '@univerjs/sheets-thread-comment';
-import { FWorksheet } from '@univerjs/sheets/facade';
-import { AddCommentCommand } from '@univerjs/thread-comment';
+import type { IDisposable } from '@crabtable/core';
+import type { IAddCommentCommandParams } from '@crabtable/thread-comment';
+import { ICommandService } from '@crabtable/core';
+import { SheetsThreadCommentModel } from '@crabtable/sheets-thread-comment';
+import { FWorksheet } from '@crabtable/sheets/facade';
+import { AddCommentCommand } from '@crabtable/thread-comment';
 import { FThreadComment } from './f-thread-comment';
 
 /**
@@ -31,7 +31,7 @@ export interface IFWorksheetCommentMixin {
      * @returns {FThreadComment[]} All comments in the current sheet
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const comments = fWorksheet.getComments();
      * comments.forEach((comment) => {
@@ -55,7 +55,7 @@ export interface IFWorksheetCommentMixin {
      * @returns {Promise<boolean>} Whether the comments are cleared successfully.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const result = await fWorksheet.clearComments();
      * console.log(result);
@@ -67,12 +67,12 @@ export interface IFWorksheetCommentMixin {
      * get comment by comment id
      * @param {string} commentId comment id
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a new comment
-     * const richText = univerAPI.newRichText().insertText('hello univer');
-     * const commentBuilder = univerAPI.newTheadComment()
+     * const richText = crabtableAPI.newRichText().insertText('hello univer');
+     * const commentBuilder = crabtableAPI.newTheadComment()
      *   .setContent(richText)
      *   .setId('mock-comment-id');
      * const cell = fWorksheet.getRange('A1');
@@ -126,7 +126,7 @@ export class FWorksheetCommentMixin extends FWorksheet implements IFWorksheetCom
 }
 
 FWorksheet.extend(FWorksheetCommentMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FWorksheet extends IFWorksheetCommentMixin {}
 }

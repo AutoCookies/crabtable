@@ -1,1 +1,1 @@
-# @univerjs/ui-adapter-web-component
+# @crabtable/ui-adapter-web-component

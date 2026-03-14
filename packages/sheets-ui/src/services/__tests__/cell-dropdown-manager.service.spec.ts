@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY } from '@univerjs/core';
+import { DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { dropdownMap } from '../../views/dropdown';
 import { SheetCellDropdownManagerService } from '../cell-dropdown-manager.service';

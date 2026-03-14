@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { EDITOR_ACTIVATED, FOCUSING_DOC, FOCUSING_EDITOR_STANDALONE, FOCUSING_UNIVER_EDITOR } from '@univerjs/core';
+import { EDITOR_ACTIVATED, FOCUSING_DOC, FOCUSING_EDITOR_STANDALONE, FOCUSING_UNIVER_EDITOR } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import { whenZenEditorActivated, ZenEditorCancelShortcut, ZenEditorConfirmShortcut } from '../zen-editor.shortcut';
 

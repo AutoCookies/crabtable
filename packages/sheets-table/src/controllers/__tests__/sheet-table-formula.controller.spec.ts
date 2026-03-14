@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { RemoveSuperTableMutation, SetSuperTableMutation } from '@univerjs/engine-formula';
+import { RemoveSuperTableMutation, SetSuperTableMutation } from '@crabtable/engine-formula';
 import { Subject } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import { SheetTableFormulaController } from '../sheet-table-formula.controller';

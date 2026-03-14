@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { FEnum } from '@univerjs/core/facade';
-import { CalculationMode } from '@univerjs/sheets-formula';
+import { FEnum } from '@crabtable/core/facade';
+import { CalculationMode } from '@crabtable/sheets-formula';
 
 /**
  * @ignore
@@ -34,7 +34,7 @@ export class FSheetsFormulaEnum implements IFSheetsFormulaEnum {
 }
 
 FEnum.extend(FSheetsFormulaEnum);
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
     export interface FEnum extends IFSheetsFormulaEnum {
     }

@@ -16,7 +16,7 @@
 
 /* eslint-disable ts/explicit-function-return-type */
 
-import type { IRange } from '@univerjs/core';
+import type { IRange } from '@crabtable/core';
 import type {
     CFTimePeriodOperator,
     IAverageHighlightCell,
@@ -33,9 +33,9 @@ import type {
     ITimePeriodHighlightCell,
     IUniqueValuesHighlightCell,
     IValueConfig,
-} from '@univerjs/sheets-conditional-formatting';
-import { BooleanNumber, ColorKit, Tools } from '@univerjs/core';
-import { CFNumberOperator, CFRuleType, CFSubRuleType, CFTextOperator, CFValueType, createCfId, EMPTY_ICON_TYPE, iconMap } from '@univerjs/sheets-conditional-formatting';
+} from '@crabtable/sheets-conditional-formatting';
+import { BooleanNumber, ColorKit, Tools } from '@crabtable/core';
+import { CFNumberOperator, CFRuleType, CFSubRuleType, CFTextOperator, CFValueType, createCfId, EMPTY_ICON_TYPE, iconMap } from '@crabtable/sheets-conditional-formatting';
 
 /**
  * @ignore
@@ -121,7 +121,7 @@ class ConditionalFormatRuleBaseBuilder {
      * @returns {IConditionFormattingRule} The conditional format rule.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with no content in red for the range A1:D10.
@@ -158,7 +158,7 @@ class ConditionalFormatRuleBaseBuilder {
      * @returns {ConditionalFormatRuleBaseBuilder} A new builder with the same settings as the original.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with no content in red for the range A1:D10.
@@ -215,7 +215,7 @@ class ConditionalFormatRuleBaseBuilder {
      * @returns {ConditionalFormatRuleBaseBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with no content in red for the range A1:D10.
@@ -248,7 +248,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} A new builder with the same settings as the original.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with no content in red for the range A1:D10.
@@ -281,13 +281,13 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with greater than average values in red for the range A1:D10.
      * const fRange = fWorksheet.getRange('A1:D10');
      * const rule = fWorksheet.newConditionalFormattingRule()
-     *   .setAverage(univerAPI.Enum.ConditionFormatNumberOperatorEnum.greaterThan)
+     *   .setAverage(crabtableAPI.Enum.ConditionFormatNumberOperatorEnum.greaterThan)
      *   .setBackground('#FF0000')
      *   .setRanges([fRange.getRange()])
      *   .build();
@@ -307,7 +307,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with unique values in red for the range A1:D10.
@@ -332,7 +332,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with duplicate values in red for the range A1:D10.
@@ -361,7 +361,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights the bottom 10% of values in red for the range A1:D10.
@@ -390,7 +390,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with no content in red for the range A1:D10.
@@ -422,7 +422,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that bolds the text for cells with not empty content in the range A1:D10.
@@ -450,7 +450,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that changes the font color to red for cells with not empty content in the range A1:D10.
@@ -482,7 +482,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that italicizes the text for cells with not empty content in the range A1:D10.
@@ -509,7 +509,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that set text strikethrough for cells with not empty content in the range A1:D10.
@@ -536,7 +536,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that underlines the text for cells with not empty content in the range A1:D10.
@@ -562,7 +562,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with no content in red for the range A1:D10.
@@ -589,7 +589,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that changes the font color to red for cells with not empty content in the range A1:D10.
@@ -617,13 +617,13 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with dates in the last 7 days in red for the range A1:D10.
      * const fRange = fWorksheet.getRange('A1:D10');
      * const rule = fWorksheet.newConditionalFormattingRule()
-     *   .whenDate(univerAPI.Enum.ConditionFormatTimePeriodOperatorEnum.last7Days)
+     *   .whenDate(crabtableAPI.Enum.ConditionFormatTimePeriodOperatorEnum.last7Days)
      *   .setBackground('#FF0000')
      *   .setRanges([fRange.getRange()])
      *   .build();
@@ -644,7 +644,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with values greater than 10 in red for the range A1:D10.
@@ -672,7 +672,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with values between 10 and 20 in red for the range A1:D10.
@@ -702,7 +702,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with values equal to 10 in red for the range A1:D10.
@@ -730,7 +730,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with values greater than 10 in red for the range A1:D10.
@@ -758,7 +758,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with values greater than or equal to 10 in red for the range A1:D10.
@@ -786,7 +786,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with values less than 10 in red for the range A1:D10.
@@ -814,7 +814,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with values less than or equal to 10 in red for the range A1:D10.
@@ -843,7 +843,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with values not between 10 and 20 in red for the range A1:D10.
@@ -873,7 +873,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with values not equal to 10 in red for the range A1:D10.
@@ -901,7 +901,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with text containing 'apple' in red for the range A1:D10.
@@ -929,7 +929,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with text not containing 'apple' in red for the range A1:D10.
@@ -957,7 +957,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with text ending with '.ai' in red for the range A1:D10.
@@ -985,7 +985,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with text equal to 'apple' in red for the range A1:D10.
@@ -1013,7 +1013,7 @@ class ConditionalFormatHighlightRuleBuilder extends ConditionalFormatRuleBaseBui
      * @returns {ConditionalFormatHighlightRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with text starting with 'https://' in red for the range A1:D10.
@@ -1042,7 +1042,7 @@ class ConditionalFormatDataBarRuleBuilder extends ConditionalFormatRuleBaseBuild
      * @returns {ConditionalFormatDataBarRuleBuilder} A new instance of the builder with the same settings as the original.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that adds a data bar to cells with values between -100 and 100 in the range A1:D10.
@@ -1093,7 +1093,7 @@ class ConditionalFormatDataBarRuleBuilder extends ConditionalFormatRuleBaseBuild
      * @returns {ConditionalFormatDataBarRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that adds a data bar to cells with values between -100 and 100 in the range A1:D10.
@@ -1140,7 +1140,7 @@ class ConditionalFormatColorScaleRuleBuilder extends ConditionalFormatRuleBaseBu
      * @returns {ConditionalFormatColorScaleRuleBuilder} A new instance of the builder with the same settings as the original.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that adds a color scale to cells with values between 0 and 100 in the range A1:D10.
@@ -1179,7 +1179,7 @@ class ConditionalFormatColorScaleRuleBuilder extends ConditionalFormatRuleBaseBu
      * @returns {ConditionalFormatColorScaleRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that adds a color scale to cells with values between 0 and 100 in the range A1:D10.
@@ -1210,7 +1210,7 @@ class ConditionalFormatIconSetRuleBuilder extends ConditionalFormatRuleBaseBuild
      * @returns {ConditionalFormatIconSetRuleBuilder} A new instance of the builder with the same settings as the original.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a 3-arrow icon set conditional formatting rule in the range A1:D10.
@@ -1221,9 +1221,9 @@ class ConditionalFormatIconSetRuleBuilder extends ConditionalFormatRuleBaseBuild
      * const builder = fWorksheet.newConditionalFormattingRule()
      *   .setIconSet({
      *     iconConfigs: [
-     *       { iconType: '3Arrows', iconId: '0', operator: univerAPI.Enum.ConditionFormatNumberOperatorEnum.greaterThan, value: { type: 'num', value: 20 } },
-     *       { iconType: '3Arrows', iconId: '1', operator: univerAPI.Enum.ConditionFormatNumberOperatorEnum.greaterThan, value: { type: 'num', value: 10 } },
-     *       { iconType: '3Arrows', iconId: '2', operator: univerAPI.Enum.ConditionFormatNumberOperatorEnum.lessThanOrEqual, value: { type: 'num', value: 10 } }
+     *       { iconType: '3Arrows', iconId: '0', operator: crabtableAPI.Enum.ConditionFormatNumberOperatorEnum.greaterThan, value: { type: 'num', value: 20 } },
+     *       { iconType: '3Arrows', iconId: '1', operator: crabtableAPI.Enum.ConditionFormatNumberOperatorEnum.greaterThan, value: { type: 'num', value: 10 } },
+     *       { iconType: '3Arrows', iconId: '2', operator: crabtableAPI.Enum.ConditionFormatNumberOperatorEnum.lessThanOrEqual, value: { type: 'num', value: 10 } }
      *     ],
      *     isShowValue: true,
      *   })
@@ -1253,7 +1253,7 @@ class ConditionalFormatIconSetRuleBuilder extends ConditionalFormatRuleBaseBuild
      * @returns {ConditionalFormatIconSetRuleBuilder} This builder for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a 3-arrow icon set conditional formatting rule in the range A1:D10.
@@ -1265,9 +1265,9 @@ class ConditionalFormatIconSetRuleBuilder extends ConditionalFormatRuleBaseBuild
      * console.log(builder.getIconMap()); // icons key-value map
      * const rule = builder.setIconSet({
      *     iconConfigs: [
-     *       { iconType: '3Arrows', iconId: '0', operator: univerAPI.Enum.ConditionFormatNumberOperatorEnum.greaterThan, value: { type: 'num', value: 20 } },
-     *       { iconType: '3Arrows', iconId: '1', operator: univerAPI.Enum.ConditionFormatNumberOperatorEnum.greaterThan, value: { type: 'num', value: 10 } },
-     *       { iconType: '3Arrows', iconId: '2', operator: univerAPI.Enum.ConditionFormatNumberOperatorEnum.lessThanOrEqual, value: { type: 'num', value: 10 } }
+     *       { iconType: '3Arrows', iconId: '0', operator: crabtableAPI.Enum.ConditionFormatNumberOperatorEnum.greaterThan, value: { type: 'num', value: 20 } },
+     *       { iconType: '3Arrows', iconId: '1', operator: crabtableAPI.Enum.ConditionFormatNumberOperatorEnum.greaterThan, value: { type: 'num', value: 10 } },
+     *       { iconType: '3Arrows', iconId: '2', operator: crabtableAPI.Enum.ConditionFormatNumberOperatorEnum.lessThanOrEqual, value: { type: 'num', value: 10 } }
      *     ],
      *     isShowValue: true,
      *   })
@@ -1298,7 +1298,7 @@ export class FConditionalFormattingBuilder {
      * @returns {IConditionFormattingRule} The conditional format rule.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with values greater than 10 in red for the range A1:D10.
@@ -1321,13 +1321,13 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with greater than average values in red for the range A1:D10.
      * const fRange = fWorksheet.getRange('A1:D10');
      * const rule = fWorksheet.newConditionalFormattingRule()
-     *   .setAverage(univerAPI.Enum.ConditionFormatNumberOperatorEnum.greaterThan)
+     *   .setAverage(crabtableAPI.Enum.ConditionFormatNumberOperatorEnum.greaterThan)
      *   .setBackground('#FF0000')
      *   .setRanges([fRange.getRange()])
      *   .build();
@@ -1343,7 +1343,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with unique values in red for the range A1:D10.
@@ -1365,7 +1365,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with duplicate values in red for the range A1:D10.
@@ -1391,7 +1391,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights the bottom 10% of values in red for the range A1:D10.
@@ -1413,7 +1413,7 @@ export class FConditionalFormattingBuilder {
      * @returns {Record<string, string[]>} The icon set mapping dictionary.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * console.log(fWorksheet.newConditionalFormattingRule().getIconMap()); // icons key-value map
      * ```
@@ -1430,7 +1430,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatIconSetRuleBuilder} The conditional format icon set rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a 3-arrow icon set conditional formatting rule in the range A1:D10.
@@ -1442,9 +1442,9 @@ export class FConditionalFormattingBuilder {
      * console.log(builder.getIconMap()); // icons key-value map
      * const rule = builder.setIconSet({
      *     iconConfigs: [
-     *       { iconType: '3Arrows', iconId: '0', operator: univerAPI.Enum.ConditionFormatNumberOperatorEnum.greaterThan, value: { type: 'num', value: 20 } },
-     *       { iconType: '3Arrows', iconId: '1', operator: univerAPI.Enum.ConditionFormatNumberOperatorEnum.greaterThan, value: { type: 'num', value: 10 } },
-     *       { iconType: '3Arrows', iconId: '2', operator: univerAPI.Enum.ConditionFormatNumberOperatorEnum.lessThanOrEqual, value: { type: 'num', value: 10 } }
+     *       { iconType: '3Arrows', iconId: '0', operator: crabtableAPI.Enum.ConditionFormatNumberOperatorEnum.greaterThan, value: { type: 'num', value: 20 } },
+     *       { iconType: '3Arrows', iconId: '1', operator: crabtableAPI.Enum.ConditionFormatNumberOperatorEnum.greaterThan, value: { type: 'num', value: 10 } },
+     *       { iconType: '3Arrows', iconId: '2', operator: crabtableAPI.Enum.ConditionFormatNumberOperatorEnum.lessThanOrEqual, value: { type: 'num', value: 10 } }
      *     ],
      *     isShowValue: true,
      *   })
@@ -1466,7 +1466,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatColorScaleRuleBuilder} The conditional format color scale rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that adds a color scale to cells with values between 0 and 100 in the range A1:D10.
@@ -1506,7 +1506,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatDataBarRuleBuilder} The conditional format data bar rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that adds a data bar to cells with values between -100 and 100 in the range A1:D10.
@@ -1542,7 +1542,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with no content in red for the range A1:D10.
@@ -1565,7 +1565,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that bolds the text for cells with not empty content in the range A1:D10.
@@ -1588,7 +1588,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that changes the font color to red for cells with not empty content in the range A1:D10.
@@ -1611,7 +1611,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that italicizes the text for cells with not empty content in the range A1:D10.
@@ -1634,7 +1634,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that set text strikethrough for cells with not empty content in the range A1:D10.
@@ -1657,7 +1657,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that underlines the text for cells with not empty content in the range A1:D10.
@@ -1679,7 +1679,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with no content in red for the range A1:D10.
@@ -1701,7 +1701,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that changes the font color to red for cells with not empty content in the range A1:D10.
@@ -1724,13 +1724,13 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with dates in the last 7 days in red for the range A1:D10.
      * const fRange = fWorksheet.getRange('A1:D10');
      * const rule = fWorksheet.newConditionalFormattingRule()
-     *   .whenDate(univerAPI.Enum.ConditionFormatTimePeriodOperatorEnum.last7Days)
+     *   .whenDate(crabtableAPI.Enum.ConditionFormatTimePeriodOperatorEnum.last7Days)
      *   .setBackground('#FF0000')
      *   .setRanges([fRange.getRange()])
      *   .build();
@@ -1747,7 +1747,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with values greater than 10 in red for the range A1:D10.
@@ -1771,7 +1771,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with values between 10 and 20 in red for the range A1:D10.
@@ -1794,7 +1794,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with values equal to 10 in red for the range A1:D10.
@@ -1817,7 +1817,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with values greater than 10 in red for the range A1:D10.
@@ -1840,7 +1840,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with values greater than or equal to 10 in red for the range A1:D10.
@@ -1863,7 +1863,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with values less than 10 in red for the range A1:D10.
@@ -1886,7 +1886,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with values less than or equal to 10 in red for the range A1:D10.
@@ -1910,7 +1910,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with values not between 10 and 20 in red for the range A1:D10.
@@ -1933,7 +1933,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with values not equal to 10 in red for the range A1:D10.
@@ -1956,7 +1956,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with text containing 'apple' in red for the range A1:D10.
@@ -1979,7 +1979,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with text not containing 'apple' in red for the range A1:D10.
@@ -2002,7 +2002,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with text ending with '.ai' in red for the range A1:D10.
@@ -2025,7 +2025,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with text equal to 'apple' in red for the range A1:D10.
@@ -2048,7 +2048,7 @@ export class FConditionalFormattingBuilder {
      * @returns {ConditionalFormatHighlightRuleBuilder} The conditional format highlight rule builder.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that highlights cells with text starting with 'https://' in red for the range A1:D10.

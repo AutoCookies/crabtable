@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDocumentData } from '@univerjs/core';
-import { CommandType, ICommandService, IUniverInstanceService, Univer, UniverInstanceType } from '@univerjs/core';
-import { RichTextEditingMutation } from '@univerjs/docs';
+import type { IDocumentData, Univer } from '@crabtable/core';
+import { CommandType, CrabTableInstanceType, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { RichTextEditingMutation } from '@crabtable/docs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { DeleteDocCommentComment } from '../delete-doc-comment.command';
 
@@ -38,11 +38,11 @@ function createDocData(id: string): IDocumentData {
 }
 
 describe('DeleteDocCommentComment', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let injector: ReturnType<Univer['__getInjector']>;
 
     beforeEach(() => {
-        univer = new Univer();
+        univer = new CrabTable();
         injector = univer.__getInjector();
     });
 
@@ -51,8 +51,8 @@ describe('DeleteDocCommentComment', () => {
     });
 
     it('should delete decoration via sequenceExecute', async () => {
-        const doc = univer.createUnit(UniverInstanceType.UNIVER_DOC, createDocData('doc-1'));
-        injector.get(IUniverInstanceService).focusUnit(doc.getUnitId());
+        const doc = univer.createUnit(CrabTableInstanceType.CRABTABLE_DOC, createDocData('doc-1'));
+        injector.get(ICrabTableInstanceService).focusUnit(doc.getUnitId());
 
         const executed: Array<{ id: string; params: unknown }> = [];
         const commandService = injector.get(ICommandService);

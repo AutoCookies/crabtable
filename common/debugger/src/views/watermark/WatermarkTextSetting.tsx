@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ITextWatermarkConfig } from '@univerjs/engine-render';
-import { Checkbox, clsx, ColorPicker, Dropdown, Input, InputNumber, Select } from '@univerjs/design';
+import type { ITextWatermarkConfig } from '@crabtable/engine-render';
+import { Checkbox, clsx, ColorPicker, Dropdown, Input, InputNumber, Select } from '@crabtable/design';
 import { BoldIcon, FontColorDoubleIcon, ItalicIcon } from '@univerjs/icons';
 
 interface IWatermarkTextSettingProps {

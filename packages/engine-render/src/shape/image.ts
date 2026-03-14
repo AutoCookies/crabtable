@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ISrcRect, Nullable, PresetGeometryType } from '@univerjs/core';
+import type { ISrcRect, Nullable, PresetGeometryType } from '@crabtable/core';
 
 import type { IObjectFullState, ITransformChangeState, IViewportInfo } from '../basics';
 import type { UniverRenderingContext } from '../context';

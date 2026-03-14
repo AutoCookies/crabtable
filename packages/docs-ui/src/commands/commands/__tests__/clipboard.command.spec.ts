@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommand, IDocumentData, Injector, IStyleBase, Univer } from '@univerjs/core';
+import type { CrabTable, DocumentDataModel, ICommand, IDocumentData, Injector, IStyleBase } from '@crabtable/core';
 import type { IInnerCutCommandParams, IInnerPasteCommandParams } from '../clipboard.inner.command';
-import { BooleanNumber, ICommandService, IUniverInstanceService, UndoCommand, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation, SetTextSelectionsOperation } from '@univerjs/docs';
+import { BooleanNumber, CrabTableInstanceType, ICommandService, ICrabTableInstanceService, UndoCommand } from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation, SetTextSelectionsOperation } from '@crabtable/docs';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { CutContentCommand, InnerPasteCommand } from '../clipboard.inner.command';
 import { createCommandTestBed } from './create-command-test-bed';
@@ -82,13 +82,13 @@ function getDocumentData() {
 }
 
 describe('test cases in clipboard', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
     function getFormatValueAt(key: keyof IStyleBase, pos: number) {
-        const univerInstanceService = get(IUniverInstanceService);
-        const docsModel = univerInstanceService.getUnit<DocumentDataModel>('test-doc', UniverInstanceType.UNIVER_DOC);
+        const crabtableInstanceService = get(ICrabTableInstanceService);
+        const docsModel = crabtableInstanceService.getUnit<DocumentDataModel>('test-doc', CrabTableInstanceType.CRABTABLE_DOC);
 
         if (docsModel?.getBody()?.textRuns == null) {
             return;
@@ -104,8 +104,8 @@ describe('test cases in clipboard', () => {
     }
 
     function getTextByPosition(start: number, end: number) {
-        const univerInstanceService = get(IUniverInstanceService);
-        const docsModel = univerInstanceService.getUnit<DocumentDataModel>('test-doc', UniverInstanceType.UNIVER_DOC);
+        const crabtableInstanceService = get(ICrabTableInstanceService);
+        const docsModel = crabtableInstanceService.getUnit<DocumentDataModel>('test-doc', CrabTableInstanceType.CRABTABLE_DOC);
 
         return docsModel?.getBody()?.dataStream.slice(start, end);
     }

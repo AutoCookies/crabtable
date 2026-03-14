@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICommand, Workbook } from '@univerjs/core';
+import type { ICommand, Workbook } from '@crabtable/core';
 
-import { CommandType, ICommandService, IUndoRedoService, IUniverInstanceService } from '@univerjs/core';
-
-import { UniverType } from '@univerjs/protocol';
-import { AddWorksheetProtectionCommand, DeleteWorksheetProtectionCommand, WorksheetProtectionRuleModel } from '@univerjs/sheets';
+import { CommandType, CrabTableInstanceType, ICommandService, ICrabTableInstanceService, IUndoRedoService } from '@crabtable/core';
+import { AddWorksheetProtectionCommand, DeleteWorksheetProtectionCommand, WorksheetProtectionRuleModel } from '@crabtable/sheets';
 
 export const DeleteWorksheetProtectionFormSheetBarCommand: ICommand = {
     type: CommandType.COMMAND,
@@ -32,9 +30,9 @@ export const DeleteWorksheetProtectionFormSheetBarCommand: ICommand = {
         const undoRedoService = accessor.get(IUndoRedoService);
 
         const worksheetProtectionRuleModel = accessor.get(WorksheetProtectionRuleModel);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverType.UNIVER_SHEET)!;
+        const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook?.getActiveSheet();
         const unitId = workbook.getUnitId();
 

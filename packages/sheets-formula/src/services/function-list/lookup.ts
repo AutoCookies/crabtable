@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IFunctionInfo } from '@univerjs/engine-formula';
-import { FUNCTION_NAMES_LOOKUP, FunctionType } from '@univerjs/engine-formula';
+import type { IFunctionInfo } from '@crabtable/engine-formula';
+import { FUNCTION_NAMES_LOOKUP, FunctionType } from '@crabtable/engine-formula';
 
 export const FUNCTION_LIST_LOOKUP: IFunctionInfo[] = [
     {
@@ -99,7 +99,7 @@ export const FUNCTION_LIST_LOOKUP: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.CHOOSE.functionParameter.value2.name',
                 detail: 'formula.functionList.CHOOSE.functionParameter.value2.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 0,
                 repeat: 1,
             },
@@ -391,14 +391,14 @@ export const FUNCTION_LIST_LOOKUP: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.HYPERLINK.functionParameter.url.name',
                 detail: 'formula.functionList.HYPERLINK.functionParameter.url.detail',
-                example: '"https://univer.ai/"',
+                example: '"https://crabtable.dev/"',
                 require: 1,
                 repeat: 0,
             },
             {
                 name: 'formula.functionList.HYPERLINK.functionParameter.linkLabel.name',
                 detail: 'formula.functionList.HYPERLINK.functionParameter.linkLabel.detail',
-                example: '"Univer"',
+                example: '"CrabTable"',
                 require: 0,
                 repeat: 0,
             },
@@ -413,7 +413,7 @@ export const FUNCTION_LIST_LOOKUP: IFunctionInfo[] = [
             {
                 name: 'formula.functionList.IMAGE.functionParameter.source.name',
                 detail: 'formula.functionList.IMAGE.functionParameter.source.detail',
-                example: '"https://github.com/dream-num.png"',
+                example: '"https://github.com/AutoCookies.png"',
                 require: 1,
                 repeat: 0,
             },

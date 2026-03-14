@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ContextService, IDisposable, Nullable } from '@univerjs/core';
-import { createIdentifier, Disposable, DocumentDataModel, FOCUSING_UNIVER_EDITOR, IContextService, IUniverInstanceService, remove, SlideDataModel, toDisposable, UniverInstanceType, Workbook } from '@univerjs/core';
+import type { ContextService, IDisposable, Nullable } from '@crabtable/core';
+import { CrabTableInstanceType, createIdentifier, Disposable, DocumentDataModel, FOCUSING_UNIVER_EDITOR, IContextService, ICrabTableInstanceService, remove, SlideDataModel, toDisposable, Workbook } from '@crabtable/core';
 import { fromEvent } from 'rxjs';
 
 type FocusHandlerFn = (unitId: string) => void;
@@ -35,11 +35,11 @@ export interface ILayoutService {
     readonly isFocused: boolean;
 
     get rootContainerElement(): Nullable<HTMLElement>;
-    /** Re-focus the currently focused Univer business instance. */
+    /** Re-focus the currently focused CrabTable business instance. */
     focus(): void;
 
-    /** Register a focus handler to focus on certain type of Univer unit. */
-    registerFocusHandler(type: UniverInstanceType, handler: FocusHandlerFn): IDisposable;
+    /** Register a focus handler to focus on certain type of CrabTable unit. */
+    registerFocusHandler(type: CrabTableInstanceType, handler: FocusHandlerFn): IDisposable;
     /** Register the root container element. */
     registerRootContainerElement(container: HTMLElement): IDisposable;
     /** Register a content element. */
@@ -56,7 +56,7 @@ export const ILayoutService = createIdentifier<ILayoutService>('ui.layout-servic
 
 /**
  * This service is responsible for storing layout information of the current
- * Univer application instance.
+ * CrabTable application instance.
  */
 export class DesktopLayoutService extends Disposable implements ILayoutService {
     private _rootContainerElement: Nullable<HTMLElement> = null;
@@ -66,7 +66,7 @@ export class DesktopLayoutService extends Disposable implements ILayoutService {
         return this._isFocused;
     }
 
-    private readonly _focusHandlers = new Map<UniverInstanceType, FocusHandlerFn>();
+    private readonly _focusHandlers = new Map<CrabTableInstanceType, FocusHandlerFn>();
 
     // FIXME: this don't need to be plural
     private _contentElements: HTMLElement[] = [];
@@ -74,7 +74,7 @@ export class DesktopLayoutService extends Disposable implements ILayoutService {
 
     constructor(
         @IContextService private readonly _contextService: ContextService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
 
@@ -87,18 +87,18 @@ export class DesktopLayoutService extends Disposable implements ILayoutService {
     }
 
     focus(): void {
-        const currentFocused = this._univerInstanceService.getFocusedUnit();
+        const currentFocused = this._crabtableInstanceService.getFocusedUnit();
         if (!currentFocused) {
             return;
         }
 
         let handler: Nullable<FocusHandlerFn>;
         if (currentFocused instanceof Workbook) {
-            handler = this._focusHandlers.get(UniverInstanceType.UNIVER_SHEET);
+            handler = this._focusHandlers.get(CrabTableInstanceType.CRABTABLE_SHEET);
         } else if (currentFocused instanceof DocumentDataModel) {
-            handler = this._focusHandlers.get(UniverInstanceType.UNIVER_DOC);
+            handler = this._focusHandlers.get(CrabTableInstanceType.CRABTABLE_DOC);
         } else if (currentFocused instanceof SlideDataModel) {
-            handler = this._focusHandlers.get(UniverInstanceType.UNIVER_SLIDE);
+            handler = this._focusHandlers.get(CrabTableInstanceType.CRABTABLE_SLIDE);
         }
 
         if (handler) {
@@ -106,7 +106,7 @@ export class DesktopLayoutService extends Disposable implements ILayoutService {
         }
     }
 
-    registerFocusHandler(type: UniverInstanceType, handler: FocusHandlerFn): IDisposable {
+    registerFocusHandler(type: CrabTableInstanceType, handler: FocusHandlerFn): IDisposable {
         if (this._focusHandlers.has(type)) {
             throw new Error(`[DesktopLayoutService]: handler of type ${type} bas been registered!`);
         }

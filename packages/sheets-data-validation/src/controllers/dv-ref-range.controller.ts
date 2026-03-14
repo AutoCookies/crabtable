@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { ISheetDataValidationRule } from '@univerjs/core';
-import type { IRemoveDataValidationMutationParams, IUpdateDataValidationMutationParams } from '@univerjs/data-validation';
-import type { EffectRefRangeParams } from '@univerjs/sheets';
-import { Disposable, Inject, Injector, isRangesEqual, toDisposable } from '@univerjs/core';
-import { DataValidatorRegistryService, RemoveDataValidationMutation, UpdateDataValidationMutation, UpdateRuleType } from '@univerjs/data-validation';
-import { handleCommonDefaultRangeChangeWithEffectRefCommands, RefRangeService } from '@univerjs/sheets';
-import { FormulaRefRangeService } from '@univerjs/sheets-formula';
+import type { ISheetDataValidationRule } from '@crabtable/core';
+import type { IRemoveDataValidationMutationParams, IUpdateDataValidationMutationParams } from '@crabtable/data-validation';
+import type { EffectRefRangeParams } from '@crabtable/sheets';
+import { Disposable, Inject, Injector, isRangesEqual, toDisposable } from '@crabtable/core';
+import { DataValidatorRegistryService, RemoveDataValidationMutation, UpdateDataValidationMutation, UpdateRuleType } from '@crabtable/data-validation';
+import { handleCommonDefaultRangeChangeWithEffectRefCommands, RefRangeService } from '@crabtable/sheets';
+import { FormulaRefRangeService } from '@crabtable/sheets-formula';
 import { removeDataValidationUndoFactory } from '../commands/commands/data-validation.command';
 import { SheetDataValidationModel } from '../models/sheet-data-validation-model';
 import { DataValidationFormulaService } from '../services/dv-formula.service';

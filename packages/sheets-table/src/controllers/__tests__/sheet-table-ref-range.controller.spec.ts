@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { InsertRowMutation } from '@univerjs/sheets';
+import { InsertRowMutation } from '@crabtable/sheets';
 import { describe, expect, it, vi } from 'vitest';
 import { SheetTableRefRangeController } from '../sheet-table-ref-range.controller';
 

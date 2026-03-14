@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import type { ICommand, IMutationInfo, IParagraphStyle } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
+import type { ICommand, IMutationInfo, IParagraphStyle } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
 
 import {
     BuildTextUtils,
     CommandType,
     HorizontalAlign,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     JSONX,
     MemoryCursor,
     TextX,
     TextXActionType,
     UpdateDocsAttributeType,
-} from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation } from '@univerjs/docs';
+} from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation } from '@crabtable/docs';
 import { getRichTextEditPath } from '../util';
 
 interface IAlignOperationCommandParams {
@@ -44,12 +44,12 @@ export const AlignOperationCommand: ICommand<IAlignOperationCommandParams> = {
     // eslint-disable-next-line max-lines-per-function
     handler: (accessor, params: IAlignOperationCommandParams) => {
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
 
         const { alignType } = params;
 
-        const docDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const docDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
         if (docDataModel == null) {
             return false;
         }

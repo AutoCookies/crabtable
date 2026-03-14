@@ -24,7 +24,7 @@ const MAX_UNIT_MEMORY_OVERFLOW = 1_000_000; // 1MB
 const MAX_SECOND_INSTANCE_OVERFLOW = 200_000; // 200 KB
 
 // There are some compiled code and global cache, so we make some room
-// for this. But we need to make sure that a Univer object cannot fit
+// for this. But we need to make sure that a CrabTable object cannot fit
 // in this size.
 const MAX_UNIVER_MEMORY_OVERFLOW = 6_000_000;
 

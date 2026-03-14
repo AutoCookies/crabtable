@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Dependency, ICommand } from '@univerjs/core';
+import type { Dependency, ICommand } from '@crabtable/core';
 import type { IUniverDocsConfig } from './config/config';
 import {
     ICommandService,
@@ -23,7 +23,7 @@ import {
     Injector,
     merge,
     Plugin,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import pkg from '../package.json';
 import { RichTextEditingMutation } from './commands/mutations/core-editing.mutation';
 import { DocsRenameMutation } from './commands/mutations/docs-rename.mutation';
@@ -37,7 +37,7 @@ export class UniverDocsPlugin extends Plugin {
     static override pluginName = 'DOCS_PLUGIN';
     static override packageName = pkg.name;
     static override version = pkg.version;
-    // static override type = UniverInstanceType.UNIVER_DOC;
+    // static override type = CrabTableInstanceType.CRABTABLE_DOC;
 
     constructor(
         private readonly _config: Partial<IUniverDocsConfig> = defaultPluginConfig,

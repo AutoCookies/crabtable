@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IShortcutItem } from '@univerjs/ui';
-import { DeleteLeftCommand } from '@univerjs/docs-ui';
-import { DeviceInputEventType } from '@univerjs/engine-render';
-import { KeyCode, MetaKeys } from '@univerjs/ui';
+import type { IShortcutItem } from '@crabtable/ui';
+import { DeleteLeftCommand } from '@crabtable/docs-ui';
+import { DeviceInputEventType } from '@crabtable/engine-render';
+import { KeyCode, MetaKeys } from '@crabtable/ui';
 import { SetTextEditArrowOperation } from '../../commands/operations/text-edit.operation';
 import {
     whenEditorActivated,

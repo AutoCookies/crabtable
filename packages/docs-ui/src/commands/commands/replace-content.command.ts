@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommand, IDocumentBody, IDocumentData, IMutationInfo, ITextRange, JSONXActions } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { ITextRangeWithStyle } from '@univerjs/engine-render';
-import { BuildTextUtils, CommandType, ICommandService, IUndoRedoService, IUniverInstanceService, JSONX, TextX, TextXActionType, ThemeService, Tools, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation } from '@univerjs/docs';
+import type { DocumentDataModel, ICommand, IDocumentBody, IDocumentData, IMutationInfo, ITextRange, JSONXActions } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { ITextRangeWithStyle } from '@crabtable/engine-render';
+import { BuildTextUtils, CommandType, CrabTableInstanceType, ICommandService, ICrabTableInstanceService, IUndoRedoService, JSONX, TextX, TextXActionType, ThemeService, Tools } from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation } from '@crabtable/docs';
 import { getRichTextEditPath } from '../util';
 
 export interface IReplaceSnapshotCommandParams {
@@ -35,10 +35,10 @@ export const ReplaceSnapshotCommand: ICommand<IReplaceSnapshotCommandParams> = {
     // eslint-disable-next-line max-lines-per-function, complexity
     handler: (accessor, params: IReplaceSnapshotCommandParams) => {
         const { unitId, snapshot, textRanges, segmentId = '', options } = params;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const docDataModel = univerInstanceService.getUnit<DocumentDataModel>(unitId, UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getUnit<DocumentDataModel>(unitId, CrabTableInstanceType.CRABTABLE_DOC);
         const prevSnapshot = docDataModel?.getSelfOrHeaderFooterModel(segmentId).getSnapshot();
 
         if (docDataModel == null || prevSnapshot == null) {
@@ -177,11 +177,11 @@ export const ReplaceContentCommand: ICommand<IReplaceContentCommandParams> = {
 
     handler: async (accessor, params: IReplaceContentCommandParams) => {
         const { unitId, body, textRanges, segmentId = '', options } = params;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
 
-        const docDataModel = univerInstanceService.getUnit<DocumentDataModel>(unitId, UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getUnit<DocumentDataModel>(unitId, CrabTableInstanceType.CRABTABLE_DOC);
         const prevBody = docDataModel?.getSelfOrHeaderFooterModel(segmentId).getSnapshot().body;
 
         if (docDataModel == null || prevBody == null) {
@@ -229,11 +229,11 @@ export const CoverContentCommand: ICommand<ICoverContentCommandParams> = {
 
     handler: (accessor, params: ICoverContentCommandParams) => {
         const { unitId, body, segmentId = '', textRanges } = params;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
 
-        const docDatModel = univerInstanceService.getUniverDocInstance(unitId);
+        const docDatModel = crabtableInstanceService.getUniverDocInstance(unitId);
 
         const prevBody = docDatModel?.getSnapshot().body;
 
@@ -317,8 +317,8 @@ export const ReplaceSelectionCommand: ICommand<IReplaceSelectionCommandParams> =
         }
         const commandService = accessor.get(ICommandService);
         const { unitId, body: insertBody, textRanges } = params;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const docDataModel = univerInstanceService.getUnit<DocumentDataModel>(unitId);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const docDataModel = crabtableInstanceService.getUnit<DocumentDataModel>(unitId);
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
         if (!docDataModel) {
             return false;
@@ -355,12 +355,12 @@ export const ReplaceTextRunsCommand: ICommand<IReplaceContentCommandParams> = {
 
     handler: (accessor, params: IReplaceContentCommandParams) => {
         const { unitId, body, textRanges, segmentId = '', options } = params;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
         const themeService = accessor.get(ThemeService);
         // const docSelectionManagerService = accessor.get(DocSelectionManagerService);
 
-        const docDataModel = univerInstanceService.getUnit<DocumentDataModel>(unitId, UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getUnit<DocumentDataModel>(unitId, CrabTableInstanceType.CRABTABLE_DOC);
         const prevBody = docDataModel?.getSelfOrHeaderFooterModel(segmentId).getSnapshot().body;
 
         if (docDataModel == null || prevBody == null) {

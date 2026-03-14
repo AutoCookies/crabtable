@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDataValidationRuleOptions } from '@univerjs/core';
-import { DataValidationRenderMode, LocaleService } from '@univerjs/core';
-import { FormLayout, Radio, RadioGroup } from '@univerjs/design';
-import { useDependency } from '@univerjs/ui';
+import type { IDataValidationRuleOptions } from '@crabtable/core';
+import { DataValidationRenderMode, LocaleService } from '@crabtable/core';
+import { FormLayout, Radio, RadioGroup } from '@crabtable/design';
+import { useDependency } from '@crabtable/ui';
 
 export interface IListRenderModeInputProps {
     value: IDataValidationRuleOptions;

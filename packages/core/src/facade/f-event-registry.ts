@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
 import type { Subscription } from 'rxjs';
 import type { IEventParamConfig } from './f-event';
-import { Registry, toDisposable } from '@univerjs/core';
+import { Registry, toDisposable } from '@crabtable/core';
 
 export class FEventRegistry {
     protected _eventRegistry: Map<string, Registry<(param: any) => void>> = new Map();
@@ -83,7 +83,7 @@ export class FEventRegistry {
      * @returns {Disposable} The Disposable instance, for remove the listener
      * @example
      * ```ts
-     * univerAPI.addEvent(univerAPI.Event.LifeCycleChanged, (params) => {
+     * crabtableAPI.addEvent(crabtableAPI.Event.LifeCycleChanged, (params) => {
      *   const { stage } = params;
      *   console.log('life cycle changed', params);
      * });
@@ -102,7 +102,7 @@ export class FEventRegistry {
      * @returns {boolean} should cancel
      * @example
      * ```ts
-     * this.fireEvent(univerAPI.Event.LifeCycleChanged, params);
+     * this.fireEvent(crabtableAPI.Event.LifeCycleChanged, params);
      * ```
      */
     fireEvent<T extends keyof IEventParamConfig>(event: T, params: IEventParamConfig[T]): boolean | undefined {

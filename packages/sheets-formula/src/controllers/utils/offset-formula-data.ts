@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
-import type { IArrayFormulaRangeType, IArrayFormulaUnitCellType, IFormulaData } from '@univerjs/engine-formula';
+import type { IRange } from '@crabtable/core';
+import type { IArrayFormulaRangeType, IArrayFormulaUnitCellType, IFormulaData } from '@crabtable/engine-formula';
 
 export interface IRefRangeWithPosition {
     row: number;

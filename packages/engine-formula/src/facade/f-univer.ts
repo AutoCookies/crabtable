@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FUniver } from '@univerjs/core/facade';
+import { FCrabTable } from '@crabtable/core/facade';
 import { FFormula } from './f-formula';
 
 /**
@@ -24,14 +24,14 @@ export interface IFUniverEngineFormulaMixin {
     getFormula(): FFormula;
 }
 
-export class FUniverEngineFormulaMixin extends FUniver implements IFUniverEngineFormulaMixin {
+export class FCrabTableEngineFormulaMixin extends FCrabTable implements IFUniverEngineFormulaMixin {
     override getFormula(): FFormula {
         return this._injector.createInstance(FFormula);
     }
 }
 
-FUniver.extend(FUniverEngineFormulaMixin);
-declare module '@univerjs/core/facade' {
+FCrabTable.extend(FUniverEngineFormulaMixin);
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
-    interface FUniver extends IFUniverEngineFormulaMixin {}
+    interface FCrabTable extends IFUniverEngineFormulaMixin {}
 }

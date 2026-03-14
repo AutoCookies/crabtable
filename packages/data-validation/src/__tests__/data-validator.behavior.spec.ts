@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-import type { IDataValidationRule, Injector } from '@univerjs/core';
+import type { IDataValidationRule, Injector } from '@crabtable/core';
 import type { IFormulaResult, IFormulaValidResult, IValidatorCellInfo } from '../validators/base-data-validator';
 import {
     DataValidationOperator,
     DataValidationType,
     LocaleService,
     LocaleType,
-    Univer,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { DataValidatorRegistryScope, DataValidatorRegistryService } from '../services/data-validator-registry.service';
 import { BaseDataValidator } from '../validators/base-data-validator';
@@ -110,14 +109,14 @@ class TestDataValidator extends BaseDataValidator {
 }
 
 describe('data validator behavior', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let localeService: LocaleService;
     let registryService: DataValidatorRegistryService;
     let validator: TestDataValidator;
 
     beforeEach(() => {
-        univer = new Univer();
+        univer = new CrabTable();
         const injector = univer.__getInjector();
         get = injector.get.bind(injector);
 

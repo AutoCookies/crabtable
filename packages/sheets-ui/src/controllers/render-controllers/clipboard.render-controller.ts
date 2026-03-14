@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
+import type { Workbook } from '@crabtable/core';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
 import {
     Disposable,
     Inject,
     toDisposable,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { ISheetClipboardService } from '../../services/clipboard/clipboard.service';
 import { SheetSkeletonManagerService } from '../../services/sheet-skeleton-manager.service';
 import { SheetClipboardController } from '../clipboard/clipboard.controller';

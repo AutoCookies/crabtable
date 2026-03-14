@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICellData, ICommand } from '@univerjs/core';
-import type { ISetRangeValuesCommandParams, ISetSelectionsOperationParams } from '@univerjs/sheets';
-import { CommandType, ICommandService, IUniverInstanceService, ObjectMatrix, Rectangle, sequenceExecuteAsync } from '@univerjs/core';
-import { serializeRange } from '@univerjs/engine-formula';
-import { alignToMergedCellsBorders, expandToContinuousRange, findFirstNonEmptyCell, getSheetCommandTarget, SetRangeValuesCommand, SetSelectionsOperation, SheetsSelectionsService } from '@univerjs/sheets';
+import type { IAccessor, ICellData, ICommand } from '@crabtable/core';
+import type { ISetRangeValuesCommandParams, ISetSelectionsOperationParams } from '@crabtable/sheets';
+import { CommandType, ICommandService, ICrabTableInstanceService, ObjectMatrix, Rectangle, sequenceExecuteAsync } from '@crabtable/core';
+import { serializeRange } from '@crabtable/engine-formula';
+import { alignToMergedCellsBorders, expandToContinuousRange, findFirstNonEmptyCell, getSheetCommandTarget, SetRangeValuesCommand, SetSelectionsOperation, SheetsSelectionsService } from '@crabtable/sheets';
 
 /**
  * Tries to insert =SUM formulas in selection regions.
@@ -31,8 +31,8 @@ export const QuickSumCommand: ICommand = {
         const currentSelection = selectionsService.getCurrentLastSelection();
         if (!currentSelection) return false;
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const range = currentSelection.range;

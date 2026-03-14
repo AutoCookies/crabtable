@@ -36,7 +36,7 @@ function main() {
 
     fs.writeJSONSync(__pkg, pkg, { spaces: 4, EOL: '\n' });
 
-    execSync('pnpm i --no-lockfile');
+    execSync('yarn install');
 }
 
 main();

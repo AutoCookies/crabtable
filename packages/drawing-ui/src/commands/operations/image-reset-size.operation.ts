@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IDrawingSearch, IOperation } from '@univerjs/core';
-import { CommandType } from '@univerjs/core';
+import type { IDrawingSearch, IOperation } from '@crabtable/core';
+import { CommandType } from '@crabtable/core';
 
 export const ImageResetSizeOperation: IOperation<IDrawingSearch[]> = {
     id: 'sheet.operation.image-reset-size',

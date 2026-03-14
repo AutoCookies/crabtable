@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ThemeService } from '@univerjs/core';
-import type { BaseObject, IRectProps, Scene } from '@univerjs/engine-render';
-import type { ISelectionStyle } from '@univerjs/sheets';
-import { RANGE_TYPE } from '@univerjs/core';
-import { Rect, SHEET_VIEWPORT_KEY } from '@univerjs/engine-render';
+import type { ThemeService } from '@crabtable/core';
+import type { BaseObject, IRectProps, Scene } from '@crabtable/engine-render';
+import type { ISelectionStyle } from '@crabtable/sheets';
+import { RANGE_TYPE } from '@crabtable/core';
+import { Rect, SHEET_VIEWPORT_KEY } from '@crabtable/engine-render';
 
 import { SHEET_COMPONENT_SELECTION_LAYER_INDEX } from '../../common/keys';
 import { SELECTION_MANAGER_KEY, SelectionControl } from './selection-control';

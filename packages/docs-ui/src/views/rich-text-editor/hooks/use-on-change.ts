@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IDocumentData } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
+import type { IDocumentData } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
 import type { Editor } from '../../../services/editor/editor';
-import { getPlainText, ICommandService } from '@univerjs/core';
-import { RichTextEditingMutation } from '@univerjs/docs';
-import { useDependency } from '@univerjs/ui';
+import { getPlainText, ICommandService } from '@crabtable/core';
+import { RichTextEditingMutation } from '@crabtable/docs';
+import { useDependency } from '@crabtable/ui';
 import { useEffect } from 'react';
 
 export function useOnChange(editor: Editor | undefined, onChange: (data: IDocumentData, str: string) => void) {

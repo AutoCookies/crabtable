@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Dependency, DependencyIdentifier, IDisposable, Nullable, UnitModel, UnitType, UniverInstanceType } from '@univerjs/core';
+import type { CrabTableInstanceType, Dependency, DependencyIdentifier, IDisposable, Nullable, UnitModel, UnitType } from '@crabtable/core';
 import type { Observable } from 'rxjs';
 import type { Engine } from '../engine';
 import type { Scene } from '../scene';
 import type { RenderComponentType } from './render-manager.service';
-import { Disposable, Inject, Injector, isClassDependencyItem } from '@univerjs/core';
+import { Disposable, Inject, Injector, isClassDependencyItem } from '@crabtable/core';
 import { BehaviorSubject, distinctUntilChanged } from 'rxjs';
 
 /**
@@ -29,7 +29,7 @@ import { BehaviorSubject, distinctUntilChanged } from 'rxjs';
  */
 export interface IRender {
     unitId: string;
-    type: UniverInstanceType;
+    type: CrabTableInstanceType;
     engine: Engine;
     scene: Scene;
     mainComponent: Nullable<RenderComponentType>;
@@ -72,7 +72,7 @@ export interface IRenderContext<T extends UnitModel = UnitModel> extends Omit<IR
 }
 
 /**
- * This class is necessary for Univer to render several units in the same webpage. It encapsulates the rendering
+ * This class is necessary for CrabTable to render several units in the same webpage. It encapsulates the rendering
  * context and rendering modules for a specific unit.
  */
 export class RenderUnit extends Disposable implements IRender {

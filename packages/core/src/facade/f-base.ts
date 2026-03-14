@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Injector } from '@univerjs/core';
-import { Disposable } from '@univerjs/core';
+import type { Injector } from '@crabtable/core';
+import { Disposable } from '@crabtable/core';
 
 /**
  * `FBase` is a base class for all facade classes.

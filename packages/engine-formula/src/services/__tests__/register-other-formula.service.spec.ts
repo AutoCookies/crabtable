@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, LifecycleService } from '@univerjs/core';
+import type { ICommandInfo, LifecycleService } from '@crabtable/core';
 import type { IActiveDirtyManagerService } from '../active-dirty-manager.service';
 import { describe, expect, it, vi } from 'vitest';
 import { OtherFormulaMarkDirty } from '../../commands/mutations/formula.mutation';

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { CopySheetCommand, RemoveSheetCommand } from '@univerjs/sheets';
-import { AddCommentMutation, DeleteCommentMutation } from '@univerjs/thread-comment';
+import { CopySheetCommand, RemoveSheetCommand } from '@crabtable/sheets';
+import { AddCommentMutation, DeleteCommentMutation } from '@crabtable/thread-comment';
 import { describe, expect, it, vi } from 'vitest';
 import { SheetsThreadCommentResourceController } from '../sheets-thread-comment-resource.controller';
 

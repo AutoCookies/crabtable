@@ -16,23 +16,22 @@
 
 /* eslint-disable max-lines-per-function */
 
-import type { Dependency, IWorkbookData, Workbook } from '@univerjs/core';
-import type { ISheetData } from '@univerjs/engine-formula';
+import type { Dependency, IWorkbookData, Workbook } from '@crabtable/core';
+import type { ISheetData } from '@crabtable/engine-formula';
 import {
     CellValueType,
+    CrabTableInstanceType,
+    ICrabTableInstanceService,
     ILogService,
     Inject,
     Injector,
-    IUniverInstanceService,
     LocaleType,
     LogLevel,
     ObjectMatrix,
     Plugin,
     touchDependencies,
-    Univer,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { FUniver } from '@univerjs/core/facade';
+} from '@crabtable/core';
+import { FCrabTable } from '@crabtable/core/facade';
 import {
     AstRootNodeFactory,
     AstTreeBuilder,
@@ -76,7 +75,7 @@ import {
     SuperTableService,
     UnionNodeFactory,
     ValueNodeFactory,
-} from '@univerjs/engine-formula';
+} from '@crabtable/engine-formula';
 import { CalculateResultApplyController } from '../../calculate-result-apply.controller';
 
 const getTestWorkbookData = (): IWorkbookData => {
@@ -170,7 +169,7 @@ const getTestWorkbookData = (): IWorkbookData => {
 };
 
 export function createFunctionTestBed(workbookData?: IWorkbookData, dependencies?: Dependency[]) {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
@@ -179,7 +178,7 @@ export function createFunctionTestBed(workbookData?: IWorkbookData, dependencies
      */
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         private _formulaDataModel: FormulaDataModel | null = null;
 
@@ -242,16 +241,16 @@ export function createFunctionTestBed(workbookData?: IWorkbookData, dependencies
     }
 
     univer.registerPlugin(TestPlugin);
-    const sheet = univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, workbookData || getTestWorkbookData());
+    const sheet = univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, workbookData || getTestWorkbookData());
 
-    const univerInstanceService = get(IUniverInstanceService);
-    univerInstanceService.focusUnit('test');
+    const crabtableInstanceService = get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit('test');
 
     const logService = get(ILogService);
     logService.setLogLevel(LogLevel.SILENT); // change this to `true` to debug tests via logs
 
     const sheetData: ISheetData = {};
-    const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+    const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
     const unitId = workbook.getUnitId();
     const sheetId = workbook.getActiveSheet()!.getSheetId();
     workbook.getSheets().forEach((sheet) => {
@@ -267,7 +266,7 @@ export function createFunctionTestBed(workbookData?: IWorkbookData, dependencies
 
     return {
         univer,
-        api: FUniver.newAPI(univer),
+        api: FCrabTable.newAPI(univer),
         get,
         sheet,
         unitId,

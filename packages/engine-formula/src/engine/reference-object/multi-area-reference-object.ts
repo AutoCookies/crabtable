@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { ArrayValueObject } from '../value-object/array-value-object';
 import type { BaseValueObject, ErrorValueObject } from '../value-object/base-value-object';
 import { createNewArray } from '../utils/array-object';

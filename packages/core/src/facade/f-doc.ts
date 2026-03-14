@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel } from '@univerjs/core';
-import { Inject, Injector } from '@univerjs/core';
+import type { DocumentDataModel } from '@crabtable/core';
+import { Inject, Injector } from '@crabtable/core';
 import { FBaseInitialable } from './f-base';
 
 /**

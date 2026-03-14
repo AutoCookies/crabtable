@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ISrcRect, ITransformState, Nullable, PresetGeometryType } from '@univerjs/core';
-import type { Engine, IShapeProps, IViewportInfo, Scene, UniverRenderingContext, Vector2 } from '@univerjs/engine-render';
-import { Canvas, Rect, Shape } from '@univerjs/engine-render';
+import type { ISrcRect, ITransformState, Nullable, PresetGeometryType } from '@crabtable/core';
+import type { Engine, IShapeProps, IViewportInfo, Scene, UniverRenderingContext, Vector2 } from '@crabtable/engine-render';
+import { Canvas, Rect, Shape } from '@crabtable/engine-render';
 
 export interface IImageCropperObjectProps extends IShapeProps {
     /**

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { AddCommentMutation, DeleteCommentMutation, UpdateCommentRefMutation } from '@univerjs/thread-comment';
+import { AddCommentMutation, DeleteCommentMutation, UpdateCommentRefMutation } from '@crabtable/thread-comment';
 import { Subject } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import { SheetsThreadCommentRefRangeController } from '../sheets-thread-comment-ref-range.controller';
@@ -23,8 +23,8 @@ const sheetsMocks = vi.hoisted(() => ({
     handleRangeChange: vi.fn(),
 }));
 
-vi.mock('@univerjs/sheets', async () => {
-    const actual = await vi.importActual<typeof import('@univerjs/sheets')>('@univerjs/sheets');
+vi.mock('@crabtable/sheets', async () => {
+    const actual = await vi.importActual<typeof import('@crabtable/sheets')>('@crabtable/sheets');
     return {
         ...actual,
         handleCommonRangeChangeWithEffectRefCommandsSkipNoInterests: sheetsMocks.handleRangeChange,

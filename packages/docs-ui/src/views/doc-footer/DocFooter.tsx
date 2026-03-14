@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
+import type { Workbook } from '@crabtable/core';
 import type { IUniverDocsUIConfig } from '../../config/config';
-import { IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { useConfigValue, useDependency, useObservable } from '@univerjs/ui';
+import { CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
+import { useConfigValue, useDependency, useObservable } from '@crabtable/ui';
 import { DOCS_UI_PLUGIN_CONFIG_KEY } from '../../config/config';
 import { CountBar } from '../count-bar';
 
@@ -38,8 +38,8 @@ function DocFooterContent() {
 }
 
 export function DocFooter() {
-    const univerInstanceService = useDependency(IUniverInstanceService);
-    const workbook = useObservable(() => univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET), undefined, undefined, []);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
+    const workbook = useObservable(() => crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET), undefined, undefined, []);
 
     if (workbook) {
         return null;

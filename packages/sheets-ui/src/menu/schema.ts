@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { MenuSchemaType } from '@univerjs/ui';
+import type { MenuSchemaType } from '@crabtable/ui';
 import {
     AddWorksheetMergeAllCommand,
     AddWorksheetMergeCommand,
@@ -48,8 +48,8 @@ import {
     SetWorksheetHideCommand,
     SetWorksheetRowIsAutoHeightCommand,
     ToggleGridlinesCommand,
-} from '@univerjs/sheets';
-import { ContextMenuGroup, ContextMenuPosition, RibbonDataGroup, RibbonPosition, RibbonStartGroup } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { ContextMenuGroup, ContextMenuPosition, RibbonDataGroup, RibbonPosition, RibbonStartGroup } from '@crabtable/ui';
 import {
     SheetCopyCommand,
     SheetCutCommand,

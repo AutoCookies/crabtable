@@ -1,21 +1,21 @@
 {
-    "name": "@univerjs/themes",
+    "name": "@crabtable/themes",
     "version": "0.17.0",
     "private": false,
     "description": "Themes package for Univer",
-    "author": "DreamNum <developer@univer.ai>",
+    "author": "DreamNum <developer@crabtable.dev>",
     "license": "Apache-2.0",
     "funding": {
         "type": "opencollective",
-        "url": "https://opencollective.com/univer"
+        "url": "https://opencollective.com/crabtable"
     },
-    "homepage": "https://univer.ai",
+    "homepage": "https://crabtable.dev",
     "repository": {
         "type": "git",
-        "url": "https://github.com/dream-num/univer"
+        "url": "https://github.com/AutoCookies/crabtable"
     },
     "bugs": {
-        "url": "https://github.com/dream-num/univer/issues"
+        "url": "https://github.com/AutoCookies/crabtable/issues"
     },
     "keywords": [
         "univer",
@@ -56,7 +56,7 @@
         "build": "univer-cli build"
     },
     "devDependencies": {
-        "@univerjs-infra/shared": "workspace:*",
+        "@crabtable-infra/shared": "*",
         "vite": "^7.3.1"
     }
 }

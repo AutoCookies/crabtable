@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { ReactNode, RefObject } from 'react';
 import type { Observable } from 'rxjs';
 import type { IUniverUIConfig } from '../../../config/config';
-import { IConfigService } from '@univerjs/core';
-import { clsx } from '@univerjs/design';
+import { IConfigService } from '@crabtable/core';
+import { clsx } from '@crabtable/design';
 import { createContext, useContext, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useEvent } from '../../../components/hooks/event';

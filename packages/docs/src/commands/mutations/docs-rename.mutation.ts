@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommand } from '@univerjs/core';
-import { CommandType, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
+import type { DocumentDataModel, ICommand } from '@crabtable/core';
+import { CommandType, CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
 
 export interface IDocsRenameMutationParams {
     name: string;
@@ -26,8 +26,8 @@ export const DocsRenameMutation: ICommand = {
     id: 'doc.mutation.rename-doc',
     type: CommandType.MUTATION,
     handler: (accessor, params: IDocsRenameMutationParams) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const doc = univerInstanceService.getUnit<DocumentDataModel>(params.unitId, UniverInstanceType.UNIVER_DOC);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const doc = crabtableInstanceService.getUnit<DocumentDataModel>(params.unitId, CrabTableInstanceType.CRABTABLE_DOC);
         if (!doc) {
             return false;
         }

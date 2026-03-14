@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Nullable } from '@univerjs/core';
+import type { IDisposable, Nullable } from '@crabtable/core';
 import type { Observable } from 'rxjs';
 import type { HTTPResponseType } from './http';
 import type { HTTPHandlerFn, HTTPInterceptorFn, RequestPipe } from './interceptor';
 import type { HTTPRequestMethod } from './request';
 import type { HTTPEvent, HTTPResponse } from './response';
-import { Disposable, remove, toDisposable } from '@univerjs/core';
+import { Disposable, remove, toDisposable } from '@crabtable/core';
 import { firstValueFrom, of } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { HTTPHeaders } from './headers';

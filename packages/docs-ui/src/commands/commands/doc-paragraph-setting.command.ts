@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IAccessor, ICommand, IMutationInfo, IParagraphStyle } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import { BuildTextUtils, CommandType, ICommandService, IUniverInstanceService, JSONX, MemoryCursor, TextX, TextXActionType, UniverInstanceType, UpdateDocsAttributeType } from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation } from '@univerjs/docs';
+import type { DocumentDataModel, IAccessor, ICommand, IMutationInfo, IParagraphStyle } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import { BuildTextUtils, CommandType, CrabTableInstanceType, ICommandService, ICrabTableInstanceService, JSONX, MemoryCursor, TextX, TextXActionType, UpdateDocsAttributeType } from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation } from '@crabtable/docs';
 import { getRichTextEditPath } from '../util';
 
 export interface IDocParagraphSettingCommandParams {
@@ -30,10 +30,10 @@ export const DocParagraphSettingCommand: ICommand<IDocParagraphSettingCommandPar
     handler: async (accessor: IAccessor, config) => {
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
 
-        const docDataModel = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         const docRanges = docSelectionManagerService.getDocRanges();
 
         if (!docDataModel || docRanges.length === 0 || !config) {

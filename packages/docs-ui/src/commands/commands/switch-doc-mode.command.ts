@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ICommand, ICommandInfo, JSONXActions } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import { CommandType, DocumentFlavor, ICommandService, IUniverInstanceService, JSONX, ObjectRelativeFromV } from '@univerjs/core';
-import { DocSelectionManagerService, DocSkeletonManagerService, RichTextEditingMutation } from '@univerjs/docs';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import type { ICommand, ICommandInfo, JSONXActions } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import { CommandType, DocumentFlavor, ICommandService, ICrabTableInstanceService, JSONX, ObjectRelativeFromV } from '@crabtable/core';
+import { DocSelectionManagerService, DocSkeletonManagerService, RichTextEditingMutation } from '@crabtable/docs';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { DocSelectionRenderService } from '../../services/selection/doc-selection-render.service';
 
 export interface ISwitchDocModeCommandParams { }
@@ -34,8 +34,8 @@ export const SwitchDocModeCommand: ICommand<ISwitchDocModeCommandParams> = {
         const renderManagerService = accessor.get(IRenderManagerService);
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const docDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const docDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
 
         if (docDataModel == null) {
             return false;

@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { IRange, Workbook } from '@univerjs/core';
-import type { IRemoveSheetMutationParams } from '@univerjs/sheets';
-import type { IAddCfCommandParams, IConditionFormattingRule, ISetCfCommandParams } from '@univerjs/sheets-conditional-formatting';
+import type { IRange, Workbook } from '@crabtable/core';
+import type { IRemoveSheetMutationParams } from '@crabtable/sheets';
+import type { IAddCfCommandParams, IConditionFormattingRule, ISetCfCommandParams } from '@crabtable/sheets-conditional-formatting';
 import type { IStyleEditorProps } from './type';
-import { ICommandService, InterceptorManager, IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
-import { Button, Select } from '@univerjs/design';
-import { deserializeRangeWithSheet, serializeRange } from '@univerjs/engine-formula';
-import { RemoveSheetMutation, setEndForRange, SetWorksheetActiveOperation, SheetsSelectionsService } from '@univerjs/sheets';
-import { AddCfCommand, CFRuleType, CFSubRuleType, ConditionalFormattingRuleModel, SetCfCommand } from '@univerjs/sheets-conditional-formatting';
-import { RangeSelector } from '@univerjs/sheets-formula-ui';
-import { useDependency } from '@univerjs/ui';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, InterceptorManager, LocaleService } from '@crabtable/core';
+import { Button, Select } from '@crabtable/design';
+import { deserializeRangeWithSheet, serializeRange } from '@crabtable/engine-formula';
+import { RemoveSheetMutation, setEndForRange, SetWorksheetActiveOperation, SheetsSelectionsService } from '@crabtable/sheets';
+import { AddCfCommand, CFRuleType, CFSubRuleType, ConditionalFormattingRuleModel, SetCfCommand } from '@crabtable/sheets-conditional-formatting';
+import { RangeSelector } from '@crabtable/sheets-formula-ui';
+import { useDependency } from '@crabtable/ui';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ColorScaleStyleEditor } from './ColorScale';
 import { DataBarStyleEditor } from './DataBar';
@@ -39,17 +39,17 @@ interface IRuleEditProps {
     onCancel: () => void;
 }
 
-const getUnitId = (univerInstanceService: IUniverInstanceService) => univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getUnitId();
-const getSubUnitId = (univerInstanceService: IUniverInstanceService) => univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()?.getSheetId();
+const getUnitId = (crabtableInstanceService: ICrabTableInstanceService) => crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getUnitId();
+const getSubUnitId = (crabtableInstanceService: ICrabTableInstanceService) => crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()?.getSheetId();
 
 export const RuleEdit = (props: IRuleEditProps) => {
     const localeService = useDependency(LocaleService);
     const commandService = useDependency(ICommandService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const conditionalFormattingRuleModel = useDependency(ConditionalFormattingRuleModel);
     const selectionManagerService = useDependency(SheetsSelectionsService);
-    const unitId = getUnitId(univerInstanceService);
-    const subUnitId = getSubUnitId(univerInstanceService);
+    const unitId = getUnitId(crabtableInstanceService);
+    const subUnitId = getSubUnitId(crabtableInstanceService);
 
     const [errorText, setErrorText] = useState<string | undefined>(undefined);
     const rangeResult = useRef<IRange[]>(props.rule?.ranges ?? []);
@@ -179,7 +179,7 @@ export const RuleEdit = (props: IRuleEditProps) => {
             return;
         }
         const getRanges = () => {
-            const worksheet = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet();
+            const worksheet = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet();
             if (!worksheet) {
                 throw new Error('No active sheet found');
             }
@@ -193,8 +193,8 @@ export const RuleEdit = (props: IRuleEditProps) => {
             const result = interceptorManager.fetchThroughInterceptors(interceptorManager.getInterceptPoints().submit)(null, null);
             if (result) {
                 // When you switch the child table, you need to fetch it again here, instead of using the
-                const unitId = getUnitId(univerInstanceService);
-                const subUnitId = getSubUnitId(univerInstanceService);
+                const unitId = getUnitId(crabtableInstanceService);
+                const subUnitId = getSubUnitId(crabtableInstanceService);
                 if (!unitId || !subUnitId) {
                     throw new Error('No active sheet found');
                 }

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuButtonItem, IMenuSelectorItem } from '@univerjs/ui';
-import { UniverInstanceType } from '@univerjs/core';
-import { RangeProtectionPermissionViewPoint, WorksheetFilterPermission, WorksheetViewPermission } from '@univerjs/sheets';
-import { ClearSheetsFilterCriteriaCommand, ReCalcSheetsFilterCommand, SheetsFilterService, SmartToggleSheetsFilterCommand } from '@univerjs/sheets-filter';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuButtonItem, IMenuSelectorItem } from '@crabtable/ui';
+import { CrabTableInstanceType } from '@crabtable/core';
+import { RangeProtectionPermissionViewPoint, WorksheetFilterPermission, WorksheetViewPermission } from '@crabtable/sheets';
+import { ClearSheetsFilterCriteriaCommand, ReCalcSheetsFilterCommand, SheetsFilterService, SmartToggleSheetsFilterCommand } from '@crabtable/sheets-filter';
 
-import { getCurrentRangeDisable$, getObservableWithExclusiveRange$ } from '@univerjs/sheets-ui';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+import { getCurrentRangeDisable$, getObservableWithExclusiveRange$ } from '@crabtable/sheets-ui';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { map, of, switchMap } from 'rxjs';
 
 export function SmartToggleFilterMenuItemFactory(accessor: IAccessor): IMenuSelectorItem {
@@ -32,7 +32,7 @@ export function SmartToggleFilterMenuItemFactory(accessor: IAccessor): IMenuSele
         type: MenuItemType.BUTTON_SELECTOR,
         icon: 'FilterIcon',
         tooltip: 'sheets-filter.toolbar.smart-toggle-filter-tooltip',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         activated$: sheetsFilterService.activeFilterModel$.pipe(map((model) => !!model)),
         disabled$: getObservableWithExclusiveRange$(
             accessor,
@@ -54,7 +54,7 @@ export function ClearFilterCriteriaMenuItemFactory(accessor: IAccessor): IMenuBu
         id: ClearSheetsFilterCriteriaCommand.id,
         type: MenuItemType.BUTTON,
         title: 'sheets-filter.toolbar.clear-filter-criteria',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         disabled$: sheetsFilterService.activeFilterModel$.pipe(switchMap((model) => model?.hasCriteria$.pipe(map((m) => !m)) ?? of(true))),
     };
 }
@@ -66,7 +66,7 @@ export function ReCalcFilterMenuItemFactory(accessor: IAccessor): IMenuButtonIte
         id: ReCalcSheetsFilterCommand.id,
         type: MenuItemType.BUTTON,
         title: 'sheets-filter.toolbar.re-calc-filter-conditions',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         disabled$: sheetsFilterService.activeFilterModel$.pipe(switchMap((model) => model?.hasCriteria$.pipe(map((m) => !m)) ?? of(true))),
     };
 }

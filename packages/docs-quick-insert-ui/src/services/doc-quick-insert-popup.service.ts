@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IDisposable, Nullable } from '@univerjs/core';
-import type { IInsertCommandParams } from '@univerjs/docs-ui';
-import type { Documents, DocumentSkeleton, IBoundRectNoAngle, IDocumentSkeletonGlyph, ITextRangeWithStyle } from '@univerjs/engine-render';
+import type { DocumentDataModel, IDisposable, Nullable } from '@crabtable/core';
+import type { IInsertCommandParams } from '@crabtable/docs-ui';
+import type { Documents, DocumentSkeleton, IBoundRectNoAngle, IDocumentSkeletonGlyph, ITextRangeWithStyle } from '@crabtable/engine-render';
 import type { Observable } from 'rxjs';
-import { Disposable, ICommandService, Inject, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService, DocSkeletonManagerService } from '@univerjs/docs';
-import { DocCanvasPopManagerService, DocEventManagerService, getAnchorBounding, NodePositionConvertToCursor } from '@univerjs/docs-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { CrabTableInstanceType, Disposable, ICommandService, ICrabTableInstanceService, Inject } from '@crabtable/core';
+import { DocSelectionManagerService, DocSkeletonManagerService } from '@crabtable/docs';
+import { DocCanvasPopManagerService, DocEventManagerService, getAnchorBounding, NodePositionConvertToCursor } from '@crabtable/docs-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { BehaviorSubject, combineLatest, distinctUntilChanged, map, tap } from 'rxjs';
 import { DeleteSearchKeyCommand } from '../commands/commands/doc-quick-insert.command';
 import { KeywordInputPlaceholder } from '../views/KeywordInputPlaceholder';
@@ -117,7 +117,7 @@ export class DocQuickInsertPopupService extends Disposable {
 
     constructor(
         @Inject(DocCanvasPopManagerService) private readonly _docCanvasPopupManagerService: DocCanvasPopManagerService,
-        @Inject(IUniverInstanceService) private readonly _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(ICommandService) private readonly _commandService: ICommandService,
         @Inject(IRenderManagerService) private readonly _renderManagerService: IRenderManagerService,
         @Inject(DocSelectionManagerService) private readonly _docSelectionManagerService: DocSelectionManagerService
@@ -126,7 +126,7 @@ export class DocQuickInsertPopupService extends Disposable {
 
         this.disposeWithMe(this._editPopup$);
 
-        const getBodySlice = (start: number, end: number) => this._univerInstanceService.getCurrentUnitOfType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC)?.getBody()?.dataStream.slice(start, end);
+        const getBodySlice = (start: number, end: number) => this._crabtableInstanceService.getCurrentUnitOfType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC)?.getBody()?.dataStream.slice(start, end);
 
         let lastFilterKeyword = '';
         this.filterKeyword$ = this._inputOffset$.pipe(
@@ -208,7 +208,7 @@ export class DocQuickInsertPopupService extends Disposable {
     }
 
     private _getParagraphBound(unitId: string, index: number) {
-        const currentDoc = this._univerInstanceService.getUnit<DocumentDataModel>(unitId);
+        const currentDoc = this._crabtableInstanceService.getUnit<DocumentDataModel>(unitId);
         const paragraph = currentDoc?.getBody()?.paragraphs?.find((p) => p.startIndex > index);
         if (!paragraph) {
             return null;

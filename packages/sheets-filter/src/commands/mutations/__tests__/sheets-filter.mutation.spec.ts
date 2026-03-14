@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IWorkbookData } from '@univerjs/core';
+import type { IWorkbookData } from '@crabtable/core';
 import type { ISetSheetsFilterCriteriaMutationParams, ISetSheetsFilterRangeMutationParams } from '../sheets-filter.mutation';
-import { ICommandService, Inject, Injector, LocaleType, Plugin, Univer, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, ICommandService, Inject, Injector, LocaleType, Plugin } from '@crabtable/core';
 import { afterEach, describe, expect, it } from 'vitest';
 import { SHEET_FILTER_SNAPSHOT_ID, SheetsFilterService } from '../../../services/sheet-filter.service';
 import { ReCalcSheetsFilterMutation, RemoveSheetsFilterMutation, SetSheetsFilterCriteriaMutation, SetSheetsFilterRangeMutation } from '../sheets-filter.mutation';
@@ -92,12 +92,12 @@ function testWorkbookDataWithFilterFactory(): IWorkbookData {
 }
 
 function createFilterMutationTestBed(workbookData?: IWorkbookData) {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
     class SheetsFilterTestPlugin extends Plugin {
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
         static override pluginName = 'SheetsFilterTestPlugin';
 
         constructor(_config: unknown, @Inject(Injector) protected readonly _injector: Injector) {
@@ -111,7 +111,7 @@ function createFilterMutationTestBed(workbookData?: IWorkbookData) {
 
     univer.registerPlugin(SheetsFilterTestPlugin);
 
-    const sheet = univer.createUnit(UniverInstanceType.UNIVER_SHEET, workbookData || testWorkbookDataFactory());
+    const sheet = univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, workbookData || testWorkbookDataFactory());
 
     const sheetsFilterService = get(SheetsFilterService);
     const commandService = get(ICommandService);
@@ -138,7 +138,7 @@ function createFilterMutationTestBed(workbookData?: IWorkbookData) {
 }
 
 describe('test mutations of sheets filter', () => {
-    let univer: Univer;
+    let univer: CrabTable;
 
     afterEach(() => {
         univer.dispose();

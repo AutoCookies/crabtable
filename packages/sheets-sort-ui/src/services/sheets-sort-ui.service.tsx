@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import type { IRange, Nullable, Workbook, Worksheet } from '@univerjs/core';
-import type { ISheetRangeLocation } from '@univerjs/sheets';
-import type { ISortOption } from '@univerjs/sheets-sort';
+import type { IRange, Nullable, Workbook, Worksheet } from '@crabtable/core';
+import type { ISheetRangeLocation } from '@crabtable/sheets';
+import type { ISortOption } from '@crabtable/sheets-sort';
 import {
+    CrabTableInstanceType,
     Disposable,
     ICommandService,
     IConfirmService,
+    ICrabTableInstanceService,
     Inject,
-    IUniverInstanceService,
     LocaleService,
     LocaleType,
     Tools,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { expandToContinuousRange, getPrimaryForRange, SetSelectionsOperation, SheetsSelectionsService } from '@univerjs/sheets';
-import { SheetsSortService, SortType } from '@univerjs/sheets-sort';
+} from '@crabtable/core';
+import { expandToContinuousRange, getPrimaryForRange, SetSelectionsOperation, SheetsSelectionsService } from '@crabtable/sheets';
+import { SheetsSortService, SortType } from '@crabtable/sheets-sort';
 import { BehaviorSubject } from 'rxjs';
 import { ExtendConfirm } from '../views/ExtendConfirm';
 
@@ -60,7 +60,7 @@ export class SheetsSortUIService extends Disposable {
     readonly customSortState$ = this._customSortState$.asObservable();
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IConfirmService private readonly _confirmService: IConfirmService,
         @Inject(SheetsSelectionsService) private readonly _selectionManagerService: SheetsSelectionsService,
         @Inject(SheetsSortService) private readonly _sheetsSortService: SheetsSortService,
@@ -119,7 +119,7 @@ export class SheetsSortUIService extends Disposable {
         }
 
         const { unitId, subUnitId, range } = location;
-        const worksheet = (this._univerInstanceService.getUnit(unitId) as Workbook)?.getSheetBySheetId(subUnitId);
+        const worksheet = (this._crabtableInstanceService.getUnit(unitId) as Workbook)?.getSheetBySheetId(subUnitId);
         if (!worksheet) {
             return [];
         }
@@ -138,7 +138,7 @@ export class SheetsSortUIService extends Disposable {
     }
 
     setSelection(unitId: string, subUnitId: string, range: IRange) {
-        const worksheet = (this._univerInstanceService.getUnit(unitId) as Workbook)?.getSheetBySheetId(subUnitId);
+        const worksheet = (this._crabtableInstanceService.getUnit(unitId) as Workbook)?.getSheetBySheetId(subUnitId);
         if (!worksheet) {
             return;
         }
@@ -228,7 +228,7 @@ export class SheetsSortUIService extends Disposable {
     }
 
     private async _detectSortLocation(extend?: boolean): Promise<Nullable<ISheetSortLocation>> {
-        const workbook = this._univerInstanceService.getCurrentUnitForType(UniverInstanceType.UNIVER_SHEET) as Workbook;
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType(CrabTableInstanceType.CRABTABLE_SHEET) as Workbook;
         const worksheet = workbook.getActiveSheet() as Worksheet;
         const unitId = workbook.getUnitId();
         const subUnitId = worksheet.getSheetId();

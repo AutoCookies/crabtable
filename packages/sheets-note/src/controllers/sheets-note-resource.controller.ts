@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IMutationInfo, Workbook } from '@univerjs/core';
-import type { ICopySheetCommandParams, IRemoveSheetCommandParams } from '@univerjs/sheets';
+import type { IMutationInfo, Workbook } from '@crabtable/core';
+import type { ICopySheetCommandParams, IRemoveSheetCommandParams } from '@crabtable/sheets';
 import type { ISheetNote } from '../models/sheets-note.model';
-import { Disposable, generateRandomId, Inject, IResourceManagerService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { CopySheetCommand, RemoveSheetCommand, SheetInterceptorService } from '@univerjs/sheets';
+import { CrabTableInstanceType, Disposable, generateRandomId, ICrabTableInstanceService, Inject, IResourceManagerService } from '@crabtable/core';
+import { CopySheetCommand, RemoveSheetCommand, SheetInterceptorService } from '@crabtable/sheets';
 import { RemoveNoteMutation, UpdateNoteMutation } from '../commands/mutations/note.mutation';
 import { PLUGIN_NAME } from '../const';
 import { SheetsNoteModel } from '../models/sheets-note.model';
@@ -34,7 +34,7 @@ interface INoteData {
 export class SheetsNoteResourceController extends Disposable {
     constructor(
         @IResourceManagerService private readonly _resourceManagerService: IResourceManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(SheetInterceptorService) private _sheetInterceptorService: SheetInterceptorService,
         @Inject(SheetsNoteModel) private readonly _sheetsNoteModel: SheetsNoteModel
     ) {
@@ -85,7 +85,7 @@ export class SheetsNoteResourceController extends Disposable {
         this.disposeWithMe(
             this._resourceManagerService.registerPluginResource<INoteData>({
                 pluginName: PLUGIN_NAME,
-                businesses: [UniverInstanceType.UNIVER_SHEET],
+                businesses: [CrabTableInstanceType.CRABTABLE_SHEET],
                 toJson: (unitId) => toJson(unitId),
                 parseJson: (json) => parseJson(json),
                 onUnLoad: (unitId) => {
@@ -120,8 +120,8 @@ export class SheetsNoteResourceController extends Disposable {
                 getMutations: (commandInfo) => {
                     if (commandInfo.id === RemoveSheetCommand.id) {
                         const params = commandInfo.params as IRemoveSheetCommandParams;
-                        const unitId = params.unitId || this._univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getUnitId();
-                        const subUnitId = params.subUnitId || this._univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()?.getSheetId();
+                        const unitId = params.unitId || this._crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getUnitId();
+                        const subUnitId = params.subUnitId || this._crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()?.getSheetId();
 
                         if (!unitId || !subUnitId) {
                             return { redos: [], undos: [] };

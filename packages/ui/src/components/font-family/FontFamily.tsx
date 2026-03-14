@@ -17,7 +17,7 @@
 import type { ChangeEvent, KeyboardEvent } from 'react';
 import type { IFontConfig } from '../../services/font.service';
 import type { IFontFamilyProps } from './interface';
-import { ICommandService, LocaleService } from '@univerjs/core';
+import { ICommandService, LocaleService } from '@crabtable/core';
 
 import { useEffect, useMemo, useState } from 'react';
 import { IFontService } from '../../services/font.service';

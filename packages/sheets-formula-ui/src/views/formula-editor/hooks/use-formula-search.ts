@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Editor } from '@univerjs/docs-ui';
-import type { ISearchItemWithType } from '@univerjs/sheets-formula';
+import type { Editor } from '@crabtable/docs-ui';
+import type { ISearchItemWithType } from '@crabtable/sheets-formula';
 import type { INode } from './use-formula-token';
-import { FunctionType, matchToken, sequenceNodeType } from '@univerjs/engine-formula';
-import { IDescriptionService } from '@univerjs/sheets-formula';
-import { useDependency } from '@univerjs/ui';
+import { FunctionType, matchToken, sequenceNodeType } from '@crabtable/engine-formula';
+import { IDescriptionService } from '@crabtable/sheets-formula';
+import { useDependency } from '@crabtable/ui';
 import { useEffect, useRef, useState } from 'react';
 import { debounceTime } from 'rxjs';
 import { findIndexFromSequenceNodes } from '../../range-selector/utils/find-index-from-sequence-nodes';

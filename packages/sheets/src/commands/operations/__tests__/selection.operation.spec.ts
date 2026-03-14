@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import { ICommandService, IContextService, IUniverInstanceService } from '@univerjs/core';
+import type { IAccessor } from '@crabtable/core';
+import { ICommandService, IContextService, ICrabTableInstanceService } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { IRefSelectionsService } from '../../../services/selections/ref-selections.service';
 import { SheetsSelectionsService } from '../../../services/selections/selection.service';
@@ -113,7 +113,7 @@ describe('selection.operation', () => {
         const accessorWithoutTarget = createAccessor(
             new Map<unknown, unknown>([
                 [ICommandService, commandService],
-                [IUniverInstanceService, instanceService],
+                [ICrabTableInstanceService, instanceService],
             ])
         );
         expect(
@@ -144,7 +144,7 @@ describe('selection.operation', () => {
         const accessor = createAccessor(
             new Map<unknown, unknown>([
                 [ICommandService, commandService],
-                [IUniverInstanceService, instanceService],
+                [ICrabTableInstanceService, instanceService],
             ])
         );
 

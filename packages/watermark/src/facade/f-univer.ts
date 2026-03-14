@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IImageWatermarkConfig, ITextWatermarkConfig } from '@univerjs/engine-render';
-import { FEnum, FUniver } from '@univerjs/core/facade';
-import { IWatermarkTypeEnum } from '@univerjs/engine-render';
-import { WatermarkImageBaseConfig, WatermarkService, WatermarkTextBaseConfig } from '@univerjs/watermark';
+import type { IImageWatermarkConfig, ITextWatermarkConfig } from '@crabtable/engine-render';
+import { FCrabTable, FEnum } from '@crabtable/core/facade';
+import { IWatermarkTypeEnum } from '@crabtable/engine-render';
+import { WatermarkImageBaseConfig, WatermarkService, WatermarkTextBaseConfig } from '@crabtable/watermark';
 
 /**
  * @ignore
@@ -27,60 +27,60 @@ export interface IFUniverWatermarkMixin {
      * Adds a watermark to the unit. Supports both text and image watermarks based on the specified type.
      * @param {IWatermarkTypeEnum.Text} type - The type of watermark to add is Text.
      * @param {ITextWatermarkConfig} config - The configuration object for the text type watermark.
-     * @returns {FUniver} The {@link FUniver} instance for chaining.
+     * @returns {FUniver} The {@link FCrabTable} instance for chaining.
      * @throws {Error} Throws an error if the watermark type is unknown.
      * @example
      * ```ts
-     * univerAPI.addWatermark('text', {
+     * crabtableAPI.addWatermark('text', {
      *   content: 'Univer',
      *   fontSize: 20,
      *   repeat: true,
      * });
      * ```
      */
-    addWatermark(type: IWatermarkTypeEnum.Text, config: ITextWatermarkConfig): FUniver;
+    addWatermark(type: IWatermarkTypeEnum.Text, config: ITextWatermarkConfig): FCrabTable;
     /**
      * Adds a watermark to the unit. Supports both text and image watermarks based on the specified type.
      * @param {IWatermarkTypeEnum.Image} type - The type of watermark to add is Image.
      * @param {IImageWatermarkConfig} config - The configuration object for the image type watermark.
-     * @returns {FUniver} The {@link FUniver} instance for chaining.
+     * @returns {FUniver} The {@link FCrabTable} instance for chaining.
      * @throws {Error} Throws an error if the watermark type is unknown.
      * @example
      * ```ts
-     * univerAPI.addWatermark('image', {
+     * crabtableAPI.addWatermark('image', {
      *   url: 'https://avatars.githubusercontent.com/u/61444807?s=48&v=4',
      *   width: 100,
      *   height: 100,
      * });
      * ```
      */
-    addWatermark(type: IWatermarkTypeEnum.Image, config: IImageWatermarkConfig): FUniver;
+    addWatermark(type: IWatermarkTypeEnum.Image, config: IImageWatermarkConfig): FCrabTable;
     addWatermark(
         type: IWatermarkTypeEnum.Text | IWatermarkTypeEnum.Image,
         config: ITextWatermarkConfig | IImageWatermarkConfig
-    ): FUniver;
+    ): FCrabTable;
 
     /**
      * Deletes the currently applied watermark from the unit.
      * This function retrieves the watermark service and invokes the method to remove any existing watermark configuration.
-     * @returns {FUniver} The {@link FUniver} instance for chaining.
+     * @returns {FUniver} The {@link FCrabTable} instance for chaining.
      * @example
      * ```ts
-     * univerAPI.deleteWatermark();
+     * crabtableAPI.deleteWatermark();
      * ```
      */
-    deleteWatermark(): FUniver;
+    deleteWatermark(): FCrabTable;
 }
 
-export class FUniverWatermarkMixin extends FUniver {
+export class FCrabTableWatermarkMixin extends FCrabTable {
     // #region watermark
 
-    override addWatermark(type: IWatermarkTypeEnum.Text, config: ITextWatermarkConfig): FUniver;
-    override addWatermark(type: IWatermarkTypeEnum.Image, config: IImageWatermarkConfig): FUniver;
+    override addWatermark(type: IWatermarkTypeEnum.Text, config: ITextWatermarkConfig): FCrabTable;
+    override addWatermark(type: IWatermarkTypeEnum.Image, config: IImageWatermarkConfig): FCrabTable;
     override addWatermark(
         type: IWatermarkTypeEnum.Text | IWatermarkTypeEnum.Image,
         config: ITextWatermarkConfig | IImageWatermarkConfig
-    ): FUniver {
+    ): FCrabTable {
         const watermarkService = this._injector.get(WatermarkService);
         if (type === IWatermarkTypeEnum.Text) {
             watermarkService.updateWatermarkConfig({
@@ -109,7 +109,7 @@ export class FUniverWatermarkMixin extends FUniver {
         return this;
     }
 
-    override deleteWatermark(): FUniver {
+    override deleteWatermark(): FCrabTable {
         const watermarkService = this._injector.get(WatermarkService);
         watermarkService.deleteWatermarkConfig();
         return this;
@@ -122,12 +122,12 @@ export class FWatermarkEnum {
     };
 }
 
-FUniver.extend(FUniverWatermarkMixin);
+FCrabTable.extend(FUniverWatermarkMixin);
 FEnum.extend(FWatermarkEnum);
 
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
-    interface FUniver extends IFUniverWatermarkMixin { }
+    interface FCrabTable extends IFUniverWatermarkMixin { }
     // eslint-disable-next-line ts/naming-convention
     interface FEnum extends FWatermarkEnum { }
 }

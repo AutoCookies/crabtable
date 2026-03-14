@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { FEnum } from '@univerjs/core/facade';
-import { SheetSkeletonChangeType, SheetValueChangeType, SplitDelimiterEnum } from '@univerjs/sheets';
+import { FEnum } from '@crabtable/core/facade';
+import { SheetSkeletonChangeType, SheetValueChangeType, SplitDelimiterEnum } from '@crabtable/sheets';
 import { RangePermissionPoint, UnitRole, WorkbookPermissionPoint, WorksheetPermissionPoint } from './permission';
 
 /**
@@ -91,7 +91,7 @@ export class FSheetsEnum implements IFSheetsEnum {
 }
 
 FEnum.extend(FSheetsEnum);
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
     export interface FEnum extends IFSheetsEnum {
     }

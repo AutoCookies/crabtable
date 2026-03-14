@@ -25,7 +25,7 @@ import type {
     Nullable,
     ObjectMatrix,
     Styles,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import type { sequenceNodeType } from '../engine/utils/sequence';
 import type { IImageFormulaInfo } from '../engine/value-object/primitive-object';
 

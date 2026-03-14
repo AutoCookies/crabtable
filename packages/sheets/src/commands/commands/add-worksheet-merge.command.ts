@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICellData, ICommand, IMutationInfo, Injector, IRange, Nullable, Worksheet } from '@univerjs/core';
+import type { IAccessor, ICellData, ICommand, IMutationInfo, Injector, IRange, Nullable, Worksheet } from '@crabtable/core';
 import type { IAddWorksheetMergeMutationParams, IRemoveWorksheetMergeMutationParams } from '../../basics/interfaces/mutation-interface';
 import type { ISetRangeValuesMutationParams } from '../mutations/set-range-values.mutation';
 import type { ISheetCommandSharedParams } from '../utils/interface';
@@ -24,14 +24,14 @@ import {
     Dimension,
     ICommandService,
     IConfirmService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
     LocaleService,
     ObjectMatrix,
     Rectangle,
     sequenceExecute,
     Tools,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { getAddMergeMutationRangeByType } from '../../controllers/merge-cell.controller';
 import { SheetsSelectionsService } from '../../services/selections/selection.service';
 import { SheetInterceptorService } from '../../services/sheet-interceptor/sheet-interceptor.service';
@@ -160,8 +160,8 @@ export const AddWorksheetMergeCommand: ICommand = {
     id: 'sheet.command.add-worksheet-merge',
     // eslint-disable-next-line max-lines-per-function
     handler: async (accessor: IAccessor, params: IAddMergeCommandParams) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { worksheet } = target;
@@ -267,8 +267,8 @@ export const AddWorksheetMergeAllCommand: ICommand = {
             return false;
         }
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { worksheet } = target;
@@ -295,8 +295,8 @@ export const AddWorksheetMergeVerticalCommand: ICommand = {
             return false;
         }
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { worksheet } = target;
@@ -324,8 +324,8 @@ export const AddWorksheetMergeHorizontalCommand: ICommand = {
             return false;
         }
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { workbook, worksheet } = target;
@@ -343,7 +343,7 @@ export const AddWorksheetMergeHorizontalCommand: ICommand = {
 };
 
 export function addMergeCellsUtil(injector: Injector, unitId: string, subUnitId: string, ranges: IRange[], options: IMergeCellsUtilOptions = {}) {
-    const target = getSheetCommandTarget(injector.get(IUniverInstanceService), { unitId, subUnitId });
+    const target = getSheetCommandTarget(injector.get(ICrabTableInstanceService), { unitId, subUnitId });
     if (!target) return;
 
     const commandService = injector.get(ICommandService);

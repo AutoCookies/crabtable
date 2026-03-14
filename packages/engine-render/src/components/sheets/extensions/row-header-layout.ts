@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IScale } from '@univerjs/core';
+import type { IScale } from '@crabtable/core';
 import type { UniverRenderingContext } from '../../../context';
 import type { IARowCfg, IARowCfgObj, IHeaderStyleCfg, IRowStyleCfg } from '../interfaces';
 import type { SpreadsheetSkeleton } from '../sheet.render-skeleton';

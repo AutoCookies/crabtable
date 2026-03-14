@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ISheetLocationBase } from '@univerjs/sheets';
-import type { IPopup } from '@univerjs/ui';
-import { ComponentManager, useDependency, useObservable } from '@univerjs/ui';
+import type { ISheetLocationBase } from '@crabtable/sheets';
+import type { IPopup } from '@crabtable/ui';
+import { ComponentManager, useDependency, useObservable } from '@crabtable/ui';
 import { useMemo } from 'react';
 import { filter } from 'rxjs';
 import { CellPopupManagerService } from '../../services/cell-popup-manager.service';

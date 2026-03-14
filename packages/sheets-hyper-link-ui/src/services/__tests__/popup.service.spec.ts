@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { CustomRangeType, DOCS_ZEN_EDITOR_UNIT_ID_KEY, Injector } from '@univerjs/core';
+import { CustomRangeType, DOCS_ZEN_EDITOR_UNIT_ID_KEY, Injector } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { HyperLinkEditSourceType } from '../../types/enums/edit-source';
 import { SheetsHyperLinkPopupService } from '../popup.service';
@@ -49,7 +49,7 @@ function createService(options?: {
         replaceDocRanges: vi.fn(),
         replaceTextRanges: vi.fn(),
     };
-    const univerInstanceService = {
+    const crabtableInstanceService = {
         getUnit: vi.fn((unitId: string) => {
             if (unitId === DOCS_ZEN_EDITOR_UNIT_ID_KEY) {
                 return options?.document ?? null;
@@ -62,7 +62,7 @@ function createService(options?: {
         service: new SheetsHyperLinkPopupService(
             sheetCanvasPopManagerService as never,
             new Injector(),
-            univerInstanceService as never,
+            crabtableInstanceService as never,
             { isVisible: () => ({ visible: false }), getEditCellState: vi.fn() } as never,
             textSelectionManagerService as never,
             docCanvasPopManagerService as never,

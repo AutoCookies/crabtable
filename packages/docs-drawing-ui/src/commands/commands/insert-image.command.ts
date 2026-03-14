@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICommand, Nullable } from '@univerjs/core';
-import { CommandType, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { getCurrentTypeOfRenderer, IRenderManagerService } from '@univerjs/engine-render';
+import type { ICommand, Nullable } from '@crabtable/core';
+import { CommandType, CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
+import { getCurrentTypeOfRenderer, IRenderManagerService } from '@crabtable/engine-render';
 import { DocDrawingUpdateRenderController } from '../../controllers/render-controllers/doc-drawing-update.render-controller';
 
 export interface IInsertDocImageCommandParams {
@@ -27,9 +27,9 @@ export const InsertDocImageCommand: ICommand<IInsertDocImageCommandParams> = {
     id: 'doc.command.insert-float-image',
     type: CommandType.COMMAND,
     handler: (accessor) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const renderManagerService = accessor.get(IRenderManagerService);
-        return getCurrentTypeOfRenderer(UniverInstanceType.UNIVER_DOC, univerInstanceService, renderManagerService)
+        return getCurrentTypeOfRenderer(CrabTableInstanceType.CRABTABLE_DOC, crabtableInstanceService, renderManagerService)
             ?.with(DocDrawingUpdateRenderController)
             .insertDocImage() ?? false;
     },

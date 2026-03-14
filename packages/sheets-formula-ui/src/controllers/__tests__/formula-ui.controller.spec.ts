@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ICommandService, Injector } from '@univerjs/core';
-import type { IRenderManagerService } from '@univerjs/engine-render';
-import type { ComponentManager, IMenuManagerService, IShortcutService, IUIPartsService } from '@univerjs/ui';
-import { UniverInstanceType } from '@univerjs/core';
-import { SheetsUIPart } from '@univerjs/sheets-ui';
+import type { ICommandService, Injector } from '@crabtable/core';
+import type { IRenderManagerService } from '@crabtable/engine-render';
+import type { ComponentManager, IMenuManagerService, IShortcutService, IUIPartsService } from '@crabtable/ui';
+import { CrabTableInstanceType } from '@crabtable/core';
+import { SheetsUIPart } from '@crabtable/sheets-ui';
 import { describe, expect, it, vi } from 'vitest';
 import { MORE_FUNCTIONS_COMPONENT } from '../../views/more-functions/interface';
 import { FormulaUIController } from '../formula-ui.controller';
@@ -49,6 +49,6 @@ describe('FormulaUIController', () => {
         expect(registerShortcut.mock.calls.length).toBeGreaterThan(3);
         expect(registerComponent).toHaveBeenCalledWith(SheetsUIPart.FORMULA_AUX, expect.any(Function));
         expect(componentRegister).toHaveBeenCalledWith(MORE_FUNCTIONS_COMPONENT, expect.any(Function));
-        expect(registerRenderModule).toHaveBeenCalledWith(UniverInstanceType.UNIVER_SHEET, [expect.any(Function)]);
+        expect(registerRenderModule).toHaveBeenCalledWith(CrabTableInstanceType.CRABTABLE_SHEET, [expect.any(Function)]);
     });
 });

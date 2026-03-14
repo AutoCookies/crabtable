@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 
 import type { LambdaPrivacyVarType } from '../ast-node/base-ast-node';
 import { DEFAULT_TOKEN_TYPE_ROOT } from '../../basics/token-type';

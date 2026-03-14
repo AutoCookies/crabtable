@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { MenuSchemaType } from '@univerjs/ui';
-import { COPY_SPECIAL_MENU_ID, PASTE_SPECIAL_MENU_ID } from '@univerjs/sheets-ui';
-import { RibbonFormulasGroup } from '@univerjs/ui';
+import type { MenuSchemaType } from '@crabtable/ui';
+import { COPY_SPECIAL_MENU_ID, PASTE_SPECIAL_MENU_ID } from '@crabtable/sheets-ui';
+import { RibbonFormulasGroup } from '@crabtable/ui';
 import { SheetCopyFormulaOnlyCommand, SheetOnlyPasteFormulaCommand } from '../commands/commands/formula-clipboard.command';
 import { InsertFunctionOperation } from '../commands/operations/insert-function.operation';
 import { MoreFunctionsOperation } from '../commands/operations/more-functions.operation';

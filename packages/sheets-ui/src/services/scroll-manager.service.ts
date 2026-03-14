@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Nullable, Workbook } from '@univerjs/core';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
-import { Inject } from '@univerjs/core';
+import type { Nullable, Workbook } from '@crabtable/core';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
+import { Inject } from '@crabtable/core';
 import { BehaviorSubject } from 'rxjs';
 import { SheetSkeletonManagerService } from './sheet-skeleton-manager.service';
 

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo } from '@univerjs/core';
-import type { IDrawingGroupUpdateParam } from '@univerjs/drawing';
-import { DrawingTypeEnum, UniverInstanceType } from '@univerjs/core';
-import { SetDrawingSelectedOperation } from '@univerjs/drawing';
+import type { ICommandInfo } from '@crabtable/core';
+import type { IDrawingGroupUpdateParam } from '@crabtable/drawing';
+import { CrabTableInstanceType, DrawingTypeEnum } from '@crabtable/core';
+import { SetDrawingSelectedOperation } from '@crabtable/drawing';
 import { Subject } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import { AlignType, SetDrawingAlignOperation } from '../../commands/operations/drawing-align.operation';
@@ -131,7 +131,7 @@ function createHarness() {
     const controller = new DrawingUpdateController(
         {
             getFocusedUnit: vi.fn(() => ({
-                type: UniverInstanceType.UNIVER_SHEET,
+                type: CrabTableInstanceType.CRABTABLE_SHEET,
                 getUnitId: () => 'unit-1',
                 getActiveSheet: () => ({ getSheetId: () => 'sheet-1' }),
             })),

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
+import type { IAccessor, ICommand } from '@crabtable/core';
 import type { IHelpFunctionOperationParams } from '../../services/prompt.service';
 
-import { CommandType } from '@univerjs/core';
+import { CommandType } from '@crabtable/core';
 import { IFormulaPromptService } from '../../services/prompt.service';
 
 export const HelpFunctionOperation: ICommand = {

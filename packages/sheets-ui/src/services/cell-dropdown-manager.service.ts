@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
-import type { ISheetLocation } from '@univerjs/sheets';
+import type { IDisposable } from '@crabtable/core';
+import type { ISheetLocation } from '@crabtable/sheets';
 import type { ICellDropdown } from '../views/dropdown';
-import { createIdentifier, Disposable, DisposableCollection, DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY, Inject } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { ComponentManager, IZenZoneService } from '@univerjs/ui';
+import { createIdentifier, Disposable, DisposableCollection, DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY, Inject } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { ComponentManager, IZenZoneService } from '@crabtable/ui';
 import { dropdownMap } from '../views/dropdown';
 import { SheetCanvasPopManagerService } from './canvas-pop-manager.service';
 

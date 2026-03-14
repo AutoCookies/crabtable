@@ -78,7 +78,7 @@ const locale: typeof enUS = {
     clipboard: {
         authentication: {
             title: 'Доступ запрещен',
-            content: 'Пожалуйста, разрешите Univer доступ к вашему буферу обмена.',
+            content: 'Пожалуйста, разрешите CrabTable доступ к вашему буферу обмена.',
         },
     },
     textEditor: {

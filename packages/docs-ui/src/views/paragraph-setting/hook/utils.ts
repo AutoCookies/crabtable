@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IParagraph, ISectionBreak } from '@univerjs/core';
+import type { DocumentDataModel, IParagraph, ISectionBreak } from '@crabtable/core';
 import type { IDocParagraphSettingCommandParams } from '../../../commands/commands/doc-paragraph-setting.command';
-import { BuildTextUtils, ICommandService, IUniverInstanceService, SpacingRule, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService, DocSkeletonManagerService } from '@univerjs/docs';
-import { getNumberUnitValue, IRenderManagerService } from '@univerjs/engine-render';
-import { useDependency } from '@univerjs/ui';
+import { BuildTextUtils, CrabTableInstanceType, ICommandService, ICrabTableInstanceService, SpacingRule } from '@crabtable/core';
+import { DocSelectionManagerService, DocSkeletonManagerService } from '@crabtable/docs';
+import { getNumberUnitValue, IRenderManagerService } from '@crabtable/engine-render';
+import { useDependency } from '@crabtable/ui';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { BehaviorSubject } from 'rxjs';
 import { bufferTime, filter, map } from 'rxjs/operators';
@@ -48,8 +48,8 @@ const useDocRanges = () => {
 };
 
 export const useCurrentParagraph = () => {
-    const univerInstanceService = useDependency(IUniverInstanceService);
-    const docDataModel = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
+    const docDataModel = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
     const docRanges = useDocRanges();
 
     if (!docDataModel || docRanges.length === 0) {
@@ -67,8 +67,8 @@ export const useCurrentParagraph = () => {
 };
 
 export const useCurrentSections = (currentParagraphs: IParagraph[]) => {
-    const univerInstanceService = useDependency(IUniverInstanceService);
-    const docDataModel = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
+    const docDataModel = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
     const docRanges = useDocRanges();
 
     if (!docDataModel || docRanges.length === 0) {
@@ -234,10 +234,10 @@ export const useFirstParagraphSpaceBelow = (paragraph: IParagraph[]) => {
 export const useFirstParagraphLineSpacing = (paragraph: IParagraph[]) => {
     const commandService = useDependency(ICommandService);
     const renderManagerService = useDependency(IRenderManagerService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
 
     const skeleton = useMemo(() => {
-        const docDataModel = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         if (!docDataModel) {
             return undefined;
         }

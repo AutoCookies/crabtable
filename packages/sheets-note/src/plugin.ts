@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverSheetsNoteConfig } from './config/config';
-import { DependentOn, IConfigService, Inject, Injector, merge, Plugin, touchDependencies, UniverInstanceType } from '@univerjs/core';
-import { UniverSheetsPlugin } from '@univerjs/sheets';
+import { CrabTableInstanceType, DependentOn, IConfigService, Inject, Injector, merge, Plugin, touchDependencies } from '@crabtable/core';
+import { UniverSheetsPlugin } from '@crabtable/sheets';
 import pkg from '../package.json';
 import { defaultPluginConfig, SHEETS_NOTE_PLUGIN_CONFIG_KEY } from './config/config';
 import { PLUGIN_NAME } from './const';
@@ -31,7 +31,7 @@ export class UniverSheetsNotePlugin extends Plugin {
     static override pluginName = PLUGIN_NAME;
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
     constructor(
         private readonly _config: IUniverSheetsNoteConfig = defaultPluginConfig,

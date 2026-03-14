@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { IAccessor, Workbook } from '@univerjs/core';
-import type { IMenuButtonItem } from '@univerjs/ui';
-import { BooleanNumber, DisposableCollection, ICommandService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { SetWorksheetActiveOperation, ToggleGridlinesCommand, ToggleGridlinesMutation, WorkbookEditablePermission, WorksheetEditPermission } from '@univerjs/sheets';
-import { MenuItemType } from '@univerjs/ui';
+import type { IAccessor, Workbook } from '@crabtable/core';
+import type { IMenuButtonItem } from '@crabtable/ui';
+import { BooleanNumber, CrabTableInstanceType, DisposableCollection, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { SetWorksheetActiveOperation, ToggleGridlinesCommand, ToggleGridlinesMutation, WorkbookEditablePermission, WorksheetEditPermission } from '@crabtable/sheets';
+import { MenuItemType } from '@crabtable/ui';
 import { Observable } from 'rxjs';
 import { getCurrentRangeDisable$ } from './menu-util';
 
 export function ToggleGridlinesMenuFactory(accessor: IAccessor): IMenuButtonItem {
     const commandService = accessor.get(ICommandService);
-    const instanceService = accessor.get(IUniverInstanceService);
+    const instanceService = accessor.get(ICrabTableInstanceService);
 
     return {
         id: ToggleGridlinesCommand.id,
@@ -33,7 +33,7 @@ export function ToggleGridlinesMenuFactory(accessor: IAccessor): IMenuButtonItem
         icon: 'HideGridlinesDoubleIcon',
         activated$: new Observable<boolean>((observer) => {
             const getValue = () => {
-                const workbook = instanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+                const workbook = instanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
                 if (workbook) return workbook.getActiveSheet().getConfig().showGridlines === BooleanNumber.TRUE;
                 return false;
             };
@@ -44,7 +44,7 @@ export function ToggleGridlinesMenuFactory(accessor: IAccessor): IMenuButtonItem
                     observer.next(getValue());
                 }
             }));
-            disposable.add(instanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET).subscribe(() => {
+            disposable.add(instanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).subscribe(() => {
                 observer.next(getValue());
             }));
 

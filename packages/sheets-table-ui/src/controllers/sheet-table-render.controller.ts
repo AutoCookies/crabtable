@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
+import type { Workbook } from '@crabtable/core';
 
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
-import { Inject, Injector, RxDisposable } from '@univerjs/core';
-import { TableManager } from '@univerjs/sheets-table';
-import { SheetSkeletonManagerService } from '@univerjs/sheets-ui';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
+import { Inject, Injector, RxDisposable } from '@crabtable/core';
+import { TableManager } from '@crabtable/sheets-table';
+import { SheetSkeletonManagerService } from '@crabtable/sheets-ui';
 import { merge } from 'rxjs';
 import { SheetTableThemeUIController } from './sheet-table-theme-ui.controller';
 

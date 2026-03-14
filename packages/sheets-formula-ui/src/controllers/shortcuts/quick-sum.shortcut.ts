@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IShortcutItem } from '@univerjs/ui';
-import { QuickSumCommand } from '@univerjs/sheets-formula';
-import { whenSheetEditorFocused } from '@univerjs/sheets-ui';
-import { KeyCode, MetaKeys } from '@univerjs/ui';
+import type { IShortcutItem } from '@crabtable/ui';
+import { QuickSumCommand } from '@crabtable/sheets-formula';
+import { whenSheetEditorFocused } from '@crabtable/sheets-ui';
+import { KeyCode, MetaKeys } from '@crabtable/ui';
 
 export const QuickSumShortcut: IShortcutItem = {
     id: QuickSumCommand.id,

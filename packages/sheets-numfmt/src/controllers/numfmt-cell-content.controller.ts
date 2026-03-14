@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-import type { ICellData, ICellDataForSheetInterceptor, INumfmtLocaleTag, Workbook } from '@univerjs/core';
-import type { ISetNumfmtMutationParams, ISetRangeValuesMutationParams } from '@univerjs/sheets';
+import type { ICellData, ICellDataForSheetInterceptor, INumfmtLocaleTag, Workbook } from '@crabtable/core';
+import type { ISetNumfmtMutationParams, ISetRangeValuesMutationParams } from '@crabtable/sheets';
 import type { IUniverSheetsNumfmtConfig } from '../config/config';
 import {
     CellValueType,
+    CrabTableInstanceType,
     Disposable,
     ICommandService,
     IConfigService,
+    ICrabTableInstanceService,
     Inject,
     InterceptorEffectEnum,
     isDefaultFormat,
     isTextFormat,
-    IUniverInstanceService,
     LocaleService,
     LocaleType,
     ObjectMatrix,
     Range,
     ThemeService,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     checkCellValueType,
     InterceptCellContentPriority,
@@ -42,7 +42,7 @@ import {
     SetNumfmtMutation,
     SetRangeValuesMutation,
     SheetInterceptorService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { BehaviorSubject, merge, of, skip, switchMap } from 'rxjs';
 import { SHEETS_NUMFMT_PLUGIN_CONFIG_KEY } from '../config/config';
 import { getPatternPreviewIgnoreGeneral } from '../utils/pattern';
@@ -57,7 +57,7 @@ export class SheetsNumfmtCellContentController extends Disposable {
     private _locale$ = new BehaviorSubject<INumfmtLocaleTag>('en');
     public locale$ = this._locale$.asObservable();
     constructor(
-        @IUniverInstanceService private readonly _instanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _instanceService: ICrabTableInstanceService,
         @Inject(SheetInterceptorService) private _sheetInterceptorService: SheetInterceptorService,
         @Inject(ThemeService) private _themeService: ThemeService,
         @Inject(ICommandService) private _commandService: ICommandService,
@@ -220,7 +220,7 @@ export class SheetsNumfmtCellContentController extends Disposable {
         }));
 
         this.disposeWithMe(
-            this._instanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET)
+            this._instanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)
                 .pipe(
                     switchMap((workbook) => workbook?.activeSheet$ ?? of(null)),
                     skip(1)

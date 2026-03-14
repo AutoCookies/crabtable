@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { IUniverInstanceService } from '@univerjs/core';
-import { IEditorService } from '@univerjs/docs-ui';
-import { ISidebarService, useDependency, useEvent } from '@univerjs/ui';
+import { ICrabTableInstanceService } from '@crabtable/core';
+import { IEditorService } from '@crabtable/docs-ui';
+import { ISidebarService, useDependency, useEvent } from '@crabtable/ui';
 import { useEffect, useMemo } from 'react';
 import { BehaviorSubject, throttleTime } from 'rxjs';
 import useResizeScrollObserver from './use-resize-scroll-observer';
@@ -25,7 +25,7 @@ export function useEditorPosition(editorId: string, ready: boolean, deps?: any[]
     const editorService = useDependency(IEditorService);
     const position$ = useMemo(() => new BehaviorSubject({ left: -999, top: -999, right: -999, bottom: -999 }), []);
     const sidebarService = useDependency(ISidebarService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const updatePosition = useEvent(() => {
         const doc = editorService.getEditor(editorId);
         if (!doc) {
@@ -53,7 +53,7 @@ export function useEditorPosition(editorId: string, ready: boolean, deps?: any[]
             return;
         }
         updatePosition();
-    }, [editorId, editorService, univerInstanceService.unitAdded$, updatePosition, ready, ...(deps ?? [])]);
+    }, [editorId, editorService, crabtableInstanceService.unitAdded$, updatePosition, ready, ...(deps ?? [])]);
 
     useResizeScrollObserver(updatePosition);
 

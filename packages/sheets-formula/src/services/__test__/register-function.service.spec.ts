@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { IConfigService, LocaleService, LocaleType, Univer } from '@univerjs/core';
-import { FunctionService, FunctionType, IFunctionService } from '@univerjs/engine-formula';
+import { CrabTable, IConfigService, LocaleService, LocaleType } from '@crabtable/core';
+import { FunctionService, FunctionType, IFunctionService } from '@crabtable/engine-formula';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { PLUGIN_CONFIG_KEY_BASE } from '../../config/config';
 import { DescriptionService, IDescriptionService } from '../description.service';
@@ -23,10 +23,10 @@ import { IRegisterFunctionService, RegisterFunctionService } from '../register-f
 import { IRemoteRegisterFunctionService } from '../remote/remote-register-function.service';
 
 describe('RegisterFunctionService', () => {
-    let univer: Univer;
+    let univer: CrabTable;
 
     beforeEach(() => {
-        univer = new Univer();
+        univer = new CrabTable();
         const injector = univer.__getInjector();
 
         injector.get(LocaleService).load({

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { borderClassName, clsx } from '@univerjs/design';
-import { useDependency, useObservable } from '@univerjs/ui';
+import { borderClassName, clsx } from '@crabtable/design';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { useCallback } from 'react';
 import { CROSSHAIR_HIGHLIGHT_COLORS, SheetsCrosshairHighlightService } from '../../services/crosshair.service';
 

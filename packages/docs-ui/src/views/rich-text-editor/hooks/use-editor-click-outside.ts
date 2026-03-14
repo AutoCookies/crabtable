@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { useDependency } from '@univerjs/ui';
+import { useDependency } from '@crabtable/ui';
 import { useEffect } from 'react';
 import { IEditorService } from '../../../services/editor/editor-manager.service';
 

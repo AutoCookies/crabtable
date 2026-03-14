@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICellData, Nullable, Workbook, Worksheet } from '@univerjs/core';
+import type { IAccessor, ICellData, Nullable, Workbook, Worksheet } from '@crabtable/core';
 import type { IConditionFormattingRule } from '../type';
-import { LRUMap } from '@univerjs/core';
+import { LRUMap } from '@crabtable/core';
 import { BehaviorSubject } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 

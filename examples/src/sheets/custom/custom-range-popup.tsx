@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Univer } from '@univerjs/core';
-import type { FUniver } from '@univerjs/core/facade';
-import type { RectPopupDirection } from '@univerjs/ui';
-import { LifecycleStages } from '@univerjs/core';
+import type { CrabTable } from '@crabtable/core';
+import type { FCrabTable } from '@crabtable/core/facade';
+import type { RectPopupDirection } from '@crabtable/ui';
+import { LifecycleStages } from '@crabtable/core';
 
 const DIRECTIONS: RectPopupDirection[] = [
     'left',
@@ -73,15 +73,15 @@ function generateComponentKey(direction: RectPopupDirection) {
     return `PopupComponent${direction.split('-').map((segment) => `${segment.charAt(0).toUpperCase()}${segment.slice(1)}`).join('')}`;
 }
 
-export function customRangePopups(univer: Univer, univerAPI: FUniver) {
-    const workbook = univerAPI.getWorkbook('workbook-01');
+export function customRangePopups(univer: CrabTable, crabtableAPI: FCrabTable) {
+    const workbook = crabtableAPI.getWorkbook('workbook-01');
     const worksheet = workbook?.getSheetBySheetId('sheet-0011');
     const range = worksheet?.getRange(RANGE);
     if (range) {
         DIRECTIONS.forEach((direction) => {
-            univerAPI.registerComponent(generateComponentKey(direction), createPopupComponent(direction));
+            crabtableAPI.registerComponent(generateComponentKey(direction), createPopupComponent(direction));
         });
-        univerAPI.addEvent(univerAPI.Event.LifeCycleChanged, (params) => {
+        crabtableAPI.addEvent(crabtableAPI.Event.LifeCycleChanged, (params) => {
             if (params.stage === LifecycleStages.Rendered) {
                 DIRECTIONS.forEach((direction) => {
                     range.attachRangePopup({

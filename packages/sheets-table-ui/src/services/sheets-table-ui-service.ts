@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { ISetRangeValuesMutationParams } from '@univerjs/sheets';
-import type { ISetSheetTableParams, ITableFilterItem } from '@univerjs/sheets-table';
+import type { Workbook } from '@crabtable/core';
+import type { ISetRangeValuesMutationParams } from '@crabtable/sheets';
+import type { ISetSheetTableParams, ITableFilterItem } from '@crabtable/sheets-table';
 import type { IFilterByValueWithTreeItem, ITableFilterItemList } from '../types';
-import { cellToRange, Disposable, ICommandService, Inject, IUniverInstanceService, LocaleService, ObjectMatrix, Rectangle } from '@univerjs/core';
-import { SetRangeValuesMutation } from '@univerjs/sheets';
-import { isConditionFilter, isManualTableFilter, SetSheetTableFilterCommand, SheetTableService, TableManager } from '@univerjs/sheets-table';
+import { cellToRange, Disposable, ICommandService, ICrabTableInstanceService, Inject, LocaleService, ObjectMatrix, Rectangle } from '@crabtable/core';
+import { SetRangeValuesMutation } from '@crabtable/sheets';
+import { isConditionFilter, isManualTableFilter, SetSheetTableFilterCommand, SheetTableService, TableManager } from '@crabtable/sheets-table';
 import { FilterByEnum } from '../types';
 
 interface ISheetTableFilterPanelProps {
@@ -37,7 +37,7 @@ export class SheetsTableUiService extends Disposable {
     constructor(
         @Inject(TableManager) private _tableManager: TableManager,
         @Inject(SheetTableService) private _sheetTableService: SheetTableService,
-        @Inject(IUniverInstanceService) private readonly _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService,
         @Inject(LocaleService) private readonly _localeService: LocaleService
     ) {
@@ -135,7 +135,7 @@ export class SheetsTableUiService extends Disposable {
         const tableRange = table.getTableFilterRange();
         const { startRow, endRow, startColumn } = tableRange;
         const column = startColumn + columnIndex;
-        const worksheet = this._univerInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(subUnitId);
+        const worksheet = this._crabtableInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(subUnitId);
         if (!worksheet) {
             return { data: [], itemsCountMap: new Map(), allItemsCount: 0 };
         }

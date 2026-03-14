@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { CellValue, IDataValidationRule, IDataValidationRuleBase, ISheetDataValidationRule, Nullable } from '@univerjs/core';
-import type { IFormulaResult, IFormulaValidResult, IValidatorCellInfo } from '@univerjs/data-validation';
-import type { ISheetLocationBase } from '@univerjs/sheets';
-import { DataValidationOperator, DataValidationType, isFormulaString, Tools } from '@univerjs/core';
-import { BaseDataValidator } from '@univerjs/data-validation';
-import { LexerTreeBuilder } from '@univerjs/engine-formula';
+import type { CellValue, IDataValidationRule, IDataValidationRuleBase, ISheetDataValidationRule, Nullable } from '@crabtable/core';
+import type { IFormulaResult, IFormulaValidResult, IValidatorCellInfo } from '@crabtable/data-validation';
+import type { ISheetLocationBase } from '@crabtable/sheets';
+import { DataValidationOperator, DataValidationType, isFormulaString, Tools } from '@crabtable/core';
+import { BaseDataValidator } from '@crabtable/data-validation';
+import { LexerTreeBuilder } from '@crabtable/engine-formula';
 import { DataValidationCustomFormulaService } from '../services/dv-custom-formula.service';
 import { OperatorErrorTitleMap } from '../types';
 import { TWO_FORMULA_OPERATOR_COUNT } from '../types/const/two-formula-operators';

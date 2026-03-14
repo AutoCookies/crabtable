@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuItem } from '@univerjs/ui';
-import { UniverInstanceType } from '@univerjs/core';
-import { RangeProtectionPermissionEditPoint, WorkbookEditablePermission, WorksheetEditPermission } from '@univerjs/sheets';
-import { getCurrentRangeDisable$ } from '@univerjs/sheets-ui';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuItem } from '@crabtable/ui';
+import { CrabTableInstanceType } from '@crabtable/core';
+import { RangeProtectionPermissionEditPoint, WorkbookEditablePermission, WorksheetEditPermission } from '@crabtable/sheets';
+import { getCurrentRangeDisable$ } from '@crabtable/sheets-ui';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { InsertCellImageCommand, InsertFloatImageCommand } from '../commands/commands/insert-image.command';
 
 export const SHEETS_IMAGE_MENU_ID = 'sheet.menu.image';
@@ -30,7 +30,7 @@ export function ImageMenuFactory(accessor: IAccessor): IMenuItem {
         type: MenuItemType.SUBITEMS,
         icon: 'AddImageIcon',
         tooltip: 'sheetImage.title',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         disabled$: getCurrentRangeDisable$(accessor, { workbookTypes: [WorkbookEditablePermission], worksheetTypes: [WorksheetEditPermission], rangeTypes: [RangeProtectionPermissionEditPoint] }),
     };
 }
@@ -40,7 +40,7 @@ export function UploadFloatImageMenuFactory(_accessor: IAccessor): IMenuItem {
         id: InsertFloatImageCommand.id,
         title: 'sheetImage.upload.float',
         type: MenuItemType.BUTTON,
-        hidden$: getMenuHiddenObservable(_accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(_accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -49,6 +49,6 @@ export function UploadCellImageMenuFactory(_accessor: IAccessor): IMenuItem {
         id: InsertCellImageCommand.id,
         title: 'sheetImage.upload.cell',
         type: MenuItemType.BUTTON,
-        hidden$: getMenuHiddenObservable(_accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(_accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }

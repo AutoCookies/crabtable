@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
-import type { IDrawingJsonUndo1 } from '@univerjs/drawing';
+import type { IAccessor, ICommand } from '@crabtable/core';
+import type { IDrawingJsonUndo1 } from '@crabtable/drawing';
 import type { IDeleteDrawingCommandParams } from './interfaces';
 import {
     CommandType,
     ICommandService,
     IUndoRedoService,
     sequenceExecute,
-} from '@univerjs/core';
-import { SheetInterceptorService } from '@univerjs/sheets';
-import { DrawingApplyType, ISheetDrawingService, SetDrawingApplyMutation } from '@univerjs/sheets-drawing';
+} from '@crabtable/core';
+import { SheetInterceptorService } from '@crabtable/sheets';
+import { DrawingApplyType, ISheetDrawingService, SetDrawingApplyMutation } from '@crabtable/sheets-drawing';
 import { ClearSheetDrawingTransformerOperation } from '../operations/clear-drawing-transformer.operation';
 
 /**

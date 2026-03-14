@@ -125,11 +125,11 @@ describe('DesktopRibbonService', () => {
             menuChanged$,
             getMenuByPositionKey: vi.fn(() => ribbonData),
         };
-        const univerInstanceService = {
+        const crabtableInstanceService = {
             focused$,
         };
 
-        const service = new DesktopRibbonService(menuManagerService as any, univerInstanceService as any);
+        const service = new DesktopRibbonService(menuManagerService as any, crabtableInstanceService as any);
 
         let activatedTab = '';
         let collapsedIds: string[] = [];

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Injector, Univer } from '@univerjs/core';
-import { EDITOR_ACTIVATED, FOCUSING_SHEET, IContextService } from '@univerjs/core';
-import { RibbonDataGroup } from '@univerjs/ui';
+import type { CrabTable, Injector } from '@crabtable/core';
+import { EDITOR_ACTIVATED, FOCUSING_SHEET, IContextService } from '@crabtable/core';
+import { RibbonDataGroup } from '@crabtable/ui';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { createTestBed } from '../../__tests__/create-test-bed';
 import { OpenFindDialogOperation } from '../../commands/operations/find-replace.operation';
@@ -24,7 +24,7 @@ import { FindReplaceMenuItemFactory } from '../find-replace.menu';
 import { menuSchema } from '../schema';
 
 describe('find-replace.menu', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
 
     beforeEach(() => {

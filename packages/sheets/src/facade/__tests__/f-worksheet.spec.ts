@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { Injector, Workbook } from '@univerjs/core';
-import type { FUniver } from '@univerjs/core/facade';
-import { ICommandService, IConfirmService, IUniverInstanceService, RANGE_TYPE, TestConfirmService, UniverInstanceType } from '@univerjs/core';
-import { AddWorksheetMergeCommand, AddWorksheetMergeMutation, CancelFrozenCommand, InsertColByRangeCommand, InsertColCommand, InsertColMutation, InsertRowByRangeCommand, InsertRowCommand, InsertRowMutation, MoveColsCommand, MoveColsMutation, MoveRowsCommand, MoveRowsMutation, RemoveColByRangeCommand, RemoveColCommand, RemoveColMutation, RemoveRowByRangeCommand, RemoveRowCommand, RemoveRowMutation, RemoveWorksheetMergeCommand, RemoveWorksheetMergeMutation, SetColDataCommand, SetColDataMutation, SetColHiddenCommand, SetColHiddenMutation, SetColVisibleMutation, SetColWidthCommand, SetFrozenCommand, SetFrozenMutation, SetHorizontalTextAlignCommand, SetRangeValuesCommand, SetRangeValuesMutation, SetRowDataCommand, SetRowDataMutation, SetRowHeightCommand, SetRowHiddenCommand, SetRowHiddenMutation, SetRowVisibleMutation, SetSelectionsOperation, SetSpecificColsVisibleCommand, SetSpecificRowsVisibleCommand, SetStyleCommand, SetTextWrapCommand, SetVerticalTextAlignCommand, SetWorksheetColWidthMutation, SetWorksheetRowHeightMutation, SetWorksheetRowIsAutoHeightCommand, SetWorksheetRowIsAutoHeightMutation, SheetsSelectionsService } from '@univerjs/sheets';
+import type { Injector, Workbook } from '@crabtable/core';
+import type { FCrabTable } from '@crabtable/core/facade';
+import { CrabTableInstanceType, ICommandService, IConfirmService, ICrabTableInstanceService, RANGE_TYPE, TestConfirmService } from '@crabtable/core';
+import { AddWorksheetMergeCommand, AddWorksheetMergeMutation, CancelFrozenCommand, InsertColByRangeCommand, InsertColCommand, InsertColMutation, InsertRowByRangeCommand, InsertRowCommand, InsertRowMutation, MoveColsCommand, MoveColsMutation, MoveRowsCommand, MoveRowsMutation, RemoveColByRangeCommand, RemoveColCommand, RemoveColMutation, RemoveRowByRangeCommand, RemoveRowCommand, RemoveRowMutation, RemoveWorksheetMergeCommand, RemoveWorksheetMergeMutation, SetColDataCommand, SetColDataMutation, SetColHiddenCommand, SetColHiddenMutation, SetColVisibleMutation, SetColWidthCommand, SetFrozenCommand, SetFrozenMutation, SetHorizontalTextAlignCommand, SetRangeValuesCommand, SetRangeValuesMutation, SetRowDataCommand, SetRowDataMutation, SetRowHeightCommand, SetRowHiddenCommand, SetRowHiddenMutation, SetRowVisibleMutation, SetSelectionsOperation, SetSpecificColsVisibleCommand, SetSpecificRowsVisibleCommand, SetStyleCommand, SetTextWrapCommand, SetVerticalTextAlignCommand, SetWorksheetColWidthMutation, SetWorksheetRowHeightMutation, SetWorksheetRowIsAutoHeightCommand, SetWorksheetRowIsAutoHeightMutation, SheetsSelectionsService } from '@crabtable/sheets';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createWorksheetTestBed } from './create-worksheet-test-bed';
 
 describe('Test FWorksheet', () => {
     let get: Injector['get'];
     let commandService: ICommandService;
-    let univerAPI: FUniver;
+    let crabtableAPI: FCrabTable;
 
     let setSelection: (startRow: number, endRow: number, startColumn: number, endColumn: number) => void;
 
@@ -33,7 +33,7 @@ describe('Test FWorksheet', () => {
             [IConfirmService, { useClass: TestConfirmService }],
         ]);
         get = testBed.get;
-        univerAPI = testBed.univerAPI;
+        crabtableAPI = testBed.crabtableAPI;
 
         commandService = get(ICommandService);
         commandService.registerCommand(SetRangeValuesCommand);
@@ -120,42 +120,42 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet getSheetId', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
         expect(activeSheet?.getSheetId()).toBe('sheet1');
     });
 
     it('Worksheet getSheetName', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
         expect(activeSheet?.getSheetName()).toBe('sheet1');
     });
 
     it('Worksheet getSelection', () => {
         setSelection(0, 0, 0, 0);
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
         const range = activeSheet?.getSelection()?.getActiveRange()?.getRange();
         expect(range).toEqual({ startRow: 0, startColumn: 0, endRow: 0, endColumn: 0, rangeType: RANGE_TYPE.NORMAL });
     });
 
     it('Worksheet getRange', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
         const range = activeSheet?.getRange(0, 3, 1, 1);
         expect(range).toBeDefined();
     });
 
     it('Worksheet getMaxColumns', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
         expect(activeSheet?.getMaxColumns()).toBe(100);
     });
 
     it('Worksheet getMaxRows', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
         expect(activeSheet?.getMaxRows()).toBe(100);
     });
 
     // #region Row
 
     it('Worksheet insertRowAfter', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.insertRowAfter(0);
         expect(sheet).toBeDefined();
@@ -163,7 +163,7 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet insertRowBefore', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.insertRowBefore(0);
         expect(sheet).toBeDefined();
@@ -171,7 +171,7 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet insertRows', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.insertRows(0, 2);
         expect(sheet).toBeDefined();
@@ -179,7 +179,7 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet insertRowsAfter', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.insertRowsAfter(0, 2);
         expect(sheet).toBeDefined();
@@ -187,7 +187,7 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet insertRowsBefore', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.insertRowsBefore(0, 2);
         expect(sheet).toBeDefined();
@@ -195,7 +195,7 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet deleteRow', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.deleteRow(0);
         expect(sheet).toBeDefined();
@@ -203,7 +203,7 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet deleteRows', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.deleteRows(0, 2);
         expect(sheet).toBeDefined();
@@ -211,7 +211,7 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet moveRows', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const range = activeSheet?.getRange(0, 0, 1, 1);
         if (!range) return;
@@ -222,7 +222,7 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet hideRow/unhideRow', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const range = activeSheet?.getRange(0, 0, 1, 1);
         if (!range) return;
@@ -230,7 +230,7 @@ describe('Test FWorksheet', () => {
         const sheet = await activeSheet?.hideRow(range);
         expect(sheet).toBeDefined();
 
-        const currentWorksheet = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getActiveSheet();
+        const currentWorksheet = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getActiveSheet();
         const hiddenRows = currentWorksheet?.getHiddenRows();
         expect(hiddenRows).toStrictEqual([{
             startRow: 0,
@@ -248,12 +248,12 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet hideRows/showRows', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.hideRows(0, 2);
         expect(sheet).toBeDefined();
 
-        const currentWorksheet = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getActiveSheet();
+        const currentWorksheet = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getActiveSheet();
         const hiddenRows = currentWorksheet?.getHiddenRows();
         expect(hiddenRows).toStrictEqual([{
             startRow: 0,
@@ -271,40 +271,40 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet setRowHeight', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.setRowHeight(0, 100);
         expect(sheet).toBeDefined();
 
-        const currentWorksheet = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getActiveSheet();
+        const currentWorksheet = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getActiveSheet();
         const currentRowHeight = currentWorksheet?.getRowManager().getRowHeight(0);
         expect(currentRowHeight).toBe(100);
     });
 
     it('Worksheet setRowHeights', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.setRowHeights(0, 2, 100);
         expect(sheet).toBeDefined();
 
-        const currentWorksheet = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getActiveSheet();
+        const currentWorksheet = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getActiveSheet();
         const currentRowHeight = currentWorksheet?.getRowManager().getRowHeight(0, 2);
         expect(currentRowHeight).toBe(200);
     });
 
     it('Worksheet setRowHeightsForced', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.setRowHeightsForced(0, 2, 100);
         expect(sheet).toBeDefined();
 
-        const currentWorksheet = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getActiveSheet();
+        const currentWorksheet = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getActiveSheet();
         const currentRowHeight = currentWorksheet?.getRowManager().getRowHeight(0, 2);
         expect(currentRowHeight).toBe(200);
     });
 
     it('Worksheet setRowCustom', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.setRowCustom({
             0: {
@@ -313,7 +313,7 @@ describe('Test FWorksheet', () => {
         });
         expect(sheet).toBeDefined();
 
-        const currentWorksheet = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getActiveSheet();
+        const currentWorksheet = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getActiveSheet();
         const currentRowCustom = currentWorksheet?.getRowManager().getRow(0)?.custom;
         expect(currentRowCustom).toEqual({ color: 'red' });
     });
@@ -323,7 +323,7 @@ describe('Test FWorksheet', () => {
     // #region Column
 
     it('Worksheet insertColumnAfter', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.insertColumnAfter(0);
         expect(sheet).toBeDefined();
@@ -331,7 +331,7 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet insertColumnBefore', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.insertColumnBefore(0);
         expect(sheet).toBeDefined();
@@ -339,7 +339,7 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet insertColumns', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.insertColumns(0, 2);
         expect(sheet).toBeDefined();
@@ -347,7 +347,7 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet insertColumnsAfter', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.insertColumnsAfter(0, 2);
         expect(sheet).toBeDefined();
@@ -355,7 +355,7 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet insertColumnsBefore', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.insertColumnsBefore(0, 2);
         expect(sheet).toBeDefined();
@@ -363,7 +363,7 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet deleteColumn', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.deleteColumn(0);
         expect(sheet).toBeDefined();
@@ -371,7 +371,7 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet deleteColumns', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.deleteColumns(0, 2);
         expect(sheet).toBeDefined();
@@ -379,7 +379,7 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet moveColumns', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const range = activeSheet?.getRange(0, 0, 1, 1);
         if (!range) return;
@@ -390,7 +390,7 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet hideColumn/unhideColumn', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const range = activeSheet?.getRange(0, 0, 1, 1);
         if (!range) return;
@@ -398,7 +398,7 @@ describe('Test FWorksheet', () => {
         const sheet = await activeSheet?.hideColumn(range);
         expect(sheet).toBeDefined();
 
-        const currentWorksheet = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getActiveSheet();
+        const currentWorksheet = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getActiveSheet();
         const hiddenCols = currentWorksheet?.getHiddenCols();
         expect(hiddenCols).toStrictEqual([{
             startRow: 0,
@@ -416,12 +416,12 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet hideColumns/showColumns', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.hideColumns(0, 2);
         expect(sheet).toBeDefined();
 
-        const currentWorksheet = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getActiveSheet();
+        const currentWorksheet = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getActiveSheet();
         const hiddenCols = currentWorksheet?.getHiddenCols();
         expect(hiddenCols).toStrictEqual([{
             startRow: 0,
@@ -439,23 +439,23 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet setColWidth', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.setColumnWidth(0, 100);
         expect(sheet).toBeDefined();
 
-        const currentWorksheet = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getActiveSheet();
+        const currentWorksheet = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getActiveSheet();
         const currentColWidth = currentWorksheet?.getColumnManager().getColumnWidth(0);
         expect(currentColWidth).toBe(100);
     });
 
     it('Worksheet setColWidths', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.setColumnWidths(0, 2, 100);
         expect(sheet).toBeDefined();
 
-        const currentWorksheet = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getActiveSheet();
+        const currentWorksheet = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getActiveSheet();
         const currentColWidth = currentWorksheet?.getColumnManager().getColumnWidth(0);
         expect(currentColWidth).toBe(100);
         const currentColWidth2 = currentWorksheet?.getColumnManager().getColumnWidth(1);
@@ -463,7 +463,7 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet setColumnCustom', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
 
         const sheet = await activeSheet?.setColumnCustom({
             0: {
@@ -472,7 +472,7 @@ describe('Test FWorksheet', () => {
         });
         expect(sheet).toBeDefined();
 
-        const currentWorksheet = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getActiveSheet();
+        const currentWorksheet = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getActiveSheet();
         const currentColCustom = currentWorksheet?.getColumnManager().getColumn(0)?.custom;
         expect(currentColCustom).toEqual({ color: 'red' });
     });
@@ -480,7 +480,7 @@ describe('Test FWorksheet', () => {
     // #endregion
 
     it('Worksheet freeze', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
 
         const freeze = activeSheet?.getFreeze();
         expect(freeze).toEqual({ startRow: -1, startColumn: -1, xSplit: 0, ySplit: 0 });
@@ -495,7 +495,7 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet setFrozenColumns and getFrozenColumns', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
 
         activeSheet?.setFrozenColumns(2);
         expect(activeSheet?.getFrozenColumns()).toBe(2);
@@ -510,7 +510,7 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet setFrozenRows and getFrozenRows', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
 
         activeSheet?.setFrozenRows(3);
         expect(activeSheet?.getFrozenRows()).toBe(3);
@@ -525,7 +525,7 @@ describe('Test FWorksheet', () => {
     });
 
     it('Worksheet combined frozen rows and columns', () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
 
         activeSheet?.setFrozenColumns(2);
         activeSheet?.setFrozenRows(3);

@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import type { IRange, Workbook } from '@univerjs/core';
-import type { ISheetRangeLocation } from '@univerjs/sheets';
+import type { IRange, Workbook } from '@crabtable/core';
+import type { ISheetRangeLocation } from '@crabtable/sheets';
 import type { ICellValueCompareFn } from '../commands/commands/sheets-sort.command';
 import type { ISortOption } from './interface';
 import {
     Disposable,
     ICommandService,
+    ICrabTableInstanceService,
     Inject,
-    IUniverInstanceService,
     Rectangle,
-} from '@univerjs/core';
-import { FormulaDataModel } from '@univerjs/engine-formula';
-import { getSheetCommandTarget } from '@univerjs/sheets';
+} from '@crabtable/core';
+import { FormulaDataModel } from '@crabtable/engine-formula';
+import { getSheetCommandTarget } from '@crabtable/sheets';
 import { SortRangeCommand } from '../commands/commands/sheets-sort.command';
 import { isNullValue } from '../controllers/utils';
 
@@ -34,7 +34,7 @@ export class SheetsSortService extends Disposable {
     private _compareFns: ICellValueCompareFn[] = [];
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService,
         @Inject(FormulaDataModel) private readonly _formulaDataModel: FormulaDataModel
     ) {
@@ -43,7 +43,7 @@ export class SheetsSortService extends Disposable {
 
     mergeCheck(location: ISheetRangeLocation) {
         const { unitId, subUnitId, range } = location;
-        const sheet = (this._univerInstanceService.getUnit(unitId) as Workbook)?.getSheetBySheetId(subUnitId);
+        const sheet = (this._crabtableInstanceService.getUnit(unitId) as Workbook)?.getSheetBySheetId(subUnitId);
         if (!sheet) {
             return false;
         }
@@ -57,7 +57,7 @@ export class SheetsSortService extends Disposable {
 
     emptyCheck(location: ISheetRangeLocation) {
         const { unitId, subUnitId, range } = location;
-        const sheet = (this._univerInstanceService.getUnit(unitId) as Workbook)?.getSheetBySheetId(subUnitId);
+        const sheet = (this._crabtableInstanceService.getUnit(unitId) as Workbook)?.getSheetBySheetId(subUnitId);
         if (!sheet) {
             return false;
         }
@@ -102,7 +102,7 @@ export class SheetsSortService extends Disposable {
     }
 
     applySort(sortOption: ISortOption, unitId?: string, subUnitId?: string) {
-        const { unitId: _unitId, subUnitId: _subUnitId } = getSheetCommandTarget(this._univerInstanceService) || {};
+        const { unitId: _unitId, subUnitId: _subUnitId } = getSheetCommandTarget(this._crabtableInstanceService) || {};
         this._commandService.executeCommand(SortRangeCommand.id, {
             orderRules: sortOption.orderRules,
             range: sortOption.range,

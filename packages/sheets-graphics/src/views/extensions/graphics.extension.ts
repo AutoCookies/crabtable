@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IRange, IScale, ISelectionCellWithMergeInfo } from '@univerjs/core';
-import type { IDrawInfo, SpreadsheetSkeleton, UniverRenderingContext } from '@univerjs/engine-render';
-import { Range } from '@univerjs/core';
-import { SheetExtension } from '@univerjs/engine-render';
+import type { IRange, IScale, ISelectionCellWithMergeInfo } from '@crabtable/core';
+import type { IDrawInfo, SpreadsheetSkeleton, UniverRenderingContext } from '@crabtable/engine-render';
+import { Range } from '@crabtable/core';
+import { SheetExtension } from '@crabtable/engine-render';
 import { GRAPHICS_EXTENSION_INDEX, UNIQUE_KEY } from '../../common/const';
 
 type IGraphicsRenderer = (ctx: UniverRenderingContext, skeleton: SpreadsheetSkeleton, coordInfo: ISelectionCellWithMergeInfo) => void;

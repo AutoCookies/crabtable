@@ -16,7 +16,7 @@
 
 /* eslint-disable ts/no-explicit-any */
 
-import { LocaleService } from '@univerjs/core';
+import { LocaleService } from '@crabtable/core';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { SheetsTableUiService } from '../../../services/sheets-table-ui-service';
 import { SheetTableItemsFilterPanel } from '../SheetTableItemsFilterPanel';
@@ -57,15 +57,15 @@ vi.mock('react', async () => {
     };
 });
 
-vi.mock('@univerjs/ui', async () => {
-    const actual = await vi.importActual<typeof import('@univerjs/ui')>('@univerjs/ui');
+vi.mock('@crabtable/ui', async () => {
+    const actual = await vi.importActual<typeof import('@crabtable/ui')>('@crabtable/ui');
     return {
         ...actual,
         useDependency: mocks.useDependency,
     };
 });
 
-vi.mock('@univerjs/design', () => ({
+vi.mock('@crabtable/design', () => ({
     borderClassName: 'border',
     scrollbarClassName: 'scrollbar',
     clsx: (...args: any[]) => args.filter(Boolean).join(' '),

@@ -1,5 +1,5 @@
 {
-    "extends": "@univerjs-infra/shared/tsconfigs/base",
+    "extends": "@crabtable-infra/shared/tsconfigs/base",
     "compilerOptions": {
         "rootDir": "src",
         "outDir": "lib/types"

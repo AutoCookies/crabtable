@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ListGlyphType, numberToListABC } from '@univerjs/core';
+import { ListGlyphType, numberToListABC } from '@crabtable/core';
 
 export function getBulletOrderedSymbol(startIndex: number, startNumber: number, glyphType: ListGlyphType | string) {
     // if (!(glyphType in GlyphType)) {

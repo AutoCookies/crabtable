@@ -25,8 +25,8 @@ const mocked = vi.hoisted(() => ({
     },
 }));
 
-vi.mock('@univerjs/core/facade', () => {
-    class FUniver {
+vi.mock('@crabtable/core/facade', () => {
+    class FCrabTable {
         static extend = mocked.extendUniver;
     }
     class FEnum {
@@ -34,18 +34,18 @@ vi.mock('@univerjs/core/facade', () => {
     }
 
     return {
-        FUniver,
+        FCrabTable,
         FEnum,
     };
 });
 
-vi.mock('@univerjs/engine-render', () => ({
+vi.mock('@crabtable/engine-render', () => ({
     IWatermarkTypeEnum: mocked.IWatermarkTypeEnum,
 }));
 
 class MockWatermarkService {}
 
-vi.mock('@univerjs/watermark', () => ({
+vi.mock('@crabtable/watermark', () => ({
     WatermarkTextBaseConfig: { content: '', repeat: true },
     WatermarkImageBaseConfig: { url: '', width: 100 },
     WatermarkService: MockWatermarkService,

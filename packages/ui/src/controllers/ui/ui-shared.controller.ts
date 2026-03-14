@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Injector, IUniverInstanceService, LifecycleService } from '@univerjs/core';
-import type { IRenderManagerService } from '@univerjs/engine-render';
+import type { ICrabTableInstanceService, IDisposable, Injector, LifecycleService } from '@crabtable/core';
+import type { IRenderManagerService } from '@crabtable/engine-render';
 import type { ILayoutService } from '../../services/layout/layout.service';
-import { Disposable, isInternalEditorID, LifecycleStages, LifecycleUnreachableError } from '@univerjs/core';
+import { Disposable, isInternalEditorID, LifecycleStages, LifecycleUnreachableError } from '@crabtable/core';
 
 const STEADY_TIMEOUT = 3000;
 
@@ -30,7 +30,7 @@ export abstract class SingleUnitUIController extends Disposable {
 
     constructor(
         protected readonly _injector: Injector,
-        protected readonly _instanceService: IUniverInstanceService,
+        protected readonly _instanceService: ICrabTableInstanceService,
         protected readonly _layoutService: ILayoutService,
         protected readonly _lifecycleService: LifecycleService,
         protected readonly _renderManagerService: IRenderManagerService

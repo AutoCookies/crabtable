@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { Nullable, Univer } from '@univerjs/core';
-import type { FUniver, IEventBase } from '@univerjs/core/facade';
-import type { IRender } from '@univerjs/engine-render';
-import type { IRemoveColByRangeCommandParams } from '@univerjs/sheets';
-import type { FWorkbook, FWorksheet } from '@univerjs/sheets/facade';
-import { CanceledError, DisposableCollection, ICommandService, LifecycleService, LifecycleStages, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { RemoveColByRangeCommand } from '@univerjs/sheets';
-import { SHEET_VIEW_KEY } from '@univerjs/sheets-ui';
-import { IContextMenuService } from '@univerjs/ui';
+import type { CrabTable, Nullable } from '@crabtable/core';
+import type { FCrabTable, IEventBase } from '@crabtable/core/facade';
+import type { IRender } from '@crabtable/engine-render';
+import type { IRemoveColByRangeCommandParams } from '@crabtable/sheets';
+import type { FWorkbook, FWorksheet } from '@crabtable/sheets/facade';
+import { CanceledError, CrabTableInstanceType, DisposableCollection, ICommandService, LifecycleService, LifecycleStages } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { RemoveColByRangeCommand } from '@crabtable/sheets';
+import { SHEET_VIEW_KEY } from '@crabtable/sheets-ui';
+import { IContextMenuService } from '@crabtable/ui';
 import { combineLatest } from 'rxjs';
 
 interface IMainRightClickEventParams extends IEventBase {
@@ -52,31 +52,31 @@ interface ICustomEventParamConfig {
     BeforeRemoveColumnEvent: IBeforeRemoveColumnEventParams;
 }
 
-export function customRegisterEvent(univer: Univer, univerAPI: FUniver) {
-    registerMainRightClickEvent(univer, univerAPI);
+export function customRegisterEvent(univer: CrabTable, crabtableAPI: FCrabTable) {
+    registerMainRightClickEvent(univer, crabtableAPI);
 
-    univerAPI.addEvent(univerAPI.Event.LifeCycleChanged, ({ stage }) => {
-        if (stage === univerAPI.Enum.LifecycleStages.Steady) {
-            registerRemoveColumnEvent(univer, univerAPI);
-            registerBeforeRemoveColumnEvent(univer, univerAPI);
+    crabtableAPI.addEvent(crabtableAPI.Event.LifeCycleChanged, ({ stage }) => {
+        if (stage === crabtableAPI.Enum.LifecycleStages.Steady) {
+            registerRemoveColumnEvent(univer, crabtableAPI);
+            registerBeforeRemoveColumnEvent(univer, crabtableAPI);
 
-            univerAPI.addEvent('MainRightClickEvent', (params) => {
+            crabtableAPI.addEvent('MainRightClickEvent', (params) => {
                 const { row, column } = params;
-                console.warn(`Right clicked on cell at ${univerAPI.Util.tools.chatAtABC(column as number)}${row as number + 1}`);
+                console.warn(`Right clicked on cell at ${crabtableAPI.Util.tools.chatAtABC(column as number)}${row as number + 1}`);
                 // If the cell is A1, do not show the context menu
                 if (row === 0 && column === 0) {
                     params.cancel = true;
                 }
             });
 
-            univerAPI.addEvent('RemoveColumnEvent', (params) => {
+            crabtableAPI.addEvent('RemoveColumnEvent', (params) => {
                 const { startColumn, endColumn } = params;
-                console.warn(`Removed columns from ${univerAPI.Util.tools.chatAtABC(startColumn)} to ${univerAPI.Util.tools.chatAtABC(endColumn)}`);
+                console.warn(`Removed columns from ${crabtableAPI.Util.tools.chatAtABC(startColumn)} to ${crabtableAPI.Util.tools.chatAtABC(endColumn)}`);
             });
 
-            const beforeRemoveColumnEventDisposable = univerAPI.addEvent('BeforeRemoveColumnEvent', (params) => {
+            const beforeRemoveColumnEventDisposable = crabtableAPI.addEvent('BeforeRemoveColumnEvent', (params) => {
                 const { startColumn, endColumn } = params;
-                console.warn(`Before removing columns from ${univerAPI.Util.tools.chatAtABC(startColumn)} to ${univerAPI.Util.tools.chatAtABC(endColumn)}`);
+                console.warn(`Before removing columns from ${crabtableAPI.Util.tools.chatAtABC(startColumn)} to ${crabtableAPI.Util.tools.chatAtABC(endColumn)}`);
                 // If the column to be deleted includes column C to E, prevent the deletion
                 if (!(startColumn > 4 || endColumn < 2)) {
                     params.cancel = true;
@@ -93,7 +93,7 @@ export function customRegisterEvent(univer: Univer, univerAPI: FUniver) {
     });
 }
 
-function registerMainRightClickEvent(univer: Univer, univerAPI: FUniver) {
+function registerMainRightClickEvent(univer: CrabTable, crabtableAPI: FCrabTable) {
     const injector = univer.__getInjector();
     const renderManagerService = injector.get(IRenderManagerService);
     const lifeCycleService = injector.get(LifecycleService);
@@ -106,8 +106,8 @@ function registerMainRightClickEvent(univer: Univer, univerAPI: FUniver) {
     ]);
     const disposable = new DisposableCollection();
 
-    univerAPI.disposeWithMe(combined$.subscribe(([created, lifecycle]) => {
-        if (created.type === UniverInstanceType.UNIVER_SHEET) {
+    crabtableAPI.disposeWithMe(combined$.subscribe(([created, lifecycle]) => {
+        if (created.type === CrabTableInstanceType.CRABTABLE_SHEET) {
             sheetRenderUnit = created;
         }
         if (lifecycle <= LifecycleStages.Rendered) return;
@@ -117,7 +117,7 @@ function registerMainRightClickEvent(univer: Univer, univerAPI: FUniver) {
         const mainComponent = components.get(SHEET_VIEW_KEY.MAIN);
         if (!mainComponent) return;
 
-        const fWorkbook = univerAPI.getWorkbook(sheetRenderUnit.unitId);
+        const fWorkbook = crabtableAPI.getWorkbook(sheetRenderUnit.unitId);
         if (!fWorkbook) return;
 
         const fWorksheet = fWorkbook.getActiveSheet();
@@ -126,7 +126,7 @@ function registerMainRightClickEvent(univer: Univer, univerAPI: FUniver) {
         disposable.dispose();
 
         disposable.add(
-            univerAPI.registerEventHandler(
+            crabtableAPI.registerEventHandler(
                 'MainRightClickEvent',
                 () => mainComponent.onPointerDown$.subscribeEvent((event) => {
                     if (event.button !== 2) return;
@@ -138,7 +138,7 @@ function registerMainRightClickEvent(univer: Univer, univerAPI: FUniver) {
                         column: activeRange?.getColumn() ?? 0,
                     };
 
-                    univerAPI.fireEvent('MainRightClickEvent', eventParams);
+                    crabtableAPI.fireEvent('MainRightClickEvent', eventParams);
 
                     // If the event is canceled, do not show the context menu
                     if (eventParams.cancel) {
@@ -150,21 +150,21 @@ function registerMainRightClickEvent(univer: Univer, univerAPI: FUniver) {
             )
         );
 
-        univerAPI.disposeWithMe(disposable);
+        crabtableAPI.disposeWithMe(disposable);
     }));
 }
 
-function registerRemoveColumnEvent(univer: Univer, univerAPI: FUniver) {
+function registerRemoveColumnEvent(univer: CrabTable, crabtableAPI: FCrabTable) {
     const injector = univer.__getInjector();
     const commandService = injector.get(ICommandService);
 
-    univerAPI.disposeWithMe(
-        univerAPI.registerEventHandler(
+    crabtableAPI.disposeWithMe(
+        crabtableAPI.registerEventHandler(
             'RemoveColumnEvent',
             () => commandService.onCommandExecuted((commandInfo) => {
                 if (commandInfo.id !== RemoveColByRangeCommand.id) return;
 
-                const target = univerAPI.getCommandSheetTarget(commandInfo);
+                const target = crabtableAPI.getCommandSheetTarget(commandInfo);
                 if (!target) return;
 
                 const { range } = commandInfo.params as IRemoveColByRangeCommandParams;
@@ -175,23 +175,23 @@ function registerRemoveColumnEvent(univer: Univer, univerAPI: FUniver) {
                     endColumn: range.endColumn,
                 };
 
-                univerAPI.fireEvent('RemoveColumnEvent', eventParams);
+                crabtableAPI.fireEvent('RemoveColumnEvent', eventParams);
             })
         )
     );
 }
 
-function registerBeforeRemoveColumnEvent(univer: Univer, univerAPI: FUniver) {
+function registerBeforeRemoveColumnEvent(univer: CrabTable, crabtableAPI: FCrabTable) {
     const injector = univer.__getInjector();
     const commandService = injector.get(ICommandService);
 
-    univerAPI.disposeWithMe(
-        univerAPI.registerEventHandler(
+    crabtableAPI.disposeWithMe(
+        crabtableAPI.registerEventHandler(
             'BeforeRemoveColumnEvent',
             () => commandService.beforeCommandExecuted((commandInfo) => {
                 if (commandInfo.id !== RemoveColByRangeCommand.id) return;
 
-                const target = univerAPI.getCommandSheetTarget(commandInfo);
+                const target = crabtableAPI.getCommandSheetTarget(commandInfo);
                 if (!target) return;
 
                 const { range } = commandInfo.params as IRemoveColByRangeCommandParams;
@@ -202,7 +202,7 @@ function registerBeforeRemoveColumnEvent(univer: Univer, univerAPI: FUniver) {
                     endColumn: range.endColumn,
                 };
 
-                univerAPI.fireEvent('BeforeRemoveColumnEvent', eventParams);
+                crabtableAPI.fireEvent('BeforeRemoveColumnEvent', eventParams);
 
                 if (eventParams.cancel) {
                     throw new CanceledError();
@@ -212,6 +212,6 @@ function registerBeforeRemoveColumnEvent(univer: Univer, univerAPI: FUniver) {
     );
 }
 
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     interface IEventParamConfig extends ICustomEventParamConfig { }
 }

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IUnitRange, Nullable } from '@univerjs/core';
+import type { IUnitRange, Nullable } from '@crabtable/core';
 import type { Observable } from 'rxjs';
 
 import type { IFeatureDirtyRangeType, IRuntimeUnitDataType } from '../basics/common';
 import type { IRemoveFeatureCalculationMutationParam } from '../commands/mutations/set-feature-calculation.mutation';
 import type { IFormulaDirtyData } from './current-data.service';
 import type { IAllRuntimeData } from './runtime.service';
-import { createIdentifier, Disposable } from '@univerjs/core';
+import { createIdentifier, Disposable } from '@crabtable/core';
 import { Subject } from 'rxjs';
 
 export interface IFeatureCalculationManagerParam {

@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export { createUniverOnNode, type ICreateUniverOnNodeOptions } from './sdk';
+export { createCrabTableOnNode, type ICreateCrabTableOnNodeOptions } from './sdk';

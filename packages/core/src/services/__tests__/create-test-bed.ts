@@ -17,11 +17,11 @@
 import type { Dependency } from '../../common/di';
 import type { IWorkbookData } from '../../sheets/typedef';
 import { Inject, Injector } from '../../common/di';
-import { UniverInstanceType } from '../../common/unit';
+import { CrabTableInstanceType } from '../../common/unit';
 import { LocaleType } from '../../types/enum';
-import { Univer } from '../../univer';
+import { CrabTable } from '../../univer';
 import { ICommandService } from '../command/command.service';
-import { IUniverInstanceService } from '../instance/instance.service';
+import { ICrabTableInstanceService } from '../instance/instance.service';
 import { Plugin } from '../plugin/plugin.service';
 
 const TEST_WORKBOOK_DATA_DEMO: () => IWorkbookData = () => ({
@@ -50,13 +50,13 @@ const TEST_WORKBOOK_DATA_DEMO: () => IWorkbookData = () => ({
 });
 
 export const createTestBed = (dependencies?: Dependency[]) => {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -70,14 +70,14 @@ export const createTestBed = (dependencies?: Dependency[]) => {
     univer.registerPlugin(TestPlugin);
 
     const workbookJson = TEST_WORKBOOK_DATA_DEMO();
-    const workbook = univer.createUnit(UniverInstanceType.UNIVER_SHEET, workbookJson);
+    const workbook = univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, workbookJson);
 
-    const univerInstanceService = injector.get(IUniverInstanceService);
+    const crabtableInstanceService = injector.get(ICrabTableInstanceService);
     const commandService = injector.get(ICommandService);
     const unitId = workbookJson.id;
     const subUnitId = workbookJson.sheets.sheet1.id!;
-    univerInstanceService.focusUnit('test');
-    univerInstanceService.setCurrentUnitForType(unitId);
+    crabtableInstanceService.focusUnit('test');
+    crabtableInstanceService.setCurrentUnitForType(unitId);
 
     return {
         univer,

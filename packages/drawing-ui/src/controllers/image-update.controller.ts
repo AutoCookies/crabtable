@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, IDrawingSearch, Nullable } from '@univerjs/core';
-import type { IImageData } from '@univerjs/drawing';
-import type { Image, Scene } from '@univerjs/engine-render';
+import type { ICommandInfo, IDrawingSearch, Nullable } from '@crabtable/core';
+import type { IImageData } from '@crabtable/drawing';
+import type { Image, Scene } from '@crabtable/engine-render';
 import {
     Disposable,
     DrawingTypeEnum,
     ICommandService,
+    ICrabTableInstanceService,
     ImageSourceType,
     Inject,
-    IUniverInstanceService,
     toDisposable,
-} from '@univerjs/core';
-import { getDrawingShapeKeyByDrawingSearch, IDrawingManagerService, IImageIoService, SetDrawingSelectedOperation } from '@univerjs/drawing';
-import { CURSOR_TYPE, IRenderManagerService } from '@univerjs/engine-render';
-import { IDialogService } from '@univerjs/ui';
+} from '@crabtable/core';
+import { getDrawingShapeKeyByDrawingSearch, IDrawingManagerService, IImageIoService, SetDrawingSelectedOperation } from '@crabtable/drawing';
+import { CURSOR_TYPE, IRenderManagerService } from '@crabtable/engine-render';
+import { IDialogService } from '@crabtable/ui';
 import { bufferTime, filter, map } from 'rxjs';
 import { ImageResetSizeOperation } from '../commands/operations/image-reset-size.operation';
 import { DrawingRenderService } from '../services/drawing-render.service';
@@ -41,7 +41,7 @@ export class ImageUpdateController extends Disposable {
         @IDrawingManagerService private readonly _drawingManagerService: IDrawingManagerService,
         @IDialogService private readonly _dialogService: IDialogService,
         @IImageIoService private readonly _imageIoService: IImageIoService,
-        @IUniverInstanceService private readonly _currentUniverService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _currentUniverService: ICrabTableInstanceService,
         @Inject(DrawingRenderService) private readonly _drawingRenderService: DrawingRenderService
     ) {
         super();

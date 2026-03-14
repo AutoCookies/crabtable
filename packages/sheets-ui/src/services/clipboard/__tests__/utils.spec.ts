@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IMutationInfo, IRange } from '@univerjs/core';
-import type { ISetRangeValuesMutationParams } from '@univerjs/sheets';
-import { SetRangeValuesMutation } from '@univerjs/sheets';
+import type { IMutationInfo, IRange } from '@crabtable/core';
+import type { ISetRangeValuesMutationParams } from '@crabtable/sheets';
+import { SetRangeValuesMutation } from '@crabtable/sheets';
 import { describe, expect, it } from 'vitest';
 import { getRepeatRange, mergeSetRangeValues, spilitLargeSetRangeValuesMutations } from '../utils';
 

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, JSONXActions, Nullable } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { IRenderContext, IRenderModule, ITextRangeWithStyle } from '@univerjs/engine-render';
-import { JSONX, RxDisposable } from '@univerjs/core';
+import type { DocumentDataModel, JSONXActions, Nullable } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { IRenderContext, IRenderModule, ITextRangeWithStyle } from '@crabtable/engine-render';
+import { JSONX, RxDisposable } from '@crabtable/core';
 
 interface ICacheParams {
     undoCache: IRichTextEditingMutationParams[];

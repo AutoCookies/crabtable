@@ -18,13 +18,13 @@ import type { Observable } from 'rxjs';
 import type { Nullable } from '../shared';
 import type { ISlideData, ISlidePage } from '../types/interfaces';
 import { BehaviorSubject } from 'rxjs';
-import { UnitModel, UniverInstanceType } from '../common/unit';
+import { CrabTableInstanceType, UnitModel } from '../common/unit';
 import { generateRandomId } from '../shared';
 import { DEFAULT_SLIDE } from '../types/const';
 import { PageType } from '../types/interfaces';
 
-export class SlideDataModel extends UnitModel<ISlideData, UniverInstanceType.UNIVER_SLIDE> {
-    override type: UniverInstanceType.UNIVER_SLIDE = UniverInstanceType.UNIVER_SLIDE;
+export class SlideDataModel extends UnitModel<ISlideData, CrabTableInstanceType.CRABTABLE_SLIDE> {
+    override type: CrabTableInstanceType.CRABTABLE_SLIDE = CrabTableInstanceType.CRABTABLE_SLIDE;
     private readonly _activePage$ = new BehaviorSubject<Nullable<ISlidePage>>(null);
     private get _activePage(): Nullable<ISlidePage> {
         const activePage = this._activePage$.getValue();

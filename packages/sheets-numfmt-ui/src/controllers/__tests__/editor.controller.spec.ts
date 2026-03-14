@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import type { ICellDataForSheetInterceptor, Injector, Univer, Workbook, Worksheet } from '@univerjs/core';
-import type { ISetNumfmtMutationParams, ISheetLocation } from '@univerjs/sheets';
+import type { ICellDataForSheetInterceptor, Injector, Workbook, Worksheet } from '@crabtable/core';
+import type { ISetNumfmtMutationParams, ISheetLocation } from '@crabtable/sheets';
 import {
     CellModeEnum,
     CellValueType,
+    CrabTableInstanceType,
     createInterceptorKey,
     ICommandService,
+    ICrabTableInstanceService,
     InterceptorManager,
-    IUniverInstanceService,
     LocaleType,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { excelDateSerial } from '@univerjs/engine-formula';
-import { SetNumfmtMutation, SheetInterceptorService } from '@univerjs/sheets';
-import { SheetsNumfmtCellContentController } from '@univerjs/sheets-numfmt';
-import { getMatrixPlainText, IEditorBridgeService } from '@univerjs/sheets-ui';
+} from '@crabtable/core';
+import { excelDateSerial } from '@crabtable/engine-formula';
+import { SetNumfmtMutation, SheetInterceptorService } from '@crabtable/sheets';
+import { SheetsNumfmtCellContentController } from '@crabtable/sheets-numfmt';
+import { getMatrixPlainText, IEditorBridgeService } from '@crabtable/sheets-ui';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { NumfmtEditorController } from '../numfmt.editor.controller';
 import { createTestBed } from './test.util';
@@ -62,10 +62,10 @@ describe('test editor', () => {
         unitId = testBed.unitId;
         subUnitId = testBed.subUnitId;
         commandService = testBed.get(ICommandService);
-        const univerInstanceService = testBed.get(IUniverInstanceService);
+        const crabtableInstanceService = testBed.get(ICrabTableInstanceService);
         testBed.get(NumfmtEditorController);
         testBed.get(SheetsNumfmtCellContentController);
-        workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         worksheet = workbook.getActiveSheet()!;
     });
 
@@ -609,7 +609,7 @@ describe('test editor', () => {
 });
 
 describe('test get cell text/plain', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
@@ -717,9 +717,9 @@ describe('test get cell text/plain', () => {
     });
 
     it('when the cell has a numfmt should use both to get displayV', () => {
-        const univerInstanceService = get(IUniverInstanceService);
+        const crabtableInstanceService = get(ICrabTableInstanceService);
 
-        const workbook = univerInstanceService.getUnit<Workbook>('test');
+        const workbook = crabtableInstanceService.getUnit<Workbook>('test');
         const worksheet = workbook?.getActiveSheet();
         if (worksheet) {
             const unitId = 'test';

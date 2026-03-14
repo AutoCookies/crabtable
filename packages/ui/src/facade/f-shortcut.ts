@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Workbook } from '@univerjs/core';
-import type { IShortcutItem } from '@univerjs/ui';
-import { Inject, Injector, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { FBase } from '@univerjs/core/facade';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { IShortcutService } from '@univerjs/ui';
+import type { IDisposable, Workbook } from '@crabtable/core';
+import type { IShortcutItem } from '@crabtable/ui';
+import { CrabTableInstanceType, ICrabTableInstanceService, Inject, Injector } from '@crabtable/core';
+import { FBase } from '@crabtable/core/facade';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { IShortcutService } from '@crabtable/ui';
 
 /**
  * The Facade API object to handle shortcuts in Univer
@@ -31,14 +31,14 @@ export class FShortcut extends FBase {
     constructor(
         @Inject(Injector) protected readonly _injector: Injector,
         @Inject(IRenderManagerService) private _renderManagerService: IRenderManagerService,
-        @IUniverInstanceService protected readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService protected readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IShortcutService protected readonly _shortcutService: IShortcutService
     ) {
         super();
     }
 
     /**
-     * Enable shortcuts of Univer.
+     * Enable shortcuts of CrabTable.
      * @returns {FShortcut} The Facade API instance itself for chaining.
      *
      * @example
@@ -53,12 +53,12 @@ export class FShortcut extends FBase {
     }
 
     /**
-     * Disable shortcuts of Univer.
+     * Disable shortcuts of CrabTable.
      * @returns {FShortcut} The Facade API instance itself for chaining.
      *
      * @example
      * ```typescript
-     * const fShortcut = univerAPI.getShortcut();
+     * const fShortcut = crabtableAPI.getShortcut();
      * fShortcut.disableShortcut();
      * ```
      */
@@ -71,14 +71,14 @@ export class FShortcut extends FBase {
     }
 
     /**
-     * Trigger shortcut of Univer by a KeyboardEvent and return the matched shortcut item.
+     * Trigger shortcut of CrabTable by a KeyboardEvent and return the matched shortcut item.
      * @param {KeyboardEvent} e - The KeyboardEvent to trigger.
      * @returns {IShortcutItem<object> | undefined} The matched shortcut item.
      *
      * @example
      * ```typescript
      * // Assum the current sheet is empty sheet.
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1');
      *
@@ -88,11 +88,11 @@ export class FShortcut extends FBase {
      * console.log(fRange.getCellStyle().bold); // false
      *
      * // Set A1 cell bold by shortcut.
-     * const fShortcut = univerAPI.getShortcut();
+     * const fShortcut = crabtableAPI.getShortcut();
      * const pseudoEvent = new KeyboardEvent('keydown', {
      *   key: 'b',
      *   ctrlKey: true,
-     *   keyCode: univerAPI.Enum.KeyCode.B
+     *   keyCode: crabtableAPI.Enum.KeyCode.B
      * });
      * const ifShortcutItem = fShortcut.triggerShortcut(pseudoEvent);
      * if (ifShortcutItem) {
@@ -102,7 +102,7 @@ export class FShortcut extends FBase {
      * ```
      */
     triggerShortcut(e: KeyboardEvent): IShortcutItem<object> | undefined {
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             return;
         }
@@ -125,7 +125,7 @@ export class FShortcut extends FBase {
      *
      * @example
      * ```typescript
-     * const fShortcut = univerAPI.getShortcut();
+     * const fShortcut = crabtableAPI.getShortcut();
      * const pseudoEvent = new KeyboardEvent('keydown', { key: 's', ctrlKey: true });
      * const ifShortcutItem = fShortcut.dispatchShortcutEvent(pseudoEvent);
      * if (ifShortcutItem) {

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ICommand, IMutationInfo, JSONXActions } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { ITextRangeWithStyle } from '@univerjs/engine-render';
-import { CommandType, ICommandService, IUniverInstanceService, JSONX, TextX, TextXActionType } from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation } from '@univerjs/docs';
+import type { ICommand, IMutationInfo, JSONXActions } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { ITextRangeWithStyle } from '@crabtable/engine-render';
+import { CommandType, ICommandService, ICrabTableInstanceService, JSONX, TextX, TextXActionType } from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation } from '@crabtable/docs';
 import { getCommandSkeleton, getRichTextEditPath } from '../../util';
 import { getDeleteColumnsActionParams, getDeleteRowsActionsParams, getDeleteTableActionParams, getRangeInfoFromRanges } from './table';
 
@@ -30,7 +30,7 @@ export const DocTableDeleteRowsCommand: ICommand<IDocTableDeleteRowsCommandParam
     // eslint-disable-next-line max-lines-per-function
     handler: async (accessor) => {
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
 
         const activeRectRanges = docSelectionManagerService.getRectRanges();
@@ -44,7 +44,7 @@ export const DocTableDeleteRowsCommand: ICommand<IDocTableDeleteRowsCommandParam
 
         const { segmentId } = rangeInfo;
 
-        const docDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const docDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
         const body = docDataModel?.getSelfOrHeaderFooterModel(segmentId).getBody();
 
         if (docDataModel == null || body == null) {
@@ -133,7 +133,7 @@ export const DocTableDeleteColumnsCommand: ICommand<IDocTableDeleteColumnsComman
     // eslint-disable-next-line max-lines-per-function
     handler: async (accessor) => {
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
 
         const activeRectRanges = docSelectionManagerService.getRectRanges();
@@ -147,7 +147,7 @@ export const DocTableDeleteColumnsCommand: ICommand<IDocTableDeleteColumnsComman
 
         const { segmentId } = rangeInfo;
 
-        const docDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const docDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
         const body = docDataModel?.getSelfOrHeaderFooterModel(segmentId).getBody();
 
         if (docDataModel == null || body == null) {
@@ -247,7 +247,7 @@ export const DocTableDeleteTableCommand: ICommand<IDocTableDeleteTableCommandPar
     // eslint-disable-next-line max-lines-per-function
     handler: async (accessor) => {
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
 
         const activeRectRanges = docSelectionManagerService.getRectRanges();
@@ -261,7 +261,7 @@ export const DocTableDeleteTableCommand: ICommand<IDocTableDeleteTableCommandPar
 
         const { segmentId } = rangeInfo;
 
-        const docDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const docDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
         const body = docDataModel?.getSelfOrHeaderFooterModel(segmentId).getBody();
 
         if (docDataModel == null || body == null) {

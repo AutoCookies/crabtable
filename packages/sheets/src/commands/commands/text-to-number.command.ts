@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICellData, ICommand, IRange } from '@univerjs/core';
+import type { IAccessor, ICellData, ICommand, IRange } from '@crabtable/core';
 import type { IRemoveNumfmtMutationParams } from '../mutations/numfmt-mutation';
 import type { ISetRangeValuesMutationParams } from '../mutations/set-range-values.mutation';
 import type { ISheetCommandSharedParams } from '../utils/interface';
@@ -22,13 +22,13 @@ import {
     CellValueType,
     CommandType,
     ICommandService,
+    ICrabTableInstanceService,
     isRealNum,
     isTextFormat,
     IUndoRedoService,
-    IUniverInstanceService,
     ObjectMatrix,
     sequenceExecute,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { SheetsSelectionsService } from '../../services/selections/selection.service';
 import { factoryRemoveNumfmtUndoMutation, RemoveNumfmtMutation } from '../mutations/numfmt-mutation';
 import { SetRangeValuesMutation, SetRangeValuesUndoMutationFactory } from '../mutations/set-range-values.mutation';
@@ -48,7 +48,7 @@ export const TextToNumberCommand: ICommand = {
 
     // eslint-disable-next-line max-lines-per-function, complexity
     handler: (accessor: IAccessor, params: ITextToNumberCommandParams) => {
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService), params);
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService), params);
         if (!target) return false;
 
         const ranges = params?.ranges || accessor.get(SheetsSelectionsService).getCurrentSelections()?.map((s) => s.range);

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Dependency, Workbook } from '@univerjs/core';
+import type { Dependency, Workbook } from '@crabtable/core';
 import type { IUniverSheetsHyperLinkUIConfig } from './config/config';
-import { DependentOn, IConfigService, Inject, Injector, merge, Plugin, UniverInstanceType } from '@univerjs/core';
-import { UniverDocsUIPlugin } from '@univerjs/docs-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { UniverSheetsHyperLinkPlugin } from '@univerjs/sheets-hyper-link';
+import { CrabTableInstanceType, DependentOn, IConfigService, Inject, Injector, merge, Plugin } from '@crabtable/core';
+import { UniverDocsUIPlugin } from '@crabtable/docs-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { UniverSheetsHyperLinkPlugin } from '@crabtable/sheets-hyper-link';
 import pkg from '../package.json';
 import { defaultPluginConfig, SHEETS_HYPER_LINK_UI_PLUGIN_CONFIG_KEY } from './config/config';
 import { SheetsHyperLinkAutoFillController } from './controllers/auto-fill.controller';
@@ -39,7 +39,7 @@ export class UniverSheetsHyperLinkUIPlugin extends Plugin {
     static override pluginName: string = SHEET_HYPER_LINK_UI_PLUGIN;
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
     constructor(
         private readonly _config: Partial<IUniverSheetsHyperLinkUIConfig> = defaultPluginConfig,
@@ -83,7 +83,7 @@ export class UniverSheetsHyperLinkUIPlugin extends Plugin {
 
     override onReady(): void {
         const renderManager = this._injector.get(IRenderManagerService);
-        renderManager.registerRenderModule<Workbook>(UniverInstanceType.UNIVER_SHEET, [SheetsHyperLinkRenderController] as Dependency);
+        renderManager.registerRenderModule<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, [SheetsHyperLinkRenderController] as Dependency);
 
         this._injector.get(SheetsHyperLinkAutoFillController);
         this._injector.get(SheetsHyperLinkCopyPasteController);

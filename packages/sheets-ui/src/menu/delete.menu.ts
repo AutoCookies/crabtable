@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuButtonItem, IMenuSelectorItem } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuButtonItem, IMenuSelectorItem } from '@crabtable/ui';
 
-import { RangeProtectionPermissionEditPoint, WorkbookDeleteColumnPermission, WorkbookDeleteRowPermission, WorkbookEditablePermission, WorksheetDeleteColumnPermission, WorksheetDeleteRowPermission, WorksheetEditPermission } from '@univerjs/sheets';
-import { MenuItemType } from '@univerjs/ui';
+import { RangeProtectionPermissionEditPoint, WorkbookDeleteColumnPermission, WorkbookDeleteRowPermission, WorkbookEditablePermission, WorksheetDeleteColumnPermission, WorksheetDeleteRowPermission, WorksheetEditPermission } from '@crabtable/sheets';
+import { MenuItemType } from '@crabtable/ui';
 import { DeleteRangeMoveLeftConfirmCommand } from '../commands/commands/delete-range-move-left-confirm.command';
 import { DeleteRangeMoveUpConfirmCommand } from '../commands/commands/delete-range-move-up-confirm.command';
 import {

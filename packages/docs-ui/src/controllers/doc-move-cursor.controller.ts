@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, Nullable } from '@univerjs/core';
+import type { ICommandInfo, Nullable } from '@crabtable/core';
 import type {
     DocumentSkeleton,
     IDocumentSkeletonCached,
@@ -24,7 +24,7 @@ import type {
     IDocumentSkeletonTable,
     INodePosition,
     INodeSearch,
-} from '@univerjs/engine-render';
+} from '@crabtable/engine-render';
 import type { Subscription } from 'rxjs';
 import type { IMoveCursorOperationParams } from '../commands/operations/doc-cursor.operation';
 import {
@@ -32,13 +32,13 @@ import {
     Direction,
     Disposable,
     ICommandService,
+    ICrabTableInstanceService,
     Inject,
-    IUniverInstanceService,
     RANGE_DIRECTION,
-} from '@univerjs/core';
+} from '@crabtable/core';
 
-import { DocSelectionManagerService, DocSkeletonManagerService } from '@univerjs/docs';
-import { DocumentSkeletonPageType, IRenderManagerService } from '@univerjs/engine-render';
+import { DocSelectionManagerService, DocSkeletonManagerService } from '@crabtable/docs';
+import { DocumentSkeletonPageType, IRenderManagerService } from '@crabtable/engine-render';
 import { getDocObject } from '../basics/component-tools';
 import { findAboveCell, findBellowCell, findLineBeforeAndAfterTable, findTableAfterLine, findTableBeforeLine, firstLineInCell, firstLineInTable, lastLineInCell, lastLineInTable } from '../basics/table';
 import { MoveCursorOperation, MoveSelectionOperation } from '../commands/operations/doc-cursor.operation';
@@ -49,7 +49,7 @@ export class DocMoveCursorController extends Disposable {
     private _onInputSubscription: Nullable<Subscription>;
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
         @Inject(DocSelectionManagerService) private readonly _textSelectionManagerService: DocSelectionManagerService,
         @ICommandService private readonly _commandService: ICommandService
@@ -97,7 +97,7 @@ export class DocMoveCursorController extends Disposable {
     private _handleShiftMoveSelection(direction: Direction) {
         const activeRange = this._textSelectionManagerService.getActiveTextRange();
         const allRanges = this._textSelectionManagerService.getTextRanges()!;
-        const docDataModel = this._univerInstanceService.getCurrentUniverDocInstance();
+        const docDataModel = this._crabtableInstanceService.getCurrentUniverDocInstance();
         if (docDataModel == null) {
             return;
         }
@@ -222,7 +222,7 @@ export class DocMoveCursorController extends Disposable {
     private _handleMoveCursor(direction: Direction) {
         const activeRange = this._textSelectionManagerService.getActiveTextRange();
         const allRanges = this._textSelectionManagerService.getTextRanges();
-        const docDataModel = this._univerInstanceService.getCurrentUniverDocInstance();
+        const docDataModel = this._crabtableInstanceService.getCurrentUniverDocInstance();
         if (docDataModel == null) {
             return false;
         }
@@ -579,7 +579,7 @@ export class DocMoveCursorController extends Disposable {
     }
 
     private _getDocObject() {
-        return getDocObject(this._univerInstanceService, this._renderManagerService);
+        return getDocObject(this._crabtableInstanceService, this._renderManagerService);
     }
 }
 

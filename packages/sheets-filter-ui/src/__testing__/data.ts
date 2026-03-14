@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IWorkbookData } from '@univerjs/core';
-import { LocaleType } from '@univerjs/core';
-import { CustomFilterOperator, SHEET_FILTER_SNAPSHOT_ID } from '@univerjs/sheets-filter';
+import type { IWorkbookData } from '@crabtable/core';
+import { LocaleType } from '@crabtable/core';
+import { CustomFilterOperator, SHEET_FILTER_SNAPSHOT_ID } from '@crabtable/sheets-filter';
 
 /// This file contains mock up snapshots for testing purposes.
 

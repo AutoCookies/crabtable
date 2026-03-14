@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ObjectMatrix } from '@univerjs/core';
+import { ObjectMatrix } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import { countCells, getSuitableRangesInView } from '../util';
 

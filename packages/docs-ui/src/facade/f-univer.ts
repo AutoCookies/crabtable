@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IDocumentData } from '@univerjs/core';
-import { UniverInstanceType } from '@univerjs/core';
-import { FUniver } from '@univerjs/core/facade';
+import type { DocumentDataModel, IDocumentData } from '@crabtable/core';
+import { CrabTableInstanceType } from '@crabtable/core';
+import { FCrabTable } from '@crabtable/core/facade';
 import { FDocument } from './f-document';
 
 /**
@@ -29,7 +29,7 @@ export interface IFUniverDocsUIMixin {
      * @param {Partial<IDocumentData>} data The snapshot of the document.
      * @returns {FDocument} FDocument API instance.
      */
-    createUniverDoc(data: Partial<IDocumentData>): FDocument;
+    createCrabTableDoc(data: Partial<IDocumentData>): FDocument;
     /**
      * Get the document API handler by the document id.
      *
@@ -38,21 +38,21 @@ export interface IFUniverDocsUIMixin {
      */
     getUniverDoc(id: string): FDocument | null;
     /**
-     * Get the currently focused Univer document.
+     * Get the currently focused CrabTable document.
      *
-     * @returns {FDocument | null} The currently focused Univer document.
+     * @returns {FDocument | null} The currently focused CrabTable document.
      */
     getActiveDocument(): FDocument | null;
 }
 
-export class FUniverDocsMixin extends FUniver implements IFUniverDocsUIMixin {
-    override createUniverDoc(data: Partial<IDocumentData>): FDocument {
-        const document = this._univerInstanceService.createUnit<IDocumentData, DocumentDataModel>(UniverInstanceType.UNIVER_DOC, data);
+export class FCrabTableDocsMixin extends FCrabTable implements IFUniverDocsUIMixin {
+    override createCrabTableDoc(data: Partial<IDocumentData>): FDocument {
+        const document = this._crabtableInstanceService.createUnit<IDocumentData, DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC, data);
         return this._injector.createInstance(FDocument, document);
     }
 
     override getActiveDocument(): FDocument | null {
-        const document = this._univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const document = this._crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         if (!document) {
             return null;
         }
@@ -61,7 +61,7 @@ export class FUniverDocsMixin extends FUniver implements IFUniverDocsUIMixin {
     }
 
     override getUniverDoc(id: string): FDocument | null {
-        const document = this._univerInstanceService.getUniverDocInstance(id);
+        const document = this._crabtableInstanceService.getUniverDocInstance(id);
         if (!document) {
             return null;
         }
@@ -70,8 +70,8 @@ export class FUniverDocsMixin extends FUniver implements IFUniverDocsUIMixin {
     }
 }
 
-FUniver.extend(FUniverDocsMixin);
-declare module '@univerjs/core/facade' {
+FCrabTable.extend(FUniverDocsMixin);
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
-    interface FUniver extends IFUniverDocsUIMixin {}
+    interface FCrabTable extends IFUniverDocsUIMixin {}
 }

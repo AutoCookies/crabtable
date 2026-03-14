@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IShortcutItem } from '@univerjs/ui';
-import { BreakLineCommand, DeleteLeftCommand, DeleteRightCommand } from '@univerjs/docs-ui';
+import type { IShortcutItem } from '@crabtable/ui';
+import { BreakLineCommand, DeleteLeftCommand, DeleteRightCommand } from '@crabtable/docs-ui';
 
-import { DeviceInputEventType } from '@univerjs/engine-render';
-import { KeyCode, MetaKeys } from '@univerjs/ui';
+import { DeviceInputEventType } from '@crabtable/engine-render';
+import { KeyCode, MetaKeys } from '@crabtable/ui';
 import {
     SetCellEditVisibleArrowOperation,
     SetCellEditVisibleOperation,

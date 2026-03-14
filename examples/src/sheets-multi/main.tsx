@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-import { LocaleType, LogLevel, Tools, Univer, UniverInstanceType } from '@univerjs/core';
-import { render } from '@univerjs/design';
-import { UniverDocsPlugin } from '@univerjs/docs';
-import { UniverDocsUIPlugin } from '@univerjs/docs-ui';
-import { UniverFormulaEnginePlugin } from '@univerjs/engine-formula';
-import { UniverRenderEnginePlugin } from '@univerjs/engine-render';
-import { DEFAULT_WORKBOOK_DATA_DEMO } from '@univerjs/mockdata';
-import zhCN from '@univerjs/mockdata/locales/zh-CN';
-import { UniverSheetsPlugin } from '@univerjs/sheets';
-import { UniverSheetsFormulaPlugin } from '@univerjs/sheets-formula';
-import { UniverSheetsFormulaUIPlugin } from '@univerjs/sheets-formula-ui';
-import { UniverSheetsNumfmtPlugin } from '@univerjs/sheets-numfmt';
-import { UniverSheetsNumfmtUIPlugin } from '@univerjs/sheets-numfmt-ui';
-import { UniverSheetsUIPlugin } from '@univerjs/sheets-ui';
-import { UniverUIPlugin } from '@univerjs/ui';
+import { CrabTableInstanceType, LocaleType, LogLevel, Tools } from '@crabtable/core';
+import { render } from '@crabtable/design';
+import { UniverDocsPlugin } from '@crabtable/docs';
+import { UniverDocsUIPlugin } from '@crabtable/docs-ui';
+import { UniverFormulaEnginePlugin } from '@crabtable/engine-formula';
+import { UniverRenderEnginePlugin } from '@crabtable/engine-render';
+import { DEFAULT_WORKBOOK_DATA_DEMO } from '@crabtable/mockdata';
+import zhCN from '@crabtable/mockdata/locales/zh-CN';
+import { UniverSheetsPlugin } from '@crabtable/sheets';
+import { UniverSheetsFormulaPlugin } from '@crabtable/sheets-formula';
+import { UniverSheetsFormulaUIPlugin } from '@crabtable/sheets-formula-ui';
+import { UniverSheetsNumfmtPlugin } from '@crabtable/sheets-numfmt';
+import { UniverSheetsNumfmtUIPlugin } from '@crabtable/sheets-numfmt-ui';
+import { UniverSheetsUIPlugin } from '@crabtable/sheets-ui';
+import { UniverUIPlugin } from '@crabtable/ui';
 import { useEffect } from 'react';
 import { Mosaic, MosaicWindow } from 'react-mosaic-component';
 
@@ -38,7 +38,7 @@ import '../global.css';
 
 function factory(id: string) {
     return function createUniverOnContainer() {
-        const univer = new Univer({
+        const univer = new CrabTable({
             locale: LocaleType.ZH_CN,
             locales: {
                 [LocaleType.ZH_CN]: zhCN,
@@ -67,7 +67,7 @@ function factory(id: string) {
         const data = Tools.deepClone(DEFAULT_WORKBOOK_DATA_DEMO);
         data.id = id;
         // create univer sheet instance
-        univer.createUnit(UniverInstanceType.UNIVER_SHEET, data);
+        univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, data);
     };
 }
 

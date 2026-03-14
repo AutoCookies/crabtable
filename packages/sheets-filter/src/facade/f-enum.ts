@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { FEnum } from '@univerjs/core/facade';
-import { CustomFilterOperator } from '@univerjs/sheets-filter';
+import { FEnum } from '@crabtable/core/facade';
+import { CustomFilterOperator } from '@crabtable/sheets-filter';
 
 /**
  * @ignore
@@ -32,7 +32,7 @@ export class FSheetsFilterEnumMixin implements IFSheetsFilterEnumMixin {
 }
 
 FEnum.extend(FSheetsFilterEnumMixin);
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FEnum extends IFSheetsFilterEnumMixin {
     }

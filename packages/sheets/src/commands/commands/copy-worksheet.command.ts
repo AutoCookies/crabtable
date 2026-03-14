@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICellData, ICommand, IMutationInfo, IObjectMatrixPrimitiveType, Nullable, Workbook } from '@univerjs/core';
+import type { IAccessor, ICellData, ICommand, IMutationInfo, IObjectMatrixPrimitiveType, Nullable, Workbook } from '@crabtable/core';
 import type { IInsertSheetMutationParams, IRemoveSheetMutationParams } from '../../basics/interfaces/mutation-interface';
 import type { IUniverSheetsConfig } from '../../config/config';
 import type { ISetRangeValuesMutationParams } from '../mutations/set-range-values.mutation';
@@ -24,11 +24,11 @@ import {
     generateRandomId,
     ICommandService,
     IConfigService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
     LocaleService,
     sequenceExecute,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { defaultLargeSheetOperationConfig, SHEETS_PLUGIN_CONFIG_KEY } from '../../config/config';
 import { SheetLazyExecuteScheduleService } from '../../services/lazy-execute-schedule.service';
 import { SheetInterceptorService } from '../../services/sheet-interceptor/sheet-interceptor.service';
@@ -241,12 +241,12 @@ export const CopySheetCommand: ICommand = {
     handler: (accessor: IAccessor, params?: ICopySheetCommandParams) => {
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const sheetInterceptorService = accessor.get(SheetInterceptorService);
         const localeService = accessor.get(LocaleService);
         const sheetLazyExecuteScheduleService = accessor.get(SheetLazyExecuteScheduleService);
 
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) {
             return false;
         }

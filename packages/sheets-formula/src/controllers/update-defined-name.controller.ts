@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import type { IMutationInfo, Nullable, Workbook } from '@univerjs/core';
-import type { IDefinedNamesServiceParam, ISetDefinedNameMutationParam } from '@univerjs/engine-formula';
+import type { IMutationInfo, Nullable, Workbook } from '@crabtable/core';
+import type { IDefinedNamesServiceParam, ISetDefinedNameMutationParam } from '@crabtable/engine-formula';
 import type { IFormulaReferenceMoveParam } from './utils/ref-range-formula';
 import type { IUnitRangeWithOffset } from './utils/ref-range-move';
 import {
+    CrabTableInstanceType,
     Disposable,
+    ICrabTableInstanceService,
     Inject,
-    IUniverInstanceService,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { deserializeRangeWithSheetWithCache, ErrorType, generateStringWithSequence, IDefinedNamesService, LexerTreeBuilder, sequenceNodeType, serializeRangeToRefString, SetDefinedNameMutation } from '@univerjs/engine-formula';
-import { RemoveDefinedNameCommand, SetDefinedNameCommand, SheetInterceptorService } from '@univerjs/sheets';
+} from '@crabtable/core';
+import { deserializeRangeWithSheetWithCache, ErrorType, generateStringWithSequence, IDefinedNamesService, LexerTreeBuilder, sequenceNodeType, serializeRangeToRefString, SetDefinedNameMutation } from '@crabtable/engine-formula';
+import { RemoveDefinedNameCommand, SetDefinedNameCommand, SheetInterceptorService } from '@crabtable/sheets';
 import { FormulaReferenceMoveType, updateRefOffset } from './utils/ref-range-formula';
 import { getNewRangeByMoveParam } from './utils/ref-range-move';
 import { getReferenceMoveParams } from './utils/ref-range-param';
@@ -33,7 +33,7 @@ import { getReferenceMoveParams } from './utils/ref-range-param';
 export class UpdateDefinedNameController extends Disposable {
     constructor(
         @IDefinedNamesService private readonly _definedNamesService: IDefinedNamesService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(SheetInterceptorService) private _sheetInterceptorService: SheetInterceptorService,
         @Inject(LexerTreeBuilder) private readonly _lexerTreeBuilder: LexerTreeBuilder
 
@@ -60,7 +60,7 @@ export class UpdateDefinedNameController extends Disposable {
                         };
                     }
 
-                    const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+                    const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
 
                     if (workbook == null) {
                         return {

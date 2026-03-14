@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Injector, IWorkbookData, Univer, Workbook } from '@univerjs/core';
+import type { Injector, IWorkbookData, Workbook } from '@crabtable/core';
 import type { ISetRowDataCommandParams } from '../set-row-data.command';
-import { BooleanNumber, ICommandService, IUniverInstanceService, LocaleType, RedoCommand, UndoCommand, UniverInstanceType } from '@univerjs/core';
+import { BooleanNumber, CrabTableInstanceType, ICommandService, ICrabTableInstanceService, LocaleType, RedoCommand, UndoCommand } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SetRowDataMutation } from '../../mutations/set-row-data.mutation';
 import { SetRowDataCommand } from '../set-row-data.command';
@@ -65,12 +65,12 @@ const TEST_WORKBOOK_DATA_DEMO = (): IWorkbookData => {
 };
 
 describe('test set row data commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
     function getRowData(row: number) {
-        const worksheet = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()!;
+        const worksheet = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()!;
         return worksheet.getRowManager().getRow(row);
     }
 

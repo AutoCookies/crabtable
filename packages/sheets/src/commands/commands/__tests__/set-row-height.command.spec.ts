@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { Injector, Nullable, Univer, Workbook } from '@univerjs/core';
+import type { Injector, Nullable, Workbook } from '@crabtable/core';
 import type { IDeltaRowHeightCommand, ISetRowHeightCommandParams } from '../set-worksheet-row-height.command';
 import {
     BooleanNumber,
+    CrabTableInstanceType,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     RANGE_TYPE,
     RedoCommand,
     UndoCommand,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SheetsSelectionsService } from '../../../services/selections/selection.service';
 import {
@@ -41,17 +41,17 @@ import { createCommandTestBed } from './create-command-test-bed';
 // tests in this file is almost a transpose of packages/base-sheets/src/commands/commands/__tests__/set--width.command.spec.ts
 
 describe('Test set row height commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
     function getRowHeight(row: number): number {
-        const worksheet = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()!;
+        const worksheet = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()!;
         return worksheet.getRowHeight(row);
     }
 
     function getRowIsAutoHeight(row: number): Nullable<BooleanNumber> {
-        const worksheet = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()!;
+        const worksheet = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()!;
         const rowManager = worksheet.getRowManager();
         const rowInfo = rowManager.getRow(row);
 
@@ -70,7 +70,7 @@ describe('Test set row height commands', () => {
         commandService.registerCommand(SetWorksheetRowHeightMutation);
         commandService.registerCommand(SetWorksheetRowIsAutoHeightMutation);
 
-        const worksheet = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()!;
+        const worksheet = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()!;
         const maxColumn = worksheet.getMaxColumns() - 1;
         const selectionManager = get(SheetsSelectionsService);
 

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
 import type { IChannel, IMessageProtocol } from './rpc.service';
-import { createIdentifier } from '@univerjs/core';
+import { createIdentifier } from '@crabtable/core';
 import { ChannelClient, ChannelServer } from './rpc.service';
 
 export interface IRPCChannelService {

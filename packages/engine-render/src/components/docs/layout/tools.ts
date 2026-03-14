@@ -26,7 +26,7 @@ import type {
     ISectionBreak,
     ITextStyle,
     Nullable,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import type {
     IDocumentSkeletonCached,
     IDocumentSkeletonColumn,
@@ -64,7 +64,7 @@ import {
     SpacingRule,
     VerticalAlign,
     WrapStrategy,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { DEFAULT_DOCUMENT_FONTSIZE } from '../../../basics/const';
 import { GlyphType } from '../../../basics/i-document-skeleton-cached';
 import { getFontStyleString, isFunction, ptToPixel } from '../../../basics/tools';
@@ -393,7 +393,7 @@ export function updateBlockIndex(pages: IDocumentSkeletonPage[], start: number =
                         }
 
                         // When the width is set to Infinity, the last divide should also be Infinity, and an actual width needs to be calculated.
-                        // Use to fix issue: https://github.com/dream-num/univer/issues/2002
+                        // Use to fix issue: https://github.com/AutoCookies/crabtable/issues/2002
                         // Because the Chinese punctuation marks at the beginning and end of the line are squeezed and narrowed,
                         // the extruded width needs to be added when calculating the overall width.
                         if (glyphGroup.length === 0) {

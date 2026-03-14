@@ -16,6 +16,7 @@
 
 import type { IUniverSheetsFilterUIConfig } from './config/config';
 import {
+    CrabTableInstanceType,
     DependentOn,
     IConfigService,
     Inject,
@@ -25,10 +26,9 @@ import {
     Plugin,
     registerDependencies,
     touchDependencies,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { IRPCChannelService, toModule } from '@univerjs/rpc';
-import { UniverSheetsFilterPlugin } from '@univerjs/sheets-filter';
+} from '@crabtable/core';
+import { IRPCChannelService, toModule } from '@crabtable/rpc';
+import { UniverSheetsFilterPlugin } from '@crabtable/sheets-filter';
 import pkg from '../package.json';
 import { defaultPluginConfig, SHEETS_FILTER_UI_PLUGIN_CONFIG_KEY } from './config/config';
 import { SheetsFilterPermissionController } from './controllers/sheets-filter-permission.controller';
@@ -37,11 +37,11 @@ import { SheetsFilterPanelService } from './services/sheets-filter-panel.service
 import { ISheetsGenerateFilterValuesService, SHEETS_GENERATE_FILTER_VALUES_SERVICE_NAME } from './worker/generate-filter-values.service';
 
 /**
- * The plugin for the desktop version of the sheets filter UI. Its type is {@link UniverInstanceType.UNIVER_SHEET}.
+ * The plugin for the desktop version of the sheets filter UI. Its type is {@link CrabTableInstanceType.CRABTABLE_SHEET}.
  */
 @DependentOn(UniverSheetsFilterPlugin)
 export class UniverSheetsFilterUIPlugin extends Plugin {
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
     static override pluginName = 'SHEET_FILTER_UI_PLUGIN';
     static override packageName = pkg.name;
     static override version = pkg.version;

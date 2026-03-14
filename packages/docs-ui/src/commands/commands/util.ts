@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IAccessor } from '@univerjs/core';
-import { BuildTextUtils, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
+import type { DocumentDataModel, IAccessor } from '@crabtable/core';
+import { BuildTextUtils, CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
 
 export function getCurrentParagraph(accessor: IAccessor) {
-    const instanceService = accessor.get(IUniverInstanceService);
+    const instanceService = accessor.get(ICrabTableInstanceService);
     const docSelectionManagerService = accessor.get(DocSelectionManagerService);
     const range = docSelectionManagerService.getActiveTextRange();
-    const doc = instanceService.getCurrentUnitOfType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+    const doc = instanceService.getCurrentUnitOfType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
     if (!range || !range.collapsed || !doc || range.segmentId) {
         return false;
     }

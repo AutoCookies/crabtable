@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IAccessor } from '@univerjs/core';
-import { DOCS_NORMAL_EDITOR_UNIT_ID_KEY, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { IEditorService } from '@univerjs/docs-ui';
+import type { DocumentDataModel, IAccessor } from '@crabtable/core';
+import { CrabTableInstanceType, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, ICrabTableInstanceService } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { IEditorService } from '@crabtable/docs-ui';
 
 export function getFontStyleAtCursor(accessor: IAccessor) {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const textSelectionService = accessor.get(DocSelectionManagerService);
     const editorService = accessor.get(IEditorService);
 
     const editorUnitId = editorService.getFocusId() ?? DOCS_NORMAL_EDITOR_UNIT_ID_KEY;
-    const editorDataModel = univerInstanceService.getUnit<DocumentDataModel>(editorUnitId, UniverInstanceType.UNIVER_DOC);
+    const editorDataModel = crabtableInstanceService.getUnit<DocumentDataModel>(editorUnitId, CrabTableInstanceType.CRABTABLE_DOC);
     const activeTextRange = textSelectionService.getActiveTextRange();
 
     if (editorDataModel == null || activeTextRange == null) return null;

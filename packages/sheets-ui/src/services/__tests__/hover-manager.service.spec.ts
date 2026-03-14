@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IUniverInstanceService } from '@univerjs/core';
-import type { IRenderManagerService } from '@univerjs/engine-render';
-import { SHEET_VIEWPORT_KEY } from '@univerjs/engine-render';
+import type { ICrabTableInstanceService } from '@crabtable/core';
+import type { IRenderManagerService } from '@crabtable/engine-render';
+import { SHEET_VIEWPORT_KEY } from '@crabtable/engine-render';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { describe, expect, it } from 'vitest';
 import { HoverManagerService } from '../hover-manager.service';
@@ -35,7 +35,7 @@ describe('HoverManagerService', () => {
         const unitDisposed$ = new Subject<any>();
         const currentSheet$ = new BehaviorSubject<any>(workbook);
 
-        const univerInstanceService: Partial<IUniverInstanceService> = {
+        const crabtableInstanceService: Partial<ICrabTableInstanceService> = {
             getUnit: () => workbook as any,
             getCurrentTypeOfUnit$: () => currentSheet$.asObservable() as any,
             unitDisposed$: unitDisposed$.asObservable() as any,
@@ -84,7 +84,7 @@ describe('HoverManagerService', () => {
             getRenderById: () => render as any,
         };
 
-        const service = new HoverManagerService(univerInstanceService as IUniverInstanceService, renderManagerService as IRenderManagerService);
+        const service = new HoverManagerService(crabtableInstanceService as ICrabTableInstanceService, renderManagerService as IRenderManagerService);
 
         let hoveredRow: any = null;
         service.currentHoveredRowHeader$.subscribe((v) => {
@@ -129,7 +129,7 @@ describe('HoverManagerService', () => {
         const unitDisposed$ = new Subject<any>();
         const currentSheet$ = new BehaviorSubject<any>(workbook);
 
-        const univerInstanceService: Partial<IUniverInstanceService> = {
+        const crabtableInstanceService: Partial<ICrabTableInstanceService> = {
             getUnit: () => workbook as any,
             getCurrentTypeOfUnit$: () => currentSheet$.asObservable() as any,
             unitDisposed$: unitDisposed$.asObservable() as any,
@@ -210,7 +210,7 @@ describe('HoverManagerService', () => {
             getRenderById: () => render as any,
         };
 
-        const service = new HoverManagerService(univerInstanceService as IUniverInstanceService, renderManagerService as IRenderManagerService);
+        const service = new HoverManagerService(crabtableInstanceService as ICrabTableInstanceService, renderManagerService as IRenderManagerService);
 
         let currentCellWithEvent: any = null;
         service.currentCellPosWithEvent$.subscribe((v) => {

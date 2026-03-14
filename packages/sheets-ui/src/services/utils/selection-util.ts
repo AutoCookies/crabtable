@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ThemeService } from '@univerjs/core';
-import type { ISelectionStyle } from '@univerjs/sheets';
+import type { ThemeService } from '@crabtable/core';
+import type { ISelectionStyle } from '@crabtable/sheets';
 
 export function createCopyPasteSelectionStyle(
     themeService: ThemeService

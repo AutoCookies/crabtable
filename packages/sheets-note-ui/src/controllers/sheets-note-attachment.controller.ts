@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Nullable, Workbook } from '@univerjs/core';
-import type { ISheetLocationBase } from '@univerjs/sheets';
-import type { ISheetNote } from '@univerjs/sheets-note';
-import { Disposable, Inject, IUniverInstanceService, ObjectMatrix, UniverInstanceType } from '@univerjs/core';
-import { SheetsNoteModel } from '@univerjs/sheets-note';
-import { CellPopupManagerService } from '@univerjs/sheets-ui';
+import type { IDisposable, Nullable, Workbook } from '@crabtable/core';
+import type { ISheetLocationBase } from '@crabtable/sheets';
+import type { ISheetNote } from '@crabtable/sheets-note';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject, ObjectMatrix } from '@crabtable/core';
+import { SheetsNoteModel } from '@crabtable/sheets-note';
+import { CellPopupManagerService } from '@crabtable/sheets-ui';
 import { of, switchMap } from 'rxjs';
 import { SheetsNotePopupService } from '../services/sheets-note-popup.service';
 import { SHEET_NOTE_COMPONENT } from '../views/config';
@@ -29,7 +29,7 @@ export class SheetsNoteAttachmentController extends Disposable {
 
     constructor(
         @Inject(SheetsNoteModel) private readonly _sheetsNoteModel: SheetsNoteModel,
-        @Inject(IUniverInstanceService) private readonly _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(CellPopupManagerService) private readonly _cellPopupManagerService: CellPopupManagerService,
         @Inject(SheetsNotePopupService) private readonly _sheetsNotePopupService: SheetsNotePopupService
     ) {
@@ -139,7 +139,7 @@ export class SheetsNoteAttachmentController extends Disposable {
 
     private _initNoteChangeListener() {
         this.disposeWithMe(
-            this._univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET).pipe(
+            this._crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).pipe(
                 switchMap((workbook) => workbook?.activeSheet$ ?? of(null))
             ).subscribe((sheet) => {
                 if (sheet) {

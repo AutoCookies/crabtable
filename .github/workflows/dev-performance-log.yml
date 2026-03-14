@@ -14,7 +14,7 @@ permissions:
 
 jobs:
     e2e-test:
-        if: github.repository == 'dream-num/univer'
+        if: github.repository == 'AutoCookies/crabtable'
         runs-on: ubuntu-latest
 
         env:
@@ -39,15 +39,15 @@ jobs:
               uses: actions/cache@v4
               with:
                   path: ~/.cache/ms-playwright
-                  key: ${{ runner.os }}-playwright-${{ hashFiles('pnpm-lock.yaml') }}
+                  key: ${{ runner.os }}-playwright-${{ hashFiles('yarn.lock') }}
 
             - name: Install Playwright Browsers
-              run: pnpm exec playwright install --with-deps chromium
+              run: yarn exec playwright install --with-deps chromium
 
             - name: Build E2E Client
-              run: pnpm build:e2e
+              run: yarn build:e2e
 
             - name: Run Playwright Tests
               env:
                   POSTHOG_API_KEY: ${{ secrets.POSTHOG_API_KEY }}
-              run: pnpm exec playwright test
+              run: yarn exec playwright test

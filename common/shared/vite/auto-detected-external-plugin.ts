@@ -38,6 +38,10 @@ export function autoDetectedExternalPlugin(): Plugin {
                 globals[source] = dep.global;
 
                 return { id: source, external: true };
+            } else if (source.startsWith('@crabtable')) {
+                globals[source] = convertLibNameFromPackageName(source);
+
+                return { id: source, external: true };
             } else if (source.startsWith('@univerjs')) {
                 if (source === '@univerjs/icons') {
                     return null;

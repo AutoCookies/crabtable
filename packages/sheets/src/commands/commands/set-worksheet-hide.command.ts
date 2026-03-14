@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
+import type { IAccessor, ICommand } from '@crabtable/core';
 import type { ISetWorksheetHideMutationParams } from '../mutations/set-worksheet-hide.mutation';
 
 import {
@@ -22,10 +22,10 @@ import {
     CommandType,
     ErrorService,
     ICommandService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
     LocaleService,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { SetWorksheetHideMutation, SetWorksheetHideMutationFactory } from '../mutations/set-worksheet-hide.mutation';
 import { getSheetCommandTarget } from './utils/target-util';
 
@@ -43,7 +43,7 @@ export const SetWorksheetHideCommand: ICommand = {
         const errorService = accessor.get(ErrorService);
         const localeService = accessor.get(LocaleService);
 
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService), params);
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService), params);
         if (!target) return false;
 
         const { workbook, worksheet, unitId, subUnitId } = target;

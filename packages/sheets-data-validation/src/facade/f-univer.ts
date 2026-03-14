@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Injector } from '@univerjs/core';
+import type { IDisposable, Injector } from '@crabtable/core';
 import type {
     IAddSheetDataValidationCommandParams,
     IRemoveSheetAllDataValidationCommandParams,
@@ -22,10 +22,10 @@ import type {
     IUpdateSheetDataValidationOptionsCommandParams,
     IUpdateSheetDataValidationRangeCommandParams,
     IUpdateSheetDataValidationSettingCommandParams,
-} from '@univerjs/sheets-data-validation';
+} from '@crabtable/sheets-data-validation';
 import type { IBeforeSheetDataValidationAddEvent, IBeforeSheetDataValidationCriteriaUpdateEvent, IBeforeSheetDataValidationDeleteAllEvent, IBeforeSheetDataValidationDeleteEvent, IBeforeSheetDataValidationOptionsUpdateEvent, IBeforeSheetDataValidationRangeUpdateEvent } from './f-event';
-import { CanceledError, ICommandService } from '@univerjs/core';
-import { FUniver } from '@univerjs/core/facade';
+import { CanceledError, ICommandService } from '@crabtable/core';
+import { FCrabTable } from '@crabtable/core/facade';
 import {
     AddSheetDataValidationCommand,
     RemoveSheetAllDataValidationCommand,
@@ -34,7 +34,7 @@ import {
     UpdateSheetDataValidationOptionsCommand,
     UpdateSheetDataValidationRangeCommand,
     UpdateSheetDataValidationSettingCommand,
-} from '@univerjs/sheets-data-validation';
+} from '@crabtable/sheets-data-validation';
 import { FDataValidation } from './f-data-validation';
 import { FDataValidationBuilder } from './f-data-validation-builder';
 
@@ -47,12 +47,12 @@ export interface IFUnvierDataValidationMixin {
      * @returns {FDataValidationBuilder} A new instance of the FDataValidationBuilder class
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a new data validation rule that requires a number between 1 and 10 fot the range A1:B10
      * const fRange = fWorksheet.getRange('A1:B10');
-     * const rule = univerAPI.newDataValidation()
+     * const rule = crabtableAPI.newDataValidation()
      *   .requireNumberBetween(1, 10)
      *   .setOptions({
      *     allowBlank: true,
@@ -66,9 +66,9 @@ export interface IFUnvierDataValidationMixin {
     newDataValidation(): FDataValidationBuilder;
 }
 
-export class FUnvierDataValidationMixin extends FUniver implements IFUnvierDataValidationMixin {
+export class FUnvierDataValidationMixin extends FCrabTable implements IFUnvierDataValidationMixin {
     /**
-     * @deprecated use `univerAPI.newDataValidation()` as instead.
+     * @deprecated use `crabtableAPI.newDataValidation()` as instead.
      * @returns {FDataValidationBuilder} A new instance of the FDataValidationBuilder class
      */
     static override newDataValidation(): FDataValidationBuilder {
@@ -323,20 +323,20 @@ export class FUnvierDataValidationMixin extends FUniver implements IFUnvierDataV
     }
 }
 
-FUniver.extend(FUnvierDataValidationMixin);
-declare module '@univerjs/core/facade' {
+FCrabTable.extend(FUnvierDataValidationMixin);
+declare module '@crabtable/core/facade' {
     /**
      * @ignore
      */
     // eslint-disable-next-line ts/no-namespace
-    namespace FUniver {
+    namespace FCrabTable {
         /**
-         * @deprecated use `univerAPI.newDataValidation()` as instead.
+         * @deprecated use `crabtableAPI.newDataValidation()` as instead.
          * @returns {FDataValidationBuilder} A new instance of the FDataValidationBuilder class
          */
         function newDataValidation(): FDataValidationBuilder;
     }
 
     // eslint-disable-next-line ts/naming-convention
-    interface FUniver extends IFUnvierDataValidationMixin {}
+    interface FCrabTable extends IFUnvierDataValidationMixin {}
 }

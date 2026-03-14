@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Injector } from '@univerjs/core';
-import type { DataValidationModel } from '@univerjs/data-validation';
+import type { Injector } from '@crabtable/core';
+import type { DataValidationModel } from '@crabtable/data-validation';
 import { Subject } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import { DataValidationFormulaService } from '../dv-formula.service';

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
-import { CommandType, ICommandService, IUniverInstanceService } from '@univerjs/core';
-import { DataValidationModel } from '@univerjs/data-validation';
-import { getSheetCommandTarget } from '@univerjs/sheets';
-import { ISidebarService } from '@univerjs/ui';
+import type { ICommand } from '@crabtable/core';
+import { CommandType, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { DataValidationModel } from '@crabtable/data-validation';
+import { getSheetCommandTarget } from '@crabtable/sheets';
+import { ISidebarService } from '@crabtable/ui';
 import { DataValidationPanelService } from '../../services/data-validation-panel.service';
 import { DataValidationDropdownManagerService } from '../../services/dropdown-manager.service';
 
@@ -39,9 +39,9 @@ export const OpenValidationPanelOperation: ICommand<IOpenValidationPanelOperatio
         const { ruleId, isAdd } = params;
         const dataValidationPanelService = accessor.get(DataValidationPanelService);
         const dataValidationModel = accessor.get(DataValidationModel);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const sidebarService = accessor.get(ISidebarService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { unitId, subUnitId } = target;

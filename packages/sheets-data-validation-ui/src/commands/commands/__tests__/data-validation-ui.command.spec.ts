@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import { ICommandService, IUniverInstanceService } from '@univerjs/core';
-import { getSheetCommandTarget } from '@univerjs/sheets';
-import { AddSheetDataValidationCommand, createDefaultNewRule } from '@univerjs/sheets-data-validation';
+import type { IAccessor } from '@crabtable/core';
+import { ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { getSheetCommandTarget } from '@crabtable/sheets';
+import { AddSheetDataValidationCommand, createDefaultNewRule } from '@crabtable/sheets-data-validation';
 import { describe, expect, it, vi } from 'vitest';
 import { OpenValidationPanelOperation } from '../../operations/data-validation.operation';
 import { AddSheetDataValidationAndOpenCommand } from '../data-validation-ui.command';
 
-vi.mock('@univerjs/sheets', async (importActual) => {
-    const actual = await importActual<typeof import('@univerjs/sheets')>();
+vi.mock('@crabtable/sheets', async (importActual) => {
+    const actual = await importActual<typeof import('@crabtable/sheets')>();
     return { ...actual, getSheetCommandTarget: vi.fn() };
 });
 
-vi.mock('@univerjs/sheets-data-validation', async (importActual) => {
-    const actual = await importActual<typeof import('@univerjs/sheets-data-validation')>();
+vi.mock('@crabtable/sheets-data-validation', async (importActual) => {
+    const actual = await importActual<typeof import('@crabtable/sheets-data-validation')>();
     return { ...actual, createDefaultNewRule: vi.fn() };
 });
 
@@ -39,7 +39,7 @@ function createAccessor() {
     const commandService = { syncExecuteCommand: vi.fn(() => true) };
     const accessor = {
         get(token: unknown) {
-            if (token === IUniverInstanceService) {
+            if (token === ICrabTableInstanceService) {
                 return {};
             }
 

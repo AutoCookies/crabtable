@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { IRemoveSheetCommandParams } from '@univerjs/sheets';
-import { Disposable, Inject, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { RemoveSheetCommand, SheetInterceptorService } from '@univerjs/sheets';
+import type { Workbook } from '@crabtable/core';
+import type { IRemoveSheetCommandParams } from '@crabtable/sheets';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject } from '@crabtable/core';
+import { RemoveSheetCommand, SheetInterceptorService } from '@crabtable/sheets';
 import { AddHyperLinkMutation } from '../commands/mutations/add-hyper-link.mutation';
 import { RemoveHyperLinkMutation } from '../commands/mutations/remove-hyper-link.mutation';
 import { HyperLinkModel } from '../models/hyper-link.model';
@@ -25,7 +25,7 @@ import { HyperLinkModel } from '../models/hyper-link.model';
 export class SheetsHyperLinkRemoveSheetController extends Disposable {
     constructor(
         @Inject(SheetInterceptorService) private _sheetInterceptorService: SheetInterceptorService,
-        @IUniverInstanceService private _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(HyperLinkModel) private _hyperLinkModel: HyperLinkModel
     ) {
         super();
@@ -38,7 +38,7 @@ export class SheetsHyperLinkRemoveSheetController extends Disposable {
                 getMutations: (commandInfo) => {
                     if (commandInfo.id === RemoveSheetCommand.id) {
                         const params = commandInfo.params as IRemoveSheetCommandParams;
-                        const workbook = params.unitId ? this._univerInstanceService.getUnit<Workbook>(params.unitId) : this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+                        const workbook = params.unitId ? this._crabtableInstanceService.getUnit<Workbook>(params.unitId) : this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
                         if (!workbook) {
                             return { redos: [], undos: [] };
                         }

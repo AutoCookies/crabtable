@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ICellDataForSheetInterceptor, IScale } from '@univerjs/core';
-import type { SpreadsheetSkeleton, UniverRenderingContext } from '@univerjs/engine-render';
-import type { ICellPermission } from '@univerjs/sheets';
-import { Range } from '@univerjs/core';
-import { SheetExtension } from '@univerjs/engine-render';
+import type { ICellDataForSheetInterceptor, IScale } from '@crabtable/core';
+import type { SpreadsheetSkeleton, UniverRenderingContext } from '@crabtable/engine-render';
+import type { ICellPermission } from '@crabtable/sheets';
+import { Range } from '@crabtable/core';
+import { SheetExtension } from '@crabtable/engine-render';
 import { UnitAction } from '@univerjs/protocol';
 import { base64 } from './protect-background-img';
 

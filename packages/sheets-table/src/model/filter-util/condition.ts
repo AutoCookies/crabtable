@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDocumentData, Worksheet } from '@univerjs/core';
+import type { IDocumentData, Worksheet } from '@crabtable/core';
 import type { TableStringCompareTypeEnum } from '../../types/enum';
 import type { ICalculatedOptions, ITableConditionFilterItem, ITableDateFilterInfo, ITableNumberFilterInfo, ITableStringFilterInfo } from '../../types/type';
-import { CellValueType } from '@univerjs/core';
+import { CellValueType } from '@crabtable/core';
 import { TableConditionTypeEnum, TableDateCompareTypeEnum, TableNumberCompareTypeEnum } from '../../types/enum';
 import { getDateFilterExecuteFunc } from './date-filter-util';
 import { getNumberFilterExecuteFunc } from './number-filter-util';

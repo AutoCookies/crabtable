@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { CellValueType, Disposable, Inject, InterceptorEffectEnum, isDefaultFormat, isRealNum } from '@univerjs/core';
-import { stripErrorMargin } from '@univerjs/engine-formula';
+import { CellValueType, Disposable, Inject, InterceptorEffectEnum, isDefaultFormat, isRealNum } from '@crabtable/core';
+import { stripErrorMargin } from '@crabtable/engine-formula';
 import { INTERCEPTOR_POINT } from '../services/sheet-interceptor/interceptor-const';
 import { SheetInterceptorService } from '../services/sheet-interceptor/sheet-interceptor.service';
 

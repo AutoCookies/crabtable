@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IPermissionTypes, IRange, Nullable, Workbook, WorkbookPermissionPointConstructor, Worksheet } from '@univerjs/core';
+import type { IAccessor, IPermissionTypes, IRange, Nullable, Workbook, WorkbookPermissionPointConstructor, Worksheet } from '@crabtable/core';
 import type { Observable } from 'rxjs';
 import type { IEditorBridgeServiceVisibleParam } from '../services/editor-bridge.service';
-import { FOCUSING_COMMON_DRAWINGS, FOCUSING_FX_BAR_EDITOR, FOCUSING_SHAPE_TEXT_EDITOR, IContextService, IPermissionService, IUniverInstanceService, Rectangle, Tools, UniverInstanceType, UserManagerService } from '@univerjs/core';
-import { IExclusiveRangeService, RangeProtectionPermissionEditPoint, RangeProtectionRuleModel, SheetsSelectionsService, WorkbookEditablePermission, WorksheetEditPermission, WorksheetProtectionRuleModel } from '@univerjs/sheets';
+import { CrabTableInstanceType, FOCUSING_COMMON_DRAWINGS, FOCUSING_FX_BAR_EDITOR, FOCUSING_SHAPE_TEXT_EDITOR, IContextService, ICrabTableInstanceService, IPermissionService, Rectangle, Tools, UserManagerService } from '@crabtable/core';
+import { IExclusiveRangeService, RangeProtectionPermissionEditPoint, RangeProtectionRuleModel, SheetsSelectionsService, WorkbookEditablePermission, WorksheetEditPermission, WorksheetProtectionRuleModel } from '@crabtable/sheets';
 import { combineLatest, merge, of } from 'rxjs';
 import { debounceTime, map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 import { IEditorBridgeService } from '../services/editor-bridge.service';
@@ -28,8 +28,8 @@ interface IActive {
     worksheet: Worksheet;
 }
 
-function getActiveSheet$(univerInstanceService: IUniverInstanceService): Observable<Nullable<IActive>> {
-    return univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET).pipe(switchMap((workbook) =>
+function getActiveSheet$(crabtableInstanceService: ICrabTableInstanceService): Observable<Nullable<IActive>> {
+    return crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).pipe(switchMap((workbook) =>
         workbook
             ? workbook.activeSheet$.pipe(map((worksheet) => {
                 if (!worksheet) return null;
@@ -38,8 +38,8 @@ function getActiveSheet$(univerInstanceService: IUniverInstanceService): Observa
             : of(null)));
 }
 
-export function deriveStateFromActiveSheet$<T>(univerInstanceService: IUniverInstanceService, defaultValue: T, callback: (active: IActive) => Observable<T>) {
-    return getActiveSheet$(univerInstanceService).pipe(switchMap((active) => {
+export function deriveStateFromActiveSheet$<T>(crabtableInstanceService: ICrabTableInstanceService, defaultValue: T, callback: (active: IActive) => Observable<T>) {
+    return getActiveSheet$(crabtableInstanceService).pipe(switchMap((active) => {
         if (!active) return of(defaultValue);
         return callback(active);
     }));
@@ -52,10 +52,10 @@ export function deriveStateFromActiveSheet$<T>(univerInstanceService: IUniverIns
  * @returns {Observable<boolean>} The current exclusive range disable status
  */
 export function getCurrentExclusiveRangeInterest$(accessor: IAccessor, disableGroupSet?: Set<string>) {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const exclusiveRangeService = accessor.get(IExclusiveRangeService);
     const selectionManagerService = accessor.get(SheetsSelectionsService);
-    const workbook$ = univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const workbook$ = crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
 
     return workbook$.pipe(
         switchMap((workbook) => {
@@ -100,8 +100,8 @@ export function getObservableWithExclusiveRange$(accessor: IAccessor, observable
 
 // eslint-disable-next-line max-lines-per-function
 export function getCurrentRangeDisable$(accessor: IAccessor, permissionTypes: IPermissionTypes = {}, supportCellEdit = false) {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
-    const workbook$ = univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+    const workbook$ = crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     const userManagerService = accessor.get(UserManagerService);
     const editorBridgeService = accessor.has(IEditorBridgeService) ? accessor.get(IEditorBridgeService) : null;
     const contextService = accessor.get(IContextService);
@@ -203,7 +203,7 @@ export function getCurrentRangeDisable$(accessor: IAccessor, permissionTypes: IP
 }
 
 export function getBaseRangeMenuHidden$(accessor: IAccessor) {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
     const selectionManagerService = accessor.get(SheetsSelectionsService);
     const rangeProtectionRuleModel = accessor.get(RangeProtectionRuleModel);
@@ -214,7 +214,7 @@ export function getBaseRangeMenuHidden$(accessor: IAccessor) {
             const range = selectionManagerService.getCurrentLastSelection()?.range;
             if (!range) return true;
 
-            const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+            const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
             const worksheet = workbook?.getActiveSheet();
             if (!workbook || !worksheet) {
                 return true;
@@ -237,7 +237,7 @@ export function getBaseRangeMenuHidden$(accessor: IAccessor) {
 }
 
 export function getInsertAfterMenuHidden$(accessor: IAccessor, type: 'row' | 'col') {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
     const selectionManagerService = accessor.get(SheetsSelectionsService);
     const rangeProtectionRuleModel = accessor.get(RangeProtectionRuleModel);
@@ -248,7 +248,7 @@ export function getInsertAfterMenuHidden$(accessor: IAccessor, type: 'row' | 'co
             const range = selectionManagerService.getCurrentLastSelection()?.range;
             if (!range) return true;
 
-            const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+            const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
             const worksheet = workbook?.getActiveSheet();
             if (!workbook || !worksheet) {
                 return true;
@@ -279,7 +279,7 @@ export function getInsertAfterMenuHidden$(accessor: IAccessor, type: 'row' | 'co
 }
 
 export function getInsertBeforeMenuHidden$(accessor: IAccessor, type: 'row' | 'col') {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
     const selectionManagerService = accessor.get(SheetsSelectionsService);
     const rangeProtectionRuleModel = accessor.get(RangeProtectionRuleModel);
@@ -290,7 +290,7 @@ export function getInsertBeforeMenuHidden$(accessor: IAccessor, type: 'row' | 'c
             const range = selectionManagerService.getCurrentLastSelection()?.range;
             if (!range) return true;
 
-            const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+            const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
             const worksheet = workbook?.getActiveSheet();
             if (!workbook || !worksheet) {
                 return true;
@@ -321,7 +321,7 @@ export function getInsertBeforeMenuHidden$(accessor: IAccessor, type: 'row' | 'c
 }
 
 export function getDeleteMenuHidden$(accessor: IAccessor, type: 'row' | 'col') {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
     const selectionManagerService = accessor.get(SheetsSelectionsService);
     const rangeProtectionRuleModel = accessor.get(RangeProtectionRuleModel);
@@ -333,7 +333,7 @@ export function getDeleteMenuHidden$(accessor: IAccessor, type: 'row' | 'col') {
             const range = selectionManagerService.getCurrentLastSelection()?.range;
             if (!range) return true;
 
-            const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+            const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
             const worksheet = workbook?.getActiveSheet();
             if (!workbook || !worksheet) {
                 return true;
@@ -366,7 +366,7 @@ export function getDeleteMenuHidden$(accessor: IAccessor, type: 'row' | 'col') {
 }
 
 export function getCellMenuHidden$(accessor: IAccessor, type: 'row' | 'col') {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
     const selectionManagerService = accessor.get(SheetsSelectionsService);
     const rangeProtectionRuleModel = accessor.get(RangeProtectionRuleModel);
@@ -378,7 +378,7 @@ export function getCellMenuHidden$(accessor: IAccessor, type: 'row' | 'col') {
             const range = selectionManagerService.getCurrentLastSelection()?.range;
             if (!range) return true;
 
-            const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+            const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
             const worksheet = workbook?.getActiveSheet();
             if (!workbook || !worksheet) {
                 return true;
@@ -408,8 +408,8 @@ export function getCellMenuHidden$(accessor: IAccessor, type: 'row' | 'col') {
 }
 
 export function getWorkbookPermissionDisable$(accessor: IAccessor, workbookPermissionTypes: WorkbookPermissionPointConstructor[]) {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
-    const workbook$ = univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+    const workbook$ = crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
     const worksheetRuleModel = accessor.get(WorksheetProtectionRuleModel);
     const selectionRuleModel = accessor.get(RangeProtectionRuleModel);
     const permissionService = accessor.get(IPermissionService);

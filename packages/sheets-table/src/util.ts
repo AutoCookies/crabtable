@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ICellData, IDocumentData, IUniverInstanceService, Nullable, Workbook } from '@univerjs/core';
-import type { IDefinedNamesService } from '@univerjs/engine-formula';
+import type { ICellData, ICrabTableInstanceService, IDocumentData, Nullable, Workbook } from '@crabtable/core';
+import type { IDefinedNamesService } from '@crabtable/engine-formula';
 import type { TableManager } from './model/table-manager';
 import type { ITableConditionFilterItem, ITableFilterItem, ITableManualFilterItem } from './types/type';
-import { CellValueType, UniverInstanceType } from '@univerjs/core';
+import { CellValueType, CrabTableInstanceType } from '@crabtable/core';
 import { SheetsTableButtonStateEnum, SheetsTableSortStateEnum, TableColumnFilterTypeEnum } from './types/enum';
 
 export function getColumnName(columnIndex: number, columnText: string): string {
@@ -104,16 +104,16 @@ export function isManualTableFilter(filter: ITableFilterItem | undefined): filte
  * Get existing names including sheet names, table names and defined names to check for duplicates table name.
  */
 export function getExistingNamesSet(unitId: string, options: {
-    univerInstanceService?: IUniverInstanceService;
+    crabtableInstanceService?: ICrabTableInstanceService;
     tableManager?: TableManager;
     definedNamesService?: IDefinedNamesService;
 }): Set<string> {
-    const { univerInstanceService, tableManager, definedNamesService } = options;
+    const { crabtableInstanceService, tableManager, definedNamesService } = options;
     // The set to store existing names, case insensitive
     const existingNamesSet = new Set<string>();
 
     // The table names can't be duplicate with existing sheet names.
-    const workbook = univerInstanceService?.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+    const workbook = crabtableInstanceService?.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
     if (workbook) {
         workbook.getSheets().forEach((sheet) => {
             existingNamesSet.add(sheet.getName().toLowerCase());

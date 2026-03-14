@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { LocaleService } from '@univerjs/core';
-import type { IFunctionInfo, IFunctionParam } from '@univerjs/engine-formula';
-import { FunctionType } from '@univerjs/engine-formula';
+import type { LocaleService } from '@crabtable/core';
+import type { IFunctionInfo, IFunctionParam } from '@crabtable/engine-formula';
+import { FunctionType } from '@crabtable/engine-formula';
 
 export function getFunctionTypeValues(
     localeService: LocaleService,

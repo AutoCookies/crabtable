@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { ISetNumfmtMutationParams } from '@univerjs/sheets';
-import { ICommandService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { SetNumfmtMutation } from '@univerjs/sheets';
-import { SheetsNumfmtCellContentController } from '@univerjs/sheets-numfmt/controllers/numfmt-cell-content.controller.js';
+import type { Workbook } from '@crabtable/core';
+import type { ISetNumfmtMutationParams } from '@crabtable/sheets';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { SetNumfmtMutation } from '@crabtable/sheets';
+import { SheetsNumfmtCellContentController } from '@crabtable/sheets-numfmt/controllers/numfmt-cell-content.controller.js';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createTestBed } from './test.util';
 
 describe('test cell-content', () => {
     let unitId: string = '';
     let subUnitId: string = '';
-    let univerInstanceService: IUniverInstanceService;
+    let crabtableInstanceService: ICrabTableInstanceService;
     let testBed: any;
     let commandService: ICommandService;
     beforeEach(() => {
@@ -33,7 +33,7 @@ describe('test cell-content', () => {
         unitId = testBed.unitId;
         subUnitId = testBed.subUnitId;
         commandService = testBed.get(ICommandService);
-        univerInstanceService = testBed.get(IUniverInstanceService);
+        crabtableInstanceService = testBed.get(ICrabTableInstanceService);
     });
 
     it('Add a new data format to test whether the rendering layer is working correctly', () => {
@@ -51,7 +51,7 @@ describe('test cell-content', () => {
                 },
             },
         };
-        const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet()!;
         testBed.get(SheetsNumfmtCellContentController);
         const value = worksheet.getCell(0, 0);

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Injector } from '@univerjs/core';
+import type { Injector } from '@crabtable/core';
 import type { ComponentType, ReactNode } from 'react';
 import type { ComponentRenderer } from '../../services/parts/parts.service';
 import { createElement, useMemo, useRef } from 'react';

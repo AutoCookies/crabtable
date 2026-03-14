@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IMutationInfo, IRange } from '@univerjs/core';
+import type { IMutationInfo, IRange } from '@crabtable/core';
 import type {
     ICopySheetCommandParams,
     IInsertColMutationParams,
@@ -27,12 +27,12 @@ import type {
     IRemoveSheetCommandParams,
     IReorderRangeMutationParams,
     ISetRangeValuesMutationParams,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import type { IAddConditionalRuleMutationParams } from '../commands/mutations/add-conditional-rule.mutation';
 import type { IDeleteConditionalRuleMutationParams } from '../commands/mutations/delete-conditional-rule.mutation';
 import type { IConditionFormattingRule, IHighlightCell, IRuleModelJson } from '../models/type';
 import type { IDataBarCellData, IDataBarRenderParams, IIconSetCellData, IIconSetRenderParams } from '../render/type';
-import { Disposable, ICommandService, Inject, Injector, IResourceManagerService, isInternalEditorID, IUniverInstanceService, merge, ObjectMatrix, Rectangle, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, Disposable, ICommandService, ICrabTableInstanceService, Inject, Injector, IResourceManagerService, isInternalEditorID, merge, ObjectMatrix, Rectangle } from '@crabtable/core';
 import {
     CopySheetCommand,
     getSheetCommandTarget,
@@ -47,7 +47,7 @@ import {
     ReorderRangeMutation,
     SetRangeValuesMutation,
     SheetInterceptorService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { CFRuleType, SHEET_CONDITIONAL_FORMATTING_PLUGIN } from '../base/const';
 import { AddConditionalRuleMutation, AddConditionalRuleMutationUndoFactory } from '../commands/mutations/add-conditional-rule.mutation';
 import { DeleteConditionalRuleMutation, DeleteConditionalRuleMutationUndoFactory } from '../commands/mutations/delete-conditional-rule.mutation';
@@ -62,7 +62,7 @@ export class ConditionalFormattingService extends Disposable {
     constructor(
         @Inject(ConditionalFormattingRuleModel) private _conditionalFormattingRuleModel: ConditionalFormattingRuleModel,
         @Inject(Injector) private _injector: Injector,
-        @Inject(IUniverInstanceService) private _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(IResourceManagerService) private _resourceManagerService: IResourceManagerService,
         @Inject(SheetInterceptorService) private _sheetInterceptorService: SheetInterceptorService,
         @Inject(ICommandService) private _commandService: ICommandService
@@ -164,7 +164,7 @@ export class ConditionalFormattingService extends Disposable {
         this.disposeWithMe(
             this._resourceManagerService.registerPluginResource<IRuleModelJson[keyof IRuleModelJson]>({
                 pluginName: SHEET_CONDITIONAL_FORMATTING_PLUGIN,
-                businesses: [UniverInstanceType.UNIVER_SHEET],
+                businesses: [CrabTableInstanceType.CRABTABLE_SHEET],
                 toJson: (unitID) => toJson(unitID),
                 parseJson: (json) => parseJson(json),
                 onUnLoad: (unitID) => {
@@ -190,7 +190,7 @@ export class ConditionalFormattingService extends Disposable {
                 getMutations: (commandInfo) => {
                     if (commandInfo.id === RemoveSheetCommand.id) {
                         const params = commandInfo.params as IRemoveSheetCommandParams;
-                        const target = getSheetCommandTarget(this._univerInstanceService, params);
+                        const target = getSheetCommandTarget(this._crabtableInstanceService, params);
                         if (!target) {
                             return { redos: [], undos: [] };
                         }
@@ -224,7 +224,7 @@ export class ConditionalFormattingService extends Disposable {
                         };
                     } else if (commandInfo.id === CopySheetCommand.id) {
                         const params = commandInfo.params as ICopySheetCommandParams & { targetSubUnitId: string };
-                        const target = getSheetCommandTarget(this._univerInstanceService, params);
+                        const target = getSheetCommandTarget(this._crabtableInstanceService, params);
                         if (!target) {
                             return { redos: [], undos: [] };
                         }
@@ -296,7 +296,7 @@ export class ConditionalFormattingService extends Disposable {
                     case InsertColMutation.id:
                     case RemoveColMutation.id: {
                         const params = commandInfo.params as IInsertColMutationParams | IRemoveColMutationParams;
-                        const target = getSheetCommandTarget(this._univerInstanceService, params);
+                        const target = getSheetCommandTarget(this._crabtableInstanceService, params);
                         if (!target) return;
 
                         const { worksheet, unitId, subUnitId } = target;
@@ -315,7 +315,7 @@ export class ConditionalFormattingService extends Disposable {
                     case RemoveRowMutation.id:
                     case InsertRowMutation.id: {
                         const params = commandInfo.params as IRemoveRowsMutationParams | IInsertRowMutationParams;
-                        const target = getSheetCommandTarget(this._univerInstanceService, params);
+                        const target = getSheetCommandTarget(this._crabtableInstanceService, params);
                         if (!target) return;
 
                         const { worksheet, unitId, subUnitId } = target;
@@ -333,7 +333,7 @@ export class ConditionalFormattingService extends Disposable {
                     }
                     case MoveRowsMutation.id: {
                         const params = commandInfo.params as IMoveRowsMutationParams;
-                        const target = getSheetCommandTarget(this._univerInstanceService, params);
+                        const target = getSheetCommandTarget(this._crabtableInstanceService, params);
                         if (!target) return;
 
                         const { worksheet, unitId, subUnitId } = target;
@@ -356,7 +356,7 @@ export class ConditionalFormattingService extends Disposable {
                     }
                     case MoveColsMutation.id: {
                         const params = commandInfo.params as IMoveColumnsMutationParams;
-                        const target = getSheetCommandTarget(this._univerInstanceService, params);
+                        const target = getSheetCommandTarget(this._crabtableInstanceService, params);
                         if (!target) return;
 
                         const { worksheet, unitId, subUnitId } = target;

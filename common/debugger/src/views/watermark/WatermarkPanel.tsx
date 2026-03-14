@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IWatermarkConfig, IWatermarkConfigWithType } from '@univerjs/engine-render';
-import { ILocalStorageService } from '@univerjs/core';
-import { Select } from '@univerjs/design';
-import { IWatermarkTypeEnum, UNIVER_WATERMARK_STORAGE_KEY } from '@univerjs/engine-render';
-import { useDependency, useObservable } from '@univerjs/ui';
-import { WatermarkImageBaseConfig, WatermarkService, WatermarkTextBaseConfig } from '@univerjs/watermark';
+import type { IWatermarkConfig, IWatermarkConfigWithType } from '@crabtable/engine-render';
+import { ILocalStorageService } from '@crabtable/core';
+import { Select } from '@crabtable/design';
+import { IWatermarkTypeEnum, UNIVER_WATERMARK_STORAGE_KEY } from '@crabtable/engine-render';
+import { useDependency, useObservable } from '@crabtable/ui';
+import { WatermarkImageBaseConfig, WatermarkService, WatermarkTextBaseConfig } from '@crabtable/watermark';
 import { useCallback, useEffect, useState } from 'react';
 import { WatermarkImageSetting } from './WatermarkImageSetting';
 import { WatermarkTextSetting } from './WatermarkTextSetting';

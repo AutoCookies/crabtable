@@ -16,18 +16,18 @@
 
 /* eslint-disable max-lines-per-function */
 
-import type { IRange, Workbook } from '@univerjs/core';
-import type { Editor } from '@univerjs/docs-ui';
-import type { ISelectionWithCoord, ISetSelectionsOperationParams } from '@univerjs/sheets';
+import type { IRange, Workbook } from '@crabtable/core';
+import type { Editor } from '@crabtable/docs-ui';
+import type { ISelectionWithCoord, ISetSelectionsOperationParams } from '@crabtable/sheets';
 import type { RefObject } from 'react';
 import type { IRefSelection } from './use-highlight';
-import { DisposableCollection, ICommandService, IUniverInstanceService, Rectangle, ThemeService, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { deserializeRangeWithSheet, generateStringWithSequence, LexerTreeBuilder, sequenceNodeType, serializeRange, serializeRangeWithSheet, serializeRangeWithSpreadsheet } from '@univerjs/engine-formula';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { IRefSelectionsService, SetSelectionsOperation } from '@univerjs/sheets';
-import { SheetSkeletonManagerService } from '@univerjs/sheets-ui';
-import { useDependency, useEvent, useObservable } from '@univerjs/ui';
+import { CrabTableInstanceType, DisposableCollection, ICommandService, ICrabTableInstanceService, Rectangle, ThemeService } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { deserializeRangeWithSheet, generateStringWithSequence, LexerTreeBuilder, sequenceNodeType, serializeRange, serializeRangeWithSheet, serializeRangeWithSpreadsheet } from '@crabtable/engine-formula';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { IRefSelectionsService, SetSelectionsOperation } from '@crabtable/sheets';
+import { SheetSkeletonManagerService } from '@crabtable/sheets-ui';
+import { useDependency, useEvent, useObservable } from '@crabtable/ui';
 import { useEffect, useMemo } from 'react';
 import { merge } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -74,18 +74,18 @@ export const useSheetSelectionChange = (
     handleRangeChange: ((refString: string, offset: number, isEnd: boolean, isModify?: boolean) => void) = noop
 ) => {
     const renderManagerService = useDependency(IRenderManagerService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const commandService = useDependency(ICommandService);
     const docSelectionManagerService = useDependency(DocSelectionManagerService);
     const themeService = useDependency(ThemeService);
     const lexerTreeBuilder = useDependency(LexerTreeBuilder);
 
-    const workbook = univerInstanceService.getUnit<Workbook>(unitId);
-    const getSheetNameById = useEvent((unitId: string, sheetId: string) => univerInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(sheetId)?.getName() ?? '');
+    const workbook = crabtableInstanceService.getUnit<Workbook>(unitId);
+    const getSheetNameById = useEvent((unitId: string, sheetId: string) => crabtableInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(sheetId)?.getName() ?? '');
     const sheetName = useMemo(() => getSheetNameById(unitId, subUnitId), [getSheetNameById, subUnitId, unitId]);
     const activeSheet = useObservable(workbook?.activeSheet$);
     const contextRef = useStateRef({ activeSheet, sheetName });
-    const currentUnit = useObservable(useMemo(() => univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET), [univerInstanceService]));
+    const currentUnit = useObservable(useMemo(() => crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET), [crabtableInstanceService]));
     const render = renderManagerService.getRenderById(currentUnit?.getUnitId() ?? '');
     const refSelectionsRenderService = render?.with(RefSelectionsRenderService);
     const sheetSkeletonManagerService = render?.with(SheetSkeletonManagerService);
@@ -371,11 +371,11 @@ export const useSheetSelectionChange = (
                 refSelectionsRenderService,
                 sheetSkeletonManagerService,
                 themeService,
-                univerInstanceService,
+                crabtableInstanceService,
                 currentWorkbook: currentUnit!,
             });
         });
 
         return () => sub.unsubscribe();
-    }, [docSelectionManagerService.textSelection$, editor, refSelectionRef, refSelectionsRenderService, refSelectionsService, sheetSkeletonManagerService, subUnitId, themeService, unitId, univerInstanceService]);
+    }, [docSelectionManagerService.textSelection$, editor, refSelectionRef, refSelectionsRenderService, refSelectionsService, sheetSkeletonManagerService, subUnitId, themeService, unitId, crabtableInstanceService]);
 };

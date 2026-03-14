@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-import type { IDocumentBody, Injector, IWorkbookData } from '@univerjs/core';
+import type { IDocumentBody, Injector, IWorkbookData } from '@crabtable/core';
 import type { CommentUpdate } from '../../../models/thread-comment.model';
 import type { IThreadComment } from '../../../types/interfaces/i-thread-comment';
 import {
+    CrabTableInstanceType,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     LifecycleService,
     LifecycleStages,
     LocaleType,
-    Univer,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { ThreadCommentModel } from '../../../models/thread-comment.model';
 import { UniverThreadCommentPlugin } from '../../../plugin';
@@ -84,19 +83,19 @@ function createComment(overrides: Partial<IThreadComment> = {}): IThreadComment 
 }
 
 describe('Thread comment commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let threadCommentModel: ThreadCommentModel;
 
     beforeEach(() => {
-        univer = new Univer();
+        univer = new CrabTable();
         univer.registerPlugin(UniverThreadCommentPlugin);
-        univer.createUnit(UniverInstanceType.UNIVER_SHEET, createWorkbookData());
+        univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, createWorkbookData());
 
         const injector = univer.__getInjector();
         get = injector.get.bind(injector);
-        get(IUniverInstanceService).focusUnit('unit-1');
+        get(ICrabTableInstanceService).focusUnit('unit-1');
         get(LifecycleService).stage = LifecycleStages.Rendered;
 
         commandService = get(ICommandService);

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverThreadCommentConfig } from './config/config';
-import { ICommandService, IConfigService, Inject, Injector, merge, mergeOverrideWithDependencies, Plugin, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, ICommandService, IConfigService, Inject, Injector, merge, mergeOverrideWithDependencies, Plugin } from '@crabtable/core';
 import pkg from '../package.json';
 import { AddCommentCommand, DeleteCommentCommand, DeleteCommentTreeCommand, ResolveCommentCommand, UpdateCommentCommand } from './commands/commands/comment.command';
 import { AddCommentMutation, DeleteCommentMutation, ResolveCommentMutation, UpdateCommentMutation, UpdateCommentRefMutation } from './commands/mutations/comment.mutation';
@@ -30,7 +30,7 @@ export class UniverThreadCommentPlugin extends Plugin {
     static override pluginName = TC_PLUGIN_NAME;
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_UNKNOWN;
+    static override type = CrabTableInstanceType.UNIVER_UNKNOWN;
 
     constructor(
         private readonly _config: Partial<IUniverThreadCommentConfig> = defaultPluginConfig,

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IColumnData, IMutation, IObjectArrayPrimitiveType, Nullable, Worksheet } from '@univerjs/core';
-import { CommandType, IUniverInstanceService } from '@univerjs/core';
+import type { IColumnData, IMutation, IObjectArrayPrimitiveType, Nullable, Worksheet } from '@crabtable/core';
+import { CommandType, ICrabTableInstanceService } from '@crabtable/core';
 import { getOldColumnData } from '../../basics/row-column-value';
 import { getSheetCommandTarget } from '../commands/utils/target-util';
 
@@ -54,8 +54,8 @@ export const SetColDataMutation: IMutation<ISetColDataMutationParams> = {
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
         const { columnData } = params;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { worksheet } = target;

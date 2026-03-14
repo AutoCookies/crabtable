@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IFormulaInputProps } from '@univerjs/data-validation';
-import type { IFormulaEditorRef } from '@univerjs/sheets-formula-ui';
-import { borderClassName, clsx, FormLayout } from '@univerjs/design';
-import { FormulaEditor } from '@univerjs/sheets-formula-ui';
-import { useSidebarClick } from '@univerjs/ui';
+import type { IFormulaInputProps } from '@crabtable/data-validation';
+import type { IFormulaEditorRef } from '@crabtable/sheets-formula-ui';
+import { borderClassName, clsx, FormLayout } from '@crabtable/design';
+import { FormulaEditor } from '@crabtable/sheets-formula-ui';
+import { useSidebarClick } from '@crabtable/ui';
 import { useRef, useState } from 'react';
 
 export function CustomFormulaInput(props: IFormulaInputProps) {

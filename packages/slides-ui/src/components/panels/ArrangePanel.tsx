@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import type { Image, Rect, RichText } from '@univerjs/engine-render';
-import { ICommandService, LocaleService } from '@univerjs/core';
-import { Button } from '@univerjs/design';
+import type { Nullable } from '@crabtable/core';
+import type { Image, Rect, RichText } from '@crabtable/engine-render';
+import { ICommandService, LocaleService } from '@crabtable/core';
+import { Button } from '@crabtable/design';
+import { useDependency } from '@crabtable/ui';
 import { BottomIcon, MoveDownIcon, MoveUpIcon, TopmostIcon } from '@univerjs/icons';
-import { useDependency } from '@univerjs/ui';
 import { UpdateSlideElementOperation } from '../../commands/operations/update-element.operation';
 import { CanvasView } from '../../controllers/canvas-view';
 

@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { IPageElement, Nullable } from '@univerjs/core';
+import type { IPageElement, Nullable } from '@crabtable/core';
 import type {
     BaseObject,
     IRenderModule,
-} from '@univerjs/engine-render';
+} from '@crabtable/engine-render';
 import type { PageID } from '../type';
-import { RxDisposable } from '@univerjs/core';
+import { RxDisposable } from '@crabtable/core';
 
 import {
     IRenderManagerService,
-} from '@univerjs/engine-render';
+} from '@crabtable/engine-render';
 import { SlideRenderController } from './slide.render-controller';
 
 export class CanvasView extends RxDisposable implements IRenderModule {

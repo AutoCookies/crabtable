@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IRange, Nullable, Workbook } from '@univerjs/core';
-import type { IFindComplete, IFindMatch, IFindReplaceState } from '@univerjs/find-replace';
-import { Disposable, Inject, Injector, IUniverInstanceService } from '@univerjs/core';
-import { createInitFindReplaceState, FindBy, FindReplaceModel, FindReplaceState, IFindReplaceService } from '@univerjs/find-replace';
-import { FRange } from '@univerjs/sheets/facade';
+import type { IRange, Nullable, Workbook } from '@crabtable/core';
+import type { IFindComplete, IFindMatch, IFindReplaceState } from '@crabtable/find-replace';
+import { Disposable, ICrabTableInstanceService, Inject, Injector } from '@crabtable/core';
+import { createInitFindReplaceState, FindBy, FindReplaceModel, FindReplaceState, IFindReplaceService } from '@crabtable/find-replace';
+import { FRange } from '@crabtable/sheets/facade';
 
 /**
  * @ignore
@@ -32,7 +32,7 @@ export interface IFTextFinder {
      * @example
      * ```typescript
      * // Assume the current sheet is empty sheet.
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:D10');
      * fRange.setValues([
@@ -49,7 +49,7 @@ export interface IFTextFinder {
      * ]);
      *
      * // Create a text-finder to find the text '5'.
-     * const textFinder = await univerAPI.createTextFinderAsync('5');
+     * const textFinder = await crabtableAPI.createTextFinderAsync('5');
      *
      * // Find all cells that contain the text '5'.
      * const matchCells = textFinder.findAll();
@@ -68,7 +68,7 @@ export interface IFTextFinder {
      * @example
      * ```typescript
      * // Assume the current sheet is empty sheet.
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:D10');
      * fRange.setValues([
@@ -85,7 +85,7 @@ export interface IFTextFinder {
      * ]);
      *
      * // Create a text-finder to find the text '5'.
-     * const textFinder = await univerAPI.createTextFinderAsync('5');
+     * const textFinder = await crabtableAPI.createTextFinderAsync('5');
      * console.log(textFinder.getCurrentMatch().getA1Notation()); // current match cell is A5
      *
      * // Find the next matched range
@@ -104,7 +104,7 @@ export interface IFTextFinder {
      * @example
      * ```typescript
      * // Assume the current sheet is empty sheet.
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:D10');
      * fRange.setValues([
@@ -121,7 +121,7 @@ export interface IFTextFinder {
      * ]);
      *
      * // Create a text-finder to find the text '5'.
-     * const textFinder = await univerAPI.createTextFinderAsync('5');
+     * const textFinder = await crabtableAPI.createTextFinderAsync('5');
      * console.log(textFinder.getCurrentMatch().getA1Notation()); // current match cell is A5
      *
      * // Find the previous matched range.
@@ -140,7 +140,7 @@ export interface IFTextFinder {
      * @example
      * ```typescript
      * // Assume the current sheet is empty sheet.
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:D10');
      * fRange.setValues([
@@ -157,7 +157,7 @@ export interface IFTextFinder {
      * ]);
      *
      * // Create a text-finder to find the text '5'.
-     * const textFinder = await univerAPI.createTextFinderAsync('5');
+     * const textFinder = await crabtableAPI.createTextFinderAsync('5');
      *
      * // Get the current matched range.
      * const currentMatch = textFinder.getCurrentMatch();
@@ -174,7 +174,7 @@ export interface IFTextFinder {
      * @example
      * ```typescript
      * // Assume the current sheet is empty sheet.
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:D1');
      * fRange.setValues([
@@ -182,7 +182,7 @@ export interface IFTextFinder {
      * ]);
      *
      * // Create a text-finder to find the text 'univer'.
-     * const textFinder = await univerAPI.createTextFinderAsync('univer');
+     * const textFinder = await crabtableAPI.createTextFinderAsync('univer');
      * let matchCells = textFinder.findAll();
      * matchCells.forEach((cell) => {
      *   console.log(cell.getA1Notation()); // A1, B1, C1, D1
@@ -206,7 +206,7 @@ export interface IFTextFinder {
      * @example
      * ```typescript
      * // Assume the current sheet is empty sheet.
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:D1');
      * fRange.setValues([
@@ -214,7 +214,7 @@ export interface IFTextFinder {
      * ]);
      *
      * // Create a text-finder to find the text 'hello univer'.
-     * const textFinder = await univerAPI.createTextFinderAsync('hello univer');
+     * const textFinder = await crabtableAPI.createTextFinderAsync('hello univer');
      * let matchCells = textFinder.findAll();
      * matchCells.forEach((cell) => {
      *   console.log(cell.getA1Notation()); // A1, B1, C1, D1
@@ -238,7 +238,7 @@ export interface IFTextFinder {
      * @example
      * ```typescript
      * // Assume the current sheet is empty sheet.
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:D1');
      * fRange.setValues([
@@ -246,7 +246,7 @@ export interface IFTextFinder {
      * ]);
      *
      * // Create a text-finder to find the text 'sum'.
-     * const textFinder = await univerAPI.createTextFinderAsync('sum');
+     * const textFinder = await crabtableAPI.createTextFinderAsync('sum');
      * let matchCells = textFinder.findAll();
      * matchCells.forEach((cell) => {
      *   console.log(cell.getA1Notation()); // A1
@@ -271,7 +271,7 @@ export interface IFTextFinder {
      * @example
      * ```typescript
      * // Assume the current sheet is empty sheet.
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:D1');
      * fRange.setValues([
@@ -279,7 +279,7 @@ export interface IFTextFinder {
      * ]);
      *
      * // Create a text-finder to find the text 'hello'.
-     * const textFinder = await univerAPI.createTextFinderAsync('hello');
+     * const textFinder = await crabtableAPI.createTextFinderAsync('hello');
      *
      * // Replace all the matched text with 'hello univer'.
      * const count = await textFinder.replaceAllWithAsync('hello univer');
@@ -298,7 +298,7 @@ export interface IFTextFinder {
      * @example
      * ```typescript
      * // Assume the current sheet is empty sheet.
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('B1:E1');
      * fRange.setValues([
@@ -306,7 +306,7 @@ export interface IFTextFinder {
      * ]);
      *
      * // Create a text-finder to find the text 'hello'.
-     * const textFinder = await univerAPI.createTextFinderAsync('hello');
+     * const textFinder = await crabtableAPI.createTextFinderAsync('hello');
      *
      * // Replace the current matched text with 'hello univer'.
      * const replaced = await textFinder.replaceWithAsync('hello univer');
@@ -322,7 +322,7 @@ export interface IFTextFinder {
      * @example
      * ```typescript
      * // Create a text-finder to find the text '1'.
-     * const textFinder = await univerAPI.createTextFinderAsync('1');
+     * const textFinder = await crabtableAPI.createTextFinderAsync('1');
      *
      * // Find all cells that contain the text '1'.
      * const matchCells = textFinder.findAll();
@@ -330,7 +330,7 @@ export interface IFTextFinder {
      *   console.log(cell.getA1Notation());
      * });
      *
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const sheets = fWorkbook.getSheets();
      *
      * // Change the current sheet to the second sheet.
@@ -358,7 +358,7 @@ export class FTextFinder extends Disposable implements IFTextFinder {
     constructor(
         _initialState: Partial<IFindReplaceState>,
         @Inject(Injector) private readonly _injector: Injector,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IFindReplaceService private readonly _findReplaceService: IFindReplaceService
     ) {
         super();
@@ -470,7 +470,7 @@ export class FTextFinder extends Disposable implements IFTextFinder {
     private _findMatchToFRange(match: IFindMatch): FRange {
         const { unitId } = match;
         const { subUnitId, range } = match.range as { subUnitId: string; range: IRange };
-        const workbook = this._univerInstanceService.getUnit(unitId) as Workbook;
+        const workbook = this._crabtableInstanceService.getUnit(unitId) as Workbook;
         const worksheet = workbook.getSheetBySheetId(subUnitId)!;
         return this._injector.createInstance(FRange, workbook, worksheet, range);
     }

@@ -19,7 +19,7 @@ import { execSync } from 'node:child_process';
 import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
-import { ignoreGlobalCssPlugin, removeClassnameNewlinesPlugin } from '@univerjs-infra/shared/esbuild';
+import { ignoreGlobalCssPlugin, removeClassnameNewlinesPlugin } from '@crabtable-infra/shared/esbuild';
 import detect from 'detect-port';
 import esbuild from 'esbuild';
 import aliasPlugin from 'esbuild-plugin-alias';

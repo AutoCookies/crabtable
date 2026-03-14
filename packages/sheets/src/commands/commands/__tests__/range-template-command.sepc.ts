@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IColorStyle, Injector, Univer, Workbook } from '@univerjs/core';
+import type { IColorStyle, Injector, Workbook } from '@crabtable/core';
 import type { RangeThemeStyle } from '../../../model/range-theme-util';
 import type { ISetStyleCommandParams } from '../set-style.command';
 
-import { ICommandService, IUniverInstanceService, UndoCommand, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, UndoCommand } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SheetRangeThemeModel } from '../../../model/range-theme-model';
 import { SetWorksheetRangeThemeStyleMutation } from '../../mutations/add-worksheet-range-theme.mutation';
@@ -30,7 +30,7 @@ import { createCommandTestBed } from './create-command-test-bed';
 
 // eslint-disable-next-line max-lines-per-function
 describe('Test set worksheet default style commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let defaultTheme: RangeThemeStyle;
@@ -57,7 +57,7 @@ describe('Test set worksheet default style commands', () => {
 
     describe('set worksheet range style', () => {
         it('correct situation', async () => {
-            const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+            const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
             const worksheet = workbook.getSheetBySheetId('sheet1');
             if (!workbook) throw new Error('This is an error');
 
@@ -87,7 +87,7 @@ describe('Test set worksheet default style commands', () => {
         });
 
         it('ensure range theme style can not overwrite cell style', async () => {
-            const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+            const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
             if (!workbook) throw new Error('This is an error');
 
             await commandService.executeCommand(SetStyleCommand.id, {

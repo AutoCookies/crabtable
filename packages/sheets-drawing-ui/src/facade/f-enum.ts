@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { DrawingTypeEnum, ImageSourceType } from '@univerjs/core';
-import { FEnum } from '@univerjs/core/facade';
-import { SheetDrawingAnchorType } from '@univerjs/sheets-drawing';
+import { DrawingTypeEnum, ImageSourceType } from '@crabtable/core';
+import { FEnum } from '@crabtable/core/facade';
+import { SheetDrawingAnchorType } from '@crabtable/sheets-drawing';
 
 /**
  * @ignore
@@ -41,7 +41,7 @@ export class FDrawingEnumMixin extends FEnum implements IFDrawingEnumMixin {
 }
 
 FEnum.extend(FDrawingEnumMixin);
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FEnum extends IFDrawingEnumMixin { }
 }

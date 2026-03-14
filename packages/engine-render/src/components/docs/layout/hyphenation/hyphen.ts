@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Nullable } from '@univerjs/core';
+import type { IDisposable, Nullable } from '@crabtable/core';
 import type { IHyphenPattern, RawHyphenPattern } from './tools';
 import { Lang } from './lang';
 import { EnUs } from './patterns/en-us';

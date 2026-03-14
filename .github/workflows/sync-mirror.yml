@@ -8,13 +8,13 @@ on:
 
 jobs:
     sync:
-        if: github.repository == 'dream-num/univer'
+        if: github.repository == 'AutoCookies/crabtable'
         runs-on: ubuntu-latest
         steps:
             - name: Sync Gitee
               uses: jikkai/sync-gitee@main
               with:
-                  repository: dream-num/univer
+                  repository: AutoCookies/crabtable
                   username: ${{ secrets.GITEE_USERNAME }}
                   password: ${{ secrets.GITEE_PASSWORD }}
                   tags: true

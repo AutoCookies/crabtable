@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { HorizontalAlign, LocaleService, SpacingRule } from '@univerjs/core';
-import { borderClassName, clsx, InputNumber, Select, Tooltip } from '@univerjs/design';
+import { HorizontalAlign, LocaleService, SpacingRule } from '@crabtable/core';
+import { borderClassName, clsx, InputNumber, Select, Tooltip } from '@crabtable/design';
+import { useDependency } from '@crabtable/ui';
 import { AlignTextBothIcon, HorizontallyIcon, LeftJustifyingIcon, RightJustifyingIcon } from '@univerjs/icons';
-import { useDependency } from '@univerjs/ui';
 import { useMemo, useRef } from 'react';
 import {
     useCurrentParagraph,

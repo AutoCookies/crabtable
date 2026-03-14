@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IUniverInstanceService, Nullable, UnitModel, Workbook, Worksheet } from '@univerjs/core';
-import type { IDragEvent, IRender, IRenderManagerService } from '@univerjs/engine-render';
+import type { ICrabTableInstanceService, Nullable, UnitModel, Workbook, Worksheet } from '@crabtable/core';
+import type { IDragEvent, IRender, IRenderManagerService } from '@crabtable/engine-render';
 import type { Observable } from 'rxjs';
 import type { IDragCellPosition } from '../drag-manager.service';
 import { Subject } from 'rxjs';
@@ -29,7 +29,7 @@ vi.mock('../../common/utils', () => ({
     getHoverCellPosition: vi.fn(),
 }));
 
-type DragManagerInstanceServiceStub = Pick<IUniverInstanceService, 'getCurrentTypeOfUnit$' | 'getCurrentUnitForType'>;
+type DragManagerInstanceServiceStub = Pick<ICrabTableInstanceService, 'getCurrentTypeOfUnit$' | 'getCurrentUnitForType'>;
 type DragManagerRenderManagerStub = Pick<IRenderManagerService, 'getRenderById'>;
 
 function createRender() {
@@ -52,7 +52,7 @@ function createRender() {
     };
 }
 
-function createUniverInstanceService(
+function createCrabTableInstanceService(
     currentType$: Subject<unknown>,
     workbook: Workbook | null
 ): DragManagerInstanceServiceStub {
@@ -142,13 +142,13 @@ describe('DragManagerService', () => {
         } as unknown as Workbook;
         const currentType$ = new Subject<unknown>();
 
-        const univerInstanceService = createUniverInstanceService(currentType$, workbook);
+        const crabtableInstanceService = createCrabTableInstanceService(currentType$, workbook);
 
         const render = createRender();
         const renderManagerService = createRenderManagerService(render);
 
         const service = new DragManagerService(
-            univerInstanceService as unknown as IUniverInstanceService,
+            crabtableInstanceService as unknown as ICrabTableInstanceService,
             renderManagerService as unknown as IRenderManagerService
         );
         const currentCells: Array<Nullable<IDragCellPosition>> = [];
@@ -193,10 +193,10 @@ describe('DragManagerService', () => {
 
     it('clears states when workbook becomes unavailable and supports dispose', () => {
         const currentType$ = new Subject<unknown>();
-        const univerInstanceService = createUniverInstanceService(currentType$, null);
+        const crabtableInstanceService = createCrabTableInstanceService(currentType$, null);
         const renderManagerService = createRenderManagerService(createRender());
         const service = new DragManagerService(
-            univerInstanceService as unknown as IUniverInstanceService,
+            crabtableInstanceService as unknown as ICrabTableInstanceService,
             renderManagerService as unknown as IRenderManagerService
         );
         const currentCells: Array<Nullable<IDragCellPosition>> = [];
@@ -227,11 +227,11 @@ describe('DragManagerService', () => {
             getActiveSheet: () => worksheet,
         } as unknown as Workbook;
 
-        const univerInstanceService = createUniverInstanceService(new Subject<unknown>(), workbook);
+        const crabtableInstanceService = createCrabTableInstanceService(new Subject<unknown>(), workbook);
         const renderManagerService = createRenderManagerService(createRender());
 
         const service = new DragManagerService(
-            univerInstanceService as unknown as IUniverInstanceService,
+            crabtableInstanceService as unknown as ICrabTableInstanceService,
             renderManagerService as unknown as IRenderManagerService
         );
         const currentCells: Array<Nullable<IDragCellPosition>> = [];

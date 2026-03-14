@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { IFunctionService } from '../../services/function.service';
 import type { IFormulaRuntimeService } from '../../services/runtime.service';
 import { prefixToken } from '../../basics/token';

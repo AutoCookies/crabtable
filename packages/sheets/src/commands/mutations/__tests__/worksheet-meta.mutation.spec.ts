@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import { IUniverInstanceService } from '@univerjs/core';
+import type { IAccessor } from '@crabtable/core';
+import { ICrabTableInstanceService } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import {
     SetGridlinesColorMutation,
@@ -27,7 +27,7 @@ import { SetWorksheetNameMutation, SetWorksheetNameMutationFactory } from '../se
 function createAccessor(instanceService: unknown): IAccessor {
     return {
         get: (token: unknown) => {
-            if (token === IUniverInstanceService) {
+            if (token === ICrabTableInstanceService) {
                 return instanceService as never;
             }
             return null as never;
@@ -39,7 +39,7 @@ function createAccessor(instanceService: unknown): IAccessor {
 describe('worksheet meta mutations', () => {
     it('SetGridlinesColorUndoMutationFactory should read current sheet and throw on null sheet', () => {
         const goodAccessor = createAccessor({
-            getUniverSheetInstance: vi.fn(() => ({})),
+            getCrabTableSheetInstance: vi.fn(() => ({})),
         });
         expect(
             SetGridlinesColorUndoMutationFactory(goodAccessor, {
@@ -54,7 +54,7 @@ describe('worksheet meta mutations', () => {
         });
 
         const badAccessor = createAccessor({
-            getUniverSheetInstance: vi.fn(() => null),
+            getCrabTableSheetInstance: vi.fn(() => null),
         });
         expect(() =>
             SetGridlinesColorUndoMutationFactory(badAccessor, {
@@ -112,7 +112,7 @@ describe('worksheet meta mutations', () => {
 
         const accessor = createAccessor({
             getUnit: vi.fn(() => workbook),
-            getUniverSheetInstance: vi.fn(() => workbook),
+            getCrabTableSheetInstance: vi.fn(() => workbook),
         });
 
         expect(
@@ -137,7 +137,7 @@ describe('worksheet meta mutations', () => {
         expect(worksheetConfig.hidden).toBe(0);
 
         const noWorkbookAccessor = createAccessor({
-            getUniverSheetInstance: vi.fn(() => null),
+            getCrabTableSheetInstance: vi.fn(() => null),
         });
         expect(
             SetWorksheetHideMutation.handler(noWorkbookAccessor, {
@@ -148,7 +148,7 @@ describe('worksheet meta mutations', () => {
         ).toBe(false);
 
         const noSheetAccessor = createAccessor({
-            getUniverSheetInstance: vi.fn(() => ({
+            getCrabTableSheetInstance: vi.fn(() => ({
                 getSheetBySheetId: vi.fn(() => null),
             })),
         });
@@ -185,7 +185,7 @@ describe('worksheet meta mutations', () => {
 
         const accessor = createAccessor({
             getUnit: vi.fn(() => workbook),
-            getUniverSheetInstance: vi.fn(() => workbook),
+            getCrabTableSheetInstance: vi.fn(() => workbook),
         });
 
         expect(
@@ -210,7 +210,7 @@ describe('worksheet meta mutations', () => {
         expect(worksheetConfig.name).toBe('new-name');
 
         const noWorkbookAccessor = createAccessor({
-            getUniverSheetInstance: vi.fn(() => null),
+            getCrabTableSheetInstance: vi.fn(() => null),
         });
         expect(
             SetWorksheetNameMutation.handler(noWorkbookAccessor, {
@@ -221,7 +221,7 @@ describe('worksheet meta mutations', () => {
         ).toBe(false);
 
         const noSheetAccessor = createAccessor({
-            getUniverSheetInstance: vi.fn(() => ({
+            getCrabTableSheetInstance: vi.fn(() => ({
                 getSheetBySheetId: vi.fn(() => null),
             })),
         });

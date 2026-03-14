@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { HorizontalAlign } from '@univerjs/core';
+import { HorizontalAlign } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { BreakPointType } from '../../../line-breaker/break';
 

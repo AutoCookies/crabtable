@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IOperation } from '@univerjs/core';
-import { CommandType, IUniverInstanceService } from '@univerjs/core';
+import type { IOperation } from '@crabtable/core';
+import { CommandType, ICrabTableInstanceService } from '@crabtable/core';
 
 export interface ISetWorksheetActiveOperationParams {
     unitId: string;
@@ -26,7 +26,7 @@ export const SetWorksheetActiveOperation: IOperation<ISetWorksheetActiveOperatio
     id: 'sheet.operation.set-worksheet-active',
     type: CommandType.OPERATION,
     handler: (accessor, params) => {
-        const workbook = accessor.get(IUniverInstanceService).getUniverSheetInstance(params.unitId);
+        const workbook = accessor.get(ICrabTableInstanceService).getCrabTableSheetInstance(params.unitId);
 
         if (!workbook) return false;
 

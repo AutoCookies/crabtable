@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { ICellWithCoord, IRangeWithCoord, Nullable, ThemeService } from '@univerjs/core';
-import type { IObjectFullState, IRectProps, Scene, SpreadsheetSkeleton } from '@univerjs/engine-render';
-import type { ISelectionStyle, ISelectionWidgetConfig, ISelectionWithCoord } from '@univerjs/sheets';
+import type { ICellWithCoord, IRangeWithCoord, Nullable, ThemeService } from '@crabtable/core';
+import type { IObjectFullState, IRectProps, Scene, SpreadsheetSkeleton } from '@crabtable/engine-render';
+import type { ISelectionStyle, ISelectionWidgetConfig, ISelectionWithCoord } from '@crabtable/sheets';
 import type { ISelectionShapeExtensionOption } from './selection-shape-extension';
-import { ColorKit, Disposable, RANGE_TYPE, toDisposable } from '@univerjs/core';
-import { cancelRequestFrame, DashedRect, FIX_ONE_PIXEL_BLUR_OFFSET, Group, Rect, requestNewFrame, TRANSFORM_CHANGE_OBSERVABLE_TYPE } from '@univerjs/engine-render';
+import { ColorKit, Disposable, RANGE_TYPE, toDisposable } from '@crabtable/core';
+import { cancelRequestFrame, DashedRect, FIX_ONE_PIXEL_BLUR_OFFSET, Group, Rect, requestNewFrame, TRANSFORM_CHANGE_OBSERVABLE_TYPE } from '@crabtable/engine-render';
 import {
     SELECTION_CONTROL_BORDER_BUFFER_COLOR,
     SELECTION_CONTROL_BORDER_BUFFER_WIDTH,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 
 import { BehaviorSubject, Subject } from 'rxjs';
 import { SHEET_COMPONENT_HEADER_SELECTION_LAYER_INDEX, SHEET_COMPONENT_SELECTION_LAYER_INDEX } from '../../common/keys';

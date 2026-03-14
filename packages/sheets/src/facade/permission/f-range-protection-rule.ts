@@ -16,8 +16,8 @@
 
 import type { FRange } from '../f-range';
 import type { IRangeProtectionOptions } from './permission-types';
-import { ICommandService, Inject, Injector } from '@univerjs/core';
-import { DeleteRangeProtectionMutation, RangeProtectionRuleModel, SetRangeProtectionMutation } from '@univerjs/sheets';
+import { ICommandService, Inject, Injector } from '@crabtable/core';
+import { DeleteRangeProtectionMutation, RangeProtectionRuleModel, SetRangeProtectionMutation } from '@crabtable/sheets';
 
 /**
  * Implementation class for range protection rules
@@ -43,7 +43,7 @@ export class FRangeProtectionRule {
      * @returns {string} The unique identifier of this protection rule.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
      * const rules = await permission?.listRangeProtectionRules();
      * const ruleId = rules?.[0]?.id;
@@ -59,7 +59,7 @@ export class FRangeProtectionRule {
      * @returns {FRange[]} Array of protected ranges.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
      * const rules = await permission?.listRangeProtectionRules();
      * const ranges = rules?.[0]?.ranges;
@@ -75,7 +75,7 @@ export class FRangeProtectionRule {
      * @returns {IRangeProtectionOptions} Copy of the protection options.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
      * const rules = await permission?.listRangeProtectionRules();
      * const options = rules?.[0]?.options;
@@ -92,7 +92,7 @@ export class FRangeProtectionRule {
      * @returns {Promise<void>} A promise that resolves when the ranges are updated.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
      * const rules = await permission?.listRangeProtectionRules();
      * const rule = rules?.[0];
@@ -148,7 +148,7 @@ export class FRangeProtectionRule {
      * @returns {Promise<void>} A promise that resolves when the rule is removed.
      * @example
      * ```ts
-     * const worksheet = univerAPI.getActiveWorkbook()?.getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook()?.getActiveSheet();
      * const permission = worksheet?.getWorksheetPermission();
      * const rules = await permission?.listRangeProtectionRules();
      * const rule = rules?.[0];

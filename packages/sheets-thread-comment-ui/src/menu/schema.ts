@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { MenuSchemaType } from '@univerjs/ui';
-import { ToggleSheetCommentPanelOperation } from '@univerjs/thread-comment-ui';
-import { ContextMenuGroup, ContextMenuPosition, RibbonInsertGroup } from '@univerjs/ui';
+import type { MenuSchemaType } from '@crabtable/ui';
+import { ToggleSheetCommentPanelOperation } from '@crabtable/thread-comment-ui';
+import { ContextMenuGroup, ContextMenuPosition, RibbonInsertGroup } from '@crabtable/ui';
 import { ShowAddSheetCommentModalOperation } from '../commands/operations/comment.operation';
 import { threadCommentMenuFactory, threadPanelMenuFactory } from './menu';
 

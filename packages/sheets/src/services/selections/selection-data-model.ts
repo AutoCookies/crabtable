@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { ISelectionCell, Nullable, Workbook } from '@univerjs/core';
+import type { ISelectionCell, Nullable, Workbook } from '@crabtable/core';
 import type { Observable } from 'rxjs';
 import type { ISelectionWithStyle } from '../../basics/selection';
 
-import { Disposable } from '@univerjs/core';
+import { Disposable } from '@crabtable/core';
 import { BehaviorSubject, merge, Subject } from 'rxjs';
 import { SelectionMoveType } from './type';
 
 /**
  * Origin name: WorkbookSelections
- * NOT Same as @univerjs/sheets-ui.SelectionRenderModel, that's data for SelectionControl in rendering.
+ * NOT Same as @crabtable/sheets-ui.SelectionRenderModel, that's data for SelectionControl in rendering.
  */
 export class WorkbookSelectionModel extends Disposable {
     /**

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICommand, IMutationInfo } from '@univerjs/core';
+import type { ICommand, IMutationInfo } from '@crabtable/core';
 import type { ISetSheetTableParams } from '../mutations/set-table-filter.mutation';
-import { CommandType, generateRandomId, ICommandService, IUndoRedoService, sequenceExecute } from '@univerjs/core';
+import { CommandType, generateRandomId, ICommandService, IUndoRedoService, sequenceExecute } from '@crabtable/core';
 import { SetSheetTableFilterMutation } from '../mutations/set-table-filter.mutation';
 
 export const SetSheetTableFilterCommand: ICommand<ISetSheetTableParams> = {

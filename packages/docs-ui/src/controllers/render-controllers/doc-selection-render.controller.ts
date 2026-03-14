@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommandInfo } from '@univerjs/core';
-import type { IMouseEvent, IPointerEvent, IRenderContext, IRenderModule, RenderComponentType } from '@univerjs/engine-render';
+import type { DocumentDataModel, ICommandInfo } from '@crabtable/core';
+import type { IMouseEvent, IPointerEvent, IRenderContext, IRenderModule, RenderComponentType } from '@crabtable/engine-render';
 import type { ISetDocZoomRatioOperationParams } from '../../commands/operations/set-doc-zoom-ratio.operation';
 
-import { Disposable, ICommandService, Inject, isInternalEditorID, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService, DocSkeletonManagerService } from '@univerjs/docs';
-import { CURSOR_TYPE, DocumentEditArea, PageLayoutType, Vector2 } from '@univerjs/engine-render';
+import { CrabTableInstanceType, Disposable, ICommandService, ICrabTableInstanceService, Inject, isInternalEditorID } from '@crabtable/core';
+import { DocSelectionManagerService, DocSkeletonManagerService } from '@crabtable/docs';
+import { CURSOR_TYPE, DocumentEditArea, PageLayoutType, Vector2 } from '@crabtable/engine-render';
 import { neoGetDocObject } from '../../basics/component-tools';
 import { findFirstCursorOffset } from '../../basics/selection';
 import { SetDocZoomRatioOperation } from '../../commands/operations/set-doc-zoom-ratio.operation';
@@ -34,7 +34,7 @@ export class DocSelectionRenderController extends Disposable implements IRenderM
         private readonly _context: IRenderContext<DocumentDataModel>,
         @ICommandService private readonly _commandService: ICommandService,
         @IEditorService private readonly _editorService: IEditorService,
-        @IUniverInstanceService private readonly _instanceSrv: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _instanceSrv: ICrabTableInstanceService,
         @Inject(DocSelectionRenderService) private readonly _docSelectionRenderService: DocSelectionRenderService,
         @Inject(DocSkeletonManagerService) private readonly _docSkeletonManagerService: DocSkeletonManagerService,
         @Inject(DocSelectionManagerService) private readonly _docSelectionManagerService: DocSelectionManagerService
@@ -121,7 +121,7 @@ export class DocSelectionRenderController extends Disposable implements IRenderM
             }
 
             // FIXME:@Jocs: editor status should not be coupled with the instance service.
-            const docDataModel = this._instanceSrv.getCurrentUnitForType(UniverInstanceType.UNIVER_DOC);
+            const docDataModel = this._instanceSrv.getCurrentUnitForType(CrabTableInstanceType.CRABTABLE_DOC);
             if (docDataModel?.getUnitId() !== unitId) {
                 this._instanceSrv.setCurrentUnitForType(unitId);
             }
@@ -156,7 +156,7 @@ export class DocSelectionRenderController extends Disposable implements IRenderM
             if (this._editorService.getEditor(unitId)) {
                 /**
                  * To accommodate focus switching between different editors.
-                 * Since the editor for Univer is canvas-based,
+                 * Since the editor for CrabTable is canvas-based,
                  * it primarily relies on focus and cannot use the focus event.
                  * Our editor's focus monitoring is based on PointerDown.
                  * The order of occurrence is such that PointerDown comes first.

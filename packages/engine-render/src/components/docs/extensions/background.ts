@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IScale } from '@univerjs/core';
+import type { IScale } from '@crabtable/core';
 import type { IDocumentSkeletonGlyph } from '../../../basics/i-document-skeleton-cached';
 
 import type { UniverRenderingContext } from '../../../context';
-import { getColorStyle } from '@univerjs/core';
+import { getColorStyle } from '@crabtable/core';
 import { Vector2 } from '../../../basics/vector2';
 import { DocumentsSpanAndLineExtensionRegistry } from '../../extension';
 import { docExtension } from '../doc-extension';

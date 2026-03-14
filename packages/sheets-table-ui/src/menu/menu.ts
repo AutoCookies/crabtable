@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IAccessor, Workbook } from '@univerjs/core';
-import type { IMenuItem, IMenuSelectorItem } from '@univerjs/ui';
+import type { IAccessor, Workbook } from '@crabtable/core';
+import type { IMenuItem, IMenuSelectorItem } from '@crabtable/ui';
 import type { Observable } from 'rxjs';
-import { IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { SheetsSelectionsService } from '@univerjs/sheets';
-import { SheetsTableController, SheetTableInsertColCommand, SheetTableInsertRowCommand, SheetTableRemoveColCommand, SheetTableRemoveRowCommand } from '@univerjs/sheets-table';
-import { getCurrentRangeDisable$ } from '@univerjs/sheets-ui';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+import { CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
+import { SheetsSelectionsService } from '@crabtable/sheets';
+import { SheetsTableController, SheetTableInsertColCommand, SheetTableInsertRowCommand, SheetTableRemoveColCommand, SheetTableRemoveRowCommand } from '@crabtable/sheets-table';
+import { getCurrentRangeDisable$ } from '@crabtable/sheets-ui';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { of, switchMap } from 'rxjs';
 import { OpenTableSelectorOperation } from '../commands/operations/open-table-selector.operation';
 import { TABLE_TOOLBAR_BUTTON } from '../const';
@@ -36,7 +36,7 @@ export function sheetTableToolbarInsertMenuFactory(accessor: IAccessor): IMenuIt
         icon: TABLE_TOOLBAR_BUTTON,
         tooltip: 'sheets-table.title',
         title: 'sheets-table.title',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         disabled$: getCurrentRangeDisable$(accessor, {}, true),
     };
 }
@@ -97,8 +97,8 @@ export function SheetTableRemoveColMenuFactory(accessor: IAccessor) {
 
 export function getSheetTableRowColOperationHidden$(accessor: IAccessor): Observable<boolean> {
     const sheetsSelectionsService = accessor.get(SheetsSelectionsService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
-    const workbook$ = univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+    const workbook$ = crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
 
     return workbook$.pipe(
         switchMap((workbook) => {
@@ -125,8 +125,8 @@ export function getSheetTableRowColOperationHidden$(accessor: IAccessor): Observ
 
 export function getSheetTableHeaderOperationHidden$(accessor: IAccessor): Observable<boolean> {
     const sheetsSelectionsService = accessor.get(SheetsSelectionsService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
-    const workbook$ = univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+    const workbook$ = crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
 
     return workbook$.pipe(
         switchMap((workbook) => {

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Dependency, SlideDataModel } from '@univerjs/core';
+import type { Dependency, SlideDataModel } from '@crabtable/core';
 import type { IUniverSlidesUIConfig } from './config/config';
-import { IConfigService, Inject, Injector, IUniverInstanceService, merge, mergeOverrideWithDependencies, Plugin, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { CrabTableInstanceType, IConfigService, ICrabTableInstanceService, Inject, Injector, merge, mergeOverrideWithDependencies, Plugin } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import pkg from '../package.json';
 import { defaultPluginConfig, SLIDES_UI_PLUGIN_CONFIG_KEY } from './config/config';
 import { CanvasView } from './controllers/canvas-view';
@@ -32,16 +32,16 @@ import { SlideCanvasPopMangerService } from './services/slide-popup-manager.serv
 import { SlideRenderService } from './services/slide-render.service';
 
 export class UniverSlidesUIPlugin extends Plugin {
-    static override pluginName = 'UNIVER_SLIDES_UI_PLUGIN';
+    static override pluginName = 'CRABTABLE_SLIDES_UI_PLUGIN';
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SLIDE;
+    static override type = CrabTableInstanceType.CRABTABLE_SLIDE;
 
     constructor(
         private readonly _config: Partial<IUniverSlidesUIConfig> = defaultPluginConfig,
         @Inject(Injector) override readonly _injector: Injector,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IConfigService private readonly _configService: IConfigService
     ) {
         super();
@@ -75,7 +75,7 @@ export class UniverSlidesUIPlugin extends Plugin {
 
             [SlideRenderController],
         ] as Dependency[]).forEach((m) => {
-            this.disposeWithMe(this._renderManagerService.registerRenderModule(UniverInstanceType.UNIVER_SLIDE, m));
+            this.disposeWithMe(this._renderManagerService.registerRenderModule(CrabTableInstanceType.CRABTABLE_SLIDE, m));
         });
 
         mergeOverrideWithDependencies([
@@ -106,7 +106,7 @@ export class UniverSlidesUIPlugin extends Plugin {
             [SlideEditingRenderController],
         ] as Dependency[]).forEach((m) => {
             // find all renderMap and register module to each item in renderMap
-            this.disposeWithMe(this._renderManagerService.registerRenderModule(UniverInstanceType.UNIVER_SLIDE, m));
+            this.disposeWithMe(this._renderManagerService.registerRenderModule(CrabTableInstanceType.CRABTABLE_SLIDE, m));
         });
 
         this._markSlideAsFocused();
@@ -119,9 +119,9 @@ export class UniverSlidesUIPlugin extends Plugin {
     }
 
     private _markSlideAsFocused() {
-        const currentService = this._univerInstanceService;
+        const currentService = this._crabtableInstanceService;
         try {
-            const slideDataModel = currentService.getCurrentUnitForType<SlideDataModel>(UniverInstanceType.UNIVER_SLIDE)!;
+            const slideDataModel = currentService.getCurrentUnitForType<SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE)!;
             currentService.focusUnit(slideDataModel.getUnitId());
         } catch (e) {
         }

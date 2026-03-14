@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// import type { IRange } from '@univerjs/core';
+// import type { IRange } from '@crabtable/core';
 
 // // the size of the block
 // const BLOCKSIZE = 10;

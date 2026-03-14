@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, IRange } from '@univerjs/core';
+import type { IAccessor, ICommand, IRange } from '@crabtable/core';
 import type { AUTO_FILL_APPLY_TYPE } from '../../services/auto-fill/type';
 import type { ISetRangeValuesMutationParams } from '../mutations/set-range-values.mutation';
-import { CommandType, ICommandService, IUndoRedoService, IUniverInstanceService, sequenceExecute } from '@univerjs/core';
+import { CommandType, ICommandService, ICrabTableInstanceService, IUndoRedoService, sequenceExecute } from '@crabtable/core';
 import { generateNullCellValue } from '../../basics/utils';
 import { IAutoFillService } from '../../services/auto-fill/auto-fill.service';
 import { SheetsSelectionsService } from '../../services/selections';
@@ -38,7 +38,7 @@ export const AutoFillCommand: ICommand = {
     type: CommandType.COMMAND,
     id: 'sheet.command.auto-fill',
     handler: async (accessor: IAccessor, params: IAutoFillCommandParams) => {
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService), params);
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService), params);
         if (!target) return false;
 
         const { unitId, subUnitId } = target;
@@ -58,7 +58,7 @@ export const AutoClearContentCommand: ICommand = {
     type: CommandType.COMMAND,
     // eslint-disable-next-line max-lines-per-function
     handler: async (accessor: IAccessor, params: IAutoClearContentCommand) => {
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService));
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService));
         if (!target) return false;
 
         const commandService = accessor.get(ICommandService);

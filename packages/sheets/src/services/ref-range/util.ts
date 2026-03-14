@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommandInfo, IMutationInfo, IRange, Nullable } from '@univerjs/core';
+import type { IAccessor, ICommandInfo, IMutationInfo, IRange, Nullable } from '@crabtable/core';
 import type { IInsertColMutationParams, IInsertRowMutationParams, IRemoveColMutationParams, IRemoveRowsMutationParams, IRemoveSheetMutationParams } from '../../basics';
 import type { IDeleteRangeMoveLeftCommandParams } from '../../commands/commands/delete-range-move-left.command';
 import type { IDeleteRangeMoveUpCommandParams } from '../../commands/commands/delete-range-move-up.command';
@@ -44,7 +44,7 @@ import type {
     IRemoveRowColCommand,
     IReorderRangeCommand,
 } from './type';
-import { Direction, IUniverInstanceService, MAX_COLUMN_COUNT, MAX_ROW_COUNT, mergeIntervals, ObjectMatrix, queryObjectMatrix, Range, RANGE_TYPE, Rectangle } from '@univerjs/core';
+import { Direction, ICrabTableInstanceService, MAX_COLUMN_COUNT, MAX_ROW_COUNT, mergeIntervals, ObjectMatrix, queryObjectMatrix, Range, RANGE_TYPE, Rectangle } from '@crabtable/core';
 import { DeleteRangeMoveLeftCommand } from '../../commands/commands/delete-range-move-left.command';
 import { DeleteRangeMoveUpCommand } from '../../commands/commands/delete-range-move-up.command';
 import { InsertRangeMoveDownCommand } from '../../commands/commands/insert-range-move-down.command';
@@ -1519,12 +1519,12 @@ export function getSeparateEffectedRangesOnCommand(accessor: IAccessor, command:
     subUnitId: string;
     ranges: IRange[];
 } | undefined {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
     switch (command.id) {
         case EffectRefRangId.MoveColsCommandId: {
             const params = command.params as IMoveColsCommandParams;
-            const target = getSheetCommandTarget(univerInstanceService, params);
+            const target = getSheetCommandTarget(crabtableInstanceService, params);
             if (!target) return;
 
             const { unitId, subUnitId } = target;
@@ -1545,7 +1545,7 @@ export function getSeparateEffectedRangesOnCommand(accessor: IAccessor, command:
         }
         case EffectRefRangId.MoveRowsCommandId: {
             const params = command.params as IMoveRowsCommandParams;
-            const target = getSheetCommandTarget(univerInstanceService, params);
+            const target = getSheetCommandTarget(crabtableInstanceService, params);
             if (!target) return;
 
             const { unitId, subUnitId } = target;
@@ -1566,7 +1566,7 @@ export function getSeparateEffectedRangesOnCommand(accessor: IAccessor, command:
         }
         case EffectRefRangId.MoveRangeCommandId: {
             const params = command.params as IMoveRangeCommandParams;
-            const target = getSheetCommandTarget(univerInstanceService);
+            const target = getSheetCommandTarget(crabtableInstanceService);
             if (!target) return;
 
             const { unitId, subUnitId } = target;
@@ -1580,7 +1580,7 @@ export function getSeparateEffectedRangesOnCommand(accessor: IAccessor, command:
         }
         case EffectRefRangId.InsertRowCommandId: {
             const params = command.params as IInsertRowCommandParams;
-            const target = getSheetCommandTarget(univerInstanceService, params);
+            const target = getSheetCommandTarget(crabtableInstanceService, params);
             if (!target) return;
 
             const { worksheet, unitId, subUnitId } = target;
@@ -1607,7 +1607,7 @@ export function getSeparateEffectedRangesOnCommand(accessor: IAccessor, command:
         }
         case EffectRefRangId.InsertColCommandId: {
             const params = command.params as IInsertColCommandParams;
-            const target = getSheetCommandTarget(univerInstanceService, params);
+            const target = getSheetCommandTarget(crabtableInstanceService, params);
             if (!target) return;
 
             const { worksheet, unitId, subUnitId } = target;
@@ -1634,7 +1634,7 @@ export function getSeparateEffectedRangesOnCommand(accessor: IAccessor, command:
         }
         case EffectRefRangId.RemoveRowCommandId: {
             const params = command.params as IRemoveRowColCommandParams;
-            const target = getSheetCommandTarget(univerInstanceService);
+            const target = getSheetCommandTarget(crabtableInstanceService);
             if (!target) return;
 
             const { worksheet, unitId, subUnitId } = target;
@@ -1655,7 +1655,7 @@ export function getSeparateEffectedRangesOnCommand(accessor: IAccessor, command:
         }
         case EffectRefRangId.RemoveColCommandId: {
             const params = command.params as IRemoveRowColCommandParams;
-            const target = getSheetCommandTarget(univerInstanceService);
+            const target = getSheetCommandTarget(crabtableInstanceService);
             if (!target) return;
 
             const { worksheet, unitId, subUnitId } = target;
@@ -1677,7 +1677,7 @@ export function getSeparateEffectedRangesOnCommand(accessor: IAccessor, command:
         case EffectRefRangId.DeleteRangeMoveUpCommandId:
         case EffectRefRangId.InsertRangeMoveDownCommandId: {
             const params = command.params as IDeleteRangeMoveUpCommandParams | IInsertRangeMoveDownCommandParams;
-            const target = getSheetCommandTarget(univerInstanceService);
+            const target = getSheetCommandTarget(crabtableInstanceService);
             if (!target) return;
 
             const { worksheet, unitId, subUnitId } = target;
@@ -1699,7 +1699,7 @@ export function getSeparateEffectedRangesOnCommand(accessor: IAccessor, command:
         case EffectRefRangId.DeleteRangeMoveLeftCommandId:
         case EffectRefRangId.InsertRangeMoveRightCommandId: {
             const params = command.params as IDeleteRangeMoveLeftCommandParams | IInsertRangeMoveRightCommandParams;
-            const target = getSheetCommandTarget(univerInstanceService);
+            const target = getSheetCommandTarget(crabtableInstanceService);
             if (!target) return;
 
             const { worksheet, unitId, subUnitId } = target;
@@ -1720,7 +1720,7 @@ export function getSeparateEffectedRangesOnCommand(accessor: IAccessor, command:
         }
         case EffectRefRangId.ReorderRangeCommandId: {
             const params = command.params as IReorderRangeCommandParams;
-            const target = getSheetCommandTarget(univerInstanceService);
+            const target = getSheetCommandTarget(crabtableInstanceService);
             if (!target) return;
 
             const { unitId, subUnitId } = target;

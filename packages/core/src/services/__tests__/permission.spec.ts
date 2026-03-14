@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Univer } from '../../univer';
+import type { CrabTable } from '../../univer';
 import type { IPermissionPoint } from '../permission/type';
 import { UnitAction, UnitObject } from '@univerjs/protocol';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
@@ -36,7 +36,7 @@ class TestPermissionPoint implements IPermissionPoint {
 }
 
 describe('Test permission service', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let permissionService: PermissionService;
 
     beforeEach(() => {

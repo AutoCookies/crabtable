@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IUnitRangeName, Nullable, Workbook } from '@univerjs/core';
-import type { ISelectionWithStyle } from '@univerjs/sheets';
-import { DisposableCollection, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { SheetsSelectionsService } from '@univerjs/sheets';
-import { useDependency, useEvent } from '@univerjs/ui';
+import type { IUnitRangeName, Nullable, Workbook } from '@crabtable/core';
+import type { ISelectionWithStyle } from '@crabtable/sheets';
+import { CrabTableInstanceType, DisposableCollection, ICrabTableInstanceService } from '@crabtable/core';
+import { SheetsSelectionsService } from '@crabtable/sheets';
+import { useDependency, useEvent } from '@crabtable/ui';
 import { useEffect } from 'react';
 
 interface IRangeSelectorSelectionChangeProps {
@@ -32,8 +32,8 @@ interface IRangeSelectorSelectionChangeProps {
 export function useRangeSelectorSelectionChange(opts: IRangeSelectorSelectionChangeProps) {
     const sheetsSelectionsService = useDependency(SheetsSelectionsService);
     const { supportAcrossSheet = false, keepSheetReference = false, unitId, subUnitId, onChange: _onChange } = opts;
-    const univerInstanceService = useDependency(IUniverInstanceService);
-    const workbook = univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
+    const workbook = crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
     const onChange = useEvent(_onChange);
 
     const handleSelectionChange = useEvent((selections: Nullable<ISelectionWithStyle[]>, isStart: boolean) => {

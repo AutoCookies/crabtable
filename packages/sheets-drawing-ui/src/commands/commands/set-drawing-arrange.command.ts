@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, Nullable } from '@univerjs/core';
-import type { IDrawingJsonUndo1, IDrawingOrderMapParam } from '@univerjs/drawing';
+import type { IAccessor, ICommand, Nullable } from '@crabtable/core';
+import type { IDrawingJsonUndo1, IDrawingOrderMapParam } from '@crabtable/drawing';
 import {
     ArrangeTypeEnum,
     CommandType,
     ICommandService,
     IUndoRedoService,
-} from '@univerjs/core';
-import { DrawingApplyType, ISheetDrawingService, SetDrawingApplyMutation } from '@univerjs/sheets-drawing';
+} from '@crabtable/core';
+import { DrawingApplyType, ISheetDrawingService, SetDrawingApplyMutation } from '@crabtable/sheets-drawing';
 
 export interface ISetDrawingArrangeCommandParams extends IDrawingOrderMapParam {
     arrangeType: ArrangeTypeEnum;

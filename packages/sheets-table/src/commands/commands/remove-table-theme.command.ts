@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
-import { CommandType, ICommandService, IUndoRedoService, sequenceExecute } from '@univerjs/core';
-import { AddRangeThemeMutation, RemoveRangeThemeMutation, SheetRangeThemeModel } from '@univerjs/sheets';
+import type { ICommand } from '@crabtable/core';
+import { CommandType, ICommandService, IUndoRedoService, sequenceExecute } from '@crabtable/core';
+import { AddRangeThemeMutation, RemoveRangeThemeMutation, SheetRangeThemeModel } from '@crabtable/sheets';
 import { SHEET_TABLE_CUSTOM_THEME_PREFIX } from '../../const';
 import { TableManager } from '../../model/table-manager';
 import { SetSheetTableMutation } from '../mutations/set-sheet-table.mutation';

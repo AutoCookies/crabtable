@@ -10,15 +10,17 @@ import {
     tailwindcssPreset,
     typescriptPreset,
     univerSourcePreset,
-} from '@univerjs-infra/shared/eslint';
+} from '@crabtable-infra/shared/eslint';
 
 export default antfu(
     {
         ignores: [
             'mockdata/**/*.json',
             'pnpm-lock.yaml',
+            'yarn.lock',
             'examples/src/demos.ts',
             'examples/public',
+            'scripts/**/*.mjs',
         ],
         stylistic: {
             indent: 4,

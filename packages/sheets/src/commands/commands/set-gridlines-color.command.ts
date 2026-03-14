@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
+import type { IAccessor, ICommand } from '@crabtable/core';
 import type { ISetGridlinesColorMutationParams } from '../mutations/set-gridlines-color.mutation';
-import { CommandType, ICommandService, IUndoRedoService, IUniverInstanceService } from '@univerjs/core';
+import { CommandType, ICommandService, ICrabTableInstanceService, IUndoRedoService } from '@crabtable/core';
 import { SetGridlinesColorMutation } from '../mutations/set-gridlines-color.mutation';
 import { getSheetCommandTarget } from './utils/target-util';
 
@@ -32,9 +32,9 @@ export const SetGridlinesColorCommand: ICommand = {
     handler: (accessor: IAccessor, params?: ISetGridlinesColorCommandParams) => {
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { worksheet } = target;

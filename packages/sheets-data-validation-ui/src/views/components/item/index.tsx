@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { ISheetDataValidationRule } from '@univerjs/core';
-import { ColorKit, ICommandService, ThemeService } from '@univerjs/core';
-import { DataValidatorRegistryService } from '@univerjs/data-validation';
-import { clsx } from '@univerjs/design';
-import { serializeRange } from '@univerjs/engine-formula';
+import type { ISheetDataValidationRule } from '@crabtable/core';
+import { ColorKit, ICommandService, ThemeService } from '@crabtable/core';
+import { DataValidatorRegistryService } from '@crabtable/data-validation';
+import { clsx } from '@crabtable/design';
+import { serializeRange } from '@crabtable/engine-formula';
+import { RemoveSheetDataValidationCommand } from '@crabtable/sheets-data-validation';
+import { IMarkSelectionService } from '@crabtable/sheets-ui';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { DeleteIcon } from '@univerjs/icons';
-import { RemoveSheetDataValidationCommand } from '@univerjs/sheets-data-validation';
-import { IMarkSelectionService } from '@univerjs/sheets-ui';
-import { useDependency, useObservable } from '@univerjs/ui';
 import * as React from 'react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 

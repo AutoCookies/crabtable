@@ -16,9 +16,9 @@
 
 /* eslint-disable ts/no-explicit-any */
 
-import { ICommandService, IPermissionService, LocaleService } from '@univerjs/core';
-import { SortRangeCommand, SortType } from '@univerjs/sheets-sort';
-import { SheetsTableSortStateEnum, TableColumnFilterTypeEnum, TableConditionTypeEnum, TableDateCompareTypeEnum, TableManager } from '@univerjs/sheets-table';
+import { ICommandService, IPermissionService, LocaleService } from '@crabtable/core';
+import { SortRangeCommand, SortType } from '@crabtable/sheets-sort';
+import { SheetsTableSortStateEnum, TableColumnFilterTypeEnum, TableConditionTypeEnum, TableDateCompareTypeEnum, TableManager } from '@crabtable/sheets-table';
 import { createElement } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { SheetsTableComponentController } from '../../../controllers/sheet-table-component.controller';
@@ -62,15 +62,15 @@ vi.mock('react', async () => {
     };
 });
 
-vi.mock('@univerjs/ui', async () => {
-    const actual = await vi.importActual<typeof import('@univerjs/ui')>('@univerjs/ui');
+vi.mock('@crabtable/ui', async () => {
+    const actual = await vi.importActual<typeof import('@crabtable/ui')>('@crabtable/ui');
     return {
         ...actual,
         useDependency: mocks.useDependency,
     };
 });
 
-vi.mock('@univerjs/design', () => ({
+vi.mock('@crabtable/design', () => ({
     Button: design.Button,
     ButtonGroup: design.ButtonGroup,
     Segmented: design.Segmented,

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuButtonItem, IMenuItem, MenuSchemaType } from '@univerjs/ui';
-import { CommandType, generateRandomId, ICommandService, Inject, Injector } from '@univerjs/core';
-import { FBase } from '@univerjs/core/facade';
-import { IMenuManagerService, MenuItemType, MenuManagerPosition, RibbonPosition, RibbonStartGroup } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuButtonItem, IMenuItem, MenuSchemaType } from '@crabtable/ui';
+import { CommandType, generateRandomId, ICommandService, Inject, Injector } from '@crabtable/core';
+import { FBase } from '@crabtable/core/facade';
+import { IMenuManagerService, MenuItemType, MenuManagerPosition, RibbonPosition, RibbonStartGroup } from '@crabtable/ui';
 
 /**
  * @ignore
@@ -90,7 +90,7 @@ abstract class FMenuBase extends FBase {
     abstract __getSchema(): { [key: string]: MenuSchemaType };
 
     /**
-     * Append the menu to any menu position on Univer UI.
+     * Append the menu to any menu position on CrabTable UI.
      * @param {string | string[]} path - Some predefined path to append the menu. The paths can be an array,
      * or an array joined by `|` separator. Since lots of submenus reuse the same name,
      * you may need to specify their parent menus as well.
@@ -98,7 +98,7 @@ abstract class FMenuBase extends FBase {
      * @example
      * ```typescript
      * // This menu item will appear on every `contextMenu.others` section.
-     * univerAPI.createMenu({
+     * crabtableAPI.createMenu({
      *   id: 'custom-menu-id-1',
      *   title: 'Custom Menu 1',
      *   action: () => {
@@ -107,7 +107,7 @@ abstract class FMenuBase extends FBase {
      * }).appendTo('contextMenu.others');
      *
      * // This menu item will only appear on the `contextMenu.others` section on the main area.
-     * univerAPI.createMenu({
+     * crabtableAPI.createMenu({
      *   id: 'custom-menu-id-2',
      *   title: 'Custom Menu 2',
      *   action: () => {
@@ -139,8 +139,8 @@ abstract class FMenuBase extends FBase {
 }
 
 /**
- * This is the builder for adding a menu to Univer. You shall never construct this
- * class by yourself. Instead, call `createMenu` of {@link FUniver} to create a instance.
+ * This is the builder for adding a menu to CrabTable. You shall never construct this
+ * class by yourself. Instead, call `createMenu` of {@link FCrabTable} to create a instance.
  *
  * Please notice that until the `appendTo` method is called, the menu item is not added to the UI.
  *
@@ -209,8 +209,8 @@ export class FMenu extends FMenuBase {
 }
 
 /**
- * This is the builder for add a menu that can contains submenus to Univer. You shall
- * never construct this class by yourself. Instead, call `createSubmenu` of {@link FUniver} to
+ * This is the builder for add a menu that can contains submenus to CrabTable. You shall
+ * never construct this class by yourself. Instead, call `createSubmenu` of {@link FCrabTable} to
  * create a instance.
  *
  * Please notice that until the `appendTo` method is called, the menu item is not added to the UI.
@@ -256,14 +256,14 @@ export class FSubmenu extends FMenuBase {
      * @example
      * ```typescript
      * // Create two leaf menus.
-     * const menu1 = univerAPI.createMenu({
+     * const menu1 = crabtableAPI.createMenu({
      *   id: 'submenu-nested-1',
      *   title: 'Item 1',
      *   action: () => {
      *     console.log('Item 1 clicked');
      *   }
      * });
-     * const menu2 = univerAPI.createMenu({
+     * const menu2 = crabtableAPI.createMenu({
      *   id: 'submenu-nested-2',
      *   title: 'Item 2',
      *   action: () => {
@@ -272,13 +272,13 @@ export class FSubmenu extends FMenuBase {
      * });
      *
      * // Add the leaf menus to a submenu.
-     * const submenu = univerAPI.createSubmenu({ id: 'submenu-nested', title: 'Nested Submenu' })
+     * const submenu = crabtableAPI.createSubmenu({ id: 'submenu-nested', title: 'Nested Submenu' })
      *   .addSubmenu(menu1)
      *   .addSeparator()
      *   .addSubmenu(menu2);
      *
      * // Create a root submenu append to the `contextMenu.others` section.
-     * univerAPI.createSubmenu({ id: 'custom-submenu', title: 'Custom Submenu' })
+     * crabtableAPI.createSubmenu({ id: 'custom-submenu', title: 'Custom Submenu' })
      *   .addSubmenu(submenu)
      *   .appendTo('contextMenu.others');
      * ```
@@ -294,14 +294,14 @@ export class FSubmenu extends FMenuBase {
      * @example
      * ```typescript
      * // Create two leaf menus.
-     * const menu1 = univerAPI.createMenu({
+     * const menu1 = crabtableAPI.createMenu({
      *   id: 'submenu-nested-1',
      *   title: 'Item 1',
      *   action: () => {
      *     console.log('Item 1 clicked');
      *   }
      * });
-     * const menu2 = univerAPI.createMenu({
+     * const menu2 = crabtableAPI.createMenu({
      *   id: 'submenu-nested-2',
      *   title: 'Item 2',
      *   action: () => {
@@ -311,7 +311,7 @@ export class FSubmenu extends FMenuBase {
      *
      * // Add the leaf menus to a submenu and add a separator between them.
      * // Append the submenu to the `contextMenu.others` section.
-     * univerAPI.createSubmenu({ id: 'submenu-nested', title: 'Nested Submenu' })
+     * crabtableAPI.createSubmenu({ id: 'submenu-nested', title: 'Nested Submenu' })
      *   .addSubmenu(menu1)
      *   .addSeparator()
      *   .addSubmenu(menu2)

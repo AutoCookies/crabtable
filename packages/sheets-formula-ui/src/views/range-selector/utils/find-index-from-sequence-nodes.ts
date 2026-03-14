@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ISequenceNode } from '@univerjs/engine-formula';
-import { sequenceNodeType } from '@univerjs/engine-formula';
+import type { ISequenceNode } from '@crabtable/engine-formula';
+import { sequenceNodeType } from '@crabtable/engine-formula';
 
 export const findIndexFromSequenceNodes = (sequenceNode: (string | ISequenceNode)[], targetIndex: number, isEqual = true) => {
     let result = -1;

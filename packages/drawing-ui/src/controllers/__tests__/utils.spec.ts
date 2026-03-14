@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { UniverInstanceType } from '@univerjs/core';
-import { getDrawingShapeKeyByDrawingSearch } from '@univerjs/drawing';
-import { DrawingGroupObject, Group } from '@univerjs/engine-render';
+import { CrabTableInstanceType } from '@crabtable/core';
+import { getDrawingShapeKeyByDrawingSearch } from '@crabtable/drawing';
+import { DrawingGroupObject, Group } from '@crabtable/engine-render';
 import { describe, expect, it, vi } from 'vitest';
 import { getCurrentUnitInfo, insertGroupObject } from '../utils';
 
@@ -45,11 +45,11 @@ const { MockGroup } = vi.hoisted(() => {
     };
 });
 
-vi.mock('@univerjs/drawing', () => ({
+vi.mock('@crabtable/drawing', () => ({
     getDrawingShapeKeyByDrawingSearch: vi.fn(({ drawingId }) => `group-${drawingId}`),
 }));
 
-vi.mock('@univerjs/engine-render', () => ({
+vi.mock('@crabtable/engine-render', () => ({
     DRAWING_OBJECT_LAYER_INDEX: 99,
     Group: MockGroup,
     DrawingGroupObject: MockGroup,
@@ -104,16 +104,16 @@ describe('drawing controller utils', () => {
         expect(scene.getObject).toHaveBeenCalled();
 
         const sheet = {
-            type: UniverInstanceType.UNIVER_SHEET,
+            type: CrabTableInstanceType.CRABTABLE_SHEET,
             getUnitId: () => 'workbook-1',
             getActiveSheet: () => ({ getSheetId: () => 'sheet-1' }),
         };
         const doc = {
-            type: UniverInstanceType.UNIVER_DOC,
+            type: CrabTableInstanceType.CRABTABLE_DOC,
             getUnitId: () => 'doc-1',
         };
         const slide = {
-            type: UniverInstanceType.UNIVER_SLIDE,
+            type: CrabTableInstanceType.CRABTABLE_SLIDE,
             getUnitId: () => 'slide-1',
         };
         const currentUniverService = {

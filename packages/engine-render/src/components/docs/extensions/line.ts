@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IScale, ITextDecoration } from '@univerjs/core';
+import type { IScale, ITextDecoration } from '@crabtable/core';
 import type { IDocumentSkeletonGlyph } from '../../../basics/i-document-skeleton-cached';
 
 import type { UniverRenderingContext } from '../../../context';
-import { BaselineOffset, BooleanNumber, getColorStyle, TextDecoration } from '@univerjs/core';
+import { BaselineOffset, BooleanNumber, getColorStyle, TextDecoration } from '@crabtable/core';
 import { COLOR_BLACK_RGB, DEFAULT_OFFSET_SPACING } from '../../../basics/const';
 import { calculateRectRotate } from '../../../basics/draw';
 import { degToRad, getScale } from '../../../basics/tools';

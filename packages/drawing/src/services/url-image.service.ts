@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IDisposable, IURLImageService } from '@univerjs/core';
-import { Disposable, toDisposable } from '@univerjs/core';
+import type { IDisposable, IURLImageService } from '@crabtable/core';
+import { Disposable, toDisposable } from '@crabtable/core';
 
 export class URLImageService extends Disposable implements IURLImageService {
     private _urlImageDownloader: ((url: string) => Promise<string>) | null = null;

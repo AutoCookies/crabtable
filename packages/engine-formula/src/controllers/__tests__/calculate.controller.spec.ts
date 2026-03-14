@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo } from '@univerjs/core';
-import { ObjectMatrix } from '@univerjs/core';
+import type { ICommandInfo } from '@crabtable/core';
+import { ObjectMatrix } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import { SetArrayFormulaDataMutation } from '../../commands/mutations/set-array-formula-data.mutation';

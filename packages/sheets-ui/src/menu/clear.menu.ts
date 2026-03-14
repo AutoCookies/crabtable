@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuButtonItem, IMenuSelectorItem } from '@univerjs/ui';
-import { UniverInstanceType } from '@univerjs/core';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuButtonItem, IMenuSelectorItem } from '@crabtable/ui';
+import { CrabTableInstanceType } from '@crabtable/core';
 import {
     ClearSelectionAllCommand,
     ClearSelectionContentCommand,
@@ -26,8 +26,8 @@ import {
     WorksheetEditPermission,
     WorksheetSetCellStylePermission,
     WorksheetSetCellValuePermission,
-} from '@univerjs/sheets';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { getCurrentRangeDisable$, getObservableWithExclusiveRange$ } from './menu-util';
 
 export const CLEAR_SELECTION_MENU_ID = 'sheet.menu.clear-selection';
@@ -37,7 +37,7 @@ export function ClearSelectionMenuItemFactory(accessor: IAccessor): IMenuSelecto
         type: MenuItemType.SUBITEMS,
         icon: 'ClearFormatDoubleIcon',
         title: 'rightClick.clearSelection',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -52,7 +52,7 @@ export function ClearSelectionContentMenuItemFactory(accessor: IAccessor): IMenu
             worksheetTypes: [WorksheetEditPermission, WorksheetSetCellValuePermission],
             rangeTypes: [RangeProtectionPermissionEditPoint],
         })),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 export function ClearSelectionFormatMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
@@ -66,7 +66,7 @@ export function ClearSelectionFormatMenuItemFactory(accessor: IAccessor): IMenuB
             worksheetTypes: [WorksheetEditPermission, WorksheetSetCellStylePermission],
             rangeTypes: [RangeProtectionPermissionEditPoint],
         }),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 export function ClearSelectionAllMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
@@ -81,6 +81,6 @@ export function ClearSelectionAllMenuItemFactory(accessor: IAccessor): IMenuButt
             worksheetTypes: [WorksheetEditPermission, WorksheetSetCellValuePermission, WorksheetSetCellStylePermission],
             rangeTypes: [RangeProtectionPermissionEditPoint],
         })),
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }

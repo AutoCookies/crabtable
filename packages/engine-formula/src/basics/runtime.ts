@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICellData, IObjectMatrixPrimitiveType, Nullable } from '@univerjs/core';
+import type { ICellData, IObjectMatrixPrimitiveType, Nullable } from '@crabtable/core';
 import type { IArrayFormulaUnitCellType, IRuntimeUnitDataPrimitiveType, IRuntimeUnitDataType } from './common';
 
-import { ObjectMatrix } from '@univerjs/core';
+import { ObjectMatrix } from '@crabtable/core';
 
 export function convertUnitDataToRuntime(unitData: IArrayFormulaUnitCellType) {
     const arrayFormulaCellData: IRuntimeUnitDataType = {};

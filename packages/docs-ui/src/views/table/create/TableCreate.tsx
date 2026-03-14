@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { LocaleService } from '@univerjs/core';
-import { InputNumber } from '@univerjs/design';
-import { useDependency } from '@univerjs/ui';
+import { LocaleService } from '@crabtable/core';
+import { InputNumber } from '@crabtable/design';
+import { useDependency } from '@crabtable/ui';
 
 import { useEffect, useState } from 'react';
 

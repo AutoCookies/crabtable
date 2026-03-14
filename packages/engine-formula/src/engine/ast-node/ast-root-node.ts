@@ -44,7 +44,7 @@ export class AstRootNode extends BaseAstNode {
         // }
         if (node == null) {
             /**
-             * fix: https://github.com/dream-num/univer/issues/1415
+             * fix: https://github.com/AutoCookies/crabtable/issues/1415
              */
             this.setValue(ErrorValueObject.create(ErrorType.VALUE));
         } else {

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { callbackMapFnType, IArrayValueObject } from './base-value-object';
 
-import { isRealNum } from '@univerjs/core';
+import { isRealNum } from '@crabtable/core';
 import { BooleanValue } from '../../basics/common';
 import { ERROR_TYPE_SET, ErrorType } from '../../basics/error-type';
 import { CELL_INVERTED_INDEX_CACHE, DEFAULT_EMPTY_CELL_KEY } from '../../basics/inverted-index-cache';

@@ -17,4 +17,4 @@
 import './global.css';
 
 export type { IUniverDebuggerConfig } from './config/config';
-export { UniverDebuggerPlugin } from './plugin';
+export { CrabTableDebuggerPlugin } from './plugin';

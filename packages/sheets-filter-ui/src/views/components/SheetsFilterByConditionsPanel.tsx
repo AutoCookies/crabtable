@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { ISelectProps } from '@univerjs/design';
+import type { ISelectProps } from '@crabtable/design';
 import type { FilterOperator, IFilterConditionFormParams } from '../../models/conditions';
 import type { ByConditionsModel } from '../../services/sheets-filter-panel.service';
-import { LocaleService } from '@univerjs/core';
-import { borderClassName, clsx, Input, Radio, RadioGroup, Select } from '@univerjs/design';
-import { useDependency, useObservable } from '@univerjs/ui';
+import { LocaleService } from '@crabtable/core';
+import { borderClassName, clsx, Input, Radio, RadioGroup, Select } from '@crabtable/design';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { useCallback, useMemo } from 'react';
 import { FilterConditionItems } from '../../models/conditions';
 

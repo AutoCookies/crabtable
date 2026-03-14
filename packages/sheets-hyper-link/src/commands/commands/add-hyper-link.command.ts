@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { ICellData, ICommand, IDocumentData, IMutationInfo } from '@univerjs/core';
-import type { ISetRangeValuesMutationParams } from '@univerjs/sheets';
+import type { ICellData, ICommand, IDocumentData, IMutationInfo } from '@crabtable/core';
+import type { ISetRangeValuesMutationParams } from '@crabtable/sheets';
 import type { ISheetHyperLink } from '../../types/interfaces/i-hyper-link';
-import { BuildTextUtils, CellValueType, CommandType, CustomRangeType, generateRandomId, ICommandService, IUndoRedoService, IUniverInstanceService, sequenceExecute, TextX, Tools } from '@univerjs/core';
-import { addCustomRangeBySelectionFactory } from '@univerjs/docs';
-import { getSheetCommandTarget, SetRangeValuesMutation, SetRangeValuesUndoMutationFactory, SheetInterceptorService } from '@univerjs/sheets';
+import { BuildTextUtils, CellValueType, CommandType, CustomRangeType, generateRandomId, ICommandService, ICrabTableInstanceService, IUndoRedoService, sequenceExecute, TextX, Tools } from '@crabtable/core';
+import { addCustomRangeBySelectionFactory } from '@crabtable/docs';
+import { getSheetCommandTarget, SetRangeValuesMutation, SetRangeValuesUndoMutationFactory, SheetInterceptorService } from '@crabtable/sheets';
 import { HyperLinkModel } from '../../models/hyper-link.model';
 import { AddHyperLinkMutation } from '../mutations/add-hyper-link.mutation';
 import { RemoveHyperLinkMutation } from '../mutations/remove-hyper-link.mutation';
@@ -42,11 +42,11 @@ export const AddHyperLinkCommand: ICommand<IAddHyperLinkCommandParams> = {
 
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const hyperLinkModel = accessor.get(HyperLinkModel);
         const sheetInterceptorService = accessor.get(SheetInterceptorService);
 
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { unitId, subUnitId, workbook, worksheet } = target;

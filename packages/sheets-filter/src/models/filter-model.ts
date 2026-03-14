@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { CellValue, ICellData, IRange, IStyleData, Nullable, Worksheet } from '@univerjs/core';
+import type { CellValue, ICellData, IRange, IStyleData, Nullable, Worksheet } from '@crabtable/core';
 import type { Observable } from 'rxjs';
 import type { IAutoFilter, IColorFilters, ICustomFilter, ICustomFilters, IFilterColumn, IFilters } from './types';
-import { CellValueType, ColorKit, Disposable, extractPureTextFromCell, mergeSets, Rectangle, Tools } from '@univerjs/core';
-import { COLOR_BLACK_RGB } from '@univerjs/engine-render';
+import { CellValueType, ColorKit, Disposable, extractPureTextFromCell, mergeSets, Rectangle, Tools } from '@crabtable/core';
+import { COLOR_BLACK_RGB } from '@crabtable/engine-render';
 import { BehaviorSubject } from 'rxjs';
 import { ensureNumeric, getCustomFilterFn, isNumericFilterFn, notEquals } from './custom-filters';
 import { CustomFilterOperator, FilterBy } from './types';

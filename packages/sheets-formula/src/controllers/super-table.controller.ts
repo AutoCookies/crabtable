@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, IExecutionOptions, Nullable, Workbook } from '@univerjs/core';
-import type { IFunctionInfo, ISetSuperTableMutationParam, ISetSuperTableMutationSearchParam } from '@univerjs/engine-formula';
+import type { ICommandInfo, IExecutionOptions, Nullable, Workbook } from '@crabtable/core';
+import type { IFunctionInfo, ISetSuperTableMutationParam, ISetSuperTableMutationSearchParam } from '@crabtable/engine-formula';
 import {
+    CrabTableInstanceType,
     Disposable,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     toDisposable,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { FunctionType, ISuperTableService, RemoveSuperTableMutation, serializeRangeWithSheet, SetSuperTableMutation } from '@univerjs/engine-formula';
-import { SetWorksheetActiveOperation } from '@univerjs/sheets';
+} from '@crabtable/core';
+import { FunctionType, ISuperTableService, RemoveSuperTableMutation, serializeRangeWithSheet, SetSuperTableMutation } from '@crabtable/engine-formula';
+import { SetWorksheetActiveOperation } from '@crabtable/sheets';
 
 import { IDescriptionService } from '../services/description.service';
 
@@ -37,7 +37,7 @@ export class SuperTableController extends Disposable {
 
     constructor(
         @IDescriptionService private readonly _descriptionService: IDescriptionService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService,
         @ISuperTableService private readonly _superTableService: ISuperTableService
 
@@ -65,7 +65,7 @@ export class SuperTableController extends Disposable {
 
     private _changeUnitListener() {
         toDisposable(
-            this._univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET).subscribe((workbook) => {
+            this._crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((workbook) => {
                 this._unRegisterDescriptions();
                 if (workbook) {
                     this._registerDescriptions();
@@ -106,7 +106,7 @@ export class SuperTableController extends Disposable {
 
         const { tableName, reference } = param;
         if (!this._descriptionService.hasDescription(tableName)) {
-            const sheetName = this._univerInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(reference.sheetId)?.getName() || '';
+            const sheetName = this._crabtableInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(reference.sheetId)?.getName() || '';
             const refString = serializeRangeWithSheet(sheetName, reference.range);
             this._descriptionService.registerDescriptions([{
                 functionName: tableName,
@@ -147,8 +147,8 @@ export class SuperTableController extends Disposable {
         const { unitId, subUnitId } = params;
 
         const workbook = unitId
-            ? this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET)
-            : this._univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+            ? this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET)
+            : this._crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) return null;
 
         const worksheet = subUnitId
@@ -178,7 +178,7 @@ export class SuperTableController extends Disposable {
         this._preUnitId = unitId;
 
         superTables.forEach((table, tableName) => {
-            const sheetName = this._univerInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(table.sheetId)?.getName() || '';
+            const sheetName = this._crabtableInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(table.sheetId)?.getName() || '';
             const refString = serializeRangeWithSheet(sheetName, table.range);
             if (!this._descriptionService.hasDescription(tableName)) {
                 functionList.push({

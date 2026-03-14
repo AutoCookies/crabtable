@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { IDisposable, Nullable, Workbook } from '@univerjs/core';
-import type { ImageIoService } from '@univerjs/drawing';
-import type { BaseObject, Scene } from '@univerjs/engine-render';
-import type { ISheetFloatDom } from '@univerjs/sheets-drawing';
-import { DrawingTypeEnum, FOCUSING_COMMON_DRAWINGS, ICommandService, IContextService, IImageIoService, Inject, Injector, IUniverInstanceService, LocaleService, RxDisposable, UniverInstanceType } from '@univerjs/core';
-import { MessageType } from '@univerjs/design';
-import { IDrawingManagerService, SetDrawingSelectedOperation } from '@univerjs/drawing';
-import { COMPONENT_IMAGE_POPUP_MENU, ImageCropperObject, ImageResetSizeOperation, OpenImageCropOperation } from '@univerjs/drawing-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { SheetCanvasPopManagerService } from '@univerjs/sheets-ui';
-import { IMessageService } from '@univerjs/ui';
+import type { IDisposable, Nullable, Workbook } from '@crabtable/core';
+import type { ImageIoService } from '@crabtable/drawing';
+import type { BaseObject, Scene } from '@crabtable/engine-render';
+import type { ISheetFloatDom } from '@crabtable/sheets-drawing';
+import { CrabTableInstanceType, DrawingTypeEnum, FOCUSING_COMMON_DRAWINGS, ICommandService, IContextService, ICrabTableInstanceService, IImageIoService, Inject, Injector, LocaleService, RxDisposable } from '@crabtable/core';
+import { MessageType } from '@crabtable/design';
+import { IDrawingManagerService, SetDrawingSelectedOperation } from '@crabtable/drawing';
+import { COMPONENT_IMAGE_POPUP_MENU, ImageCropperObject, ImageResetSizeOperation, OpenImageCropOperation } from '@crabtable/drawing-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { SheetCanvasPopManagerService } from '@crabtable/sheets-ui';
+import { IMessageService } from '@crabtable/ui';
 import { FlipSheetDrawingCommand } from '../commands/commands/flip-drawings.command';
 import { RemoveSheetDrawingCommand } from '../commands/commands/remove-sheet-drawing.command';
 import { EditSheetDrawingOperation } from '../commands/operations/edit-sheet-drawing.operation';
@@ -38,7 +38,7 @@ export class DrawingPopupMenuController extends RxDisposable {
         @IDrawingManagerService private readonly _drawingManagerService: IDrawingManagerService,
         @Inject(SheetCanvasPopManagerService) private readonly _canvasPopManagerService: SheetCanvasPopManagerService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IMessageService private readonly _messageService: IMessageService,
         @IContextService private readonly _contextService: IContextService,
         @IImageIoService private readonly _ioService: ImageIoService,
@@ -50,9 +50,9 @@ export class DrawingPopupMenuController extends RxDisposable {
     }
 
     private _init(): void {
-        this._univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET).subscribe((workbook) => this._create(workbook));
-        this._univerInstanceService.getTypeOfUnitDisposed$<Workbook>(UniverInstanceType.UNIVER_SHEET).subscribe((workbook) => this._dispose(workbook));
-        this._univerInstanceService.getAllUnitsForType<Workbook>(UniverInstanceType.UNIVER_SHEET).forEach((workbook) => this._create(workbook));
+        this._crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((workbook) => this._create(workbook));
+        this._crabtableInstanceService.getTypeOfUnitDisposed$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((workbook) => this._dispose(workbook));
+        this._crabtableInstanceService.getAllUnitsForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).forEach((workbook) => this._create(workbook));
 
         this._setupLoadingStatus();
     }

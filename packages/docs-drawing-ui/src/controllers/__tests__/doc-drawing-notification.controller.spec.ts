@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { RedoCommand, UndoCommand } from '@univerjs/core';
-import { RichTextEditingMutation } from '@univerjs/docs';
+import { RedoCommand, UndoCommand } from '@crabtable/core';
+import { RichTextEditingMutation } from '@crabtable/docs';
 import { describe, expect, it, vi } from 'vitest';
 import { DocDrawingAddRemoveController } from '../doc-drawing-notification.controller';
 

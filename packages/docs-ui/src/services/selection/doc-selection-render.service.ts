@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, Nullable } from '@univerjs/core';
+import type { DocumentDataModel, Nullable } from '@crabtable/core';
 import type {
     Documents,
     Engine,
@@ -30,13 +30,13 @@ import type {
     ISuccinctDocRangeParam,
     ITextRangeWithStyle,
     ITextSelectionStyle,
-} from '@univerjs/engine-render';
+} from '@crabtable/engine-render';
 import type { Subscription } from 'rxjs';
 import type { RectRange } from './rect-range';
-import { DataStreamTreeTokenType, DOC_RANGE_TYPE, ILogService, Inject, IUniverInstanceService, RxDisposable, UniverInstanceType } from '@univerjs/core';
-import { DocSkeletonManagerService } from '@univerjs/docs';
-import { CURSOR_TYPE, getSystemHighlightColor, GlyphType, NORMAL_TEXT_SELECTION_PLUGIN_STYLE, PageLayoutType, ScrollTimer, Vector2 } from '@univerjs/engine-render';
-import { ILayoutService, KeyCode } from '@univerjs/ui';
+import { CrabTableInstanceType, DataStreamTreeTokenType, DOC_RANGE_TYPE, ICrabTableInstanceService, ILogService, Inject, RxDisposable } from '@crabtable/core';
+import { DocSkeletonManagerService } from '@crabtable/docs';
+import { CURSOR_TYPE, getSystemHighlightColor, GlyphType, NORMAL_TEXT_SELECTION_PLUGIN_STYLE, PageLayoutType, ScrollTimer, Vector2 } from '@crabtable/engine-render';
+import { ILayoutService, KeyCode } from '@crabtable/ui';
 import { BehaviorSubject, filter, fromEvent, merge, Subject, takeUntil } from 'rxjs';
 import {
     getCanvasOffsetByEngine,
@@ -149,7 +149,7 @@ export class DocSelectionRenderService extends RxDisposable implements IRenderMo
         private readonly _context: IRenderContext<DocumentDataModel>,
         @ILayoutService private readonly _layoutService: ILayoutService,
         @ILogService private readonly _logService: ILogService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(DocSkeletonManagerService) private readonly _docSkeletonManagerService: DocSkeletonManagerService
     ) {
         super();
@@ -160,7 +160,7 @@ export class DocSelectionRenderService extends RxDisposable implements IRenderMo
     }
 
     private _listenCurrentUnitChange() {
-        this._univerInstanceService.getCurrentTypeOfUnit$<DocumentDataModel>(UniverInstanceType.UNIVER_DOC)
+        this._crabtableInstanceService.getCurrentTypeOfUnit$<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC)
             .pipe(takeUntil(this.dispose$))
             .subscribe((documentModel) => {
                 if (documentModel == null) {
@@ -768,7 +768,7 @@ export class DocSelectionRenderService extends RxDisposable implements IRenderMo
     }
 
     private _ensureHostContainer(): void {
-        // Prefer the Univer root container (often inside a Portal) so focus stays within the modal subtree.
+        // Prefer the CrabTable root container (often inside a Portal) so focus stays within the modal subtree.
         const host = this._layoutService.rootContainerElement;
         if (host?.isConnected) {
             if (this._container.parentElement !== host) {

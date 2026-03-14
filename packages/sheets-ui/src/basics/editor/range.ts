@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import type { Editor, IRichTextEditorProps } from '@univerjs/docs-ui';
+import type { Nullable } from '@crabtable/core';
+import type { Editor, IRichTextEditorProps } from '@crabtable/docs-ui';
 
 export interface IRangeSelectorInstance {
     editor: Nullable<Editor>;

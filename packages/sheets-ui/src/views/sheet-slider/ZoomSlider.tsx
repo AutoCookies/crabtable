@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
+import type { Workbook } from '@crabtable/core';
 import {
+    CrabTableInstanceType,
     DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY,
     ICommandService,
-    IUniverInstanceService,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { SetWorksheetActiveOperation } from '@univerjs/sheets';
-import { Slider, useDependency, useObservable } from '@univerjs/ui';
+    ICrabTableInstanceService,
+} from '@crabtable/core';
+import { SetWorksheetActiveOperation } from '@crabtable/sheets';
+import { Slider, useDependency, useObservable } from '@crabtable/ui';
 import { useCallback, useEffect, useState } from 'react';
 
 import { SetZoomRatioCommand } from '../../commands/commands/set-zoom-ratio.command';
@@ -35,7 +35,7 @@ const ZOOM_MAP = [50, 75, 100, 125, 150, 175, 200, 400];
 
 export function ZoomSlider() {
     const commandService = useDependency(ICommandService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const workbook = useActiveWorkbook();
     const editorBridgeService = useDependency(IEditorBridgeService);
     const visible = useObservable(editorBridgeService.visible$);
@@ -65,7 +65,7 @@ export function ZoomSlider() {
 
     function handleChange(value: number) {
         setZoom(value);
-        const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook?.getActiveSheet();
         if (worksheet == null) {
             return;

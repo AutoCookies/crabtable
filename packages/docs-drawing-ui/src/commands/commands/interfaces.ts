@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { DrawingTypeEnum } from '@univerjs/core';
-import type { IDocDrawing } from '@univerjs/docs-drawing';
+import type { DrawingTypeEnum } from '@crabtable/core';
+import type { IDocDrawing } from '@crabtable/docs-drawing';
 
 export interface IInsertDrawingCommandParams {
     unitId: string;

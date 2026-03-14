@@ -26,8 +26,8 @@ const mocked = vi.hoisted(() => ({
     setColorId: 'set-color',
 }));
 
-vi.mock('@univerjs/core/facade', () => {
-    class FUniver {
+vi.mock('@crabtable/core/facade', () => {
+    class FCrabTable {
         static extend = mocked.extendUniver;
     }
     class FEventName {
@@ -35,12 +35,12 @@ vi.mock('@univerjs/core/facade', () => {
     }
 
     return {
-        FUniver,
+        FCrabTable,
         FEventName,
     };
 });
 
-vi.mock('@univerjs/sheets-crosshair-highlight', () => ({
+vi.mock('@crabtable/sheets-crosshair-highlight', () => ({
     CROSSHAIR_HIGHLIGHT_COLORS: mocked.colors,
     DisableCrosshairHighlightOperation: { id: mocked.disableId },
     EnableCrosshairHighlightOperation: { id: mocked.enableId },

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData } from '@univerjs/core';
-import type { ISuperTable } from '@univerjs/engine-formula';
+import type { Dependency, IWorkbookData } from '@crabtable/core';
+import type { ISuperTable } from '@crabtable/engine-formula';
 import type { ITestBed } from '../../facade/__tests__/create-test-bed';
-import { ICommandService, IUniverInstanceService, LocaleType, UniverInstanceType } from '@univerjs/core';
-import { FunctionType, ISuperTableService, RemoveSuperTableMutation, serializeRangeWithSheet, SetSuperTableMutation, SuperTableService } from '@univerjs/engine-formula';
-import { SetWorksheetActiveOperation } from '@univerjs/sheets';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, LocaleType } from '@crabtable/core';
+import { FunctionType, ISuperTableService, RemoveSuperTableMutation, serializeRangeWithSheet, SetSuperTableMutation, SuperTableService } from '@crabtable/engine-formula';
+import { SetWorksheetActiveOperation } from '@crabtable/sheets';
 import { afterEach, describe, expect, it } from 'vitest';
 
 import { createFacadeTestBed } from '../../facade/__tests__/create-test-bed';
@@ -89,7 +89,7 @@ describe('SuperTableController', () => {
         const injector = testBed.injector;
         const descriptionService = injector.get(IDescriptionService);
         const superTableService = injector.get(ISuperTableService);
-        const univerInstanceService = injector.get(IUniverInstanceService);
+        const crabtableInstanceService = injector.get(ICrabTableInstanceService);
 
         injector.get(SuperTableController);
 
@@ -105,11 +105,11 @@ describe('SuperTableController', () => {
         });
         expect(descriptionService.hasDescription('TABLE_TWO')).toBe(true);
 
-        testBed.univer.createUnit(UniverInstanceType.UNIVER_SHEET, createWorkbookData('secondary'));
-        univerInstanceService.setCurrentUnitForType('test');
+        testBed.univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, createWorkbookData('secondary'));
+        crabtableInstanceService.setCurrentUnitForType('test');
         superTableService.registerTable('secondary', 'TABLE_THREE', createSuperTableReference('sheet1'));
 
-        univerInstanceService.setCurrentUnitForType('secondary');
+        crabtableInstanceService.setCurrentUnitForType('secondary');
 
         expect(descriptionService.hasDescription('TABLE_ONE')).toBe(false);
         expect(descriptionService.hasDescription('TABLE_TWO')).toBe(false);

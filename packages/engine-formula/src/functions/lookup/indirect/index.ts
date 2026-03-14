@@ -17,7 +17,7 @@
 import type { BaseReferenceObject } from '../../../engine/reference-object/base-reference-object';
 import type { ArrayValueObject } from '../../../engine/value-object/array-value-object';
 import type { BaseValueObject } from '../../../engine/value-object/base-value-object';
-import { MAX_COLUMN_COUNT, MAX_ROW_COUNT } from '@univerjs/core';
+import { MAX_COLUMN_COUNT, MAX_ROW_COUNT } from '@crabtable/core';
 import { ErrorType } from '../../../basics/error-type';
 import { regexTestColumn, regexTestRow, regexTestSingeRange } from '../../../basics/regex';
 import { operatorToken } from '../../../basics/token';

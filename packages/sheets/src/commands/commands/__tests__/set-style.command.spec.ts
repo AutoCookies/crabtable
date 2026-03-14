@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import type { IColorStyle, Injector, ITextDecoration, ITextRotation, Univer, Workbook } from '@univerjs/core';
+import type { IColorStyle, Injector, ITextDecoration, ITextRotation, Workbook } from '@crabtable/core';
 import type { ISetStyleCommandParams } from '../set-style.command';
 import {
     BooleanNumber,
+    CrabTableInstanceType,
     FontItalic,
     FontWeight,
     HorizontalAlign,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     RANGE_TYPE,
     RedoCommand,
     UndoCommand,
-    UniverInstanceType,
     VerticalAlign,
     WrapStrategy,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SheetsSelectionsService } from '../../../services/selections/selection.service';
 import { InsertSheetMutation } from '../../mutations/insert-sheet.mutation';
@@ -54,7 +54,7 @@ import {
 import { createCommandTestBed } from './create-command-test-bed';
 
 describe("Test commands used for updating cells' styles", () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
@@ -89,8 +89,8 @@ describe("Test commands used for updating cells' styles", () => {
         const range = { startRow: 1, startColumn: 1, endColumn: 3, endRow: 3, rangeType: RANGE_TYPE.NORMAL };
 
         function getFontColor(row: number, col: number) {
-            return get(IUniverInstanceService)
-                .getUniverSheetInstance('test')!
+            return get(ICrabTableInstanceService)
+                .getCrabTableSheetInstance('test')!
                 .getSheetBySheetId('sheet1')!
                 .getRange(row, col)
                 .getFontColor();
@@ -151,8 +151,8 @@ describe("Test commands used for updating cells' styles", () => {
                 ]);
 
                 function getFontBold(): FontWeight | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(0, 0, 0, 0)
                         .getFontWeight();
@@ -206,8 +206,8 @@ describe("Test commands used for updating cells' styles", () => {
                     endRow: number,
                     endColumn: number
                 ): FontItalic | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(startRow, startColumn, endRow, endColumn)
                         .getFontStyle();
@@ -251,8 +251,8 @@ describe("Test commands used for updating cells' styles", () => {
                 ]);
 
                 function getFontUnderline(): ITextDecoration | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(0, 0, 0, 0)
                         .getUnderline();
@@ -303,8 +303,8 @@ describe("Test commands used for updating cells' styles", () => {
                 ]);
 
                 function getFontThroughLine(): ITextDecoration | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(0, 0, 0, 0)
                         .getStrikeThrough();
@@ -346,8 +346,8 @@ describe("Test commands used for updating cells' styles", () => {
                 ]);
 
                 function getFontSize(): number | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(0, 0, 0, 0)
                         .getFontSize();
@@ -387,8 +387,8 @@ describe("Test commands used for updating cells' styles", () => {
                 ]);
 
                 function getFontFamily(): string | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(0, 0, 0, 0)
                         .getFontFamily();
@@ -437,29 +437,29 @@ describe("Test commands used for updating cells' styles", () => {
                 ]);
 
                 function getFontColor(): string | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(0, 0, 0, 0)
                         .getFontColor();
                 }
                 function getFontThroughLine(): ITextDecoration | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(0, 0, 0, 0)
                         .getStrikeThrough();
                 }
                 function getFontUnderline(): ITextDecoration | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(0, 0, 0, 0)
                         .getUnderline();
                 }
                 function getFontOverline(): ITextDecoration | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(0, 0, 0, 0)
                         .getOverline();
@@ -525,8 +525,8 @@ describe("Test commands used for updating cells' styles", () => {
                 ]);
 
                 function getBackgroundColor(): string | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(0, 0, 0, 0)
                         .getBackground();
@@ -568,8 +568,8 @@ describe("Test commands used for updating cells' styles", () => {
                 ]);
 
                 function getVerticalAlignment(): VerticalAlign | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(0, 0, 0, 0)
                         .getVerticalAlignment();
@@ -611,8 +611,8 @@ describe("Test commands used for updating cells' styles", () => {
                 ]);
 
                 function getHorizontalAlignment(): HorizontalAlign | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(0, 0, 0, 0)
                         .getHorizontalAlignment();
@@ -656,8 +656,8 @@ describe("Test commands used for updating cells' styles", () => {
                 ]);
 
                 function getTextWrap(): BooleanNumber | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(0, 0, 0, 0)
                         .getWrap();
@@ -701,8 +701,8 @@ describe("Test commands used for updating cells' styles", () => {
                 ]);
 
                 function getTextRotation(): ITextRotation | undefined {
-                    return get(IUniverInstanceService)
-                        .getUniverSheetInstance('test')
+                    return get(ICrabTableInstanceService)
+                        .getCrabTableSheetInstance('test')
                         ?.getSheetBySheetId('sheet1')
                         ?.getRange(0, 0, 0, 0)
                         .getTextRotation();
@@ -762,7 +762,7 @@ describe("Test commands used for updating cells' styles", () => {
 
     describe('set style with specific range', () => {
         it('should use the correct unitId and subUnitId when range is provided', async () => {
-            const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+            const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
 
             // Insert a new sheet
             expect(await commandService.executeCommand(InsertSheetCommand.id)).toBeTruthy();

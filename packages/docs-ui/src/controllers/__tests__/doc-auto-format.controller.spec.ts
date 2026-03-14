@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { QuickListTypeMap } from '@univerjs/core';
+import { QuickListTypeMap } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { AfterSpaceCommand, EnterCommand, TabCommand } from '../../commands/commands/auto-format.command';
 import { BreakLineCommand } from '../../commands/commands/break-line.command';

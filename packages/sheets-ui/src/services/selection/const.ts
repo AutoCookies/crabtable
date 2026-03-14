@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ThemeService } from '@univerjs/core';
-import type { Scene, SpreadsheetSkeleton } from '@univerjs/engine-render';
-import type { ISelectionStyle } from '@univerjs/sheets';
-import { ColorKit, createInterceptorKey } from '@univerjs/core';
+import type { ThemeService } from '@crabtable/core';
+import type { Scene, SpreadsheetSkeleton } from '@crabtable/engine-render';
+import type { ISelectionStyle } from '@crabtable/sheets';
+import { ColorKit, createInterceptorKey } from '@crabtable/core';
 
 export const RANGE_MOVE_PERMISSION_CHECK = createInterceptorKey<boolean, null>('rangeMovePermissionCheck');
 export const RANGE_FILL_PERMISSION_CHECK = createInterceptorKey<boolean, { x: number; y: number; skeleton: SpreadsheetSkeleton; scene: Scene }>('rangeFillPermissionCheck');

@@ -15,7 +15,7 @@
  */
 
 import type { Mock } from 'vitest';
-import { DataStreamTreeTokenType, DOC_RANGE_TYPE } from '@univerjs/core';
+import { DataStreamTreeTokenType, DOC_RANGE_TYPE } from '@crabtable/core';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { DocSelectionRenderService } from '../doc-selection-render.service';
 import { TextRange } from '../text-range';

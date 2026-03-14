@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IMutation } from '@univerjs/core';
-import { CommandType, IUniverInstanceService, Tools } from '@univerjs/core';
+import type { IAccessor, IMutation } from '@crabtable/core';
+import { CommandType, ICrabTableInstanceService, Tools } from '@crabtable/core';
 
 export interface ISetTabColorMutationParams {
     color: string;
@@ -27,7 +27,7 @@ export const SetTabColorUndoMutationFactory = (
     accessor: IAccessor,
     params: ISetTabColorMutationParams
 ): ISetTabColorMutationParams => {
-    const workbook = accessor.get(IUniverInstanceService).getUniverSheetInstance(params.unitId);
+    const workbook = accessor.get(ICrabTableInstanceService).getCrabTableSheetInstance(params.unitId);
     const worksheet = workbook!.getSheetBySheetId(params.subUnitId);
     const config = worksheet!.getConfig();
 
@@ -43,7 +43,7 @@ export const SetTabColorMutation: IMutation<ISetTabColorMutationParams> = {
     id: 'sheet.mutation.set-tab-color',
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
-        const workbook = accessor.get(IUniverInstanceService).getUniverSheetInstance(params.unitId);
+        const workbook = accessor.get(ICrabTableInstanceService).getCrabTableSheetInstance(params.unitId);
         if (!workbook) return false;
         const worksheet = workbook.getSheetBySheetId(params.subUnitId);
         if (!worksheet) return false;

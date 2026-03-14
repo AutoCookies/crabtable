@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IUnitRangeName } from '@univerjs/core';
-import type { IShowRangeSelectorDialogOptions } from '@univerjs/sheets-formula-ui';
-import { FUniver } from '@univerjs/core/facade';
-import { GlobalRangeSelectorService } from '@univerjs/sheets-formula-ui';
+import type { IUnitRangeName } from '@crabtable/core';
+import type { IShowRangeSelectorDialogOptions } from '@crabtable/sheets-formula-ui';
+import { FCrabTable } from '@crabtable/core/facade';
+import { GlobalRangeSelectorService } from '@crabtable/sheets-formula-ui';
 
 export interface ISheetsFormulaUIMixin {
     /**
@@ -27,11 +27,11 @@ export interface ISheetsFormulaUIMixin {
      * @returns {Promise<IUnitRangeName[]>} The selected ranges.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const unitId = fWorkbook.getId();
      *
-     * await univerAPI.showRangeSelectorDialog({
+     * await crabtableAPI.showRangeSelectorDialog({
      *   unitId,
      *   subUnitId: fWorksheet.getSheetId(),
      *   initialValue: [{
@@ -51,16 +51,16 @@ export interface ISheetsFormulaUIMixin {
     showRangeSelectorDialog(opts: IShowRangeSelectorDialogOptions): Promise<IUnitRangeName[]>;
 }
 
-export class FSheetsFormulaUIUniver extends FUniver implements ISheetsFormulaUIMixin {
+export class FSheetsFormulaUIUniver extends FCrabTable implements ISheetsFormulaUIMixin {
     override showRangeSelectorDialog(opts: IShowRangeSelectorDialogOptions): Promise<IUnitRangeName[]> {
         const globalRangeSelectorService = this._injector.get(GlobalRangeSelectorService);
         return globalRangeSelectorService.showRangeSelectorDialog(opts);
     }
 }
 
-FUniver.extend(FSheetsFormulaUIUniver);
+FCrabTable.extend(FSheetsFormulaUIUniver);
 
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
-    interface FUniver extends ISheetsFormulaUIMixin { }
+    interface FCrabTable extends ISheetsFormulaUIMixin { }
 }

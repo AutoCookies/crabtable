@@ -14,21 +14,20 @@
  * limitations under the License.
  */
 
-import type { ICommand, IMutationInfo, Workbook } from '@univerjs/core';
-import type { ISetRangeValuesMutationParams, ISetWorksheetColumnCountMutationParams, ISetWorksheetRowCountMutationParams } from '@univerjs/sheets';
+import type { ICommand, IMutationInfo, Workbook } from '@crabtable/core';
+import type { ISetRangeValuesMutationParams, ISetWorksheetColumnCountMutationParams, ISetWorksheetRowCountMutationParams } from '@crabtable/sheets';
 import {
     CommandType,
     covertCellValues,
+    CrabTableInstanceType,
     ICommandService,
+    ICrabTableInstanceService,
     Inject,
     Injector,
     IUndoRedoService,
-    IUniverInstanceService,
     Plugin,
     sequenceExecute,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { FolderIcon } from '@univerjs/icons';
+} from '@crabtable/core';
 import {
     SetRangeValuesMutation,
     SetRangeValuesUndoMutationFactory,
@@ -36,13 +35,14 @@ import {
     SetWorksheetColumnCountUndoMutationFactory,
     SetWorksheetRowCountMutation,
     SetWorksheetRowCountUndoMutationFactory,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import {
     ComponentManager,
     IMenuManagerService,
     MenuItemType,
     RibbonOthersGroup,
-} from '@univerjs/ui';
+} from '@crabtable/ui';
+import { FolderIcon } from '@univerjs/icons';
 
 /**
  * wait user select csv file
@@ -107,8 +107,8 @@ class ImportCSVButtonPlugin extends Plugin {
     }
 
     /**
-     * The first lifecycle of the plugin mounted on the Univer instance,
-     * the Univer business instance has not been created at this time.
+     * The first lifecycle of the plugin mounted on the CrabTable instance,
+     * the CrabTable business instance has not been created at this time.
      * The plugin should add its own module to the dependency injection system at this lifecycle.
      * It is not recommended to initialize the internal module of the plugin outside this lifecycle.
      */
@@ -126,12 +126,12 @@ class ImportCSVButtonPlugin extends Plugin {
             id: buttonId,
             handler: (accessor) => {
                 // inject univer instance service
-                const univerInstanceService = accessor.get(IUniverInstanceService);
+                const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
                 const commandService = accessor.get(ICommandService);
                 const undoRedoService = accessor.get(IUndoRedoService);
 
                 // get current sheet
-                const worksheet = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet();
+                const worksheet = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet();
                 const unitId = worksheet.getUnitId();
                 const subUnitId = worksheet.getSheetId();
 

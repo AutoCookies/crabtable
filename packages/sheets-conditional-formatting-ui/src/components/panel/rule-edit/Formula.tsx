@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { IAverageHighlightCell, IConditionalFormattingRuleConfig, IHighlightCell, IRankHighlightCell } from '@univerjs/sheets-conditional-formatting';
-import type { IFormulaEditorRef } from '@univerjs/sheets-formula-ui';
+import type { Workbook } from '@crabtable/core';
+import type { IAverageHighlightCell, IConditionalFormattingRuleConfig, IHighlightCell, IRankHighlightCell } from '@crabtable/sheets-conditional-formatting';
+import type { IFormulaEditorRef } from '@crabtable/sheets-formula-ui';
 import type { IStyleEditorProps } from './type';
-import { IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
-import { borderClassName, clsx } from '@univerjs/design';
-import { CFRuleType, CFSubRuleType } from '@univerjs/sheets-conditional-formatting';
-import { FormulaEditor } from '@univerjs/sheets-formula-ui';
-import { useDependency, useSidebarClick } from '@univerjs/ui';
+import { CrabTableInstanceType, ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { borderClassName, clsx } from '@crabtable/design';
+import { CFRuleType, CFSubRuleType } from '@crabtable/sheets-conditional-formatting';
+import { FormulaEditor } from '@crabtable/sheets-formula-ui';
+import { useDependency, useSidebarClick } from '@crabtable/ui';
 import { useEffect, useRef, useState } from 'react';
 import { ConditionalStyleEditor } from '../../conditional-style-editor';
 import { Preview } from '../../preview';
@@ -31,8 +31,8 @@ import { previewClassName } from './styles';
 export const FormulaStyleEditor = (props: IStyleEditorProps) => {
     const { onChange, interceptorManager } = props;
     const localeService = useDependency(LocaleService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
-    const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
+    const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
     const worksheet = workbook.getActiveSheet();
 
     const rule = props.rule?.type === CFRuleType.highlightCell ? props.rule : undefined as IRankHighlightCell | IAverageHighlightCell | undefined;

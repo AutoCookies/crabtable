@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { BooleanNumber } from '@univerjs/core';
+import { BooleanNumber } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import { fontLibrary } from '../font-library';
 

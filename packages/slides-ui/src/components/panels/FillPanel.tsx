@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import type { Rect } from '@univerjs/engine-render';
-import { ICommandService, LocaleService } from '@univerjs/core';
-import { borderTopClassName, clsx, ColorPicker, Dropdown } from '@univerjs/design';
+import type { Nullable } from '@crabtable/core';
+import type { Rect } from '@crabtable/engine-render';
+import { ICommandService, LocaleService } from '@crabtable/core';
+import { borderTopClassName, clsx, ColorPicker, Dropdown } from '@crabtable/design';
+import { useDependency } from '@crabtable/ui';
 import { MoreDownIcon, PaintBucketDoubleIcon } from '@univerjs/icons';
-import { useDependency } from '@univerjs/ui';
 import { useState } from 'react';
 import { UpdateSlideElementOperation } from '../../commands/operations/update-element.operation';
 import { CanvasView } from '../../controllers/canvas-view';

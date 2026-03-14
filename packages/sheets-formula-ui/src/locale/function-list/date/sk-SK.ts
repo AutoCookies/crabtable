@@ -29,7 +29,7 @@ const locale: typeof enUS = {
         functionParameter: {
             year: {
                 name: 'rok',
-                detail: 'Hodnota argumentu rok môže obsahovať jednu až štyri číslice. Excel interpretuje argument rok podľa dátumového systému vášho počítača. Predvolene Univer používa dátumový systém 1900, takže prvý dátum je 1. január 1900.',
+                detail: 'Hodnota argumentu rok môže obsahovať jednu až štyri číslice. Excel interpretuje argument rok podľa dátumového systému vášho počítača. Predvolene CrabTable používa dátumový systém 1900, takže prvý dátum je 1. január 1900.',
             },
             month: { name: 'mesiac', detail: 'Kladné alebo záporné celé číslo predstavujúce mesiac roka od 1 do 12 (január až december).' },
             day: { name: 'deň', detail: 'Kladné alebo záporné celé číslo predstavujúce deň v mesiaci od 1 do 31.' },

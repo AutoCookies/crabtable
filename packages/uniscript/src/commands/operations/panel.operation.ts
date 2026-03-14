@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IOperation } from '@univerjs/core';
-import { CommandType } from '@univerjs/core';
-import { ISidebarService } from '@univerjs/ui';
+import type { IAccessor, IOperation } from '@crabtable/core';
+import { CommandType } from '@crabtable/core';
+import { ISidebarService } from '@crabtable/ui';
 
 import { ScriptPanelService } from '../../services/script-panel.service';
 

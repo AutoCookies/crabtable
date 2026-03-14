@@ -16,7 +16,7 @@
 
 /* eslint-disable unused-imports/no-unused-vars */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { IViewportInfo, Vector2 } from '../../basics/vector2';
 import type { UniverRenderingContext } from '../../context';
 import type { ColumnHeaderLayout, IColumnsHeaderCfgParam } from './extensions/column-header-layout';

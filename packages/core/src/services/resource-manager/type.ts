@@ -16,7 +16,7 @@
 
 import type { Observable } from 'rxjs';
 import type { IDisposable } from '../../common/di';
-import type { UniverInstanceType } from '../../common/unit';
+import type { CrabTableInstanceType } from '../../common/unit';
 import { createIdentifier } from '../../common/di';
 
 export type IResources = Array<{ id?: string; name: string; data: string }>;
@@ -25,7 +25,7 @@ type IBusinessName = 'SHEET' | 'DOC';
 export type IResourceName = `${IBusinessName}_${string}_PLUGIN`;
 export interface IResourceHook<T = any> {
     pluginName: IResourceName;
-    businesses: UniverInstanceType[];
+    businesses: CrabTableInstanceType[];
     onLoad: (unitID: string, resource: T) => void;
     onUnLoad: (unitID: string) => void;
     toJson: (unitID: string, model?: T) => string;
@@ -39,10 +39,10 @@ export interface IResourceManagerService {
     disposePluginResource: (pluginName: IResourceName) => void;
     getAllResourceHooks: () => IResourceHook[];
 
-    getResources(unitId: string, type: UniverInstanceType): IResources;
-    getResourcesByType: (unitId: string, type: UniverInstanceType) => IResources;
+    getResources(unitId: string, type: CrabTableInstanceType): IResources;
+    getResourcesByType: (unitId: string, type: CrabTableInstanceType) => IResources;
     loadResources: (unitId: string, resources?: IResources) => void;
-    unloadResources(unitId: string, type: UniverInstanceType): void;
+    unloadResources(unitId: string, type: CrabTableInstanceType): void;
 }
 
 export const IResourceManagerService = createIdentifier<IResourceManagerService>('core.resource-manager.service');

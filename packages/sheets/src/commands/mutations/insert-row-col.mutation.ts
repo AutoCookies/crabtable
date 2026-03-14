@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IMutation } from '@univerjs/core';
+import type { IAccessor, IMutation } from '@crabtable/core';
 import type {
     IInsertColMutationParams,
     IInsertRowMutationParams,
     IRemoveColMutationParams,
     IRemoveRowsMutationParams,
 } from '../../basics/interfaces/mutation-interface';
-import { CommandType, IUniverInstanceService } from '@univerjs/core';
+import { CommandType, ICrabTableInstanceService } from '@crabtable/core';
 import { getSheetMutationTarget } from '../commands/utils/target-util';
 
 export const InsertRowMutationUndoFactory = (
     accessor: IAccessor,
     params: IInsertRowMutationParams
 ): IRemoveRowsMutationParams => {
-    const target = getSheetMutationTarget(accessor.get(IUniverInstanceService), params);
+    const target = getSheetMutationTarget(accessor.get(ICrabTableInstanceService), params);
     if (!target) {
         throw new Error('Workbook or Worksheet not found at InsertRowMutationUndoFactory');
     }
@@ -44,7 +44,7 @@ export const InsertRowMutation: IMutation<IInsertRowMutationParams> = {
     id: 'sheet.mutation.insert-row',
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
-        const target = getSheetMutationTarget(accessor.get(IUniverInstanceService), params);
+        const target = getSheetMutationTarget(accessor.get(ICrabTableInstanceService), params);
         if (!target) {
             throw new Error('Workbook or Worksheet not found at InsertRowMutation');
         }
@@ -73,7 +73,7 @@ export const InsertColMutationUndoFactory = (
     accessor: IAccessor,
     params: IInsertColMutationParams
 ): IRemoveColMutationParams => {
-    const target = getSheetMutationTarget(accessor.get(IUniverInstanceService), params);
+    const target = getSheetMutationTarget(accessor.get(ICrabTableInstanceService), params);
     if (!target) {
         throw new Error('Workbook or Worksheet not found at InsertColMutationUndoFactory');
     }
@@ -89,7 +89,7 @@ export const InsertColMutation: IMutation<IInsertColMutationParams> = {
     id: 'sheet.mutation.insert-col',
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
-        const target = getSheetMutationTarget(accessor.get(IUniverInstanceService), params);
+        const target = getSheetMutationTarget(accessor.get(ICrabTableInstanceService), params);
         if (!target) {
             throw new Error('Workbook or Worksheet not found at InsertColMutation');
         };

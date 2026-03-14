@@ -17,11 +17,11 @@
 // Facade API here are part of packages/facade/src/apis/everything.ts
 // However some plugins are implemented incorrectly, so they are not included here.
 
-import '@univerjs/sheets/facade';
-import '@univerjs/sheets-data-validation/facade';
-import '@univerjs/engine-formula/facade';
-import '@univerjs/sheets-filter/facade';
-import '@univerjs/sheets-formula/facade';
-import '@univerjs/sheets-numfmt/facade';
-import '@univerjs/sheets-hyper-link/facade';
-import '@univerjs/sheets-thread-comment/facade';
+import '@crabtable/sheets/facade';
+import '@crabtable/sheets-data-validation/facade';
+import '@crabtable/engine-formula/facade';
+import '@crabtable/sheets-filter/facade';
+import '@crabtable/sheets-formula/facade';
+import '@crabtable/sheets-numfmt/facade';
+import '@crabtable/sheets-hyper-link/facade';
+import '@crabtable/sheets-thread-comment/facade';

@@ -25,7 +25,7 @@ import type {
     IStyleData,
     IWorksheetData,
     Nullable,
-} from '@univerjs/core';
+} from '@crabtable/core';
 
 /** Params of `RemoveSheetMutation` */
 export interface IRemoveSheetMutationParams {

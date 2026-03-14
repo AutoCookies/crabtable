@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, IRange, IUniverInstanceService } from '@univerjs/core';
+import type { ICommandInfo, ICrabTableInstanceService, IRange } from '@crabtable/core';
 import type { IMoveRangeMutationParams } from '../../commands/mutations/move-range.mutation';
 import type { IMoveColumnsMutationParams, IMoveRowsMutationParams } from '../../commands/mutations/move-rows-cols.mutation';
 import type { IReorderRangeMutationParams } from '../../commands/mutations/reorder-range.mutation';
@@ -34,7 +34,7 @@ import type {
 import type { IToggleGridlinesMutationParams } from '../../commands/mutations/toggle-gridlines.mutation';
 import type { ISetWorksheetActiveOperationParams } from '../../commands/operations/set-worksheet-active.operation';
 import type { IAddWorksheetMergeMutationParams, IInsertColMutationParams, IInsertRowMutationParams, IRemoveColMutationParams, IRemoveRowsMutationParams, IRemoveWorksheetMergeMutationParams, IWorksheetRangeThemeStyleMutationParams } from '../interfaces';
-import { ObjectMatrix, RANGE_TYPE } from '@univerjs/core';
+import { ObjectMatrix, RANGE_TYPE } from '@crabtable/core';
 import { getSheetCommandTarget } from '../../commands/commands/utils/target-util';
 import { AddWorksheetMergeMutation } from '../../commands/mutations/add-worksheet-merge.mutation';
 import { SetWorksheetRangeThemeStyleMutation } from '../../commands/mutations/add-worksheet-range-theme.mutation';
@@ -253,7 +253,7 @@ export type CommandListenerValueChange =
     };
 
 // eslint-disable-next-line max-lines-per-function
-export function getValueChangedEffectedRange(univerInstanceService: IUniverInstanceService, commandInfo: ICommandInfo): { unitId: string; subUnitId: string; range: IRange }[] {
+export function getValueChangedEffectedRange(crabtableInstanceService: ICrabTableInstanceService, commandInfo: ICommandInfo): { unitId: string; subUnitId: string; range: IRange }[] {
     switch (commandInfo.id) {
         case SheetValueChangeType.SET_RANGE_VALUES: {
             const params = commandInfo.params as ISetRangeValuesMutationParams;
@@ -309,7 +309,7 @@ export function getValueChangedEffectedRange(univerInstanceService: IUniverInsta
         }
 
         case SheetValueChangeType.SET_WORKSHEET_DEFAULT_STYLE: {
-            const target = getSheetCommandTarget(univerInstanceService, commandInfo.params as ISetWorksheetDefaultStyleMutationParams);
+            const target = getSheetCommandTarget(crabtableInstanceService, commandInfo.params as ISetWorksheetDefaultStyleMutationParams);
             if (!target) return [];
 
             const { worksheet, unitId, subUnitId } = target;
@@ -327,7 +327,7 @@ export function getValueChangedEffectedRange(univerInstanceService: IUniverInsta
         }
 
         case SheetValueChangeType.SET_ROW_DATA: {
-            const target = getSheetCommandTarget(univerInstanceService, commandInfo.params as ISetRowDataMutationParams);
+            const target = getSheetCommandTarget(crabtableInstanceService, commandInfo.params as ISetRowDataMutationParams);
             if (!target) return [];
 
             const { worksheet, unitId, subUnitId } = target;
@@ -348,7 +348,7 @@ export function getValueChangedEffectedRange(univerInstanceService: IUniverInsta
         }
 
         case SheetValueChangeType.SET_COL_DATA: {
-            const target = getSheetCommandTarget(univerInstanceService, commandInfo.params as ISetColDataMutationParams);
+            const target = getSheetCommandTarget(crabtableInstanceService, commandInfo.params as ISetColDataMutationParams);
             if (!target) return [];
 
             const { worksheet, unitId, subUnitId } = target;

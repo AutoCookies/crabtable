@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IPaddingData, Nullable } from '@univerjs/core';
+import type { IPaddingData, Nullable } from '@crabtable/core';
 
 import type { Scene } from './scene';
 import type { Viewport } from './viewport';

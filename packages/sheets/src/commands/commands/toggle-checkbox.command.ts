@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICommand, IMutationInfo, Workbook } from '@univerjs/core';
+import type { ICommand, IMutationInfo, Workbook } from '@crabtable/core';
 import type { ISetRangeValuesMutationParams } from '../mutations/set-range-values.mutation';
-import { BuildTextUtils, CellValueType, CommandType, DocumentDataModel, ICommandService, IUndoRedoService, IUniverInstanceService, TextX, Tools, UniverInstanceType } from '@univerjs/core';
+import { BuildTextUtils, CellValueType, CommandType, CrabTableInstanceType, DocumentDataModel, ICommandService, ICrabTableInstanceService, IUndoRedoService, TextX, Tools } from '@crabtable/core';
 import { SetRangeValuesMutation, SetRangeValuesUndoMutationFactory } from '../mutations/set-range-values.mutation';
 
 export interface IToggleCellCheckboxCommandParams {
@@ -35,8 +35,8 @@ export const ToggleCellCheckboxCommand: ICommand<IToggleCellCheckboxCommandParam
             return false;
         }
         const { unitId, subUnitId, row, col, paragraphIndex } = params;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const workbook = univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const workbook = crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         const sheet = workbook?.getSheetBySheetId(subUnitId);
         const undoRedoService = accessor.get(IUndoRedoService);
         const commandService = accessor.get(ICommandService);

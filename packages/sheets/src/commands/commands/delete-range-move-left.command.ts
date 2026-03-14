@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, IMutationInfo, IRange } from '@univerjs/core';
+import type { IAccessor, ICommand, IMutationInfo, IRange } from '@crabtable/core';
 import type { IDeleteRangeMutationParams } from '../../basics/interfaces/mutation-interface';
 
 import {
     CommandType,
     Dimension,
     ICommandService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
     sequenceExecute,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { SheetsSelectionsService } from '../../services/selections/selection.service';
 import { SheetInterceptorService } from '../../services/sheet-interceptor/sheet-interceptor.service';
 import { getRemoveRangeMutations } from '../utils/handle-range-mutation';
@@ -46,11 +46,11 @@ export const DeleteRangeMoveLeftCommand: ICommand = {
     handler: async (accessor: IAccessor, params?: IDeleteRangeMoveLeftCommandParams) => {
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const selectionManagerService = accessor.get(SheetsSelectionsService);
         const sheetInterceptorService = accessor.get(SheetInterceptorService);
 
-        const target = getSheetCommandTarget(univerInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { worksheet, workbook, subUnitId, unitId } = target;

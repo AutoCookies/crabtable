@@ -16,6 +16,7 @@
 
 import type { IUniverSheetsConditionalFormattingUIConfig } from './config/config';
 import {
+    CrabTableInstanceType,
     DependentOn,
     ICommandService,
     IConfigService,
@@ -25,10 +26,9 @@ import {
     Plugin,
     registerDependencies,
     touchDependencies,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { SHEET_CONDITIONAL_FORMATTING_PLUGIN, UniverSheetsConditionalFormattingPlugin } from '@univerjs/sheets-conditional-formatting';
-import { UniverSheetsFormulaPlugin } from '@univerjs/sheets-formula';
+} from '@crabtable/core';
+import { SHEET_CONDITIONAL_FORMATTING_PLUGIN, UniverSheetsConditionalFormattingPlugin } from '@crabtable/sheets-conditional-formatting';
+import { UniverSheetsFormulaPlugin } from '@crabtable/sheets-formula';
 import pkg from '../package.json';
 import { AddAverageCfCommand } from './commands/commands/add-average-cf.command';
 import { AddColorScaleConditionalRuleCommand } from './commands/commands/add-color-scale-cf.command';
@@ -59,7 +59,7 @@ export class UniverSheetsConditionalFormattingUIPlugin extends Plugin {
     static override pluginName = `${SHEET_CONDITIONAL_FORMATTING_PLUGIN}_UI_PLUGIN`;
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
     constructor(
         private readonly _config: Partial<IUniverSheetsConditionalFormattingUIConfig> = defaultPluginConfig,

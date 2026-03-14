@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICommand, Workbook } from '@univerjs/core';
-import type { IRangeProtectionRule } from '@univerjs/sheets';
-import { CommandType, ICommandService, IUndoRedoService, IUniverInstanceService, Rectangle, Tools, UniverInstanceType } from '@univerjs/core';
-import { AddRangeProtectionMutation, DeleteRangeProtectionMutation, DeleteWorksheetProtectionCommand, RangeProtectionRuleModel, SheetsSelectionsService, WorksheetProtectionRuleModel } from '@univerjs/sheets';
+import type { ICommand, Workbook } from '@crabtable/core';
+import type { IRangeProtectionRule } from '@crabtable/sheets';
+import { CommandType, CrabTableInstanceType, ICommandService, ICrabTableInstanceService, IUndoRedoService, Rectangle, Tools } from '@crabtable/core';
+import { AddRangeProtectionMutation, DeleteRangeProtectionMutation, DeleteWorksheetProtectionCommand, RangeProtectionRuleModel, SheetsSelectionsService, WorksheetProtectionRuleModel } from '@crabtable/sheets';
 import { SheetPermissionOpenPanelOperation } from '../operations/sheet-permission-open-panel.operation';
 
 export interface IAddRangeProtectionParams {
@@ -88,12 +88,12 @@ export const DeleteRangeProtectionFromContextMenuCommand: ICommand = {
     id: 'sheet.command.delete-range-protection-from-context-menu',
     async handler(accessor) {
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const undoRedoService = accessor.get(IUndoRedoService);
         const selectionManagerService = accessor.get(SheetsSelectionsService);
         const worksheetRuleModel = accessor.get(WorksheetProtectionRuleModel);
 
-        const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet()!;
         const unitId = workbook.getUnitId();
         const subUnitId = worksheet.getSheetId();
@@ -141,10 +141,10 @@ export const SetRangeProtectionFromContextMenuCommand: ICommand = {
     id: 'sheet.command.set-range-protection-from-context-menu',
     async handler(accessor) {
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const selectionManagerService = accessor.get(SheetsSelectionsService);
         const worksheetRuleModel = accessor.get(WorksheetProtectionRuleModel);
-        const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet()!;
         const unitId = workbook.getUnitId();
         const subUnitId = worksheet.getSheetId();

@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { ICellRenderContext } from '@univerjs/core';
-import type { IBaseDataValidationWidget } from '@univerjs/data-validation';
-import type { IMouseEvent, IPointerEvent, Spreadsheet, SpreadsheetSkeleton, UniverRenderingContext, UniverRenderingContext2D } from '@univerjs/engine-render';
-import type { ListMultipleValidator } from '@univerjs/sheets-data-validation';
+import type { ICellRenderContext } from '@crabtable/core';
+import type { IBaseDataValidationWidget } from '@crabtable/data-validation';
+import type { IMouseEvent, IPointerEvent, Spreadsheet, SpreadsheetSkeleton, UniverRenderingContext, UniverRenderingContext2D } from '@crabtable/engine-render';
+import type { ListMultipleValidator } from '@crabtable/sheets-data-validation';
 import type { IShowDataValidationDropdownParams } from '../../commands/operations/data-validation.operation';
 import type { IDropdownInfo } from './dropdown-widget';
-import { HorizontalAlign, ICommandService, Inject, IUniverInstanceService, UniverInstanceType, VerticalAlign } from '@univerjs/core';
-import { CURSOR_TYPE, getCurrentTypeOfRenderer, getFontStyleString, IRenderManagerService } from '@univerjs/engine-render';
-import { getCellValueOrigin, SheetDataValidationModel } from '@univerjs/sheets-data-validation';
+import { CrabTableInstanceType, HorizontalAlign, ICommandService, ICrabTableInstanceService, Inject, VerticalAlign } from '@crabtable/core';
+import { CURSOR_TYPE, getCurrentTypeOfRenderer, getFontStyleString, IRenderManagerService } from '@crabtable/engine-render';
+import { getCellValueOrigin, SheetDataValidationModel } from '@crabtable/sheets-data-validation';
 import { ShowDataValidationDropdown } from '../../commands/operations/data-validation.operation';
 import { CELL_PADDING_H, CELL_PADDING_V, Dropdown, ICON_PLACE, layoutDropdowns, MARGIN_V } from './shape';
 
@@ -34,7 +34,7 @@ export class DropdownMultipleWidget implements IBaseDataValidationWidget {
 
     constructor(
         @ICommandService private readonly _commandService: ICommandService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(IRenderManagerService) private readonly _renderManagerService: IRenderManagerService,
         @Inject(SheetDataValidationModel) private readonly _dataValidationModel: SheetDataValidationModel
     ) {
@@ -258,13 +258,13 @@ export class DropdownMultipleWidget implements IBaseDataValidationWidget {
     }
 
     onPointerEnter(info: ICellRenderContext, evt: IPointerEvent | IMouseEvent) {
-        return getCurrentTypeOfRenderer(UniverInstanceType.UNIVER_SHEET, this._univerInstanceService, this._renderManagerService)
+        return getCurrentTypeOfRenderer(CrabTableInstanceType.CRABTABLE_SHEET, this._crabtableInstanceService, this._renderManagerService)
             ?.mainComponent
             ?.setCursor(CURSOR_TYPE.POINTER);
     }
 
     onPointerLeave(info: ICellRenderContext, evt: IPointerEvent | IMouseEvent) {
-        return getCurrentTypeOfRenderer(UniverInstanceType.UNIVER_SHEET, this._univerInstanceService, this._renderManagerService)
+        return getCurrentTypeOfRenderer(CrabTableInstanceType.CRABTABLE_SHEET, this._crabtableInstanceService, this._renderManagerService)
             ?.mainComponent
             ?.setCursor(CURSOR_TYPE.DEFAULT);
     }

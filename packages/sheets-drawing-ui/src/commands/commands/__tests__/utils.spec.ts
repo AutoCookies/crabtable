@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { DrawingTypeEnum } from '@univerjs/core';
+import { DrawingTypeEnum } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { groupToUngroup, ungroupToGroup } from '../utils';
 
-vi.mock('@univerjs/engine-render', () => ({
+vi.mock('@crabtable/engine-render', () => ({
     getGroupState: vi.fn(() => ({ left: 30, top: 40, width: 80, height: 60 })),
     transformObjectOutOfGroup: vi.fn((transform, groupTransform) => ({
         left: (transform.left ?? 0) + (groupTransform.left ?? 0),

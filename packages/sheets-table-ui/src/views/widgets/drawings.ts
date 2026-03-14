@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { UniverRenderingContext2D } from '@univerjs/engine-render';
-import { Rect } from '@univerjs/engine-render';
+import type { UniverRenderingContext2D } from '@crabtable/engine-render';
+import { Rect } from '@crabtable/engine-render';
 
 const BUTTON_VIEWPORT = 16;
 

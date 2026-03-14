@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Injector, IRange, Univer } from '@univerjs/core';
-import { ICommandService, IConfirmService, IUniverInstanceService, LocaleService, RANGE_TYPE, TestConfirmService } from '@univerjs/core';
+import type { CrabTable, Injector, IRange } from '@crabtable/core';
+import { ICommandService, IConfirmService, ICrabTableInstanceService, LocaleService, RANGE_TYPE, TestConfirmService } from '@crabtable/core';
 import {
     AddWorksheetMergeAllCommand,
     AddWorksheetMergeCommand,
@@ -31,13 +31,13 @@ import {
     SetRowHiddenMutation,
     SetSelectionsOperation,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { HideColConfirmCommand, HideRowConfirmCommand } from '../hide-row-col-confirm.command';
 import { createCommandTestBed } from './create-command-test-bed';
 
 describe('Test hide row col confirm commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
@@ -85,8 +85,8 @@ describe('Test hide row col confirm commands', () => {
             ]);
 
             function getHiddenRows(): IRange[] | undefined {
-                return get(IUniverInstanceService)
-                    .getUniverSheetInstance('test')
+                return get(ICrabTableInstanceService)
+                    .getCrabTableSheetInstance('test')
                     ?.getSheetBySheetId('sheet1')
                     ?.getRowManager()
                     .getHiddenRows();
@@ -116,8 +116,8 @@ describe('Test hide row col confirm commands', () => {
             ]);
 
             function getHiddenRows(): IRange[] | undefined {
-                return get(IUniverInstanceService)
-                    .getUniverSheetInstance('test')
+                return get(ICrabTableInstanceService)
+                    .getCrabTableSheetInstance('test')
                     ?.getSheetBySheetId('sheet1')
                     ?.getRowManager()
                     .getHiddenRows();
@@ -140,8 +140,8 @@ describe('Test hide row col confirm commands', () => {
             ]);
 
             function getHiddenCols(): IRange[] | undefined {
-                return get(IUniverInstanceService)
-                    .getUniverSheetInstance('test')
+                return get(ICrabTableInstanceService)
+                    .getCrabTableSheetInstance('test')
                     ?.getSheetBySheetId('sheet1')
                     ?.getColumnManager()
                     .getHiddenCols();
@@ -171,8 +171,8 @@ describe('Test hide row col confirm commands', () => {
             ]);
 
             function getHiddenCols(): IRange[] | undefined {
-                return get(IUniverInstanceService)
-                    .getUniverSheetInstance('test')
+                return get(ICrabTableInstanceService)
+                    .getCrabTableSheetInstance('test')
                     ?.getSheetBySheetId('sheet1')
                     ?.getColumnManager()
                     .getHiddenCols();

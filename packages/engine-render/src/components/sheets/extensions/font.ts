@@ -17,7 +17,7 @@
 /* eslint-disable max-lines-per-function */
 /* eslint-disable complexity */
 
-import type { ICellDataForSheetInterceptor, ICellWithCoord, IDocDrawingBase, ImageSourceType, IRange, IScale, Nullable, ObjectMatrix } from '@univerjs/core';
+import type { ICellDataForSheetInterceptor, ICellWithCoord, IDocDrawingBase, ImageSourceType, IRange, IScale, Nullable, ObjectMatrix } from '@crabtable/core';
 import type { IBoundRectNoAngle, IViewportInfo } from '../../../basics';
 import type { UniverRenderingContext } from '../../../context';
 import type { Documents } from '../../docs/document';
@@ -25,7 +25,7 @@ import type { IDrawInfo } from '../../extension';
 import type { IFontCacheItem } from '../interfaces';
 import type { SheetComponent } from '../sheet-component';
 import type { SpreadsheetSkeleton } from '../sheet.render-skeleton';
-import { CellValueType, extractPureTextFromCell, HorizontalAlign, Range, Tools, VerticalAlign, WrapStrategy } from '@univerjs/core';
+import { CellValueType, extractPureTextFromCell, HorizontalAlign, Range, Tools, VerticalAlign, WrapStrategy } from '@crabtable/core';
 import { FIX_ONE_PIXEL_BLUR_OFFSET } from '../../../basics';
 import { VERTICAL_ROTATE_ANGLE } from '../../../basics/text-rotation';
 import { clampRange, inViewRanges } from '../../../basics/tools';
@@ -408,7 +408,7 @@ export class Font extends SheetExtension {
         const { ctx, scale, overflowRectangle, fontCache } = renderFontContext;
         let { startX, endX, startY, endY } = renderFontContext;
 
-        // https://github.com/dream-num/univer-pro/issues/334
+        // https://github.com/AutoCookies/crabtable-pro/issues/334
         // When horizontal alignment is not set, the default alignment for rotation angles varies to accommodate overflow scenarios.
         const { horizontalAlign = 0, vertexAngle = 0, centerAngle = 0 } = fontCache as IFontCacheItem;
         let horizontalAlignOverFlow = horizontalAlign;
@@ -582,7 +582,7 @@ export class Font extends SheetExtension {
             documentDataModel.updateDocumentDataPageSize(Number.POSITIVE_INFINITY);
         }
 
-        // Use fix https://github.com/dream-num/univer/issues/927, Set the actual width of the content to the page width of the document,
+        // Use fix https://github.com/AutoCookies/crabtable/issues/927, Set the actual width of the content to the page width of the document,
         // so that the divide will be aligned when the skeleton is calculated.
         const overflowRectangle = overflowCache.getValue(row, col);
         const isOverflow = !(wrapStrategy === WrapStrategy.WRAP && vertexAngle === 0);

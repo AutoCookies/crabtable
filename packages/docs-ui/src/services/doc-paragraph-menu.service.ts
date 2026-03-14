@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, INeedCheckDisposable, IParagraphRange, Nullable } from '@univerjs/core';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
+import type { DocumentDataModel, INeedCheckDisposable, IParagraphRange, Nullable } from '@crabtable/core';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
 import type { IMutiPageParagraphBound } from './doc-event-manager.service';
-import { Disposable, Inject, isInternalEditorID } from '@univerjs/core';
-import { DocSelectionManagerService, DocSkeletonManagerService } from '@univerjs/docs';
-import { DocumentEditArea } from '@univerjs/engine-render';
+import { Disposable, Inject, isInternalEditorID } from '@crabtable/core';
+import { DocSelectionManagerService, DocSkeletonManagerService } from '@crabtable/docs';
+import { DocumentEditArea } from '@crabtable/engine-render';
 import { combineLatest, first, throttleTime } from 'rxjs';
 import { VIEWPORT_KEY } from '../basics/docs-view-key';
 import { DocEventManagerService } from './doc-event-manager.service';

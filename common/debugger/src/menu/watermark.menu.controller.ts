@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Disposable, Inject } from '@univerjs/core';
-import { ComponentManager, IMenuManagerService } from '@univerjs/ui';
+import { Disposable, Inject } from '@crabtable/core';
+import { ComponentManager, IMenuManagerService } from '@crabtable/ui';
 import { WatermarkPanel } from '../views/watermark/WatermarkPanel';
 import { WatermarkPanelFooter } from '../views/watermark/WatermarkPanelFooter';
 
@@ -23,7 +23,7 @@ export const WATERMARK_PANEL = 'WATERMARK_PANEL';
 
 export const WATERMARK_PANEL_FOOTER = 'WATERMARK_PANEL_FOOTER';
 
-export class UniverWatermarkMenuController extends Disposable {
+export class CrabTableWatermarkMenuController extends Disposable {
     constructor(
         @IMenuManagerService protected readonly _menuManagerService: IMenuManagerService,
         @Inject(ComponentManager) private readonly _componentManager: ComponentManager

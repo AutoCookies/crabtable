@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { useDependency, useObservable } from '@univerjs/ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { DocSelectionRenderService } from '../../../services/selection/doc-selection-render.service';
 
 export function useIsFocusing(editorId: string) {

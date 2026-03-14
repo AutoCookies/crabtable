@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ISetRangeThemeMutationParams } from '@univerjs/sheets';
-import { Disposable, ICommandService, Inject } from '@univerjs/core';
-import { SetRangeThemeMutation } from '@univerjs/sheets';
-import { SHEET_TABLE_CUSTOM_THEME_PREFIX } from '@univerjs/sheets-table';
+import type { ISetRangeThemeMutationParams } from '@crabtable/sheets';
+import { Disposable, ICommandService, Inject } from '@crabtable/core';
+import { SetRangeThemeMutation } from '@crabtable/sheets';
+import { SHEET_TABLE_CUSTOM_THEME_PREFIX } from '@crabtable/sheets-table';
 import { Subject } from 'rxjs';
 
 export class SheetTableThemeUIController extends Disposable {

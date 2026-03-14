@@ -15,9 +15,9 @@
  */
 
 import type { IOpenHyperLinkEditPanelOperationParams } from '../popup.operations';
-import { DOCS_ZEN_EDITOR_UNIT_ID_KEY, ICommandService, IUniverInstanceService } from '@univerjs/core';
-import { SheetsSelectionsService } from '@univerjs/sheets';
-import { IEditorBridgeService } from '@univerjs/sheets-ui';
+import { DOCS_ZEN_EDITOR_UNIT_ID_KEY, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { SheetsSelectionsService } from '@crabtable/sheets';
+import { IEditorBridgeService } from '@crabtable/sheets-ui';
 import { describe, expect, it, vi } from 'vitest';
 import { SheetsHyperLinkPopupService } from '../../../services/popup.service';
 import { HyperLinkEditSourceType } from '../../../types/enums/edit-source';
@@ -59,7 +59,7 @@ function createWorkbook(worksheet: ReturnType<typeof createWorksheet>) {
     };
 }
 
-function createUniverInstanceService(options?: {
+function createCrabTableInstanceService(options?: {
     workbook?: ReturnType<typeof createWorkbook> | null;
     focusedUnitId?: string;
 }) {
@@ -111,7 +111,7 @@ describe('hyper-link popup operations', () => {
         const workbook = createWorkbook(worksheet);
 
         const createInsertAccessor = (visible: boolean, focusedUnitId?: string, hasSelection = true, activeWorkbook: ReturnType<typeof createWorkbook> | null = workbook) => createAccessor([
-            [IUniverInstanceService, createUniverInstanceService({ workbook: activeWorkbook, focusedUnitId })],
+            [ICrabTableInstanceService, createCrabTableInstanceService({ workbook: activeWorkbook, focusedUnitId })],
             [ICommandService, { executeCommand }],
             [SheetsSelectionsService, { getCurrentLastSelection: () => (hasSelection ? { range: { startRow: 3, startColumn: 4 } } : null) }],
             [IEditorBridgeService, { isVisible: () => ({ visible }) }],
@@ -136,20 +136,20 @@ describe('hyper-link popup operations', () => {
         const enabledWorksheet = createWorksheet({ v: 'cell' });
 
         expect(InsertHyperLinkToolbarOperation.handler(createAccessor([
-            [IUniverInstanceService, createUniverInstanceService({ workbook: createWorkbook(disabledWorksheet) })],
+            [ICrabTableInstanceService, createCrabTableInstanceService({ workbook: createWorkbook(disabledWorksheet) })],
             [SheetsSelectionsService, { getCurrentSelections: () => [{ range: { startRow: 1, startColumn: 1 } }] }],
             [ICommandService, { executeCommand }],
             [SheetsHyperLinkPopupService, { currentEditing: null }],
         ]))).toBe(false);
 
         expect(InsertHyperLinkToolbarOperation.handler(createAccessor([
-            [IUniverInstanceService, createUniverInstanceService({ workbook: createWorkbook(enabledWorksheet) })],
+            [ICrabTableInstanceService, createCrabTableInstanceService({ workbook: createWorkbook(enabledWorksheet) })],
             [SheetsSelectionsService, { getCurrentSelections: () => [{ range: { startRow: 1, startColumn: 1 } }] }],
             [ICommandService, { executeCommand }],
             [SheetsHyperLinkPopupService, { currentEditing: { row: 1 } }],
         ]))).toBe(true);
         expect(InsertHyperLinkToolbarOperation.handler(createAccessor([
-            [IUniverInstanceService, createUniverInstanceService({ workbook: createWorkbook(enabledWorksheet) })],
+            [ICrabTableInstanceService, createCrabTableInstanceService({ workbook: createWorkbook(enabledWorksheet) })],
             [SheetsSelectionsService, { getCurrentSelections: () => [{ range: { startRow: 1, startColumn: 1 } }] }],
             [ICommandService, { executeCommand }],
             [SheetsHyperLinkPopupService, { currentEditing: null }],

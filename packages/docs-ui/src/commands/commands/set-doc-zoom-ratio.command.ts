@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
+import type { IAccessor, ICommand } from '@crabtable/core';
 import type { ISetDocZoomRatioOperationParams } from '../operations/set-doc-zoom-ratio.operation';
 
-import { CommandType, ICommandService, IUndoRedoService, IUniverInstanceService } from '@univerjs/core';
+import { CommandType, ICommandService, ICrabTableInstanceService, IUndoRedoService } from '@crabtable/core';
 import {
     SetDocZoomRatioOperation,
     SetDocZoomRatioUndoMutationFactory,
@@ -35,9 +35,9 @@ export const SetDocZoomRatioCommand: ICommand = {
     handler: async (accessor: IAccessor, params?: ISetDocZoomRatioCommandParams) => {
         const commandService = accessor.get(ICommandService);
         const undoRedoService = accessor.get(IUndoRedoService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        let documentId = univerInstanceService.getCurrentUniverDocInstance()?.getUnitId();
+        let documentId = crabtableInstanceService.getCurrentUniverDocInstance()?.getUnitId();
         if (!documentId) return false;
 
         let zoomRatio = 1;
@@ -47,7 +47,7 @@ export const SetDocZoomRatioCommand: ICommand = {
             zoomRatio = params.zoomRatio ?? zoomRatio;
         }
 
-        const workbook = univerInstanceService.getUniverDocInstance(documentId);
+        const workbook = crabtableInstanceService.getUniverDocInstance(documentId);
         if (!workbook) return false;
 
         const setZoomRatioMutationParams: ISetDocZoomRatioOperationParams = {

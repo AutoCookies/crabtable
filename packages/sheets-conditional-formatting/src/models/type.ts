@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IRange, IStyleBase } from '@univerjs/core';
+import type { IRange, IStyleBase } from '@crabtable/core';
 import type { CFNumberOperator, CFRuleType, CFSubRuleType, CFTextOperator, CFTimePeriodOperator, CFValueType } from '../base/const';
 import type { IIconType } from './icon-map';
 

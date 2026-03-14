@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import type { ISheetNote } from '@univerjs/sheets-note';
-import { RemoveNoteMutation, SheetsNoteModel, UpdateNoteMutation } from '@univerjs/sheets-note';
-import { FRange } from '@univerjs/sheets/facade';
+import type { Nullable } from '@crabtable/core';
+import type { ISheetNote } from '@crabtable/sheets-note';
+import { RemoveNoteMutation, SheetsNoteModel, UpdateNoteMutation } from '@crabtable/sheets-note';
+import { FRange } from '@crabtable/sheets/facade';
 
 /**
  * @ignore
@@ -28,7 +28,7 @@ export interface IFSheetsNoteRange {
      * @returns {Nullable<ISheetNote>} The annotation of the top-left cell in the range
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:D10');
      * const note = fRange.getNote();
@@ -42,7 +42,7 @@ export interface IFSheetsNoteRange {
      * @returns {FRange} This range for method chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1');
      * fRange.createOrUpdateNote({
@@ -59,7 +59,7 @@ export interface IFSheetsNoteRange {
      * @returns {FRange} This range for method chaining
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const notes = fWorksheet.getNotes();
      * console.log(notes);
@@ -111,7 +111,7 @@ export class FSheetsNoteRangeMixin extends FRange implements IFSheetsNoteRange {
 }
 
 FRange.extend(FSheetsNoteRangeMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FRange extends IFSheetsNoteRange { }
 }

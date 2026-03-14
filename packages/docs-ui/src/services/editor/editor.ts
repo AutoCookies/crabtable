@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommandService, IDocumentData, IDocumentStyle, Injector, IPosition, IUndoRedoService, IUniverInstanceService, Nullable } from '@univerjs/core';
-import type { DocSelectionManagerService } from '@univerjs/docs';
-import type { IDocSelectionInnerParam, IRender, ISuccinctDocRangeParam, ITextRangeWithStyle } from '@univerjs/engine-render';
+import type { DocumentDataModel, ICommandService, ICrabTableInstanceService, IDocumentData, IDocumentStyle, Injector, IPosition, IUndoRedoService, Nullable } from '@crabtable/core';
+import type { DocSelectionManagerService } from '@crabtable/docs';
+import type { IDocSelectionInnerParam, IRender, ISuccinctDocRangeParam, ITextRangeWithStyle } from '@crabtable/engine-render';
 import type { Observable } from 'rxjs';
 import type { IEditorInputConfig } from '../selection/doc-selection-render.service';
-import { Disposable, isInternalEditorID, UniverInstanceType } from '@univerjs/core';
-import { DocSkeletonManagerService } from '@univerjs/docs';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { KeyCode } from '@univerjs/ui';
+import { CrabTableInstanceType, Disposable, isInternalEditorID } from '@crabtable/core';
+import { DocSkeletonManagerService } from '@crabtable/docs';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { KeyCode } from '@crabtable/ui';
 import { merge, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { ReplaceSnapshotCommand } from '../../commands/commands/replace-content.command';
@@ -137,7 +137,7 @@ export class Editor extends Disposable implements IEditor {
 
     constructor(
         private _param: IEditorOptions,
-        private _univerInstanceService: IUniverInstanceService,
+        private _crabtableInstanceService: ICrabTableInstanceService,
         private _docSelectionManagerService: DocSelectionManagerService,
         private _commandService: ICommandService,
         private _undoRedoService: IUndoRedoService,
@@ -236,11 +236,11 @@ export class Editor extends Disposable implements IEditor {
      * @deprecated use `IEditorService.focus` as instead. this is for internal usage.
      */
     focus() {
-        const curDoc = this._univerInstanceService.getCurrentUnitForType(UniverInstanceType.UNIVER_DOC);
+        const curDoc = this._crabtableInstanceService.getCurrentUnitForType(CrabTableInstanceType.CRABTABLE_DOC);
         const editorUnitId = this.getEditorId();
         // Step 1: set current editor to currentDocUnit.
         if (curDoc == null || curDoc.getUnitId() !== editorUnitId) {
-            this._univerInstanceService.setCurrentUnitForType(editorUnitId);
+            this._crabtableInstanceService.setCurrentUnitForType(editorUnitId);
         }
 
         // Step 2: Focus this input element.
@@ -460,7 +460,7 @@ export class Editor extends Disposable implements IEditor {
 
     private _getDocDataModel() {
         const editorUnitId = this._getEditorId();
-        const docDataModel = this._univerInstanceService.getUnit<DocumentDataModel>(editorUnitId, UniverInstanceType.UNIVER_DOC);
+        const docDataModel = this._crabtableInstanceService.getUnit<DocumentDataModel>(editorUnitId, CrabTableInstanceType.CRABTABLE_DOC);
 
         return docDataModel;
     }

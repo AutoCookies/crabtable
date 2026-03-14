@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { BaseValueObject } from '../base-value-object';
 import { describe, expect, it } from 'vitest';
 import { ErrorType } from '../../../basics/error-type';

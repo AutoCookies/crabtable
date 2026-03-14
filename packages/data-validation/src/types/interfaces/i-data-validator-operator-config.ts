@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { DataValidationOperator } from '@univerjs/core';
+import type { DataValidationOperator } from '@crabtable/core';
 
 export interface IDataValidatorOperatorConfig {
     operator: DataValidationOperator;

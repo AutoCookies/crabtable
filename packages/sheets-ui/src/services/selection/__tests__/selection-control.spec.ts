@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ThemeService } from '@univerjs/core';
+import type { ThemeService } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { SelectionControl } from '../selection-control';
 

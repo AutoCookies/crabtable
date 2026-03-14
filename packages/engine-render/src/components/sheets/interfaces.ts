@@ -25,7 +25,7 @@ import type {
     ObjectMatrix,
     VerticalAlign,
     WrapStrategy,
-} from '@univerjs/core';
+} from '@crabtable/core';
 
 import type { BORDER_TYPE as BORDER_LTRB } from '../../basics/const';
 import type { Canvas } from '../../canvas';

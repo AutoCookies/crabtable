@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { AbsoluteRefType, RANGE_TYPE } from '@univerjs/core';
+import { AbsoluteRefType, RANGE_TYPE } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import {
     deserializeRangeWithSheet,

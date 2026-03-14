@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Ctor } from '@univerjs/core';
-import type { BaseFunction, IFunctionInfo, IFunctionNames } from '@univerjs/engine-formula';
+import type { Ctor } from '@crabtable/core';
+import type { BaseFunction, IFunctionInfo, IFunctionNames } from '@crabtable/engine-formula';
 
 /**
  * Base configuration for the plugin.

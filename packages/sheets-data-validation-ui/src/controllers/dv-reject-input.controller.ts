@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { DataValidationErrorStyle, DataValidationStatus, Disposable, Inject, LocaleService } from '@univerjs/core';
-import { DataValidatorRegistryService } from '@univerjs/data-validation';
-import { Button } from '@univerjs/design';
-import { SheetInterceptorService, VALIDATE_CELL } from '@univerjs/sheets';
-import { SheetDataValidationModel, SheetsDataValidationValidatorService } from '@univerjs/sheets-data-validation';
-import { IDialogService } from '@univerjs/ui';
+import { DataValidationErrorStyle, DataValidationStatus, Disposable, Inject, LocaleService } from '@crabtable/core';
+import { DataValidatorRegistryService } from '@crabtable/data-validation';
+import { Button } from '@crabtable/design';
+import { SheetInterceptorService, VALIDATE_CELL } from '@crabtable/sheets';
+import { SheetDataValidationModel, SheetsDataValidationValidatorService } from '@crabtable/sheets-data-validation';
+import { IDialogService } from '@crabtable/ui';
 import { createElement } from 'react';
 
 export class DataValidationRejectInputController extends Disposable {

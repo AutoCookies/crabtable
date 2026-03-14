@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import type { IMutationInfo, IRange, Workbook } from '@univerjs/core';
-import type { IDiscreteRange, ISheetAutoFillHook } from '@univerjs/sheets';
-import type { IDeleteConditionalRuleMutationParams, ISetConditionalRuleMutationParams } from '@univerjs/sheets-conditional-formatting';
-import { Disposable, Inject, Injector, IUniverInstanceService, ObjectMatrix, Range, Rectangle, UniverInstanceType } from '@univerjs/core';
-import { AUTO_FILL_APPLY_TYPE, AutoFillTools, createTopMatrixFromMatrix, findAllRectangle, IAutoFillService } from '@univerjs/sheets';
-import { ConditionalFormattingRuleModel, ConditionalFormattingViewModel, DeleteConditionalRuleMutation, DeleteConditionalRuleMutationUndoFactory, SetConditionalRuleMutation, setConditionalRuleMutationUndoFactory, SHEET_CONDITIONAL_FORMATTING_PLUGIN } from '@univerjs/sheets-conditional-formatting';
-import { virtualizeDiscreteRanges } from '@univerjs/sheets-ui';
+import type { IMutationInfo, IRange, Workbook } from '@crabtable/core';
+import type { IDiscreteRange, ISheetAutoFillHook } from '@crabtable/sheets';
+import type { IDeleteConditionalRuleMutationParams, ISetConditionalRuleMutationParams } from '@crabtable/sheets-conditional-formatting';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject, Injector, ObjectMatrix, Range, Rectangle } from '@crabtable/core';
+import { AUTO_FILL_APPLY_TYPE, AutoFillTools, createTopMatrixFromMatrix, findAllRectangle, IAutoFillService } from '@crabtable/sheets';
+import { ConditionalFormattingRuleModel, ConditionalFormattingViewModel, DeleteConditionalRuleMutation, DeleteConditionalRuleMutationUndoFactory, SetConditionalRuleMutation, setConditionalRuleMutationUndoFactory, SHEET_CONDITIONAL_FORMATTING_PLUGIN } from '@crabtable/sheets-conditional-formatting';
+import { virtualizeDiscreteRanges } from '@crabtable/sheets-ui';
 
 export class ConditionalFormattingAutoFillController extends Disposable {
     constructor(
         @Inject(Injector) private _injector: Injector,
-        @Inject(IUniverInstanceService) private _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(IAutoFillService) private _autoFillService: IAutoFillService,
         @Inject(ConditionalFormattingRuleModel) private _conditionalFormattingRuleModel: ConditionalFormattingRuleModel,
         @Inject(ConditionalFormattingViewModel) private _conditionalFormattingViewModel: ConditionalFormattingViewModel
@@ -46,8 +46,8 @@ export class ConditionalFormattingAutoFillController extends Disposable {
             matrixMap: Map<string, ObjectMatrix<1>>,
             mapFunc: (row: number, col: number) => ({ row: number; col: number })
         ) => {
-            const unitId = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getUnitId();
-            const subUnitId = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()?.getSheetId();
+            const unitId = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getUnitId();
+            const subUnitId = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()?.getSheetId();
             if (!unitId || !subUnitId) {
                 return;
             }
@@ -141,8 +141,8 @@ export class ConditionalFormattingAutoFillController extends Disposable {
         };
 
         const generalApplyFunc = (sourceRange: IDiscreteRange, targetRange: IDiscreteRange) => {
-            const unitId = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getUnitId();
-            const subUnitId = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getActiveSheet()?.getSheetId();
+            const unitId = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getUnitId();
+            const subUnitId = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getActiveSheet()?.getSheetId();
             const matrixMap: Map<string, ObjectMatrix<1>> = new Map();
 
             const redos: IMutationInfo[] = [];

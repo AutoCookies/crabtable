@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import type { DocumentSkeleton } from '@univerjs/engine-render';
+import type { Nullable } from '@crabtable/core';
+import type { DocumentSkeleton } from '@crabtable/engine-render';
 import { BehaviorSubject } from 'rxjs';
 
 export class DocRefreshDrawingsService {

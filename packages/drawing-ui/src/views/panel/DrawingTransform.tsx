@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IDrawingParam, Nullable } from '@univerjs/core';
-import type { IChangeObserverConfig, Scene } from '@univerjs/engine-render';
-import { debounce, LocaleService } from '@univerjs/core';
-import { Checkbox, clsx, InputNumber } from '@univerjs/design';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { useDependency } from '@univerjs/ui';
+import type { IDrawingParam, Nullable } from '@crabtable/core';
+import type { IChangeObserverConfig, Scene } from '@crabtable/engine-render';
+import { debounce, LocaleService } from '@crabtable/core';
+import { Checkbox, clsx, InputNumber } from '@crabtable/design';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { useDependency } from '@crabtable/ui';
 import { useEffect, useState } from 'react';
 import { MIN_DRAWING_HEIGHT_LIMIT, MIN_DRAWING_WIDTH_LIMIT, RANGE_DRAWING_ROTATION_LIMIT } from '../../utils/config';
 import { getUpdateParams } from '../../utils/get-update-params';

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { Dependency, DependencyIdentifier, IDisposable, Nullable, UnitModel, UnitType } from '@univerjs/core';
+import type { Dependency, DependencyIdentifier, IDisposable, Nullable, UnitModel, UnitType } from '@crabtable/core';
 import type { Observable } from 'rxjs';
 import type { BaseObject } from '../base-object';
 import type { DocComponent } from '../components/docs/doc-component';
 import type { SheetComponent } from '../components/sheets/sheet-component';
 import type { Slide } from '../components/slides/slide';
 import type { IRender } from './render-unit';
-import { createIdentifier, Disposable, Inject, Injector, IUniverInstanceService, remove, ThemeService, toDisposable, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, createIdentifier, Disposable, ICrabTableInstanceService, Inject, Injector, remove, ThemeService, toDisposable } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { Engine } from '../engine';
 import { Scene } from '../scene';
@@ -49,12 +49,12 @@ export interface IRenderManagerService extends IDisposable {
      * @param unitId
      */
     getRenderUnitById(unitId: string): Nullable<IRender>;
-    getAllRenderersOfType(type: UniverInstanceType): RenderUnit[];
+    getAllRenderersOfType(type: CrabTableInstanceType): RenderUnit[];
     getRenderAll(): Map<string, IRender>;
     defaultEngine: Engine;
 
     // DEPT@Jocs
-    // Editor should not be coupled in docs-ui. It should be an common service resident in @univerjs/ui.
+    // Editor should not be coupled in docs-ui. It should be an common service resident in @crabtable/ui.
     // However, currently the refactor is not completed so we have to throw an event and let
     // docs-ui to create the editor's renderer.
 
@@ -106,7 +106,7 @@ export class RenderManagerService extends Disposable implements IRenderManagerSe
 
     constructor(
         @Inject(Injector) protected readonly _injector: Injector,
-        @IUniverInstanceService protected readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService protected readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(ThemeService) private readonly _themeService: ThemeService
     ) {
         super();
@@ -202,7 +202,7 @@ export class RenderManagerService extends Disposable implements IRenderManagerSe
         return renderer;
     }
 
-    getAllRenderersOfType(type: UniverInstanceType): RenderUnit[] {
+    getAllRenderersOfType(type: CrabTableInstanceType): RenderUnit[] {
         const renderUnits: RenderUnit[] = [];
         for (const [_, render] of this._renderMap) {
             const renderType = render.type;
@@ -252,11 +252,11 @@ export class RenderManagerService extends Disposable implements IRenderManagerSe
             height,
         });
 
-        const unit = this._univerInstanceService.getUnit(unitId);
+        const unit = this._crabtableInstanceService.getUnit(unitId);
         let renderUnit: IRender;
 
         if (unit) {
-            const type = this._univerInstanceService.getUnitType(unitId);
+            const type = this._crabtableInstanceService.getUnitType(unitId);
             const ctorOfDeps = this._getRenderDepsByType(type);
 
             renderUnit = this._injector.createInstance(RenderUnit, {
@@ -273,7 +273,7 @@ export class RenderManagerService extends Disposable implements IRenderManagerSe
             // For slide pages
             renderUnit = {
                 isThumbNail: true,
-                type: UniverInstanceType.UNIVER_SLIDE,
+                type: CrabTableInstanceType.CRABTABLE_SLIDE,
                 unitId,
                 engine,
                 scene,
@@ -361,8 +361,8 @@ export function isDisposable(thing: unknown): thing is IDisposable {
 }
 
 export function getCurrentTypeOfRenderer(
-    type: UniverInstanceType,
-    instanceService: IUniverInstanceService,
+    type: CrabTableInstanceType,
+    instanceService: ICrabTableInstanceService,
     renderManageService: IRenderManagerService
 ): Nullable<IRender> {
     const currentUnit = instanceService.getCurrentUnitOfType(type);
@@ -374,9 +374,9 @@ export function getCurrentTypeOfRenderer(
 }
 
 export function withCurrentTypeOfRenderer<T>(
-    type: UniverInstanceType,
+    type: CrabTableInstanceType,
     id: DependencyIdentifier<T>,
-    instanceService: IUniverInstanceService,
+    instanceService: ICrabTableInstanceService,
     renderManagerService: IRenderManagerService
 ): Nullable<T> {
     const renderer = getCurrentTypeOfRenderer(type, instanceService, renderManagerService);

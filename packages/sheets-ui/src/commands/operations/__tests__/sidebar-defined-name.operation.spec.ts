@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import { IUniverInstanceService, LocaleService } from '@univerjs/core';
-import { IEditorService } from '@univerjs/docs-ui';
-import { getSheetCommandTarget } from '@univerjs/sheets';
-import { ISidebarService } from '@univerjs/ui';
+import { ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { IEditorService } from '@crabtable/docs-ui';
+import { getSheetCommandTarget } from '@crabtable/sheets';
+import { ISidebarService } from '@crabtable/ui';
 import { describe, expect, it, vi } from 'vitest';
 import { DEFINED_NAME_CONTAINER } from '../../../views/defined-name/component-name';
 import { SidebarDefinedNameOperation } from '../sidebar-defined-name.operation';
 
-vi.mock('@univerjs/sheets', () => ({
+vi.mock('@crabtable/sheets', () => ({
     getSheetCommandTarget: vi.fn(),
 }));
 
@@ -47,7 +47,7 @@ describe('SidebarDefinedNameOperation', () => {
             [ISidebarService, { open, close }],
             [IEditorService, {}],
             [LocaleService, { t: vi.fn(() => 'Defined Name') }],
-            [IUniverInstanceService, {}],
+            [ICrabTableInstanceService, {}],
         ]);
 
         await expect(SidebarDefinedNameOperation.handler(accessor, { value: 'open' } as any)).resolves.toBe(false);
@@ -63,7 +63,7 @@ describe('SidebarDefinedNameOperation', () => {
             [ISidebarService, { open, close }],
             [IEditorService, {}],
             [LocaleService, { t: vi.fn(() => 'Defined Name') }],
-            [IUniverInstanceService, {}],
+            [ICrabTableInstanceService, {}],
         ]);
 
         await expect(SidebarDefinedNameOperation.handler(accessor, { value: 'open' } as any)).resolves.toBe(true);
@@ -83,7 +83,7 @@ describe('SidebarDefinedNameOperation', () => {
             [ISidebarService, { open: vi.fn(), close }],
             [IEditorService, {}],
             [LocaleService, { t: vi.fn(() => 'Defined Name') }],
-            [IUniverInstanceService, {}],
+            [ICrabTableInstanceService, {}],
         ]);
 
         await expect(SidebarDefinedNameOperation.handler(accessor, { value: 'close' } as any)).resolves.toBe(true);

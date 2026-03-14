@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Injector, IPageElement, Nullable, PageElementType } from '@univerjs/core';
-import type { BaseObject, Scene } from '@univerjs/engine-render';
-import { Registry } from '@univerjs/core';
+import type { Injector, IPageElement, Nullable, PageElementType } from '@crabtable/core';
+import type { BaseObject, Scene } from '@crabtable/engine-render';
+import { Registry } from '@crabtable/core';
 
 export abstract class ObjectAdaptor {
     zIndex = 0;

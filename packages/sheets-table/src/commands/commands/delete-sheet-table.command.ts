@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICommand, IMutationInfo } from '@univerjs/core';
+import type { ICommand, IMutationInfo } from '@crabtable/core';
 import type { IDeleteSheetTableParams } from '../mutations/delete-sheet-table.mutation';
-import { CommandType, ICommandService, ILogService, IUndoRedoService, sequenceExecute } from '@univerjs/core';
+import { CommandType, ICommandService, ILogService, IUndoRedoService, sequenceExecute } from '@crabtable/core';
 
 import { TableManager } from '../../model/table-manager';
 import { AddSheetTableMutation } from '../mutations/add-sheet-table.mutation';

@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { IComponent } from '@univerjs/ui';
+import type { IComponent } from '@crabtable/ui';
 import type { defineComponent } from 'vue';
-import { DependentOn, Inject, Injector, Plugin } from '@univerjs/core';
-import { ComponentManager, UniverUIPlugin } from '@univerjs/ui';
+import { DependentOn, Inject, Injector, Plugin } from '@crabtable/core';
+import { ComponentManager, UniverUIPlugin } from '@crabtable/ui';
 import { h, render } from 'vue';
 import pkg from '../package.json';
 
 /**
- * The plugin that allows Univer to use Vue 3 components as UI components.
+ * The plugin that allows CrabTable to use Vue 3 components as UI components.
  */
 @DependentOn(UniverUIPlugin)
 export class UniverVue3AdapterPlugin extends Plugin {

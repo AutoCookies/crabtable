@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { ErrorType, extractFormulaError } from '@univerjs/engine-formula';
+import { ErrorType, extractFormulaError } from '@crabtable/engine-formula';
 import { Subject } from 'rxjs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { FormulaAlertRenderController } from '../formula-alert-render.controller';
 
-vi.mock('@univerjs/engine-formula', async (importActual) => {
-    const actual = await importActual<typeof import('@univerjs/engine-formula')>();
+vi.mock('@crabtable/engine-formula', async (importActual) => {
+    const actual = await importActual<typeof import('@crabtable/engine-formula')>();
     return {
         ...actual,
         extractFormulaError: vi.fn(() => actual.ErrorType.DIV_BY_ZERO),

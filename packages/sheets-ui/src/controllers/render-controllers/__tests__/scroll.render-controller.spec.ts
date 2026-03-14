@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { FOCUSING_SHEET, ICommandService } from '@univerjs/core';
-import { RENDER_CLASS_TYPE, SHEET_VIEWPORT_KEY } from '@univerjs/engine-render';
+import { FOCUSING_SHEET, ICommandService } from '@crabtable/core';
+import { RENDER_CLASS_TYPE, SHEET_VIEWPORT_KEY } from '@crabtable/engine-render';
 import { Subject } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import { ScrollCommand, SetScrollRelativeCommand } from '../../../commands/commands/set-scroll.command';

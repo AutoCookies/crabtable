@@ -14,26 +14,25 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData, Workbook } from '@univerjs/core';
-import type { ICopySheetCommandParams, IRemoveSheetCommandParams } from '@univerjs/sheets';
+import type { Dependency, IWorkbookData, Workbook } from '@crabtable/core';
+import type { ICopySheetCommandParams, IRemoveSheetCommandParams } from '@crabtable/sheets';
 import type { ISheetNote } from '../../models/sheets-note.model';
 import {
+    CrabTableInstanceType,
     ICommandService,
+    ICrabTableInstanceService,
     ILogService,
     Inject,
     Injector,
     IResourceManagerService,
     IUndoRedoService,
-    IUniverInstanceService,
     LocaleService,
     LocaleType,
     LogLevel,
     Plugin,
     touchDependencies,
     UndoCommand,
-    Univer,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     CopySheetCommand,
     CopyWorksheetEndMutation,
@@ -55,8 +54,8 @@ import {
     SheetInterceptorService,
     SheetLazyExecuteScheduleService,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
-import enUS from '@univerjs/sheets/locale/en-US';
+} from '@crabtable/sheets';
+import enUS from '@crabtable/sheets/locale/en-US';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 // Note mutations are registered by SheetsNoteController.
 import { PLUGIN_NAME } from '../../const';
@@ -86,13 +85,13 @@ const TEST_WORKBOOK_DATA: IWorkbookData = {
 };
 
 function createTestBed(resources?: Array<{ name: string; data: string }>) {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -123,12 +122,12 @@ function createTestBed(resources?: Array<{ name: string; data: string }>) {
     }
 
     univer.registerPlugin(TestPlugin);
-    univer.createUnit(UniverInstanceType.UNIVER_SHEET, {
+    univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, {
         ...TEST_WORKBOOK_DATA,
         resources: resources ?? [],
     });
 
-    get(IUniverInstanceService).focusUnit(unitId);
+    get(ICrabTableInstanceService).focusUnit(unitId);
 
     const logService = get(ILogService);
     logService.setLogLevel(LogLevel.SILENT);
@@ -168,7 +167,7 @@ function createTestBed(resources?: Array<{ name: string; data: string }>) {
 }
 
 describe('SheetsNoteResourceController', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
@@ -204,7 +203,7 @@ describe('SheetsNoteResourceController', () => {
         expect(model.getSheetNotes(unitId, subUnitId)?.size).toBe(1);
 
         const resourceManager = get(IResourceManagerService);
-        resourceManager.unloadResources(unitId, UniverInstanceType.UNIVER_SHEET);
+        resourceManager.unloadResources(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         expect(model.getUnitNotes(unitId)).toBeUndefined();
     });
 
@@ -213,7 +212,7 @@ describe('SheetsNoteResourceController', () => {
         model.updateNote(unitId, subUnitId, 3, 4, { id: 'n3', row: 3, col: 4, width: 160, height: 72, note: 'note' });
 
         // Need at least 2 sheets for RemoveSheetCommand to pass.
-        const workbook = get(IUniverInstanceService).getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = get(ICrabTableInstanceService).getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         workbook.addWorksheet('sheet2', 1, { id: 'sheet2', name: 'Sheet2', rowCount: 10, columnCount: 10, cellData: {} });
 
         expect(await commandService.executeCommand(SetWorksheetActivateCommand.id, { unitId, subUnitId })).toBeTruthy();
@@ -232,7 +231,7 @@ describe('SheetsNoteResourceController', () => {
         model.updateNote(unitId, subUnitId, 1, 2, { id: 'n4', row: 1, col: 2, width: 160, height: 72, note: 'note' });
 
         // Need at least 2 sheets for RemoveSheetCommand used by undo in CopySheetCommand to pass.
-        const workbook = get(IUniverInstanceService).getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = get(ICrabTableInstanceService).getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         workbook.addWorksheet('sheet2', 1, { id: 'sheet2', name: 'Sheet2', rowCount: 10, columnCount: 10, cellData: {} });
 
         expect(await commandService.executeCommand(SetWorksheetActivateCommand.id, { unitId, subUnitId })).toBeTruthy();

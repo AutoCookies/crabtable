@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { borderClassName, clsx } from '@univerjs/design';
+import { borderClassName, clsx } from '@crabtable/design';
 
 export const RangeLoading = () => {
     return (

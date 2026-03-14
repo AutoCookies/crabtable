@@ -19,7 +19,7 @@ import type { BaseFunction } from '../../functions/base-function';
 import type { BaseReferenceObject, FunctionVariantType } from '../reference-object/base-reference-object';
 import type { CellReferenceObject } from '../reference-object/cell-reference-object';
 import type { BaseValueObject } from '../value-object/base-value-object';
-import { Inject } from '@univerjs/core';
+import { Inject } from '@crabtable/core';
 import { ErrorType } from '../../basics/error-type';
 import { suffixToken } from '../../basics/token';
 import { FUNCTION_NAMES_META } from '../../functions/meta/function-names';

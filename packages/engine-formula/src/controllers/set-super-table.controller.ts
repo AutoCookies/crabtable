@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo } from '@univerjs/core';
+import type { ICommandInfo } from '@crabtable/core';
 import type { ISetSuperTableMutationParam, ISetSuperTableMutationSearchParam } from '../commands/mutations/set-super-table.mutation';
 import type { ISuperTableOptionParam } from '../services/super-table.service';
-import { Disposable, ICommandService } from '@univerjs/core';
+import { Disposable, ICommandService } from '@crabtable/core';
 import { RemoveDefinedNameMutation, SetDefinedNameMutation } from '../commands/mutations/set-defined-name.mutation';
 import { SetSuperTableOptionMutation } from '../commands/mutations/set-super-table.mutation';
 import { ISuperTableService } from '../services/super-table.service';

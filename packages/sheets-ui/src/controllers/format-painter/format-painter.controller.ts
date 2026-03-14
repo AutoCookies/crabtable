@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import type { ICellData, IMutationInfo, IRange, IStyleData, Workbook } from '@univerjs/core';
-import type { IAddWorksheetMergeMutationParams, IRemoveWorksheetMergeMutationParams, ISetRangeValuesMutationParams } from '@univerjs/sheets';
+import type { ICellData, IMutationInfo, IRange, IStyleData, Workbook } from '@crabtable/core';
+import type { IAddWorksheetMergeMutationParams, IRemoveWorksheetMergeMutationParams, ISetRangeValuesMutationParams } from '@crabtable/sheets';
 import type { IFormatPainterHook, ISelectionFormatInfo } from '../../services/format-painter/format-painter.service';
 import {
+    CrabTableInstanceType,
     Disposable,
     ICommandService,
+    ICrabTableInstanceService,
     Inject,
     Injector,
-    IUniverInstanceService,
     ObjectMatrix,
     RANGE_TYPE,
     Rectangle,
     Tools,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import {
     AddMergeUndoMutationFactory,
     AddWorksheetMergeMutation,
@@ -44,7 +44,7 @@ import {
     SetSelectionsOperation,
     SheetInterceptorService,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { checkCellContentInRanges } from '../../common/utils';
 import { FormatPainterStatus, IFormatPainterService } from '../../services/format-painter/format-painter.service';
 
@@ -52,7 +52,7 @@ export class FormatPainterController extends Disposable {
     constructor(
         @ICommandService private readonly _commandService: ICommandService,
         @IFormatPainterService private readonly _formatPainterService: IFormatPainterService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
         @Inject(SheetsSelectionsService) private readonly _selectionManagerService: SheetsSelectionsService,
         @Inject(SheetInterceptorService) private readonly _sheetInterceptorService: SheetInterceptorService,
@@ -92,7 +92,7 @@ export class FormatPainterController extends Disposable {
         const range = selection?.range;
         if (!range) return null;
         const { startRow, endRow, startColumn, endColumn } = range;
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook?.getActiveSheet();
         if (!worksheet) return null;
         const cellData = worksheet.getCellMatrix();
@@ -124,7 +124,7 @@ export class FormatPainterController extends Disposable {
     // eslint-disable-next-line max-lines-per-function
     private _getUndoRedoMutationInfo(unitId: string, subUnitId: string, originRange: IRange, format: ISelectionFormatInfo) {
         const sheetInterceptorService = this._sheetInterceptorService;
-        const univerInstanceService = this._univerInstanceService;
+        const crabtableInstanceService = this._crabtableInstanceService;
 
         const { merges, styles: stylesMatrix } = format;
         if (!stylesMatrix) return { undos: [], redos: [] };
@@ -230,7 +230,7 @@ export class FormatPainterController extends Disposable {
             const ranges = getAddMergeMutationRangeByType(mergeRanges);
 
             // First we should check if there are values in the going-to-be-merged cells.
-            const worksheet = (univerInstanceService.getUnit(unitId) as Workbook).getSheetBySheetId(subUnitId)!;
+            const worksheet = (crabtableInstanceService.getUnit(unitId) as Workbook).getSheetBySheetId(subUnitId)!;
             const willRemoveSomeCell = checkCellContentInRanges(worksheet, ranges);
 
             // prepare redo mutations

@@ -16,7 +16,7 @@
 
 import type { Observable } from 'rxjs';
 import type { IMenuSchema } from '../menu/menu-manager.service';
-import { createIdentifier, Disposable, IUniverInstanceService } from '@univerjs/core';
+import { createIdentifier, Disposable, ICrabTableInstanceService } from '@crabtable/core';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { IMenuManagerService } from '../menu/menu-manager.service';
@@ -50,7 +50,7 @@ export class DesktopRibbonService extends Disposable implements IRibbonService {
 
     constructor(
         @IMenuManagerService private readonly _menuManagerService: IMenuManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
         this._initRibbonSubscription();
@@ -72,7 +72,7 @@ export class DesktopRibbonService extends Disposable implements IRibbonService {
         this.disposeWithMe(
             combineLatest([
                 this._menuManagerService.menuChanged$.pipe(startWith(undefined)),
-                this._univerInstanceService.focused$.pipe(startWith(undefined)),
+                this._crabtableInstanceService.focused$.pipe(startWith(undefined)),
             ]).subscribe(() => {
                 this._updateRibbon();
             })

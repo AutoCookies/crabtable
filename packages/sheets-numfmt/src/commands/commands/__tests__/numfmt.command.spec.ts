@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData, Injector as RediInjector, Workbook } from '@univerjs/core';
+import type { Dependency, IWorkbookData, Injector as RediInjector, Workbook } from '@crabtable/core';
 import {
     CellValueType,
+    CrabTableInstanceType,
     DEFAULT_TEXT_FORMAT_EXCEL,
     ICommandService,
+    ICrabTableInstanceService,
     ILogService,
     Inject,
     Injector,
-    IUniverInstanceService,
     LocaleService,
     LocaleType,
     LogLevel,
@@ -30,9 +31,7 @@ import {
     RANGE_TYPE,
     RedoCommand,
     UndoCommand,
-    Univer,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     INumfmtService,
     NumfmtService,
@@ -40,7 +39,7 @@ import {
     SetNumfmtMutation,
     SetRangeValuesMutation,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { getCurrencyFormat } from '../../../base/const/currency-symbols';
@@ -93,12 +92,12 @@ function createWorkbookData(): IWorkbookData {
 }
 
 function createCommandTestBed(workbookData?: IWorkbookData) {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
 
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -118,10 +117,10 @@ function createCommandTestBed(workbookData?: IWorkbookData) {
     }
 
     univer.registerPlugin(TestPlugin);
-    const sheet = univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, workbookData ?? createWorkbookData());
+    const sheet = univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, workbookData ?? createWorkbookData());
 
     const get = injector.get.bind(injector);
-    get(IUniverInstanceService).focusUnit('test');
+    get(ICrabTableInstanceService).focusUnit('test');
     get(LocaleService).setLocale(LocaleType.ZH_CN);
     get(ILogService).setLogLevel(LogLevel.SILENT);
 
@@ -133,7 +132,7 @@ function createCommandTestBed(workbookData?: IWorkbookData) {
 }
 
 describe('Sheets numfmt commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: RediInjector['get'];
     let commandService: ICommandService;
     let selectionService: SheetsSelectionsService;

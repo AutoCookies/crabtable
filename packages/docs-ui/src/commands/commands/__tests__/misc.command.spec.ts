@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommand, IDocumentData, Injector, Univer } from '@univerjs/core';
+import type { CrabTable, DocumentDataModel, ICommand, IDocumentData, Injector } from '@crabtable/core';
 import type { IAutoFormat } from '../../../services/doc-auto-format.service';
 import {
     CommandType,
+    CrabTableInstanceType,
     CustomRangeType,
     HorizontalAlign,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     NamedStyleType,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation, SetTextSelectionsOperation } from '@univerjs/docs';
+} from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation, SetTextSelectionsOperation } from '@crabtable/docs';
 import { afterEach, describe, expect, it } from 'vitest';
 import { DocAutoFormatService } from '../../../services/doc-auto-format.service';
 import { SetDocZoomRatioOperation } from '../../operations/set-doc-zoom-ratio.operation';
@@ -167,12 +167,12 @@ function createTableDoc(): IDocumentData {
 }
 
 describe('misc document commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
     function getDoc() {
-        return get(IUniverInstanceService).getUnit<DocumentDataModel>('test-doc', UniverInstanceType.UNIVER_DOC);
+        return get(ICrabTableInstanceService).getUnit<DocumentDataModel>('test-doc', CrabTableInstanceType.CRABTABLE_DOC);
     }
 
     function getBody() {

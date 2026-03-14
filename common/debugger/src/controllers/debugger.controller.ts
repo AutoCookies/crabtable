@@ -15,7 +15,7 @@
  */
 
 import type { IUniverDebuggerConfig } from '../config/config';
-import { Disposable, IConfigService, Inject, Injector } from '@univerjs/core';
+import { Disposable, IConfigService, Inject, Injector } from '@crabtable/core';
 import {
     BuiltInUIPart,
     ComponentManager,
@@ -24,7 +24,7 @@ import {
     IUIPartsService,
     // MenuItemType,
     // RibbonStartGroup,
-} from '@univerjs/ui';
+} from '@crabtable/ui';
 import { AIButton, FloatButton } from '../components/FloatButton';
 import { ImageDemo } from '../components/Image';
 import { RangeLoading } from '../components/RangeLoading';

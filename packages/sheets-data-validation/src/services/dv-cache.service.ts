@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { DataValidationStatus, IRange, ISheetDataValidationRule, Nullable } from '@univerjs/core';
-import type { IRemoveSheetMutationParams, ISetRangeValuesMutationParams } from '@univerjs/sheets';
-import { Disposable, getIntersectRange, ICommandService, Inject, IUniverInstanceService, ObjectMatrix, Range, UniverInstanceType } from '@univerjs/core';
-import { DataValidationModel } from '@univerjs/data-validation';
-import { RemoveSheetMutation, SetRangeValuesMutation } from '@univerjs/sheets';
+import type { DataValidationStatus, IRange, ISheetDataValidationRule, Nullable } from '@crabtable/core';
+import type { IRemoveSheetMutationParams, ISetRangeValuesMutationParams } from '@crabtable/sheets';
+import { CrabTableInstanceType, Disposable, getIntersectRange, ICommandService, ICrabTableInstanceService, Inject, ObjectMatrix, Range } from '@crabtable/core';
+import { DataValidationModel } from '@crabtable/data-validation';
+import { RemoveSheetMutation, SetRangeValuesMutation } from '@crabtable/sheets';
 import { Subject } from 'rxjs';
 
 export class DataValidationCacheService extends Disposable {
@@ -29,7 +29,7 @@ export class DataValidationCacheService extends Disposable {
 
     constructor(
         @Inject(ICommandService) private readonly _commandService: ICommandService,
-        @Inject(IUniverInstanceService) private readonly _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(DataValidationModel) private readonly _sheetDataValidationModel: DataValidationModel
     ) {
         super();
@@ -63,8 +63,8 @@ export class DataValidationCacheService extends Disposable {
             }
         }));
 
-        this.disposeWithMe(this._univerInstanceService.unitDisposed$.subscribe((univerInstance) => {
-            if (univerInstance.type === UniverInstanceType.UNIVER_SHEET) {
+        this.disposeWithMe(this._crabtableInstanceService.unitDisposed$.subscribe((univerInstance) => {
+            if (univerInstance.type === CrabTableInstanceType.CRABTABLE_SHEET) {
                 this._cacheMatrix.delete(univerInstance.getUnitId());
             }
         }));

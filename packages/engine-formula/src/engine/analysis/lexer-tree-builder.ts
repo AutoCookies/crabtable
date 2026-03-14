@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IRange, Nullable } from '@univerjs/core';
+import type { IRange, Nullable } from '@crabtable/core';
 import type { IDirtyUnitSheetDefinedNameMap, IExprTreeNode, ISuperTable } from '../../basics/common';
 
 import type { IFunctionNames } from '../../basics/function';
 import type { IDefinedNamesServiceParam } from '../../services/defined-names.service';
 import type { ISequenceArray, ISequenceNode } from '../utils/sequence';
-import { AbsoluteRefType, Disposable, isValidRange, moveRangeByOffset, Tools } from '@univerjs/core';
+import { AbsoluteRefType, Disposable, isValidRange, moveRangeByOffset, Tools } from '@crabtable/core';
 
 import { FormulaAstLRU } from '../../basics/cache-lru';
 import { ERROR_TYPE_COUNT_ARRAY, ERROR_TYPE_SET, ErrorType } from '../../basics/error-type';
@@ -1529,7 +1529,7 @@ export class LexerTreeBuilder extends Disposable {
                             return ErrorType.VALUE;
                         }
                         /**
-                         * https://github.com/dream-num/univer/issues/1769
+                         * https://github.com/AutoCookies/crabtable/issues/1769
                          * Formula example: =IF(TODAY()>1,"TRUE", "FALSE")
                          * Copy or auto-fill at complex formula get error formula offset
                          */

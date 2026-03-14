@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
-import type { Engine } from '@univerjs/engine-render';
-import { IConfigService, Inject, Injector, merge, Plugin, UniverInstanceType } from '@univerjs/core';
-import { IRenderingEngine, IRenderManagerService } from '@univerjs/engine-render';
+import type { Dependency } from '@crabtable/core';
+import type { Engine } from '@crabtable/engine-render';
+import { CrabTableInstanceType, IConfigService, Inject, Injector, merge, Plugin } from '@crabtable/core';
+import { IRenderingEngine, IRenderManagerService } from '@crabtable/engine-render';
 import pkg from '../package.json';
 import { defaultPluginConfig, SLIDES_PLUGIN_CONFIG_KEY } from './config/config';
-// import { DocSelectionManagerService } from '@univerjs/docs';
+// import { DocSelectionManagerService } from '@crabtable/docs';
 // import { CanvasView } from './views/render';
 
 export interface IUniverSlidesConfig {}
 
 export class UniverSlidesPlugin extends Plugin {
-    static override pluginName = 'UNIVER_SLIDES_PLUGIN';
+    static override pluginName = 'CRABTABLE_SLIDES_PLUGIN';
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SLIDE;
+    static override type = CrabTableInstanceType.CRABTABLE_SLIDE;
 
     private _canvasEngine: Engine | null = null;
 

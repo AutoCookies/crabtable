@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { ICommand, Workbook } from '@univerjs/core';
-import { CommandType, delayAnimationFrame, DOCS_ZEN_EDITOR_UNIT_ID_KEY, DocumentDataModel, DocumentFlavor, IUniverInstanceService, Tools, UniverInstanceType } from '@univerjs/core';
-import { IEditorService } from '@univerjs/docs-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { EditingRenderController, IEditorBridgeService } from '@univerjs/sheets-ui';
-import { ISidebarService, IZenZoneService } from '@univerjs/ui';
+import type { ICommand, Workbook } from '@crabtable/core';
+import { CommandType, CrabTableInstanceType, delayAnimationFrame, DOCS_ZEN_EDITOR_UNIT_ID_KEY, DocumentDataModel, DocumentFlavor, ICrabTableInstanceService, Tools } from '@crabtable/core';
+import { IEditorService } from '@crabtable/docs-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { EditingRenderController, IEditorBridgeService } from '@crabtable/sheets-ui';
+import { ISidebarService, IZenZoneService } from '@crabtable/ui';
 
 export const OpenZenEditorCommand: ICommand = {
     id: 'zen-editor.command.open-zen-editor',
@@ -28,7 +28,7 @@ export const OpenZenEditorCommand: ICommand = {
         const zenZoneService = accessor.get(IZenZoneService);
         const editorService = accessor.get(IEditorService);
         const editorBridgeService = accessor.get(IEditorBridgeService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const sideBarService = accessor.get(ISidebarService);
 
         if (sideBarService.visible) {
@@ -55,7 +55,7 @@ export const OpenZenEditorCommand: ICommand = {
             return false;
         }
 
-        univerInstanceService.focusUnit(DOCS_ZEN_EDITOR_UNIT_ID_KEY);
+        crabtableInstanceService.focusUnit(DOCS_ZEN_EDITOR_UNIT_ID_KEY);
 
         const { body, drawings, drawingsOrder, tableSource, settings } = Tools.deepClone(snapshot);
 
@@ -92,7 +92,7 @@ export const CancelZenEditCommand: ICommand = {
     handler: async (accessor) => {
         const zenZoneEditorService = accessor.get(IZenZoneService);
         const editorBridgeService = accessor.get(IEditorBridgeService);
-        const univerInstanceManager = accessor.get(IUniverInstanceService);
+        const univerInstanceManager = accessor.get(ICrabTableInstanceService);
         const sideBarService = accessor.get(ISidebarService);
 
         if (sideBarService.visible) {
@@ -101,7 +101,7 @@ export const CancelZenEditCommand: ICommand = {
         }
         zenZoneEditorService.close();
 
-        const currentSheetInstance = univerInstanceManager.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const currentSheetInstance = univerInstanceManager.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (currentSheetInstance) {
             univerInstanceManager.focusUnit(currentSheetInstance.getUnitId());
             editorBridgeService.refreshEditCellState();
@@ -121,7 +121,7 @@ export const ConfirmZenEditCommand: ICommand = {
     handler: async (accessor) => {
         const zenZoneEditorService = accessor.get(IZenZoneService);
         const editorBridgeService = accessor.get(IEditorBridgeService);
-        const univerInstanceManager = accessor.get(IUniverInstanceService);
+        const univerInstanceManager = accessor.get(ICrabTableInstanceService);
         const editorService = accessor.get(IEditorService);
         const sideBarService = accessor.get(ISidebarService);
 
@@ -139,7 +139,7 @@ export const ConfirmZenEditCommand: ICommand = {
 
         const renderManagerService = accessor.get(IRenderManagerService);
 
-        const currentSheetInstance = univerInstanceManager.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const currentSheetInstance = univerInstanceManager.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (currentSheetInstance) {
             const currentSheetId = currentSheetInstance.getUnitId();
 

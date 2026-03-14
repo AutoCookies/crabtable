@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IInsertCommandParams } from '@univerjs/docs-ui';
-import { Disposable, ICommandService, Inject, Tools } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { DeleteLeftCommand, InsertCommand, MoveCursorOperation } from '@univerjs/docs-ui';
+import type { IInsertCommandParams } from '@crabtable/docs-ui';
+import { Disposable, ICommandService, Inject, Tools } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { DeleteLeftCommand, InsertCommand, MoveCursorOperation } from '@crabtable/docs-ui';
 import { CloseMentionEditPopupOperation, ShowMentionEditPopupOperation } from '../commands/operations/mention-popup.operation';
 import { DocMentionPopupService } from '../services/doc-mention-popup.service';
 import { DocMentionService } from '../services/doc-mention.service';

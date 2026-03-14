@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Injector } from '@univerjs/core';
+import { Injector } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { DocQuickInsertPopupService } from '../../../services/doc-quick-insert-popup.service';
 import { CloseQuickInsertPopupOperation, ShowQuickInsertPopupOperation } from '../quick-insert-popup.operation';

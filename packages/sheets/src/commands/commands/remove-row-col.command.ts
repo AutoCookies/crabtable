@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, IMutationInfo, IRange, Workbook, Worksheet } from '@univerjs/core';
+import type { IAccessor, ICommand, IMutationInfo, IRange, Workbook, Worksheet } from '@crabtable/core';
 import type {
     IInsertColMutationParams,
     IInsertRowMutationParams,
@@ -25,11 +25,11 @@ import type { ISetRangeValuesMutationParams } from '../mutations/set-range-value
 import {
     CommandType,
     ICommandService,
+    ICrabTableInstanceService,
     IUndoRedoService,
-    IUniverInstanceService,
     sequenceExecute,
     throttle,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { getVisibleRanges } from '../../basics/utils';
 import { SheetsSelectionsService } from '../../services/selections/selection.service';
 import { SheetInterceptorService } from '../../services/sheet-interceptor/sheet-interceptor.service';
@@ -84,8 +84,8 @@ export const RemoveRowByRangeCommand: ICommand<IRemoveRowByRangeCommandParams> =
         if (!params) {
             return false;
         }
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { workbook, worksheet } = target;
@@ -187,8 +187,8 @@ export const RemoveRowCommand: ICommand<IRemoveRowColCommandParams> = {
         if (!range) range = selectionManagerService.getCurrentLastSelection()?.range;
         if (!range) return false;
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { worksheet, subUnitId, unitId } = target;
@@ -225,8 +225,8 @@ export const RemoveColByRangeCommand: ICommand<IRemoveColByRangeCommandParams> =
         if (!params) {
             return false;
         }
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService, params);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService, params);
         if (!target) return false;
 
         const { workbook, worksheet } = target;
@@ -309,8 +309,8 @@ export const RemoveColCommand: ICommand = {
         if (!range) range = selectionManagerService.getCurrentLastSelection()?.range;
         if (!range) return false;
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { worksheet, subUnitId, unitId } = target;

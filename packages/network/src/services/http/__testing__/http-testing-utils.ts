@@ -20,7 +20,7 @@
 import type { Observer } from 'rxjs';
 import type { HTTPRequest } from '../request';
 import type { HTTPEvent, HTTPResponseError } from '../response';
-import { Disposable, Injector } from '@univerjs/core';
+import { Disposable, Injector } from '@crabtable/core';
 import { Observable, Subject } from 'rxjs';
 import { HTTPService } from '../http.service';
 import { IHTTPImplementation } from '../implementations/implementation';

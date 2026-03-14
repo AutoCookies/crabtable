@@ -35,7 +35,7 @@ test('diff formula related', async () => {
     await page.waitForTimeout(5000);
 
     await page.evaluate(async () => {
-        const worksheet = window.univerAPI.getActiveWorkbook().create('formula', 50, 20);
+        const worksheet = window.crabtableAPI.getActiveWorkbook().create('formula', 50, 20);
         worksheet.getRange('A1:C6').setValues({
             0: {
                 0: {
@@ -116,14 +116,14 @@ test('diff formula related', async () => {
             },
         });
 
-        const worksheet2 = window.univerAPI.getActiveWorkbook().create('formula2', 50, 20);
+        const worksheet2 = window.crabtableAPI.getActiveWorkbook().create('formula2', 50, 20);
         worksheet2.getRange('A1').setValue({ f: '=SUBTOTAL(109,formula!B1:B5)' });
     });
 
     // The impact of hide row on the formula of the current worksheet
     await page.evaluate(async () => {
-        const worksheet = window.univerAPI.getActiveWorkbook().getSheetByName('formula');
-        window.univerAPI.getActiveWorkbook().setActiveSheet(worksheet);
+        const worksheet = window.crabtableAPI.getActiveWorkbook().getSheetByName('formula');
+        window.crabtableAPI.getActiveWorkbook().setActiveSheet(worksheet);
         await worksheet.hideRows(3, 2);
     });
 
@@ -135,13 +135,13 @@ test('diff formula related', async () => {
 
     // restore the hidden row
     await page.evaluate(async () => {
-        const worksheet = window.univerAPI.getActiveWorkbook().getActiveSheet();
+        const worksheet = window.crabtableAPI.getActiveWorkbook().getActiveSheet();
         await worksheet.showRows(3, 2);
     });
 
     // The impact of filtering on the formula of the current worksheet
     await page.evaluate(async () => {
-        const worksheet = window.univerAPI.getActiveWorkbook().getActiveSheet();
+        const worksheet = window.crabtableAPI.getActiveWorkbook().getActiveSheet();
         const filter = await worksheet.getRange('A1:A5').createFilter();
         await filter.setColumnFilterCriteria(0, {
             colId: 0,
@@ -162,8 +162,8 @@ test('diff formula related', async () => {
     await expect(screenshot2).toMatchSnapshot(filename2, { maxDiffPixels: 150 });
 
     await page.evaluate(async () => {
-        const worksheet2 = window.univerAPI.getActiveWorkbook().getSheetByName('formula2');
-        window.univerAPI.getActiveWorkbook().setActiveSheet(worksheet2);
+        const worksheet2 = window.crabtableAPI.getActiveWorkbook().getSheetByName('formula2');
+        window.crabtableAPI.getActiveWorkbook().setActiveSheet(worksheet2);
     });
 
     await page.waitForTimeout(100);

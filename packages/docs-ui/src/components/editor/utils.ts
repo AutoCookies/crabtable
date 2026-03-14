@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IDocumentData } from '@univerjs/core';
-import { DEFAULT_EMPTY_DOCUMENT_VALUE, DocumentFlavor } from '@univerjs/core';
+import type { IDocumentData } from '@crabtable/core';
+import { DEFAULT_EMPTY_DOCUMENT_VALUE, DocumentFlavor } from '@crabtable/core';
 
 /**
  *

@@ -15,8 +15,8 @@
  */
 
 import type { IRangeSelectorInstance } from './index';
-import { deserializeRangeWithSheet } from '@univerjs/engine-formula';
-import { useDependency, useObservable } from '@univerjs/ui';
+import { deserializeRangeWithSheet } from '@crabtable/engine-formula';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { useEffect, useRef } from 'react';
 import { GlobalRangeSelectorService } from '../../services/range-selector.service';
 import { RangeSelector } from './index';

@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import type { Plugin, PluginCtor } from '@univerjs/core';
-import { UniverDocsDrawingUIPlugin } from '@univerjs/docs-drawing-ui';
-import { UniverDocsMentionUIPlugin } from '@univerjs/docs-mention-ui';
-import { UniverSheetsConditionalFormattingUIPlugin } from '@univerjs/sheets-conditional-formatting-ui';
-import { UniverSheetsDataValidationUIPlugin } from '@univerjs/sheets-data-validation-ui';
-import { UniverSheetsDrawingUIPlugin } from '@univerjs/sheets-drawing-ui';
-import { UniverSheetsFilterUIPlugin } from '@univerjs/sheets-filter-ui';
-import { UniverSheetsFormulaUIPlugin } from '@univerjs/sheets-formula-ui';
-import { UniverSheetsNoteUIPlugin } from '@univerjs/sheets-note-ui';
-import { UniverSheetsNumfmtUIPlugin } from '@univerjs/sheets-numfmt-ui';
-import { UniverSheetsTableUIPlugin } from '@univerjs/sheets-table-ui';
-import { UniverSheetsThreadCommentUIPlugin } from '@univerjs/sheets-thread-comment-ui';
-import { UniverThreadCommentUIPlugin } from '@univerjs/thread-comment-ui';
+import type { Plugin, PluginCtor } from '@crabtable/core';
+import { UniverDocsDrawingUIPlugin } from '@crabtable/docs-drawing-ui';
+import { UniverDocsMentionUIPlugin } from '@crabtable/docs-mention-ui';
+import { UniverSheetsConditionalFormattingUIPlugin } from '@crabtable/sheets-conditional-formatting-ui';
+import { UniverSheetsDataValidationUIPlugin } from '@crabtable/sheets-data-validation-ui';
+import { UniverSheetsDrawingUIPlugin } from '@crabtable/sheets-drawing-ui';
+import { UniverSheetsFilterUIPlugin } from '@crabtable/sheets-filter-ui';
+import { UniverSheetsFormulaUIPlugin } from '@crabtable/sheets-formula-ui';
+import { UniverSheetsNoteUIPlugin } from '@crabtable/sheets-note-ui';
+import { UniverSheetsNumfmtUIPlugin } from '@crabtable/sheets-numfmt-ui';
+import { UniverSheetsTableUIPlugin } from '@crabtable/sheets-table-ui';
+import { UniverSheetsThreadCommentUIPlugin } from '@crabtable/sheets-thread-comment-ui';
+import { UniverThreadCommentUIPlugin } from '@crabtable/thread-comment-ui';
 
 export default function getLazyPlugins(): Array<[PluginCtor<Plugin>] | [PluginCtor<Plugin>, unknown]> {
     return [

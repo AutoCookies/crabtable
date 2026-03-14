@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Dependency, ICommandInfo, IWorkbookData } from '@univerjs/core';
-import type { ISetDefinedNameMutationParam } from '@univerjs/engine-formula';
-import type { IInsertSheetMutationParams, IRemoveRowsMutationParams } from '@univerjs/sheets';
+import type { Dependency, ICommandInfo, IWorkbookData } from '@crabtable/core';
+import type { ISetDefinedNameMutationParam } from '@crabtable/engine-formula';
+import type { IInsertSheetMutationParams, IRemoveRowsMutationParams } from '@crabtable/sheets';
 import type { ITestBed } from '../../facade/__tests__/create-test-bed';
-import { LocaleType } from '@univerjs/core';
+import { LocaleType } from '@crabtable/core';
 import {
     ActiveDirtyManagerService,
     FormulaDataModel,
@@ -26,7 +26,7 @@ import {
     RemoveDefinedNameMutation,
     SetDefinedNameMutation,
     SetTriggerFormulaCalculationStartMutation,
-} from '@univerjs/engine-formula';
+} from '@crabtable/engine-formula';
 import {
     InsertSheetMutation,
     MoveRangeMutation,
@@ -37,7 +37,7 @@ import {
     SetRangeValuesMutation,
     SetRowHiddenMutation,
     SetStyleCommand,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { afterEach, describe, expect, it } from 'vitest';
 
 import { createFacadeTestBed } from '../../facade/__tests__/create-test-bed';

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Injector, Univer } from '@univerjs/core';
+import type { CrabTable, Injector } from '@crabtable/core';
 import type { TestMessageService } from '../../../__tests__/create-test-bed';
-import { ICommandService, IConfirmService } from '@univerjs/core';
-import { MessageType } from '@univerjs/design';
+import { ICommandService, IConfirmService } from '@crabtable/core';
+import { MessageType } from '@crabtable/design';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
     createTestBed,
@@ -28,7 +28,7 @@ import { FindReplaceService } from '../../../services/find-replace.service';
 import { ReplaceAllMatchesCommand, ReplaceCurrentMatchCommand } from '../replace.command';
 
 describe('replace.command', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
 
     beforeEach(() => {

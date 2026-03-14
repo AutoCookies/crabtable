@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IAccessor, Workbook } from '@univerjs/core';
-import type { IMenuSelectorItem } from '@univerjs/ui';
-import { ICommandService, IUniverInstanceService, Rectangle, UniverInstanceType } from '@univerjs/core';
-import { checkRangesEditablePermission, RangeProtectionPermissionEditPoint, SetWorksheetActiveOperation, SheetsSelectionsService, WorkbookEditablePermission, WorksheetEditPermission, WorksheetSetCellStylePermission } from '@univerjs/sheets';
-import { AddConditionalRuleMutation, ConditionalFormattingRuleModel, DeleteConditionalRuleMutation, MoveConditionalRuleMutation, SetConditionalRuleMutation } from '@univerjs/sheets-conditional-formatting';
+import type { IAccessor, Workbook } from '@crabtable/core';
+import type { IMenuSelectorItem } from '@crabtable/ui';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, Rectangle } from '@crabtable/core';
+import { checkRangesEditablePermission, RangeProtectionPermissionEditPoint, SetWorksheetActiveOperation, SheetsSelectionsService, WorkbookEditablePermission, WorksheetEditPermission, WorksheetSetCellStylePermission } from '@crabtable/sheets';
+import { AddConditionalRuleMutation, ConditionalFormattingRuleModel, DeleteConditionalRuleMutation, MoveConditionalRuleMutation, SetConditionalRuleMutation } from '@crabtable/sheets-conditional-formatting';
 
-import { getCurrentRangeDisable$ } from '@univerjs/sheets-ui';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+import { getCurrentRangeDisable$ } from '@crabtable/sheets-ui';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { merge, Observable } from 'rxjs';
 
 import { debounceTime } from 'rxjs/operators';
@@ -113,7 +113,7 @@ const commonSelections = [
 export const FactoryManageConditionalFormattingRule = (accessor: IAccessor): IMenuSelectorItem => {
     const selectionManagerService = accessor.get(SheetsSelectionsService);
     const commandService = accessor.get(ICommandService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const conditionalFormattingRuleModel = accessor.get(ConditionalFormattingRuleModel);
 
     const clearRangeEnable$ = new Observable<boolean>((subscriber) => merge(
@@ -122,7 +122,7 @@ export const FactoryManageConditionalFormattingRule = (accessor: IAccessor): IMe
         new Observable<null>((commandSubscribe) => {
             const disposable = commandService.onCommandExecuted((commandInfo) => {
                 const { id, params } = commandInfo;
-                const unitId = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getUnitId();
+                const unitId = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getUnitId();
                 if (commandList.includes(id) && (params as { unitId: string }).unitId === unitId) {
                     commandSubscribe.next(null);
                 }
@@ -131,7 +131,7 @@ export const FactoryManageConditionalFormattingRule = (accessor: IAccessor): IMe
         })
     ).pipe(debounceTime(16)).subscribe(() => {
         const ranges = selectionManagerService.getCurrentSelections()?.map((selection) => selection.range) || [];
-        const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) return;
         const worksheet = workbook.getActiveSheet();
         if (!worksheet) return;
@@ -147,14 +147,14 @@ export const FactoryManageConditionalFormattingRule = (accessor: IAccessor): IMe
         new Observable<null>((commandSubscribe) => {
             const disposable = commandService.onCommandExecuted((commandInfo) => {
                 const { id, params } = commandInfo;
-                const unitId = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getUnitId();
+                const unitId = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getUnitId();
                 if (commandList.includes(id) && (params as { unitId: string }).unitId === unitId) {
                     commandSubscribe.next(null);
                 }
             });
             return () => disposable.dispose();
         }).pipe(debounceTime(16)).subscribe(() => {
-            const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+            const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
             if (!workbook) return;
             const worksheet = workbook.getActiveSheet();
             if (!worksheet) return;
@@ -194,7 +194,7 @@ export const FactoryManageConditionalFormattingRule = (accessor: IAccessor): IMe
         icon: 'ConditionsDoubleIcon',
         tooltip: 'sheet.cf.title',
         selections: selections$,
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
         disabled$: getCurrentRangeDisable$(accessor, { workbookTypes: [WorkbookEditablePermission], worksheetTypes: [WorksheetSetCellStylePermission, WorksheetEditPermission], rangeTypes: [RangeProtectionPermissionEditPoint] }),
     } as IMenuSelectorItem;
 };

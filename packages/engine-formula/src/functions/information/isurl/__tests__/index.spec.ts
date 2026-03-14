@@ -28,7 +28,7 @@ describe('Test isurl function', () => {
 
     describe('Isurl', () => {
         it('value is normal', () => {
-            const value = StringValueObject.create('univer.ai');
+            const value = StringValueObject.create('crabtable.dev');
             const result = testFunction.calculate(value);
             expect(getObjectValue(result)).toBe(true);
         });
@@ -74,7 +74,7 @@ describe('Test isurl function', () => {
 
             const value2 = ArrayValueObject.create({
                 calculateValueList: transformToValueObject([
-                    [`${'abcde'.repeat(200)}.univer.ai`],
+                    [`${'abcde'.repeat(200)}.crabtable.dev`],
                 ]),
                 rowCount: 1,
                 columnCount: 1,

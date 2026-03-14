@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { ErrorType } from '../../basics/error-type';
 
 import type { FunctionVariantType } from '../reference-object/base-reference-object';

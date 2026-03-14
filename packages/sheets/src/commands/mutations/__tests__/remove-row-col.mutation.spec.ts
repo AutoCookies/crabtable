@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Injector, Workbook } from '@univerjs/core';
+import type { Injector, Workbook } from '@crabtable/core';
 import type {
     IRemoveColMutationParams,
     IRemoveRowsMutationParams,
 } from '../../../basics/interfaces/mutation-interface';
-import { BooleanNumber, ICommandService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
+import { BooleanNumber, CrabTableInstanceType, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { InsertColMutation, InsertRowMutation } from '../insert-row-col.mutation';
 import {
@@ -34,14 +34,14 @@ describe('Test moving rows & cols', () => {
     let get: Injector['get'];
     let has: Injector['has'];
     const getWorksheet = () => {
-        const univerInstanceService = get(IUniverInstanceService);
-        const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const crabtableInstanceService = get(ICrabTableInstanceService);
+        const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet()!;
         return worksheet;
     };
     const getId = () => {
-        const univerInstanceService = get(IUniverInstanceService);
-        const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const crabtableInstanceService = get(ICrabTableInstanceService);
+        const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet()!;
         return {
             unitId: workbook.getUnitId(),

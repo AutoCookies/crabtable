@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IFreeze, Injector, IWorkbookData, Univer, Workbook } from '@univerjs/core';
+import type { IFreeze, Injector, IWorkbookData, Workbook } from '@crabtable/core';
 import type { IScrollStateWithSearchParam } from '../../../services/scroll-manager.service';
-import { ICommandService, IUniverInstanceService, RANGE_TYPE, UniverInstanceType } from '@univerjs/core';
-import { CancelFrozenCommand, SheetsSelectionsService } from '@univerjs/sheets';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, RANGE_TYPE } from '@crabtable/core';
+import { CancelFrozenCommand, SheetsSelectionsService } from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SheetScrollManagerService } from '../../../services/scroll-manager.service';
 import {
@@ -30,7 +30,7 @@ import {
 import { createFrozenCommandTestBed } from './create-selection-command-test-bed';
 
 describe('Test commands used for change selections', () => {
-    let univer: Univer | null = null;
+    let univer: CrabTable | null = null;
     let get: Injector['get'];
     let commandService: ICommandService;
     let selectionManagerService: SheetsSelectionsService;
@@ -82,8 +82,8 @@ describe('Test commands used for change selections', () => {
     };
 
     const getFreeze = () => {
-        const currentService = get(IUniverInstanceService);
-        const workbook = currentService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const currentService = get(ICrabTableInstanceService);
+        const workbook = currentService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet();
         return worksheet?.getConfig().freeze;
     };

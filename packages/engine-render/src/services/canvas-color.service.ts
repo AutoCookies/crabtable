@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { RGBColorType } from '@univerjs/core';
-import { ColorKit, createIdentifier, Disposable, Inject, invertColorByMatrix, ThemeService } from '@univerjs/core';
+import type { RGBColorType } from '@crabtable/core';
+import { ColorKit, createIdentifier, Disposable, Inject, invertColorByMatrix, ThemeService } from '@crabtable/core';
 
 export const ICanvasColorService = createIdentifier<ICanvasColorService>('univer.engine-render.canvas-color.service');
 /**
- * This service maps a color or a theme-token to a color for rendering. Univer supports themes for rendering
+ * This service maps a color or a theme-token to a color for rendering. CrabTable supports themes for rendering
  * and dark mode. This services is responsible for abstract this complexity for rendering components.
  */
 export interface ICanvasColorService {

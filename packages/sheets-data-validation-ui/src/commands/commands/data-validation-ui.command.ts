@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
-import type { IAddSheetDataValidationCommandParams } from '@univerjs/sheets-data-validation';
-import { CommandType, ICommandService, IUniverInstanceService } from '@univerjs/core';
-import { getSheetCommandTarget } from '@univerjs/sheets';
-import { AddSheetDataValidationCommand, createDefaultNewRule } from '@univerjs/sheets-data-validation';
+import type { ICommand } from '@crabtable/core';
+import type { IAddSheetDataValidationCommandParams } from '@crabtable/sheets-data-validation';
+import { CommandType, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { getSheetCommandTarget } from '@crabtable/sheets';
+import { AddSheetDataValidationCommand, createDefaultNewRule } from '@crabtable/sheets-data-validation';
 import { OpenValidationPanelOperation } from '../operations/data-validation.operation';
 
 export const AddSheetDataValidationAndOpenCommand: ICommand = {
     type: CommandType.COMMAND,
     id: 'data-validation.command.addRuleAndOpen',
     handler(accessor) {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { workbook, worksheet } = target;

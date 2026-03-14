@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Injector, Univer, Workbook, Worksheet } from '@univerjs/core';
-import { ICommandService, IConfigService, IUniverInstanceService, LocaleService, LocaleType, RedoCommand, UndoCommand, UniverInstanceType } from '@univerjs/core';
+import type { Injector, Workbook, Worksheet } from '@crabtable/core';
+import { CrabTableInstanceType, ICommandService, IConfigService, ICrabTableInstanceService, LocaleService, LocaleType, RedoCommand, UndoCommand } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { SHEETS_PLUGIN_CONFIG_KEY } from '../../../config/config';
 import enUS from '../../../locale/en-US';
@@ -32,7 +32,7 @@ import { SetWorksheetActivateCommand } from '../set-worksheet-activate.command';
 import { createCommandTestBed } from './create-command-test-bed';
 
 describe('Test copy worksheet commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 
@@ -61,7 +61,7 @@ describe('Test copy worksheet commands', () => {
     describe('copy sheet', () => {
         describe('copy the only sheet', async () => {
             it('correct situation', async () => {
-                const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                 if (!workbook) throw new Error('This is an error');
                 function getSheetCopyPart(sheet: Worksheet) {
                     const config = sheet.getConfig();
@@ -109,7 +109,7 @@ describe('Test copy worksheet commands', () => {
             });
 
             it('Function getCopyUniqueSheetName', async () => {
-                const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                 if (!workbook) throw new Error('This is an error');
 
                 const localeService = get(LocaleService);
@@ -124,7 +124,7 @@ describe('Test copy worksheet commands', () => {
             });
 
             it('split large sheet copy should schedule remaining mutations and disable redo', async () => {
-                const sourceWorkbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                const sourceWorkbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                 const sourceSheet = sourceWorkbook.getActiveSheet();
                 sourceSheet.getCellMatrix().setValue(1, 0, { v: 'B1' });
                 expect(sourceSheet.getConfig().cellData[1]).toBeDefined();
@@ -148,7 +148,7 @@ describe('Test copy worksheet commands', () => {
                     })
                 ).toBeTruthy();
 
-                const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                 expect(workbook.getSheetSize()).toBe(2);
                 expect(scheduleSpy).toHaveBeenCalledTimes(1);
 

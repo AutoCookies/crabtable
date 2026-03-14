@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IUnitRangeName, IUniverInstanceService, Workbook } from '@univerjs/core';
-import { serializeRange, serializeRangeToRefString, serializeRangeWithSheet } from '@univerjs/engine-formula';
+import type { ICrabTableInstanceService, IUnitRangeName, Workbook } from '@crabtable/core';
+import { serializeRange, serializeRangeToRefString, serializeRangeWithSheet } from '@crabtable/engine-formula';
 
-export function getSheetIdByName(univerInstanceService: IUniverInstanceService, unitId: string, name: string) {
-    return univerInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetName(name)?.getSheetId() || '';
+export function getSheetIdByName(crabtableInstanceService: ICrabTableInstanceService, unitId: string, name: string) {
+    return crabtableInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetName(name)?.getSheetId() || '';
 }
-export function getSheetNameById(univerInstanceService: IUniverInstanceService, unitId: string, sheetId: string) {
-    return univerInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(sheetId)?.getName() || '';
+export function getSheetNameById(crabtableInstanceService: ICrabTableInstanceService, unitId: string, sheetId: string) {
+    return crabtableInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(sheetId)?.getName() || '';
 }
 
 export const unitRangesToText = (ranges: IUnitRangeName[], isNeedSheetName: boolean = false, originSheetName = '', isNeedWorkbookName = false) => {

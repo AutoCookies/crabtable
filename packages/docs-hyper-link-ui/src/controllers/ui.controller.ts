@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { MenuConfig } from '@univerjs/ui';
-import { Disposable, ICommandService, Inject } from '@univerjs/core';
+import type { MenuConfig } from '@crabtable/ui';
+import { Disposable, ICommandService, Inject } from '@crabtable/core';
+import { ComponentManager, IMenuManagerService, IShortcutService } from '@crabtable/ui';
 import { LinkIcon } from '@univerjs/icons';
-import { ComponentManager, IMenuManagerService, IShortcutService } from '@univerjs/ui';
 import { AddDocHyperLinkCommand } from '../commands/commands/add-link.command';
 import { DeleteDocHyperLinkCommand } from '../commands/commands/delete-link.command';
 import { UpdateDocHyperLinkCommand } from '../commands/commands/update-link.command';

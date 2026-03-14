@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { AddHyperLinkMutation, RemoveHyperLinkMutation } from '@univerjs/sheets-hyper-link';
-import { COPY_TYPE, PREDEFINED_HOOK_NAME_PASTE } from '@univerjs/sheets-ui';
+import { AddHyperLinkMutation, RemoveHyperLinkMutation } from '@crabtable/sheets-hyper-link';
+import { COPY_TYPE, PREDEFINED_HOOK_NAME_PASTE } from '@crabtable/sheets-ui';
 import { describe, expect, it, vi } from 'vitest';
 import { SheetsHyperLinkCopyPasteController } from '../copy-paste.controller';
 

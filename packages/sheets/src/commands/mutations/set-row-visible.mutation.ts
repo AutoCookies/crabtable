@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IMutation, IRange } from '@univerjs/core';
-import { CommandType, IUniverInstanceService } from '@univerjs/core';
+import type { IAccessor, IMutation, IRange } from '@crabtable/core';
+import { CommandType, ICrabTableInstanceService } from '@crabtable/core';
 
 export interface ISetRowVisibleMutationParams {
     unitId: string;
@@ -24,8 +24,8 @@ export interface ISetRowVisibleMutationParams {
 }
 
 export const SetRowVisibleUndoMutationFactory = (accessor: IAccessor, params: ISetRowVisibleMutationParams) => {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
-    const universheet = univerInstanceService.getUniverSheetInstance(params.unitId);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+    const universheet = crabtableInstanceService.getCrabTableSheetInstance(params.unitId);
 
     if (universheet == null) {
         throw new Error('universheet is null error!');
@@ -42,8 +42,8 @@ export const SetRowVisibleMutation: IMutation<ISetRowVisibleMutationParams> = {
     id: 'sheet.mutation.set-row-visible',
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const universheet = univerInstanceService.getUniverSheetInstance(params.unitId);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const universheet = crabtableInstanceService.getCrabTableSheetInstance(params.unitId);
 
         if (universheet == null) {
             throw new Error('universheet is null error!');
@@ -71,8 +71,8 @@ export interface ISetRowHiddenMutationParams {
 }
 
 export const SetRowHiddenUndoMutationFactory = (accessor: IAccessor, params: ISetRowHiddenMutationParams) => {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
-    const universheet = univerInstanceService.getUniverSheetInstance(params.unitId);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+    const universheet = crabtableInstanceService.getCrabTableSheetInstance(params.unitId);
 
     if (universheet == null) {
         throw new Error('universheet is null error!');
@@ -89,8 +89,8 @@ export const SetRowHiddenMutation: IMutation<ISetRowHiddenMutationParams> = {
     id: 'sheet.mutation.set-row-hidden',
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const universheet = univerInstanceService.getUniverSheetInstance(params.unitId);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const universheet = crabtableInstanceService.getCrabTableSheetInstance(params.unitId);
 
         if (universheet == null) {
             throw new Error('universheet is null error!');

@@ -17,8 +17,8 @@
 import type { ComponentType } from 'react';
 import type { RibbonType } from '../../../controllers/ui/ui.controller';
 import type { IMenuSchema } from '../../../services/menu/menu-manager.service';
-import { LocaleService, throttle } from '@univerjs/core';
-import { borderBottomClassName, clsx, divideXClassName, Dropdown } from '@univerjs/design';
+import { LocaleService, throttle } from '@crabtable/core';
+import { borderBottomClassName, clsx, divideXClassName, Dropdown } from '@crabtable/design';
 import { MoreFunctionIcon } from '@univerjs/icons';
 import { Fragment, useCallback, useEffect, useMemo, useRef } from 'react';
 import { RibbonPosition } from '../../../services/menu/types';

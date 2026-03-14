@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { FEnum } from '@univerjs/core/facade';
-import { TableColumnFilterTypeEnum, TableConditionTypeEnum, TableDateCompareTypeEnum, TableNumberCompareTypeEnum, TableStringCompareTypeEnum } from '@univerjs/sheets-table';
+import { FEnum } from '@crabtable/core/facade';
+import { TableColumnFilterTypeEnum, TableConditionTypeEnum, TableDateCompareTypeEnum, TableNumberCompareTypeEnum, TableStringCompareTypeEnum } from '@crabtable/sheets-table';
 
 /**
  * @ignore
@@ -51,7 +51,7 @@ export class TableEnum extends FEnum implements ITableEnumMixin {
 }
 
 FEnum.extend(TableEnum);
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FEnum extends ITableEnumMixin { }
 }

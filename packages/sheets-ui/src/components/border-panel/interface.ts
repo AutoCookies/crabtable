@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IBorderInfo } from '@univerjs/sheets';
-import type { ICustomComponentProps } from '@univerjs/ui';
+import type { IBorderInfo } from '@crabtable/sheets';
+import type { ICustomComponentProps } from '@crabtable/ui';
 import { COMPONENT_PREFIX } from '../const';
 
 export const BORDER_PANEL_COMPONENT = `${COMPONENT_PREFIX}_BORDER_PANEL_COMPONENT`;

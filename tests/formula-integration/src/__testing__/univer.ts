@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import { FUniver } from '@univerjs/core/facade';
-import { createUniverOnNode } from 'univer-examples/node/index.ts';
+import { FCrabTable } from '@crabtable/core/facade';
+import { createCrabTableOnNode } from 'crabtable-examples/node/index.ts';
 
 export function createFormulaTestBed() {
-    const univer = createUniverOnNode();
+    const univer = createCrabTableOnNode();
     const injector = univer.__getInjector();
 
     return {
         univer,
         get: injector.get.bind(injector),
-        api: FUniver.newAPI(univer),
+        api: FCrabTable.newAPI(univer),
     };
 }

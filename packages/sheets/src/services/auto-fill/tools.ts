@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICellData, IObjectMatrixPrimitiveType, IRange, Nullable } from '@univerjs/core';
+import type { ICellData, IObjectMatrixPrimitiveType, IRange, Nullable } from '@crabtable/core';
 import type { IDiscreteRange } from '../../basics';
 import type { IAutoFillCopyDataInTypeIndexInfo } from './type';
-import { CellValueType, Direction, isFormulaId, isFormulaString, ObjectMatrix, Tools } from '@univerjs/core';
+import { CellValueType, Direction, isFormulaId, isFormulaString, ObjectMatrix, Tools } from '@crabtable/core';
 
 const chnNumChar = {
     零: 0,

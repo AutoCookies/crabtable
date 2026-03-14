@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDropdownMenuProps } from '@univerjs/design';
-import { LocaleService } from '@univerjs/core';
-import { Button, clsx, DropdownMenu } from '@univerjs/design';
+import type { IDropdownMenuProps } from '@crabtable/design';
+import { LocaleService } from '@crabtable/core';
+import { Button, clsx, DropdownMenu } from '@crabtable/design';
 import * as React from 'react';
 import { useMemo, useRef, useState } from 'react';
 import { ComponentManager } from '../../common';

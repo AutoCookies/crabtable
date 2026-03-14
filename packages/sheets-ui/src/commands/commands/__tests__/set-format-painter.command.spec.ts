@@ -14,27 +14,27 @@
  * limitations under the License.
  */
 
-import type { Injector, Univer, Workbook } from '@univerjs/core';
-import type { ISelectionWithCoord } from '@univerjs/sheets';
+import type { Injector, Workbook } from '@crabtable/core';
+import type { ISelectionWithCoord } from '@crabtable/sheets';
 import {
+    CrabTableInstanceType,
     Disposable,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     LocaleType,
     RedoCommand,
     set,
     ThemeService,
     UndoCommand,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import {
     AddWorksheetMergeMutation,
     RemoveWorksheetMergeMutation,
     SetRangeValuesCommand,
     SetRangeValuesMutation,
     SetSelectionsOperation,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { BehaviorSubject } from 'rxjs';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { FormatPainterController } from '../../../controllers/format-painter/format-painter.controller';
@@ -193,7 +193,7 @@ class MarkSelectionService extends Disposable implements IMarkSelectionService {
 }
 
 describe('Test format painter rules in controller', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let themeService: ThemeService;
@@ -245,7 +245,7 @@ describe('Test format painter rules in controller', () => {
     describe('format painter', () => {
         describe('format painter the numbers', async () => {
             it('correct situation', async () => {
-                const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                 if (!workbook) throw new Error('This is an error');
                 await commandService.executeCommand(SetSelectionsOperation.id, {
                     unitId: 'workbook-01',
@@ -282,7 +282,7 @@ describe('Test format painter rules in controller', () => {
                 expect(workbook.getSheetBySheetId('sheet-0011')?.getMergeData()[1].startRow).toBe(1);
                 expect(workbook.getSheetBySheetId('sheet-0011')?.getMergeData()[2].startRow).toBe(3);
 
-                get(IUniverInstanceService).focusUnit('workbook-01');
+                get(ICrabTableInstanceService).focusUnit('workbook-01');
                 // undo
                 await commandService.executeCommand(UndoCommand.id);
                 expect(workbook.getSheetBySheetId('sheet-0011')?.getCell(0, 2)?.s).toBe(undefined);
@@ -366,7 +366,7 @@ describe('Test format painter rules in controller', () => {
                     subUnitId: 'sheet-0011',
                 })).toBeTruthy();
 
-                const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                 if (!workbook) throw new Error('This is an error');
                 expect(workbook.getSheetBySheetId('sheet-0011')?.getCell(5, 0)?.s).toBe('yifA1t');
                 expect(workbook.getSheetBySheetId('sheet-0011')?.getCell(5, 1)?.s).toBe('M5JbP2');
@@ -402,7 +402,7 @@ describe('Test format painter rules in controller', () => {
                         subUnitId: 'sheet-0011',
                     })).toBeTruthy();
 
-                    const workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                    const workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                     if (!workbook) throw new Error('This is an error');
                     expect(workbook.getSheetBySheetId('sheet-0011')?.getCell(0, 0)?.s).toBe(undefined);
                 });

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IDocumentBody, IRange, Workbook } from '@univerjs/core';
-import type { IAddCommentCommandParams, IBaseComment, IDeleteCommentCommandParams, IResolveCommentCommandParams, IThreadComment, IUpdateCommentCommandParams } from '@univerjs/thread-comment';
-import { generateRandomId, ICommandService, Inject, Injector, IUniverInstanceService, RichTextBuilder, RichTextValue, Tools, UniverInstanceType, UserManagerService } from '@univerjs/core';
-import { deserializeRangeWithSheet } from '@univerjs/engine-formula';
-import { SheetsThreadCommentModel } from '@univerjs/sheets-thread-comment';
-import { FRange } from '@univerjs/sheets/facade';
-import { AddCommentCommand, DeleteCommentCommand, DeleteCommentTreeCommand, getDT, ResolveCommentCommand, UpdateCommentCommand } from '@univerjs/thread-comment';
+import type { IDocumentBody, IRange, Workbook } from '@crabtable/core';
+import type { IAddCommentCommandParams, IBaseComment, IDeleteCommentCommandParams, IResolveCommentCommandParams, IThreadComment, IUpdateCommentCommandParams } from '@crabtable/thread-comment';
+import { CrabTableInstanceType, generateRandomId, ICommandService, ICrabTableInstanceService, Inject, Injector, RichTextBuilder, RichTextValue, Tools, UserManagerService } from '@crabtable/core';
+import { deserializeRangeWithSheet } from '@crabtable/engine-formula';
+import { SheetsThreadCommentModel } from '@crabtable/sheets-thread-comment';
+import { FRange } from '@crabtable/sheets/facade';
+import { AddCommentCommand, DeleteCommentCommand, DeleteCommentTreeCommand, getDT, ResolveCommentCommand, UpdateCommentCommand } from '@crabtable/thread-comment';
 
 /**
  * An readonly class that represents a comment.
@@ -45,7 +45,7 @@ export class FTheadCommentItem {
      * @returns {FTheadCommentItem} A new instance of FTheadCommentItem
      * @example
      * ```ts
-     * const commentBuilder = univerAPI.newTheadComment();
+     * const commentBuilder = crabtableAPI.newTheadComment();
      * console.log(commentBuilder);
      * ```
      */
@@ -64,7 +64,7 @@ export class FTheadCommentItem {
      * @returns {string} The person id of the comment
      * @example
      * ```ts
-     * const commentBuilder = univerAPI.newTheadComment();
+     * const commentBuilder = crabtableAPI.newTheadComment();
      * console.log(commentBuilder.personId);
      * ```
      */
@@ -77,7 +77,7 @@ export class FTheadCommentItem {
      * @returns {string} The date time of the comment
      * @example
      * ```ts
-     * const commentBuilder = univerAPI.newTheadComment();
+     * const commentBuilder = crabtableAPI.newTheadComment();
      * console.log(commentBuilder.dateTime);
      * ```
      */
@@ -90,7 +90,7 @@ export class FTheadCommentItem {
      * @returns {RichTextValue} The content of the comment
      * @example
      * ```ts
-     * const commentBuilder = univerAPI.newTheadComment();
+     * const commentBuilder = crabtableAPI.newTheadComment();
      * console.log(commentBuilder.content);
      * ```
      */
@@ -103,7 +103,7 @@ export class FTheadCommentItem {
      * @returns {string} The id of the comment
      * @example
      * ```ts
-     * const commentBuilder = univerAPI.newTheadComment();
+     * const commentBuilder = crabtableAPI.newTheadComment();
      * console.log(commentBuilder.id);
      * ```
      */
@@ -116,7 +116,7 @@ export class FTheadCommentItem {
      * @returns {string} The thread id of the comment
      * @example
      * ```ts
-     * const commentBuilder = univerAPI.newTheadComment();
+     * const commentBuilder = crabtableAPI.newTheadComment();
      * console.log(commentBuilder.threadId);
      * ```
      */
@@ -129,7 +129,7 @@ export class FTheadCommentItem {
      * @returns {FTheadCommentBuilder} The comment builder
      * @example
      * ```ts
-     * const commentBuilder = univerAPI.newTheadComment();
+     * const commentBuilder = crabtableAPI.newTheadComment();
      * const newCommentBuilder = commentBuilder.copy();
      * console.log(newCommentBuilder);
      * ```
@@ -140,7 +140,7 @@ export class FTheadCommentItem {
 }
 
 /**
- * A builder for thread comment. use {@link FUniver} `univerAPI.newTheadComment()` to create a new builder.
+ * A builder for thread comment. use {@link FCrabTable} `crabtableAPI.newTheadComment()` to create a new builder.
  */
 export class FTheadCommentBuilder extends FTheadCommentItem {
     static override create(comment?: IThreadComment): FTheadCommentBuilder {
@@ -154,13 +154,13 @@ export class FTheadCommentBuilder extends FTheadCommentItem {
      * @example
      * ```ts
      * // Create a new comment
-     * const richText = univerAPI.newRichText().insertText('hello univer');
-     * const commentBuilder = univerAPI.newTheadComment()
+     * const richText = crabtableAPI.newRichText().insertText('hello univer');
+     * const commentBuilder = crabtableAPI.newTheadComment()
      *   .setContent(richText);
      * console.log(commentBuilder.content);
      *
      * // Add the comment to the cell A1
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const cell = fWorksheet.getRange('A1');
      * const result = await cell.addCommentAsync(commentBuilder);
@@ -183,14 +183,14 @@ export class FTheadCommentBuilder extends FTheadCommentItem {
      * @example
      * ```ts
      * // Create a new comment
-     * const richText = univerAPI.newRichText().insertText('hello univer');
-     * const commentBuilder = univerAPI.newTheadComment()
+     * const richText = crabtableAPI.newRichText().insertText('hello univer');
+     * const commentBuilder = crabtableAPI.newTheadComment()
      *   .setContent(richText)
      *   .setPersonId('mock-user-id');
      * console.log(commentBuilder.personId);
      *
      * // Add the comment to the cell A1
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const cell = fWorksheet.getRange('A1');
      * const result = await cell.addCommentAsync(commentBuilder);
@@ -209,14 +209,14 @@ export class FTheadCommentBuilder extends FTheadCommentItem {
      * @example
      * ```ts
      * // Create a new comment
-     * const richText = univerAPI.newRichText().insertText('hello univer');
-     * const commentBuilder = univerAPI.newTheadComment()
+     * const richText = crabtableAPI.newRichText().insertText('hello univer');
+     * const commentBuilder = crabtableAPI.newTheadComment()
      *   .setContent(richText)
      *   .setDateTime(new Date('2025-02-21 14:22:22'));
      * console.log(commentBuilder.dateTime);
      *
      * // Add the comment to the cell A1
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const cell = fWorksheet.getRange('A1');
      * const result = await cell.addCommentAsync(commentBuilder);
@@ -235,14 +235,14 @@ export class FTheadCommentBuilder extends FTheadCommentItem {
      * @example
      * ```ts
      * // Create a new comment
-     * const richText = univerAPI.newRichText().insertText('hello univer');
-     * const commentBuilder = univerAPI.newTheadComment()
+     * const richText = crabtableAPI.newRichText().insertText('hello univer');
+     * const commentBuilder = crabtableAPI.newTheadComment()
      *   .setContent(richText)
      *   .setId('mock-comment-id');
      * console.log(commentBuilder.id);
      *
      * // Add the comment to the cell A1
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const cell = fWorksheet.getRange('A1');
      * const result = await cell.addCommentAsync(commentBuilder);
@@ -261,14 +261,14 @@ export class FTheadCommentBuilder extends FTheadCommentItem {
      * @example
      * ```ts
      * // Create a new comment
-     * const richText = univerAPI.newRichText().insertText('hello univer');
-     * const commentBuilder = univerAPI.newTheadComment()
+     * const richText = crabtableAPI.newRichText().insertText('hello univer');
+     * const commentBuilder = crabtableAPI.newTheadComment()
      *   .setContent(richText)
      *   .setThreadId('mock-thread-id');
      * console.log(commentBuilder.threadId);
      *
      * // Add the comment to the cell A1
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const cell = fWorksheet.getRange('A1');
      * const result = await cell.addCommentAsync(commentBuilder);
@@ -285,8 +285,8 @@ export class FTheadCommentBuilder extends FTheadCommentItem {
      * @returns {IThreadComment} The comment
      * @example
      * ```ts
-     * const richText = univerAPI.newRichText().insertText('hello univer');
-     * const comment = univerAPI.newTheadComment()
+     * const richText = crabtableAPI.newRichText().insertText('hello univer');
+     * const comment = crabtableAPI.newTheadComment()
      *   .setContent(richText)
      *   .setPersonId('mock-user-id')
      *   .setDateTime(new Date('2025-02-21 14:22:22'))
@@ -313,7 +313,7 @@ export class FThreadComment {
         private readonly _parent: IThreadComment | undefined,
         @Inject(Injector) private readonly _injector: Injector,
         @ICommandService private readonly _commandService: ICommandService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(SheetsThreadCommentModel) private readonly _threadCommentModel: SheetsThreadCommentModel,
         @Inject(UserManagerService) private readonly _userManagerService: UserManagerService
     ) {
@@ -331,7 +331,7 @@ export class FThreadComment {
      * @returns {boolean} Whether the comment is a root comment
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const comments = fWorksheet.getComments();
      * comments.forEach((comment) => {
@@ -348,7 +348,7 @@ export class FThreadComment {
      * @returns {IBaseComment} The comment data
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const comments = fWorksheet.getComments();
      * comments.forEach((comment) => {
@@ -366,7 +366,7 @@ export class FThreadComment {
      * @returns {FThreadComment[]} the replies of the comment
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const comments = fWorksheet.getComments();
      * comments.forEach((comment) => {
@@ -391,7 +391,7 @@ export class FThreadComment {
      * @returns {FRange | null} The range of the comment
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const comments = fWorksheet.getComments();
      * comments.forEach((comment) => {
@@ -400,7 +400,7 @@ export class FThreadComment {
      * ```
      */
     getRange(): FRange | null {
-        const workbook = this._univerInstanceService.getUnit<Workbook>(this._thread.unitId, UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(this._thread.unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             return null;
         }
@@ -424,7 +424,7 @@ export class FThreadComment {
      * @returns {RichTextValue} The rich text of the comment
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const comments = fWorksheet.getComments();
      * comments.forEach((comment) => {
@@ -442,7 +442,7 @@ export class FThreadComment {
      * @returns {Promise<boolean>} Whether the comment is deleted successfully
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const comments = fWorksheet.getComments();
      *
@@ -482,12 +482,12 @@ export class FThreadComment {
      * @returns {Promise<boolean>} Whether the comment is updated successfully
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a new comment
-     * const richText = univerAPI.newRichText().insertText('hello univer');
-     * const commentBuilder = univerAPI.newTheadComment()
+     * const richText = crabtableAPI.newRichText().insertText('hello univer');
+     * const commentBuilder = crabtableAPI.newTheadComment()
      *   .setContent(richText)
      *   .setId('mock-comment-id');
      * const cell = fWorksheet.getRange('A1');
@@ -496,7 +496,7 @@ export class FThreadComment {
      * // Update the comment after 3 seconds
      * setTimeout(async () => {
      *   const comment = fWorksheet.getCommentById('mock-comment-id');
-     *   const newRichText = univerAPI.newRichText().insertText('Hello Univer AI');
+     *   const newRichText = crabtableAPI.newRichText().insertText('Hello CrabTable AI');
      *   const result = await comment.updateAsync(newRichText);
      *   console.log(result);
      * }, 3000);
@@ -535,12 +535,12 @@ export class FThreadComment {
      * @returns {Promise<boolean>} Set the comment to resolved or not operation result
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a new comment
-     * const richText = univerAPI.newRichText().insertText('hello univer');
-     * const commentBuilder = univerAPI.newTheadComment()
+     * const richText = crabtableAPI.newRichText().insertText('hello univer');
+     * const commentBuilder = crabtableAPI.newTheadComment()
      *   .setContent(richText)
      *   .setId('mock-comment-id');
      * const cell = fWorksheet.getRange('A1');
@@ -572,20 +572,20 @@ export class FThreadComment {
      * @returns {Promise<boolean>} Whether the comment is replied successfully
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a new comment
-     * const richText = univerAPI.newRichText().insertText('hello univer');
-     * const commentBuilder = univerAPI.newTheadComment()
+     * const richText = crabtableAPI.newRichText().insertText('hello univer');
+     * const commentBuilder = crabtableAPI.newTheadComment()
      *   .setContent(richText)
      *   .setId('mock-comment-id');
      * const cell = fWorksheet.getRange('A1');
      * await cell.addCommentAsync(commentBuilder);
      *
      * // Reply to the comment
-     * const replyText = univerAPI.newRichText().insertText('Hello Univer AI');
-     * const reply = univerAPI.newTheadComment().setContent(replyText);
+     * const replyText = crabtableAPI.newRichText().insertText('Hello CrabTable AI');
+     * const reply = crabtableAPI.newTheadComment().setContent(replyText);
      * const comment = fWorksheet.getCommentById('mock-comment-id');
      * const result = await comment.replyAsync(reply);
      * console.log(result);

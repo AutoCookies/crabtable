@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { IUniverInstanceService } from '@univerjs/core';
-import { useDependency } from '@univerjs/ui';
+import { ICrabTableInstanceService } from '@crabtable/core';
+import { useDependency } from '@crabtable/ui';
 
 const menu = [
     {
@@ -29,18 +29,18 @@ const menu = [
 ];
 
 export function useDispose() {
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
 
     const onSelect = (value: string) => {
         if (value === 'univer') {
             window.univer?.dispose();
             window.univer = undefined;
-            window.univerAPI = undefined;
+            window.crabtableAPI = undefined;
         } else if (value === 'unit') {
-            const focused = univerInstanceService.getFocusedUnit();
+            const focused = crabtableInstanceService.getFocusedUnit();
             if (!focused) return false;
 
-            return univerInstanceService.disposeUnit(focused.getUnitId());
+            return crabtableInstanceService.disposeUnit(focused.getUnitId());
         }
     };
 

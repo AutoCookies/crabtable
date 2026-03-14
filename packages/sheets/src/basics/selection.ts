@@ -21,8 +21,8 @@ import type {
     ISelection,
     ISelectionCell,
     Nullable,
-} from '@univerjs/core';
-import { getCellInfoInMergeData, makeCellRangeToRangeData } from '@univerjs/core';
+} from '@crabtable/core';
+import { getCellInfoInMergeData, makeCellRangeToRangeData } from '@crabtable/core';
 
 export const SELECTION_CONTROL_BORDER_BUFFER_WIDTH = 1.5; // The draggable range of the selection is too thin, making it easy for users to miss. Therefore, a buffer gap is provided to make it easier for users to select.
 
@@ -84,7 +84,7 @@ export interface ISelectionStyle {
     /**
      * The eight touch points of the selection. You can refer to Excel's formula and chart selections,
      * which allow you to manually adjust the size of the selection.
-     *  Univer has four more touch points (up, down, left, and right) than Excel.
+     *  CrabTable has four more touch points (up, down, left, and right) than Excel.
      *  https://support.microsoft.com/en-us/office/select-data-for-a-chart-5fca57b7-8c52-4e09-979a-631085113862
      */
     widgets: ISelectionWidgetConfig;

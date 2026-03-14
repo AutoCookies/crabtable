@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
+import type { IRange } from '@crabtable/core';
 import type { UnitAction } from '@univerjs/protocol';
 import type { getDefaultRangePermission, IRangePermissionPoint } from '../services/permission/range-permission/util';
-import { Inject, IPermissionService, LRUMap, Range } from '@univerjs/core';
+import { Inject, IPermissionService, LRUMap, Range } from '@crabtable/core';
 import { UnitObject } from '@univerjs/protocol';
 import { filter, map } from 'rxjs/operators';
 import { getAllRangePermissionPoint } from '../services/permission/range-permission/util';

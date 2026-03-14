@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDocumentBody, Nullable } from '@univerjs/core';
+import type { IDocumentBody, Nullable } from '@crabtable/core';
 import type { IDocumentSkeletonGlyph } from './i-document-skeleton-cached';
-import { checkParagraphHasIndentByStyle, DataStreamTreeTokenType } from '@univerjs/core';
+import { checkParagraphHasIndentByStyle, DataStreamTreeTokenType } from '@crabtable/core';
 import { GlyphType } from './i-document-skeleton-cached';
 
 export function hasListGlyph(glyph: Nullable<IDocumentSkeletonGlyph>) {

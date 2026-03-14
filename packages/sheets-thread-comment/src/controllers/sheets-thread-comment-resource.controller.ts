@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { IMutationInfo, Workbook } from '@univerjs/core';
-import type { ICopySheetCommandParams, IRemoveSheetCommandParams } from '@univerjs/sheets';
-import { Disposable, generateRandomId, Inject, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { CopySheetCommand, RemoveSheetCommand, SheetInterceptorService } from '@univerjs/sheets';
-import { AddCommentMutation, DeleteCommentMutation, IThreadCommentDataSourceService, ThreadCommentModel } from '@univerjs/thread-comment';
+import type { IMutationInfo, Workbook } from '@crabtable/core';
+import type { ICopySheetCommandParams, IRemoveSheetCommandParams } from '@crabtable/sheets';
+import { CrabTableInstanceType, Disposable, generateRandomId, ICrabTableInstanceService, Inject } from '@crabtable/core';
+import { CopySheetCommand, RemoveSheetCommand, SheetInterceptorService } from '@crabtable/sheets';
+import { AddCommentMutation, DeleteCommentMutation, IThreadCommentDataSourceService, ThreadCommentModel } from '@crabtable/thread-comment';
 
 export class SheetsThreadCommentResourceController extends Disposable {
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(SheetInterceptorService) private _sheetInterceptorService: SheetInterceptorService,
         @Inject(ThreadCommentModel) private _threadCommentModel: ThreadCommentModel,
         @IThreadCommentDataSourceService private _threadCommentDataSourceService: IThreadCommentDataSourceService
@@ -39,8 +39,8 @@ export class SheetsThreadCommentResourceController extends Disposable {
                 getMutations: (commandInfo) => {
                     if (commandInfo.id === RemoveSheetCommand.id) {
                         const params = commandInfo.params as IRemoveSheetCommandParams;
-                        const unitId = params.unitId || this._univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getUnitId();
-                        const subUnitId = params.subUnitId || this._univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()?.getSheetId();
+                        const unitId = params.unitId || this._crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getUnitId();
+                        const subUnitId = params.subUnitId || this._crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()?.getSheetId();
 
                         if (!unitId || !subUnitId) {
                             return { redos: [], undos: [] };

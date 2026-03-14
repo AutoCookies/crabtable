@@ -16,7 +16,7 @@
 
 /* eslint-disable ts/naming-convention */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 
 import type { ILineBreakRule } from './rule';
 import { Break, BreakPointType } from './break';

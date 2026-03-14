@@ -16,7 +16,7 @@
 
 import type { CSSProperties } from 'react';
 import type { IFloatDom } from '../../../services/dom/canvas-dom-layer.service';
-import { DocumentDataModel, IUniverInstanceService } from '@univerjs/core';
+import { DocumentDataModel, ICrabTableInstanceService } from '@crabtable/core';
 import { memo, useEffect, useMemo, useRef } from 'react';
 import { distinctUntilChanged, first } from 'rxjs';
 import { ComponentManager } from '../../../common';
@@ -34,7 +34,7 @@ export const FloatDomSingle = memo((props: { layer: IFloatDom; id: string }) => 
                 prev.endY - prev.startY === curr.endY - curr.startY
         )
     ), [layer.position$]);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const position = useObservable(useMemo(() => layer.position$.pipe(first()), [layer.position$]));
     const domRef = useRef<HTMLDivElement>(null);
     const innerDomRef = useRef<HTMLDivElement>(null);
@@ -95,7 +95,7 @@ export const FloatDomSingle = memo((props: { layer: IFloatDom; id: string }) => 
         };
     }, [layer.position$, size$]);
 
-    const instance = univerInstanceService.getUnit(layer.unitId);
+    const instance = crabtableInstanceService.getUnit(layer.unitId);
     const docDisabled = instance instanceof DocumentDataModel ? instance.getDisabled() : undefined;
     const component = useMemo(() => Component
         ? (
@@ -158,7 +158,7 @@ export const FloatDomSingle = memo((props: { layer: IFloatDom; id: string }) => 
 });
 
 export const FloatDom = ({ unitId }: { unitId?: string }) => {
-    const instanceService = useDependency(IUniverInstanceService);
+    const instanceService = useDependency(ICrabTableInstanceService);
     const domLayerService = useDependency(CanvasFloatDomService);
     const layers = useObservable(domLayerService.domLayers$);
     const focusUnit = useObservable(instanceService.focused$);

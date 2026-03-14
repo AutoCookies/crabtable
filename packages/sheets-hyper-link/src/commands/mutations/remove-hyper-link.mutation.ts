@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
-import { CommandType } from '@univerjs/core';
+import type { ICommand } from '@crabtable/core';
+import { CommandType } from '@crabtable/core';
 import { HyperLinkModel } from '../../models/hyper-link.model';
 
 export interface IRemoveHyperLinkMutationParams {

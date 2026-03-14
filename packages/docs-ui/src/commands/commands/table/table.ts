@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IParagraph, ISectionBreak, ITable, ITableCell, ITableColumn, ITableRow, Nullable } from '@univerjs/core';
-import type { DataStreamTreeNode, DocumentViewModel, ITextRangeWithStyle } from '@univerjs/engine-render';
-import { DataStreamTreeTokenType, generateRandomId, ObjectRelativeFromH, ObjectRelativeFromV, TableAlignmentType, TableRowHeightRule, TableSizeType, TableTextWrapType, Tools } from '@univerjs/core';
+import type { IParagraph, ISectionBreak, ITable, ITableCell, ITableColumn, ITableRow, Nullable } from '@crabtable/core';
+import type { DataStreamTreeNode, DocumentViewModel, ITextRangeWithStyle } from '@crabtable/engine-render';
+import { DataStreamTreeTokenType, generateRandomId, ObjectRelativeFromH, ObjectRelativeFromV, TableAlignmentType, TableRowHeightRule, TableSizeType, TableTextWrapType, Tools } from '@crabtable/core';
 
 export enum INSERT_ROW_POSITION {
     ABOVE,

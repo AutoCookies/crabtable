@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-import type { Injector } from '@univerjs/core';
-import type { FUniver } from '@univerjs/core/facade';
-import type { IUniverSheetsFormulaBaseConfig } from '@univerjs/sheets-formula';
-import { ICommandService, IConfigService } from '@univerjs/core';
-import { SetArrayFormulaDataMutation, SetFormulaCalculationNotificationMutation, SetFormulaCalculationResultMutation, SetFormulaCalculationStartMutation, SetFormulaCalculationStopMutation, SetTriggerFormulaCalculationStartMutation } from '@univerjs/engine-formula';
-import { CalculationMode, PLUGIN_CONFIG_KEY_BASE } from '@univerjs/sheets-formula';
+import type { Injector } from '@crabtable/core';
+import type { FCrabTable } from '@crabtable/core/facade';
+import type { IUniverSheetsFormulaBaseConfig } from '@crabtable/sheets-formula';
+import { ICommandService, IConfigService } from '@crabtable/core';
+import { SetArrayFormulaDataMutation, SetFormulaCalculationNotificationMutation, SetFormulaCalculationResultMutation, SetFormulaCalculationStartMutation, SetFormulaCalculationStopMutation, SetTriggerFormulaCalculationStartMutation } from '@crabtable/engine-formula';
+import { CalculationMode, PLUGIN_CONFIG_KEY_BASE } from '@crabtable/sheets-formula';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createFormulaTestBed } from './create-formula-test-bed';
 
 describe('Test FFormula', () => {
     let get: Injector['get'];
     let commandService: ICommandService;
-    let univerAPI: FUniver;
+    let crabtableAPI: FCrabTable;
 
     beforeEach(() => {
         const testBed = createFormulaTestBed();
         get = testBed.get;
-        univerAPI = testBed.univerAPI;
+        crabtableAPI = testBed.crabtableAPI;
 
         commandService = get(ICommandService);
         commandService.registerCommand(SetFormulaCalculationStartMutation);
@@ -43,7 +43,7 @@ describe('Test FFormula', () => {
     });
 
     it('FFormula executeCalculation', () => {
-        const formula = univerAPI.getFormula();
+        const formula = crabtableAPI.getFormula();
 
         formula.calculationStart((forceCalculate) => {
             expect(forceCalculate).toBe(true);
@@ -62,7 +62,7 @@ describe('Test FFormula', () => {
     });
 
     it('FFormula setInitialFormulaComputing', () => {
-        const formula = univerAPI.getFormula();
+        const formula = crabtableAPI.getFormula();
 
         const configService = get(IConfigService);
 

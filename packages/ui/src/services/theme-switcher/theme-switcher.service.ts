@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Theme } from '@univerjs/themes';
-import { Disposable } from '@univerjs/core';
+import type { Theme } from '@crabtable/themes';
+import { Disposable } from '@crabtable/core';
 
 export class ThemeSwitcherService extends Disposable {
     private _styleSheetId = 'univer-theme-css-variables';

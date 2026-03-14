@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { BooleanNumber, HorizontalAlign } from '@univerjs/core';
+import { BooleanNumber, HorizontalAlign } from '@crabtable/core';
 import { RangeThemeStyle } from '../range-theme-util';
 
 export const lightRangeThemeBuilder = (baseName: string, header: string, color: string) => {

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { CellValue, DataValidationOperator, ICellData, IDataValidationRule, IRange, ISheetDataValidationRule, IStyleData, Nullable, Workbook } from '@univerjs/core';
-import type { IFormulaResult, IFormulaValidResult, IValidatorCellInfo } from '@univerjs/data-validation';
-import { DataValidationRenderMode, DataValidationType, isFormulaString, IUniverInstanceService, numfmt, Rectangle, Tools, UniverInstanceType, WrapStrategy } from '@univerjs/core';
-import { BaseDataValidator } from '@univerjs/data-validation';
-import { deserializeRangeWithSheet, isReferenceString, LexerTreeBuilder, sequenceNodeType } from '@univerjs/engine-formula';
+import type { CellValue, DataValidationOperator, ICellData, IDataValidationRule, IRange, ISheetDataValidationRule, IStyleData, Nullable, Workbook } from '@crabtable/core';
+import type { IFormulaResult, IFormulaValidResult, IValidatorCellInfo } from '@crabtable/data-validation';
+import { CrabTableInstanceType, DataValidationRenderMode, DataValidationType, ICrabTableInstanceService, isFormulaString, numfmt, Rectangle, Tools, WrapStrategy } from '@crabtable/core';
+import { BaseDataValidator } from '@crabtable/data-validation';
+import { deserializeRangeWithSheet, isReferenceString, LexerTreeBuilder, sequenceNodeType } from '@crabtable/engine-formula';
 import { DataValidationFormulaService } from '../services/dv-formula.service';
 import { DataValidationListCacheService } from '../services/dv-list-cache.service';
 import { getFormulaResult, isLegalFormulaResult } from '../utils/formula';
@@ -96,7 +96,7 @@ function isRuleIntersects(rule: IDataValidationRule, sheetName: string) {
 export class ListValidator extends BaseDataValidator {
     protected formulaService = this.injector.get(DataValidationFormulaService);
     private _lexer = this.injector.get(LexerTreeBuilder);
-    private _univerInstanceService = this.injector.get(IUniverInstanceService);
+    private _crabtableInstanceService = this.injector.get(ICrabTableInstanceService);
     private _listCacheService = this.injector.get(DataValidationListCacheService);
 
     order = 50;
@@ -114,7 +114,7 @@ export class ListValidator extends BaseDataValidator {
     override validatorFormula(rule: IDataValidationRule, unitId: string, subUnitId: string): IFormulaValidResult {
         const success = !Tools.isBlank(rule.formula1);
         const valid = isValidListFormula(rule.formula1 ?? '', this._lexer);
-        const sheetName = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET)?.getSheetBySheetId(subUnitId)?.getName();
+        const sheetName = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET)?.getSheetBySheetId(subUnitId)?.getName();
         const isIntersects = isRuleIntersects(rule, sheetName ?? '');
 
         return {
@@ -190,8 +190,8 @@ export class ListValidator extends BaseDataValidator {
     }
 
     private _getUnitAndSubUnit(currentUnitId?: string, currentSubUnitId?: string): { unitId: string; subUnitId: string } | null {
-        const workbook = (currentUnitId ? this._univerInstanceService.getUniverSheetInstance(currentUnitId) : undefined)
-            ?? this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook = (currentUnitId ? this._crabtableInstanceService.getCrabTableSheetInstance(currentUnitId) : undefined)
+            ?? this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) return null;
 
         const worksheet = (currentSubUnitId ? workbook.getSheetBySheetId(currentSubUnitId) : undefined) ?? workbook.getActiveSheet();

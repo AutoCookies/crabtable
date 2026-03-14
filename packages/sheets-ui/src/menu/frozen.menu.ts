@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { ISelectionWithStyle } from '@univerjs/sheets';
-import type { IMenuButtonItem, IMenuSelectorItem } from '@univerjs/ui';
-import { UniverInstanceType } from '@univerjs/core';
-import { CancelFrozenCommand, SheetsSelectionsService } from '@univerjs/sheets';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import type { ISelectionWithStyle } from '@crabtable/sheets';
+import type { IMenuButtonItem, IMenuSelectorItem } from '@crabtable/ui';
+import { CrabTableInstanceType } from '@crabtable/core';
+import { CancelFrozenCommand, SheetsSelectionsService } from '@crabtable/sheets';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { combineLatest, map, Observable } from 'rxjs';
 import { SetColumnFrozenCommand, SetFirstColumnFrozenCommand, SetFirstRowFrozenCommand, SetRowFrozenCommand, SetSelectionFrozenCommand } from '../commands/commands/set-frozen.command';
 import { MENU_ITEM_FROZEN_COMPONENT } from '../components/menu-item-frozen';
@@ -71,7 +71,7 @@ export function SheetFrozenMenuItemFactory(accessor: IAccessor): IMenuSelectorIt
         type: MenuItemType.SUBITEMS,
         title: 'rightClick.freeze',
         icon: 'FreezeToSelectedIcon',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -83,7 +83,7 @@ export function SheetFrozenColumnHeaderMenuItemFactory(accessor: IAccessor): IMe
         type: MenuItemType.SUBITEMS,
         title: 'rightClick.freeze',
         icon: 'FreezeToSelectedIcon',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -95,7 +95,7 @@ export function SheetFrozenRowHeaderMenuItemFactory(accessor: IAccessor): IMenuS
         type: MenuItemType.SUBITEMS,
         title: 'rightClick.freeze',
         icon: 'FreezeToSelectedIcon',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -110,7 +110,7 @@ export function FrozenMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
                 type: 'all',
             },
         },
-        hidden$: combineLatest([getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET), getMenuHiddenByCurrentSelectionChangedObservable$(accessor, 'all')]).pipe(
+        hidden$: combineLatest([getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET), getMenuHiddenByCurrentSelectionChangedObservable$(accessor, 'all')]).pipe(
             map(([menuHidden, selectionHidden]) => menuHidden || selectionHidden)
         ),
     };
@@ -127,7 +127,7 @@ export function FrozenRowMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
                 type: 'row',
             },
         },
-        hidden$: combineLatest([getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET), getMenuHiddenByCurrentSelectionChangedObservable$(accessor, 'row')]).pipe(
+        hidden$: combineLatest([getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET), getMenuHiddenByCurrentSelectionChangedObservable$(accessor, 'row')]).pipe(
             map(([menuHidden, selectionHidden]) => menuHidden || selectionHidden)
         ),
     };
@@ -144,7 +144,7 @@ export function FrozenColMenuItemFactory(accessor: IAccessor): IMenuButtonItem {
                 type: 'col',
             },
         },
-        hidden$: combineLatest([getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET), getMenuHiddenByCurrentSelectionChangedObservable$(accessor, 'col')]).pipe(
+        hidden$: combineLatest([getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET), getMenuHiddenByCurrentSelectionChangedObservable$(accessor, 'col')]).pipe(
             map(([menuHidden, selectionHidden]) => menuHidden || selectionHidden)
         ),
     };
@@ -156,7 +156,7 @@ export function FrozenFirstRowMenuItemFactory(accessor: IAccessor): IMenuButtonI
         type: MenuItemType.BUTTON,
         title: 'rightClick.freezeFirstRow',
         icon: 'FreezeRowIcon',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -166,7 +166,7 @@ export function FrozenFirstColMenuItemFactory(accessor: IAccessor): IMenuButtonI
         type: MenuItemType.BUTTON,
         title: 'rightClick.freezeFirstCol',
         icon: 'FreezeColumnIcon',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }
 
@@ -176,6 +176,6 @@ export function CancelFrozenMenuItemFactory(accessor: IAccessor): IMenuButtonIte
         type: MenuItemType.BUTTON,
         title: 'rightClick.cancelFreeze',
         icon: 'CancelFreezeIcon',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
     };
 }

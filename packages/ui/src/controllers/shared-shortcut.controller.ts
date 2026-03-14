@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IContextService } from '@univerjs/core';
+import type { IContextService } from '@crabtable/core';
 import type { IShortcutItem } from '../services/shortcut/shortcut.service';
 
-import { Disposable, EDITOR_ACTIVATED, FOCUSING_FX_BAR_EDITOR, FOCUSING_UNIVER_EDITOR, ICommandService, RedoCommand, UndoCommand } from '@univerjs/core';
+import { Disposable, EDITOR_ACTIVATED, FOCUSING_FX_BAR_EDITOR, FOCUSING_UNIVER_EDITOR, ICommandService, RedoCommand, UndoCommand } from '@crabtable/core';
 import { CopyCommand, CutCommand, PasteCommand } from '../services/clipboard/clipboard.command';
 import { KeyCode, MetaKeys } from '../services/shortcut/keycode';
 import { IShortcutService } from '../services/shortcut/shortcut.service';
@@ -91,7 +91,7 @@ export const RedoShortcutItem: IShortcutItem = {
 };
 
 /**
- * Define shared UI behavior across Univer business. Including undo / redo and clipboard operations.
+ * Define shared UI behavior across CrabTable business. Including undo / redo and clipboard operations.
  */
 export class SharedController extends Disposable {
     constructor(

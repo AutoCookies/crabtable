@@ -24,7 +24,7 @@ import {
     ObjectRelativeFromH,
     ObjectRelativeFromV,
     SectionType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { GlyphType } from '../../../../basics/i-document-skeleton-cached';
 import {

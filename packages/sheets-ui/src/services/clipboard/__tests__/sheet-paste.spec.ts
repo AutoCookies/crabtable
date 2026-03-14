@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Injector, Univer, Workbook } from '@univerjs/core';
+import type { Injector, Workbook } from '@crabtable/core';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
-import { ICommandService, IUniverInstanceService, LocaleType, RANGE_TYPE } from '@univerjs/core';
+import { ICommandService, ICrabTableInstanceService, LocaleType, RANGE_TYPE } from '@crabtable/core';
 import {
     AddWorksheetMergeMutation,
     RemoveWorksheetMergeMutation,
@@ -27,7 +27,7 @@ import {
     SetWorksheetRowAutoHeightMutation,
     SetWorksheetRowHeightMutation,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SheetSkeletonManagerService } from '../../sheet-skeleton-manager.service';
 import { HtmlToUSMService } from '../html-to-usm/converter';
@@ -38,7 +38,7 @@ function getHTMLString(filePath: string): string {
 }
 
 describe('Test clipboard', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let sheetSkeletonManagerService: SheetSkeletonManagerService;
@@ -105,7 +105,7 @@ describe('Test clipboard', () => {
         });
 
         it('test convert util func from excel', async () => {
-            const worksheet = get(IUniverInstanceService).getUnit<Workbook>('test')?.getSheetBySheetId('sheet1');
+            const worksheet = get(ICrabTableInstanceService).getUnit<Workbook>('test')?.getSheetBySheetId('sheet1');
             if (!worksheet) return false;
             const htmlToUSM = new HtmlToUSMService({
                 getCurrentSkeleton: () => sheetSkeletonManagerService.getCurrentParam(),
@@ -117,7 +117,7 @@ describe('Test clipboard', () => {
         });
 
         it('test convert util func from google', async () => {
-            const worksheet = get(IUniverInstanceService).getUnit<Workbook>('test')?.getSheetBySheetId('sheet1');
+            const worksheet = get(ICrabTableInstanceService).getUnit<Workbook>('test')?.getSheetBySheetId('sheet1');
             if (!worksheet) return false;
             const htmlToUSM = new HtmlToUSMService({
                 getCurrentSkeleton: () => sheetSkeletonManagerService.getCurrentParam(),

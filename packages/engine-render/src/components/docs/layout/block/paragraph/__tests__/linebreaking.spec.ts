@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { DataStreamTreeTokenType, PositionedObjectLayoutType } from '@univerjs/core';
+import { DataStreamTreeTokenType, PositionedObjectLayoutType } from '@crabtable/core';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { BreakType } from '../../../../../../basics/i-document-skeleton-cached';
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IDocumentBody, IDocumentData, ITable, ITextStyle, Nullable } from '@univerjs/core';
+import type { IDocumentBody, IDocumentData, ITable, ITextStyle, Nullable } from '@crabtable/core';
 import type { IAfterProcessRule, IPastePlugin, IStyleRule } from './paste-plugins/type';
 import {
     CustomRangeType,
@@ -26,8 +26,8 @@ import {
     PositionedObjectLayoutType,
     skipParseTagNames,
     Tools,
-} from '@univerjs/core';
-import { ImageSourceType } from '@univerjs/drawing';
+} from '@crabtable/core';
+import { ImageSourceType } from '@crabtable/drawing';
 import { genTableSource, getEmptyTableCell, getEmptyTableRow, getTableColumn } from '../../../commands/commands/table/table';
 import { extractNodeStyle } from './parse-node-style';
 import parseToDom from './parse-to-dom';

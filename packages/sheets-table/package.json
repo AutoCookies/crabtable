@@ -1,21 +1,21 @@
 {
-    "name": "@univerjs/sheets-table",
+    "name": "@crabtable/sheets-table",
     "version": "0.17.0",
     "private": false,
-    "description": "A library for connect and bind data from other sources to Univer Sheets",
-    "author": "DreamNum <developer@univer.ai>",
+    "description": "A library for connect and bind data from other sources to CrabTable Sheets",
+    "author": "DreamNum <developer@crabtable.dev>",
     "license": "Apache-2.0",
     "funding": {
         "type": "opencollective",
-        "url": "https://opencollective.com/univer"
+        "url": "https://opencollective.com/crabtable"
     },
-    "homepage": "https://univer.ai",
+    "homepage": "https://crabtable.dev",
     "repository": {
         "type": "git",
-        "url": "https://github.com/dream-num/univer"
+        "url": "https://github.com/AutoCookies/crabtable"
     },
     "bugs": {
-        "url": "https://github.com/dream-num/univer/issues"
+        "url": "https://github.com/AutoCookies/crabtable/issues"
     },
     "keywords": [
         "univer",
@@ -74,12 +74,12 @@
         "rxjs": ">=7.0.0"
     },
     "dependencies": {
-        "@univerjs/core": "workspace:*",
-        "@univerjs/engine-formula": "workspace:*",
-        "@univerjs/sheets": "workspace:*"
+        "@crabtable/core": "*",
+        "@crabtable/engine-formula": "*",
+        "@crabtable/sheets": "*"
     },
     "devDependencies": {
-        "@univerjs-infra/shared": "workspace:*",
+        "@crabtable-infra/shared": "*",
         "rxjs": "^7.8.2",
         "typescript": "^5.9.3",
         "vite": "^7.3.1",

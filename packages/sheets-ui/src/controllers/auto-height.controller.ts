@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IRange, ObjectMatrix, Workbook } from '@univerjs/core';
-import type { RenderManagerService } from '@univerjs/engine-render';
-import type { ISetWorksheetRowAutoHeightMutationParams } from '@univerjs/sheets';
-import { Disposable, generateRandomId, IConfigService, Inject, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import type { IRange, ObjectMatrix, Workbook } from '@crabtable/core';
+import type { RenderManagerService } from '@crabtable/engine-render';
+import type { ISetWorksheetRowAutoHeightMutationParams } from '@crabtable/sheets';
+import { CrabTableInstanceType, Disposable, generateRandomId, IConfigService, ICrabTableInstanceService, Inject } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import {
     CancelMarkDirtyRowAutoHeightMutation,
     getSheetCommandTarget,
@@ -27,7 +27,7 @@ import {
     SetWorksheetRowAutoHeightMutationFactory,
     SheetInterceptorService,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { SheetSkeletonManagerService } from '../services/sheet-skeleton-manager.service';
 
 interface IAutoHeightParams {
@@ -42,7 +42,7 @@ export class AutoHeightController extends Disposable {
         @IRenderManagerService private readonly _renderManagerService: RenderManagerService,
         @Inject(SheetInterceptorService) private readonly _sheetInterceptorService: SheetInterceptorService,
         @Inject(SheetsSelectionsService) private readonly _selectionManagerService: SheetsSelectionsService,
-        @Inject(IUniverInstanceService) private readonly _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IConfigService private readonly _configService: IConfigService
     ) {
         super();
@@ -85,15 +85,15 @@ export class AutoHeightController extends Disposable {
     }
 
     getUndoRedoParamsOfAutoHeight(ranges: IRange[], subUnitIdParam?: string, currentCellHeights?: ObjectMatrix<number>): { redos: any[]; undos: any[] } {
-        const { _univerInstanceService: univerInstanceService } = this;
-        const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const { _crabtableInstanceService: crabtableInstanceService } = this;
+        const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
 
         // Better NOT use `getActiveWorksheet` method, because users may manipulate another worksheet in active sheet.
         const unitId = workbook.getUnitId();
         let worksheet = workbook.getActiveSheet();
         let subUnitId = worksheet.getSheetId();
         if (subUnitIdParam) {
-            const target = getSheetCommandTarget(univerInstanceService, { unitId, subUnitId: subUnitIdParam });
+            const target = getSheetCommandTarget(crabtableInstanceService, { unitId, subUnitId: subUnitIdParam });
             if (target) {
                 worksheet = target.worksheet;
                 subUnitId = worksheet.getSheetId();

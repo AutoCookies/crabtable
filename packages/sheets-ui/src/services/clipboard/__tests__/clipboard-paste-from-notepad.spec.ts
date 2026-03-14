@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICellData, Injector, Nullable, Univer } from '@univerjs/core';
-import { ICommandService, IUniverInstanceService, LocaleType, RANGE_TYPE } from '@univerjs/core';
+import type { CrabTable, ICellData, Injector, Nullable } from '@crabtable/core';
+import { ICommandService, ICrabTableInstanceService, LocaleType, RANGE_TYPE } from '@crabtable/core';
 import {
     AddWorksheetMergeMutation,
     MoveRangeMutation,
@@ -26,7 +26,7 @@ import {
     SetWorksheetRowAutoHeightMutation,
     SetWorksheetRowHeightMutation,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SheetSkeletonManagerService } from '../../sheet-skeleton-manager.service';
 import { ISheetClipboardService } from '../clipboard.service';
@@ -34,7 +34,7 @@ import { clipboardTestBed } from './clipboard-test-bed';
 import { plainTextByNotepad } from './constant';
 
 describe('Test clipboard', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let sheetClipboardService: ISheetClipboardService;
@@ -90,8 +90,8 @@ describe('Test clipboard', () => {
             endRow: number,
             endColumn: number
         ): Array<Array<Nullable<ICellData>>> | undefined =>
-            get(IUniverInstanceService)
-                .getUniverSheetInstance('test')
+            get(ICrabTableInstanceService)
+                .getCrabTableSheetInstance('test')
                 ?.getSheetBySheetId('sheet1')
                 ?.getRange(startRow, startColumn, endRow, endColumn)
                 .getValues();
@@ -128,7 +128,7 @@ describe('Test clipboard', () => {
             });
         });
         it('test value with paste plain text', async () => {
-            const worksheet = get(IUniverInstanceService).getUniverSheetInstance('test')?.getSheetBySheetId('sheet1');
+            const worksheet = get(ICrabTableInstanceService).getCrabTableSheetInstance('test')?.getSheetBySheetId('sheet1');
             if (!worksheet) return false;
             const res = await sheetClipboardService.legacyPaste('', plainTextByNotepad);
             expect(res).toBeTruthy();

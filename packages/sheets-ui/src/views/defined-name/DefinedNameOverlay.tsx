@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
+import type { Workbook } from '@crabtable/core';
 
-import type { IDefinedNamesServiceParam } from '@univerjs/engine-formula';
-import { ICommandService, IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
-import { borderBottomClassName, clsx, scrollbarClassName } from '@univerjs/design';
-import { IDefinedNamesService } from '@univerjs/engine-formula';
-import { SetWorksheetShowCommand } from '@univerjs/sheets';
-import { ISidebarService, useDependency } from '@univerjs/ui';
+import type { IDefinedNamesServiceParam } from '@crabtable/engine-formula';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { borderBottomClassName, clsx, scrollbarClassName } from '@crabtable/design';
+import { IDefinedNamesService } from '@crabtable/engine-formula';
+import { SetWorksheetShowCommand } from '@crabtable/sheets';
+import { ISidebarService, useDependency } from '@crabtable/ui';
 import { useEffect, useMemo, useState } from 'react';
 import { SidebarDefinedNameOperation } from '../../commands/operations/sidebar-defined-name.operation';
 import { DEFINED_NAME_CONTAINER } from './component-name';
@@ -30,10 +30,10 @@ export function DefinedNameOverlay({ search, isInputEvent }: { search: string; i
     const commandService = useDependency(ICommandService);
     const localeService = useDependency(LocaleService);
     const definedNamesService = useDependency(IDefinedNamesService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const sidebarService = useDependency(ISidebarService);
 
-    const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+    const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
     const unitId = workbook.getUnitId();
 
     const getDefinedNameMap = () => {

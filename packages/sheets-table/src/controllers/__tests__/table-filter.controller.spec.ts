@@ -62,7 +62,7 @@ describe('TableFilterController', () => {
         };
 
         const workbookType$ = new Subject<any>();
-        const univerInstanceService = {
+        const crabtableInstanceService = {
             getCurrentTypeOfUnit$: vi.fn(() => workbookType$),
             getCurrentUnitOfType: vi.fn(() => workbook),
             getUnit: vi.fn(() => workbook),
@@ -75,7 +75,7 @@ describe('TableFilterController', () => {
         const controller = new TableFilterController(
             tableManager as any,
             sheetInterceptorService as any,
-            univerInstanceService as any,
+            crabtableInstanceService as any,
             zebraCrossingCacheController as any
         );
 

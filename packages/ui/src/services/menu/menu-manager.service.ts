@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, Nullable } from '@univerjs/core';
+import type { IAccessor, Nullable } from '@crabtable/core';
 import type { Observable } from 'rxjs';
 import type { IMenuItem } from './menu';
-import { createIdentifier, Disposable, IConfigService, Inject, Injector, merge } from '@univerjs/core';
+import { createIdentifier, Disposable, IConfigService, Inject, Injector, merge } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { mergeMenuConfigs } from '../../common/menu-merge-configs';
 import { ContextMenuGroup, ContextMenuPosition, MenuManagerPosition, RibbonDataGroup, RibbonFormulasGroup, RibbonInsertGroup, RibbonOthersGroup, RibbonPosition, RibbonStartGroup, RibbonViewGroup } from './types';

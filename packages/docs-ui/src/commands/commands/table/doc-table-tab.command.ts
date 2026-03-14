@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICommand, Nullable } from '@univerjs/core';
+import type { ICommand, Nullable } from '@crabtable/core';
 import type { IOffsets } from './table';
-import { CommandType, ICommandService, IUniverInstanceService } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
+import { CommandType, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
 import { getCommandSkeleton } from '../../util';
 import { DocTableInsertRowCommand } from './doc-table-insert.command';
 import { CellPosition, getCellOffsets, INSERT_ROW_POSITION } from './table';
@@ -37,9 +37,9 @@ export const DocTableTabCommand: ICommand<IDocTableTabCommandParams> = {
         const textSelectionManager = accessor.get(DocSelectionManagerService);
         const docRanges = textSelectionManager.getDocRanges();
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const docDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const docDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
         if (!docDataModel) {
             return false;
         }

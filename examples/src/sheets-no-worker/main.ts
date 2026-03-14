@@ -14,53 +14,53 @@
  * limitations under the License.
  */
 
-import { LocaleType, LogLevel, Univer, UniverInstanceType, UserManagerService } from '@univerjs/core';
-import { FUniver } from '@univerjs/core/facade';
-import { UniverDebuggerPlugin } from '@univerjs/debugger';
-import { UniverDocsPlugin } from '@univerjs/docs';
-import { UniverDocsUIPlugin } from '@univerjs/docs-ui';
-import { UniverFormulaEnginePlugin } from '@univerjs/engine-formula';
-import { UniverRenderEnginePlugin } from '@univerjs/engine-render';
-import { DEFAULT_WORKBOOK_DATA_DEMO } from '@univerjs/mockdata';
-import zhCN from '@univerjs/mockdata/locales/zh-CN';
-import { UniverNetworkPlugin } from '@univerjs/network';
-import { UniverRPCMainThreadPlugin } from '@univerjs/rpc';
-import { UniverSheetsPlugin } from '@univerjs/sheets';
-import { UniverSheetsConditionalFormattingPlugin } from '@univerjs/sheets-conditional-formatting';
-import { UniverSheetsDataValidationPlugin } from '@univerjs/sheets-data-validation';
-import { UniverSheetsFilterPlugin } from '@univerjs/sheets-filter';
-import { UniverSheetsFormulaPlugin } from '@univerjs/sheets-formula';
-import { UniverSheetsHyperLinkPlugin } from '@univerjs/sheets-hyper-link';
-import { UniverSheetsNotePlugin } from '@univerjs/sheets-note';
-import { UniverSheetsNumfmtPlugin } from '@univerjs/sheets-numfmt';
-import { UniverSheetsSortPlugin } from '@univerjs/sheets-sort';
-import { UniverSheetsTablePlugin } from '@univerjs/sheets-table';
-import { UniverSheetsThreadCommentPlugin } from '@univerjs/sheets-thread-comment';
-import { UniverSheetsUIPlugin } from '@univerjs/sheets-ui';
-import { UniverSheetsZenEditorPlugin } from '@univerjs/sheets-zen-editor';
-import { UniverUIPlugin } from '@univerjs/ui';
+import { CrabTableInstanceType, LocaleType, LogLevel, UserManagerService } from '@crabtable/core';
+import { FCrabTable } from '@crabtable/core/facade';
+import { CrabTableDebuggerPlugin } from '@crabtable/debugger';
+import { UniverDocsPlugin } from '@crabtable/docs';
+import { UniverDocsUIPlugin } from '@crabtable/docs-ui';
+import { UniverFormulaEnginePlugin } from '@crabtable/engine-formula';
+import { UniverRenderEnginePlugin } from '@crabtable/engine-render';
+import { DEFAULT_WORKBOOK_DATA_DEMO } from '@crabtable/mockdata';
+import zhCN from '@crabtable/mockdata/locales/zh-CN';
+import { UniverNetworkPlugin } from '@crabtable/network';
+import { UniverRPCMainThreadPlugin } from '@crabtable/rpc';
+import { UniverSheetsPlugin } from '@crabtable/sheets';
+import { UniverSheetsConditionalFormattingPlugin } from '@crabtable/sheets-conditional-formatting';
+import { UniverSheetsDataValidationPlugin } from '@crabtable/sheets-data-validation';
+import { UniverSheetsFilterPlugin } from '@crabtable/sheets-filter';
+import { UniverSheetsFormulaPlugin } from '@crabtable/sheets-formula';
+import { UniverSheetsHyperLinkPlugin } from '@crabtable/sheets-hyper-link';
+import { UniverSheetsNotePlugin } from '@crabtable/sheets-note';
+import { UniverSheetsNumfmtPlugin } from '@crabtable/sheets-numfmt';
+import { UniverSheetsSortPlugin } from '@crabtable/sheets-sort';
+import { UniverSheetsTablePlugin } from '@crabtable/sheets-table';
+import { UniverSheetsThreadCommentPlugin } from '@crabtable/sheets-thread-comment';
+import { UniverSheetsUIPlugin } from '@crabtable/sheets-ui';
+import { UniverSheetsZenEditorPlugin } from '@crabtable/sheets-zen-editor';
+import { UniverUIPlugin } from '@crabtable/ui';
 
-import '@univerjs/sheets/facade';
-import '@univerjs/ui/facade';
-import '@univerjs/docs-ui/facade';
-import '@univerjs/sheets-ui/facade';
-import '@univerjs/sheets-data-validation/facade';
-import '@univerjs/engine-formula/facade';
-import '@univerjs/sheets-filter/facade';
-import '@univerjs/sheets-formula/facade';
-import '@univerjs/sheets-numfmt/facade';
-import '@univerjs/sheets-hyper-link-ui/facade';
-import '@univerjs/sheets-thread-comment/facade';
-import '@univerjs/sheets-conditional-formatting/facade';
-import '@univerjs/sheets-find-replace/facade';
-import '@univerjs/sheets-drawing-ui/facade';
-import '@univerjs/sheets-zen-editor/facade';
-import '@univerjs/sheets-crosshair-highlight/facade';
-import '@univerjs/sheets-formula-ui/facade';
-import '@univerjs/sheets-table/facade';
-import '@univerjs/sheets-sort/facade';
-import '@univerjs/network/facade';
-import '@univerjs/sheets-note/facade';
+import '@crabtable/sheets/facade';
+import '@crabtable/ui/facade';
+import '@crabtable/docs-ui/facade';
+import '@crabtable/sheets-ui/facade';
+import '@crabtable/sheets-data-validation/facade';
+import '@crabtable/engine-formula/facade';
+import '@crabtable/sheets-filter/facade';
+import '@crabtable/sheets-formula/facade';
+import '@crabtable/sheets-numfmt/facade';
+import '@crabtable/sheets-hyper-link-ui/facade';
+import '@crabtable/sheets-thread-comment/facade';
+import '@crabtable/sheets-conditional-formatting/facade';
+import '@crabtable/sheets-find-replace/facade';
+import '@crabtable/sheets-drawing-ui/facade';
+import '@crabtable/sheets-zen-editor/facade';
+import '@crabtable/sheets-crosshair-highlight/facade';
+import '@crabtable/sheets-formula-ui/facade';
+import '@crabtable/sheets-table/facade';
+import '@crabtable/sheets-sort/facade';
+import '@crabtable/network/facade';
+import '@crabtable/sheets-note/facade';
 import '../global.css';
 
 /* eslint-disable-next-line node/prefer-global/process */
@@ -80,7 +80,7 @@ export const mockUser = {
 // eslint-disable-next-line max-lines-per-function
 function createNewInstance() {
     // univer
-    const univer = new Univer({
+    const univer = new CrabTable({
         // theme: greenTheme,
         darkMode: localStorage.getItem('local.darkMode') === 'dark',
         locale: LocaleType.ZH_CN,
@@ -122,7 +122,7 @@ function createNewInstance() {
 
     // If we are running in e2e platform, we should immediately register the debugger plugin.
     if (IS_E2E) {
-        univer.registerPlugin(UniverDebuggerPlugin, {
+        univer.registerPlugin(CrabTableDebuggerPlugin, {
             fab: false,
             performanceMonitor: {
                 enabled: false,
@@ -136,7 +136,7 @@ function createNewInstance() {
 
     // create univer sheet instance
     if (!IS_E2E) {
-        univer.createUnit(UniverInstanceType.UNIVER_SHEET, DEFAULT_WORKBOOK_DATA_DEMO);
+        univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, DEFAULT_WORKBOOK_DATA_DEMO);
     }
 
     setTimeout(() => {
@@ -156,11 +156,11 @@ function createNewInstance() {
     univer.onDispose(() => {
         worker.terminate();
         window.univer = undefined;
-        window.univerAPI = undefined;
+        window.crabtableAPI = undefined;
     });
 
     window.univer = univer;
-    window.univerAPI = FUniver.newAPI(univer);
+    window.crabtableAPI = FCrabTable.newAPI(univer);
 }
 
 createNewInstance();
@@ -169,8 +169,8 @@ window.createNewInstance = createNewInstance;
 declare global {
     // eslint-disable-next-line ts/naming-convention
     interface Window {
-        univer?: Univer;
-        univerAPI?: ReturnType<typeof FUniver.newAPI>;
+        univer?: CrabTable;
+        crabtableAPI?: ReturnType<typeof FCrabTable.newAPI>;
         createNewInstance?: typeof createNewInstance;
     }
 }

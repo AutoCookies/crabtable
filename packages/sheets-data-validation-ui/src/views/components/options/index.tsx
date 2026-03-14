@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDataValidationRuleOptions } from '@univerjs/core';
-import { DataValidationErrorStyle, LocaleService } from '@univerjs/core';
-import { Checkbox, FormLayout, Input, Radio, RadioGroup } from '@univerjs/design';
+import type { IDataValidationRuleOptions } from '@crabtable/core';
+import { DataValidationErrorStyle, LocaleService } from '@crabtable/core';
+import { Checkbox, FormLayout, Input, Radio, RadioGroup } from '@crabtable/design';
+import { ComponentManager, useDependency } from '@crabtable/ui';
 import { MoreDownIcon, MoreUpIcon } from '@univerjs/icons';
-import { ComponentManager, useDependency } from '@univerjs/ui';
 import { useState } from 'react';
 
 export interface IDataValidationOptionsParams {

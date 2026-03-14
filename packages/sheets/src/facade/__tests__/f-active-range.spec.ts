@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import type { Injector } from '@univerjs/core';
-import type { FUniver } from '@univerjs/core/facade';
-import { ICommandService } from '@univerjs/core';
-import { InsertSheetCommand, InsertSheetMutation, RemoveSheetCommand, RemoveSheetMutation, SetSelectionsOperation, SetWorksheetActiveOperation } from '@univerjs/sheets';
+import type { Injector } from '@crabtable/core';
+import type { FCrabTable } from '@crabtable/core/facade';
+import { ICommandService } from '@crabtable/core';
+import { InsertSheetCommand, InsertSheetMutation, RemoveSheetCommand, RemoveSheetMutation, SetSelectionsOperation, SetWorksheetActiveOperation } from '@crabtable/sheets';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createFacadeTestBed } from './create-test-bed';
 
 describe('Test Active Range', () => {
     let get: Injector['get'];
     let commandService: ICommandService;
-    let univerAPI: FUniver;
+    let crabtableAPI: FCrabTable;
 
     beforeEach(() => {
         const testBed = createFacadeTestBed();
         get = testBed.get;
-        univerAPI = testBed.univerAPI;
+        crabtableAPI = testBed.crabtableAPI;
 
         commandService = get(ICommandService);
         commandService.registerCommand(InsertSheetCommand);
@@ -41,7 +41,7 @@ describe('Test Active Range', () => {
     });
 
     it('Workbook setActiveRange', () => {
-        const workbook = univerAPI.getActiveWorkbook()!;
+        const workbook = crabtableAPI.getActiveWorkbook()!;
         expect(workbook.getSheets().length).toBe(1);
 
         const sheet = workbook.getSheets()[0];
@@ -78,7 +78,7 @@ describe('Test Active Range', () => {
     });
 
     it('Worksheet setActiveRange', () => {
-        const workbook = univerAPI.getActiveWorkbook()!;
+        const workbook = crabtableAPI.getActiveWorkbook()!;
         const sheet1 = workbook.getSheets()[0];
         const sheet2 = workbook.insertSheet();
 

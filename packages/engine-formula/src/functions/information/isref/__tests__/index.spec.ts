@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Injector, IWorkbookData } from '@univerjs/core';
+import type { Injector, IWorkbookData } from '@crabtable/core';
 import type { LexerNode } from '../../../../engine/analysis/lexer-node';
 import type { BaseAstNode } from '../../../../engine/ast-node/base-ast-node';
 import type { ArrayValueObject } from '../../../../engine/value-object/array-value-object';
 import type { BaseValueObject, ErrorValueObject } from '../../../../engine/value-object/base-value-object';
-import { CellValueType, LocaleType } from '@univerjs/core';
+import { CellValueType, LocaleType } from '@crabtable/core';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { Lexer } from '../../../../engine/analysis/lexer';
 import { AstTreeBuilder } from '../../../../engine/analysis/parser';

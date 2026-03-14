@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICommandService, Injector, IUniverInstanceService } from '@univerjs/core';
+import type { ICommandService, ICrabTableInstanceService, Injector } from '@crabtable/core';
 import type { IRPCChannelService } from '../../../services/rpc/channel.service';
 import type { IChannel } from '../../../services/rpc/rpc.service';
-import { CommandType, UniverInstanceType } from '@univerjs/core';
+import { CommandType, CrabTableInstanceType } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import { IRemoteInstanceService, IRemoteSyncService, RemoteInstanceServiceName, RemoteSyncServiceName } from '../../../services/remote-instance/remote-instance.service';
@@ -85,10 +85,10 @@ describe('data-sync controllers', () => {
             }),
         } as unknown as ICommandService;
 
-        const univerInstanceService = {
+        const crabtableInstanceService = {
             getTypeOfUnitAdded$: vi.fn(() => added$.asObservable()),
             getTypeOfUnitDisposed$: vi.fn(() => disposed$.asObservable()),
-        } as unknown as IUniverInstanceService;
+        } as unknown as ICrabTableInstanceService;
 
         const remoteSyncService = {
             syncMutation: vi.fn(async () => true),
@@ -97,7 +97,7 @@ describe('data-sync controllers', () => {
         const controller = new DataSyncPrimaryController(
             injector,
             commandService,
-            univerInstanceService,
+            crabtableInstanceService,
             rpcChannelService,
             remoteSyncService as never
         );
@@ -113,7 +113,7 @@ describe('data-sync controllers', () => {
         await Promise.resolve();
         expect(remoteInstanceImpl.createInstance).toHaveBeenCalledWith({
             unitID: 'unit-1',
-            type: UniverInstanceType.UNIVER_SHEET,
+            type: CrabTableInstanceType.CRABTABLE_SHEET,
             snapshot: { snapshot: true },
         });
 

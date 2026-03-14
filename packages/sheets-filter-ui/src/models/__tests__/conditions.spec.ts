@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { BooleanNumber } from '@univerjs/core';
-import { CustomFilterOperator } from '@univerjs/sheets-filter';
+import { BooleanNumber } from '@crabtable/core';
+import { CustomFilterOperator } from '@crabtable/sheets-filter';
 import { describe, expect, it } from 'vitest';
 import { FilterConditionItems } from '../conditions';
 import { ExtendCustomFilterOperator } from '../extended-operators';

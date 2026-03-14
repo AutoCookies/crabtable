@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
-import type { IThreadComment } from '@univerjs/thread-comment';
+import type { Nullable } from '@crabtable/core';
+import type { IThreadComment } from '@crabtable/thread-comment';
 import type { Observable } from 'rxjs';
 import type { IThreadCommentTreeProps } from '../thread-comment-tree';
-import { ICommandService, LocaleService, UniverInstanceType, UserManagerService } from '@univerjs/core';
-import { Button, Select } from '@univerjs/design';
+import { CrabTableInstanceType, ICommandService, LocaleService, UserManagerService } from '@crabtable/core';
+import { Button, Select } from '@crabtable/design';
+import { ThreadCommentModel } from '@crabtable/thread-comment';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { IncreaseIcon } from '@univerjs/icons';
-import { ThreadCommentModel } from '@univerjs/thread-comment';
-import { useDependency, useObservable } from '@univerjs/ui';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { SetActiveCommentOperation } from '../../commands/operations/comment.operations';
 import { ThreadCommentPanelService } from '../../services/thread-comment-panel.service';
@@ -31,7 +31,7 @@ import { ThreadCommentTree } from '../thread-comment-tree';
 export interface IThreadCommentPanelProps {
     unitId: string;
     subUnitId$: Observable<string | undefined>;
-    type: UniverInstanceType;
+    type: CrabTableInstanceType;
     onAdd: () => void;
     getSubUnitName: (subUnitId: string) => string;
     onResolve?: (id: string, resolved: boolean) => void;
@@ -197,7 +197,7 @@ export const ThreadCommentPanel = (props: IThreadCommentPanelProps) => {
     return (
         <div className="univer-flex univer-min-h-full univer-flex-col univer-pb-3">
             <div className="univer-mt-3 univer-flex univer-flex-row univer-justify-between">
-                {type === UniverInstanceType.UNIVER_SHEET
+                {type === CrabTableInstanceType.CRABTABLE_SHEET
                     ? (
                         <Select
                             borderless

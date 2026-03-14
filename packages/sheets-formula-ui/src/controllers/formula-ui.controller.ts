@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
-import { Disposable, ICommandService, Inject, Injector, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import type { Dependency } from '@crabtable/core';
+import { CrabTableInstanceType, Disposable, ICommandService, Inject, Injector } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 
-import { SheetsUIPart } from '@univerjs/sheets-ui';
-import { ComponentManager, connectInjector, IMenuManagerService, IShortcutService, IUIPartsService } from '@univerjs/ui';
+import { SheetsUIPart } from '@crabtable/sheets-ui';
+import { ComponentManager, connectInjector, IMenuManagerService, IShortcutService, IUIPartsService } from '@crabtable/ui';
 import { SheetCopyFormulaOnlyCommand, SheetOnlyPasteFormulaCommand } from '../commands/commands/formula-clipboard.command';
 import { SelectEditorFormulaOperation } from '../commands/operations/editor-formula.operation';
 import { HelpFunctionOperation } from '../commands/operations/help-function.operation';
@@ -103,6 +103,6 @@ export class FormulaUIController extends Disposable {
     }
 
     private _registerRenderModules(): void {
-        this.disposeWithMe(this._renderManagerService.registerRenderModule(UniverInstanceType.UNIVER_SHEET, [FormulaEditorShowController] as Dependency));
+        this.disposeWithMe(this._renderManagerService.registerRenderModule(CrabTableInstanceType.CRABTABLE_SHEET, [FormulaEditorShowController] as Dependency));
     }
 }

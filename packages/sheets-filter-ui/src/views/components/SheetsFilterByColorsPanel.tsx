@@ -15,10 +15,10 @@
  */
 
 import type { ByColorsModel, IFilterByColorItem } from '../../services/sheets-filter-panel.service';
-import { LocaleService } from '@univerjs/core';
-import { borderClassName, clsx } from '@univerjs/design';
+import { LocaleService } from '@crabtable/core';
+import { borderClassName, clsx } from '@crabtable/design';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { AIcon, BanIcon, SuccessIcon } from '@univerjs/icons';
-import { useDependency, useObservable } from '@univerjs/ui';
 import { useCallback } from 'react';
 
 /**

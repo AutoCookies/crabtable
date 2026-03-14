@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Nullable, ObjectMatrix } from '@univerjs/core';
-import type { IDiscreteRange } from '@univerjs/sheets';
+import type { Nullable, ObjectMatrix } from '@crabtable/core';
+import type { IDiscreteRange } from '@crabtable/sheets';
 import type { COPY_TYPE, ICellDataWithSpanInfo } from './type';
-import { generateRandomId, LRUMap } from '@univerjs/core';
+import { generateRandomId, LRUMap } from '@crabtable/core';
 import { BehaviorSubject } from 'rxjs';
 
 const COPY_CONTENT_CACHE_LIMIT = 10;

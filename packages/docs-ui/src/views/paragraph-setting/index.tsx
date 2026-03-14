@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ITextRange } from '@univerjs/core';
-import type { IRichTextEditingMutationParams, ISetTextSelectionsOperationParams } from '@univerjs/docs';
-import { debounce, generateRandomId, ICommandService, LocaleService } from '@univerjs/core';
-import { RichTextEditingMutation, SetTextSelectionsOperation } from '@univerjs/docs';
-import { useDependency, useObservable } from '@univerjs/ui';
+import type { ITextRange } from '@crabtable/core';
+import type { IRichTextEditingMutationParams, ISetTextSelectionsOperationParams } from '@crabtable/docs';
+import { debounce, generateRandomId, ICommandService, LocaleService } from '@crabtable/core';
+import { RichTextEditingMutation, SetTextSelectionsOperation } from '@crabtable/docs';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { DocParagraphSettingCommand } from '../../commands/commands/doc-paragraph-setting.command';
 import { ParagraphSetting } from './Setting';

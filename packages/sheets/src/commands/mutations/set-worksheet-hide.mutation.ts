@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { BooleanNumber, IAccessor, IMutation } from '@univerjs/core';
-import { CommandType, IUniverInstanceService } from '@univerjs/core';
+import type { BooleanNumber, IAccessor, IMutation } from '@crabtable/core';
+import { CommandType, ICrabTableInstanceService } from '@crabtable/core';
 import { getSheetMutationTarget } from '../commands/utils/target-util';
 
 export interface ISetWorksheetHideMutationParams {
@@ -28,7 +28,7 @@ export const SetWorksheetHideMutationFactory = (
     accessor: IAccessor,
     params: ISetWorksheetHideMutationParams
 ): ISetWorksheetHideMutationParams => {
-    const target = getSheetMutationTarget(accessor.get(IUniverInstanceService), params);
+    const target = getSheetMutationTarget(accessor.get(ICrabTableInstanceService), params);
     if (!target) {
         throw new Error('[SetWorksheetHideMutationFactory]: worksheet is null error!');
     }
@@ -45,7 +45,7 @@ export const SetWorksheetHideMutation: IMutation<ISetWorksheetHideMutationParams
     id: 'sheet.mutation.set-worksheet-hidden',
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
-        const universheet = accessor.get(IUniverInstanceService).getUniverSheetInstance(params.unitId);
+        const universheet = accessor.get(ICrabTableInstanceService).getCrabTableSheetInstance(params.unitId);
 
         if (universheet == null) {
             return false;

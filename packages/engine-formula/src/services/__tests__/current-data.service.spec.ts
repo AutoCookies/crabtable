@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ObjectMatrix } from '@univerjs/core';
+import { ObjectMatrix } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { FormulaCurrentConfigService } from '../current-data.service';
 
@@ -31,7 +31,7 @@ function createService() {
     };
 
     const workbookById = new Map<string, unknown>();
-    const univerInstanceService = {
+    const crabtableInstanceService = {
         getCurrentUnitForType: vi.fn(() => workbookForCurrentType),
         getUnit: vi.fn((unitId: string) => workbookById.get(unitId)),
     };
@@ -53,7 +53,7 @@ function createService() {
     };
 
     const service = new FormulaCurrentConfigService(
-        univerInstanceService as never,
+        crabtableInstanceService as never,
         localeService as never,
         formulaDataModel as never,
         sheetRowFilteredService as never
@@ -62,7 +62,7 @@ function createService() {
     return {
         service,
         workbookById,
-        univerInstanceService,
+        crabtableInstanceService,
         localeService,
         formulaDataModel,
     };

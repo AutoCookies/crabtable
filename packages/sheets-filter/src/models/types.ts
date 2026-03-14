@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { BooleanNumber, IRange } from '@univerjs/core';
+import type { BooleanNumber, IRange } from '@crabtable/core';
 
 /**
  * The filter types.

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
 import type { INotificationOptions } from '../../components/notification/Notification';
 
 import type { INotificationService } from './notification.service';
-import { Disposable, Inject, Injector, toDisposable } from '@univerjs/core';
+import { Disposable, Inject, Injector, toDisposable } from '@crabtable/core';
 import { notification, Notification } from '../../components/notification/Notification';
 import { connectInjector } from '../../utils/di';
 import { BuiltInUIPart, IUIPartsService } from '../parts/parts.service';

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { UniverInstanceType } from '../../common/unit';
+import type { CrabTableInstanceType } from '../../common/unit';
 import type { IResourceHook, IResourceManagerService, IResourceName, IResources } from './type';
 import { Subject } from 'rxjs';
 import { Disposable, toDisposable } from '../../shared/lifecycle';
@@ -36,8 +36,8 @@ export class ResourceManagerService extends Disposable implements IResourceManag
     }
 
     public getResources(unitId: string): IResources;
-    public getResources(unitId: string, type: UniverInstanceType): IResources;
-    public getResources(unitId: string, type?: UniverInstanceType): IResources {
+    public getResources(unitId: string, type: CrabTableInstanceType): IResources;
+    public getResources(unitId: string, type?: CrabTableInstanceType): IResources {
         if (type) {
             return this.getResourcesByType(unitId, type);
         }
@@ -53,7 +53,7 @@ export class ResourceManagerService extends Disposable implements IResourceManag
         return resources;
     }
 
-    public getResourcesByType(unitId: string, type: UniverInstanceType) {
+    public getResourcesByType(unitId: string, type: CrabTableInstanceType) {
         const resourceHooks = this.getAllResourceHooks().filter((hook) => hook.businesses.includes(type));
         const resources = resourceHooks.map((resourceHook) => {
             const data = resourceHook.toJson(unitId);
@@ -93,7 +93,7 @@ export class ResourceManagerService extends Disposable implements IResourceManag
         });
     }
 
-    public unloadResources(unitId: string, type: UniverInstanceType) {
+    public unloadResources(unitId: string, type: CrabTableInstanceType) {
         this.getAllResourceHooks().filter((hook) => hook.businesses.includes(type)).forEach((hook) => {
             hook.onUnLoad(unitId);
         });

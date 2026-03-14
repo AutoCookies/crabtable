@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IWorkbookData } from '@univerjs/core';
-import { Disposable, DisposableCollection, ICommandService, LocaleType, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService, RenderManagerService } from '@univerjs/engine-render';
-import { CancelFrozenCommand, SetFrozenMutation, SetSelectionsOperation, SheetSkeletonService } from '@univerjs/sheets';
+import type { IWorkbookData } from '@crabtable/core';
+import { CrabTableInstanceType, Disposable, DisposableCollection, ICommandService, LocaleType } from '@crabtable/core';
+import { IRenderManagerService, RenderManagerService } from '@crabtable/engine-render';
+import { CancelFrozenCommand, SetFrozenMutation, SetSelectionsOperation, SheetSkeletonService } from '@crabtable/sheets';
 
 import { BehaviorSubject } from 'rxjs';
 import { SheetScrollManagerService } from '../../../services/scroll-manager.service';
@@ -202,7 +202,7 @@ export function createFrozenCommandTestBed(workbookData?: IWorkbookData) {
     const fakeSheetSkeletonManagerService = new SheetSkeletonManagerService({
         unit: sheet,
         unitId,
-        type: UniverInstanceType.UNIVER_SHEET,
+        type: CrabTableInstanceType.CRABTABLE_SHEET,
 
         engine: null as any,
         scene: null as any,
@@ -217,7 +217,7 @@ export function createFrozenCommandTestBed(workbookData?: IWorkbookData) {
     injector.add([SheetSkeletonManagerService, { useValue: fakeSheetSkeletonManagerService }]);
     injector.get(IRenderManagerService).addRender(unitId, {
         unitId,
-        type: UniverInstanceType.UNIVER_SHEET,
+        type: CrabTableInstanceType.CRABTABLE_SHEET,
         engine: new Disposable() as any,
         scene: new DisposableCollection() as any,
         mainComponent: null as any,

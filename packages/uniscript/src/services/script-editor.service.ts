@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
 import type { editor } from 'monaco-editor';
 import type { IUniverUniscriptConfig } from '../config/config';
-import { Disposable, IConfigService, toDisposable } from '@univerjs/core';
+import { Disposable, IConfigService, toDisposable } from '@crabtable/core';
 import { UNISCRIPT_PLUGIN_CONFIG_KEY } from '../config/config';
 
 /**

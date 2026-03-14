@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IStyleData, Nullable } from '@univerjs/core';
-import type { IDocumentSkeletonFontStyle } from '@univerjs/engine-render';
-import { FontCache, getFontStyleString } from '@univerjs/engine-render';
+import type { IStyleData, Nullable } from '@crabtable/core';
+import type { IDocumentSkeletonFontStyle } from '@crabtable/engine-render';
+import { FontCache, getFontStyleString } from '@crabtable/engine-render';
 
 export const PADDING_H = 4;
 export const PADDING_V = 0;

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IRange, Nullable, Workbook } from '@univerjs/core';
-import { Inject, isValidRange, IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
-import { deserializeRangeWithSheet, IDefinedNamesService, serializeRange, serializeRangeWithSheet } from '@univerjs/engine-formula';
+import type { IRange, Nullable, Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICrabTableInstanceService, Inject, isValidRange, LocaleService } from '@crabtable/core';
+import { deserializeRangeWithSheet, IDefinedNamesService, serializeRange, serializeRangeWithSheet } from '@crabtable/engine-formula';
 import { ERROR_RANGE } from '../types/const';
 import { SheetHyperLinkType } from '../types/enums/hyper-link-type';
 
@@ -36,7 +36,7 @@ export interface ISheetHyperLinkInfo {
 
 export class SheetsHyperLinkParserService {
     constructor(
-        @IUniverInstanceService private _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(LocaleService) private _localeService: LocaleService,
         @IDefinedNamesService private _definedNamesService: IDefinedNamesService
     ) {}
@@ -75,8 +75,8 @@ export class SheetsHyperLinkParserService {
     private _getURLName(params: ISheetUrlParams) {
         const { gid, range, rangeid, unitid } = params;
         const workbook = unitid ?
-            this._univerInstanceService.getUnit<Workbook>(unitid, UniverInstanceType.UNIVER_SHEET)
-            : this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+            this._crabtableInstanceService.getUnit<Workbook>(unitid, CrabTableInstanceType.CRABTABLE_SHEET)
+            : this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         const invalidLink = {
             type: SheetHyperLinkType.INVALID,
             name: this._localeService.t('hyperLink.message.refError'),

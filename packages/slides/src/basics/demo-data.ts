@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IDocumentData } from '@univerjs/core';
+import type { IDocumentData } from '@crabtable/core';
 import {
     BaselineOffset,
     BooleanNumber,
@@ -27,7 +27,7 @@ import {
     PresetListType,
     SectionType,
     WrapTextType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 
 export const docsDemoData: IDocumentData = {
     id: 'd',

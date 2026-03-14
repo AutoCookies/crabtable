@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IMutation } from '@univerjs/core';
+import type { IAccessor, IMutation } from '@crabtable/core';
 import type { IConditionFormattingRule } from '../../models/type';
-import { CommandType, Tools } from '@univerjs/core';
+import { CommandType, Tools } from '@crabtable/core';
 import { ConditionalFormattingRuleModel } from '../../models/conditional-formatting-rule-model';
 
 export interface ISetConditionalRuleMutationParams {

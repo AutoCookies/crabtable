@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ITextRangeWithStyle } from '@univerjs/engine-render';
+import type { ITextRangeWithStyle } from '@crabtable/engine-render';
 import type { IDocPopup } from '../services/doc-quick-insert-popup.service';
-import { Disposable, ICommandService, Inject } from '@univerjs/core';
+import { Disposable, ICommandService, Inject } from '@crabtable/core';
+import { ComponentManager } from '@crabtable/ui';
 import { DividerIcon, TextIcon } from '@univerjs/icons';
-import { ComponentManager } from '@univerjs/ui';
 import { of } from 'rxjs';
 import { DeleteSearchKeyCommand } from '../commands/commands/doc-quick-insert.command';
 import { CloseQuickInsertPopupOperation, ShowQuickInsertPopupOperation } from '../commands/operations/quick-insert-popup.operation';

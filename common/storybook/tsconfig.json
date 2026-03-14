@@ -1,5 +1,5 @@
 {
-    "extends": "@univerjs-infra/shared/tsconfigs/base",
+    "extends": "@crabtable-infra/shared/tsconfigs/base",
     "compilerOptions": {
         "useDefineForClassFields": false,
         "emitDecoratorMetadata": true,

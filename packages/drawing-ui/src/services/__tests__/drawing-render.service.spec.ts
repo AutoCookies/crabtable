@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-import { DrawingTypeEnum, UniverInstanceType } from '@univerjs/core';
-import { getDrawingShapeKeyByDrawingSearch, ImageSourceType } from '@univerjs/drawing';
+import { CrabTableInstanceType, DrawingTypeEnum } from '@crabtable/core';
+import { getDrawingShapeKeyByDrawingSearch, ImageSourceType } from '@crabtable/drawing';
 import { describe, expect, it, vi } from 'vitest';
 import { DrawingRenderService } from '../drawing-render.service';
 
-vi.mock('@univerjs/drawing', async (importActual) => {
-    const actual = await importActual<typeof import('@univerjs/drawing')>();
+vi.mock('@crabtable/drawing', async (importActual) => {
+    const actual = await importActual<typeof import('@crabtable/drawing')>();
     return {
         ...actual,
         getDrawingShapeKeyByDrawingSearch: vi.fn(() => 'shape-key'),
     };
 });
 
-function createService(options?: { unitType?: UniverInstanceType; visible?: boolean; activeSheetId?: string }) {
+function createService(options?: { unitType?: CrabTableInstanceType; visible?: boolean; activeSheetId?: string }) {
     const drawingManagerService = {
         getDrawingVisible: vi.fn(() => options?.visible ?? true),
         getDrawingEditable: vi.fn(() => true),
@@ -41,8 +41,8 @@ function createService(options?: { unitType?: UniverInstanceType; visible?: bool
     const urlImageService = {
         getImage: vi.fn(),
     };
-    const univerInstanceService = {
-        getUnitType: vi.fn(() => options?.unitType ?? UniverInstanceType.UNIVER_DOC),
+    const crabtableInstanceService = {
+        getUnitType: vi.fn(() => options?.unitType ?? CrabTableInstanceType.CRABTABLE_DOC),
         getCurrentUnitOfType: vi.fn(() => ({
             getActiveSheet: vi.fn(() => ({ getSheetId: vi.fn(() => options?.activeSheetId ?? 'sheet-1') })),
         })),
@@ -62,9 +62,9 @@ function createService(options?: { unitType?: UniverInstanceType; visible?: bool
             imageIoService as never,
             {} as never,
             urlImageService as never,
-            univerInstanceService as never
+            crabtableInstanceService as never
         ),
-        univerInstanceService,
+        crabtableInstanceService,
     };
 }
 
@@ -88,7 +88,7 @@ describe('DrawingRenderService', () => {
         expect(await nonImageCase.service.renderImages({ ...baseImageParam, drawingType: DrawingTypeEnum.DRAWING_SHAPE } as never, nonImageCase.scene as never)).toBeUndefined();
         expect(nonImageCase.scene.getObject).not.toHaveBeenCalled();
 
-        const inactiveSheetCase = createService({ unitType: UniverInstanceType.UNIVER_SHEET, activeSheetId: 'sheet-2' });
+        const inactiveSheetCase = createService({ unitType: CrabTableInstanceType.CRABTABLE_SHEET, activeSheetId: 'sheet-2' });
         expect(await inactiveSheetCase.service.renderImages(baseImageParam as never, inactiveSheetCase.scene as never)).toBeUndefined();
         expect(inactiveSheetCase.scene.getObject).not.toHaveBeenCalled();
 

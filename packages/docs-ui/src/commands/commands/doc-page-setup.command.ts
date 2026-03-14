@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommand, ICommandInfo, ISize, JSONXActions, PageOrientType } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import { CommandType, ICommandService, IUniverInstanceService, JSONX, UniverInstanceType } from '@univerjs/core';
-import { RichTextEditingMutation } from '@univerjs/docs';
+import type { DocumentDataModel, ICommand, ICommandInfo, ISize, JSONXActions, PageOrientType } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import { CommandType, CrabTableInstanceType, ICommandService, ICrabTableInstanceService, JSONX } from '@crabtable/core';
+import { RichTextEditingMutation } from '@crabtable/docs';
 
 export interface IDocPageSetupCommandParams {
     pageSize: ISize;
@@ -34,9 +34,9 @@ export const DocPageSetupCommand: ICommand<IDocPageSetupCommandParams> = {
     // eslint-disable-next-line complexity, max-lines-per-function
     handler: (accessor, params) => {
         if (!params) return false;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const commandService = accessor.get(ICommandService);
-        const docDataModel = univerInstanceService.getCurrentUnitOfType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getCurrentUnitOfType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
         if (!docDataModel) return false;
         const { marginLeft, marginRight, marginBottom, marginTop, pageOrient, pageSize } = params;
         const jsonX = JSONX.getInstance();

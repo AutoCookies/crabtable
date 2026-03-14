@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { ITableFilterItem } from '@univerjs/sheets-table';
+import type { ITableFilterItem } from '@crabtable/sheets-table';
 import type { IConditionCompareTypeEnum, IConditionExpect, IConditionInfo, ITableConditionTypeEnumWithoutLogic } from './type';
-import { Injector, LocaleService } from '@univerjs/core';
-import { borderClassName, CascaderList, clsx, DatePicker, DateRangePicker, Dropdown, Input, InputNumber, Select } from '@univerjs/design';
+import { Injector, LocaleService } from '@crabtable/core';
+import { borderClassName, CascaderList, clsx, DatePicker, DateRangePicker, Dropdown, Input, InputNumber, Select } from '@crabtable/design';
+import { TableConditionTypeEnum, TableDateCompareTypeEnum, TableStringCompareTypeEnum } from '@crabtable/sheets-table';
+import { useDependency } from '@crabtable/ui';
 import { MoreDownIcon } from '@univerjs/icons';
-import { TableConditionTypeEnum, TableDateCompareTypeEnum, TableStringCompareTypeEnum } from '@univerjs/sheets-table';
-import { useDependency } from '@univerjs/ui';
 import { useState } from 'react';
 import { ConditionSubComponentEnum } from './type';
 import { datePickerSet, getCascaderListOptions, getConditionDateSelect, getSubComponentType } from './util';

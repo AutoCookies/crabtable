@@ -15,7 +15,7 @@
  */
 
 import type { IUniverSheetsTableConfig } from './config/config';
-import { ICommandService, IConfigService, Inject, Injector, merge, Plugin, registerDependencies, touchDependencies, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, ICommandService, IConfigService, Inject, Injector, merge, Plugin, registerDependencies, touchDependencies } from '@crabtable/core';
 import pkg from '../package.json';
 import { AddSheetTableCommand } from './commands/commands/add-sheet-table.command';
 import { AddTableThemeCommand } from './commands/commands/add-table-theme.command';
@@ -43,7 +43,7 @@ export class UniverSheetsTablePlugin extends Plugin {
     static override pluginName = PLUGIN_NAME;
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
     constructor(
         private readonly _config: Partial<IUniverSheetsTableConfig> = defaultPluginConfig,

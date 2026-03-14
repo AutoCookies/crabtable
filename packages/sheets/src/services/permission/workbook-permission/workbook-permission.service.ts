@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import { Disposable, Inject, IPermissionService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
+import type { Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject, IPermissionService } from '@crabtable/core';
 import { BehaviorSubject } from 'rxjs';
 import { RangeProtectionRuleModel } from '../../../model/range-protection-rule.model';
 import { getAllRangePermissionPoint } from '../range-permission/util';
@@ -29,7 +29,7 @@ export class WorkbookPermissionService extends Disposable {
 
     constructor(
         @Inject(IPermissionService) private _permissionService: IPermissionService,
-        @Inject(IUniverInstanceService) private _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(RangeProtectionRuleModel) private _rangeProtectionRuleModel: RangeProtectionRuleModel,
         @Inject(WorksheetProtectionRuleModel) private _worksheetProtectionRuleModel: WorksheetProtectionRuleModel,
         @Inject(WorksheetProtectionPointModel) private _worksheetProtectionPointModel: WorksheetProtectionPointModel
@@ -48,15 +48,15 @@ export class WorkbookPermissionService extends Disposable {
             });
         };
 
-        this._univerInstanceService.getAllUnitsForType<Workbook>(UniverInstanceType.UNIVER_SHEET).forEach((workbook) => {
+        this._crabtableInstanceService.getAllUnitsForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).forEach((workbook) => {
             handleWorkbook(workbook);
         });
 
-        this.disposeWithMe(this._univerInstanceService.getTypeOfUnitAdded$<Workbook>(UniverInstanceType.UNIVER_SHEET).subscribe((workbook) => {
+        this.disposeWithMe(this._crabtableInstanceService.getTypeOfUnitAdded$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((workbook) => {
             handleWorkbook(workbook);
         }));
 
-        this.disposeWithMe(this._univerInstanceService.getTypeOfUnitDisposed$<Workbook>(UniverInstanceType.UNIVER_SHEET).subscribe((workbook) => {
+        this.disposeWithMe(this._crabtableInstanceService.getTypeOfUnitDisposed$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((workbook) => {
             const unitId = workbook.getUnitId();
             workbook.getSheets().forEach((worksheet) => {
                 const subUnitId = worksheet.getSheetId();

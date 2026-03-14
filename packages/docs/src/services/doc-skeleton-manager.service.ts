@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, Nullable } from '@univerjs/core';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
-import { Inject, isInternalEditorID, IUniverInstanceService, LocaleService, RxDisposable, UniverInstanceType } from '@univerjs/core';
-import { DocumentSkeleton, DocumentViewModel } from '@univerjs/engine-render';
+import type { DocumentDataModel, Nullable } from '@crabtable/core';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
+import { CrabTableInstanceType, ICrabTableInstanceService, Inject, isInternalEditorID, LocaleService, RxDisposable } from '@crabtable/core';
+import { DocumentSkeleton, DocumentViewModel } from '@crabtable/engine-render';
 import { BehaviorSubject, takeUntil } from 'rxjs';
 
 /**
@@ -41,13 +41,13 @@ export class DocSkeletonManagerService extends RxDisposable implements IRenderMo
     constructor(
         private readonly _context: IRenderContext<DocumentDataModel>,
         @Inject(LocaleService) private readonly _localeService: LocaleService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
 
         this._init();
 
-        this._univerInstanceService.getCurrentTypeOfUnit$<DocumentDataModel>(UniverInstanceType.UNIVER_DOC)
+        this._crabtableInstanceService.getCurrentTypeOfUnit$<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC)
             .pipe(takeUntil(this.dispose$))
             .subscribe((documentModel) => {
                 if (documentModel && documentModel.getUnitId() === this._context.unitId) {

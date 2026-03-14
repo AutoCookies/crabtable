@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { Dependency, IOperation, IWorkbookData, Workbook } from '@univerjs/core';
-import type { ISetSheetsFilterRangeMutationParams } from '@univerjs/sheets-filter';
-import type { IEditorBridgeServiceVisibleParam } from '@univerjs/sheets-ui';
-import { CommandType, ICommandService, IContextService, Inject, Injector, LocaleService, LocaleType, Plugin, Univer, UniverInstanceType } from '@univerjs/core';
-import { ActiveDirtyManagerService, IActiveDirtyManagerService, ISheetRowFilteredService, SheetRowFilteredService } from '@univerjs/engine-formula';
-import { RefRangeService, SheetInterceptorService, SheetRangeThemeModel, SheetsSelectionsService, ZebraCrossingCacheController } from '@univerjs/sheets';
-import { SetSheetsFilterRangeMutation, UniverSheetsFilterPlugin } from '@univerjs/sheets-filter';
+import type { Dependency, IOperation, IWorkbookData, Workbook } from '@crabtable/core';
+import type { ISetSheetsFilterRangeMutationParams } from '@crabtable/sheets-filter';
+import type { IEditorBridgeServiceVisibleParam } from '@crabtable/sheets-ui';
+import { CommandType, CrabTableInstanceType, ICommandService, IContextService, Inject, Injector, LocaleService, LocaleType, Plugin } from '@crabtable/core';
+import { ActiveDirtyManagerService, IActiveDirtyManagerService, ISheetRowFilteredService, SheetRowFilteredService } from '@crabtable/engine-formula';
+import { RefRangeService, SheetInterceptorService, SheetRangeThemeModel, SheetsSelectionsService, ZebraCrossingCacheController } from '@crabtable/sheets';
+import { SetSheetsFilterRangeMutation, UniverSheetsFilterPlugin } from '@crabtable/sheets-filter';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { SheetsFilterPanelService } from '../../../services/sheets-filter-panel.service';
 import { CloseFilterPanelOperation, FILTER_PANEL_OPENED_KEY, OpenFilterPanelOperation } from '../sheets-filter.operation';
@@ -61,12 +61,12 @@ function testWorkbookDataFactory(): IWorkbookData {
 };
 
 function createFilterOperationTestBed() {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
     class SheetsFilterOperationTestPlugin extends Plugin {
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
         static override pluginName = 'sheets-filter-operation-test';
 
         constructor(_config: unknown, @Inject(Injector) protected readonly _injector: Injector) {
@@ -90,7 +90,7 @@ function createFilterOperationTestBed() {
     univer.registerPlugin(UniverSheetsFilterPlugin);
     univer.registerPlugin(SheetsFilterOperationTestPlugin);
 
-    univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, testWorkbookDataFactory());
+    univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, testWorkbookDataFactory());
 
     get(LocaleService).load({});
 
@@ -106,7 +106,7 @@ function createFilterOperationTestBed() {
 }
 
 describe('test sheets filter ui operations', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let contextService: IContextService;
     let commandService: ICommandService;

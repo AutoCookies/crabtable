@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
+import type { Dependency } from '@crabtable/core';
 import type { Meta, StoryObj } from '@storybook/react';
-import type { Dependency } from '@univerjs/core';
 import type { ISheetNumfmtPanelProps } from '../index';
-import { LocaleService, LocaleType } from '@univerjs/core';
-import { RediContext } from '@univerjs/ui';
+import { LocaleService, LocaleType } from '@crabtable/core';
+import { RediContext } from '@crabtable/ui';
 import { useContext, useState } from 'react';
 import { UserHabitController } from '../../../controllers/user-habit.controller';
 import enUS from '../../../locale/en-US';

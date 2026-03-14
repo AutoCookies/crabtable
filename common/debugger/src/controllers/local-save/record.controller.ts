@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { CommandType, ICommandService, Inject } from '@univerjs/core';
+import { CommandType, ICommandService, Inject } from '@crabtable/core';
 import { Observable } from 'rxjs';
 
 export class RecordController {

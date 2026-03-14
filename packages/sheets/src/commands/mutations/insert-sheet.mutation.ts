@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IMutation } from '@univerjs/core';
+import type { IAccessor, IMutation } from '@crabtable/core';
 import type {
     IInsertSheetMutationParams,
     IRemoveSheetMutationParams,
 } from '../../basics/interfaces/mutation-interface';
-import { cloneWorksheetData, CommandType, IUniverInstanceService } from '@univerjs/core';
+import { cloneWorksheetData, CommandType, ICrabTableInstanceService } from '@crabtable/core';
 
 /**
  * Generate undo mutation of a `InsertSheetMutation`
@@ -41,9 +41,9 @@ export const InsertSheetMutation: IMutation<IInsertSheetMutationParams, boolean>
     id: 'sheet.mutation.insert-sheet',
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const { sheet, index, unitId, styles } = params;
-        const workbook = univerInstanceService.getUniverSheetInstance(unitId);
+        const workbook = crabtableInstanceService.getCrabTableSheetInstance(unitId);
         if (!workbook) {
             return false;
         }

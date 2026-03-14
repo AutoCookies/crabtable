@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { clsx } from '@univerjs/design';
+import { clsx } from '@crabtable/design';
 
 export interface IBaseToolbarButtonProps {
     children?: React.ReactNode;

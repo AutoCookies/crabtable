@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { BBox, IRange, ISheetDataValidationRule, IUniverInstanceService, Workbook } from '@univerjs/core';
+import type { BBox, ICrabTableInstanceService, IRange, ISheetDataValidationRule, Workbook } from '@crabtable/core';
 
-import { debounce, Range, RBush, Rectangle, Tools, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, debounce, Range, RBush, Rectangle, Tools } from '@crabtable/core';
 
 interface IRuleItem extends BBox {
     ruleId: string;
@@ -47,7 +47,7 @@ export class RuleMatrix {
         value: Map<string, IRange[]>,
         private _unitId: string,
         private _subUnitId: string,
-        private _univerInstanceService: IUniverInstanceService,
+        private _crabtableInstanceService: ICrabTableInstanceService,
         private _disableTree = false
     ) {
         this._map = value;
@@ -78,7 +78,7 @@ export class RuleMatrix {
     private _debonceBuildTree = debounce(this._buildTree, 0);
 
     get _worksheet() {
-        return this._univerInstanceService.getUnit<Workbook>(this._unitId, UniverInstanceType.UNIVER_SHEET)?.getSheetBySheetId(this._subUnitId);
+        return this._crabtableInstanceService.getUnit<Workbook>(this._unitId, CrabTableInstanceType.CRABTABLE_SHEET)?.getSheetBySheetId(this._subUnitId);
     }
 
     private _addRule(ruleId: string, _ranges: IRange[]) {
@@ -245,7 +245,7 @@ export class RuleMatrix {
             new Map(Tools.deepClone(Array.from(this._map.entries()))),
             this._unitId,
             this._subUnitId,
-            this._univerInstanceService,
+            this._crabtableInstanceService,
             // disable tree on cloned matrix, cause there is no need to search
             true
         );

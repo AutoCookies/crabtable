@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuButtonItem, IMenuItem } from '@univerjs/ui';
-import { UniverInstanceType } from '@univerjs/core';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuButtonItem, IMenuItem } from '@crabtable/ui';
+import { CrabTableInstanceType } from '@crabtable/core';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { InsertSlideShapeEllipseCommand, InsertSlideShapeRectangleCommand } from '../commands/operations/insert-shape.operation';
 
 export const SHAPE_MENU_ID = 'slide.menu.shape';
@@ -28,7 +28,7 @@ export function SlideShapeMenuFactory(accessor: IAccessor): IMenuItem {
         type: MenuItemType.SUBITEMS,
         icon: 'GraphIcon',
         tooltip: 'slide.shape.insert.title',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SLIDE),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SLIDE),
         // disabled$: getCurrentRangeDisable$(accessor, { workbookTypes: [WorkbookEditablePermission], worksheetTypes: [WorksheetEditPermission], rangeTypes: [RangeProtectionPermissionEditPoint] }),
     };
 }
@@ -38,7 +38,7 @@ export function UploadSlideFloatRectangleShapeMenuFactory(_accessor: IAccessor):
         id: InsertSlideShapeRectangleCommand.id,
         title: 'slide.shape.insert.rectangle',
         type: MenuItemType.BUTTON,
-        hidden$: getMenuHiddenObservable(_accessor, UniverInstanceType.UNIVER_SLIDE),
+        hidden$: getMenuHiddenObservable(_accessor, CrabTableInstanceType.CRABTABLE_SLIDE),
     };
 }
 
@@ -47,6 +47,6 @@ export function UploadSlideFloatEllipseShapeMenuFactory(_accessor: IAccessor): I
         id: InsertSlideShapeEllipseCommand.id,
         title: 'slide.shape.insert.ellipse',
         type: MenuItemType.BUTTON,
-        hidden$: getMenuHiddenObservable(_accessor, UniverInstanceType.UNIVER_SLIDE),
+        hidden$: getMenuHiddenObservable(_accessor, CrabTableInstanceType.CRABTABLE_SLIDE),
     };
 }

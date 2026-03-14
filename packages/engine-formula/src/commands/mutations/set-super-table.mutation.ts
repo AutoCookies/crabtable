@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IMutation } from '@univerjs/core';
+import type { IMutation } from '@crabtable/core';
 import type { ISuperTable } from '../../basics/common';
 
 import type { ISuperTableOptionParam } from '../../services/super-table.service';
-import { CommandType } from '@univerjs/core';
+import { CommandType } from '@crabtable/core';
 import { ISuperTableService } from '../../services/super-table.service';
 
 export interface ISetSuperTableMutationSearchParam {

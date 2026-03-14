@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDisposable, IDocumentBody, IDocumentData, IDocumentSettings, IDocumentStyle, IParagraph, IParagraphStyle, IPosition, Nullable } from '@univerjs/core';
-import type { Engine, IDocumentLayoutObject, RichText, Scene } from '@univerjs/engine-render';
-import type { KeyCode } from '@univerjs/ui';
+import type { IDisposable, IDocumentBody, IDocumentData, IDocumentSettings, IDocumentStyle, IParagraph, IParagraphStyle, IPosition, Nullable } from '@crabtable/core';
+import type { Engine, IDocumentLayoutObject, RichText, Scene } from '@crabtable/engine-render';
+import type { KeyCode } from '@crabtable/ui';
 import type { Observable } from 'rxjs';
 import {
     createIdentifier,
@@ -28,14 +28,14 @@ import {
     HorizontalAlign,
     IContextService,
     VerticalAlign,
-} from '@univerjs/core';
-import { IEditorService } from '@univerjs/docs-ui';
-import { DeviceInputEventType, IRenderManagerService } from '@univerjs/engine-render';
-import { SLIDE_KEY } from '@univerjs/slides';
+} from '@crabtable/core';
+import { IEditorService } from '@crabtable/docs-ui';
+import { DeviceInputEventType, IRenderManagerService } from '@crabtable/engine-render';
+import { SLIDE_KEY } from '@crabtable/slides';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { SLIDE_EDITOR_ID } from '../const';
 
-// TODO same as @univerjs/slides/views/render/adaptors/index.js
+// TODO same as @crabtable/slides/views/render/adaptors/index.js
 export enum SLIDE_VIEW_KEY {
     MAIN = '__SLIDERender__',
     SCENE_VIEWER = '__SLIDEViewer__',

@@ -16,7 +16,7 @@
 
 import type { IRangeThemeRangeInfo } from '../model/range-theme-model';
 import type { RangeThemeStyle } from '../model/range-theme-util';
-import { Disposable, Inject } from '@univerjs/core';
+import { Disposable, Inject } from '@crabtable/core';
 import { SheetRangeThemeModel } from '../model/range-theme-model';
 
 export class SheetRangeThemeService extends Disposable {

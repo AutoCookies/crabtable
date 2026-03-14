@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Disposable } from '@univerjs/core';
+import { Disposable } from '@crabtable/core';
 import { BehaviorSubject, distinctUntilChanged } from 'rxjs';
 
 export class ScriptPanelService extends Disposable {

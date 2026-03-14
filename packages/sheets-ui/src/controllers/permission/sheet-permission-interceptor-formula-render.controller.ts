@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
-import { DisposableCollection, Inject, IPermissionService, IUniverInstanceService, RxDisposable } from '@univerjs/core';
-import { NullValueObject } from '@univerjs/engine-formula';
+import type { Workbook } from '@crabtable/core';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
+import { DisposableCollection, ICrabTableInstanceService, Inject, IPermissionService, RxDisposable } from '@crabtable/core';
+import { NullValueObject } from '@crabtable/engine-formula';
+import { getSheetCommandTarget, RangeProtectionCache, WorksheetViewPermission } from '@crabtable/sheets';
 import { UnitAction } from '@univerjs/protocol';
-import { getSheetCommandTarget, RangeProtectionCache, WorksheetViewPermission } from '@univerjs/sheets';
 import { StatusBarController } from '../status-bar.controller';
 
 export class SheetPermissionInterceptorFormulaRenderController extends RxDisposable implements IRenderModule {
@@ -27,7 +27,7 @@ export class SheetPermissionInterceptorFormulaRenderController extends RxDisposa
 
     constructor(
         private readonly _context: IRenderContext<Workbook>,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IPermissionService private readonly _permissionService: IPermissionService,
         @Inject(StatusBarController) private readonly _statusBarController: StatusBarController,
         @Inject(RangeProtectionCache) private _rangeProtectionCache: RangeProtectionCache
@@ -41,7 +41,7 @@ export class SheetPermissionInterceptorFormulaRenderController extends RxDisposa
             this._statusBarController.interceptor.intercept(this._statusBarController.interceptor.getInterceptPoints().STATUS_BAR_PERMISSION_CORRECT, {
                 priority: 100,
                 handler: (defaultValue, originValue) => {
-                    const target = getSheetCommandTarget(this._univerInstanceService);
+                    const target = getSheetCommandTarget(this._crabtableInstanceService);
                     if (!target) {
                         return defaultValue ?? [];
                     }

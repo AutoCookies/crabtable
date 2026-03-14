@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICellDataForSheetInterceptor, IRange, Nullable, Workbook } from '@univerjs/core';
+import type { ICellDataForSheetInterceptor, IRange, Nullable, Workbook } from '@crabtable/core';
 import type { IRangeThemeStyleItem, IRangeThemeStyleJSON } from './range-theme-util';
-import { Disposable, generateRandomId, Inject, InterceptorEffectEnum, IResourceManagerService, IUniverInstanceService, RTree, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, Disposable, generateRandomId, ICrabTableInstanceService, Inject, InterceptorEffectEnum, IResourceManagerService, RTree } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { INTERCEPTOR_POINT, RangeThemeInterceptorId } from '../services/sheet-interceptor/interceptor-const';
 import { SheetInterceptorService } from '../services/sheet-interceptor/sheet-interceptor.service';
@@ -62,7 +62,7 @@ export class SheetRangeThemeModel extends Disposable {
     constructor(
         @Inject(SheetInterceptorService) private _sheetInterceptorService: SheetInterceptorService,
         @Inject(IResourceManagerService) private _resourceManagerService: IResourceManagerService,
-        @Inject(IUniverInstanceService) private readonly _univerInstanceService: IUniverInstanceService
+        @Inject(ICrabTableInstanceService) private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
         this._registerIntercept();
@@ -126,7 +126,7 @@ export class SheetRangeThemeModel extends Disposable {
     public refreshSheetRowVisibleFuncSet(unitId: string, subUnitId: string) {
         const set = this._getSheetRowVisibleFuncSet(unitId, subUnitId);
         set.clear();
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId);
         if (workbook) {
             const sheet = workbook.getSheetBySheetId(subUnitId);
             if (sheet) {
@@ -419,7 +419,7 @@ export class SheetRangeThemeModel extends Disposable {
                     return {};
                 }
             },
-            businesses: [UniverInstanceType.UNIVER_SHEET],
+            businesses: [CrabTableInstanceType.CRABTABLE_SHEET],
             pluginName: SHEET_RANGE_THEME_MODEL_PLUGIN,
             onLoad: (unitId, resources) => {
                 this.fromJSON(unitId, resources);

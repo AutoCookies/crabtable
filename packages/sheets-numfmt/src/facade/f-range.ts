@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ISetNumfmtCommandParams } from '@univerjs/sheets-numfmt';
-import { SetNumfmtCommand } from '@univerjs/sheets-numfmt';
-import { FRange } from '@univerjs/sheets/facade';
+import type { ISetNumfmtCommandParams } from '@crabtable/sheets-numfmt';
+import { SetNumfmtCommand } from '@crabtable/sheets-numfmt';
+import { FRange } from '@crabtable/sheets/facade';
 
 /**
  * @ignore
@@ -30,7 +30,7 @@ export interface IFRangeSheetsNumfmtMixin {
      * @returns {FRange} The FRange instance for chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Set the number format of the A1 cell to '#,##0.00'.
@@ -47,7 +47,7 @@ export interface IFRangeSheetsNumfmtMixin {
      * @returns {FRange} The FRange instance for chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Set the number formats of the A1:B2 range.
@@ -69,7 +69,7 @@ export interface IFRangeSheetsNumfmtMixin {
      * @returns {string} The number format of the top-left cell of the range.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Get the number format of the top-left cell of the A1:B2 range.
@@ -84,7 +84,7 @@ export interface IFRangeSheetsNumfmtMixin {
      * @returns {string[][]} A two-dimensional array of number formats.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Get the number formats of the A1:B2 range.
@@ -150,7 +150,7 @@ export class FRangeLegacy extends FRange implements IFRangeSheetsNumfmtMixin {
 }
 
 FRange.extend(FRangeLegacy);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FRange extends IFRangeSheetsNumfmtMixin { }
 }

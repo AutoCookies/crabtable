@@ -78,7 +78,7 @@ const locale: typeof enUS = {
     clipboard: {
         authentication: {
             title: 'اجازه دسترسی داده نشده است',
-            content: 'لطفا به Univer اجازه دسترسی به کلیپ بورد خود را بدهید.',
+            content: 'لطفا به CrabTable اجازه دسترسی به کلیپ بورد خود را بدهید.',
         },
     },
     textEditor: {

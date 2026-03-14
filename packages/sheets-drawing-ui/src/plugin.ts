@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverSheetsDrawingUIConfig } from './config/config';
 import {
+    CrabTableInstanceType,
     DependentOn,
     IConfigService,
     Inject,
@@ -25,13 +26,12 @@ import {
     Plugin,
     registerDependencies,
     touchDependencies,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { UniverDocsDrawingPlugin } from '@univerjs/docs-drawing';
-import { UniverDrawingPlugin } from '@univerjs/drawing';
-import { UniverDrawingUIPlugin } from '@univerjs/drawing-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { UniverSheetsDrawingPlugin } from '@univerjs/sheets-drawing';
+} from '@crabtable/core';
+import { UniverDocsDrawingPlugin } from '@crabtable/docs-drawing';
+import { UniverDrawingPlugin } from '@crabtable/drawing';
+import { UniverDrawingUIPlugin } from '@crabtable/drawing-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { UniverSheetsDrawingPlugin } from '@crabtable/sheets-drawing';
 import pkg from '../package.json';
 import { defaultPluginConfig, SHEETS_DRAWING_UI_PLUGIN_CONFIG_KEY } from './config/config';
 import { DrawingContextMenuController } from './controllers/drawing-context-menu.controller';
@@ -52,7 +52,7 @@ import { SheetCanvasFloatDomManagerService } from './services/canvas-float-dom-m
 
 @DependentOn(UniverDrawingPlugin, UniverDocsDrawingPlugin, UniverDrawingUIPlugin, UniverSheetsDrawingPlugin)
 export class UniverSheetsDrawingUIPlugin extends Plugin {
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
     static override pluginName = 'SHEET_IMAGE_UI_PLUGIN';
     static override packageName = pkg.name;
     static override version = pkg.version;
@@ -128,7 +128,7 @@ export class UniverSheetsDrawingUIPlugin extends Plugin {
             [SheetsDrawingRenderController],
             [SheetCellImageHoverRenderController],
         ] as Dependency[]).forEach((m) => {
-            this.disposeWithMe(this._renderManagerService.registerRenderModule(UniverInstanceType.UNIVER_SHEET, m));
+            this.disposeWithMe(this._renderManagerService.registerRenderModule(CrabTableInstanceType.CRABTABLE_SHEET, m));
         });
     }
 }

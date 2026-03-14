@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo } from '@univerjs/core';
+import type { ICommandInfo } from '@crabtable/core';
 import type { ISetFormulaCalculationNotificationMutation } from '../commands/mutations/set-formula-calculation.mutation';
-import { Disposable, DisposableCollection, ICommandService, Inject } from '@univerjs/core';
+import { Disposable, DisposableCollection, ICommandService, Inject } from '@crabtable/core';
 import { BehaviorSubject, distinctUntilChanged, Observable, shareReplay } from 'rxjs';
 import { SetFormulaCalculationNotificationMutation } from '../commands/mutations/set-formula-calculation.mutation';
 import { GlobalComputingStatusService } from '../services/global-computing-status.service';

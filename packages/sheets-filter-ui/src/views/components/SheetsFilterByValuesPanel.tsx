@@ -15,9 +15,9 @@
  */
 
 import type { ByValuesModel, IFilterByValueWithTreeItem } from '../../services/sheets-filter-panel.service';
-import { LocaleService } from '@univerjs/core';
-import { borderClassName, Checkbox, clsx, Input, Tree } from '@univerjs/design';
-import { useDependency, useObservable } from '@univerjs/ui';
+import { LocaleService } from '@crabtable/core';
+import { borderClassName, Checkbox, clsx, Input, Tree } from '@crabtable/design';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { useCallback } from 'react';
 import { statisticFilterByValueItems } from '../../models/utils';
 

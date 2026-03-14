@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import type { Workbook, Worksheet } from '@univerjs/core';
-import type { IRenderContext } from '@univerjs/engine-render';
-import type { ISetSpecificColsVisibleCommandParams, ISetSpecificRowsVisibleCommandParams } from '@univerjs/sheets';
+import type { Workbook, Worksheet } from '@crabtable/core';
+import type { IRenderContext } from '@crabtable/engine-render';
+import type { ISetSpecificColsVisibleCommandParams, ISetSpecificRowsVisibleCommandParams } from '@crabtable/sheets';
 import {
     ICommandService,
     Inject,
     RxDisposable,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     SetSpecificColsVisibleCommand,
     SetSpecificRowsVisibleCommand,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { takeUntil } from 'rxjs';
 
 import { SHEET_COMPONENT_UNHIDE_LAYER_INDEX } from '../../common/keys';

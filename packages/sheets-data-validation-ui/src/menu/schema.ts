@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { MenuSchemaType } from '@univerjs/ui';
-import { RibbonDataGroup } from '@univerjs/ui';
+import type { MenuSchemaType } from '@crabtable/ui';
+import { RibbonDataGroup } from '@crabtable/ui';
 import { AddSheetDataValidationAndOpenCommand } from '../commands/commands/data-validation-ui.command';
 import { OpenValidationPanelOperation } from '../commands/operations/data-validation.operation';
 import {

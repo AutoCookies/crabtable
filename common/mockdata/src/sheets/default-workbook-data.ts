@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IDocumentData, IWorkbookData } from '@univerjs/core';
+import type { IDocumentData, IWorkbookData } from '@crabtable/core';
 import {
     BaselineOffset,
     BooleanNumber,
@@ -32,7 +32,7 @@ import {
     VerticalAlign,
     WrapStrategy,
     WrapTextType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 
 const richTextTestFloat: IDocumentData = {
     id: 'd',

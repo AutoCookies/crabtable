@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
-import type { INumfmtItemWithCache } from '@univerjs/sheets';
+import type { IAccessor, ICommand } from '@crabtable/core';
+import type { INumfmtItemWithCache } from '@crabtable/sheets';
 import type { ISetNumfmtCommandParams } from './set-numfmt.command';
-import { CellValueType, CommandType, ICommandService, isDefaultFormat, IUniverInstanceService, Range } from '@univerjs/core';
-import { getSheetCommandTarget, INumfmtService, SheetsSelectionsService } from '@univerjs/sheets';
+import { CellValueType, CommandType, ICommandService, ICrabTableInstanceService, isDefaultFormat, Range } from '@crabtable/core';
+import { getSheetCommandTarget, INumfmtService, SheetsSelectionsService } from '@crabtable/sheets';
 import { getDecimalFromPattern, setPatternDecimal } from '../../utils/decimal';
 import { SetNumfmtCommand } from './set-numfmt.command';
 
@@ -29,14 +29,14 @@ export const SubtractDecimalCommand: ICommand = {
         const commandService = accessor.get(ICommandService);
         const selectionManagerService = accessor.get(SheetsSelectionsService);
         const numfmtService = accessor.get(INumfmtService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
         const selections = selectionManagerService.getCurrentSelections();
         if (!selections || !selections.length) {
             return false;
         }
 
-        const target = getSheetCommandTarget(univerInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { unitId, subUnitId } = target;

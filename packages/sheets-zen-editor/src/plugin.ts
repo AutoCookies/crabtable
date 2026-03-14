@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
+import type { Dependency } from '@crabtable/core';
 import type { IUniverSheetsZenEditorConfig } from './config/config';
-import { IConfigService, Inject, Injector, merge, Plugin, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, IConfigService, Inject, Injector, merge, Plugin } from '@crabtable/core';
 import pkg from '../package.json';
 import { defaultPluginConfig, SHEETS_ZEN_EDITOR_PLUGIN_CONFIG_KEY } from './config/config';
 import { ZenEditorUIController } from './controllers/zen-editor-ui.controller';
@@ -27,7 +27,7 @@ export class UniverSheetsZenEditorPlugin extends Plugin {
     static override pluginName = 'SHEET_ZEN_EDITOR_PLUGIN';
     static override packageName = pkg.name;
     static override version = pkg.version;
-    static override type = UniverInstanceType.UNIVER_SHEET;
+    static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
     constructor(
         private readonly _config: Partial<IUniverSheetsZenEditorConfig> = defaultPluginConfig,

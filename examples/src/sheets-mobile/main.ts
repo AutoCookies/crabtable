@@ -14,32 +14,32 @@
  * limitations under the License.
  */
 
-import type { FUniver } from '@univerjs/core/facade';
-import { LocaleType, LogLevel, Univer, UniverInstanceType, UserManagerService } from '@univerjs/core';
-import { UniverDocsPlugin } from '@univerjs/docs';
-import { UniverDocsUIPlugin } from '@univerjs/docs-ui';
-import { UniverFormulaEnginePlugin } from '@univerjs/engine-formula';
-import { UniverRenderEnginePlugin } from '@univerjs/engine-render';
-import { DEFAULT_WORKBOOK_DATA_DEMO } from '@univerjs/mockdata';
-import zhCN from '@univerjs/mockdata/locales/zh-CN';
-import { UniverRPCMainThreadPlugin } from '@univerjs/rpc';
-import { UniverSheetsPlugin } from '@univerjs/sheets';
-import { UniverSheetsConditionalFormattingMobileUIPlugin } from '@univerjs/sheets-conditional-formatting-ui';
-import { UniverSheetsDataValidationPlugin } from '@univerjs/sheets-data-validation';
-import { UniverSheetsDataValidationMobileUIPlugin } from '@univerjs/sheets-data-validation-ui';
-import { UniverSheetsFilterPlugin } from '@univerjs/sheets-filter';
-import { UniverSheetsFilterMobileUIPlugin } from '@univerjs/sheets-filter-ui';
-import { UniverSheetsFormulaPlugin } from '@univerjs/sheets-formula';
-import { UniverSheetsFormulaUIPlugin } from '@univerjs/sheets-formula-ui';
-import { UniverSheetsNumfmtPlugin } from '@univerjs/sheets-numfmt';
-import { UniverSheetsNumfmtUIPlugin } from '@univerjs/sheets-numfmt-ui';
+import type { FCrabTable } from '@crabtable/core/facade';
+import { CrabTableInstanceType, LocaleType, LogLevel, UserManagerService } from '@crabtable/core';
+import { UniverDocsPlugin } from '@crabtable/docs';
+import { UniverDocsUIPlugin } from '@crabtable/docs-ui';
+import { UniverFormulaEnginePlugin } from '@crabtable/engine-formula';
+import { UniverRenderEnginePlugin } from '@crabtable/engine-render';
+import { DEFAULT_WORKBOOK_DATA_DEMO } from '@crabtable/mockdata';
+import zhCN from '@crabtable/mockdata/locales/zh-CN';
+import { UniverRPCMainThreadPlugin } from '@crabtable/rpc';
+import { UniverSheetsPlugin } from '@crabtable/sheets';
+import { UniverSheetsConditionalFormattingMobileUIPlugin } from '@crabtable/sheets-conditional-formatting-ui';
+import { UniverSheetsDataValidationPlugin } from '@crabtable/sheets-data-validation';
+import { UniverSheetsDataValidationMobileUIPlugin } from '@crabtable/sheets-data-validation-ui';
+import { UniverSheetsFilterPlugin } from '@crabtable/sheets-filter';
+import { UniverSheetsFilterMobileUIPlugin } from '@crabtable/sheets-filter-ui';
+import { UniverSheetsFormulaPlugin } from '@crabtable/sheets-formula';
+import { UniverSheetsFormulaUIPlugin } from '@crabtable/sheets-formula-ui';
+import { UniverSheetsNumfmtPlugin } from '@crabtable/sheets-numfmt';
+import { UniverSheetsNumfmtUIPlugin } from '@crabtable/sheets-numfmt-ui';
 
-import { UniverSheetsMobileUIPlugin } from '@univerjs/sheets-ui';
-import { UniverMobileUIPlugin } from '@univerjs/ui';
+import { UniverSheetsMobileUIPlugin } from '@crabtable/sheets-ui';
+import { UniverMobileUIPlugin } from '@crabtable/ui';
 import '../global.css';
 
 // univer
-const univer = new Univer({
+const univer = new CrabTable({
     locale: LocaleType.ZH_CN,
     locales: {
         [LocaleType.ZH_CN]: zhCN,
@@ -89,9 +89,9 @@ userManagerService.setCurrentUser(mockUser);
 declare global {
     // eslint-disable-next-line ts/naming-convention
     interface Window {
-        univer?: Univer;
-        univerAPI?: ReturnType<typeof FUniver.newAPI>;
+        univer?: CrabTable;
+        crabtableAPI?: ReturnType<typeof FCrabTable.newAPI>;
     }
 }
 
-univer.createUnit(UniverInstanceType.UNIVER_SHEET, DEFAULT_WORKBOOK_DATA_DEMO);
+univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, DEFAULT_WORKBOOK_DATA_DEMO);

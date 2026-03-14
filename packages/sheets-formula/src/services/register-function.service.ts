@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDisposable, ILocales } from '@univerjs/core';
-import type { FormulaFunctionResultValueType, FormulaFunctionValueType, IFunctionInfo } from '@univerjs/engine-formula';
-import { createIdentifier, Disposable, DisposableCollection, Inject, LocaleService, Optional, toDisposable } from '@univerjs/core';
-import { AsyncCustomFunction, CustomFunction, FunctionType, IFunctionService } from '@univerjs/engine-formula';
+import type { IDisposable, ILocales } from '@crabtable/core';
+import type { FormulaFunctionResultValueType, FormulaFunctionValueType, IFunctionInfo } from '@crabtable/engine-formula';
+import { createIdentifier, Disposable, DisposableCollection, Inject, LocaleService, Optional, toDisposable } from '@crabtable/core';
+import { AsyncCustomFunction, CustomFunction, FunctionType, IFunctionService } from '@crabtable/engine-formula';
 import { IDescriptionService } from './description.service';
 import { IRemoteRegisterFunctionService } from './remote/remote-register-function.service';
 

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { Injector } from '@univerjs/core';
-import type { IAddHyperLinkCommandParams, ICancelHyperLinkCommandParams, IUpdateHyperLinkCommandParams } from '@univerjs/sheets-hyper-link';
+import type { Injector } from '@crabtable/core';
+import type { IAddHyperLinkCommandParams, ICancelHyperLinkCommandParams, IUpdateHyperLinkCommandParams } from '@crabtable/sheets-hyper-link';
 import type { IBeforeSheetLinkAddEvent, IBeforeSheetLinkCancelEvent, IBeforeSheetLinkUpdateEvent } from './f-event';
-import { CanceledError, ICommandService } from '@univerjs/core';
-import { FUniver } from '@univerjs/core/facade';
-import { AddHyperLinkCommand, CancelHyperLinkCommand, UpdateHyperLinkCommand } from '@univerjs/sheets-hyper-link';
+import { CanceledError, ICommandService } from '@crabtable/core';
+import { FCrabTable } from '@crabtable/core/facade';
+import { AddHyperLinkCommand, CancelHyperLinkCommand, UpdateHyperLinkCommand } from '@crabtable/sheets-hyper-link';
 
-export class FSheetLinkUniver extends FUniver {
+export class FSheetLinkUniver extends FCrabTable {
     /**
      * @ignore
      */
@@ -106,4 +106,4 @@ export class FSheetLinkUniver extends FUniver {
     }
 }
 
-FUniver.extend(FSheetLinkUniver);
+FCrabTable.extend(FSheetLinkUniver);

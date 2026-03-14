@@ -92,7 +92,7 @@ export class TextStyleValue {
      * @returns {TextStyleValue} font style instance
      * @example
      * ```ts
-     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * console.log(style);
      * ```
      */
@@ -105,7 +105,7 @@ export class TextStyleValue {
      * @param {ITextStyle} style The initial style object
      * @example
      * ```ts
-     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * console.log(style);
      * ```
      */
@@ -118,7 +118,7 @@ export class TextStyleValue {
      * @returns {Nullable<string>} The font family name or undefined
      * @example
      * ```ts
-     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * console.log(style.fontFamily);
      * ```
      */
@@ -131,7 +131,7 @@ export class TextStyleValue {
      * @returns {number | undefined} The font size or undefined
      * @example
      * ```ts
-     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * console.log(style.fontSize);
      * ```
      */
@@ -144,7 +144,7 @@ export class TextStyleValue {
      * @returns {boolean} True if italic, false otherwise
      * @example
      * ```ts
-     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * console.log(style.italic);
      * ```
      */
@@ -157,7 +157,7 @@ export class TextStyleValue {
      * @returns {boolean} True if bold, false otherwise
      * @example
      * ```ts
-     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * console.log(style.bold);
      * ```
      */
@@ -170,7 +170,7 @@ export class TextStyleValue {
      * @returns {TextDecorationBuilder | undefined} The underline decoration or undefined
      * @example
      * ```ts
-     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * console.log(style.underline);
      * ```
      */
@@ -183,7 +183,7 @@ export class TextStyleValue {
      * @returns {TextDecorationBuilder | undefined} The bottom border line decoration or undefined
      * @example
      * ```ts
-     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * console.log(style.bottomBorderLine);
      * ```
      */
@@ -196,7 +196,7 @@ export class TextStyleValue {
      * @returns {TextDecorationBuilder | undefined} The strikethrough decoration or undefined
      * @example
      * ```ts
-     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * console.log(style.strikethrough);
      * ```
      */
@@ -209,7 +209,7 @@ export class TextStyleValue {
      * @returns {TextDecorationBuilder | undefined} The overline decoration or undefined
      * @example
      * ```ts
-     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * console.log(style.overline);
      * ```
      */
@@ -222,7 +222,7 @@ export class TextStyleValue {
      * @returns {Nullable<IColorStyle>} The background color or null/undefined
      * @example
      * ```ts
-     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * console.log(style.background);
      * ```
      */
@@ -235,7 +235,7 @@ export class TextStyleValue {
      * @returns {Nullable<IBorderData>} The border settings or null/undefined
      * @example
      * ```ts
-     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * console.log(style.border);
      * ```
      */
@@ -248,7 +248,7 @@ export class TextStyleValue {
      * @returns {Nullable<IColorStyle>} The text color or null/undefined
      * @example
      * ```ts
-     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * console.log(style.color);
      * ```
      */
@@ -261,7 +261,7 @@ export class TextStyleValue {
      * @returns {Nullable<BaselineOffset>} The vertical alignment or null/undefined
      * @example
      * ```ts
-     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * console.log(style.verticalAlign);
      * ```
      */
@@ -274,7 +274,7 @@ export class TextStyleValue {
      * @returns {Nullable<{ pattern: string }>} The number format pattern or null/undefined
      * @example
      * ```ts
-     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * console.log(style.numberFormat);
      * ```
      */
@@ -287,7 +287,7 @@ export class TextStyleValue {
      * @returns {TextStyleBuilder} A new TextStyleBuilder instance with the same style
      * @example
      * ```ts
-     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * const copy = style.copy();
      * console.log(copy);
      * ```
@@ -301,7 +301,7 @@ export class TextStyleValue {
      * @returns {ITextStyle} The underlying style object
      * @example
      * ```ts
-     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleValue.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * console.log(style.getValue());
      * ```
      */
@@ -321,7 +321,7 @@ export class TextStyleBuilder extends TextStyleValue {
      * @returns {TextStyleBuilder} A new TextStyleBuilder instance
      * @example
      * ```ts
-     * const style = TextStyleBuilder.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleBuilder.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * console.log(style);
      * ```
      */
@@ -334,7 +334,7 @@ export class TextStyleBuilder extends TextStyleValue {
      * @param {ITextStyle} style The initial style object
      * @example
      * ```ts
-     * const style = new TextStyleBuilder({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = new TextStyleBuilder({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * console.log(style);
      * ```
      */
@@ -348,7 +348,7 @@ export class TextStyleBuilder extends TextStyleValue {
      * @returns {TextStyleBuilder} The builder instance for chaining
      * @example
      * ```ts
-     * const style = TextStyleBuilder.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleBuilder.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * style.setFontFamily('Times New Roman');
      * console.log(style.fontFamily);
      * ```
@@ -364,7 +364,7 @@ export class TextStyleBuilder extends TextStyleValue {
      * @returns {TextStyleBuilder} The builder instance for chaining
      * @example
      * ```ts
-     * const style = TextStyleBuilder.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleBuilder.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * style.setFontSize(14);
      * console.log(style.fontSize);
      * ```
@@ -380,7 +380,7 @@ export class TextStyleBuilder extends TextStyleValue {
      * @returns {TextStyleBuilder} The builder instance for chaining
      * @example
      * ```ts
-     * const style = TextStyleBuilder.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleBuilder.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * style.setItalic(true);
      * console.log(style.italic);
      * ```
@@ -396,7 +396,7 @@ export class TextStyleBuilder extends TextStyleValue {
      * @returns {TextStyleBuilder} The builder instance for chaining
      * @example
      * ```ts
-     * const style = TextStyleBuilder.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleBuilder.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * style.setBold(true);
      * console.log(style.bold);
      * ```
@@ -412,7 +412,7 @@ export class TextStyleBuilder extends TextStyleValue {
      * @returns {TextStyleBuilder} The builder instance for chaining
      * @example
      * ```ts
-     * const style = TextStyleBuilder.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleBuilder.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * style.setUnderline({ type: 'single', color: '#FF0000' });
      * console.log(style.underline);
      * ```
@@ -428,7 +428,7 @@ export class TextStyleBuilder extends TextStyleValue {
      * @returns {TextStyleBuilder} The builder instance for chaining
      * @example
      * ```ts
-     * const style = TextStyleBuilder.create({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * const style = TextStyleBuilder.create({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * style.setBottomBorderLine({ type: 'single', color: '#FF0000' });
      * console.log(style.bottomBorderLine);
      * ```
@@ -670,7 +670,7 @@ export class ParagraphStyleValue {
      * @returns A new ParagraphStyleValue instance
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * ```
      */
     static create(style: IParagraphStyle = {}) {
@@ -686,7 +686,7 @@ export class ParagraphStyleValue {
      * @returns {Nullable<INumberUnit>} The first line indent
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.indentFirstLine);
      * ```
      */
@@ -699,7 +699,7 @@ export class ParagraphStyleValue {
      * @returns {Nullable<INumberUnit>} The hanging indent
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.hanging);
      * ```
      */
@@ -712,7 +712,7 @@ export class ParagraphStyleValue {
      * @returns {Nullable<INumberUnit>} The indent start
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.indentStart);
      * ```
      */
@@ -725,7 +725,7 @@ export class ParagraphStyleValue {
      * @returns {Nullable<INumberUnit>} The indent end
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.indentEnd);
      * ```
      */
@@ -738,7 +738,7 @@ export class ParagraphStyleValue {
      * @returns {Nullable<INumberUnit>} The indent end
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.indentEnd);
      * ```
      */
@@ -751,7 +751,7 @@ export class ParagraphStyleValue {
      * @returns {Nullable<ITextStyle>} The text style
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.textStyle);
      * ```
      */
@@ -764,7 +764,7 @@ export class ParagraphStyleValue {
      * @returns {Nullable<string>} The heading id
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.headingId);
      * ```
      */
@@ -777,7 +777,7 @@ export class ParagraphStyleValue {
      * @returns {Nullable<NamedStyleType>} The named style type
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.namedStyleType);
      * ```
      */
@@ -790,7 +790,7 @@ export class ParagraphStyleValue {
      * @returns {Nullable<HorizontalAlign>} The horizontal align
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.horizontalAlign);
      * ```
      */
@@ -803,7 +803,7 @@ export class ParagraphStyleValue {
      * @returns {Nullable<number>} The line spacing
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.lineSpacing);
      * ```
      */
@@ -816,7 +816,7 @@ export class ParagraphStyleValue {
      * @returns {Nullable<TextDirection>} The text direction
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.direction);
      * ```
      */
@@ -829,7 +829,7 @@ export class ParagraphStyleValue {
      * @returns {Nullable<SpacingRule>} The spacing rule
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.spacingRule);
      * ```
      */
@@ -842,7 +842,7 @@ export class ParagraphStyleValue {
      * @returns {Nullable<BooleanNumber>} The snap to grid
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.snapToGrid);
      * ```
      */
@@ -855,7 +855,7 @@ export class ParagraphStyleValue {
      * @returns {Nullable<INumberUnit>} The space above
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.spaceAbove);
      * ```
      */
@@ -868,7 +868,7 @@ export class ParagraphStyleValue {
      * @returns {Nullable<INumberUnit>} The space below
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.spaceBelow);
      * ```
      */
@@ -881,7 +881,7 @@ export class ParagraphStyleValue {
      * @returns {Nullable<IParagraphBorder>} The border between
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.borderBetween);
      * ```
      */
@@ -894,7 +894,7 @@ export class ParagraphStyleValue {
      * @returns {Nullable<IParagraphBorder>} The border top
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.borderTop);
      * ```
      */
@@ -907,7 +907,7 @@ export class ParagraphStyleValue {
      * @returns {Nullable<IParagraphBorder>} The border bottom
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.borderBottom);
      * ```
      */
@@ -920,7 +920,7 @@ export class ParagraphStyleValue {
      * @returns {Nullable<IParagraphBorder>} The border left
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.borderLeft);
      * ```
      */
@@ -933,7 +933,7 @@ export class ParagraphStyleValue {
      * @returns {Nullable<IParagraphBorder>} The border right
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.borderRight);
      * ```
      */
@@ -946,7 +946,7 @@ export class ParagraphStyleValue {
      * @returns {boolean} The keep lines
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.keepLines);
      * ```
      */
@@ -959,7 +959,7 @@ export class ParagraphStyleValue {
      * @returns {boolean} The keep next
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.keepNext);
      * ```
      */
@@ -972,7 +972,7 @@ export class ParagraphStyleValue {
      * @returns {boolean} The word wrap
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.wordWrap);
      * ```
      */
@@ -985,7 +985,7 @@ export class ParagraphStyleValue {
      * @returns {boolean} The widow control
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.widowControl);
      * ```
      */
@@ -998,7 +998,7 @@ export class ParagraphStyleValue {
      * @returns {Nullable<IShading>} The shading
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.shading);
      * ```
      */
@@ -1011,7 +1011,7 @@ export class ParagraphStyleValue {
      * @returns {boolean} The suppress hyphenation
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.suppressHyphenation);
      * ```
      */
@@ -1024,7 +1024,7 @@ export class ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The copy
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * ```
      */
@@ -1037,7 +1037,7 @@ export class ParagraphStyleValue {
      * @returns {IParagraphStyle} The value
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * console.log(style.getValue());
      * ```
      */
@@ -1056,7 +1056,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns A new paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * ```
      */
@@ -1074,7 +1074,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setIndentFirstLine(10);
      * ```
@@ -1090,7 +1090,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setHanging(10);
      * ```
@@ -1106,7 +1106,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setIndentStart(10);
      * ```
@@ -1122,7 +1122,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setTabStops([{ value: 10 }]);
      * ```
@@ -1138,7 +1138,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setIndentEnd(10);
      * ```
@@ -1154,9 +1154,9 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
-     * copy.setTextStyle({ ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE });
+     * copy.setTextStyle({ ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE });
      * ```
      */
     setTextStyle(value: ITextStyle): ParagraphStyleBuilder {
@@ -1170,7 +1170,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setHeadingId('test');
      * ```
@@ -1186,7 +1186,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setNamedStyleType(NamedStyleType.CHAPTER);
      * ```
@@ -1202,7 +1202,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setVerticalAlign(VerticalAlign.CENTER);
      * ```
@@ -1218,7 +1218,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setLineSpacing(10);
      * ```
@@ -1234,7 +1234,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setTextDirection(TextDirection.RIGHT_TO_LEFT);
      * ```
@@ -1250,7 +1250,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setSpacingRule(SpacingRule.AUTO);
      * ```
@@ -1266,7 +1266,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setSnapToGrid(true);
      * ```
@@ -1282,7 +1282,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setSpaceAbove(10);
      * ```
@@ -1298,7 +1298,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setSpaceBelow(10);
      * ```
@@ -1314,7 +1314,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setBorderBetween({ color: 'red', width: 1 });
      * ```
@@ -1330,7 +1330,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setBorderTop({ color: 'red', width: 1 });
      * ```
@@ -1346,7 +1346,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setBorderBottom({ color: 'red', width: 1 });
      * ```
@@ -1362,7 +1362,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setBorderLeft({ color: 'red', width: 1 });
      * ```
@@ -1378,7 +1378,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setBorderRight({ color: 'red', width: 1 });
      * ```
@@ -1394,7 +1394,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setKeepLines(true);
      * ```
@@ -1410,7 +1410,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setKeepNext(true);
      * ```
@@ -1426,7 +1426,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setWordWrap(true);
      * ```
@@ -1442,7 +1442,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setWidowControl(true);
      * ```
@@ -1458,7 +1458,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setShading({ backgroundColor: '#f0f0f0' });
      * ```
@@ -1474,7 +1474,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} The paragraph style builder
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * copy.setSuppressHyphenation(true);
      * ```
@@ -1489,7 +1489,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {ParagraphStyleBuilder} A new instance of ParagraphStyleBuilder with the same settings
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const copy = style.copy();
      * ```
      */
@@ -1502,7 +1502,7 @@ export class ParagraphStyleBuilder extends ParagraphStyleValue {
      * @returns {IParagraphStyle} The constructed paragraph style object
      * @example
      * ```ts
-     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: univerAPI.Enum.BooleanNumber.TRUE, bl: univerAPI.Enum.BooleanNumber.TRUE } });
+     * const style = ParagraphStyleValue.create({ textStyle: { ff: 'Arial', fs: 12, it: crabtableAPI.Enum.BooleanNumber.TRUE, bl: crabtableAPI.Enum.BooleanNumber.TRUE } });
      * const finalStyle = style.build();
      * ```
      */

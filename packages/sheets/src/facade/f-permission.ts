@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { RangePermissionPointConstructor, WorkbookPermissionPointConstructor, WorkSheetPermissionPointConstructor } from '@univerjs/core';
+import type { RangePermissionPointConstructor, WorkbookPermissionPointConstructor, WorkSheetPermissionPointConstructor } from '@crabtable/core';
+import type { IAddRangeProtectionMutationParams, ISetWorksheetPermissionPointsMutationParams } from '@crabtable/sheets';
 import type { ICollaborator } from '@univerjs/protocol';
-import type { IAddRangeProtectionMutationParams, ISetWorksheetPermissionPointsMutationParams } from '@univerjs/sheets';
 import type { Observable } from 'rxjs';
 import type { FRange } from './f-range';
 import type { IRangeProtectionOptions, IWorksheetProtectionOptions } from './permission/permission-types';
-import { cellToRange, generateRandomId, IAuthzIoService, ICommandService, Inject, Injector, IPermissionService, Rectangle } from '@univerjs/core';
-import { FBase } from '@univerjs/core/facade';
-import { AddRangeProtectionMutation, AddWorksheetProtectionMutation, DeleteRangeProtectionMutation, DeleteWorksheetProtectionMutation, EditStateEnum, getAllWorksheetPermissionPoint, getAllWorksheetPermissionPointByPointPanel, PermissionPointsDefinitions, RangeProtectionRuleModel, SetRangeProtectionMutation, SetWorksheetPermissionPointsMutation, UnitObject, ViewStateEnum, WorkbookEditablePermission, WorkbookPermissionService, WorksheetEditPermission, WorksheetProtectionPointModel, WorksheetProtectionRuleModel, WorksheetViewPermission } from '@univerjs/sheets';
+import { cellToRange, generateRandomId, IAuthzIoService, ICommandService, Inject, Injector, IPermissionService, Rectangle } from '@crabtable/core';
+import { FBase } from '@crabtable/core/facade';
+import { AddRangeProtectionMutation, AddWorksheetProtectionMutation, DeleteRangeProtectionMutation, DeleteWorksheetProtectionMutation, EditStateEnum, getAllWorksheetPermissionPoint, getAllWorksheetPermissionPointByPointPanel, PermissionPointsDefinitions, RangeProtectionRuleModel, SetRangeProtectionMutation, SetWorksheetPermissionPointsMutation, UnitObject, ViewStateEnum, WorkbookEditablePermission, WorkbookPermissionService, WorksheetEditPermission, WorksheetProtectionPointModel, WorksheetProtectionRuleModel, WorksheetViewPermission } from '@crabtable/sheets';
 import { UnitRole } from './permission/permission-types';
 
 /**
@@ -92,12 +92,12 @@ export class FPermission extends FBase {
      * This function sets or updates a permission point for a workbook identified by `unitId`.
      * It creates a new permission point if it does not already exist, and updates the point with the provided value.
      * @param {string} unitId - The unique identifier of the workbook for which the permission is being set.
-     * @param {WorkbookPermissionPointConstructor} FPointClass - The constructor function for creating a permission point instance. Other point constructors can See the [permission-point documentation](https://github.com/dream-num/univer/tree/dev/packages/sheets/src/services/permission/permission-point) for more details.
+     * @param {WorkbookPermissionPointConstructor} FPointClass - The constructor function for creating a permission point instance. Other point constructors can See the [permission-point documentation](https://github.com/AutoCookies/crabtable/tree/dev/packages/sheets/src/services/permission/permission-point) for more details.
      * @param {boolean} value - The boolean value to determine whether the permission point is enabled or disabled.
      *
      * @example
      * ```typescript
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook.getPermission();
      * const unitId = workbook.getId();
      * permission.setWorkbookPermissionPoint(unitId, permission.permissionPointsDefinition.WorkbookEditablePermission, false)
@@ -116,10 +116,10 @@ export class FPermission extends FBase {
      * Check if a specific permission point is enabled for a workbook.
      * @param unitId - The unique identifier of the workbook.
      * @param FPointClass - The constructor for the permission point class.
-     *    See the [permission-point documentation](https://github.com/dream-num/univer/tree/dev/packages/sheets/src/services/permission/permission-point) for more details.
+     *    See the [permission-point documentation](https://github.com/AutoCookies/crabtable/tree/dev/packages/sheets/src/services/permission/permission-point) for more details.
      * @example
      * ```typescript
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook.getPermission();
      * const unitId = workbook.getId();
      * // Check if the workbook is editable
@@ -143,7 +143,7 @@ export class FPermission extends FBase {
      *
      * @example
      * ```typescript
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook.getPermission();
      * const unitId = workbook.getId();
      * permission.setWorkbookEditPermission(unitId, false);
@@ -164,7 +164,7 @@ export class FPermission extends FBase {
      *
      * @example
      * ```typescript
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook.getPermission();
      * const unitId = workbook.getId();
      * const worksheet = workbook.getActiveSheet();
@@ -245,7 +245,7 @@ export class FPermission extends FBase {
      *
      * @example
      * ```typescript
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook.getPermission();
      * const unitId = workbook.getId();
      * const worksheet = workbook.getActiveSheet();
@@ -272,13 +272,13 @@ export class FPermission extends FBase {
      * @param {string} unitId - The unique identifier of the workbook.
      * @param {string} subUnitId - The unique identifier of the worksheet.
      * @param {WorkSheetPermissionPointConstructor} FPointClass - The constructor for the permission point class.
-     *    See the [permission-point documentation](https://github.com/dream-num/univer/tree/dev/packages/sheets/src/services/permission/permission-point) for more details.
+     *    See the [permission-point documentation](https://github.com/AutoCookies/crabtable/tree/dev/packages/sheets/src/services/permission/permission-point) for more details.
      * @param {boolean} value - The new permission value to be set for the worksheet.
      * @returns {Promise<string | undefined>} - Returns the `permissionId` if the permission point is successfully set or created. If no permission is set, it resolves to `undefined`.
      *
      * @example
      * ```typescript
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook.getPermission();
      * const unitId = workbook.getId();
      * const worksheet = workbook.getActiveSheet();
@@ -357,11 +357,11 @@ export class FPermission extends FBase {
      * @param unitId - The unique identifier of the workbook.
      * @param subUnitId - The unique identifier of the worksheet.
      * @param FPointClass - The constructor for the permission point class.
-     *    See the [permission-point documentation](https://github.com/dream-num/univer/tree/dev/packages/sheets/src/services/permission/permission-point) for more details.
+     *    See the [permission-point documentation](https://github.com/AutoCookies/crabtable/tree/dev/packages/sheets/src/services/permission/permission-point) for more details.
      * @returns {boolean | undefined} - Returns true if the permission point is enabled, false if it is disabled, or undefined if the permission point does not exist.
      * @example
      * ```typescript
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook.getPermission();
      * const unitId = workbook.getId();
      * const worksheet = workbook.getActiveSheet();
@@ -394,7 +394,7 @@ export class FPermission extends FBase {
      * @example
      * ```typescript
      * // Old API
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook.getPermission();
      * const unitId = workbook.getId();
      * const worksheet = workbook.getActiveSheet();
@@ -410,7 +410,7 @@ export class FPermission extends FBase {
      * console.log('debugger', permissionId, ruleId);
      *
      * // New API (recommended)
-     * const worksheet = univerAPI.getActiveWorkbook().getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook().getActiveSheet();
      * const permission = worksheet.getWorksheetPermission();
      * const range = worksheet.getRange('A1:B2');
      * await permission.protectRanges([{
@@ -541,7 +541,7 @@ export class FPermission extends FBase {
      * @example
      * ```typescript
      * // Old API
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook.getPermission();
      * const unitId = workbook.getId();
      * const worksheet = workbook.getActiveSheet();
@@ -554,7 +554,7 @@ export class FPermission extends FBase {
      * permission.removeRangeProtection(unitId, subUnitId, [ruleId]);
      *
      * // New API (recommended)
-     * const worksheet = univerAPI.getActiveWorkbook().getActiveSheet();
+     * const worksheet = crabtableAPI.getActiveWorkbook().getActiveSheet();
      * const permission = worksheet.getWorksheetPermission();
      * await permission.unprotectRules([ruleId]);
      * ```
@@ -584,12 +584,12 @@ export class FPermission extends FBase {
      * @param {string} subUnitId - The unique identifier of the worksheet within the workbook.
      * @param {string} permissionId - The unique identifier of the permission that controls access to the range.
      * @param {RangePermissionPointConstructor} FPointClass - The constructor for the range permission point class.
-     *    See the [permission-point documentation](https://github.com/dream-num/univer/tree/dev/packages/sheets/src/services/permission/permission-point) for more details.
+     *    See the [permission-point documentation](https://github.com/AutoCookies/crabtable/tree/dev/packages/sheets/src/services/permission/permission-point) for more details.
      * @param {boolean} value - The new permission value to be set for the range (e.g., true for allowing access, false for restricting access).
      *
      * @example
      * ```typescript
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook.getPermission();
      * const unitId = workbook.getId();
      * const worksheet = workbook.getActiveSheet();
@@ -627,7 +627,7 @@ export class FPermission extends FBase {
      *
      * @example
      * ```typescript
-     * const workbook = univerAPI.getActiveWorkbook();
+     * const workbook = crabtableAPI.getActiveWorkbook();
      * const permission = workbook.getPermission();
      * const unitId = workbook.getId();
      * const worksheet = workbook.getActiveSheet();
@@ -677,7 +677,7 @@ export class FPermission extends FBase {
      *
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const permission = fWorkbook.getPermission();
      * const unitId = fWorkbook.getId();

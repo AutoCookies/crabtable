@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { clsx, Tooltip } from '@univerjs/design';
+import { clsx, Tooltip } from '@crabtable/design';
 import { CloseIcon } from '@univerjs/icons';
 import { useEffect, useRef, useState } from 'react';
 

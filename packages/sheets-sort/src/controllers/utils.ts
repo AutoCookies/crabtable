@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ICellData, Nullable } from '@univerjs/core';
+import type { ICellData, Nullable } from '@crabtable/core';
 import type { ICommonComparableCellValue } from './sheets-sort.controller';
 import { SortType } from '../services/interface';
 

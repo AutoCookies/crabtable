@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import { ISidebarService } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import { ISidebarService } from '@crabtable/ui';
 import { describe, expect, it, vi } from 'vitest';
 import { IFormulaPromptService } from '../../../services/prompt.service';
 import { MORE_FUNCTIONS_COMPONENT } from '../../../views/more-functions/interface';

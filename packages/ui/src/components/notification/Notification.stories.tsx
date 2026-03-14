@@ -15,7 +15,7 @@
  */
 
 import type { Meta } from '@storybook/react';
-import { Button, toast, Toaster } from '@univerjs/design';
+import { Button, toast, Toaster } from '@crabtable/design';
 import { useEffect } from 'react';
 
 import { notification, Notification } from './Notification';

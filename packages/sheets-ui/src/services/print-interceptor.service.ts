@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { DisposableCollection, IRange, Worksheet } from '@univerjs/core';
-import type { Engine, Scene, Spreadsheet, SpreadsheetSkeleton } from '@univerjs/engine-render';
-import { createInterceptorKey, Disposable, InterceptorManager } from '@univerjs/core';
+import type { DisposableCollection, IRange, Worksheet } from '@crabtable/core';
+import type { Engine, Scene, Spreadsheet, SpreadsheetSkeleton } from '@crabtable/engine-render';
+import { createInterceptorKey, Disposable, InterceptorManager } from '@crabtable/core';
 
 interface ISheetPrintContext {
     unitId: string;

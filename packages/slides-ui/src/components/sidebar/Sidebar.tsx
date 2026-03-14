@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Nullable, SlideDataModel } from '@univerjs/core';
-import type { BaseObject } from '@univerjs/engine-render';
-import { IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { ObjectType } from '@univerjs/engine-render';
-import { useDependency } from '@univerjs/ui';
+import type { Nullable, SlideDataModel } from '@crabtable/core';
+import type { BaseObject } from '@crabtable/engine-render';
+import { CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
+import { ObjectType } from '@crabtable/engine-render';
+import { useDependency } from '@crabtable/ui';
 import { CanvasView } from '../../controllers/canvas-view';
 import ArrangePanel from '../panels/ArrangePanel';
 import FillPanel from '../panels/FillPanel';
@@ -27,16 +27,16 @@ import TransformPanel from '../panels/TransformPanel';
 export const COMPONENT_SLIDE_SIDEBAR = 'COMPONENT_SLIDE_SIDEBAR';
 
 export default function RectSidebar() {
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const canvasView = useDependency(CanvasView);
 
-    const currentSlide = univerInstanceService.getCurrentUnitForType<SlideDataModel>(UniverInstanceType.UNIVER_SLIDE);
+    const currentSlide = crabtableInstanceService.getCurrentUnitForType<SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE);
     const pageId = currentSlide?.getActivePage()?.id;
 
     // see packages/sheets-ui/src/views/permission/permission-dialog/index.tsx@SheetPermissionDialog
     // see packages/sheets-conditional-formatting-ui/src/components/panel/rule-edit/index.tsx@getUnitId
-    // const unitId = univerInstanceService.getCurrentUnitForType(UniverInstanceType.UNIVER_SLIDE)!.getUnitId();
-    const unitId = univerInstanceService.getFocusedUnit()?.getUnitId() || '';
+    // const unitId = crabtableInstanceService.getCurrentUnitForType(CrabTableInstanceType.CRABTABLE_SLIDE)!.getUnitId();
+    const unitId = crabtableInstanceService.getFocusedUnit()?.getUnitId() || '';
 
     if (!pageId || !unitId) return null;
 

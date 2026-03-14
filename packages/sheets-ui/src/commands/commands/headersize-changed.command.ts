@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
-import type { SpreadsheetColumnHeader, SpreadsheetRowHeader } from '@univerjs/engine-render';
+import type { ICommand } from '@crabtable/core';
+import type { SpreadsheetColumnHeader, SpreadsheetRowHeader } from '@crabtable/engine-render';
 
-import { CommandType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { CommandType } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { SHEET_VIEW_KEY } from '../../common/keys';
 import { SheetSkeletonManagerService } from '../../services/sheet-skeleton-manager.service';
 

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import { Disposable, Inject, InterceptorEffectEnum, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { INTERCEPTOR_POINT, SheetInterceptorService } from '@univerjs/sheets';
-import { SheetsNoteModel } from '@univerjs/sheets-note';
+import type { Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject, InterceptorEffectEnum } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { INTERCEPTOR_POINT, SheetInterceptorService } from '@crabtable/sheets';
+import { SheetsNoteModel } from '@crabtable/sheets-note';
 import { debounceTime } from 'rxjs';
 
 export class SheetsCellContentController extends Disposable {
@@ -26,7 +26,7 @@ export class SheetsCellContentController extends Disposable {
         @Inject(SheetInterceptorService) private readonly _sheetInterceptorService: SheetInterceptorService,
         @Inject(SheetsNoteModel) private readonly _sheetsNoteModel: SheetsNoteModel,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
         this._initViewModelIntercept();
@@ -68,7 +68,7 @@ export class SheetsCellContentController extends Disposable {
 
     private _initSkeletonChange() {
         const markSkeletonDirty = () => {
-            const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+            const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
             if (!workbook) return;
             const unitId = workbook.getUnitId();
             const currentRender = this._renderManagerService.getRenderById(unitId);

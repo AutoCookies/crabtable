@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { SetSelectionsOperation } from '@univerjs/sheets';
-import { SelectAllCommand } from '@univerjs/sheets-ui';
+import { SetSelectionsOperation } from '@crabtable/sheets';
+import { SelectAllCommand } from '@crabtable/sheets-ui';
 import { describe, expect, it, vi } from 'vitest';
 import { SheetTableSelectionController } from '../sheet-table-selection.controller';
 

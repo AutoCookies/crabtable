@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
 import type { ForwardRefExoticComponent } from 'react';
 import type { IGlobalZoneService } from './global-zone.service';
-import { Inject, toDisposable } from '@univerjs/core';
+import { Inject, toDisposable } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { ComponentManager } from '../../common/component-manager';
 

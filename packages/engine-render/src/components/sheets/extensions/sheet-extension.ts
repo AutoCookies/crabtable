@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
+import type { IRange } from '@crabtable/core';
 import type { SpreadsheetSkeleton } from '../sheet.render-skeleton';
 
-import { Rectangle } from '@univerjs/core';
+import { Rectangle } from '@crabtable/core';
 import { ComponentExtension } from '../../extension';
 
 export enum SHEET_EXTENSION_TYPE {

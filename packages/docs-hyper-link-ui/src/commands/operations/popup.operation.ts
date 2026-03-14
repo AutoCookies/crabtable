@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IAccessor, ICommand } from '@univerjs/core';
-import { CommandType, CustomRangeType, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
+import type { DocumentDataModel, IAccessor, ICommand } from '@crabtable/core';
+import { CommandType, CrabTableInstanceType, CustomRangeType, ICrabTableInstanceService } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
 import { DocHyperLinkPopupService } from '../../services/hyper-link-popup.service';
 
 export const shouldDisableAddLink = (accessor: IAccessor) => {
     const textSelectionService = accessor.get(DocSelectionManagerService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
     const textRanges = textSelectionService.getTextRanges();
     if (!textRanges?.length) {
         return true;
     }
 
     const activeRange = textRanges[0];
-    const doc = univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+    const doc = crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
     if (!doc || !activeRange || activeRange.collapsed) {
         return true;
     }
@@ -52,12 +52,12 @@ export const ShowDocHyperLinkEditPopupOperation: ICommand<IShowDocHyperLinkEditP
     id: 'doc.operation.show-hyper-link-edit-popup',
     handler(accessor, params) {
         const linkInfo = params?.link;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         if (shouldDisableAddLink(accessor) && !linkInfo) {
             return false;
         }
         const hyperLinkService = accessor.get(DocHyperLinkPopupService);
-        const unitId = linkInfo?.unitId || univerInstanceService.getCurrentUnitForType(UniverInstanceType.UNIVER_DOC)?.getUnitId();
+        const unitId = linkInfo?.unitId || crabtableInstanceService.getCurrentUnitForType(CrabTableInstanceType.CRABTABLE_DOC)?.getUnitId();
 
         if (!unitId) {
             return false;
@@ -99,8 +99,8 @@ export const ClickDocHyperLinkOperation: ICommand<{ unitId: string; linkId: stri
             return false;
         }
         const { unitId, linkId, segmentId } = params;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const doc = univerInstanceService.getUnit<DocumentDataModel>(unitId, UniverInstanceType.UNIVER_DOC);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const doc = crabtableInstanceService.getUnit<DocumentDataModel>(unitId, CrabTableInstanceType.CRABTABLE_DOC);
         const body = doc?.getSelfOrHeaderFooterModel(segmentId).getBody();
         const link = body?.customRanges?.find((range) => range.rangeId === linkId && range.rangeType === CustomRangeType.HYPERLINK)?.properties?.url;
 

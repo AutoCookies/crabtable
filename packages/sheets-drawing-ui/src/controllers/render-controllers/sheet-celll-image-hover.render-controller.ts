@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IDocImage } from '@univerjs/docs-drawing';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
-import type { ISelectionWithStyle } from '@univerjs/sheets';
-import { Disposable, Inject } from '@univerjs/core';
-import { DrawingRenderService } from '@univerjs/drawing-ui';
-import { CURSOR_TYPE } from '@univerjs/engine-render';
-import { SheetsSelectionsService } from '@univerjs/sheets';
-import { HoverManagerService, SheetSkeletonManagerService } from '@univerjs/sheets-ui';
+import type { IDocImage } from '@crabtable/docs-drawing';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
+import type { ISelectionWithStyle } from '@crabtable/sheets';
+import { Disposable, Inject } from '@crabtable/core';
+import { DrawingRenderService } from '@crabtable/drawing-ui';
+import { CURSOR_TYPE } from '@crabtable/engine-render';
+import { SheetsSelectionsService } from '@crabtable/sheets';
+import { HoverManagerService, SheetSkeletonManagerService } from '@crabtable/sheets-ui';
 import { throttleTime } from 'rxjs';
 
 export class SheetCellImageHoverRenderController extends Disposable implements IRenderModule {

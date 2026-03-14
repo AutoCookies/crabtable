@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, Nullable } from '@univerjs/core';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
+import type { DocumentDataModel, Nullable } from '@crabtable/core';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
 import type { Subscription } from 'rxjs';
 import type { IEditorInputConfig } from '../../services/selection/doc-selection-render.service';
 import {
@@ -23,9 +23,9 @@ import {
     ICommandService,
     Inject,
     Tools,
-} from '@univerjs/core';
+} from '@crabtable/core';
 
-import { DocSkeletonManagerService } from '@univerjs/docs';
+import { DocSkeletonManagerService } from '@crabtable/docs';
 import { IMEInputCommand } from '../../commands/commands/ime-input.command';
 import { DocIMEInputManagerService } from '../../services/doc-ime-input-manager.service';
 import { DocSelectionRenderService } from '../../services/selection/doc-selection-render.service';

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, Workbook } from '@univerjs/core';
-import { CommandType, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { SheetsSelectionsService } from '@univerjs/sheets';
+import type { IAccessor, ICommand, Workbook } from '@crabtable/core';
+import { CommandType, CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
+import { SheetsSelectionsService } from '@crabtable/sheets';
 import { SheetsNotePopupService } from '../../services/sheets-note-popup.service';
 
 export interface IAddNotePopupOperationParams {
@@ -29,9 +29,9 @@ export const AddNotePopupOperation: ICommand = {
     handler: async (accessor: IAccessor, params?: IAddNotePopupOperationParams) => {
         const selectionService = accessor.get(SheetsSelectionsService);
         const notePopupService = accessor.get(SheetsNotePopupService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const workbook = univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook = crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             return false;
         }

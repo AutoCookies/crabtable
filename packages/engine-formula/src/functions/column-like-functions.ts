@@ -15,7 +15,7 @@
  */
 
 import type { IFunctionNames } from '../basics/function';
-import { columnLabelToNumber, MAX_COLUMN_COUNT } from '@univerjs/core';
+import { columnLabelToNumber, MAX_COLUMN_COUNT } from '@crabtable/core';
 import { FUNCTION_NAMES_DATE } from './date/function-names';
 import { FUNCTION_NAMES_ENGINEERING } from './engineering/function-names';
 import { FUNCTION_NAMES_FINANCIAL } from './financial/function-names';

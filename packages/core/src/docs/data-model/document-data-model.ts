@@ -19,7 +19,7 @@ import type { IDocumentBody, IDocumentData, IDocumentRenderConfig, IDocumentStyl
 import type { IPaddingData } from '../../types/interfaces/i-style-data';
 import type { JSONXActions } from './json-x/json-x';
 import { BehaviorSubject } from 'rxjs';
-import { UnitModel, UniverInstanceType } from '../../common/unit';
+import { CrabTableInstanceType, UnitModel } from '../../common/unit';
 import { generateRandomId, Tools } from '../../shared/tools';
 import { getEmptySnapshot } from './empty-snapshot';
 import { JSONX } from './json-x/json-x';
@@ -39,8 +39,8 @@ interface IDrawingUpdateConfig {
     width: number;
 }
 
-class DocumentDataModelSimple extends UnitModel<IDocumentData, UniverInstanceType.UNIVER_DOC> {
-    override type: UniverInstanceType.UNIVER_DOC = UniverInstanceType.UNIVER_DOC;
+class DocumentDataModelSimple extends UnitModel<IDocumentData, CrabTableInstanceType.CRABTABLE_DOC> {
+    override type: CrabTableInstanceType.CRABTABLE_DOC = CrabTableInstanceType.CRABTABLE_DOC;
 
     override getUnitId(): string {
         throw new Error('Method not implemented.');

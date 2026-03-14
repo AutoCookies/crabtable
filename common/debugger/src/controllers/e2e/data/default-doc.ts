@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDocumentData } from '@univerjs/core';
-import { BooleanNumber, DocumentFlavor } from '@univerjs/core';
-import { ptToPixel } from '@univerjs/engine-render';
+import type { IDocumentData } from '@crabtable/core';
+import { BooleanNumber, DocumentFlavor } from '@crabtable/core';
+import { ptToPixel } from '@crabtable/engine-render';
 
 // eslint-disable-next-line max-lines-per-function
 export function getDefaultDocData(): IDocumentData {

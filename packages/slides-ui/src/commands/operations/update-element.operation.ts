@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICommand, SlideDataModel } from '@univerjs/core';
-import { CommandType, IUniverInstanceService, merge } from '@univerjs/core';
+import type { ICommand, SlideDataModel } from '@crabtable/core';
+import { CommandType, ICrabTableInstanceService, merge } from '@crabtable/core';
 
 export interface IUpdateElementOperationParams {
     unitId: string;
@@ -28,11 +28,11 @@ export const UpdateSlideElementOperation: ICommand<IUpdateElementOperationParams
     type: CommandType.OPERATION,
     handler: (accessor, params: IUpdateElementOperationParams) => {
         const { oKey, props } = params!;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        // const slideData = univerInstanceService.getCurrentUnitForType<SlideDataModel>(UniverInstanceType.UNIVER_SLIDE);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        // const slideData = crabtableInstanceService.getCurrentUnitForType<SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE);
 
         const unitId = params?.unitId;
-        const slideData = univerInstanceService.getUnit<SlideDataModel>(unitId);
+        const slideData = crabtableInstanceService.getUnit<SlideDataModel>(unitId);
         if (!slideData) return false;
 
         const activePage = slideData.getActivePage()!;

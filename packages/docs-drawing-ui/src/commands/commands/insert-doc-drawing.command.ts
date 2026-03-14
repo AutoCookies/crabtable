@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand, IMutationInfo, JSONXActions } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
+import type { IAccessor, ICommand, IMutationInfo, JSONXActions } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
 import type { IInsertDrawingCommandParams } from './interfaces';
 import {
     BuildTextUtils,
     CommandType,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     JSONX,
     TextX,
     TextXActionType,
-} from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation } from '@univerjs/docs';
-import { getCustomBlockIdsInSelections, getRichTextEditPath } from '@univerjs/docs-ui';
+} from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation } from '@crabtable/docs';
+import { getCustomBlockIdsInSelections, getRichTextEditPath } from '@crabtable/docs-ui';
 
 /**
  * The command to insert new drawings
@@ -44,10 +44,10 @@ export const InsertDocDrawingCommand: ICommand = {
         }
         const commandService = accessor.get(ICommandService);
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
         const activeTextRange = docSelectionManagerService.getActiveTextRange();
-        const documentDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const documentDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
         if (activeTextRange == null || documentDataModel == null) {
             return false;
         }

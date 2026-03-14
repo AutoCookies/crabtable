@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, ICreateUnitOptions, IDisposable, Injector, IWorkbookData, Nullable, Workbook } from '@univerjs/core';
-import type { CommandListenerValueChange, IInsertSheetCommandParams, IRemoveSheetCommandParams, ISetGridlinesColorCommandParams, ISetTabColorMutationParams, ISetWorksheetActivateCommandParams, ISetWorksheetHideMutationParams, ISetWorksheetNameCommandParams, ISetWorksheetOrderMutationParams, IToggleGridlinesCommandParams } from '@univerjs/sheets';
+import type { ICommandInfo, ICreateUnitOptions, IDisposable, Injector, IWorkbookData, Nullable, Workbook } from '@crabtable/core';
+import type { CommandListenerValueChange, IInsertSheetCommandParams, IRemoveSheetCommandParams, ISetGridlinesColorCommandParams, ISetTabColorMutationParams, ISetWorksheetActivateCommandParams, ISetWorksheetHideMutationParams, ISetWorksheetNameCommandParams, ISetWorksheetOrderMutationParams, IToggleGridlinesCommandParams } from '@crabtable/sheets';
 import type { IBeforeActiveSheetChangeEvent, IBeforeGridlineColorChanged, IBeforeGridlineEnableChange, IBeforeSheetCreateEventParams, IBeforeSheetDeleteEvent, IBeforeSheetHideChangeEvent, IBeforeSheetMoveEvent, IBeforeSheetNameChangeEvent, IBeforeSheetTabColorChangeEvent, ISheetCreatedEventParams } from './f-event';
 import type { FRange } from './f-range';
 import type { FWorksheet } from './f-worksheet';
-import { CanceledError, ICommandService, IUniverInstanceService, toDisposable, UniverInstanceType } from '@univerjs/core';
-import { FUniver } from '@univerjs/core/facade';
-import { COMMAND_LISTENER_VALUE_CHANGE, getValueChangedEffectedRange, InsertSheetCommand, RemoveSheetCommand, SetGridlinesColorCommand, SetTabColorMutation, SetWorksheetActiveOperation, SetWorksheetHideMutation, SetWorksheetNameCommand, SetWorksheetOrderMutation, SheetsFreezeSyncController, ToggleGridlinesCommand } from '@univerjs/sheets';
+import { CanceledError, CrabTableInstanceType, ICommandService, ICrabTableInstanceService, toDisposable } from '@crabtable/core';
+import { FCrabTable } from '@crabtable/core/facade';
+import { COMMAND_LISTENER_VALUE_CHANGE, getValueChangedEffectedRange, InsertSheetCommand, RemoveSheetCommand, SetGridlinesColorCommand, SetTabColorMutation, SetWorksheetActiveOperation, SetWorksheetHideMutation, SetWorksheetNameCommand, SetWorksheetOrderMutation, SheetsFreezeSyncController, ToggleGridlinesCommand } from '@crabtable/sheets';
 import { FDefinedNameBuilder } from './f-defined-name';
 import { FPermission } from './f-permission';
 import { FWorkbook } from './f-workbook';
@@ -31,9 +31,9 @@ import { FWorkbook } from './f-workbook';
  */
 export interface IFUniverSheetsMixin {
     /**
-     * @deprecated use `univerAPI.createWorkbook` instead.
+     * @deprecated use `crabtableAPI.createWorkbook` instead.
      */
-    createUniverSheet(data: Partial<IWorkbookData>): FWorkbook;
+    createCrabTableSheet(data: Partial<IWorkbookData>): FWorkbook;
 
     /**
      * Create a new spreadsheet and get the API handler of that spreadsheet.
@@ -42,31 +42,31 @@ export interface IFUniverSheetsMixin {
      * @returns {FWorkbook} FWorkbook API instance.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.createWorkbook({ id: 'Sheet1', name: 'Sheet1' });
+     * const fWorkbook = crabtableAPI.createWorkbook({ id: 'Sheet1', name: 'Sheet1' });
      * console.log(fWorkbook);
      * ```
      *
      * Add you can make the workbook not as the active workbook by setting options:
      * ```ts
-     * const fWorkbook = univerAPI.createWorkbook({ id: 'Sheet1', name: 'Sheet1' }, { makeCurrent: false });
+     * const fWorkbook = crabtableAPI.createWorkbook({ id: 'Sheet1', name: 'Sheet1' }, { makeCurrent: false });
      * console.log(fWorkbook);
      * ```
      */
     createWorkbook(data: Partial<IWorkbookData>, options?: ICreateUnitOptions): FWorkbook;
 
     /**
-     * Get the currently focused Univer spreadsheet.
-     * @returns {FWorkbook | null} The currently focused Univer spreadsheet.
+     * Get the currently focused CrabTable spreadsheet.
+     * @returns {FWorkbook | null} The currently focused CrabTable spreadsheet.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * console.log(fWorkbook);
      * ```
      */
     getActiveWorkbook(): FWorkbook | null;
 
     /**
-     * @deprecated use `univerAPI.getActiveWorkbook` instead
+     * @deprecated use `crabtableAPI.getActiveWorkbook` instead
      */
     getActiveUniverSheet(): FWorkbook | null;
 
@@ -77,10 +77,10 @@ export interface IFUniverSheetsMixin {
      *
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getUniverSheet('Sheet1');
+     * const fWorkbook = crabtableAPI.getUniverSheet('Sheet1');
      * console.log(fWorkbook);
      *
-     * const fWorkbook = univerAPI.getWorkbook('Sheet1');
+     * const fWorkbook = crabtableAPI.getWorkbook('Sheet1');
      * console.log(fWorkbook);
      * ```
      */
@@ -95,7 +95,7 @@ export interface IFUniverSheetsMixin {
     getPermission(): FPermission;
 
     /**
-     * @deprecated Use `univerAPI.addEvent(univerAPI.Event.UnitCreated, () => {})`
+     * @deprecated Use `crabtableAPI.addEvent(crabtableAPI.Event.UnitCreated, () => {})`
      */
     onUniverSheetCreated(callback: (workbook: FWorkbook) => void): IDisposable;
 
@@ -104,8 +104,8 @@ export interface IFUniverSheetsMixin {
      * @returns {FDefinedNameBuilder} - The defined name builder.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
-     * const definedNameBuilder = univerAPI.newDefinedName()
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
+     * const definedNameBuilder = crabtableAPI.newDefinedName()
      *   .setRef('Sheet1!$A$1')
      *   .setName('MyDefinedName')
      *   .setComment('This is a comment');
@@ -124,7 +124,7 @@ export interface IFUniverSheetsMixin {
      * ```ts
      * const unitId = 'workbook-01';
      * const subUnitId = 'sheet-0001';
-     * const target = univerAPI.getSheetTarget(unitId, subUnitId);
+     * const target = crabtableAPI.getSheetTarget(unitId, subUnitId);
      * if (!target) return;
      * const { workbook, worksheet } = target;
      * console.log(workbook, worksheet);
@@ -138,9 +138,9 @@ export interface IFUniverSheetsMixin {
      * @returns {Nullable<{ workbook: FWorkbook; worksheet: FWorksheet }>} - The target of the sheet.
      * @example
      * ```ts
-     * univerAPI.addEvent(univerAPI.Event.CommandExecuted, (event) => {
+     * crabtableAPI.addEvent(crabtableAPI.Event.CommandExecuted, (event) => {
      *   const { options, ...commandInfo } = event;
-     *   const target = univerAPI.getCommandSheetTarget(commandInfo);
+     *   const target = crabtableAPI.getCommandSheetTarget(commandInfo);
      *   if (!target) return;
      *   const { workbook, worksheet } = target;
      *   console.log(workbook, worksheet);
@@ -154,7 +154,7 @@ export interface IFUniverSheetsMixin {
      * @returns {Nullable<{ workbook: FWorkbook; worksheet: FWorksheet }>} The active sheet.
      * @example
      * ```ts
-     * const target = univerAPI.getActiveSheet();
+     * const target = crabtableAPI.getActiveSheet();
      * if (!target) return;
      * const { workbook, worksheet } = target;
      * console.log(workbook, worksheet);
@@ -168,13 +168,13 @@ export interface IFUniverSheetsMixin {
      * @example
      * ```ts
      * // Disable freeze sync
-     * univerAPI.setFreezeSync(false);
+     * crabtableAPI.setFreezeSync(false);
      * ```
      */
     setFreezeSync(enabled: boolean): void;
 }
 
-export class FUniverSheetsMixin extends FUniver implements IFUniverSheetsMixin {
+export class FCrabTableSheetsMixin extends FCrabTable implements IFUniverSheetsMixin {
     override getCommandSheetTarget(commandInfo: ICommandInfo<object>): Nullable<{ workbook: FWorkbook; worksheet: FWorksheet }> {
         const params = commandInfo.params as { unitId: string; subUnitId: string; sheetId: string };
         if (!params) return this.getActiveSheet();
@@ -206,14 +206,14 @@ export class FUniverSheetsMixin extends FUniver implements IFUniverSheetsMixin {
     }
 
     private _initWorkbookEvent(injector: Injector): void {
-        const univerInstanceService = injector.get(IUniverInstanceService);
+        const crabtableInstanceService = injector.get(ICrabTableInstanceService);
 
         // Register workbook disposed event handler
         this.disposeWithMe(
             this.registerEventHandler(
                 this.Event.WorkbookDisposed,
-                () => univerInstanceService.unitDisposed$.subscribe((unit) => {
-                    if (unit.type === UniverInstanceType.UNIVER_SHEET) {
+                () => crabtableInstanceService.unitDisposed$.subscribe((unit) => {
+                    if (unit.type === CrabTableInstanceType.CRABTABLE_SHEET) {
                         this.fireEvent(this.Event.WorkbookDisposed, {
                             unitId: unit.getUnitId(),
                             unitType: unit.type,
@@ -228,8 +228,8 @@ export class FUniverSheetsMixin extends FUniver implements IFUniverSheetsMixin {
         this.disposeWithMe(
             this.registerEventHandler(
                 this.Event.WorkbookCreated,
-                () => univerInstanceService.unitAdded$.subscribe((unit) => {
-                    if (unit.type === UniverInstanceType.UNIVER_SHEET) {
+                () => crabtableInstanceService.unitAdded$.subscribe((unit) => {
+                    if (unit.type === CrabTableInstanceType.CRABTABLE_SHEET) {
                         const workbook = unit as Workbook;
                         const workbookUnit = injector.createInstance(FWorkbook, workbook);
                         this.fireEvent(this.Event.WorkbookCreated, {
@@ -249,7 +249,7 @@ export class FUniverSheetsMixin extends FUniver implements IFUniverSheetsMixin {
      */
     // eslint-disable-next-line max-lines-per-function
     override _initialize(injector: Injector): void {
-        const univerInstanceService = injector.get(IUniverInstanceService);
+        const crabtableInstanceService = injector.get(ICrabTableInstanceService);
         const commandService = injector.get(ICommandService);
 
         this.disposeWithMe(
@@ -471,7 +471,7 @@ export class FUniverSheetsMixin extends FUniver implements IFUniverSheetsMixin {
                     if (COMMAND_LISTENER_VALUE_CHANGE.indexOf(commandInfo.id) > -1) {
                         const sheet = this.getActiveSheet();
                         if (!sheet) return;
-                        const ranges = getValueChangedEffectedRange(univerInstanceService, commandInfo)
+                        const ranges = getValueChangedEffectedRange(crabtableInstanceService, commandInfo)
                             .map(
                                 (range) => this.getWorkbook(range.unitId)
                                     ?.getSheetBySheetId(range.subUnitId)
@@ -620,18 +620,18 @@ export class FUniverSheetsMixin extends FUniver implements IFUniverSheetsMixin {
         this._initWorkbookEvent(injector);
     }
 
-    override createUniverSheet(data: Partial<IWorkbookData>, options?: ICreateUnitOptions): FWorkbook {
-        const instanceService = this._injector.get(IUniverInstanceService);
-        const workbook = instanceService.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, data, options);
+    override createCrabTableSheet(data: Partial<IWorkbookData>, options?: ICreateUnitOptions): FWorkbook {
+        const instanceService = this._injector.get(ICrabTableInstanceService);
+        const workbook = instanceService.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, data, options);
         return this._injector.createInstance(FWorkbook, workbook);
     };
 
     override createWorkbook(data: Partial<IWorkbookData>, options?: ICreateUnitOptions): FWorkbook {
-        return this.createUniverSheet(data, options);
+        return this.createCrabTableSheet(data, options);
     }
 
     override getActiveWorkbook(): FWorkbook | null {
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             return null;
         }
@@ -644,7 +644,7 @@ export class FUniverSheetsMixin extends FUniver implements IFUniverSheetsMixin {
     }
 
     override getUniverSheet(id: string): FWorkbook | null {
-        const workbook = this._univerInstanceService.getUnit<Workbook>(id, UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(id, CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             return null;
         }
@@ -661,7 +661,7 @@ export class FUniverSheetsMixin extends FUniver implements IFUniverSheetsMixin {
     }
 
     override onUniverSheetCreated(callback: (workbook: FWorkbook) => void): IDisposable {
-        const subscription = this._univerInstanceService.getTypeOfUnitAdded$<Workbook>(UniverInstanceType.UNIVER_SHEET).subscribe((workbook) => {
+        const subscription = this._crabtableInstanceService.getTypeOfUnitAdded$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((workbook) => {
             const fworkbook = this._injector.createInstance(FWorkbook, workbook);
             callback(fworkbook);
         });
@@ -737,8 +737,8 @@ export class FUniverSheetsMixin extends FUniver implements IFUniverSheetsMixin {
     }
 }
 
-FUniver.extend(FUniverSheetsMixin);
-declare module '@univerjs/core/facade' {
+FCrabTable.extend(FUniverSheetsMixin);
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
-    interface FUniver extends IFUniverSheetsMixin { }
+    interface FCrabTable extends IFUniverSheetsMixin { }
 }

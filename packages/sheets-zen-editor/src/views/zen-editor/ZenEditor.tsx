@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IDocumentData } from '@univerjs/core';
-import { DEFAULT_EMPTY_DOCUMENT_VALUE, DOCS_ZEN_EDITOR_UNIT_ID_KEY, DocumentFlavor, ICommandService } from '@univerjs/core';
-import { clsx } from '@univerjs/design';
-import { IEditorService } from '@univerjs/docs-ui';
+import type { IDocumentData } from '@crabtable/core';
+import { DEFAULT_EMPTY_DOCUMENT_VALUE, DOCS_ZEN_EDITOR_UNIT_ID_KEY, DocumentFlavor, ICommandService } from '@crabtable/core';
+import { clsx } from '@crabtable/design';
+import { IEditorService } from '@crabtable/docs-ui';
+import { useDependency } from '@crabtable/ui';
 import { CheckMarkIcon, CloseIcon } from '@univerjs/icons';
-import { useDependency } from '@univerjs/ui';
 import { useEffect, useRef } from 'react';
 import { CancelZenEditCommand, ConfirmZenEditCommand } from '../../commands/commands/zen-editor.command';
 import { IZenEditorManagerService } from '../../services/zen-editor.service';

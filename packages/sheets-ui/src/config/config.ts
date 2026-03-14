@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { DependencyOverride } from '@univerjs/core';
-import type { IScrollBarProps } from '@univerjs/engine-render';
-import type { ComponentType, MenuConfig } from '@univerjs/ui';
+import type { DependencyOverride } from '@crabtable/core';
+import type { IScrollBarProps } from '@crabtable/engine-render';
+import type { ComponentType, MenuConfig } from '@crabtable/ui';
 import type { IPermissionDetailUserPartProps } from '../views/permission/panel-detail/PermissionDetailUserPart';
 
 export const SHEETS_UI_PLUGIN_CONFIG_KEY = 'sheets-ui.config';

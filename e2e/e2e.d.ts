@@ -18,6 +18,6 @@ declare global {
         E2EControllerAPI: IE2EControllerAPI;
         univer: any;
         // eslint-disable-next-line ts/no-explicit-any
-        univerAPI: any;
+        crabtableAPI: any;
     }
 }

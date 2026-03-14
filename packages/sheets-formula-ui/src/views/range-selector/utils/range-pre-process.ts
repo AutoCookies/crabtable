@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IRange } from '@univerjs/core';
+import type { IRange } from '@crabtable/core';
 
 export const rangePreProcess = (range: IRange) => {
     if (range.endColumn < range.startColumn) {

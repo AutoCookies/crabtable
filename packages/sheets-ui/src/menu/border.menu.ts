@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IBorderInfo } from '@univerjs/sheets';
-import type { IMenuSelectorItem } from '@univerjs/ui';
-import { FOCUSING_COMMON_DRAWINGS, ICommandService, IContextService, UniverInstanceType } from '@univerjs/core';
-import { BorderStyleManagerService, RangeProtectionPermissionEditPoint, SetBorderBasicCommand, WorkbookEditablePermission, WorksheetEditPermission, WorksheetSetCellStylePermission } from '@univerjs/sheets';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import type { IBorderInfo } from '@crabtable/sheets';
+import type { IMenuSelectorItem } from '@crabtable/ui';
+import { CrabTableInstanceType, FOCUSING_COMMON_DRAWINGS, ICommandService, IContextService } from '@crabtable/core';
+import { BorderStyleManagerService, RangeProtectionPermissionEditPoint, SetBorderBasicCommand, WorkbookEditablePermission, WorksheetEditPermission, WorksheetSetCellStylePermission } from '@crabtable/sheets';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { combineLatest, map, Observable, startWith } from 'rxjs';
 
 import { BORDER_LINE_CHILDREN, BORDER_PANEL_COMPONENT } from '../components/border-panel/interface';
@@ -70,7 +70,7 @@ export function CellBorderSelectorMenuItemFactory(accessor: IAccessor): IMenuSel
         ],
         value$: borderStyleManagerService.borderInfo$,
         hidden$: combineLatest([
-            getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET),
+            getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SHEET),
             accessor.get(IContextService).subscribeContextValue$(FOCUSING_COMMON_DRAWINGS).pipe(startWith(false)),
         ]).pipe(map(([hidden, focusingDrawing]) => hidden || focusingDrawing)),
         disabled$,

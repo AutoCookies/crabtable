@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IDocDrawingPosition, ITransformState, Nullable } from '@univerjs/core';
-import { ObjectRelativeFromH, ObjectRelativeFromV } from '@univerjs/core';
+import type { IDocDrawingPosition, ITransformState, Nullable } from '@crabtable/core';
+import { ObjectRelativeFromH, ObjectRelativeFromV } from '@crabtable/core';
 
 export function docDrawingPositionToTransform(position: IDocDrawingPosition): Nullable<ITransformState> {
     // const { from, to } = position;

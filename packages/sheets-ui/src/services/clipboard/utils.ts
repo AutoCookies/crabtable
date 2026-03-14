@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICellData, IMutationInfo, IObjectMatrixPrimitiveType, IRange, Nullable } from '@univerjs/core';
-import type { IDiscreteRange, ISetRangeValuesMutationParams } from '@univerjs/sheets';
-import { ObjectMatrix } from '@univerjs/core';
-import { SetRangeValuesMutation } from '@univerjs/sheets';
+import type { ICellData, IMutationInfo, IObjectMatrixPrimitiveType, IRange, Nullable } from '@crabtable/core';
+import type { IDiscreteRange, ISetRangeValuesMutationParams } from '@crabtable/sheets';
+import { ObjectMatrix } from '@crabtable/core';
+import { SetRangeValuesMutation } from '@crabtable/sheets';
 
 /**
  *

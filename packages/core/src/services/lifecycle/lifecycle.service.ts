@@ -23,7 +23,7 @@ import { ILogService } from '../log/log.service';
 import { LifecycleNameMap, LifecycleStages } from './lifecycle';
 
 /**
- * An error that indicates a lifecycle stage will never be reached, mostly due to the Univer instance is
+ * An error that indicates a lifecycle stage will never be reached, mostly due to the CrabTable instance is
  * disposed.
  */
 export class LifecycleUnreachableError extends Error {
@@ -34,7 +34,7 @@ export class LifecycleUnreachableError extends Error {
 }
 
 /**
- * This service controls the lifecycle of a Univer instance. Other modules can
+ * This service controls the lifecycle of a CrabTable instance. Other modules can
  * inject this service to read the current lifecycle stage or subscribe to
  * lifecycle changes.
  */

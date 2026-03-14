@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IUnitRangeName } from '@univerjs/core';
+import type { IUnitRangeName } from '@crabtable/core';
 import { FormulaAstLRU } from '../../basics/cache-lru';
 import { deserializeRangeWithSheet } from './reference';
 

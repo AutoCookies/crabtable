@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { ICellData, Injector, IStyleData, Nullable, Workbook } from '@univerjs/core';
+import type { ICellData, Injector, IStyleData, Nullable, Workbook } from '@crabtable/core';
 import type { IDragCellPosition } from '../../services/drag-manager.service';
 import type { IEditorBridgeServiceVisibleParam } from '../../services/editor-bridge.service';
 import type { ICellPosWithEvent, IHoverCellPosition, IHoverHeaderPosition, IHoverRichTextInfo, IHoverRichTextPosition } from '../../services/hover-manager.service';
-import { ICommandService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { EditorService, IEditorService } from '@univerjs/docs-ui';
-import { DeviceInputEventType } from '@univerjs/engine-render';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { EditorService, IEditorService } from '@crabtable/docs-ui';
+import { DeviceInputEventType } from '@crabtable/engine-render';
 import {
     IRefSelectionsService,
     RefSelectionsService,
@@ -31,9 +31,9 @@ import {
     SetStyleCommand,
     SetTextWrapCommand,
     SetVerticalTextAlignCommand,
-} from '@univerjs/sheets';
-import { FSheetHooks } from '@univerjs/sheets/facade';
-import { KeyCode } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { FSheetHooks } from '@crabtable/sheets/facade';
+import { KeyCode } from '@crabtable/ui';
 import { Subject } from 'rxjs';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { SetCellEditVisibleOperation } from '../../commands/operations/cell-edit.operation';
@@ -137,7 +137,7 @@ describe('Test FSheetHooks', () => {
         ]);
         get = testBed.get;
         injector = testBed.injector;
-        workbook = get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        workbook = get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
 
         commandService = get(ICommandService);
         commandService.registerCommand(SetRangeValuesCommand);
@@ -156,8 +156,8 @@ describe('Test FSheetHooks', () => {
             endRow: number,
             endColumn: number
         ): Nullable<ICellData> =>
-            get(IUniverInstanceService)
-                .getUniverSheetInstance('test')
+            get(ICrabTableInstanceService)
+                .getCrabTableSheetInstance('test')
                 ?.getSheetBySheetId('sheet1')
                 ?.getRange(startRow, startColumn, endRow, endColumn)
                 .getValue();
@@ -169,7 +169,7 @@ describe('Test FSheetHooks', () => {
             endColumn: number
         ): Nullable<IStyleData> => {
             const value = getValueByPosition(startRow, startColumn, endRow, endColumn);
-            const styles = get(IUniverInstanceService).getUniverSheetInstance('test')?.getStyles();
+            const styles = get(ICrabTableInstanceService).getCrabTableSheetInstance('test')?.getStyles();
             if (value && styles) {
                 return styles.getStyleByCell(value);
             }

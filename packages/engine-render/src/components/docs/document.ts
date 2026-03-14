@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IDocumentRenderConfig, IScale, ITableCellBorder, Nullable } from '@univerjs/core';
+import type { IDocumentRenderConfig, IScale, ITableCellBorder, Nullable } from '@crabtable/core';
 
 import type { IDocumentSkeletonGlyph, IDocumentSkeletonLine, IDocumentSkeletonPage, IDocumentSkeletonRow, IDocumentSkeletonTable } from '../../basics/i-document-skeleton-cached';
 import type { Transform } from '../../basics/transform';
@@ -24,7 +24,7 @@ import type { Scene } from '../../scene';
 import type { ComponentExtension, IDrawInfo, IExtensionConfig } from '../extension';
 import type { IDocumentsConfig, IPageMarginLayout } from './doc-component';
 import type { DocumentSkeleton } from './layout/doc-skeleton';
-import { CellValueType, HorizontalAlign, VerticalAlign, WrapStrategy } from '@univerjs/core';
+import { CellValueType, HorizontalAlign, VerticalAlign, WrapStrategy } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { BORDER_TYPE as BORDER_LTRB, drawLineByBorderType } from '../../basics';
 import { calculateRectRotate, getRotateOffsetAndFarthestHypotenuse } from '../../basics/draw';
@@ -308,7 +308,7 @@ export class Documents extends DocComponent {
                         rotateTranslateXListApply = rotateTranslateXList;
                     } else if (
                         wrapStrategy === WrapStrategy.WRAP
-                        // Use fix: https://github.com/dream-num/univer-pro/issues/734
+                        // Use fix: https://github.com/AutoCookies/crabtable-pro/issues/734
                         && (horizontalAlign !== HorizontalAlign.UNSPECIFIED || cellValueType !== CellValueType.NUMBER)
                     ) {
                         // @Jocs, Why reset alignOffset.x? When you know the reason, add a description
@@ -1042,7 +1042,7 @@ export class Documents extends DocComponent {
                 horizontalAlign = HorizontalAlign.CENTER;
             } else if ((vertexAngleDeg > 0 && vertexAngleDeg !== VERTICAL_ROTATE_ANGLE) || vertexAngleDeg === -VERTICAL_ROTATE_ANGLE) {
                 /**
-                 * https://github.com/dream-num/univer-pro/issues/334
+                 * https://github.com/AutoCookies/crabtable-pro/issues/334
                  */
                 horizontalAlign = HorizontalAlign.RIGHT;
             } else {

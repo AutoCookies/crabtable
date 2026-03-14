@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICellData, ICellDataWithSpanAndDisplay, IDocumentData, IMutationInfo, IRange, ObjectMatrix } from '@univerjs/core';
-import type { IDiscreteRange } from '@univerjs/sheets';
+import type { ICellData, ICellDataWithSpanAndDisplay, IDocumentData, IMutationInfo, IRange, ObjectMatrix } from '@crabtable/core';
+import type { IDiscreteRange } from '@crabtable/sheets';
 import type { PREDEFINED_HOOK_NAME_COPY, PREDEFINED_HOOK_NAME_PASTE } from './clipboard.service';
 
 export enum COPY_TYPE {
@@ -240,7 +240,7 @@ export interface ISheetClipboardHook {
     };
 
     /**
-     * Would be called after paste content has been written into Univer.
+     * Would be called after paste content has been written into CrabTable.
      * Features could do some cleaning up jobs here.
      *
      * @param success whether the paste operation is successful

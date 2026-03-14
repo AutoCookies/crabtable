@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { LocaleType } from '@univerjs/core';
+import { LocaleType } from '@crabtable/core';
 
 export const currencySymbols = [
     '$',

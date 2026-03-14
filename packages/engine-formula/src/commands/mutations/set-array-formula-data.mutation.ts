@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IMutation } from '@univerjs/core';
+import type { IAccessor, IMutation } from '@crabtable/core';
 import type { IArrayFormulaEmbeddedMap, IArrayFormulaRangeType, IArrayFormulaUnitCellType } from '../../basics/common';
 
-import { CommandType } from '@univerjs/core';
+import { CommandType } from '@crabtable/core';
 
 export interface ISetArrayFormulaDataMutationParams {
     arrayFormulaRange: IArrayFormulaRangeType;

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDrawingSearch, IMutation } from '@univerjs/core';
-import type { IDrawingGroupUpdateParam, IDrawingJson1Type, IDrawingOrderMapParam } from '@univerjs/drawing';
-import { CommandType } from '@univerjs/core';
-import { IDrawingManagerService } from '@univerjs/drawing';
+import type { IDrawingSearch, IMutation } from '@crabtable/core';
+import type { IDrawingGroupUpdateParam, IDrawingJson1Type, IDrawingOrderMapParam } from '@crabtable/drawing';
+import { CommandType } from '@crabtable/core';
+import { IDrawingManagerService } from '@crabtable/drawing';
 import { ISheetDrawingService } from '../../services/sheet-drawing.service';
 
 export enum DrawingApplyType {

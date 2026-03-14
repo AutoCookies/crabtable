@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IFunctionInfo } from '@univerjs/engine-formula';
-import { DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, ICommandService, IUniverInstanceService, LocaleService } from '@univerjs/core';
-import { Button } from '@univerjs/design';
-import { IEditorService } from '@univerjs/docs-ui';
-import { DeviceInputEventType } from '@univerjs/engine-render';
-import { getSheetCommandTarget } from '@univerjs/sheets';
-import { IEditorBridgeService, SetCellEditVisibleOperation, useActiveWorkbook } from '@univerjs/sheets-ui';
-import { useDependency } from '@univerjs/ui';
+import type { IFunctionInfo } from '@crabtable/engine-formula';
+import { DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, ICommandService, ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { Button } from '@crabtable/design';
+import { IEditorService } from '@crabtable/docs-ui';
+import { DeviceInputEventType } from '@crabtable/engine-render';
+import { getSheetCommandTarget } from '@crabtable/sheets';
+import { IEditorBridgeService, SetCellEditVisibleOperation, useActiveWorkbook } from '@crabtable/sheets-ui';
+import { useDependency } from '@crabtable/ui';
 import { useState } from 'react';
 import { InputParams } from './input-params/InputParams';
 import { SelectFunction } from './select-function/SelectFunction';
@@ -35,7 +35,7 @@ export function MoreFunctions() {
     const editorBridgeService = useDependency(IEditorBridgeService);
     const localeService = useDependency(LocaleService);
     const editorService = useDependency(IEditorService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const commandService = useDependency(ICommandService);
 
     function handleClickNextPrev() {
@@ -48,7 +48,7 @@ export function MoreFunctions() {
     }
 
     function handleConfirm() {
-        const sheetTarget = getSheetCommandTarget(univerInstanceService);
+        const sheetTarget = getSheetCommandTarget(crabtableInstanceService);
         if (!sheetTarget) return;
         commandService.executeCommand(SetCellEditVisibleOperation.id, {
             visible: true,

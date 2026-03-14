@@ -19,7 +19,7 @@ import type { Nullable } from '../shared';
 import type { IStyleData } from '../types/interfaces';
 import type { CustomData, IRangeType, IWorkbookData, IWorksheetData } from './typedef';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { UnitModel, UniverInstanceType } from '../common/unit';
+import { CrabTableInstanceType, UnitModel } from '../common/unit';
 import { ILogService } from '../services/log/log.service';
 import { generateRandomId, Tools } from '../shared';
 import { BooleanNumber } from '../types/enum';
@@ -32,10 +32,10 @@ export function getWorksheetUID(workbook: Workbook, worksheet: Worksheet): strin
 }
 
 /**
- * Access and create Univer Sheets files
+ * Access and create CrabTable Sheets files
  */
-export class Workbook extends UnitModel<IWorkbookData, UniverInstanceType.UNIVER_SHEET> {
-    override type: UniverInstanceType.UNIVER_SHEET = UniverInstanceType.UNIVER_SHEET;
+export class Workbook extends UnitModel<IWorkbookData, CrabTableInstanceType.CRABTABLE_SHEET> {
+    override type: CrabTableInstanceType.CRABTABLE_SHEET = CrabTableInstanceType.CRABTABLE_SHEET;
 
     private readonly _sheetCreated$ = new Subject<Worksheet>();
     readonly sheetCreated$ = this._sheetCreated$.asObservable();

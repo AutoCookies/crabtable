@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-import type { IAccessor, UniverInstanceType } from '@univerjs/core';
-import { DocumentFlavor, IUniverInstanceService } from '@univerjs/core';
+import type { CrabTableInstanceType, IAccessor } from '@crabtable/core';
+import { DocumentFlavor, ICrabTableInstanceService } from '@crabtable/core';
 import { Observable } from 'rxjs';
 
 export function getMenuHiddenObservable(
     accessor: IAccessor,
-    targetUniverType: UniverInstanceType,
+    targetUniverType: CrabTableInstanceType,
     matchUnitId?: string,
     needHideUnitId?: string | string[]
 ): Observable<boolean> {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
     return new Observable((subscriber) => {
-        const subscription = univerInstanceService.focused$.subscribe((unitId) => {
+        const subscription = crabtableInstanceService.focused$.subscribe((unitId) => {
             if (unitId == null) {
                 return subscriber.next(true);
             }
@@ -38,18 +38,18 @@ export function getMenuHiddenObservable(
             if (needHideUnitId && (Array.isArray(needHideUnitId) ? needHideUnitId.includes(unitId) : needHideUnitId === unitId)) {
                 return subscriber.next(true);
             }
-            const univerType = univerInstanceService.getUnitType(unitId);
+            const univerType = crabtableInstanceService.getUnitType(unitId);
 
             subscriber.next(univerType !== targetUniverType);
         });
 
-        const focusedUniverInstance = univerInstanceService.getFocusedUnit();
+        const focusedUniverInstance = crabtableInstanceService.getFocusedUnit();
 
         if (focusedUniverInstance == null) {
             return subscriber.next(true);
         }
 
-        const univerType = univerInstanceService.getUnitType(focusedUniverInstance.getUnitId());
+        const univerType = crabtableInstanceService.getUnitType(focusedUniverInstance.getUnitId());
         subscriber.next(univerType !== targetUniverType);
 
         return () => subscription.unsubscribe();
@@ -59,20 +59,20 @@ export function getMenuHiddenObservable(
 export function getHeaderFooterMenuHiddenObservable(
     accessor: IAccessor
 ): Observable<boolean> {
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
     return new Observable((subscriber) => {
-        const subscription = univerInstanceService.focused$.subscribe((unitId) => {
+        const subscription = crabtableInstanceService.focused$.subscribe((unitId) => {
             if (unitId == null) {
                 return subscriber.next(true);
             }
-            const docDataModel = univerInstanceService.getUniverDocInstance(unitId);
+            const docDataModel = crabtableInstanceService.getUniverDocInstance(unitId);
             const documentFlavor = docDataModel?.getSnapshot().documentStyle.documentFlavor;
 
             subscriber.next(documentFlavor !== DocumentFlavor.TRADITIONAL);
         });
 
-        const docDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const docDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
 
         if (docDataModel == null) {
             return subscriber.next(true);

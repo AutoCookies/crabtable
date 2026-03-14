@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IOrderRule } from '@univerjs/sheets-sort';
-import { SortRangeCommand, SortType } from '@univerjs/sheets-sort';
-import { FRange } from '@univerjs/sheets/facade';
+import type { IOrderRule } from '@crabtable/sheets-sort';
+import { SortRangeCommand, SortType } from '@crabtable/sheets-sort';
+import { FRange } from '@crabtable/sheets/facade';
 
 export type SortColumnSpec = { column: number; ascending: boolean } | number;
 
@@ -30,7 +30,7 @@ export interface IFRangeSort {
      * @returns {FRange} The range itself for chaining.
      * @example
      * ```typescript
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('D1:G10');
      *
@@ -73,7 +73,7 @@ export class FRangeSort extends FRange implements IFRangeSort {
 }
 
 FRange.extend(FRangeSort);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FRange extends IFRangeSort {}
 }

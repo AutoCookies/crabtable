@@ -14,37 +14,36 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData, UnitModel } from '@univerjs/core';
+import type { Dependency, IWorkbookData, UnitModel } from '@crabtable/core';
 import {
+    CrabTableInstanceType,
+    ICrabTableInstanceService,
     ILogService,
     Inject,
     Injector,
-    IUniverInstanceService,
     LocaleService,
     LocaleType,
     LogLevel,
     Plugin,
     set,
     ThemeService,
-    Univer,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { FUniver } from '@univerjs/core/facade';
-import { UniverDataValidationPlugin } from '@univerjs/data-validation';
-import { ActiveDirtyManagerService, DefinedNamesService, FormulaDataModel, IActiveDirtyManagerService, IDefinedNamesService, ISheetRowFilteredService, LexerTreeBuilder, RegisterOtherFormulaService, SheetRowFilteredService } from '@univerjs/engine-formula';
+} from '@crabtable/core';
+import { FCrabTable } from '@crabtable/core/facade';
+import { UniverDataValidationPlugin } from '@crabtable/data-validation';
+import { ActiveDirtyManagerService, DefinedNamesService, FormulaDataModel, IActiveDirtyManagerService, IDefinedNamesService, ISheetRowFilteredService, LexerTreeBuilder, RegisterOtherFormulaService, SheetRowFilteredService } from '@crabtable/engine-formula';
 
 import {
     RefRangeService,
     SheetInterceptorService,
     SheetSkeletonService,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
-import { DataValidationCacheService, DataValidationCustomFormulaService, DataValidationFormulaService, DataValidationListCacheService, SheetDataValidationModel, SheetsDataValidationValidatorService } from '@univerjs/sheets-data-validation';
-import enUS from '@univerjs/sheets/locale/en-US';
-import zhCN from '@univerjs/sheets/locale/zh-CN';
+} from '@crabtable/sheets';
+import { DataValidationCacheService, DataValidationCustomFormulaService, DataValidationFormulaService, DataValidationListCacheService, SheetDataValidationModel, SheetsDataValidationValidatorService } from '@crabtable/sheets-data-validation';
+import enUS from '@crabtable/sheets/locale/en-US';
+import zhCN from '@crabtable/sheets/locale/zh-CN';
 
-import '@univerjs/sheets/facade';
-import '@univerjs/sheets-data-validation/facade';
+import '@crabtable/sheets/facade';
+import '@crabtable/sheets-data-validation/facade';
 
 function getTestWorkbookDataDemo(): IWorkbookData {
     return {
@@ -88,21 +87,21 @@ function getTestWorkbookDataDemo(): IWorkbookData {
 }
 
 export interface ITestBed {
-    univer: Univer;
+    univer: CrabTable;
     get: Injector['get'];
     sheet: UnitModel<IWorkbookData>;
-    univerAPI: FUniver;
+    crabtableAPI: FCrabTable;
     injector: Injector;
 }
 
 // eslint-disable-next-line max-lines-per-function
 export function createWorksheetTestBed(workbookData?: IWorkbookData, dependencies?: Dependency[]): ITestBed {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
 
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -159,21 +158,21 @@ export function createWorksheetTestBed(workbookData?: IWorkbookData, dependencie
     univer.registerPlugin(TestPlugin);
     univer.registerPlugin(UniverDataValidationPlugin);
 
-    const sheet = univer.createUnit<IWorkbookData, UnitModel<IWorkbookData>>(UniverInstanceType.UNIVER_SHEET, workbookData || getTestWorkbookDataDemo());
-    const univerInstanceService = injector.get(IUniverInstanceService);
-    univerInstanceService.focusUnit('test');
+    const sheet = univer.createUnit<IWorkbookData, UnitModel<IWorkbookData>>(CrabTableInstanceType.CRABTABLE_SHEET, workbookData || getTestWorkbookDataDemo());
+    const crabtableInstanceService = injector.get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit('test');
 
     // set log level
     const logService = injector.get(ILogService);
     logService.setLogLevel(LogLevel.SILENT); // NOTE: change this to `LogLevel.VERBOSE` to debug tests via logs
 
-    const univerAPI = FUniver.newAPI(injector);
+    const crabtableAPI = FCrabTable.newAPI(injector);
 
     return {
         univer,
         get: injector.get.bind(injector),
         sheet,
-        univerAPI,
+        crabtableAPI,
         injector,
     };
 }

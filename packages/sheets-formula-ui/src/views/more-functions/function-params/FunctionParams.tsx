@@ -15,7 +15,7 @@
  */
 
 import type { ReactElement } from 'react';
-import { clsx } from '@univerjs/design';
+import { clsx } from '@crabtable/design';
 
 interface IParamsProps {
     className?: string;

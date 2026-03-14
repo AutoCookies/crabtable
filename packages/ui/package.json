@@ -1,21 +1,21 @@
 {
-    "name": "@univerjs/ui",
+    "name": "@crabtable/ui",
     "version": "0.17.0",
     "private": false,
     "description": "UniverSheet normal plugin UI manager",
-    "author": "DreamNum <developer@univer.ai>",
+    "author": "DreamNum <developer@crabtable.dev>",
     "license": "Apache-2.0",
     "funding": {
         "type": "opencollective",
-        "url": "https://opencollective.com/univer"
+        "url": "https://opencollective.com/crabtable"
     },
-    "homepage": "https://univer.ai",
+    "homepage": "https://crabtable.dev",
     "repository": {
         "type": "git",
-        "url": "https://github.com/dream-num/univer"
+        "url": "https://github.com/AutoCookies/crabtable"
     },
     "bugs": {
-        "url": "https://github.com/dream-num/univer/issues"
+        "url": "https://github.com/AutoCookies/crabtable/issues"
     },
     "keywords": [
         "univer"
@@ -80,17 +80,17 @@
         "rxjs": ">=7.0.0"
     },
     "dependencies": {
-        "@univerjs/core": "workspace:*",
-        "@univerjs/design": "workspace:*",
-        "@univerjs/engine-render": "workspace:*",
+        "@crabtable/core": "*",
+        "@crabtable/design": "*",
+        "@crabtable/engine-render": "*",
         "@univerjs/icons": "^1.1.1",
         "@wendellhu/redi": "1.1.1",
         "localforage": "^1.10.0"
     },
     "devDependencies": {
         "@testing-library/react": "^16.3.2",
-        "@univerjs-infra/shared": "workspace:*",
-        "@univerjs/themes": "workspace:*",
+        "@crabtable-infra/shared": "*",
+        "@crabtable/themes": "*",
         "postcss": "^8.5.8",
         "react": "18.3.1",
         "react-dom": "18.3.1",

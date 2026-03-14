@@ -22,11 +22,11 @@ import type {
     IMutationInfo,
     ITextRange,
     UpdateDocsAttributeType,
-} from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { ITextRangeWithStyle } from '@univerjs/engine-render';
-import { BuildTextUtils, CommandType, ICommandService, IUniverInstanceService, JSONX, TextX, TextXActionType, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation } from '@univerjs/docs';
+} from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { ITextRangeWithStyle } from '@crabtable/engine-render';
+import { BuildTextUtils, CommandType, CrabTableInstanceType, ICommandService, ICrabTableInstanceService, JSONX, TextX, TextXActionType } from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation } from '@crabtable/docs';
 import { DeleteDirection } from '../../types/delete-direction';
 import { getRichTextEditPath } from '../util';
 
@@ -52,9 +52,9 @@ export const InsertCommand: ICommand<IInsertCommandParams> = {
         const commandService = accessor.get(ICommandService);
         const { range, segmentId, body, unitId, cursorOffset } = params;
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const docDataModel = univerInstanceService.getUnit<DocumentDataModel>(unitId, UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getUnit<DocumentDataModel>(unitId, CrabTableInstanceType.CRABTABLE_DOC);
 
         if (docDataModel == null) {
             return false;
@@ -143,9 +143,9 @@ export const DeleteCommand: ICommand<IDeleteCommandParams> = {
 
     handler: async (accessor, params: IDeleteCommandParams) => {
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const { range, segmentId, unitId, direction, len = 1 } = params;
-        const docDataModel = univerInstanceService.getUnit<DocumentDataModel>(unitId, UniverInstanceType.UNIVER_DOC);
+        const docDataModel = crabtableInstanceService.getUnit<DocumentDataModel>(unitId, CrabTableInstanceType.CRABTABLE_DOC);
         const body = docDataModel?.getSelfOrHeaderFooterModel(segmentId).getBody();
         if (docDataModel == null || body == null) {
             return false;
@@ -222,8 +222,8 @@ export const UpdateCommand: ICommand<IUpdateCommandParams> = {
     handler: async (accessor, params: IUpdateCommandParams) => {
         const { range, segmentId, updateBody, coverType, unitId, textRanges } = params;
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const docDataModel = univerInstanceService.getCurrentUniverDocInstance();
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const docDataModel = crabtableInstanceService.getCurrentUniverDocInstance();
 
         if (docDataModel == null) {
             return false;

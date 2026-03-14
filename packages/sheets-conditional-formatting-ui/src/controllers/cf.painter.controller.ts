@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IMutationInfo, IRange, Nullable, Workbook } from '@univerjs/core';
-import type { IAddConditionalRuleMutationParams, IDeleteConditionalRuleMutationParams, ISetConditionalRuleMutationParams } from '@univerjs/sheets-conditional-formatting';
-import type { IFormatPainterHook } from '@univerjs/sheets-ui';
-import { Disposable, Inject, Injector, IUniverInstanceService, ObjectMatrix, Range, Rectangle, Tools, UniverInstanceType } from '@univerjs/core';
-import { createTopMatrixFromMatrix, findAllRectangle, SheetsSelectionsService } from '@univerjs/sheets';
-import { AddConditionalRuleMutation, AddConditionalRuleMutationUndoFactory, ConditionalFormattingRuleModel, ConditionalFormattingViewModel, DeleteConditionalRuleMutation, DeleteConditionalRuleMutationUndoFactory, SetConditionalRuleMutation, setConditionalRuleMutationUndoFactory, SHEET_CONDITIONAL_FORMATTING_PLUGIN } from '@univerjs/sheets-conditional-formatting';
-import { FormatPainterStatus, IFormatPainterService } from '@univerjs/sheets-ui';
+import type { IMutationInfo, IRange, Nullable, Workbook } from '@crabtable/core';
+import type { IAddConditionalRuleMutationParams, IDeleteConditionalRuleMutationParams, ISetConditionalRuleMutationParams } from '@crabtable/sheets-conditional-formatting';
+import type { IFormatPainterHook } from '@crabtable/sheets-ui';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject, Injector, ObjectMatrix, Range, Rectangle, Tools } from '@crabtable/core';
+import { createTopMatrixFromMatrix, findAllRectangle, SheetsSelectionsService } from '@crabtable/sheets';
+import { AddConditionalRuleMutation, AddConditionalRuleMutationUndoFactory, ConditionalFormattingRuleModel, ConditionalFormattingViewModel, DeleteConditionalRuleMutation, DeleteConditionalRuleMutationUndoFactory, SetConditionalRuleMutation, setConditionalRuleMutationUndoFactory, SHEET_CONDITIONAL_FORMATTING_PLUGIN } from '@crabtable/sheets-conditional-formatting';
+import { FormatPainterStatus, IFormatPainterService } from '@crabtable/sheets-ui';
 
 const repeatByRange = (sourceRange: IRange, targetRange: IRange) => {
     const getRowLength = (range: IRange) => range.endRow - range.startRow + 1;
@@ -77,7 +77,7 @@ export class ConditionalFormattingPainterController extends Disposable {
     private _painterConfig: Nullable<{ unitId: string; subUnitId: string; range: IRange }> = null;
     constructor(
         @Inject(Injector) private _injector: Injector,
-        @Inject(IUniverInstanceService) private _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(IFormatPainterService) private _formatPainterService: IFormatPainterService,
         @Inject(SheetsSelectionsService) private _sheetsSelectionsService: SheetsSelectionsService,
         @Inject(ConditionalFormattingRuleModel) private _conditionalFormattingRuleModel: ConditionalFormattingRuleModel,
@@ -297,8 +297,8 @@ export class ConditionalFormattingPainterController extends Disposable {
                 switch (status) {
                     case FormatPainterStatus.INFINITE:
                     case FormatPainterStatus.ONCE: {
-                        const unitId = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getUnitId();
-                        const subUnitId = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getActiveSheet()?.getSheetId();
+                        const unitId = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getUnitId();
+                        const subUnitId = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getActiveSheet()?.getSheetId();
                         const selection = this._sheetsSelectionsService.getCurrentLastSelection();
                         const range = selection?.range;
                         if (unitId && subUnitId && range) {

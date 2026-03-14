@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICommand, ITextRangeParam } from '@univerjs/core';
-import { CommandType, CustomRangeType, generateRandomId, ICommandService } from '@univerjs/core';
-import { addCustomRangeBySelectionFactory } from '@univerjs/docs';
+import type { ICommand, ITextRangeParam } from '@crabtable/core';
+import { CommandType, CustomRangeType, generateRandomId, ICommandService } from '@crabtable/core';
+import { addCustomRangeBySelectionFactory } from '@crabtable/docs';
 
 export interface IAddDocHyperLinkCommandParams {
     payload: string;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Worksheet } from '@univerjs/core';
+import type { Worksheet } from '@crabtable/core';
 
 export function rowHeightByHeader(worksheet: Worksheet) {
     const config = worksheet?.getConfig();

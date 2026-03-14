@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IDataValidationRule, IRange, Nullable } from '@univerjs/core';
-import type { IAddSheetDataValidationCommandParams, IClearRangeDataValidationCommandParams } from '@univerjs/sheets-data-validation';
+import type { IDataValidationRule, IRange, Nullable } from '@crabtable/core';
+import type { IAddSheetDataValidationCommandParams, IClearRangeDataValidationCommandParams } from '@crabtable/sheets-data-validation';
 import type { IDataValidationError } from './f-workbook';
-import { DataValidationStatus } from '@univerjs/core';
-import { AddSheetDataValidationCommand, ClearRangeDataValidationCommand, SheetDataValidationModel, SheetsDataValidationValidatorService } from '@univerjs/sheets-data-validation';
-import { FRange } from '@univerjs/sheets/facade';
+import { DataValidationStatus } from '@crabtable/core';
+import { AddSheetDataValidationCommand, ClearRangeDataValidationCommand, SheetDataValidationModel, SheetsDataValidationValidatorService } from '@crabtable/sheets-data-validation';
+import { FRange } from '@crabtable/sheets/facade';
 import { FDataValidation } from './f-data-validation';
 
 /**
@@ -28,16 +28,16 @@ import { FDataValidation } from './f-data-validation';
 export interface IFRangeDataValidationMixin {
     /**
      * Set a data validation rule to current range. if rule is null, clear data validation rule.
-     * @param {Nullable<FDataValidation>} rule data validation rule, build by `FUniver.newDataValidation`
+     * @param {Nullable<FDataValidation>} rule data validation rule, build by `FCrabTable.newDataValidation`
      * @returns current range
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a data validation rule that requires a number between 1 and 10 for the range A1:B10
      * const fRange = fWorksheet.getRange('A1:B10');
-     * const rule = univerAPI.newDataValidation()
+     * const rule = crabtableAPI.newDataValidation()
      *   .requireNumberBetween(1, 10)
      *   .setOptions({
      *     allowBlank: true,
@@ -55,12 +55,12 @@ export interface IFRangeDataValidationMixin {
      * @returns {Nullable<FDataValidation>} data validation rule
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a data validation rule that requires a number equal to 20 for the range A1:B10
      * const fRange = fWorksheet.getRange('A1:B10');
-     * const rule = univerAPI.newDataValidation()
+     * const rule = crabtableAPI.newDataValidation()
      *   .requireNumberEqualTo(20)
      *   .build();
      * fRange.setDataValidation(rule);
@@ -68,8 +68,8 @@ export interface IFRangeDataValidationMixin {
      *
      * // Change the rule criteria to require a number between 1 and 10
      * fRange.getDataValidation().setCriteria(
-     *   univerAPI.Enum.DataValidationType.DECIMAL,
-     *   [univerAPI.Enum.DataValidationOperator.BETWEEN, '1', '10']
+     *   crabtableAPI.Enum.DataValidationType.DECIMAL,
+     *   [crabtableAPI.Enum.DataValidationOperator.BETWEEN, '1', '10']
      * );
      *
      * // Print the new rule criteria values
@@ -83,19 +83,19 @@ export interface IFRangeDataValidationMixin {
      * @returns {FDataValidation[]} all data validation rules
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a data validation rule that requires a number equal to 20 for the range A1:B10
      * const fRange1 = fWorksheet.getRange('A1:B10');
-     * const rule1 = univerAPI.newDataValidation()
+     * const rule1 = crabtableAPI.newDataValidation()
      *   .requireNumberEqualTo(20)
      *   .build();
      * fRange1.setDataValidation(rule1);
      *
      * // Create a data validation rule that requires a number between 1 and 10 for the range C1:D10
      * const fRange2 = fWorksheet.getRange('C1:D10');
-     * const rule2 = univerAPI.newDataValidation()
+     * const rule2 = crabtableAPI.newDataValidation()
      *   .requireNumberBetween(1, 10)
      *   .build();
      * fRange2.setDataValidation(rule2);
@@ -113,7 +113,7 @@ export interface IFRangeDataValidationMixin {
      * @returns {Promise<DataValidationStatus[][]>} matrix of validator status
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Set some values in the range A1:B10
@@ -132,7 +132,7 @@ export interface IFRangeDataValidationMixin {
      * ]);
      *
      * // Create a data validation rule that requires a number between 1 and 10 for the range A1:B10
-     * const rule = univerAPI.newDataValidation()
+     * const rule = crabtableAPI.newDataValidation()
      *   .requireNumberBetween(1, 10)
      *   .build();
      * fRange.setDataValidation(rule);
@@ -152,7 +152,7 @@ export interface IFRangeDataValidationMixin {
      * @returns A promise that resolves to an array of validation errors in the specified range.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:B10');
      * const errors = await fRange.getDataValidationErrorAsync();
@@ -299,7 +299,7 @@ export class FRangeDataValidationMixin extends FRange implements IFRangeDataVali
 }
 
 FRange.extend(FRangeDataValidationMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FRange extends IFRangeDataValidationMixin { }
 }

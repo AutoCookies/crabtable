@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IMutation } from '@univerjs/core';
+import type { IAccessor, IMutation } from '@crabtable/core';
 import type { IRuntimeImageFormulaDataType } from '../../basics/common';
 
-import { CommandType } from '@univerjs/core';
+import { CommandType } from '@crabtable/core';
 
 export interface ISetImageFormulaDataMutationParams {
     imageFormulaData: IRuntimeImageFormulaDataType[];

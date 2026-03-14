@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Injector, Univer } from '@univerjs/core';
-import { EDITOR_ACTIVATED, FOCUSING_SHEET, IContextService } from '@univerjs/core';
+import type { CrabTable, Injector } from '@crabtable/core';
+import { EDITOR_ACTIVATED, FOCUSING_SHEET, IContextService } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { createTestBed } from '../../__tests__/create-test-bed';
 import {
@@ -33,7 +33,7 @@ import {
 } from '../find-replace.shortcut';
 
 describe('find-replace.shortcut', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let contextService: IContextService;
 

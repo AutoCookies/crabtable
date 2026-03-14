@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IOperation } from '@univerjs/core';
+import type { IOperation } from '@crabtable/core';
 import type { FormatPainterStatus } from '../../services/format-painter/format-painter.service';
-import { CommandType } from '@univerjs/core';
+import { CommandType } from '@crabtable/core';
 import { IFormatPainterService } from '../../services/format-painter/format-painter.service';
 
 export interface ISetFormatPainterOperationParams {

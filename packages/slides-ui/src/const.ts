@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-import { createInternalEditorID } from '@univerjs/core';
+import { createInternalEditorID } from '@crabtable/core';
 
 export const SLIDE_EDITOR_ID = createInternalEditorID('SLIDE_EDITOR');

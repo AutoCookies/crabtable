@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import { ICommandService } from '@univerjs/core';
-import { SheetsSelectionsService } from '@univerjs/sheets';
-import { CFRuleType, CFSubRuleType, ClearRangeCfCommand, ClearWorksheetCfCommand } from '@univerjs/sheets-conditional-formatting';
+import type { IAccessor } from '@crabtable/core';
+import { ICommandService } from '@crabtable/core';
+import { SheetsSelectionsService } from '@crabtable/sheets';
+import { CFRuleType, CFSubRuleType, ClearRangeCfCommand, ClearWorksheetCfCommand } from '@crabtable/sheets-conditional-formatting';
 import { describe, expect, it, vi } from 'vitest';
 import { ConditionalFormattingPanelController } from '../../../controllers/cf.panel.controller';
 import { CF_MENU_OPERATION, OpenConditionalFormattingOperator } from '../open-conditional-formatting-panel';

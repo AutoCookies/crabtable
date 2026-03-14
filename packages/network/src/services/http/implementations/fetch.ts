@@ -21,7 +21,7 @@ import type { Subscriber } from 'rxjs';
 import type { HTTPRequest } from '../request';
 import type { HTTPEvent, HTTPResponseBody } from '../response';
 import type { IHTTPImplementation } from './implementation';
-import { ILogService } from '@univerjs/core';
+import { ILogService } from '@crabtable/core';
 import { Observable } from 'rxjs';
 import { HTTPHeaders } from '../headers';
 import { HTTPStatusCode } from '../http';

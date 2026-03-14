@@ -1,8 +1,8 @@
-# @univerjs/docs-hyper-link
+# @crabtable/docs-hyper-link
 
 ## Introduction
 
-`@univerjs/docs-hyper-link` provides the link function of Univer Docs.
+`@crabtable/docs-hyper-link` provides the link function of CrabTable Docs.
 
 ## Usage
 
@@ -10,22 +10,22 @@
 
 ```shell
 # Using npm
-npm install @univerjs/docs-hyper-link
+npm install @crabtable/docs-hyper-link
 
-# Using pnpm
-pnpm add @univerjs/docs-hyper-link
+# Using yarn
+yarn add @crabtable/docs-hyper-link
 ```
 
 ### Register the plugin
 
 ```typescript
-import { UniverDocsHyperLinkUIPlugin} from '@univerjs/docs-hyper-link';
+import { UniverDocsHyperLinkUIPlugin} from '@crabtable/docs-hyper-link';
 
 univer.registerPlugin(UniverDocsHyperLinkUIPlugin);
 ```
 
 <!-- Links -->
-[npm-version-shield]: https://img.shields.io/npm/v/@univerjs/docs-hyper-link?style=flat-square
-[npm-version-link]: https://npmjs.com/package/@univerjs/docs-hyper-link
-[npm-license-shield]: https://img.shields.io/npm/l/@univerjs/docs-hyper-link?style=flat-square
-[npm-downloads-shield]: https://img.shields.io/npm/dm/@univerjs/docs-hyper-link?style=flat-square
+[npm-version-shield]: https://img.shields.io/npm/v/@crabtable/docs-hyper-link?style=flat-square
+[npm-version-link]: https://npmjs.com/package/@crabtable/docs-hyper-link
+[npm-license-shield]: https://img.shields.io/npm/l/@crabtable/docs-hyper-link?style=flat-square
+[npm-downloads-shield]: https://img.shields.io/npm/dm/@crabtable/docs-hyper-link?style=flat-square

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { ICommandService } from '@univerjs/core';
-import { CancelZenEditCommand, ConfirmZenEditCommand, OpenZenEditorCommand } from '@univerjs/sheets-zen-editor';
-import { FWorkbook } from '@univerjs/sheets/facade';
+import { ICommandService } from '@crabtable/core';
+import { CancelZenEditCommand, ConfirmZenEditCommand, OpenZenEditorCommand } from '@crabtable/sheets-zen-editor';
+import { FWorkbook } from '@crabtable/sheets/facade';
 
 /**
  * @ignore
@@ -27,7 +27,7 @@ export interface IFWorkbookSheetsZenEditorMixin {
       * @returns {Promise<boolean>} A promise that resolves to a boolean indicating whether the zen editing process was started successfully.
       * @example
       * ```ts
-      * const fWorkbook = univerAPI.getActiveWorkbook();
+      * const fWorkbook = crabtableAPI.getActiveWorkbook();
       * const success = await fWorkbook.startZenEditingAsync();
       * console.log(success);
       * ```
@@ -41,7 +41,7 @@ export interface IFWorkbookSheetsZenEditorMixin {
       * @returns {Promise<boolean>} A promise that resolves to a boolean indicating whether the zen editing process was ended successfully.
       * @example
       * ```ts
-      * const fWorkbook = univerAPI.getActiveWorkbook();
+      * const fWorkbook = crabtableAPI.getActiveWorkbook();
       * const success = await fWorkbook.endZenEditingAsync(false);
       * console.log(success);
       * ```
@@ -66,7 +66,7 @@ export class FWorkbookSheetsZenEditorMixin extends FWorkbook implements IFWorkbo
 }
 
 FWorkbook.extend(FWorkbookSheetsZenEditorMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FWorkbook extends IFWorkbookSheetsZenEditorMixin {}
 }

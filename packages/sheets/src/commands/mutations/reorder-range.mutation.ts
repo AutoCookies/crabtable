@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { ICellData, IMutation, IRange, Nullable, Workbook } from '@univerjs/core';
+import type { ICellData, IMutation, IRange, Nullable, Workbook } from '@crabtable/core';
 import type { ISheetCommandSharedParams } from '../utils/interface';
-import { CommandType, IUniverInstanceService, ObjectMatrix, Range, Tools } from '@univerjs/core';
+import { CommandType, ICrabTableInstanceService, ObjectMatrix, Range, Tools } from '@crabtable/core';
 
 export interface IReorderRangeMutationParams extends ISheetCommandSharedParams {
     range: IRange;
@@ -40,8 +40,8 @@ export const ReorderRangeMutation: IMutation<IReorderRangeMutationParams> = {
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
         const { subUnitId, unitId, range, order } = params;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const workbook = univerInstanceService.getUnit(unitId) as Workbook;
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const workbook = crabtableInstanceService.getUnit(unitId) as Workbook;
         const worksheet = workbook.getSheetBySheetId(subUnitId);
         if (!worksheet) {
             return false;

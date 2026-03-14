@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { Disposable, Inject } from '@univerjs/core';
+import { Disposable, Inject } from '@crabtable/core';
+import { ComponentManager, IMenuManagerService } from '@crabtable/ui';
 import { TableIcon } from '@univerjs/icons';
-import { ComponentManager, IMenuManagerService } from '@univerjs/ui';
 import { SHEET_TABLE_THEME_PANEL, TABLE_SELECTOR_DIALOG, TABLE_TOOLBAR_BUTTON } from '../const';
 import { SheetTableSelector } from '../views/components/SheetTableSelector';
 import { SheetTableThemePanel } from '../views/components/SheetTableThemePanel';

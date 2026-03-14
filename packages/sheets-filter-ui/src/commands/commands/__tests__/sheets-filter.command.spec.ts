@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { Dependency, IRange, IWorkbookData, Workbook } from '@univerjs/core';
-import type { ISetRangeValuesCommandParams } from '@univerjs/sheets';
-import type { FilterModel, ISetSheetsFilterRangeMutationParams } from '@univerjs/sheets-filter';
-import type { ISetSheetsFilterCriteriaCommandParams } from '@univerjs/sheets-filter/commands/commands/sheets-filter.command.js';
-import { AuthzIoLocalService, IAuthzIoService, ICommandService, Inject, Injector, IUniverInstanceService, LocaleType, Plugin, RANGE_TYPE, RedoCommand, UndoCommand, Univer, UniverInstanceType } from '@univerjs/core';
-import { ActiveDirtyManagerService, IActiveDirtyManagerService, ISheetRowFilteredService, SheetRowFilteredService } from '@univerjs/engine-formula';
-import { RangeProtectionRuleModel, RefRangeService, SetRangeValuesCommand, SetRangeValuesMutation, SheetInterceptorService, SheetRangeThemeModel, SheetsSelectionsService, WorkbookPermissionService, WorksheetPermissionService, WorksheetProtectionPointModel, WorksheetProtectionRuleModel, ZebraCrossingCacheController } from '@univerjs/sheets';
-import { SetSheetsFilterRangeMutation, SheetsFilterService, UniverSheetsFilterPlugin } from '@univerjs/sheets-filter';
-import { ClearSheetsFilterCriteriaCommand, ReCalcSheetsFilterCommand, RemoveSheetFilterCommand, SetSheetFilterRangeCommand, SetSheetsFilterCriteriaCommand, SmartToggleSheetsFilterCommand } from '@univerjs/sheets-filter/commands/commands/sheets-filter.command.js';
-import { IMessageService } from '@univerjs/ui';
-import { MockMessageService } from '@univerjs/ui/services/message/__testing__/mock-message.service.js';
+import type { Dependency, IRange, IWorkbookData, Workbook } from '@crabtable/core';
+import type { ISetRangeValuesCommandParams } from '@crabtable/sheets';
+import type { FilterModel, ISetSheetsFilterRangeMutationParams } from '@crabtable/sheets-filter';
+import type { ISetSheetsFilterCriteriaCommandParams } from '@crabtable/sheets-filter/commands/commands/sheets-filter.command.js';
+import { AuthzIoLocalService, CrabTableInstanceType, IAuthzIoService, ICommandService, ICrabTableInstanceService, Inject, Injector, LocaleType, Plugin, RANGE_TYPE, RedoCommand, UndoCommand } from '@crabtable/core';
+import { ActiveDirtyManagerService, IActiveDirtyManagerService, ISheetRowFilteredService, SheetRowFilteredService } from '@crabtable/engine-formula';
+import { RangeProtectionRuleModel, RefRangeService, SetRangeValuesCommand, SetRangeValuesMutation, SheetInterceptorService, SheetRangeThemeModel, SheetsSelectionsService, WorkbookPermissionService, WorksheetPermissionService, WorksheetProtectionPointModel, WorksheetProtectionRuleModel, ZebraCrossingCacheController } from '@crabtable/sheets';
+import { SetSheetsFilterRangeMutation, SheetsFilterService, UniverSheetsFilterPlugin } from '@crabtable/sheets-filter';
+import { ClearSheetsFilterCriteriaCommand, ReCalcSheetsFilterCommand, RemoveSheetFilterCommand, SetSheetFilterRangeCommand, SetSheetsFilterCriteriaCommand, SmartToggleSheetsFilterCommand } from '@crabtable/sheets-filter/commands/commands/sheets-filter.command.js';
+import { IMessageService } from '@crabtable/ui';
+import { MockMessageService } from '@crabtable/ui/services/message/__testing__/mock-message.service.js';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 function testWorkbookDataFactory(): IWorkbookData {
@@ -76,13 +76,13 @@ function testWorkbookDataFactory(): IWorkbookData {
 };
 
 function createFilterCommandTestBed() {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
     class SheetsFilterCommandTestPlugin extends Plugin {
         static override pluginName = 'sheets-filter-command-test';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(_config: unknown, @Inject(Injector) protected readonly _injector: Injector) {
             super();
@@ -115,7 +115,7 @@ function createFilterCommandTestBed() {
     univer.registerPlugin(UniverSheetsFilterPlugin);
     univer.registerPlugin(SheetsFilterCommandTestPlugin);
 
-    univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, testWorkbookDataFactory());
+    univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, testWorkbookDataFactory());
 
     const commandService = get(ICommandService);
     [
@@ -129,14 +129,14 @@ function createFilterCommandTestBed() {
         ReCalcSheetsFilterCommand,
     ].forEach((command) => commandService.registerCommand(command));
 
-    const univerInstanceService = get(IUniverInstanceService);
-    univerInstanceService.focusUnit('test');
+    const crabtableInstanceService = get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit('test');
 
     return { univer, get };
 }
 
 describe('test sheets filter commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let sheetsFilterService: SheetsFilterService;

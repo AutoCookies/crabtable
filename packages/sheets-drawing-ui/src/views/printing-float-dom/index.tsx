@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Worksheet } from '@univerjs/core';
-import type { Scene, SpreadsheetSkeleton } from '@univerjs/engine-render';
-import type { IFloatDomData } from '@univerjs/sheets-drawing';
-import type { IFloatDom, IFloatDomLayout } from '@univerjs/ui';
-import { PrintFloatDomSingle } from '@univerjs/ui';
+import type { Worksheet } from '@crabtable/core';
+import type { Scene, SpreadsheetSkeleton } from '@crabtable/engine-render';
+import type { IFloatDomData } from '@crabtable/sheets-drawing';
+import type { IFloatDom, IFloatDomLayout } from '@crabtable/ui';
+import { PrintFloatDomSingle } from '@crabtable/ui';
 import { useMemo } from 'react';
 import { BehaviorSubject } from 'rxjs';
 import { transformBound2DOMBound } from '../../services/canvas-float-dom-manager.service';

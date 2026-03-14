@@ -15,16 +15,16 @@
  */
 
 /**
- * This enum defines multiple lifecycle stages in Univer SDK.
+ * This enum defines multiple lifecycle stages in CrabTable SDK.
  */
 export enum LifecycleStages {
     /**
-     * Register plugins to Univer.
+     * Register plugins to CrabTable.
      */
     Starting,
 
     /**
-     * Univer business instances (UniverDoc / UniverSheet / UniverSlide) are created and services or controllers provided by
+     * CrabTable business instances (UniverDoc / UniverSheet / UniverSlide) are created and services or controllers provided by
      * plugins get initialized. The application is ready to do the first-time rendering.
      */
     Ready,

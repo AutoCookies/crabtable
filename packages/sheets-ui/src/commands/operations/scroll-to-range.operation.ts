@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
+import type { ICommand } from '@crabtable/core';
 import type { IScrollToCellCommandParams } from '../commands/set-scroll.command';
-import { CommandType, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { CommandType, CrabTableInstanceType, ICrabTableInstanceService } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { SheetsScrollRenderController } from '../../controllers/render-controllers/scroll.render-controller';
 
 export const ScrollToRangeOperation: ICommand<IScrollToCellCommandParams> = {
@@ -27,10 +27,10 @@ export const ScrollToRangeOperation: ICommand<IScrollToCellCommandParams> = {
         if (!params) {
             return false;
         }
-        const instanceService = accessor.get(IUniverInstanceService);
+        const instanceService = accessor.get(ICrabTableInstanceService);
         const renderManagerService = accessor.get(IRenderManagerService);
         const scrollController = renderManagerService
-            .getRenderById(instanceService.getCurrentUnitForType(UniverInstanceType.UNIVER_SHEET)!.getUnitId())!
+            .getRenderById(instanceService.getCurrentUnitForType(CrabTableInstanceType.CRABTABLE_SHEET)!.getUnitId())!
             .with(SheetsScrollRenderController);
 
         return scrollController.scrollToRange(params.range, params.forceTop, params.forceLeft);

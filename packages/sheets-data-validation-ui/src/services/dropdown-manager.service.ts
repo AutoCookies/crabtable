@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import type { CellValue, IDisposable, Nullable, Workbook } from '@univerjs/core';
-import type { ISetRangeValuesCommandParams, ISheetLocation } from '@univerjs/sheets';
-import type { ListValidator } from '@univerjs/sheets-data-validation';
-import type { IDropdownParam, IEditorBridgeServiceVisibleParam } from '@univerjs/sheets-ui';
+import type { CellValue, IDisposable, Nullable, Workbook } from '@crabtable/core';
+import type { ISetRangeValuesCommandParams, ISheetLocation } from '@crabtable/sheets';
+import type { ListValidator } from '@crabtable/sheets-data-validation';
+import type { IDropdownParam, IEditorBridgeServiceVisibleParam } from '@crabtable/sheets-ui';
 import type { IUniverSheetsDataValidationUIConfig } from '../config/config';
-import { CellValueType, DataValidationErrorStyle, DataValidationRenderMode, dayjs, Disposable, DisposableCollection, ICommandService, IConfigService, Inject, Injector, IUniverInstanceService, numfmt, UniverInstanceType } from '@univerjs/core';
-import { DataValidatorDropdownType, DataValidatorRegistryService } from '@univerjs/data-validation';
-import { DeviceInputEventType } from '@univerjs/engine-render';
-import { SetRangeValuesCommand, SheetsSelectionsService } from '@univerjs/sheets';
-import { getCellValueOrigin, getDataValidationCellValue, serializeListOptions, SheetDataValidationModel } from '@univerjs/sheets-data-validation';
-import { getPatternType } from '@univerjs/sheets-numfmt';
-import { IEditorBridgeService, ISheetCellDropdownManagerService, SetCellEditVisibleOperation } from '@univerjs/sheets-ui';
-import { IZenZoneService, KeyCode } from '@univerjs/ui';
+import { CellValueType, CrabTableInstanceType, DataValidationErrorStyle, DataValidationRenderMode, dayjs, Disposable, DisposableCollection, ICommandService, IConfigService, ICrabTableInstanceService, Inject, Injector, numfmt } from '@crabtable/core';
+import { DataValidatorDropdownType, DataValidatorRegistryService } from '@crabtable/data-validation';
+import { DeviceInputEventType } from '@crabtable/engine-render';
+import { SetRangeValuesCommand, SheetsSelectionsService } from '@crabtable/sheets';
+import { getCellValueOrigin, getDataValidationCellValue, serializeListOptions, SheetDataValidationModel } from '@crabtable/sheets-data-validation';
+import { getPatternType } from '@crabtable/sheets-numfmt';
+import { IEditorBridgeService, ISheetCellDropdownManagerService, SetCellEditVisibleOperation } from '@crabtable/sheets-ui';
+import { IZenZoneService, KeyCode } from '@crabtable/ui';
 import { Subject } from 'rxjs';
 import { OpenValidationPanelOperation } from '../commands/operations/data-validation.operation';
 import { SHEETS_DATA_VALIDATION_UI_PLUGIN_CONFIG_KEY } from '../config/config';
@@ -95,7 +95,7 @@ export class DataValidationDropdownManagerService extends Disposable {
     }
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(DataValidatorRegistryService) private readonly _dataValidatorRegistryService: DataValidatorRegistryService,
         @IZenZoneService private readonly _zenZoneService: IZenZoneService,
         @Inject(SheetDataValidationModel) private readonly _dataValidationModel: SheetDataValidationModel,
@@ -127,8 +127,8 @@ export class DataValidationDropdownManagerService extends Disposable {
 
     private _getDropdownByCell(unitId: string | undefined, subUnitId: string | undefined, row: number, col: number) {
         const workbook = unitId ?
-            this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET)
-            : this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+            this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET)
+            : this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             return;
         }
@@ -492,7 +492,7 @@ export class DataValidationDropdownManagerService extends Disposable {
     }
 
     showDataValidationDropdown(unitId: string, subUnitId: string, row: number, col: number, onHide?: () => void) {
-        const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             return;
         }

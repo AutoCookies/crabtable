@@ -53,7 +53,7 @@ describe('Test lower function', () => {
 
             const text2 = ArrayValueObject.create({
                 calculateValueList: transformToValueObject([
-                    [' Hello Univer '],
+                    [' Hello CrabTable '],
                 ]),
                 rowCount: 1,
                 columnCount: 1,

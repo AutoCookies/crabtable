@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Injector, LocaleService } from '@univerjs/core';
-import { CellValueType, DataValidationOperator, WrapStrategy } from '@univerjs/core';
-import { LexerTreeBuilder } from '@univerjs/engine-formula';
+import type { Injector, LocaleService } from '@crabtable/core';
+import { CellValueType, DataValidationOperator, WrapStrategy } from '@crabtable/core';
+import { LexerTreeBuilder } from '@crabtable/engine-formula';
 import { describe, expect, it, vi } from 'vitest';
 import { DataValidationCustomFormulaService } from '../../services/dv-custom-formula.service';
 import { DataValidationFormulaService } from '../../services/dv-formula.service';
@@ -42,7 +42,7 @@ function createContext() {
         getRuleFormulaResult: vi.fn(async () => ([{ result: [[[[{ v: true }]]]] }, { result: [[[[{ v: false }]]]] }])),
         getRuleFormulaResultSync: vi.fn(() => ([{ result: [[[[{ v: true }]]]] }, { result: [[[[{ v: false }]]]] }])),
     };
-    const univerInstanceService = {
+    const crabtableInstanceService = {
         getUnit: vi.fn(() => ({
             getSheetBySheetId: vi.fn(() => ({
                 getName: () => 'sheet-1',
@@ -72,7 +72,7 @@ function createContext() {
                 return lexerTreeBuilder;
             }
             if (String(token) === 'univer.current') {
-                return univerInstanceService;
+                return crabtableInstanceService;
             }
 
             throw new Error(`Unknown token: ${String(token)}`);

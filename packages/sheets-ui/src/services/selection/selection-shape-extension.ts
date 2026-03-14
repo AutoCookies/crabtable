@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { IFreeze, Injector, IRange, IRangeWithCoord, Nullable, ThemeService } from '@univerjs/core';
-import type { IMouseEvent, IPointerEvent, Scene, SpreadsheetSkeleton, Viewport } from '@univerjs/engine-render';
-import type { ISelectionWithStyle } from '@univerjs/sheets';
+import type { IFreeze, Injector, IRange, IRangeWithCoord, Nullable, ThemeService } from '@crabtable/core';
+import type { IMouseEvent, IPointerEvent, Scene, SpreadsheetSkeleton, Viewport } from '@crabtable/engine-render';
+import type { ISelectionWithStyle } from '@crabtable/sheets';
 import type { Subscription } from 'rxjs';
 import type { SelectionControl } from './selection-control';
-import { ColorKit, IUniverInstanceService, Quantity, UniverInstanceType } from '@univerjs/core';
-import { CURSOR_TYPE, IRenderManagerService, Rect, ScrollTimer, ScrollTimerType, SHEET_VIEWPORT_KEY, Vector2, withCurrentTypeOfRenderer } from '@univerjs/engine-render';
-import { SELECTION_CONTROL_BORDER_BUFFER_WIDTH } from '@univerjs/sheets';
+import { ColorKit, CrabTableInstanceType, ICrabTableInstanceService, Quantity } from '@crabtable/core';
+import { CURSOR_TYPE, IRenderManagerService, Rect, ScrollTimer, ScrollTimerType, SHEET_VIEWPORT_KEY, Vector2, withCurrentTypeOfRenderer } from '@crabtable/engine-render';
+import { SELECTION_CONTROL_BORDER_BUFFER_WIDTH } from '@crabtable/sheets';
 import { SheetSkeletonManagerService } from '../sheet-skeleton-manager.service';
 import { ISheetSelectionRenderService } from './base-selection-render.service';
 import { genNormalSelectionStyle, RANGE_FILL_PERMISSION_CHECK, RANGE_MOVE_PERMISSION_CHECK } from './const';
@@ -133,9 +133,9 @@ export class SelectionShapeExtension {
 
     private _getFreeze() {
         const freeze = withCurrentTypeOfRenderer(
-            UniverInstanceType.UNIVER_SHEET,
+            CrabTableInstanceType.CRABTABLE_SHEET,
             SheetSkeletonManagerService,
-            this._injector.get(IUniverInstanceService),
+            this._injector.get(ICrabTableInstanceService),
             this._injector.get(IRenderManagerService)
         )
             ?.getCurrentParam()
@@ -463,7 +463,7 @@ export class SelectionShapeExtension {
 
         // When dragging the bottom line of the selection area over the previous top line, at this time, endRow < startRow
         // when dragging top line lower than the previous bottom line, at this time, startRow > endRow
-        // see https://github.com/dream-num/univer-pro/issues/1451
+        // see https://github.com/AutoCookies/crabtable-pro/issues/1451
         const startRow = Math.min(originStartRow, originEndRow);
         const startColumn = Math.min(originStartColumn, originEndColumn);
         const endRow = Math.max(originStartRow, originEndRow);

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { BorderStyleTypes } from '@univerjs/core';
+import { BorderStyleTypes } from '@crabtable/core';
 
 import { BorderDashDot } from './icons/BorderDashDot';
 import { BorderDashDotDot } from './icons/BorderDashDotDot';

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
-import type { ISheetLocation } from '@univerjs/sheets';
-import { CommandType, IUniverInstanceService } from '@univerjs/core';
-import { getSheetCommandTarget, SheetsSelectionsService } from '@univerjs/sheets';
-import { SheetsThreadCommentModel } from '@univerjs/sheets-thread-comment';
-import { ThreadCommentPanelService } from '@univerjs/thread-comment-ui';
+import type { ICommand } from '@crabtable/core';
+import type { ISheetLocation } from '@crabtable/sheets';
+import { CommandType, ICrabTableInstanceService } from '@crabtable/core';
+import { getSheetCommandTarget, SheetsSelectionsService } from '@crabtable/sheets';
+import { SheetsThreadCommentModel } from '@crabtable/sheets-thread-comment';
+import { ThreadCommentPanelService } from '@crabtable/thread-comment-ui';
 import { SheetsThreadCommentPopupService } from '../../services/sheets-thread-comment-popup.service';
 
 export const ShowAddSheetCommentModalOperation: ICommand = {
@@ -27,7 +27,7 @@ export const ShowAddSheetCommentModalOperation: ICommand = {
     id: 'sheets.operation.show-comment-modal',
     handler(accessor) {
         const selectionManagerService = accessor.get(SheetsSelectionsService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
         const sheetsThreadCommentPopupService = accessor.get(SheetsThreadCommentPopupService);
         const threadCommentPanelService = accessor.get(ThreadCommentPanelService);
@@ -38,7 +38,7 @@ export const ShowAddSheetCommentModalOperation: ICommand = {
             return false;
         }
 
-        const result = getSheetCommandTarget(univerInstanceService);
+        const result = getSheetCommandTarget(crabtableInstanceService);
         if (!result) {
             return false;
         }

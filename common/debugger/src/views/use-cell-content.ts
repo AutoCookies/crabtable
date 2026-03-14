@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import { ILogService, IUniverInstanceService, ObjectMatrix, Range, UniverInstanceType } from '@univerjs/core';
-import { getSheetCommandTarget, SheetsSelectionsService } from '@univerjs/sheets';
-import { useDependency } from '@univerjs/ui';
+import { CrabTableInstanceType, ICrabTableInstanceService, ILogService, ObjectMatrix, Range } from '@crabtable/core';
+import { getSheetCommandTarget, SheetsSelectionsService } from '@crabtable/sheets';
+import { useDependency } from '@crabtable/ui';
 
-export function useCellContent(fabEntryUnitType?: UniverInstanceType) {
+export function useCellContent(fabEntryUnitType?: CrabTableInstanceType) {
     const logService = useDependency(ILogService);
-    const selectionManagerService = fabEntryUnitType === UniverInstanceType.UNIVER_SHEET ? useDependency(SheetsSelectionsService) : null;
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const selectionManagerService = fabEntryUnitType === CrabTableInstanceType.CRABTABLE_SHEET ? useDependency(SheetsSelectionsService) : null;
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
 
     const onSelect = () => {
         if (!selectionManagerService) return;
         const selections = selectionManagerService.getCurrentSelections();
-        const target = getSheetCommandTarget(univerInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         const matrix = new ObjectMatrix();
         selections.forEach((selection) => {
             Range.foreach(selection.range, (row, col) => {

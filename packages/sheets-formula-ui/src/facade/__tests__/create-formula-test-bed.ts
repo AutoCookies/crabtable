@@ -14,35 +14,34 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData, Workbook } from '@univerjs/core';
+import type { Dependency, IWorkbookData, Workbook } from '@crabtable/core';
 import {
+    CrabTableInstanceType,
+    ICrabTableInstanceService,
     ILogService,
     Inject,
     Injector,
-    IUniverInstanceService,
     LocaleService,
     LocaleType,
     LogLevel,
     Plugin,
-    Univer,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { FUniver } from '@univerjs/core/facade';
-import { ActiveDirtyManagerService, AstRootNodeFactory, AstTreeBuilder, CalculateController, CalculateFormulaService, DefinedNamesService, DependencyManagerService, FeatureCalculationManagerService, FormulaCurrentConfigService, FormulaDataModel, FormulaDependencyGenerator, FormulaRuntimeService, FunctionNodeFactory, FunctionService, HyperlinkEngineFormulaService, IActiveDirtyManagerService, ICalculateFormulaService, IDefinedNamesService, IDependencyManagerService, IFeatureCalculationManagerService, IFormulaCurrentConfigService, IFormulaRuntimeService, IFunctionService, IHyperlinkEngineFormulaService, Interpreter, IOtherFormulaManagerService, ISheetRowFilteredService, ISuperTableService, LambdaNodeFactory, LambdaParameterNodeFactory, Lexer, LexerTreeBuilder, OperatorNodeFactory, OtherFormulaManagerService, PrefixNodeFactory, ReferenceNodeFactory, SheetRowFilteredService, SuffixNodeFactory, SuperTableService, UnionNodeFactory, ValueNodeFactory } from '@univerjs/engine-formula';
-import { IRenderManagerService, RenderManagerService } from '@univerjs/engine-render';
-import { SheetInterceptorService, SheetsSelectionsService } from '@univerjs/sheets';
+} from '@crabtable/core';
+import { FCrabTable } from '@crabtable/core/facade';
+import { ActiveDirtyManagerService, AstRootNodeFactory, AstTreeBuilder, CalculateController, CalculateFormulaService, DefinedNamesService, DependencyManagerService, FeatureCalculationManagerService, FormulaCurrentConfigService, FormulaDataModel, FormulaDependencyGenerator, FormulaRuntimeService, FunctionNodeFactory, FunctionService, HyperlinkEngineFormulaService, IActiveDirtyManagerService, ICalculateFormulaService, IDefinedNamesService, IDependencyManagerService, IFeatureCalculationManagerService, IFormulaCurrentConfigService, IFormulaRuntimeService, IFunctionService, IHyperlinkEngineFormulaService, Interpreter, IOtherFormulaManagerService, ISheetRowFilteredService, ISuperTableService, LambdaNodeFactory, LambdaParameterNodeFactory, Lexer, LexerTreeBuilder, OperatorNodeFactory, OtherFormulaManagerService, PrefixNodeFactory, ReferenceNodeFactory, SheetRowFilteredService, SuffixNodeFactory, SuperTableService, UnionNodeFactory, ValueNodeFactory } from '@crabtable/engine-formula';
+import { IRenderManagerService, RenderManagerService } from '@crabtable/engine-render';
+import { SheetInterceptorService, SheetsSelectionsService } from '@crabtable/sheets';
 import {
     DescriptionService,
     IDescriptionService,
     IRegisterFunctionService,
     RegisterFunctionService,
-} from '@univerjs/sheets-formula';
-import enUS from '@univerjs/sheets-formula-ui/locale/en-US';
-import zhCN from '@univerjs/sheets-formula-ui/locale/zh-CN';
+} from '@crabtable/sheets-formula';
+import enUS from '@crabtable/sheets-formula-ui/locale/en-US';
+import zhCN from '@crabtable/sheets-formula-ui/locale/zh-CN';
 
-import '@univerjs/engine-formula/facade';
-import '@univerjs/sheets/facade';
-import '@univerjs/sheets-formula/facade';
+import '@crabtable/engine-formula/facade';
+import '@crabtable/sheets/facade';
+import '@crabtable/sheets-formula/facade';
 
 function getTestWorkbookDataDemo(): IWorkbookData {
     return {
@@ -86,19 +85,19 @@ function getTestWorkbookDataDemo(): IWorkbookData {
 }
 
 export interface ITestBed {
-    univer: Univer;
+    univer: CrabTable;
     get: Injector['get'];
     sheet: Workbook;
-    univerAPI: FUniver;
+    crabtableAPI: FCrabTable;
 }
 
 export function createFormulaTestBed(workbookData?: IWorkbookData, dependencies?: Dependency[]): ITestBed {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
 
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -122,21 +121,21 @@ export function createFormulaTestBed(workbookData?: IWorkbookData, dependencies?
     injector.get(LocaleService).load({ zhCN, enUS });
 
     univer.registerPlugin(TestPlugin);
-    const sheet = univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, workbookData || getTestWorkbookDataDemo());
+    const sheet = univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, workbookData || getTestWorkbookDataDemo());
 
-    const univerInstanceService = injector.get(IUniverInstanceService);
-    univerInstanceService.focusUnit('test');
+    const crabtableInstanceService = injector.get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit('test');
     const logService = injector.get(ILogService);
 
     logService.setLogLevel(LogLevel.SILENT); // change this to `LogLevel.VERBOSE` to debug tests via logs
 
-    const univerAPI = FUniver.newAPI(injector);
+    const crabtableAPI = FCrabTable.newAPI(injector);
 
     return {
         univer,
         get: injector.get.bind(injector),
         sheet,
-        univerAPI,
+        crabtableAPI,
     };
 }
 

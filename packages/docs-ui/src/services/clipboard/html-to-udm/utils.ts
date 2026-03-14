@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IParagraphStyle, Nullable } from '@univerjs/core';
-import { ptToPixel } from '@univerjs/engine-render';
+import type { IParagraphStyle, Nullable } from '@crabtable/core';
+import { ptToPixel } from '@crabtable/engine-render';
 
 // TODO: @JOCS, Complete other missing attributes that exist in IParagraphStyle
 export function getParagraphStyle(el: HTMLElement): Nullable<IParagraphStyle> {

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { IBaseComment, IThreadComment } from '../types/interfaces/i-thread-comment';
-import { createIdentifier, Disposable } from '@univerjs/core';
+import { createIdentifier, Disposable } from '@crabtable/core';
 
 export type ThreadCommentJSON = {
     id: string;

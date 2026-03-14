@@ -22,8 +22,8 @@ import type {
     Nullable,
     SlideDataModel,
     UnitModel,
-} from '@univerjs/core';
-import type { IDocObjectParam, IEditorInputConfig } from '@univerjs/docs-ui';
+} from '@crabtable/core';
+import type { IDocObjectParam, IEditorInputConfig } from '@crabtable/docs-ui';
 import type {
     DocBackground,
     Documents,
@@ -32,9 +32,10 @@ import type {
     IRenderContext,
     IRenderModule,
     Scene,
-} from '@univerjs/engine-render';
+} from '@crabtable/engine-render';
 import type { IEditorBridgeServiceVisibleParam } from '../services/slide-editor-bridge.service';
 import {
+    CrabTableInstanceType,
     DEFAULT_EMPTY_DOCUMENT_VALUE,
     Direction,
     Disposable,
@@ -46,21 +47,20 @@ import {
     HorizontalAlign,
     ICommandService,
     IContextService,
+    ICrabTableInstanceService,
     Inject,
     IUndoRedoService,
-    IUniverInstanceService,
     LocaleService,
     toDisposable,
-    UniverInstanceType,
     VerticalAlign,
     WrapStrategy,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     DocSelectionManagerService,
     DocSkeletonManagerService,
     RichTextEditingMutation,
-} from '@univerjs/docs';
-import { VIEWPORT_KEY as DOC_VIEWPORT_KEY, DOCS_COMPONENT_MAIN_LAYER_INDEX, DOCS_VIEW_KEY, DocSelectionRenderService, IEditorService, MoveCursorOperation, MoveSelectionOperation } from '@univerjs/docs-ui';
+} from '@crabtable/docs';
+import { VIEWPORT_KEY as DOC_VIEWPORT_KEY, DOCS_COMPONENT_MAIN_LAYER_INDEX, DOCS_VIEW_KEY, DocSelectionRenderService, IEditorService, MoveCursorOperation, MoveSelectionOperation } from '@crabtable/docs-ui';
 import {
     convertTextRotation,
     DeviceInputEventType,
@@ -70,8 +70,8 @@ import {
     IRenderManagerService,
     Rect,
     ScrollBar,
-} from '@univerjs/engine-render';
-import { ILayoutService, KeyCode } from '@univerjs/ui';
+} from '@crabtable/engine-render';
+import { ILayoutService, KeyCode } from '@crabtable/ui';
 import { filter } from 'rxjs';
 import { SetTextEditArrowOperation } from '../commands/operations/text-edit.operation';
 import { SLIDE_EDITOR_ID } from '../const';
@@ -106,7 +106,7 @@ export class SlideEditingRenderController extends Disposable implements IRenderM
         @ILayoutService private readonly _layoutService: ILayoutService,
         @IUndoRedoService private readonly _undoRedoService: IUndoRedoService,
         @IContextService private readonly _contextService: IContextService,
-        @IUniverInstanceService private readonly _instanceSrv: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _instanceSrv: ICrabTableInstanceService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
         @ISlideEditorBridgeService private readonly _editorBridgeService: ISlideEditorBridgeService,
         @ISlideEditorManagerService private readonly _cellEditorManagerService: ISlideEditorManagerService,
@@ -119,7 +119,7 @@ export class SlideEditingRenderController extends Disposable implements IRenderM
 
         // EditingRenderController is per unit. It should only handle keyboard events when the unit is
         // the current of its type.
-        this.disposeWithMe(this._instanceSrv.getCurrentTypeOfUnit$<SlideDataModel>(UniverInstanceType.UNIVER_SLIDE).subscribe((slideDataModel) => {
+        this.disposeWithMe(this._instanceSrv.getCurrentTypeOfUnit$<SlideDataModel>(CrabTableInstanceType.CRABTABLE_SLIDE).subscribe((slideDataModel) => {
             if (slideDataModel && slideDataModel.getUnitId() === this._renderContext.unitId) {
                 this._d = this._init();
             } else {
@@ -201,7 +201,7 @@ export class SlideEditingRenderController extends Disposable implements IRenderM
 
     private _initialCursorSync(d: DisposableCollection) {
         d.add(this._cellEditorManagerService.focus$.pipe(filter((f) => !!f)).subscribe(() => {
-            getCurrentTypeOfRenderer(UniverInstanceType.UNIVER_DOC, this._instanceSrv, this._renderManagerService)
+            getCurrentTypeOfRenderer(CrabTableInstanceType.CRABTABLE_DOC, this._instanceSrv, this._renderManagerService)
                 ?.with(DocSelectionRenderService)
                 .sync();
         }));
@@ -252,7 +252,7 @@ export class SlideEditingRenderController extends Disposable implements IRenderM
             // ---> _focus$.next --> editingRenderController
             // _textSelectionRenderManager.sync() --> _updateInputPosition --> activate(left, top)
 
-            getCurrentTypeOfRenderer(UniverInstanceType.UNIVER_DOC, this._instanceSrv, this._renderManagerService)
+            getCurrentTypeOfRenderer(CrabTableInstanceType.CRABTABLE_DOC, this._instanceSrv, this._renderManagerService)
                 ?.with(DocSelectionRenderService)
                 .activate(HIDDEN_EDITOR_POSITION, HIDDEN_EDITOR_POSITION);
         }));
@@ -768,7 +768,7 @@ export class SlideEditingRenderController extends Disposable implements IRenderM
             return;
         }
 
-        // moveCursor need to put behind of SetRangeValuesCommand, fix https://github.com/dream-num/univer/issues/1155
+        // moveCursor need to put behind of SetRangeValuesCommand, fix https://github.com/AutoCookies/crabtable/issues/1155
         this._moveCursor(keycode);
     }
 

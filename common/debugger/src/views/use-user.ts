@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import { createDefaultUser, IPermissionService, IUniverInstanceService, UniverInstanceType, UserManagerService } from '@univerjs/core';
-import { WorkbookManageCollaboratorPermission } from '@univerjs/sheets';
-import { useDependency } from '@univerjs/ui';
+import type { Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, createDefaultUser, ICrabTableInstanceService, IPermissionService, UserManagerService } from '@crabtable/core';
+import { WorkbookManageCollaboratorPermission } from '@crabtable/sheets';
+import { useDependency } from '@crabtable/ui';
 
 enum UnitRole {
     Reader = 0,
@@ -43,13 +43,13 @@ const menu = [
 ];
 
 export function useUser() {
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const userManagerService = useDependency(UserManagerService);
     const permissionService = useDependency(IPermissionService);
 
     const onSelect = (value: UnitRole) => {
         userManagerService.setCurrentUser(createDefaultUser(value));
-        const workbook = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const unitId = workbook.getUnitId();
         if (value === UnitRole.Owner) {
             permissionService.updatePermissionPoint(new WorkbookManageCollaboratorPermission(unitId).id, true);

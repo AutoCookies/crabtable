@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { MenuConfig } from '@univerjs/ui';
+import type { MenuConfig } from '@crabtable/ui';
 
 export const DOCS_MENTION_UI_PLUGIN_CONFIG_KEY = 'docs-mention-ui.config';
 

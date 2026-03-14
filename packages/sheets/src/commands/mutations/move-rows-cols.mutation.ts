@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IMutation, IRange } from '@univerjs/core';
-import { CommandType, IUniverInstanceService, moveMatrixArray, Rectangle } from '@univerjs/core';
+import type { IAccessor, IMutation, IRange } from '@crabtable/core';
+import { CommandType, ICrabTableInstanceService, moveMatrixArray, Rectangle } from '@crabtable/core';
 
 export interface IMoveRowsMutationParams {
     unitId: string;
@@ -73,9 +73,9 @@ export const MoveRowsMutation: IMutation<IMoveRowsMutationParams> = {
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
         const { unitId, subUnitId, sourceRange, targetRange } = params;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const univerSheet = univerInstanceService.getUniverSheetInstance(unitId);
+        const univerSheet = crabtableInstanceService.getCrabTableSheetInstance(unitId);
         if (!univerSheet) {
             throw new Error('[MoveRowMutation] univerSheet is null!');
         }
@@ -154,9 +154,9 @@ export const MoveColsMutation: IMutation<IMoveColumnsMutationParams> = {
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
         const { unitId, subUnitId, sourceRange, targetRange } = params;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-        const univerSheet = univerInstanceService.getUniverSheetInstance(unitId);
+        const univerSheet = crabtableInstanceService.getCrabTableSheetInstance(unitId);
         if (!univerSheet) {
             throw new Error('[MoveColumnMutation] univerSheet is null!');
         }

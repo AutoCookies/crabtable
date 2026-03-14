@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Disposable, Inject } from '@univerjs/core';
-import { SheetsHyperLinkParserService } from '@univerjs/sheets-hyper-link';
+import { Disposable, Inject } from '@crabtable/core';
+import { SheetsHyperLinkParserService } from '@crabtable/sheets-hyper-link';
 import { SheetsHyperLinkResolverService } from '../services/resolver.service';
 
 export class SheetHyperLinkUrlController extends Disposable {

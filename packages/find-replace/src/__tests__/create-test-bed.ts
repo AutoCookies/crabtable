@@ -14,26 +14,25 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData, Workbook } from '@univerjs/core';
-import type { IMessageProps } from '@univerjs/design';
-import type { IMessageService as IUiMessageService } from '@univerjs/ui';
+import type { Dependency, IWorkbookData, Workbook } from '@crabtable/core';
+import type { IMessageProps } from '@crabtable/design';
+import type { IMessageService as IUiMessageService } from '@crabtable/ui';
 import {
+    CrabTableInstanceType,
     Disposable,
     IConfirmService,
+    ICrabTableInstanceService,
     ILogService,
     Inject,
     Injector,
-    IUniverInstanceService,
     LocaleService,
     LocaleType,
     LogLevel,
     Plugin,
     TestConfirmService,
     Tools,
-    Univer,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { IMessageService } from '@univerjs/ui';
+} from '@crabtable/core';
+import { IMessageService } from '@crabtable/ui';
 import enUS from '../locale/en-US';
 
 import { IFindReplaceService } from '../services/find-replace.service';
@@ -79,18 +78,18 @@ class TestMessageService implements IUiMessageService {
 }
 
 export interface ITestBed {
-    univer: Univer;
+    univer: CrabTable;
     get: Injector['get'];
     sheet: Workbook;
 }
 
 export function createTestBed(workbookData?: IWorkbookData, dependencies?: Dependency[]): ITestBed {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
 
     class TestPlugin extends Plugin {
         static override pluginName = 'find-replace-test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -109,9 +108,9 @@ export function createTestBed(workbookData?: IWorkbookData, dependencies?: Depen
     univer.registerPlugin(TestPlugin);
 
     const snapshot = Tools.deepClone(workbookData || TEST_WORKBOOK_DATA_DEMO);
-    const sheet = univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, snapshot);
-    const univerInstanceService = injector.get(IUniverInstanceService);
-    univerInstanceService.focusUnit(sheet.getUnitId());
+    const sheet = univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, snapshot);
+    const crabtableInstanceService = injector.get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit(sheet.getUnitId());
 
     const logService = injector.get(ILogService);
     logService.setLogLevel(LogLevel.SILENT);

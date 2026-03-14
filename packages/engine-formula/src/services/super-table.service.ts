@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { Observable } from 'rxjs';
 import type { ISuperTable } from '../basics/common';
 
-import { createIdentifier, Disposable } from '@univerjs/core';
+import { createIdentifier, Disposable } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { TableOptionType } from '../basics/common';
 

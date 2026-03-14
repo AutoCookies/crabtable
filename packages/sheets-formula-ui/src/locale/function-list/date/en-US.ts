@@ -25,7 +25,7 @@ const locale = {
             },
         ],
         functionParameter: {
-            year: { name: 'year', detail: 'The value of the year argument can include one to four digits. Excel interprets the year argument according to the date system your computer is using. By default, Univer uses the 1900 date system, which means the first date is January 1, 1900.' },
+            year: { name: 'year', detail: 'The value of the year argument can include one to four digits. Excel interprets the year argument according to the date system your computer is using. By default, CrabTable uses the 1900 date system, which means the first date is January 1, 1900.' },
             month: { name: 'month', detail: 'A positive or negative integer representing the month of the year from 1 to 12 (January to December).' },
             day: { name: 'day', detail: 'A positive or negative integer representing the day of the month from 1 to 31.' },
         },

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { numfmt, Rectangle, Tools } from '@univerjs/core';
+import { numfmt, Rectangle, Tools } from '@crabtable/core';
 
 /**
  * @ignore
@@ -63,7 +63,7 @@ export class FUtil {
      *   { startRow: 0, startColumn: 0, endRow: 1, endColumn: 1 },
      *   { startRow: 1, startColumn: 1, endRow: 2, endColumn: 2 }
      * ];
-     * const merged = univerAPI.Util.rectangle.mergeRanges(ranges);
+     * const merged = crabtableAPI.Util.rectangle.mergeRanges(ranges);
      * console.log(merged);
      * ```
      */
@@ -76,7 +76,7 @@ export class FUtil {
      *
      * @example
      * ```ts
-     * const text = univerAPI.Util.numfmt.format('#,##0.00', 1234.567);
+     * const text = crabtableAPI.Util.numfmt.format('#,##0.00', 1234.567);
      * console.log(text);
      * ```
      */
@@ -89,7 +89,7 @@ export class FUtil {
      *
      * @example
      * ```ts
-     * const key = univerAPI.Util.tools.generateRandomId(6);
+     * const key = crabtableAPI.Util.tools.generateRandomId(6);
      * console.log(key);
      * ```
      */

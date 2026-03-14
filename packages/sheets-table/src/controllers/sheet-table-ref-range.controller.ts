@@ -17,11 +17,11 @@
 /* eslint-disable max-lines-per-function */
 /* eslint-disable complexity */
 
-import type { IMutationInfo, Workbook } from '@univerjs/core';
-import type { IInsertColCommandParams, IInsertRowCommandParams, IInsertRowMutationParams, IRemoveRowColCommandParams } from '@univerjs/sheets';
+import type { IMutationInfo, Workbook } from '@crabtable/core';
+import type { IInsertColCommandParams, IInsertRowCommandParams, IInsertRowMutationParams, IRemoveRowColCommandParams } from '@crabtable/sheets';
 import type { ITableColumnJson } from '../types/type';
-import { Disposable, ICommandService, Inject, Injector, IUniverInstanceService, LocaleService, Rectangle } from '@univerjs/core';
-import { getSheetCommandTarget, InsertColCommand, InsertColMutation, InsertRowCommand, InsertRowMutation, RefRangeService, RemoveColCommand, RemoveColMutation, RemoveRowCommand, RemoveRowMutation, SheetInterceptorService } from '@univerjs/sheets';
+import { Disposable, ICommandService, ICrabTableInstanceService, Inject, Injector, LocaleService, Rectangle } from '@crabtable/core';
+import { getSheetCommandTarget, InsertColCommand, InsertColMutation, InsertRowCommand, InsertRowMutation, RefRangeService, RemoveColCommand, RemoveColMutation, RemoveRowCommand, RemoveRowMutation, SheetInterceptorService } from '@crabtable/sheets';
 import { AddSheetTableMutation } from '../commands/mutations/add-sheet-table.mutation';
 import { DeleteSheetTableMutation } from '../commands/mutations/delete-sheet-table.mutation';
 import { SetSheetTableMutation } from '../commands/mutations/set-sheet-table.mutation';
@@ -33,7 +33,7 @@ export class SheetTableRefRangeController extends Disposable {
     constructor(
         @Inject(ICommandService) private readonly _commandService: ICommandService,
         @Inject(RefRangeService) private readonly _refRangeService: RefRangeService,
-        @Inject(IUniverInstanceService) private readonly _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(Injector) private _injector: Injector,
         @Inject(SheetInterceptorService) private _sheetInterceptorService: SheetInterceptorService,
         @Inject(TableManager) private _tableManager: TableManager,
@@ -71,7 +71,7 @@ export class SheetTableRefRangeController extends Disposable {
         const undos: IMutationInfo[] = [];
         const redos: IMutationInfo[] = [];
 
-        const target = getSheetCommandTarget(this._univerInstanceService, insertParams);
+        const target = getSheetCommandTarget(this._crabtableInstanceService, insertParams);
         if (!target) {
             return { undos, redos };
         }
@@ -129,7 +129,7 @@ export class SheetTableRefRangeController extends Disposable {
         const undos: IMutationInfo[] = [];
         const redos: IMutationInfo[] = [];
 
-        const target = getSheetCommandTarget(this._univerInstanceService, insertParams);
+        const target = getSheetCommandTarget(this._crabtableInstanceService, insertParams);
         if (!target) {
             return { undos, redos };
         }
@@ -188,7 +188,7 @@ export class SheetTableRefRangeController extends Disposable {
         const preRedos: IMutationInfo[] = [];
         const preUndos: IMutationInfo[] = [];
 
-        const target = getSheetCommandTarget(this._univerInstanceService);
+        const target = getSheetCommandTarget(this._crabtableInstanceService);
         if (!target) {
             return { undos, redos, preRedos, preUndos };
         }
@@ -303,7 +303,7 @@ export class SheetTableRefRangeController extends Disposable {
         const preRedos: IMutationInfo[] = [];
         const preUndos: IMutationInfo[] = [];
 
-        const target = getSheetCommandTarget(this._univerInstanceService);
+        const target = getSheetCommandTarget(this._crabtableInstanceService);
         if (!target) {
             return { undos, redos, preRedos, preUndos };
         }
@@ -328,7 +328,7 @@ export class SheetTableRefRangeController extends Disposable {
                     });
                     const tableJson = table.toJSON();
                     const { startRow, startColumn, endColumn } = tableJson.range;
-                    const workbook = this._univerInstanceService.getUnit<Workbook>(unitId);
+                    const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId);
                     const worksheet = workbook?.getSheetBySheetId(subUnitId);
                     if (!worksheet) {
                         return { undos, redos, preRedos, preUndos };

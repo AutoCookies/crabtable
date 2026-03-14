@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
-import type { IDrawingGroupUpdateParam, IDrawingJsonUndo1 } from '@univerjs/drawing';
-import { CommandType } from '@univerjs/core';
-import { IDocDrawingService } from '@univerjs/docs-drawing';
+import type { IAccessor, ICommand } from '@crabtable/core';
+import type { IDrawingGroupUpdateParam, IDrawingJsonUndo1 } from '@crabtable/drawing';
+import { CommandType } from '@crabtable/core';
+import { IDocDrawingService } from '@crabtable/docs-drawing';
 
 /**
  * The command to insert new defined name

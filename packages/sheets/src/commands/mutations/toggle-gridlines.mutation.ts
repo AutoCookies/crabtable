@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { BooleanNumber, IMutation } from '@univerjs/core';
-import { CommandType, IUniverInstanceService } from '@univerjs/core';
+import type { BooleanNumber, IMutation } from '@crabtable/core';
+import { CommandType, ICrabTableInstanceService } from '@crabtable/core';
 import { getSheetCommandTarget } from '../commands/utils/target-util';
 
 export interface IToggleGridlinesMutationParams {
@@ -28,7 +28,7 @@ export const ToggleGridlinesMutation: IMutation<IToggleGridlinesMutationParams> 
     id: 'sheet.mutation.toggle-gridlines',
     type: CommandType.MUTATION,
     handler: (accessor, params) => {
-        const target = getSheetCommandTarget(accessor.get(IUniverInstanceService), params);
+        const target = getSheetCommandTarget(accessor.get(ICrabTableInstanceService), params);
         if (!target) return false;
 
         const { worksheet } = target;

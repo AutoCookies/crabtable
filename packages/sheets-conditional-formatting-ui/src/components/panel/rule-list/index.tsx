@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-import type { IRange, Workbook } from '@univerjs/core';
-import type { IConditionFormattingRule, IDeleteCfCommandParams, IMoveCfCommandParams } from '@univerjs/sheets-conditional-formatting';
-import { ICommandService, Injector, IUniverInstanceService, LocaleService, Rectangle, UniverInstanceType } from '@univerjs/core';
-import { clsx, DraggableList, Select, Tooltip } from '@univerjs/design';
-import { serializeRange } from '@univerjs/engine-formula';
-import { DeleteIcon, IncreaseIcon, SequenceIcon } from '@univerjs/icons';
-import { checkRangesEditablePermission, SetSelectionsOperation, SetWorksheetActiveOperation, SheetsSelectionsService } from '@univerjs/sheets';
+import type { IRange, Workbook } from '@crabtable/core';
+import type { IConditionFormattingRule, IDeleteCfCommandParams, IMoveCfCommandParams } from '@crabtable/sheets-conditional-formatting';
+import { CrabTableInstanceType, ICommandService, ICrabTableInstanceService, Injector, LocaleService, Rectangle } from '@crabtable/core';
+import { clsx, DraggableList, Select, Tooltip } from '@crabtable/design';
+import { serializeRange } from '@crabtable/engine-formula';
+import { checkRangesEditablePermission, SetSelectionsOperation, SetWorksheetActiveOperation, SheetsSelectionsService } from '@crabtable/sheets';
 import {
     AddConditionalRuleMutation,
     CFRuleType,
@@ -32,9 +31,10 @@ import {
     MoveCfCommand,
     MoveConditionalRuleMutation,
     SetConditionalRuleMutation,
-} from '@univerjs/sheets-conditional-formatting';
-import { useHighlightRange } from '@univerjs/sheets-ui';
-import { useDependency, useObservable } from '@univerjs/ui';
+} from '@crabtable/sheets-conditional-formatting';
+import { useHighlightRange } from '@crabtable/sheets-ui';
+import { useDependency, useObservable } from '@crabtable/ui';
+import { DeleteIcon, IncreaseIcon, SequenceIcon } from '@univerjs/icons';
 import { useEffect, useMemo, useState } from 'react';
 import { debounceTime, Observable } from 'rxjs';
 import { ConditionalFormattingI18nController } from '../../../controllers/cf.i18n.controller';
@@ -107,7 +107,7 @@ const getRuleDescribe = (rule: IConditionFormattingRule, localeService: LocaleSe
 export const RuleList = (props: IRuleListProps) => {
     const { onClick } = props;
     const conditionalFormattingRuleModel = useDependency(ConditionalFormattingRuleModel);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const selectionManagerService = useDependency(SheetsSelectionsService);
     const commandService = useDependency(ICommandService);
     const localeService = useDependency(LocaleService);
@@ -115,7 +115,7 @@ export const RuleList = (props: IRuleListProps) => {
 
     const conditionalFormattingI18nController = useDependency(ConditionalFormattingI18nController);
 
-    const workbook = useObservable(() => univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET), undefined, undefined, [])!;
+    const workbook = useObservable(() => crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET), undefined, undefined, [])!;
     const unitId = workbook.getUnitId();
     const worksheet = workbook.getActiveSheet();
     if (!worksheet) {
@@ -181,7 +181,7 @@ export const RuleList = (props: IRuleListProps) => {
                 const commandList = [SetSelectionsOperation.id, AddConditionalRuleMutation.id, SetConditionalRuleMutation.id, DeleteConditionalRuleMutation.id, MoveConditionalRuleMutation.id];
                 const disposable = commandService.onCommandExecuted((commandInfo) => {
                     const { id, params } = commandInfo;
-                    const unitId = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getUnitId();
+                    const unitId = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getUnitId();
                     if (commandList.includes(id) && (params as { unitId: string }).unitId === unitId) {
                         commandSubscribe.next(null);
                     }
@@ -193,7 +193,7 @@ export const RuleList = (props: IRuleListProps) => {
         return () => {
             subscription.unsubscribe();
         };
-    }, [univerInstanceService, selectValue, unitId, subUnitId]);
+    }, [crabtableInstanceService, selectValue, unitId, subUnitId]);
 
     useEffect(() => {
         const dispose = conditionalFormattingRuleModel.$ruleChange.subscribe(() => {
@@ -203,8 +203,8 @@ export const RuleList = (props: IRuleListProps) => {
     }, [conditionalFormattingRuleModel]);
 
     const handleDelete = (rule: IConditionFormattingRule) => {
-        const unitId = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getUnitId();
-        const subUnitId = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()?.getSheetId();
+        const unitId = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getUnitId();
+        const subUnitId = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()?.getSheetId();
         if (!unitId || !subUnitId) {
             throw new Error('No active sheet found');
         }
@@ -218,8 +218,8 @@ export const RuleList = (props: IRuleListProps) => {
 
     const handleDragStop = (_layout: unknown, from: { y: number }, to: { y: number }) => {
         setDraggingId('');
-        const unitId = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getUnitId();
-        const subUnitId = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()?.getSheetId();
+        const unitId = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getUnitId();
+        const subUnitId = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()?.getSheetId();
         if (!unitId || !subUnitId) {
             throw new Error('No active sheet found');
         }
@@ -253,7 +253,7 @@ export const RuleList = (props: IRuleListProps) => {
         }
     };
     const ruleListByPermissionCheck = useMemo(() => {
-        const workbook = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet();
         return ruleList.filter((rule) => {
             const ranges = rule.ranges;
@@ -263,7 +263,7 @@ export const RuleList = (props: IRuleListProps) => {
     }, [ruleList]);
 
     const isHasAllRuleEditPermission = useMemo(() => {
-        const workbook = univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const worksheet = workbook.getActiveSheet();
         return ruleList.every((rule) => {
             const ranges = rule.ranges;

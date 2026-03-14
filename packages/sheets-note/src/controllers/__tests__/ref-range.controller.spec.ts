@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData, Nullable, Workbook } from '@univerjs/core';
-import type { IInsertColCommandParams, IInsertRowCommandParams, IRemoveColByRangeCommandParams, IRemoveRowByRangeCommandParams } from '@univerjs/sheets';
+import type { Dependency, IWorkbookData, Nullable, Workbook } from '@crabtable/core';
+import type { IInsertColCommandParams, IInsertRowCommandParams, IRemoveColByRangeCommandParams, IRemoveRowByRangeCommandParams } from '@crabtable/sheets';
 import type { ISheetNote } from '../../models/sheets-note.model';
-import { Direction, ICommandService, ILogService, Inject, Injector, IUndoRedoService, IUniverInstanceService, LocaleType, LogLevel, Plugin, touchDependencies, UndoCommand, Univer, UniverInstanceType } from '@univerjs/core';
+import { CrabTableInstanceType, Direction, ICommandService, ICrabTableInstanceService, ILogService, Inject, Injector, IUndoRedoService, LocaleType, LogLevel, Plugin, touchDependencies, UndoCommand } from '@crabtable/core';
 import {
     InsertColByRangeCommand,
     InsertColMutation,
@@ -32,7 +32,7 @@ import {
     SetSelectionsOperation,
     SheetInterceptorService,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SheetsNoteModel } from '../../models/sheets-note.model';
 import { SheetsNoteRefRangeController } from '../sheets-note-ref-range.controller';
@@ -66,13 +66,13 @@ const TEST_WORKBOOK_DATA: IWorkbookData = {
 };
 
 export function createRefRangeTestBed() {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -109,10 +109,10 @@ export function createRefRangeTestBed() {
     }
 
     univer.registerPlugin(TestPlugin);
-    const sheet = univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, TEST_WORKBOOK_DATA);
+    const sheet = univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, TEST_WORKBOOK_DATA);
 
-    const univerInstanceService = get(IUniverInstanceService);
-    univerInstanceService.focusUnit('test');
+    const crabtableInstanceService = get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit('test');
 
     const logService = get(ILogService);
     logService.setLogLevel(LogLevel.SILENT);
@@ -125,7 +125,7 @@ export function createRefRangeTestBed() {
 }
 
 describe('test note ref range controller', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let sheetsNoteModel: SheetsNoteModel;

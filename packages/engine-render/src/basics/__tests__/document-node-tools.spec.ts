@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { DataStreamTreeTokenType } from '@univerjs/core';
+import { DataStreamTreeTokenType } from '@crabtable/core';
 import { describe, expect, it } from 'vitest';
 import {
     getParagraphByGlyph,

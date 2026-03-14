@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IAccessor, ICommand } from '@univerjs/core';
-import type { IDocDrawing } from '@univerjs/docs-drawing';
+import type { IAccessor, ICommand } from '@crabtable/core';
+import type { IDocDrawing } from '@crabtable/docs-drawing';
 import type { IDrawingDocTransform, IUpdateDrawingDocTransformParams } from './update-doc-drawing.command';
-import { CommandType, Direction, ICommandService, IUniverInstanceService, PositionedObjectLayoutType } from '@univerjs/core';
-import { IDocDrawingService } from '@univerjs/docs-drawing';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import { CommandType, Direction, ICommandService, ICrabTableInstanceService, PositionedObjectLayoutType } from '@crabtable/core';
+import { IDocDrawingService } from '@crabtable/docs-drawing';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { UpdateDrawingDocTransformCommand } from './update-doc-drawing.command';
 
 export interface IMoveDrawingsCommandParams {
@@ -34,7 +34,7 @@ export const MoveDocDrawingsCommand: ICommand = {
     handler: (accessor: IAccessor, params: IMoveDrawingsCommandParams) => {
         const commandService = accessor.get(ICommandService);
         const docDrawingService = accessor.get(IDocDrawingService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const renderManagerService = accessor.get(IRenderManagerService);
 
         const { direction } = params;
@@ -54,7 +54,7 @@ export const MoveDocDrawingsCommand: ICommand = {
         }
         const transformer = scene.getTransformerByCreate();
 
-        const documentDataModel = univerInstanceService.getUniverDocInstance(unitId);
+        const documentDataModel = crabtableInstanceService.getUniverDocInstance(unitId);
 
         const newDrawings = drawings.map((drawing) => {
             const { drawingId } = drawing as IDocDrawing;

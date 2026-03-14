@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Disposable, ICommandService } from '@univerjs/core';
-import { IMenuManagerService, IShortcutService, IZenZoneService } from '@univerjs/ui';
+import { Disposable, ICommandService } from '@crabtable/core';
+import { IMenuManagerService, IShortcutService, IZenZoneService } from '@crabtable/ui';
 
 import { CancelZenEditCommand, ConfirmZenEditCommand, OpenZenEditorCommand } from '../commands/commands/zen-editor.command';
 import { menuSchema } from '../menu/schema';

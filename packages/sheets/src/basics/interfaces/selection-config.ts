@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IRange, IRangeCellData } from '@univerjs/core';
+import type { IRange, IRangeCellData } from '@crabtable/core';
 
 export interface ISelectionConfig {
     selection: IRange;

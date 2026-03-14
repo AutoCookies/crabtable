@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, IExecutionOptions } from '@univerjs/core';
-import { ICommandService, IUniverInstanceService, LocaleService, toDisposable } from '@univerjs/core';
-import { borderClassName, clsx, DropdownMenu } from '@univerjs/design';
-import { convertTransformToOffsetX, convertTransformToOffsetY, IRenderManagerService } from '@univerjs/engine-render';
+import type { ICommandInfo, IExecutionOptions } from '@crabtable/core';
+import { ICommandService, ICrabTableInstanceService, LocaleService, toDisposable } from '@crabtable/core';
+import { borderClassName, clsx, DropdownMenu } from '@crabtable/design';
+import { convertTransformToOffsetX, convertTransformToOffsetY, IRenderManagerService } from '@crabtable/engine-render';
+import { AUTO_FILL_APPLY_TYPE, IAutoFillService, RefillCommand } from '@crabtable/sheets';
+import { useDependency } from '@crabtable/ui';
 import { AutofillDoubleIcon, MoreDownIcon } from '@univerjs/icons';
-import { AUTO_FILL_APPLY_TYPE, IAutoFillService, RefillCommand } from '@univerjs/sheets';
-import { useDependency } from '@univerjs/ui';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { SetScrollOperation } from '../../commands/operations/scroll.operation';
 import { useActiveWorkbook } from '../../components/hook';
@@ -47,7 +47,7 @@ const useUpdate = () => {
 
 export function AutoFillPopupMenu() {
     const commandService = useDependency(ICommandService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const renderManagerService = useDependency(IRenderManagerService);
     const autoFillService = useDependency(IAutoFillService);
     const localeService = useDependency(LocaleService);
@@ -148,7 +148,7 @@ export function AutoFillPopupMenu() {
         return null;
     }
 
-    const sheetObject = getSheetObject(univerInstanceService, renderManagerService);
+    const sheetObject = getSheetObject(crabtableInstanceService, renderManagerService);
     if (!sheetObject || !selectionRenderService) return null;
 
     const { scene } = sheetObject;

@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { IDrawingParam, Nullable } from '@univerjs/core';
-import type { BaseObject } from '@univerjs/engine-render';
-import type { ISheetDrawing } from '@univerjs/sheets-drawing';
-import { ICommandService, LocaleService } from '@univerjs/core';
-import { clsx, Radio, RadioGroup } from '@univerjs/design';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { SheetDrawingAnchorType } from '@univerjs/sheets-drawing';
-import { useDependency } from '@univerjs/ui';
+import type { IDrawingParam, Nullable } from '@crabtable/core';
+import type { BaseObject } from '@crabtable/engine-render';
+import type { ISheetDrawing } from '@crabtable/sheets-drawing';
+import { ICommandService, LocaleService } from '@crabtable/core';
+import { clsx, Radio, RadioGroup } from '@crabtable/design';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { SheetDrawingAnchorType } from '@crabtable/sheets-drawing';
+import { useDependency } from '@crabtable/ui';
 import { useEffect, useState } from 'react';
 import { SetSheetDrawingCommand } from '../../commands/commands/set-sheet-drawing.command';
 

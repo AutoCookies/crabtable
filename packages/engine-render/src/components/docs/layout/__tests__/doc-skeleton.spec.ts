@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ColumnSeparatorType, createDocumentModelWithStyle, LocaleService, Univer } from '@univerjs/core';
+import { ColumnSeparatorType, CrabTable, createDocumentModelWithStyle, LocaleService } from '@crabtable/core';
 import { describe, expect, it, vi } from 'vitest';
 import { DocumentSkeletonPageType, GlyphType, PageLayoutType } from '../../../../basics/i-document-skeleton-cached';
 import { Vector2 } from '../../../../basics/vector2';
@@ -343,7 +343,7 @@ describe('doc skeleton', () => {
     });
 
     it('calculates real skeleton layout from document view model', () => {
-        const univer = new Univer();
+        const univer = new CrabTable();
         const localeService = univer.__getInjector().get(LocaleService);
 
         const documentModel = createDocumentModelWithStyle(

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { ISize } from '@univerjs/core';
+import type { ISize } from '@crabtable/core';
 
 interface IImageParam extends ISize {
     image: HTMLImageElement;

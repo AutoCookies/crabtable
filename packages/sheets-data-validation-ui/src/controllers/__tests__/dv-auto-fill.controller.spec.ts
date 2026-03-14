@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import { DataValidationType } from '@univerjs/core';
-import { AUTO_FILL_APPLY_TYPE, AutoFillTools } from '@univerjs/sheets';
-import { DATA_VALIDATION_PLUGIN_NAME, getDataValidationDiffMutations } from '@univerjs/sheets-data-validation';
-import { virtualizeDiscreteRanges } from '@univerjs/sheets-ui';
+import { DataValidationType } from '@crabtable/core';
+import { AUTO_FILL_APPLY_TYPE, AutoFillTools } from '@crabtable/sheets';
+import { DATA_VALIDATION_PLUGIN_NAME, getDataValidationDiffMutations } from '@crabtable/sheets-data-validation';
+import { virtualizeDiscreteRanges } from '@crabtable/sheets-ui';
 import { describe, expect, it, vi } from 'vitest';
 import { DataValidationAutoFillController } from '../dv-auto-fill.controller';
 
-vi.mock('@univerjs/sheets-ui', async (importActual) => {
-    const actual = await importActual<typeof import('@univerjs/sheets-ui')>();
+vi.mock('@crabtable/sheets-ui', async (importActual) => {
+    const actual = await importActual<typeof import('@crabtable/sheets-ui')>();
     return {
         ...actual,
         virtualizeDiscreteRanges: vi.fn(() => ({
@@ -35,16 +35,16 @@ vi.mock('@univerjs/sheets-ui', async (importActual) => {
     };
 });
 
-vi.mock('@univerjs/sheets-data-validation', async (importActual) => {
-    const actual = await importActual<typeof import('@univerjs/sheets-data-validation')>();
+vi.mock('@crabtable/sheets-data-validation', async (importActual) => {
+    const actual = await importActual<typeof import('@crabtable/sheets-data-validation')>();
     return {
         ...actual,
         getDataValidationDiffMutations: vi.fn(() => ({ redoMutations: ['redo-dv'], undoMutations: ['undo-dv'] })),
     };
 });
 
-vi.mock('@univerjs/sheets', async (importActual) => {
-    const actual = await importActual<typeof import('@univerjs/sheets')>();
+vi.mock('@crabtable/sheets', async (importActual) => {
+    const actual = await importActual<typeof import('@crabtable/sheets')>();
     return {
         ...actual,
         AutoFillTools: {

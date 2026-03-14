@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IDocumentData } from '@univerjs/core';
-import { DEFAULT_EMPTY_DOCUMENT_VALUE, DocumentFlavor, IContextService } from '@univerjs/core';
-import { borderClassName, clsx } from '@univerjs/design';
-import { IEditorService } from '@univerjs/docs-ui';
-import { FIX_ONE_PIXEL_BLUR_OFFSET } from '@univerjs/engine-render';
-import { DISABLE_AUTO_FOCUS_KEY, useDependency, useObservable } from '@univerjs/ui';
+import type { IDocumentData } from '@crabtable/core';
+import { DEFAULT_EMPTY_DOCUMENT_VALUE, DocumentFlavor, IContextService } from '@crabtable/core';
+import { borderClassName, clsx } from '@crabtable/design';
+import { IEditorService } from '@crabtable/docs-ui';
+import { FIX_ONE_PIXEL_BLUR_OFFSET } from '@crabtable/engine-render';
+import { DISABLE_AUTO_FOCUS_KEY, useDependency, useObservable } from '@crabtable/ui';
 import { useEffect, useState } from 'react';
 import { SLIDE_EDITOR_ID } from '../../const';
 import { ISlideEditorManagerService } from '../../services/slide-editor-manager.service';

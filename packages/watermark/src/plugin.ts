@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Dependency } from '@univerjs/core';
-import type { IWatermarkConfigWithType } from '@univerjs/engine-render';
+import type { Dependency } from '@crabtable/core';
+import type { IWatermarkConfigWithType } from '@crabtable/engine-render';
 import type { IUniverWatermarkConfig } from './config/config';
-import { IConfigService, ILocalStorageService, Inject, Injector, merge, Plugin, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService, IWatermarkTypeEnum, UNIVER_WATERMARK_STORAGE_KEY } from '@univerjs/engine-render';
+import { CrabTableInstanceType, IConfigService, ILocalStorageService, Inject, Injector, merge, Plugin } from '@crabtable/core';
+import { IRenderManagerService, IWatermarkTypeEnum, UNIVER_WATERMARK_STORAGE_KEY } from '@crabtable/engine-render';
 import pkg from '../package.json';
 import { WatermarkImageBaseConfig, WatermarkTextBaseConfig, WatermarkUserInfoBaseConfig } from './common/const';
 import { defaultPluginConfig, WATERMARK_PLUGIN_CONFIG_KEY } from './config/config';
@@ -102,8 +102,8 @@ export class UniverWatermarkPlugin extends Plugin {
         ([
             [WatermarkRenderController],
         ] as Dependency[]).forEach((d) => {
-            this._renderManagerSrv.registerRenderModule(UniverInstanceType.UNIVER_SHEET, d);
-            this._renderManagerSrv.registerRenderModule(UniverInstanceType.UNIVER_DOC, d);
+            this._renderManagerSrv.registerRenderModule(CrabTableInstanceType.CRABTABLE_SHEET, d);
+            this._renderManagerSrv.registerRenderModule(CrabTableInstanceType.CRABTABLE_DOC, d);
         });
     }
 }

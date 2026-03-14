@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IMutation } from '@univerjs/core';
+import type { IMutation } from '@crabtable/core';
 import type { ITableOptions, ITableRange } from '../../types/type';
-import { CommandType } from '@univerjs/core';
+import { CommandType } from '@crabtable/core';
 import { SheetTableService } from '../../services/table-service';
 
 export interface IAddSheetTableParams {

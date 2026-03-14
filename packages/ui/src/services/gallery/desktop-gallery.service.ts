@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
-import type { IGalleryProps } from '@univerjs/design';
+import type { IDisposable } from '@crabtable/core';
+import type { IGalleryProps } from '@crabtable/design';
 import type { IGalleryService } from './gallery.service';
-import { Disposable, Inject, Injector, toDisposable } from '@univerjs/core';
+import { Disposable, Inject, Injector, toDisposable } from '@crabtable/core';
 import { Subject } from 'rxjs';
 import { connectInjector } from '../../utils/di';
 import { GalleryPart } from '../../views/components/gallery-part/GalleryPart';

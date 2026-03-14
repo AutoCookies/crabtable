@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { DependencyOverride } from '@univerjs/core';
+import type { DependencyOverride } from '@crabtable/core';
 
 export const PLUGIN_CONFIG_KEY = 'graphics.config';
 

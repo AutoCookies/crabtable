@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
-import type { IConditionFormattingRule } from '@univerjs/sheets-conditional-formatting';
-import { Disposable, generateRandomId, Inject, Injector, IUniverInstanceService, LocaleService, UniverInstanceType } from '@univerjs/core';
-import { ComponentManager, ISidebarService } from '@univerjs/ui';
+import type { IDisposable } from '@crabtable/core';
+import type { IConditionFormattingRule } from '@crabtable/sheets-conditional-formatting';
+import { CrabTableInstanceType, Disposable, generateRandomId, ICrabTableInstanceService, Inject, Injector, LocaleService } from '@crabtable/core';
+import { ComponentManager, ISidebarService } from '@crabtable/ui';
 import { ConditionFormattingPanel } from '../components/panel';
 
 const CF_PANEL_KEY = 'sheet.conditional.formatting.panel';
@@ -26,7 +26,7 @@ export class ConditionalFormattingPanelController extends Disposable {
     private _sidebarDisposable: IDisposable | null = null;
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(Injector) private _injector: Injector,
         @Inject(ComponentManager) private _componentManager: ComponentManager,
         @Inject(ISidebarService) private _sidebarService: ISidebarService,
@@ -37,7 +37,7 @@ export class ConditionalFormattingPanelController extends Disposable {
         this._initPanel();
 
         this.disposeWithMe(
-            this._univerInstanceService.getCurrentTypeOfUnit$(UniverInstanceType.UNIVER_SHEET).subscribe((sheet) => {
+            this._crabtableInstanceService.getCurrentTypeOfUnit$(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((sheet) => {
                 if (!sheet) this._sidebarDisposable?.dispose();
             })
         );

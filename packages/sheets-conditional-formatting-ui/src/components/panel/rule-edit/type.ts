@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { InterceptorManager } from '@univerjs/core';
-import type { IConditionalFormattingRuleConfig } from '@univerjs/sheets-conditional-formatting';
-import { createInterceptorKey } from '@univerjs/core';
+import type { InterceptorManager } from '@crabtable/core';
+import type { IConditionalFormattingRuleConfig } from '@crabtable/sheets-conditional-formatting';
+import { createInterceptorKey } from '@crabtable/core';
 
 export const beforeSubmit = createInterceptorKey<boolean, null>('beforeSubmit');
 export const submit = createInterceptorKey<any, null>('submit');

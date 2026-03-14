@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICellData, Nullable, Styles } from '@univerjs/core';
-import { getNumfmtParseValueFilter, LocaleType, numfmt } from '@univerjs/core';
+import type { ICellData, Nullable, Styles } from '@crabtable/core';
+import { getNumfmtParseValueFilter, LocaleType, numfmt } from '@crabtable/core';
 import { FormulaAstLRU } from '../../basics/cache-lru';
 import { operatorToken } from '../../basics/token';
 
@@ -152,9 +152,9 @@ export function handleNumfmtInCell(oldCell: Nullable<ICellData>, cell: Nullable<
  * │ Custom          │ Custom     │ Custom     │ Currency   │ Accounting │ Date     │ Custom   │ Percentage │ Fraction │ Scientific │ Text     │ Custom     │ Custom    │
  * └─────────────────┴────────────┴────────────┴────────────┴────────────┴──────────┴──────────┴────────────┴──────────┴────────────┴──────────┴────────────┴───────────┘
  *
- * The number formats supported by Univer are different from Excel, so it only processes the parts that are the same as Excel. For different parts, we consider the newly set number format to have a higher priority.
+ * The number formats supported by CrabTable are different from Excel, so it only processes the parts that are the same as Excel. For different parts, we consider the newly set number format to have a higher priority.
  *
- * In the future, if Univer completely matches Excel, we will implement Excel’s priority rules.
+ * In the future, if CrabTable completely matches Excel, we will implement Excel’s priority rules.
  *
  * @param oldPattern
  * @param pattern

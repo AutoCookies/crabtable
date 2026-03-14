@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
-import { CommandType, DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY, ICommandService, IUniverInstanceService } from '@univerjs/core';
+import type { ICommand } from '@crabtable/core';
+import { CommandType, DOCS_FORMULA_BAR_EDITOR_UNIT_ID_KEY, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
 
-import { getSheetCommandTarget } from '@univerjs/sheets';
+import { getSheetCommandTarget } from '@crabtable/sheets';
 import { SHEET_ZOOM_RANGE } from '../../common/keys';
 import { IEditorBridgeService } from '../../services/editor-bridge.service';
 import { SetZoomRatioOperation } from '../operations/set-zoom-ratio.operation';
@@ -44,8 +44,8 @@ export const ChangeZoomRatioCommand: ICommand<IChangeZoomRatioCommandParams> = {
             return false;
         }
 
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { worksheet, subUnitId, unitId } = target;

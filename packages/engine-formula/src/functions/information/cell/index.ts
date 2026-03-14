@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IColumnData, IObjectArrayPrimitiveType } from '@univerjs/core';
+import type { IColumnData, IObjectArrayPrimitiveType } from '@crabtable/core';
 import type { BaseReferenceObject, FunctionVariantType } from '../../../engine/reference-object/base-reference-object';
 import type { BaseValueObject } from '../../../engine/value-object/base-value-object';
-import { Tools } from '@univerjs/core';
+import { Tools } from '@crabtable/core';
 import { ErrorType } from '../../../basics/error-type';
 import { ArrayValueObject } from '../../../engine/value-object/array-value-object';
 import { ErrorValueObject } from '../../../engine/value-object/base-value-object';

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { INeedCheckDisposable, ITextRangeParam } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { BaseObject, Documents, IBoundRectNoAngle, IRender, Scene } from '@univerjs/engine-render';
-import type { IPopup } from '@univerjs/ui';
-import { Disposable, DisposableCollection, ICommandService, Inject, IUniverInstanceService } from '@univerjs/core';
-import { DocSkeletonManagerService, RichTextEditingMutation } from '@univerjs/docs';
-import { IRenderManagerService, pxToNum } from '@univerjs/engine-render';
-import { ICanvasPopupService } from '@univerjs/ui';
+import type { INeedCheckDisposable, ITextRangeParam } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { BaseObject, Documents, IBoundRectNoAngle, IRender, Scene } from '@crabtable/engine-render';
+import type { IPopup } from '@crabtable/ui';
+import { Disposable, DisposableCollection, ICommandService, ICrabTableInstanceService, Inject } from '@crabtable/core';
+import { DocSkeletonManagerService, RichTextEditingMutation } from '@crabtable/docs';
+import { IRenderManagerService, pxToNum } from '@crabtable/engine-render';
+import { ICanvasPopupService } from '@crabtable/ui';
 import { BehaviorSubject, map } from 'rxjs';
 import { VIEWPORT_KEY } from '../basics/docs-view-key';
 import { SetDocZoomRatioOperation } from '../commands/operations/set-doc-zoom-ratio.operation';
@@ -128,7 +128,7 @@ export class DocCanvasPopManagerService extends Disposable {
     constructor(
         @Inject(ICanvasPopupService) private readonly _globalPopupManagerService: ICanvasPopupService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @ICommandService private readonly _commandService: ICommandService
     ) {
         super();
@@ -303,7 +303,7 @@ export class DocCanvasPopManagerService extends Disposable {
      * @returns disposable
      */
     attachPopupToRange(range: ITextRangeParam, popup: IDocCanvasPopup, unitId: string): INeedCheckDisposable {
-        const doc = this._univerInstanceService.getUnit(unitId);
+        const doc = this._crabtableInstanceService.getUnit(unitId);
         if (!doc) {
             throw new Error(`Document not found, unitId: ${unitId}`);
         }

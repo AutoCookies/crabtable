@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { CommentUpdate, IThreadComment } from '@univerjs/thread-comment';
-import { Disposable, Inject, IUniverInstanceService, ObjectMatrix, UniverInstanceType } from '@univerjs/core';
-import { singleReferenceToGrid } from '@univerjs/engine-formula';
-import { ThreadCommentModel } from '@univerjs/thread-comment';
+import type { CommentUpdate, IThreadComment } from '@crabtable/thread-comment';
+import { CrabTableInstanceType, Disposable, ICrabTableInstanceService, Inject, ObjectMatrix } from '@crabtable/core';
+import { singleReferenceToGrid } from '@crabtable/engine-formula';
+import { ThreadCommentModel } from '@crabtable/thread-comment';
 import { Subject } from 'rxjs';
 
 export type SheetCommentUpdate = CommentUpdate & {
@@ -34,7 +34,7 @@ export class SheetsThreadCommentModel extends Disposable {
 
     constructor(
         @Inject(ThreadCommentModel) private readonly _threadCommentModel: ThreadCommentModel,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService
     ) {
         super();
         this._init();
@@ -147,8 +147,8 @@ export class SheetsThreadCommentModel extends Disposable {
             const { unitId, subUnitId } = update;
 
             try {
-                const type = this._univerInstanceService.getUnitType(unitId);
-                if (type !== UniverInstanceType.UNIVER_SHEET) {
+                const type = this._crabtableInstanceService.getUnitType(unitId);
+                if (type !== CrabTableInstanceType.CRABTABLE_SHEET) {
                     return;
                 }
             } catch (error) {

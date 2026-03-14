@@ -27,7 +27,7 @@ describe('Test trim function', () => {
 
     describe('Trim', () => {
         it('Value is normal', () => {
-            const text = StringValueObject.create(' Univer ');
+            const text = StringValueObject.create(' CrabTable ');
             const result = testFunction.calculate(text);
             expect(getObjectValue(result)).toStrictEqual('Univer');
         });
@@ -53,7 +53,7 @@ describe('Test trim function', () => {
 
             const text2 = ArrayValueObject.create({
                 calculateValueList: transformToValueObject([
-                    [' Hello Univer '],
+                    [' Hello CrabTable '],
                 ]),
                 rowCount: 1,
                 columnCount: 1,

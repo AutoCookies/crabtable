@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { DataValidationStatus, IDataValidationRule, IDataValidationRuleBase, IDataValidationRuleOptions, IRange, ISheetDataValidationRule } from '@univerjs/core';
-import type { IEventBase } from '@univerjs/core/facade';
-import type { DataValidationChangeType, IRuleChange } from '@univerjs/data-validation';
-import type { FWorkbook, FWorksheet } from '@univerjs/sheets/facade';
+import type { DataValidationStatus, IDataValidationRule, IDataValidationRuleBase, IDataValidationRuleOptions, IRange, ISheetDataValidationRule } from '@crabtable/core';
+import type { IEventBase } from '@crabtable/core/facade';
+import type { DataValidationChangeType, IRuleChange } from '@crabtable/data-validation';
+import type { FWorkbook, FWorksheet } from '@crabtable/sheets/facade';
 import type { FDataValidation } from './f-data-validation';
-import { FEventName } from '@univerjs/core/facade';
+import { FEventName } from '@crabtable/core/facade';
 
 /**
  * Event interface triggered when a data validation rule is changed
@@ -182,7 +182,7 @@ interface IDataValidationEvent {
      * @see {@link ISheetDataValidationChangedEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SheetDataValidationChanged, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetDataValidationChanged, (params) => {
      *   const { origin, worksheet, workbook, changeType, oldRule, rule } = params;
      *   console.log(params);
      * });
@@ -197,7 +197,7 @@ interface IDataValidationEvent {
      * @see {@link ISheetDataValidatorStatusChangedEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.SheetDataValidatorStatusChanged, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.SheetDataValidatorStatusChanged, (params) => {
      *   const { worksheet, workbook, row, column, status, rule } = params;
      *   console.log(params);
      * });
@@ -212,7 +212,7 @@ interface IDataValidationEvent {
      * @see {@link IBeforeSheetDataValidationAddEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetDataValidationAdd, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetDataValidationAdd, (params) => {
      *   const { worksheet, workbook, rule } = params;
      *   console.log(params);
      *
@@ -230,7 +230,7 @@ interface IDataValidationEvent {
      * @see {@link IBeforeSheetDataValidationDeleteEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetDataValidationDelete, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetDataValidationDelete, (params) => {
      *   const { worksheet, workbook, ruleId, rule } = params;
      *   console.log(params);
      *
@@ -248,7 +248,7 @@ interface IDataValidationEvent {
      * @see {@link IBeforeSheetDataValidationDeleteAllEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetDataValidationDeleteAll, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetDataValidationDeleteAll, (params) => {
      *   const { worksheet, workbook, rules } = params;
      *   console.log(params);
      *
@@ -266,7 +266,7 @@ interface IDataValidationEvent {
      * @see {@link IBeforeSheetDataValidationCriteriaUpdateEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetDataValidationCriteriaUpdate, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetDataValidationCriteriaUpdate, (params) => {
      *   const { worksheet, workbook, ruleId, rule, newCriteria } = params;
      *   console.log(params);
      *
@@ -284,7 +284,7 @@ interface IDataValidationEvent {
      * @see {@link IBeforeSheetDataValidationRangeUpdateEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetDataValidationRangeUpdate, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetDataValidationRangeUpdate, (params) => {
      *   const { worksheet, workbook, ruleId, rule, newRanges } = params;
      *   console.log(params);
      *
@@ -302,7 +302,7 @@ interface IDataValidationEvent {
      * @see {@link IBeforeSheetDataValidationOptionsUpdateEvent}
      * @example
      * ```ts
-     * const disposable = univerAPI.addEvent(univerAPI.Event.BeforeSheetDataValidationOptionsUpdate, (params) => {
+     * const disposable = crabtableAPI.addEvent(crabtableAPI.Event.BeforeSheetDataValidationOptionsUpdate, (params) => {
      *   const { worksheet, workbook, ruleId, rule, newOptions } = params;
      *   console.log(params);
      *
@@ -368,7 +368,7 @@ export interface IDataValidationEventConfig {
 }
 
 FEventName.extend(FDataValidationEvent);
-declare module '@univerjs/core/facade' {
+declare module '@crabtable/core/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FEventName extends IDataValidationEvent {
     }

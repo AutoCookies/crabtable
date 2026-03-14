@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { ICommandService } from '@univerjs/core';
-import { Button } from '@univerjs/design';
+import { ICommandService } from '@crabtable/core';
+import { Button } from '@crabtable/design';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { RecordIcon } from '@univerjs/icons';
-import { useDependency, useObservable } from '@univerjs/ui';
 import { useCallback } from 'react';
 import { CompleteRecordingActionCommand, StartRecordingActionCommand, StopRecordingActionCommand } from '../../commands/commands/record.command';
 import { CloseRecordPanelOperation } from '../../commands/operations/operation';

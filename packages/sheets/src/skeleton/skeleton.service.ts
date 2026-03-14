@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Nullable, SheetSkeleton } from '@univerjs/core';
-import { Disposable, Inject, Injector } from '@univerjs/core';
+import type { Nullable, SheetSkeleton } from '@crabtable/core';
+import { Disposable, Inject, Injector } from '@crabtable/core';
 
 export class SheetSkeletonService extends Disposable {
     private _sheetSkeletonStore: Map<string, Map<string, SheetSkeleton>> = new Map();

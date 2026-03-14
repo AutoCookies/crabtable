@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IParagraph } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
+import type { DocumentDataModel, IParagraph } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
 import type { ISideMenuItem } from '../../components/side-menu';
 import type { IUniverDocsUIConfig } from '../../config/config';
 import type { IMutiPageParagraphBound } from '../../services/doc-event-manager.service';
-import { debounce, fromEventSubject, getPlainText, ICommandService, isInternalEditorID, IUniverInstanceService, NamedStyleType, UniverInstanceType } from '@univerjs/core';
-import { RichTextEditingMutation } from '@univerjs/docs';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { useConfigValue, useDependency, useEvent, useObservable } from '@univerjs/ui';
+import { CrabTableInstanceType, debounce, fromEventSubject, getPlainText, ICommandService, ICrabTableInstanceService, isInternalEditorID, NamedStyleType } from '@crabtable/core';
+import { RichTextEditingMutation } from '@crabtable/docs';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { useConfigValue, useDependency, useEvent, useObservable } from '@crabtable/ui';
 import { useEffect, useMemo, useState } from 'react';
 import { of, throttleTime } from 'rxjs';
 import { VIEWPORT_KEY } from '../../basics/docs-view-key';
@@ -90,8 +90,8 @@ export function DocSideMenu() {
 
 function DocSideMenuContent() {
     const commandService = useDependency(ICommandService);
-    const instanceService = useDependency(IUniverInstanceService);
-    const currentDoc = useObservable(useMemo(() => instanceService.getCurrentTypeOfUnit$<DocumentDataModel>(UniverInstanceType.UNIVER_DOC), []));
+    const instanceService = useDependency(ICrabTableInstanceService);
+    const currentDoc = useObservable(useMemo(() => instanceService.getCurrentTypeOfUnit$<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC), []));
     const renderManagerService = useDependency(IRenderManagerService);
     const fullDataStream = currentDoc?.getBody()?.dataStream ?? '';
     const [_updateKey, setUpdateKey] = useState(0);

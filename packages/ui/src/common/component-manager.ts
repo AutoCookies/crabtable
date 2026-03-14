@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
 import type { ForwardRefExoticComponent } from 'react';
-import { Disposable, toDisposable } from '@univerjs/core';
+import { Disposable, toDisposable } from '@crabtable/core';
 import {
     AddDigitsIcon,
     AddImageIcon,
@@ -282,7 +282,7 @@ export class ComponentManager extends Disposable {
         const { framework = 'react' } = options || {};
 
         if (framework === 'vue3' && !this._handler.vue3) {
-            throw new Error('[ComponentManager] Vue3 support is no longer built-in since v0.9.0, please install @univerjs/ui-adapter-vue3 plugin.');
+            throw new Error('[ComponentManager] Vue3 support is no longer built-in since v0.9.0, please install @crabtable/ui-adapter-vue3 plugin.');
         }
 
         if (this._components.has(name)) {

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { Disposable, Inject } from '@univerjs/core';
+import { Disposable, Inject } from '@crabtable/core';
+import { THREAD_COMMENT_PANEL } from '@crabtable/thread-comment-ui';
+import { ComponentManager, IMenuManagerService, IShortcutService } from '@crabtable/ui';
 import { CommentIcon } from '@univerjs/icons';
-import { THREAD_COMMENT_PANEL } from '@univerjs/thread-comment-ui';
-import { ComponentManager, IMenuManagerService, IShortcutService } from '@univerjs/ui';
 import { AddCommentShortcut } from '../menu/menu';
 import { menuSchema } from '../menu/schema';
 import { SHEETS_THREAD_COMMENT_MODAL } from '../types/const';

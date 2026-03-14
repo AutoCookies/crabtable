@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, IDrawingParam, IObjectPositionH, IObjectPositionV, Nullable } from '@univerjs/core';
-import type { IDocDrawing } from '@univerjs/docs-drawing';
-import type { IDocumentSkeletonDrawing } from '@univerjs/engine-render';
+import type { ICommandInfo, IDrawingParam, IObjectPositionH, IObjectPositionV, Nullable } from '@crabtable/core';
+import type { IDocDrawing } from '@crabtable/docs-drawing';
+import type { IDocumentSkeletonDrawing } from '@crabtable/engine-render';
 import {
     DocumentFlavor,
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     LocaleService,
     ObjectRelativeFromH,
     ObjectRelativeFromV,
     PositionedObjectLayoutType,
-} from '@univerjs/core';
-import { Checkbox, clsx, InputNumber, Select } from '@univerjs/design';
-import { DocSkeletonManagerService, RichTextEditingMutation } from '@univerjs/docs';
-import { DocSelectionRenderService } from '@univerjs/docs-ui';
-import { IDrawingManagerService } from '@univerjs/drawing';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { useDependency } from '@univerjs/ui';
+} from '@crabtable/core';
+import { Checkbox, clsx, InputNumber, Select } from '@crabtable/design';
+import { DocSkeletonManagerService, RichTextEditingMutation } from '@crabtable/docs';
+import { DocSelectionRenderService } from '@crabtable/docs-ui';
+import { IDrawingManagerService } from '@crabtable/drawing';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { useDependency } from '@crabtable/ui';
 import { useEffect, useState } from 'react';
 import { UpdateDrawingDocTransformCommand } from '../../commands/commands/update-doc-drawing.command';
 
@@ -47,7 +47,7 @@ export const DocDrawingPosition = (props: IDocDrawingPositionProps) => {
     const localeService = useDependency(LocaleService);
     const drawingManagerService = useDependency(IDrawingManagerService);
     const renderManagerService = useDependency(IRenderManagerService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
 
     const { drawings } = props;
 
@@ -59,7 +59,7 @@ export const DocDrawingPosition = (props: IDocDrawingPositionProps) => {
 
     const { unitId } = drawingParam;
 
-    const documentDataModel = univerInstanceService.getUniverDocInstance(unitId);
+    const documentDataModel = crabtableInstanceService.getUniverDocInstance(unitId);
 
     const documentFlavor = documentDataModel?.getSnapshot().documentStyle.documentFlavor;
 
@@ -250,7 +250,7 @@ export const DocDrawingPosition = (props: IDocDrawingPositionProps) => {
         }
 
         const { drawingId, unitId } = focusDrawings[0];
-        const documentDataModel = univerInstanceService.getUniverDocInstance(unitId);
+        const documentDataModel = crabtableInstanceService.getUniverDocInstance(unitId);
         const skeleton = renderManagerService.getRenderById(unitId)
             ?.with(DocSkeletonManagerService)
             .getSkeleton();

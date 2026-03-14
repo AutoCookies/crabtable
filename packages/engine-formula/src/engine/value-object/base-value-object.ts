@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { CustomData, Nullable } from '@univerjs/core';
+import type { CustomData, Nullable } from '@crabtable/core';
 import { FormulaAstLRU } from '../../basics/cache-lru';
 import { ConcatenateType } from '../../basics/common';
 import { ErrorType } from '../../basics/error-type';

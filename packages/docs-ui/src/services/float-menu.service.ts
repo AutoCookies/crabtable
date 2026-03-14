@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, IDisposable, ITextRangeParam, Nullable } from '@univerjs/core';
-import type { INodePosition, IRenderContext, IRenderModule, ITextRangeWithStyle } from '@univerjs/engine-render';
-import { DataStreamTreeTokenType, deepCompare, Disposable, Inject, isInternalEditorID, IUniverInstanceService, toDisposable, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { ComponentManager } from '@univerjs/ui';
+import type { DocumentDataModel, IDisposable, ITextRangeParam, Nullable } from '@crabtable/core';
+import type { INodePosition, IRenderContext, IRenderModule, ITextRangeWithStyle } from '@crabtable/engine-render';
+import { CrabTableInstanceType, DataStreamTreeTokenType, deepCompare, Disposable, ICrabTableInstanceService, Inject, isInternalEditorID, toDisposable } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { ComponentManager } from '@crabtable/ui';
 import { FloatToolbar } from '../components/float-toolbar/FloatToolbar';
 import { DocCanvasPopManagerService } from './doc-popup-manager.service';
 import { DocSelectionRenderService } from './selection/doc-selection-render.service';
@@ -48,7 +48,7 @@ export class DocFloatMenuService extends Disposable implements IRenderModule {
         @Inject(DocSelectionManagerService) private readonly _docSelectionManagerService: DocSelectionManagerService,
         @Inject(DocCanvasPopManagerService) private readonly _docCanvasPopManagerService: DocCanvasPopManagerService,
         @Inject(ComponentManager) private readonly _componentManager: ComponentManager,
-        @Inject(IUniverInstanceService) private readonly _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(DocSelectionRenderService) private readonly _docSelectionRenderService: DocSelectionRenderService
     ) {
         super();
@@ -103,7 +103,7 @@ export class DocFloatMenuService extends Disposable implements IRenderModule {
     }
 
     private _showFloatMenu(unitId: string, range: ITextRangeParam) {
-        const documentDataModel = this._univerInstanceService.getUnit<DocumentDataModel>(unitId, UniverInstanceType.UNIVER_DOC);
+        const documentDataModel = this._crabtableInstanceService.getUnit<DocumentDataModel>(unitId, CrabTableInstanceType.CRABTABLE_DOC);
         if (!documentDataModel || documentDataModel.getDisabled()) {
             return;
         }

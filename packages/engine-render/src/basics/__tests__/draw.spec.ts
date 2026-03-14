@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { BorderStyleTypes } from '@univerjs/core';
+import { BorderStyleTypes } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { BORDER_TYPE, ORIENTATION_TYPE } from '../const';
 import {

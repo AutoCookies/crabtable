@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-import type { FUniver } from '@univerjs/core/facade';
+import type { FCrabTable } from '@crabtable/core/facade';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createWorksheetTestBed } from './create-worksheet-test-bed';
 
 describe('Test FWorksheet', () => {
-    let univerAPI: FUniver;
+    let crabtableAPI: FCrabTable;
     beforeEach(() => {
         const testBed = createWorksheetTestBed();
 
-        univerAPI = testBed.univerAPI;
+        crabtableAPI = testBed.crabtableAPI;
     });
 
     it('Worksheet getDataValidations', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
         expect(activeSheet?.getDataValidations()).toBeDefined();
     });
 
     it('Worksheet getValidatorStatus', async () => {
-        const activeSheet = univerAPI.getActiveWorkbook()?.getSheetByName('sheet1');
+        const activeSheet = crabtableAPI.getActiveWorkbook()?.getSheetByName('sheet1');
         expect(activeSheet?.getValidatorStatus()).toBeDefined();
     });
 });

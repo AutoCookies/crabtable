@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICellData, Nullable } from '@univerjs/core';
-import { getOriginCellValue } from '@univerjs/core';
+import type { ICellData, Nullable } from '@crabtable/core';
+import { getOriginCellValue } from '@crabtable/core';
 
 export function getCellValueOrigin(cell: Nullable<ICellData>) {
     return getOriginCellValue(cell);

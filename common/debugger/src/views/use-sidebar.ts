@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ISidebarService, useDependency } from '@univerjs/ui';
+import { ISidebarService, useDependency } from '@crabtable/ui';
 import { TEST_EDITOR_CONTAINER_COMPONENT } from './test-editor/component-name';
 
 const menu = [

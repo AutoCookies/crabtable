@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { CustomDecorationType, DocumentDataModel, IAccessor, IMutationInfo } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { ITextRangeWithStyle } from '@univerjs/engine-render';
-import { BuildTextUtils, IUniverInstanceService, JSONX, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService, RichTextEditingMutation } from '@univerjs/docs';
+import type { CustomDecorationType, DocumentDataModel, IAccessor, IMutationInfo } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { ITextRangeWithStyle } from '@crabtable/engine-render';
+import { BuildTextUtils, CrabTableInstanceType, ICrabTableInstanceService, JSONX } from '@crabtable/core';
+import { DocSelectionManagerService, RichTextEditingMutation } from '@crabtable/docs';
 
 interface IAddCustomDecorationParam {
     unitId: string;
@@ -59,11 +59,11 @@ interface IAddCustomDecorationFactoryParam {
 export function addCustomDecorationBySelectionFactory(accessor: IAccessor, param: IAddCustomDecorationFactoryParam) {
     const { segmentId, id, type, unitId: propUnitId } = param;
     const docSelectionManagerService = accessor.get(DocSelectionManagerService);
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
     const documentDataModel = propUnitId ?
-        univerInstanceService.getUnit<DocumentDataModel>(propUnitId, UniverInstanceType.UNIVER_DOC)
-        : univerInstanceService.getCurrentUnitForType<DocumentDataModel>(UniverInstanceType.UNIVER_DOC);
+        crabtableInstanceService.getUnit<DocumentDataModel>(propUnitId, CrabTableInstanceType.CRABTABLE_DOC)
+        : crabtableInstanceService.getCurrentUnitForType<DocumentDataModel>(CrabTableInstanceType.CRABTABLE_DOC);
     if (!documentDataModel) {
         return false;
     }
@@ -99,9 +99,9 @@ export interface IDeleteCustomRangeParam {
 
 export function deleteCustomDecorationFactory(accessor: IAccessor, params: IDeleteCustomRangeParam) {
     const { unitId, id, segmentId } = params;
-    const univerInstanceService = accessor.get(IUniverInstanceService);
+    const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
 
-    const documentDataModel = univerInstanceService.getUnit<DocumentDataModel>(unitId);
+    const documentDataModel = crabtableInstanceService.getUnit<DocumentDataModel>(unitId);
     if (!documentDataModel) {
         return false;
     }

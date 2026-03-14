@@ -17,11 +17,11 @@
 // This file provides a ton of mutations to manipulate `FilterModel`.
 // These models would be held on `SheetsFilterService`.
 
-import type { IAccessor, ICellData, ICommand, IRange, Nullable, Worksheet } from '@univerjs/core';
-import type { IReorderRangeCommandParams, ISheetCommandSharedParams } from '@univerjs/sheets';
+import type { IAccessor, ICellData, ICommand, IRange, Nullable, Worksheet } from '@crabtable/core';
+import type { IReorderRangeCommandParams, ISheetCommandSharedParams } from '@crabtable/sheets';
 import type { IOrderRule, SortType } from '../../services/interface';
-import { CommandType, ICommandService, IUniverInstanceService, Rectangle, sequenceExecute } from '@univerjs/core';
-import { getSheetCommandTarget, ReorderRangeCommand } from '@univerjs/sheets';
+import { CommandType, ICommandService, ICrabTableInstanceService, Rectangle, sequenceExecute } from '@crabtable/core';
+import { getSheetCommandTarget, ReorderRangeCommand } from '@crabtable/sheets';
 import { SheetsSortService } from '../../services/sheets-sort.service';
 
 export interface ISortRangeCommandParams extends ISheetCommandSharedParams {
@@ -52,8 +52,8 @@ export const SortRangeCommand: ICommand = {
     handler: (accessor: IAccessor, params: ISortRangeCommandParams) => {
         const { range, orderRules, hasTitle, unitId, subUnitId } = params;
         const sortService = accessor.get(SheetsSortService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const { worksheet } = getSheetCommandTarget(univerInstanceService, params) || {};
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const { worksheet } = getSheetCommandTarget(crabtableInstanceService, params) || {};
         if (!worksheet) {
             return false;
         }

@@ -21,7 +21,7 @@ import type {
     IMutationInfo,
     IRange,
     Workbook,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import type {
     IAddWorksheetMergeMutationParams,
     IInsertColMutationParams,
@@ -41,19 +41,19 @@ import type { IMoveRowsMutationParams } from '../commands/mutations/move-rows-co
 import type { ISetWorksheetActiveOperationParams } from '../commands/operations/set-worksheet-active.operation';
 import type { EffectRefRangeParams } from '../services/ref-range/type';
 import {
+    CrabTableInstanceType,
     createInterceptorKey,
     Dimension,
     Disposable,
     DisposableCollection,
     ICommandService,
+    ICrabTableInstanceService,
     Inject,
     Injector,
     InterceptorManager,
-    IUniverInstanceService,
     Rectangle,
     Tools,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import { first } from 'rxjs';
 import { ClearSelectionAllCommand } from '../commands/commands/clear-selection-all.command';
 import { ClearSelectionFormatCommand } from '../commands/commands/clear-selection-format.command';
@@ -137,7 +137,7 @@ export class MergeCellController extends Disposable {
     constructor(
         @Inject(ICommandService) private readonly _commandService: ICommandService,
         @Inject(RefRangeService) private readonly _refRangeService: RefRangeService,
-        @Inject(IUniverInstanceService) private readonly _univerInstanceService: IUniverInstanceService,
+        @Inject(ICrabTableInstanceService) private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(Injector) private _injector: Injector,
         @Inject(SheetInterceptorService) private _sheetInterceptorService: SheetInterceptorService,
         @Inject(SheetsSelectionsService) private _selectionManagerService: SheetsSelectionsService
@@ -156,7 +156,7 @@ export class MergeCellController extends Disposable {
                     case ClearSelectionAllCommand.id:
                     case ClearSelectionFormatCommand.id: {
                         // TODO@Gggpound: get by unit id and subUnitId
-                        const workbook = self._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+                        const workbook = self._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
                         const unitId = workbook.getUnitId();
                         const worksheet = workbook?.getActiveSheet();
                         if (!worksheet) {
@@ -202,7 +202,7 @@ export class MergeCellController extends Disposable {
                 if (!ranges || !ranges.length) {
                     return emptyInterceptorArr;
                 }
-                const target = getSheetCommandTarget(this._univerInstanceService, { unitId, subUnitId });
+                const target = getSheetCommandTarget(this._crabtableInstanceService, { unitId, subUnitId });
                 if (!target) {
                     return emptyInterceptorArr;
                 }
@@ -291,7 +291,7 @@ export class MergeCellController extends Disposable {
 
     private _onRefRangeChange() {
         const registerRefRange = (unitId: string, subUnitId: string) => {
-            const workbook = this._univerInstanceService.getUniverSheetInstance(unitId);
+            const workbook = this._crabtableInstanceService.getCrabTableSheetInstance(unitId);
             if (!workbook) {
                 return;
             }
@@ -333,7 +333,7 @@ export class MergeCellController extends Disposable {
             })
         );
 
-        this._univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET).pipe(first((workbook) => !!workbook)).subscribe((workbook) => {
+        this._crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).pipe(first((workbook) => !!workbook)).subscribe((workbook) => {
             const sheet = workbook!.getActiveSheet();
             if (!sheet) return;
 
@@ -342,7 +342,7 @@ export class MergeCellController extends Disposable {
     }
 
     private _handleMoveRowsCommand(params: IMoveRowsCommandParams, unitId: string, subUnitId: string) {
-        const workbook = getWorkbook(this._univerInstanceService, unitId);
+        const workbook = getWorkbook(this._crabtableInstanceService, unitId);
         if (!workbook) {
             return this._handleNull();
         }
@@ -378,7 +378,7 @@ export class MergeCellController extends Disposable {
     }
 
     private _handleMoveColsCommand(params: IMoveColsCommandParams, unitId: string, subUnitId: string) {
-        const workbook = getWorkbook(this._univerInstanceService, unitId);
+        const workbook = getWorkbook(this._crabtableInstanceService, unitId);
         if (!workbook) {
             return this._handleNull();
         }
@@ -414,7 +414,7 @@ export class MergeCellController extends Disposable {
     }
 
     private _handleMoveRangeCommand(params: IMoveRangeCommandParams, unitId: string, subUnitId: string) {
-        const workbook = getWorkbook(this._univerInstanceService, unitId);
+        const workbook = getWorkbook(this._crabtableInstanceService, unitId);
         if (!workbook) {
             return this._handleNull();
         }
@@ -496,7 +496,7 @@ export class MergeCellController extends Disposable {
     }
 
     private _handleInsertRowCommand(config: IInsertRowCommandParams, unitId: string, subUnitId: string) {
-        const workbook = getWorkbook(this._univerInstanceService, unitId);
+        const workbook = getWorkbook(this._crabtableInstanceService, unitId);
         if (!workbook) {
             return this._handleNull();
         }
@@ -560,7 +560,7 @@ export class MergeCellController extends Disposable {
 
     private _handleInsertColCommand(config: IInsertColCommandParams, unitId: string, subUnitId: string) {
         const { range } = config;
-        const workbook = getWorkbook(this._univerInstanceService, unitId);
+        const workbook = getWorkbook(this._crabtableInstanceService, unitId);
         if (!workbook) {
             return this._handleNull();
         }
@@ -622,7 +622,7 @@ export class MergeCellController extends Disposable {
     }
 
     private _handleRemoveColCommand(config: IRemoveColMutationParams, unitId: string, subUnitId: string) {
-        const workbook = getWorkbook(this._univerInstanceService, unitId);
+        const workbook = getWorkbook(this._crabtableInstanceService, unitId);
         if (!workbook) {
             return this._handleNull();
         }
@@ -691,7 +691,7 @@ export class MergeCellController extends Disposable {
 
     private _handleRemoveRowCommand(config: IRemoveRowsMutationParams, unitId: string, subUnitId: string) {
         const { range } = config;
-        const workbook = getWorkbook(this._univerInstanceService, unitId);
+        const workbook = getWorkbook(this._crabtableInstanceService, unitId);
         if (!workbook) {
             return this._handleNull();
         }
@@ -763,7 +763,7 @@ export class MergeCellController extends Disposable {
         unitId: string,
         subUnitId: string
     ) {
-        const workbook = getWorkbook(this._univerInstanceService, unitId);
+        const workbook = getWorkbook(this._crabtableInstanceService, unitId);
         if (!workbook) {
             return this._handleNull();
         }
@@ -854,7 +854,7 @@ export class MergeCellController extends Disposable {
         unitId: string,
         subUnitId: string
     ) {
-        const workbook = getWorkbook(this._univerInstanceService, unitId);
+        const workbook = getWorkbook(this._crabtableInstanceService, unitId);
         if (!workbook) {
             return this._handleNull();
         }
@@ -936,7 +936,7 @@ export class MergeCellController extends Disposable {
         unitId: string,
         subUnitId: string
     ) {
-        const workbook = getWorkbook(this._univerInstanceService, unitId);
+        const workbook = getWorkbook(this._crabtableInstanceService, unitId);
         if (!workbook) {
             return this._handleNull();
         }
@@ -1014,7 +1014,7 @@ export class MergeCellController extends Disposable {
         unitId: string,
         subUnitId: string
     ) {
-        const workbook = getWorkbook(this._univerInstanceService, unitId);
+        const workbook = getWorkbook(this._crabtableInstanceService, unitId);
         if (!workbook) {
             return this._handleNull();
         }
@@ -1109,7 +1109,7 @@ export class MergeCellController extends Disposable {
             // 1. MoveRowsOrColsMutation
             if (mutationIdArrByMove.includes(command.id)) {
                 if (!command.params) return;
-                const workbook = this._univerInstanceService.getUniverSheetInstance((command.params as IMoveRowsMutationParams).unitId);
+                const workbook = this._crabtableInstanceService.getCrabTableSheetInstance((command.params as IMoveRowsMutationParams).unitId);
                 if (!workbook) return;
                 const worksheet = workbook.getSheetBySheetId((command.params as IMoveRowsMutationParams).subUnitId);
                 if (!worksheet) return;
@@ -1164,7 +1164,7 @@ export class MergeCellController extends Disposable {
 
             // 2. InsertRowsOrCols / RemoveRowsOrCols Mutations
             if (mutationIdByRowCol.includes(command.id)) {
-                const workbook = this._univerInstanceService.getUniverSheetInstance((command.params as IInsertColMutationParams).unitId);
+                const workbook = this._crabtableInstanceService.getCrabTableSheetInstance((command.params as IInsertColMutationParams).unitId);
                 if (!workbook) return;
                 const worksheet = workbook.getSheetBySheetId((command.params as IInsertColMutationParams).subUnitId);
                 if (!worksheet) return;
@@ -1231,11 +1231,11 @@ export class MergeCellController extends Disposable {
     }
 }
 
-function getWorkbook(univerInstanceService: IUniverInstanceService, unitId?: string) {
+function getWorkbook(crabtableInstanceService: ICrabTableInstanceService, unitId?: string) {
     if (unitId) {
-        return univerInstanceService.getUniverSheetInstance(unitId);
+        return crabtableInstanceService.getCrabTableSheetInstance(unitId);
     }
-    return univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+    return crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
 }
 
 function getWorksheet(workbook: Workbook, subUnitId?: string) {

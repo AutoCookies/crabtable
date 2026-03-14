@@ -28,7 +28,7 @@ describe('Test isemail function', () => {
 
     describe('Isemail', () => {
         it('value is normal', () => {
-            const value = StringValueObject.create('developer@univer.ai');
+            const value = StringValueObject.create('developer@crabtable.dev');
             const result = testFunction.calculate(value);
             expect(getObjectValue(result)).toBe(true);
         });

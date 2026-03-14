@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import type { Univer } from '../../univer';
+import type { CrabTable } from '../../univer';
 import { UnitAction, UnitObject, UnitRole } from '@univerjs/protocol';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { UniverInstanceType } from '../../common/unit';
+import { CrabTableInstanceType } from '../../common/unit';
 import { IAuthzIoService } from '../authz-io/type';
-import { IUniverInstanceService } from '../instance/instance.service';
+import { ICrabTableInstanceService } from '../instance/instance.service';
 import { IMentionIOService } from '../mention-io/type';
 import { IResourceLoaderService } from '../resource-loader/type';
 import { UserManagerService } from '../user-manager/user-manager.service';
 import { createTestBed } from './create-test-bed';
 
 describe('Authz/resource integration', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let unitId: string;
 
     beforeEach(() => {
@@ -110,7 +110,7 @@ describe('Authz/resource integration', () => {
 
         expect(authzResource?.data).toContain(objectID);
 
-        injector.get(IUniverInstanceService).disposeUnit(unitId);
+        injector.get(ICrabTableInstanceService).disposeUnit(unitId);
 
         const unloaded = await authzIoService.list({
             unitID: unitId,
@@ -121,7 +121,7 @@ describe('Authz/resource integration', () => {
         expect(unloaded[0].name).toBe('');
         expect(unloaded[0].actions).toEqual([{ action: UnitAction.Edit, allowed: false }]);
 
-        univer.createUnit(UniverInstanceType.UNIVER_SHEET, snapshot!);
+        univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, snapshot!);
 
         const reloaded = await authzIoService.list({
             unitID: unitId,

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
+import type { ICommand } from '@crabtable/core';
 import type { ICellLinkContent } from '../../types/interfaces/i-hyper-link';
-import { CommandType, CustomRangeType, IUniverInstanceService } from '@univerjs/core';
-import { getSheetCommandTarget } from '@univerjs/sheets';
+import { CommandType, CustomRangeType, ICrabTableInstanceService } from '@crabtable/core';
+import { getSheetCommandTarget } from '@crabtable/sheets';
 import { HyperLinkModel } from '../../models/hyper-link.model';
 
 export interface IUpdateHyperLinkMutationParams {
@@ -82,8 +82,8 @@ export const UpdateRichHyperLinkMutation: ICommand<IUpdateRichHyperLinkMutationP
         }
 
         const { unitId, subUnitId, row, col, id, url } = params;
-        const univerInstanceService = accessor.get(IUniverInstanceService);
-        const sheetTarget = getSheetCommandTarget(univerInstanceService, { unitId, subUnitId });
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
+        const sheetTarget = getSheetCommandTarget(crabtableInstanceService, { unitId, subUnitId });
         if (!sheetTarget) {
             return false;
         }

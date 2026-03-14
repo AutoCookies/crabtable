@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommandInfo, Nullable } from '@univerjs/core';
-import type { IRichTextEditingMutationParams } from '@univerjs/docs';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
-import { checkForSubstrings, Disposable, DisposableCollection, ICommandService, Inject, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocSkeletonManagerService, RichTextEditingMutation } from '@univerjs/docs';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import type { DocumentDataModel, ICommandInfo, Nullable } from '@crabtable/core';
+import type { IRichTextEditingMutationParams } from '@crabtable/docs';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
+import { checkForSubstrings, CrabTableInstanceType, Disposable, DisposableCollection, ICommandService, ICrabTableInstanceService, Inject } from '@crabtable/core';
+import { DocSkeletonManagerService, RichTextEditingMutation } from '@crabtable/docs';
+import { IRenderManagerService } from '@crabtable/engine-render';
 import { fromEvent } from 'rxjs';
 import { IEditorService } from '../../services/editor/editor-manager.service';
 import { DocSelectionRenderService } from '../../services/selection/doc-selection-render.service';
@@ -29,7 +29,7 @@ export class DocEditorBridgeController extends Disposable implements IRenderModu
 
     constructor(
         private readonly _context: IRenderContext<DocumentDataModel>,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IEditorService private readonly _editorService: IEditorService,
         @ICommandService private readonly _commandService: ICommandService,
         @Inject(DocSelectionRenderService) private readonly _docSelectionRenderService: DocSelectionRenderService,
@@ -73,7 +73,7 @@ export class DocEditorBridgeController extends Disposable implements IRenderModu
             return;
         }
 
-        const editorDataModel = this._univerInstanceService.getUniverDocInstance(unitId);
+        const editorDataModel = this._crabtableInstanceService.getUniverDocInstance(unitId);
         if (!editorDataModel) {
             return;
         }
@@ -160,7 +160,7 @@ export class DocEditorBridgeController extends Disposable implements IRenderModu
         //TODO:@weird94 I don't know why, but keep this first, and should be removed if it was checked unneccesary.
         const disposableCollection = new DisposableCollection();
         this.disposeWithMe(
-            this._univerInstanceService.getCurrentTypeOfUnit$(UniverInstanceType.UNIVER_SHEET).subscribe((unit) => {
+            this._crabtableInstanceService.getCurrentTypeOfUnit$(CrabTableInstanceType.CRABTABLE_SHEET).subscribe((unit) => {
                 disposableCollection.dispose();
                 if (!unit) {
                     return;

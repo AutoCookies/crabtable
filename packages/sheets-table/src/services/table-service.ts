@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { Worksheet } from '@univerjs/core';
+import type { Worksheet } from '@crabtable/core';
 import type { ITableFilterItem, ITableInfoWithUnitId, ITableOptions, ITableRange, TableMetaType } from '../types/type';
-import { Disposable, Inject } from '@univerjs/core';
+import { Disposable, Inject } from '@crabtable/core';
 import { getCellValueWithConditionType } from '../model/filter-util/condition';
 import { TableManager } from '../model/table-manager';
 import { TableConditionTypeEnum } from '../types/enum';

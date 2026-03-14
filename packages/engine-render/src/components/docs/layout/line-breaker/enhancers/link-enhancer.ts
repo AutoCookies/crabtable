@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Nullable } from '@univerjs/core';
+import type { Nullable } from '@crabtable/core';
 import type { IBreakPoints, LineBreaker } from '../line-breaker';
 import { Break, BreakPointType } from '../break';
 import { getSlicePosition } from './utils';

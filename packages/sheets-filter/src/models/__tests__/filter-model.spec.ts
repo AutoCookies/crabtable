@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { Injector, IWorkbookData, Workbook } from '@univerjs/core';
-import { ILogService, IUniverInstanceService, LocaleType, LogLevel, Univer, UniverInstanceType } from '@univerjs/core';
+import type { Injector, IWorkbookData, Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, ICrabTableInstanceService, ILogService, LocaleType, LogLevel } from '@crabtable/core';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { FilterColumn, generateFilterFn } from '../filter-model';
 import { CustomFilterOperator } from '../types';
@@ -87,7 +87,7 @@ describe('Test filter model and related utils', () => {
     });
 
     describe('Test "FilterColumn"', () => {
-        let univer: Univer;
+        let univer: CrabTable;
         let filterColumn: FilterColumn;
         let get: Injector['get'];
 
@@ -131,7 +131,7 @@ describe('Test filter model and related utils', () => {
             filterColumn = new FilterColumn(
                 'test',
                 'sheet1',
-                get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()!,
+                get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()!,
                 { colId: 0, customFilters: { customFilters: [{ operator: CustomFilterOperator.LESS_THAN, val: 123 }] } },
                 { getAlreadyFilteredOutRows() { return new Set(); } }
             );
@@ -151,7 +151,7 @@ describe('Test filter model and related utils', () => {
             filterColumn = new FilterColumn(
                 'test',
                 'sheet1',
-                get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()!,
+                get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()!,
                 { colId: 0, customFilters: { customFilters: [{ operator: CustomFilterOperator.LESS_THAN, val: 123 }] } },
                 { getAlreadyFilteredOutRows() { return new Set(); } }
             );
@@ -169,7 +169,7 @@ describe('Test filter model and related utils', () => {
             filterColumn = new FilterColumn(
                 'test',
                 'sheet1',
-                get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()!,
+                get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()!,
                 { colId: 0, customFilters: { customFilters: [{ operator: CustomFilterOperator.LESS_THAN, val: 123 }] } },
                 { getAlreadyFilteredOutRows() { return new Set(); } }
             );
@@ -190,7 +190,7 @@ describe('Test filter model and related utils', () => {
             filterColumn = new FilterColumn(
                 'test',
                 'sheet1',
-                get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()!,
+                get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()!,
                 { colId: 0, customFilters: { customFilters: [{ operator: CustomFilterOperator.LESS_THAN, val: 123 }] } },
                 { getAlreadyFilteredOutRows() { return new Set(); } }
             );
@@ -205,7 +205,7 @@ describe('Test filter model and related utils', () => {
             filterColumn = new FilterColumn(
                 'test',
                 'sheet1',
-                get(IUniverInstanceService).getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet()!,
+                get(ICrabTableInstanceService).getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet()!,
                 { colId: 0, customFilters: { customFilters: [{ operator: CustomFilterOperator.LESS_THAN, val: 123 }] } },
                 { getAlreadyFilteredOutRows() { return new Set([1]); } }
             );
@@ -219,14 +219,14 @@ describe('Test filter model and related utils', () => {
 });
 
 function createFilterModelTestBed(workbookData: IWorkbookData) {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
-    const sheet = univer.createUnit(UniverInstanceType.UNIVER_SHEET, workbookData);
+    const sheet = univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, workbookData);
 
-    const univerInstanceService = get(IUniverInstanceService);
-    univerInstanceService.focusUnit('test');
+    const crabtableInstanceService = get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit('test');
 
     const logService = get(ILogService);
     logService.setLogLevel(LogLevel.SILENT);

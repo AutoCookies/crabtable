@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { Direction, IAccessor, ICellData, IMutationInfo, IObjectMatrixPrimitiveType, Nullable } from '@univerjs/core';
+import type { Direction, IAccessor, ICellData, IMutationInfo, IObjectMatrixPrimitiveType, Nullable } from '@crabtable/core';
 import type { IDiscreteRange } from '../../basics';
 
 export enum AUTO_FILL_APPLY_TYPE {

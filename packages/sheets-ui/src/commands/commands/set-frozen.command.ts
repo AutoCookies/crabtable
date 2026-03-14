@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ICommand } from '@univerjs/core';
-import type { ISetFrozenMutationParams } from '@univerjs/sheets';
-import { CommandType, ICommandService, IUndoRedoService, IUniverInstanceService, RANGE_TYPE } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { getSheetCommandTarget, SetFrozenMutation, SetFrozenMutationFactory, SheetsSelectionsService } from '@univerjs/sheets';
+import type { ICommand } from '@crabtable/core';
+import type { ISetFrozenMutationParams } from '@crabtable/sheets';
+import { CommandType, ICommandService, ICrabTableInstanceService, IUndoRedoService, RANGE_TYPE } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { getSheetCommandTarget, SetFrozenMutation, SetFrozenMutationFactory, SheetsSelectionsService } from '@crabtable/sheets';
 import { SheetScrollManagerService } from '../../services/scroll-manager.service';
 
 export enum SetSelectionFrozenType {
@@ -39,9 +39,9 @@ export const SetSelectionFrozenCommand: ICommand<ISetSelectionFrozenCommandParam
     // eslint-disable-next-line max-lines-per-function
     handler: async (accessor, params) => {
         const { type } = params || {};
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const undoRedoService = accessor.get(IUndoRedoService);
-        const target = getSheetCommandTarget(univerInstanceService);
+        const target = getSheetCommandTarget(crabtableInstanceService);
         if (!target) return false;
 
         const { unitId, subUnitId } = target;

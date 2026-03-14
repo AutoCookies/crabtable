@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ICommandInfo, Workbook } from '@univerjs/core';
-import type { ISetWorksheetActiveOperationParams } from '@univerjs/sheets';
+import type { ICommandInfo, Workbook } from '@crabtable/core';
+import type { ISetWorksheetActiveOperationParams } from '@crabtable/sheets';
 import type { IBaseSheetBarProps } from '../../sheet-bar/sheet-bar-tabs/SheetBarItem';
-import { ICommandService } from '@univerjs/core';
-import { borderRightClassName, clsx, scrollbarClassName } from '@univerjs/design';
+import { ICommandService } from '@crabtable/core';
+import { borderRightClassName, clsx, scrollbarClassName } from '@crabtable/design';
 import {
     InsertSheetMutation,
     RemoveSheetMutation,
@@ -26,8 +26,8 @@ import {
     SetWorksheetHideMutation,
     SetWorksheetNameMutation,
     SetWorksheetOrderMutation,
-} from '@univerjs/sheets';
-import { useDependency } from '@univerjs/ui';
+} from '@crabtable/sheets';
+import { useDependency } from '@crabtable/ui';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useActiveWorkbook } from '../../../components/hook';
 

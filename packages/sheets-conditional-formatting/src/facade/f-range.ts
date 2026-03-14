@@ -22,8 +22,8 @@ import type {
     IDeleteConditionalRuleMutationParams,
     IMoveConditionalRuleMutationParams,
     ISetConditionalRuleMutationParams,
-} from '@univerjs/sheets-conditional-formatting';
-import { Rectangle } from '@univerjs/core';
+} from '@crabtable/sheets-conditional-formatting';
+import { Rectangle } from '@crabtable/core';
 import {
     AddCfCommand,
     ClearRangeCfCommand,
@@ -31,9 +31,9 @@ import {
     DeleteCfCommand,
     MoveCfCommand,
     SetCfCommand,
-} from '@univerjs/sheets-conditional-formatting';
+} from '@crabtable/sheets-conditional-formatting';
 
-import { FRange } from '@univerjs/sheets/facade';
+import { FRange } from '@crabtable/sheets/facade';
 import { FConditionalFormattingBuilder } from './f-conditional-formatting-builder';
 
 /**
@@ -45,7 +45,7 @@ export interface IFRangeConditionalFormattingMixin {
      * @returns {IConditionFormattingRule[]} conditional formatting rules for the current range.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that sets the cell format to italic, red background, and green font color when the cell is not empty.
@@ -72,7 +72,7 @@ export interface IFRangeConditionalFormattingMixin {
      * @returns {FConditionalFormattingBuilder} The conditional formatting builder
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      *
      * // Create a conditional formatting rule that sets the cell format to italic, red background, and green font color when the cell is not empty.
@@ -134,7 +134,7 @@ export interface IFRangeConditionalFormattingMixin {
      * @memberof IFRangeConditionalFormattingMixin
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const fWorksheet = fWorkbook.getActiveSheet();
      * const fRange = fWorksheet.getRange('A1:T100');
      *
@@ -214,7 +214,7 @@ export class FRangeConditionalFormattingMixin extends FRange implements IFRangeC
 }
 
 FRange.extend(FRangeConditionalFormattingMixin);
-declare module '@univerjs/sheets/facade' {
+declare module '@crabtable/sheets/facade' {
     // eslint-disable-next-line ts/naming-convention
     interface FRange extends IFRangeConditionalFormattingMixin { }
 }

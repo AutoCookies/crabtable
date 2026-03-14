@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { IRenderContext, IRenderModule } from '@univerjs/engine-render';
-import { Disposable, ICommandService, Inject, Injector, IPermissionService, IUniverInstanceService } from '@univerjs/core';
-import { convertTransformToOffsetX, convertTransformToOffsetY, IRenderManagerService, SHEET_VIEWPORT_KEY } from '@univerjs/engine-render';
-import { WorkbookEditablePermission, WorkbookPermissionService } from '@univerjs/sheets';
-import { TableManager } from '@univerjs/sheets-table';
-import { getSheetObject, SetScrollOperation, SetZoomRatioOperation, SheetScrollManagerService, SheetSkeletonManagerService } from '@univerjs/sheets-ui';
-import { BuiltInUIPart, connectInjector, IUIPartsService } from '@univerjs/ui';
+import type { Workbook } from '@crabtable/core';
+import type { IRenderContext, IRenderModule } from '@crabtable/engine-render';
+import { Disposable, ICommandService, ICrabTableInstanceService, Inject, Injector, IPermissionService } from '@crabtable/core';
+import { convertTransformToOffsetX, convertTransformToOffsetY, IRenderManagerService, SHEET_VIEWPORT_KEY } from '@crabtable/engine-render';
+import { WorkbookEditablePermission, WorkbookPermissionService } from '@crabtable/sheets';
+import { TableManager } from '@crabtable/sheets-table';
+import { getSheetObject, SetScrollOperation, SetZoomRatioOperation, SheetScrollManagerService, SheetSkeletonManagerService } from '@crabtable/sheets-ui';
+import { BuiltInUIPart, connectInjector, IUIPartsService } from '@crabtable/ui';
 import { BehaviorSubject, debounceTime, filter, merge } from 'rxjs';
 import { SheetTableAnchor } from '../views/components/SheetTableAnchor';
 
@@ -45,7 +45,7 @@ export class SheetTableAnchorController extends Disposable implements IRenderMod
         @Inject(SheetSkeletonManagerService) private readonly _sheetSkeletonManagerService: SheetSkeletonManagerService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
         @ICommandService private readonly _commandService: ICommandService,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IUIPartsService protected readonly _uiPartsService: IUIPartsService,
         @Inject(TableManager) private readonly _tableManager: TableManager,
         @Inject(SheetScrollManagerService) private readonly _scrollManagerService: SheetScrollManagerService,
@@ -123,7 +123,7 @@ export class SheetTableAnchorController extends Disposable implements IRenderMod
                 const tableInfos = tables.reduce((acc, table) => {
                     const { startRow, startColumn } = table.range;
                     const sheetSkeletonManagerService = renderUnit.with(SheetSkeletonManagerService);
-                    const sheetObject = getSheetObject(this._univerInstanceService, this._renderManagerService);
+                    const sheetObject = getSheetObject(this._crabtableInstanceService, this._renderManagerService);
 
                     if (!sheetObject) return acc;
 

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { ITableFilterItem } from '@univerjs/sheets-table';
+import type { ITableFilterItem } from '@crabtable/sheets-table';
 import type { Dispatch, SetStateAction } from 'react';
-import { LocaleService } from '@univerjs/core';
-import { borderClassName, Checkbox, clsx, Input, scrollbarClassName } from '@univerjs/design';
-import { useDependency } from '@univerjs/ui';
+import { LocaleService } from '@crabtable/core';
+import { borderClassName, Checkbox, clsx, Input, scrollbarClassName } from '@crabtable/design';
+import { useDependency } from '@crabtable/ui';
 import { useCallback, useMemo, useState } from 'react';
 import { SheetsTableUiService } from '../../services/sheets-table-ui-service';
 

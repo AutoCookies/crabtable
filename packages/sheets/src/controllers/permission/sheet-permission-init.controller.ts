@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
+import type { Workbook } from '@crabtable/core';
 import type { UnitAction } from '@univerjs/protocol';
 import type { IAddRangeProtectionMutationParams } from '../../commands/mutations/add-range-protection.mutation';
 import type { IAddWorksheetProtectionParams } from '../../commands/mutations/add-worksheet-protection.mutation';
 import type { ISetWorksheetPermissionPointsMutationParams } from '../../commands/mutations/set-worksheet-permission-points.mutation';
-import { Disposable, IAuthzIoService, ICommandService, Inject, IPermissionService, IUndoRedoService, IUniverInstanceService, UniverInstanceType, UserManagerService } from '@univerjs/core';
+import { CrabTableInstanceType, Disposable, IAuthzIoService, ICommandService, ICrabTableInstanceService, Inject, IPermissionService, IUndoRedoService, UserManagerService } from '@crabtable/core';
 import { UnitObject } from '@univerjs/protocol';
 import { skip } from 'rxjs';
 import { AddRangeProtectionMutation } from '../../commands/mutations/add-range-protection.mutation';
@@ -34,7 +34,7 @@ import { WorksheetProtectionPointModel, WorksheetProtectionRuleModel } from '../
 
 export class SheetPermissionInitController extends Disposable {
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IPermissionService private _permissionService: IPermissionService,
         @IAuthzIoService private _authzIoService: IAuthzIoService,
         @Inject(RangeProtectionRuleModel) private _rangeProtectionRuleModel: RangeProtectionRuleModel,
@@ -116,7 +116,7 @@ export class SheetPermissionInitController extends Disposable {
             });
         };
 
-        await Promise.all(this._univerInstanceService.getAllUnitsForType<Workbook>(UniverInstanceType.UNIVER_SHEET).map((workbook) => initRangePermissionFunc(workbook)));
+        await Promise.all(this._crabtableInstanceService.getAllUnitsForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).map((workbook) => initRangePermissionFunc(workbook)));
         this._rangeProtectionRuleModel.changeRuleInitState(true);
     }
 
@@ -169,7 +169,7 @@ export class SheetPermissionInitController extends Disposable {
     }
 
     public async initWorkbookPermissionChange(_unitId?: string) {
-        const unitId = _unitId || this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)?.getUnitId();
+        const unitId = _unitId || this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)?.getUnitId();
         if (!unitId) {
             return;
         }
@@ -191,7 +191,7 @@ export class SheetPermissionInitController extends Disposable {
     }
 
     private async _initWorkbookPermissionFromSnapshot() {
-        await Promise.all(this._univerInstanceService.getAllUnitsForType<Workbook>(UniverInstanceType.UNIVER_SHEET).map((workbook) => this.initWorkbookPermissionChange(workbook.getUnitId())));
+        await Promise.all(this._crabtableInstanceService.getAllUnitsForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).map((workbook) => this.initWorkbookPermissionChange(workbook.getUnitId())));
         this._workbookPermissionService.changeUnitInitState(true);
     }
 
@@ -326,7 +326,7 @@ export class SheetPermissionInitController extends Disposable {
             });
         };
 
-        await Promise.all(this._univerInstanceService.getAllUnitsForType<Workbook>(UniverInstanceType.UNIVER_SHEET).map((workbook) => initSheetPermissionFunc(workbook)));
+        await Promise.all(this._crabtableInstanceService.getAllUnitsForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET).map((workbook) => initSheetPermissionFunc(workbook)));
         this._worksheetProtectionRuleModel.changeRuleInitState(true);
     }
 
@@ -342,7 +342,7 @@ export class SheetPermissionInitController extends Disposable {
 
                 this._worksheetProtectionRuleModel.changeRuleInitState(false);
 
-                const workbooks = this._univerInstanceService.getAllUnitsForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+                const workbooks = this._crabtableInstanceService.getAllUnitsForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
                 workbooks.forEach((workbook) => {
                     const unitId = workbook.getUnitId();
 

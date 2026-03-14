@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import { EDITOR_ACTIVATED, IContextService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { IRefSelectionsService, REF_SELECTIONS_ENABLED } from '@univerjs/sheets';
-import { IContextMenuService, useDependency, useObservable } from '@univerjs/ui';
+import type { Workbook } from '@crabtable/core';
+import { CrabTableInstanceType, EDITOR_ACTIVATED, IContextService, ICrabTableInstanceService } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { IRefSelectionsService, REF_SELECTIONS_ENABLED } from '@crabtable/sheets';
+import { IContextMenuService, useDependency, useObservable } from '@crabtable/ui';
 
 import { useEffect, useLayoutEffect, useMemo } from 'react';
 import { RefSelectionsRenderService } from '../../../services/render-services/ref-selections.render-service';
@@ -28,8 +28,8 @@ export const useRefactorEffect = (isNeed: boolean, selecting: boolean, unitId: s
     const contextService = useDependency(IContextService);
     const contextMenuService = useDependency(IContextMenuService);
     const refSelectionsService = useDependency(IRefSelectionsService);
-    const univerInstanceService = useDependency(IUniverInstanceService);
-    const currentUnit = useObservable(useMemo(() => univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET), [univerInstanceService]));
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
+    const currentUnit = useObservable(useMemo(() => crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET), [crabtableInstanceService]));
     const render = renderManagerService.getRenderById(currentUnit?.getUnitId() ?? '');
     const refSelectionsRenderService = render?.with(RefSelectionsRenderService);
 
@@ -39,7 +39,7 @@ export const useRefactorEffect = (isNeed: boolean, selecting: boolean, unitId: s
             disableContextMenu && contextMenuService.disable();
 
             return () => {
-                const currentDoc = univerInstanceService.getCurrentUnitOfType(UniverInstanceType.UNIVER_DOC)!;
+                const currentDoc = crabtableInstanceService.getCurrentUnitOfType(CrabTableInstanceType.CRABTABLE_DOC)!;
                 if (currentDoc?.getUnitId() === editorId) {
                     contextService.setContextValue(EDITOR_ACTIVATED, false);
                 }

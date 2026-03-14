@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { IMutationInfo } from '@univerjs/core';
-import type { IAutoFillLocation, ISheetAutoFillHook } from '@univerjs/sheets';
-import { Disposable, generateRandomId, Inject, Range, Rectangle } from '@univerjs/core';
-import { AUTO_FILL_APPLY_TYPE, AutoFillTools, IAutoFillService } from '@univerjs/sheets';
-import { AddHyperLinkMutation, HyperLinkModel, RemoveHyperLinkMutation } from '@univerjs/sheets-hyper-link';
-import { virtualizeDiscreteRanges } from '@univerjs/sheets-ui';
+import type { IMutationInfo } from '@crabtable/core';
+import type { IAutoFillLocation, ISheetAutoFillHook } from '@crabtable/sheets';
+import { Disposable, generateRandomId, Inject, Range, Rectangle } from '@crabtable/core';
+import { AUTO_FILL_APPLY_TYPE, AutoFillTools, IAutoFillService } from '@crabtable/sheets';
+import { AddHyperLinkMutation, HyperLinkModel, RemoveHyperLinkMutation } from '@crabtable/sheets-hyper-link';
+import { virtualizeDiscreteRanges } from '@crabtable/sheets-ui';
 import { SHEET_HYPER_LINK_UI_PLUGIN } from '../types/const';
 
 export class SheetsHyperLinkAutoFillController extends Disposable {

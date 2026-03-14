@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Injector, Univer } from '@univerjs/core';
-import type { FUniver } from '@univerjs/core/facade';
-import { ICommandService } from '@univerjs/core/services/command/command.service.js';
-import { RemoveOtherFormulaMutation } from '@univerjs/engine-formula';
-import { SetSelectionsOperation } from '@univerjs/sheets';
+import type { CrabTable, Injector } from '@crabtable/core';
+import type { FCrabTable } from '@crabtable/core/facade';
+import { ICommandService } from '@crabtable/core/services/command/command.service.js';
+import { RemoveOtherFormulaMutation } from '@crabtable/engine-formula';
+import { SetSelectionsOperation } from '@crabtable/sheets';
 import {
     AddCfCommand,
     AddConditionalRuleMutation,
@@ -29,15 +29,15 @@ import {
     MoveConditionalRuleMutation,
     SetCfCommand,
     SetConditionalRuleMutation,
-} from '@univerjs/sheets-conditional-formatting';
+} from '@crabtable/sheets-conditional-formatting';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { createFacadeTestBed } from './create-test-bed';
 
 describe('Test conditional formatting facade', () => {
     let get: Injector['get'];
     let commandService: ICommandService;
-    let univerAPI: FUniver;
-    let univer: Univer = null as any;
+    let crabtableAPI: FCrabTable;
+    let univer: CrabTable = null as any;
 
     beforeEach(() => {
         if (univer) {
@@ -45,7 +45,7 @@ describe('Test conditional formatting facade', () => {
         }
         const testBed = createFacadeTestBed();
         get = testBed.get;
-        univerAPI = testBed.univerAPI;
+        crabtableAPI = testBed.crabtableAPI;
         univer = testBed.univer;
 
         commandService = get(ICommandService);
@@ -65,20 +65,20 @@ describe('Test conditional formatting facade', () => {
         });
     });
     it('Gets all the conditional formatting for the current sheet', () => {
-        const rules = univerAPI.getActiveWorkbook()?.getActiveSheet().getConditionalFormattingRules();
+        const rules = crabtableAPI.getActiveWorkbook()?.getActiveSheet().getConditionalFormattingRules();
         expect(rules?.length).toEqual(3);
     });
 
     it('Gets all the conditional formatting for the current range', () => {
-        const workbook = univerAPI.getActiveWorkbook();
+        const workbook = crabtableAPI.getActiveWorkbook();
         const worksheet = workbook?.getActiveSheet();
         workbook?.setActiveRange(worksheet?.getRange(5, 5, 3, 3)!);
-        const rules = univerAPI.getActiveWorkbook()?.getActiveRange()?.getConditionalFormattingRules();
+        const rules = crabtableAPI.getActiveWorkbook()?.getActiveRange()?.getConditionalFormattingRules();
         expect(rules?.length).toEqual(2);
     });
 
     it('Creates a constructor for conditional formatting', () => {
-        const workbook = univerAPI.getActiveWorkbook();
+        const workbook = crabtableAPI.getActiveWorkbook();
         const worksheet = workbook?.getActiveSheet();
         const rule = worksheet?.createConditionalFormattingRule()
             .whenCellNotEmpty()
@@ -118,7 +118,7 @@ describe('Test conditional formatting facade', () => {
     });
 
     it('Creates rule and add', () => {
-        const workbook = univerAPI.getActiveWorkbook();
+        const workbook = crabtableAPI.getActiveWorkbook();
         const worksheet = workbook?.getActiveSheet();
         const rule = worksheet?.createConditionalFormattingRule()
             .whenCellNotEmpty()
@@ -149,7 +149,7 @@ describe('Test conditional formatting facade', () => {
     });
 
     it('Delete conditional format according to cfId', async () => {
-        const workbook = univerAPI.getActiveWorkbook();
+        const workbook = crabtableAPI.getActiveWorkbook();
         const worksheet = workbook?.getActiveSheet();
         const rules = worksheet?.getConditionalFormattingRules();
         expect(rules?.length).toEqual(3);
@@ -158,7 +158,7 @@ describe('Test conditional formatting facade', () => {
     });
 
     it('Modify the priority of the conditional format', () => {
-        const workbook = univerAPI.getActiveWorkbook();
+        const workbook = crabtableAPI.getActiveWorkbook();
         const worksheet = workbook?.getActiveSheet();
         const rules = worksheet?.getConditionalFormattingRules()!;
         const rule = rules[2];
@@ -169,7 +169,7 @@ describe('Test conditional formatting facade', () => {
     });
 
     it('Set the conditional format according to cfId', () => {
-        const workbook = univerAPI.getActiveWorkbook();
+        const workbook = crabtableAPI.getActiveWorkbook();
         const worksheet = workbook?.getActiveSheet();
         const rules = worksheet?.getConditionalFormattingRules()!;
         const rule = rules[0];

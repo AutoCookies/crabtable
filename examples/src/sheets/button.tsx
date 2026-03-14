@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
+import type { Workbook } from '@crabtable/core';
 
-import type { IRangeSelectorInstance } from '@univerjs/sheets-formula-ui';
-import { ILogService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { Button } from '@univerjs/design';
-import { RangeSelector } from '@univerjs/sheets-formula-ui';
-import { useDependency, useObservable } from '@univerjs/ui';
+import type { IRangeSelectorInstance } from '@crabtable/sheets-formula-ui';
+import { CrabTableInstanceType, ICrabTableInstanceService, ILogService } from '@crabtable/core';
+import { Button } from '@crabtable/design';
+import { RangeSelector } from '@crabtable/sheets-formula-ui';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { useMemo, useRef } from 'react';
 
 export const ButtonRangeSelector = () => {
     const selectorRef = useRef<IRangeSelectorInstance>(null);
-    const univerInstanceService = useDependency(IUniverInstanceService);
-    const workbook = useObservable(useMemo(() => univerInstanceService.getCurrentTypeOfUnit$<Workbook>(UniverInstanceType.UNIVER_SHEET), []));
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
+    const workbook = useObservable(useMemo(() => crabtableInstanceService.getCurrentTypeOfUnit$<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET), []));
     const worksheet = useObservable(useMemo(() => workbook?.activeSheet$, [workbook]));
     const loggerSerive = useDependency(ILogService);
 

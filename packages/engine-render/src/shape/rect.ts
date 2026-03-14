@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IKeyValue, Nullable } from '@univerjs/core';
+import type { IKeyValue, Nullable } from '@crabtable/core';
 
 import type { UniverRenderingContext } from '../context';
 import type { IShapeProps } from './shape';

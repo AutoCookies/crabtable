@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Rect } from '@univerjs/engine-render';
+import { Rect } from '@crabtable/engine-render';
 import { describe, expect, it, vi } from 'vitest';
 import { SheetCrossHairHighlightShape } from './crosshair-highlight-shape';
 

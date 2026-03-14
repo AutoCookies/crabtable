@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICustomRange, IDisposable, INeedCheckDisposable, ITextRange, Nullable, Workbook } from '@univerjs/core';
-import type { IBoundRectNoAngle } from '@univerjs/engine-render';
-import type { ISheetLocationBase } from '@univerjs/sheets';
-import type { ICanvasPopup } from '@univerjs/sheets-ui';
-import { BuildTextUtils, CustomRangeType, Disposable, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, DOCS_ZEN_EDITOR_UNIT_ID_KEY, Inject, Injector, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService } from '@univerjs/docs';
-import { calcDocRangePositions, DocCanvasPopManagerService } from '@univerjs/docs-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { getCustomRangePosition, getEditingCustomRangePosition, IEditorBridgeService, SheetCanvasPopManagerService } from '@univerjs/sheets-ui';
-import { IZenZoneService } from '@univerjs/ui';
+import type { DocumentDataModel, ICustomRange, IDisposable, INeedCheckDisposable, ITextRange, Nullable, Workbook } from '@crabtable/core';
+import type { IBoundRectNoAngle } from '@crabtable/engine-render';
+import type { ISheetLocationBase } from '@crabtable/sheets';
+import type { ICanvasPopup } from '@crabtable/sheets-ui';
+import { BuildTextUtils, CrabTableInstanceType, CustomRangeType, Disposable, DOCS_NORMAL_EDITOR_UNIT_ID_KEY, DOCS_ZEN_EDITOR_UNIT_ID_KEY, ICrabTableInstanceService, Inject, Injector } from '@crabtable/core';
+import { DocSelectionManagerService } from '@crabtable/docs';
+import { calcDocRangePositions, DocCanvasPopManagerService } from '@crabtable/docs-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { getCustomRangePosition, getEditingCustomRangePosition, IEditorBridgeService, SheetCanvasPopManagerService } from '@crabtable/sheets-ui';
+import { IZenZoneService } from '@crabtable/ui';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { HyperLinkEditSourceType } from '../types/enums/edit-source';
 import { CellLinkEdit } from '../views/CellLinkEdit';
@@ -93,7 +93,7 @@ export class SheetsHyperLinkPopupService extends Disposable {
     constructor(
         @Inject(SheetCanvasPopManagerService) private readonly _sheetCanvasPopManagerService: SheetCanvasPopManagerService,
         @Inject(Injector) private readonly _injector: Injector,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IEditorBridgeService private readonly _editorBridgeService: IEditorBridgeService,
         @Inject(DocSelectionManagerService) private readonly _textSelectionManagerService: DocSelectionManagerService,
         @Inject(DocCanvasPopManagerService) private readonly _docCanvasPopManagerService: DocCanvasPopManagerService,
@@ -275,7 +275,7 @@ export class SheetsHyperLinkPopupService extends Disposable {
     startAddEditing(link: IHyperLinkEditing) {
         const { unitId, subUnitId, type } = link;
         if (type === HyperLinkEditSourceType.ZEN_EDITOR) {
-            const document: Nullable<DocumentDataModel> = this._univerInstanceService.getUnit(DOCS_ZEN_EDITOR_UNIT_ID_KEY, UniverInstanceType.UNIVER_DOC);
+            const document: Nullable<DocumentDataModel> = this._crabtableInstanceService.getUnit(DOCS_ZEN_EDITOR_UNIT_ID_KEY, CrabTableInstanceType.CRABTABLE_DOC);
             if (!document) {
                 return;
             }
@@ -328,7 +328,7 @@ export class SheetsHyperLinkPopupService extends Disposable {
                 unitId,
                 subUnitId
             );
-            const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+            const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
             const worksheet = workbook?.getSheetBySheetId(subUnitId);
             const cell = worksheet?.getCellRaw(link.row, link.col);
             this._currentEditing$.next({
@@ -347,7 +347,7 @@ export class SheetsHyperLinkPopupService extends Disposable {
         let customRange;
         let label;
         if (link.type === HyperLinkEditSourceType.ZEN_EDITOR) {
-            const document: Nullable<DocumentDataModel> = this._univerInstanceService.getUnit(DOCS_ZEN_EDITOR_UNIT_ID_KEY, UniverInstanceType.UNIVER_DOC);
+            const document: Nullable<DocumentDataModel> = this._crabtableInstanceService.getUnit(DOCS_ZEN_EDITOR_UNIT_ID_KEY, CrabTableInstanceType.CRABTABLE_DOC);
             customRange = document?.getBody()?.customRanges?.find((range) => range.rangeId === link.customRangeId);
             label = customRange ? document?.getBody()?.dataStream.slice(customRange.startIndex, customRange.endIndex + 1) : '';
             if (!customRange || !label) {
@@ -388,7 +388,7 @@ export class SheetsHyperLinkPopupService extends Disposable {
                 subUnitId
             );
         } else {
-            const workbook = this._univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+            const workbook = this._crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
             const worksheet = workbook?.getSheetBySheetId(subUnitId);
             const cell = worksheet?.getCellRaw(link.row, link.col);
             const style = workbook?.getStyles().getStyleByCell(cell);

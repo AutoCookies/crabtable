@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { DocumentDataModel, ICommand } from '@univerjs/core';
-import { CommandType, CustomRangeType, getBodySlice, ICommandService, IUniverInstanceService, UniverInstanceType } from '@univerjs/core';
-import { DocSelectionManagerService, replaceSelectionFactory } from '@univerjs/docs';
+import type { DocumentDataModel, ICommand } from '@crabtable/core';
+import { CommandType, CrabTableInstanceType, CustomRangeType, getBodySlice, ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { DocSelectionManagerService, replaceSelectionFactory } from '@crabtable/docs';
 
 export interface IUpdateDocHyperLinkCommandParams {
     unitId: string;
@@ -35,10 +35,10 @@ export const UpdateDocHyperLinkCommand: ICommand<IUpdateDocHyperLinkCommandParam
         }
         const { unitId, payload, segmentId, linkId } = params;
         const commandService = accessor.get(ICommandService);
-        const univerInstanceService = accessor.get(IUniverInstanceService);
+        const crabtableInstanceService = accessor.get(ICrabTableInstanceService);
         const docSelectionManagerService = accessor.get(DocSelectionManagerService);
         const currentSelection = docSelectionManagerService.getActiveTextRange();
-        const doc = univerInstanceService.getUnit<DocumentDataModel>(unitId, UniverInstanceType.UNIVER_DOC);
+        const doc = crabtableInstanceService.getUnit<DocumentDataModel>(unitId, CrabTableInstanceType.CRABTABLE_DOC);
         if (!currentSelection || !doc) {
             return false;
         }

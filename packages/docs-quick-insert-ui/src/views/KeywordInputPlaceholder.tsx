@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IPopup } from '@univerjs/ui';
-import { LocaleService } from '@univerjs/core';
-import { ptToPixel } from '@univerjs/engine-render';
-import { useDependency } from '@univerjs/ui';
+import type { IPopup } from '@crabtable/ui';
+import { LocaleService } from '@crabtable/core';
+import { ptToPixel } from '@crabtable/engine-render';
+import { useDependency } from '@crabtable/ui';
 import { useMemo } from 'react';
 
 export const KeywordInputPlaceholderComponentKey = 'docs.quick.insert.keyword-input-placeholder';

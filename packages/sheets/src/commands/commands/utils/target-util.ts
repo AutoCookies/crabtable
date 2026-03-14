@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import type { IUniverInstanceService, Nullable, Workbook, Worksheet } from '@univerjs/core';
-import { UniverInstanceType } from '@univerjs/core';
+import type { ICrabTableInstanceService, Nullable, Workbook, Worksheet } from '@crabtable/core';
+import { CrabTableInstanceType } from '@crabtable/core';
 
-export function getSheetCommandTargetWorkbook(univerInstanceService: IUniverInstanceService, params: { unitId?: string }): Nullable<{
+export function getSheetCommandTargetWorkbook(crabtableInstanceService: ICrabTableInstanceService, params: { unitId?: string }): Nullable<{
     workbook: Workbook;
     unitId: string;
 }> {
     const { unitId } = params;
     const workbook = unitId
-        ? univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET)
-        : univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        ? crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET)
+        : crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
 
     if (!workbook) return null;
 
@@ -45,18 +45,18 @@ export interface IResult {
  * Get targeted Workbook & Worksheet of a command. If `unitId` and `subUnitId` are given, the function would
  * try to get these instances. If not, it would try to get the current active instances.
  *
- * @param univerInstanceService
+ * @param crabtableInstanceService
  * @param params - unitId and subUnitId
  * @param params.unitId - The unitId of the Workbook
  * @param params.subUnitId - The subUnitId of the Worksheet
  * @returns Targeted Workbook & Worksheet
  */
-export function getSheetCommandTarget(univerInstanceService: IUniverInstanceService, params: { unitId?: string; subUnitId?: string } = {}): Nullable<IResult> {
+export function getSheetCommandTarget(crabtableInstanceService: ICrabTableInstanceService, params: { unitId?: string; subUnitId?: string } = {}): Nullable<IResult> {
     const { unitId, subUnitId } = params;
 
     const workbook = unitId
-        ? univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET)
-        : univerInstanceService.getCurrentUnitOfType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        ? crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET)
+        : crabtableInstanceService.getCurrentUnitOfType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
     if (!workbook) return null;
 
     const worksheet = subUnitId ? workbook.getSheetBySheetId(subUnitId) : workbook.getActiveSheet(true);
@@ -70,10 +70,10 @@ export function getSheetCommandTarget(univerInstanceService: IUniverInstanceServ
     };
 }
 
-export function getSheetMutationTarget(univerInstanceService: IUniverInstanceService, params: { unitId: string; subUnitId: string }): Nullable<Pick<IResult, 'workbook' | 'worksheet'>> {
+export function getSheetMutationTarget(crabtableInstanceService: ICrabTableInstanceService, params: { unitId: string; subUnitId: string }): Nullable<Pick<IResult, 'workbook' | 'worksheet'>> {
     const { unitId, subUnitId } = params;
 
-    const workbook = univerInstanceService.getUnit<Workbook>(unitId, UniverInstanceType.UNIVER_SHEET);
+    const workbook = crabtableInstanceService.getUnit<Workbook>(unitId, CrabTableInstanceType.CRABTABLE_SHEET);
     if (!workbook) return null;
 
     const worksheet = workbook.getSheetBySheetId(subUnitId);

@@ -30,20 +30,19 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData, UnitModel } from '@univerjs/core';
+import type { Dependency, IWorkbookData, UnitModel } from '@crabtable/core';
 import {
+    CrabTableInstanceType,
+    ICrabTableInstanceService,
     ILogService,
     Inject,
     Injector,
-    IUniverInstanceService,
     LocaleType,
     LogLevel,
     Plugin,
-    Univer,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { FUniver } from '@univerjs/core/facade';
-import { CanvasColorService, ICanvasColorService } from '@univerjs/engine-render';
+} from '@crabtable/core';
+import { FCrabTable } from '@crabtable/core/facade';
+import { CanvasColorService, ICanvasColorService } from '@crabtable/engine-render';
 
 function getTestWorkbookDataDemo(): IWorkbookData {
     return {
@@ -99,20 +98,20 @@ function getTestWorkbookDataDemo(): IWorkbookData {
 }
 
 export interface ITestBed {
-    univer: Univer;
+    univer: CrabTable;
     get: Injector['get'];
     sheet: UnitModel<IWorkbookData>;
-    univerAPI: FUniver;
+    crabtableAPI: FCrabTable;
     injector: Injector;
 }
 
 export function createCanvasColorTestBed(workbookData?: IWorkbookData, dependencies?: Dependency[]): ITestBed {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
 
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -136,22 +135,22 @@ export function createCanvasColorTestBed(workbookData?: IWorkbookData, dependenc
 
     univer.registerPlugin(TestPlugin);
 
-    const sheet = univer.createUnit<IWorkbookData, UnitModel<IWorkbookData>>(UniverInstanceType.UNIVER_SHEET, workbookData || getTestWorkbookDataDemo());
-    const univerInstanceService = injector.get(IUniverInstanceService);
-    univerInstanceService.focusUnit('test');
+    const sheet = univer.createUnit<IWorkbookData, UnitModel<IWorkbookData>>(CrabTableInstanceType.CRABTABLE_SHEET, workbookData || getTestWorkbookDataDemo());
+    const crabtableInstanceService = injector.get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit('test');
 
     // set log level
     const logService = injector.get(ILogService);
     logService.setLogLevel(LogLevel.SILENT); // NOTE: change this to `LogLevel.VERBOSE` to debug tests via logs
 
     // init data validation
-    const univerAPI = FUniver.newAPI(injector);
+    const crabtableAPI = FCrabTable.newAPI(injector);
 
     return {
         univer,
         get: injector.get.bind(injector),
         sheet,
-        univerAPI,
+        crabtableAPI,
         injector,
     };
 }

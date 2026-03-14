@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { DOCS_ZEN_EDITOR_UNIT_ID_KEY, DocumentFlavor, IUniverInstanceService } from '@univerjs/core';
-import { IEditorService } from '@univerjs/docs-ui';
-import { IRenderManagerService } from '@univerjs/engine-render';
-import { IEditorBridgeService } from '@univerjs/sheets-ui';
-import { ISidebarService, IZenZoneService } from '@univerjs/ui';
+import { DOCS_ZEN_EDITOR_UNIT_ID_KEY, DocumentFlavor, ICrabTableInstanceService } from '@crabtable/core';
+import { IEditorService } from '@crabtable/docs-ui';
+import { IRenderManagerService } from '@crabtable/engine-render';
+import { IEditorBridgeService } from '@crabtable/sheets-ui';
+import { ISidebarService, IZenZoneService } from '@crabtable/ui';
 import { describe, expect, it, vi } from 'vitest';
 import { CancelZenEditCommand, ConfirmZenEditCommand, OpenZenEditorCommand } from '../zen-editor.command';
 
@@ -63,7 +63,7 @@ describe('zen-editor commands', () => {
                     },
                 }),
             }],
-            [IUniverInstanceService, { focusUnit: vi.fn() }],
+            [ICrabTableInstanceService, { focusUnit: vi.fn() }],
             [ISidebarService, { visible: false }],
         ]);
 
@@ -88,7 +88,7 @@ describe('zen-editor commands', () => {
             [IZenZoneService, { open: vi.fn() }],
             [IEditorService, { getEditor: () => null }],
             [IEditorBridgeService, { getLatestEditCellState: () => null }],
-            [IUniverInstanceService, { focusUnit: vi.fn() }],
+            [ICrabTableInstanceService, { focusUnit: vi.fn() }],
             [ISidebarService, { visible: false }],
         ]);
         await expect(OpenZenEditorCommand.handler(noEditorAccessor)).resolves.toBe(false);
@@ -97,7 +97,7 @@ describe('zen-editor commands', () => {
             [IZenZoneService, { open: vi.fn() }],
             [IEditorService, { getEditor: () => ({ getDocumentData: () => ({ documentStyle: {} }), focus: vi.fn(), setDocumentData: vi.fn(), clearUndoRedoHistory: vi.fn() }) }],
             [IEditorBridgeService, { getLatestEditCellState: () => ({ documentLayoutObject: { documentModel: { getSnapshot: () => null } } }) }],
-            [IUniverInstanceService, { focusUnit: vi.fn() }],
+            [ICrabTableInstanceService, { focusUnit: vi.fn() }],
             [ISidebarService, { visible: false }],
         ]);
         await expect(OpenZenEditorCommand.handler(noSnapshotAccessor)).resolves.toBe(false);
@@ -110,7 +110,7 @@ describe('zen-editor commands', () => {
         const result = await CancelZenEditCommand.handler(createAccessor([
             [IZenZoneService, { close: vi.fn() }],
             [IEditorBridgeService, { refreshEditCellState }],
-            [IUniverInstanceService, {
+            [ICrabTableInstanceService, {
                 getCurrentUnitForType: () => ({ getUnitId: () => 'sheet-unit' }),
                 focusUnit,
             }],
@@ -126,7 +126,7 @@ describe('zen-editor commands', () => {
         const result = await CancelZenEditCommand.handler(createAccessor([
             [IZenZoneService, { close: vi.fn() }],
             [IEditorBridgeService, { refreshEditCellState: vi.fn() }],
-            [IUniverInstanceService, { getCurrentUnitForType: () => null, focusUnit: vi.fn() }],
+            [ICrabTableInstanceService, { getCurrentUnitForType: () => null, focusUnit: vi.fn() }],
             [ISidebarService, { visible: false }],
         ]));
 
@@ -141,7 +141,7 @@ describe('zen-editor commands', () => {
         const result = await ConfirmZenEditCommand.handler(createAccessor([
             [IZenZoneService, { close: vi.fn() }],
             [IEditorBridgeService, { refreshEditCellState }],
-            [IUniverInstanceService, {
+            [ICrabTableInstanceService, {
                 getCurrentUnitForType: () => ({ getUnitId: () => 'sheet-unit' }),
                 focusUnit,
             }],
@@ -179,7 +179,7 @@ describe('zen-editor commands', () => {
         const result = await ConfirmZenEditCommand.handler(createAccessor([
             [IZenZoneService, { close: vi.fn() }],
             [IEditorBridgeService, { refreshEditCellState: vi.fn() }],
-            [IUniverInstanceService, {
+            [ICrabTableInstanceService, {
                 getCurrentUnitForType: () => ({ getUnitId: () => 'sheet-unit' }),
                 focusUnit: vi.fn(),
             }],

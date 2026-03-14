@@ -16,8 +16,8 @@
 
 /* eslint-disable ts/no-explicit-any */
 
-import { IUniverInstanceService, LocaleService } from '@univerjs/core';
-import { TableManager } from '@univerjs/sheets-table';
+import { ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { TableManager } from '@crabtable/sheets-table';
 import { createElement } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { SheetTableSelector } from '../SheetTableSelector';
@@ -49,19 +49,19 @@ vi.mock('react', async () => {
     };
 });
 
-vi.mock('@univerjs/ui', async () => {
-    const actual = await vi.importActual<typeof import('@univerjs/ui')>('@univerjs/ui');
+vi.mock('@crabtable/ui', async () => {
+    const actual = await vi.importActual<typeof import('@crabtable/ui')>('@crabtable/ui');
     return {
         ...actual,
         useDependency: mocks.useDependency,
     };
 });
 
-vi.mock('@univerjs/sheets-formula-ui', () => ({
+vi.mock('@crabtable/sheets-formula-ui', () => ({
     RangeSelector: (props: any) => createElement('range-selector', props),
 }));
 
-vi.mock('@univerjs/design', () => ({
+vi.mock('@crabtable/design', () => ({
     Button: (props: any) => createElement('button', props, props.children),
 }));
 
@@ -100,7 +100,7 @@ describe('SheetTableSelector', () => {
             if (token === LocaleService) {
                 return localeService;
             }
-            if (token === IUniverInstanceService) {
+            if (token === ICrabTableInstanceService) {
                 return {
                     getUnit: vi.fn(() => ({
                         getUnitId: () => 'unit-1',
@@ -141,7 +141,7 @@ describe('SheetTableSelector', () => {
             if (token === LocaleService) {
                 return localeService;
             }
-            if (token === IUniverInstanceService) {
+            if (token === ICrabTableInstanceService) {
                 return {
                     getUnit: () => ({
                         getUnitId: () => 'unit-1',
@@ -220,7 +220,7 @@ describe('SheetTableSelector', () => {
             if (token === LocaleService) {
                 return localeService;
             }
-            if (token === IUniverInstanceService) {
+            if (token === ICrabTableInstanceService) {
                 return {
                     getUnit: () => ({
                         getUnitId: () => 'unit-1',

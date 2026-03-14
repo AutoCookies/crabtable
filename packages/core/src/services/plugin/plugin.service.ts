@@ -19,7 +19,7 @@ import type { UnitType } from '../../common/unit';
 import { skip } from 'rxjs';
 import pkg from '../../../package.json';
 import { Inject, Injector } from '../../common/di';
-import { UniverInstanceType } from '../../common/unit';
+import { CrabTableInstanceType } from '../../common/unit';
 import { Disposable } from '../../shared/lifecycle';
 import { LifecycleStages } from '../lifecycle/lifecycle';
 import { getLifecycleStagesAndBefore, LifecycleService } from '../lifecycle/lifecycle.service';
@@ -45,7 +45,7 @@ export abstract class Plugin extends Disposable {
     static packageName = pkg.name;
     static version = pkg.version;
 
-    static type: UnitType = UniverInstanceType.UNIVER_UNKNOWN;
+    static type: UnitType = CrabTableInstanceType.UNIVER_UNKNOWN;
 
     protected abstract _injector: Injector;
 
@@ -103,7 +103,7 @@ export class PluginStore {
 
 /**
  * Use this decorator to declare dependencies among plugins. If a dependent plugin is not registered yet,
- * Univer will automatically register it with no configuration.
+ * CrabTable will automatically register it with no configuration.
  *
  * For example:
  *
@@ -129,7 +129,7 @@ export class PluginService implements IDisposable {
     private readonly _seenPlugins = new Set<string>();
     private readonly _loadedPlugins = new Set<string>();
 
-    private readonly _loadedPluginTypes = new Set<UnitType>([UniverInstanceType.UNIVER_UNKNOWN]);
+    private readonly _loadedPluginTypes = new Set<UnitType>([CrabTableInstanceType.UNIVER_UNKNOWN]);
 
     constructor(
         @Inject(Injector) private readonly _injector: Injector,
@@ -157,7 +157,7 @@ export class PluginService implements IDisposable {
 
         const { type } = ctor;
         if (this._loadedPluginTypes.has(type)) {
-            if (type === UniverInstanceType.UNIVER_UNKNOWN) {
+            if (type === CrabTableInstanceType.UNIVER_UNKNOWN) {
                 this._loadFromPlugins([item]);
             } else {
                 this._flushType(type);
@@ -190,7 +190,7 @@ export class PluginService implements IDisposable {
     private _assertPluginValid(ctor: PluginCtor<Plugin>): void {
         const { type, pluginName, packageName, version } = ctor;
 
-        if (type === UniverInstanceType.UNRECOGNIZED) {
+        if (type === CrabTableInstanceType.UNRECOGNIZED) {
             throw new Error(`[PluginService]: invalid plugin type for ${ctor.name}. Please assign a "type" to your plugin.`);
         }
 
@@ -201,7 +201,7 @@ export class PluginService implements IDisposable {
         if (version && version !== Plugin.version) {
             throw new Error(
                 `[PluginService]: package "${packageName ?? 'UNKNOWN'}" version mismatch. `
-                + `Plugin version is "${version}" but @univerjs/core version is "${Plugin.version}". `
+                + `Plugin version is "${version}" but @crabtable/core version is "${Plugin.version}". `
                 + 'Please make sure all @univerjs packages use the same version.'
             );
         }
@@ -253,13 +253,13 @@ export class PluginService implements IDisposable {
                         dfs(dItem);
                     } else if (!this._seenPlugins.has(d.pluginName) && !visited.has(d.pluginName)) {
                         // Otherwise, it maybe a plugin that is not registered yet.
-                        if (plugin.type === UniverInstanceType.UNIVER_UNKNOWN && d.type !== UniverInstanceType.UNIVER_UNKNOWN) {
-                            throw new Error('[PluginService]: cannot register a plugin with Univer type that depends on a plugin with other type. '
+                        if (plugin.type === CrabTableInstanceType.UNIVER_UNKNOWN && d.type !== CrabTableInstanceType.UNIVER_UNKNOWN) {
+                            throw new Error('[PluginService]: cannot register a plugin with CrabTable type that depends on a plugin with other type. '
                                 + `The dependent is ${plugin.pluginName} and the dependency is ${d.pluginName}.`
                             );
                         }
 
-                        if (plugin.type !== d.type && d.type !== UniverInstanceType.UNIVER_UNKNOWN) {
+                        if (plugin.type !== d.type && d.type !== CrabTableInstanceType.UNIVER_UNKNOWN) {
                             this._logService.debug(
                                 '[PluginService]',
                                 `Plugin "${pluginName}" depends on "${d.pluginName}" which has different type.`
@@ -268,7 +268,7 @@ export class PluginService implements IDisposable {
 
                         this._logService.debug(
                             '[PluginService]',
-                            `Plugin "${pluginName}" depends on "${d.pluginName}" which is not registered. Univer will automatically register it with default configuration.`
+                            `Plugin "${pluginName}" depends on "${d.pluginName}" which is not registered. CrabTable will automatically register it with default configuration.`
                         );
 
                         this._assertPluginValid(d);

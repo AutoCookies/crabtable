@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { Workbook } from '@univerjs/core';
-import type { RenderUnit } from '@univerjs/engine-render';
-import type { ISelectionWithStyle } from '@univerjs/sheets';
-import { createIdentifier, Disposable, generateRandomId, Inject, IUniverInstanceService, ThemeService, UniverInstanceType } from '@univerjs/core';
-import { IRenderManagerService } from '@univerjs/engine-render';
+import type { Workbook } from '@crabtable/core';
+import type { RenderUnit } from '@crabtable/engine-render';
+import type { ISelectionWithStyle } from '@crabtable/sheets';
+import { CrabTableInstanceType, createIdentifier, Disposable, generateRandomId, ICrabTableInstanceService, Inject, ThemeService } from '@crabtable/core';
+import { IRenderManagerService } from '@crabtable/engine-render';
 
 import { SELECTION_SHAPE_DEPTH } from '../selection/const';
 import { SelectionControl } from '../selection/selection-control';
@@ -55,7 +55,7 @@ export class MarkSelectionService extends Disposable implements IMarkSelectionSe
     private _shapeMap: Map<string, IMarkSelectionInfo> = new Map();
 
     constructor(
-        @IUniverInstanceService private readonly _currentService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _currentService: ICrabTableInstanceService,
         @IRenderManagerService private readonly _renderManagerService: IRenderManagerService,
         @Inject(ThemeService) private readonly _themeService: ThemeService
     ) {
@@ -63,7 +63,7 @@ export class MarkSelectionService extends Disposable implements IMarkSelectionSe
     }
 
     addShape(selection: ISelectionWithStyle, exits: string[] = [], zIndex: number = DEFAULT_Z_INDEX): string | null {
-        const workbook = this._currentService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = this._currentService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const subUnitId = workbook.getActiveSheet()?.getSheetId();
         if (!subUnitId) return null;
         const id = generateRandomId();
@@ -83,7 +83,7 @@ export class MarkSelectionService extends Disposable implements IMarkSelectionSe
     }
 
     addShapeWithNoFresh(selection: ISelectionWithStyle, exits: string[] = [], zIndex: number = DEFAULT_Z_INDEX): string | null {
-        const workbook = this._currentService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
+        const workbook = this._currentService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!;
         const subUnitId = workbook.getActiveSheet()?.getSheetId();
         if (!subUnitId) return null;
         const id = generateRandomId();
@@ -100,7 +100,7 @@ export class MarkSelectionService extends Disposable implements IMarkSelectionSe
     }
 
     refreshShapes(): void {
-        const currentSheet = this._currentService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const currentSheet = this._currentService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!currentSheet) return;
 
         const currentUnitId = currentSheet.getUnitId();

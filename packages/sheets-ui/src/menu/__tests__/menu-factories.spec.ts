@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-import type { IRange, Univer, Workbook } from '@univerjs/core';
+import type { IRange, Workbook } from '@crabtable/core';
 import type { Observable } from 'rxjs';
 import {
     BooleanNumber,
     BorderStyleTypes,
+    CrabTableInstanceType,
     FOCUSING_COMMON_DRAWINGS,
     ICommandService,
     IContextService,
-    Injector,
 
-    IUniverInstanceService,
+    ICrabTableInstanceService,
+    Injector,
     RANGE_TYPE,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     BorderStyleManagerService,
     IExclusiveRangeService,
@@ -40,7 +40,7 @@ import {
     SheetsSelectionsService,
     ToggleGridlinesCommand,
     ToggleGridlinesMutation,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { firstValueFrom, of, skip, take } from 'rxjs';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import {
@@ -85,7 +85,7 @@ import {
 import { createMenuTestBed } from './create-menu-test-bed';
 
 describe('menu factories', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let selectionService: SheetsSelectionsService;
@@ -203,12 +203,12 @@ describe('menu factories', () => {
 
     it('updates gridlines menu activation after toggling sheet gridlines', async () => {
         const injector = get(Injector);
-        const instanceService = get(IUniverInstanceService);
+        const instanceService = get(ICrabTableInstanceService);
         commandService.registerCommand(ToggleGridlinesCommand);
         commandService.registerCommand(ToggleGridlinesMutation);
 
         const menuItem = injector.invoke(ToggleGridlinesMenuFactory);
-        const worksheet = instanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!.getActiveSheet();
+        const worksheet = instanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!.getActiveSheet();
         const initial = await firstValueFrom(menuItem.activated$!.pipe(take(1)));
         expect(await firstValueFrom(menuItem.disabled$!.pipe(take(1)))).toBeTypeOf('boolean');
 

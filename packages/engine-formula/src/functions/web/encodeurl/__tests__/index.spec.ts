@@ -28,9 +28,9 @@ describe('Test encodeurl function', () => {
 
     describe('Encodeurl', () => {
         it('value is normal', () => {
-            const text = StringValueObject.create('https://univer.ai/');
+            const text = StringValueObject.create('https://crabtable.dev/');
             const result = testFunction.calculate(text);
-            expect(getObjectValue(result)).toBe('https%3A%2F%2Funiver.ai%2F');
+            expect(getObjectValue(result)).toBe('https%3A%2F%2Fcrabtable.dev%2F');
         });
 
         it('value is number', () => {

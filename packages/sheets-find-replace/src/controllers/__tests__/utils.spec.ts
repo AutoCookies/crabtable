@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData, Workbook, Worksheet } from '@univerjs/core';
-import type { IFindQuery } from '@univerjs/find-replace';
-import { ILogService, IUniverInstanceService, LocaleType, LogLevel, Univer, UniverInstanceType } from '@univerjs/core';
-import { FindBy, FindDirection, FindScope } from '@univerjs/find-replace';
+import type { Dependency, IWorkbookData, Workbook, Worksheet } from '@crabtable/core';
+import type { IFindQuery } from '@crabtable/find-replace';
+import { CrabTableInstanceType, ICrabTableInstanceService, ILogService, LocaleType, LogLevel } from '@crabtable/core';
+import { FindBy, FindDirection, FindScope } from '@crabtable/find-replace';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { hitCell } from '../sheet-find-replace.controller';
 import {
@@ -202,7 +202,7 @@ describe('Test sheet find replace utils', () => {
 });
 
 describe('test "hitCell" method', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let worksheet: Worksheet;
 
     beforeEach(() => {
@@ -302,16 +302,16 @@ const TEST_WORKBOOK_DATA: IWorkbookData = {
 };
 
 function createTestBed(dependencies?: Dependency[]) {
-    const univer = new Univer();
+    const univer = new CrabTable();
 
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
     dependencies?.forEach((d) => injector.add(d));
 
-    const sheet = univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, TEST_WORKBOOK_DATA);
-    const univerInstanceService = get(IUniverInstanceService);
-    univerInstanceService.focusUnit(TEST_WORKBOOK_DATA.id);
+    const sheet = univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, TEST_WORKBOOK_DATA);
+    const crabtableInstanceService = get(ICrabTableInstanceService);
+    crabtableInstanceService.focusUnit(TEST_WORKBOOK_DATA.id);
 
     const logService = get(ILogService);
     logService.setLogLevel(LogLevel.SILENT);

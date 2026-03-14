@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { IFunctionInfo } from '@univerjs/engine-formula';
-import { FUNCTION_NAMES_ARRAY, FunctionType } from '@univerjs/engine-formula';
+import type { IFunctionInfo } from '@crabtable/engine-formula';
+import { FUNCTION_NAMES_ARRAY, FunctionType } from '@crabtable/engine-formula';
 
 export const FUNCTION_LIST_ARRAY: IFunctionInfo[] = [
     {

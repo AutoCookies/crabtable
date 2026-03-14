@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IContextService } from '@univerjs/core';
-import type { ISequenceNode } from '@univerjs/engine-formula';
-import { Direction } from '@univerjs/core';
-import { sequenceNodeType } from '@univerjs/engine-formula';
+import type { IContextService } from '@crabtable/core';
+import type { ISequenceNode } from '@crabtable/engine-formula';
+import { Direction } from '@crabtable/core';
+import { sequenceNodeType } from '@crabtable/engine-formula';
 import { map, Subject } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 import { FORMULA_PROMPT_ACTIVATED, FormulaPromptService } from '../prompt.service';

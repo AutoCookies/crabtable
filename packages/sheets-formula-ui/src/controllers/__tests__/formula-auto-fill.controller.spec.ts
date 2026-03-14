@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { ICellData, Injector, Nullable, Univer } from '@univerjs/core';
+import type { CrabTable, ICellData, Injector, Nullable } from '@crabtable/core';
 import {
     ICommandService,
-    IUniverInstanceService,
+    ICrabTableInstanceService,
     RANGE_TYPE,
     RedoCommand,
     set,
     ThemeService,
     UndoCommand,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     AddWorksheetMergeMutation,
     AutoFillCommand,
@@ -36,15 +36,15 @@ import {
     SetRangeValuesMutation,
     SetSelectionsOperation,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
-import { FormulaAutoFillController } from '@univerjs/sheets-formula';
+} from '@crabtable/sheets';
+import { FormulaAutoFillController } from '@crabtable/sheets-formula';
 import {
     AutoFillUIController,
     ISheetSelectionRenderService,
     SheetSelectionRenderService,
     SheetsRenderService,
-} from '@univerjs/sheets-ui';
-import { IPlatformService, IShortcutService, PlatformService, ShortcutService } from '@univerjs/ui';
+} from '@crabtable/sheets-ui';
+import { IPlatformService, IShortcutService, PlatformService, ShortcutService } from '@crabtable/ui';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { createCommandTestBed } from './create-command-test-bed';
 
@@ -54,7 +54,7 @@ class mockSheetsRenderService {
 }
 
 describe('Test auto fill with formula', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let themeService: ThemeService;
@@ -105,8 +105,8 @@ describe('Test auto fill with formula', () => {
             endRow: number,
             endColumn: number
         ): Array<Array<Nullable<ICellData>>> | undefined =>
-            get(IUniverInstanceService)
-                .getUniverSheetInstance('test')
+            get(ICrabTableInstanceService)
+                .getCrabTableSheetInstance('test')
                 ?.getSheetBySheetId('sheet1')
                 ?.getRange(startRow, startColumn, endRow, endColumn)
                 .getValues();

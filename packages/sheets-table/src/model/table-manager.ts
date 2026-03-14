@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IRange, Workbook } from '@univerjs/core';
+import type { IRange, Workbook } from '@crabtable/core';
 import type { ITableAddedEvent, ITableDeletedEvent, ITableFilterChangedEvent, ITableFilterItem, ITableInfoWithUnitId, ITableJson, ITableNameChangedEvent, ITableOptions, ITableRange, ITableRangeChangedEvent, ITableRangeRowColOperation, ITableRangeUpdate, ITableRangeWithState, ITableResource, ITableSetConfig, ITableThemeChangedEvent } from '../types/type';
-import { Disposable, generateRandomId, Inject, IUniverInstanceService, LocaleService } from '@univerjs/core';
-import { getSheetCommandTarget } from '@univerjs/sheets';
+import { Disposable, generateRandomId, ICrabTableInstanceService, Inject, LocaleService } from '@crabtable/core';
+import { getSheetCommandTarget } from '@crabtable/sheets';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { IRangeOperationTypeEnum } from '../types/type';
 import { convertCellDataToString, getColumnName } from '../util';
@@ -49,7 +49,7 @@ export class TableManager extends Disposable {
     public tableInitStatus$ = this._tableInitStatus.asObservable();
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(LocaleService) private readonly _localeService: LocaleService
     ) {
         super();
@@ -64,7 +64,7 @@ export class TableManager extends Disposable {
     }
 
     getColumnHeader(unitId: string, subUnitId: string, range: ITableRange, prefixText?: string) {
-        const worksheet = this._univerInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(subUnitId);
+        const worksheet = this._crabtableInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(subUnitId);
 
         const { startRow, startColumn, endColumn } = range;
         const header = [];
@@ -104,7 +104,7 @@ export class TableManager extends Disposable {
         });
 
         if (options?.filters) {
-            const worksheet = this._univerInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(subUnitId);
+            const worksheet = this._crabtableInstanceService.getUnit<Workbook>(unitId)?.getSheetBySheetId(subUnitId);
             table.getTableFilters().doFilter(worksheet!, range);
             this._tableFilterChanged$.next({
                 unitId,
@@ -417,7 +417,7 @@ export class TableManager extends Disposable {
         const unitMap = this._ensureUnit(unitId);
         const subUnitIds = Object.keys(data);
         subUnitIds.forEach((subUnitId) => {
-            const target = getSheetCommandTarget(this._univerInstanceService, { unitId, subUnitId });
+            const target = getSheetCommandTarget(this._crabtableInstanceService, { unitId, subUnitId });
             if (!target) {
                 return;
             }

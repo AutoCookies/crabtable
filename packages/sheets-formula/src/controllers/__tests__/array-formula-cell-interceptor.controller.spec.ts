@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import type { Dependency, IWorkbookData, Workbook, Worksheet } from '@univerjs/core';
+import type { Dependency, IWorkbookData, Workbook, Worksheet } from '@crabtable/core';
 import {
     CellValueType,
     ICommandService,
     IConfigService,
     InterceptorEffectEnum,
     LocaleType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 import {
     FormulaDataModel,
     IDefinedNamesService,
@@ -29,8 +29,8 @@ import {
     SetArrayFormulaDataMutation,
     SetDefinedNameMutation,
     SetFormulaCalculationResultMutation,
-} from '@univerjs/engine-formula';
-import { INTERCEPTOR_POINT, SetRangeValuesMutation, SheetInterceptorService } from '@univerjs/sheets';
+} from '@crabtable/engine-formula';
+import { INTERCEPTOR_POINT, SetRangeValuesMutation, SheetInterceptorService } from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { PLUGIN_CONFIG_KEY_BASE } from '../../config/config';

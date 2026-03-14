@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { ICellDataForSheetInterceptor, IRange, Nullable, Workbook } from '@univerjs/core';
-import type { IRenderContext, IRenderModule, Scene, SpreadsheetSkeleton } from '@univerjs/engine-render';
-import { DisposableCollection, Inject, IPermissionService, IUniverInstanceService, Optional, RANGE_TYPE, Rectangle, RxDisposable, UniverInstanceType } from '@univerjs/core';
-import { UnitAction } from '@univerjs/protocol';
+import type { ICellDataForSheetInterceptor, IRange, Nullable, Workbook } from '@crabtable/core';
+import type { IRenderContext, IRenderModule, Scene, SpreadsheetSkeleton } from '@crabtable/engine-render';
+import { CrabTableInstanceType, DisposableCollection, ICrabTableInstanceService, Inject, IPermissionService, Optional, RANGE_TYPE, Rectangle, RxDisposable } from '@crabtable/core';
+import { getSheetCommandTarget, RangeProtectionCache, RangeProtectionRuleModel, SheetsSelectionsService, WorkbookEditablePermission, WorksheetEditPermission, WorksheetSetCellStylePermission, WorksheetSetCellValuePermission, WorksheetSetColumnStylePermission, WorksheetSetRowStylePermission } from '@crabtable/sheets';
 
-import { getSheetCommandTarget, RangeProtectionCache, RangeProtectionRuleModel, SheetsSelectionsService, WorkbookEditablePermission, WorksheetEditPermission, WorksheetSetCellStylePermission, WorksheetSetCellValuePermission, WorksheetSetColumnStylePermission, WorksheetSetRowStylePermission } from '@univerjs/sheets';
+import { UnitAction } from '@univerjs/protocol';
 import { ISheetSelectionRenderService } from '../../services/selection/base-selection-render.service';
 import { HeaderFreezeRenderController } from '../render-controllers/freeze.render-controller';
 import { HeaderMoveRenderController } from '../render-controllers/header-move.render-controller';
@@ -33,7 +33,7 @@ export class SheetPermissionInterceptorCanvasRenderController extends RxDisposab
 
     constructor(
         private readonly _context: IRenderContext<Workbook>,
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @IPermissionService private readonly _permissionService: IPermissionService,
         @Inject(SheetsSelectionsService) private readonly _selectionManagerService: SheetsSelectionsService,
         @Inject(RangeProtectionRuleModel) private _rangeProtectionRuleModel: RangeProtectionRuleModel,
@@ -55,7 +55,7 @@ export class SheetPermissionInterceptorCanvasRenderController extends RxDisposab
         this.disposeWithMe(
             this._headerMoveRenderController.interceptor.intercept(headerMoveInterceptor, {
                 handler: (defaultValue: Nullable<boolean>, selectionRange: IRange) => {
-                    const target = getSheetCommandTarget(this._univerInstanceService);
+                    const target = getSheetCommandTarget(this._crabtableInstanceService);
                     if (!target) {
                         return false;
                     }
@@ -104,7 +104,7 @@ export class SheetPermissionInterceptorCanvasRenderController extends RxDisposab
         this.disposeWithMe(
             this._headerResizeRenderController.interceptor.intercept(this._headerResizeRenderController.interceptor.getInterceptPoints().HEADER_RESIZE_PERMISSION_CHECK, {
                 handler: (defaultValue: Nullable<boolean>, rangeParams: { row?: number; col?: number }) => {
-                    const target = getSheetCommandTarget(this._univerInstanceService);
+                    const target = getSheetCommandTarget(this._crabtableInstanceService);
                     if (!target) {
                         return false;
                     }
@@ -132,7 +132,7 @@ export class SheetPermissionInterceptorCanvasRenderController extends RxDisposab
         this.disposeWithMe(
             this._selectionRenderService.interceptor.intercept(this._selectionRenderService.interceptor.getInterceptPoints().RANGE_FILL_PERMISSION_CHECK, {
                 handler: (_: Nullable<boolean>, position: { x: number; y: number; skeleton: SpreadsheetSkeleton; scene: Scene }) => {
-                    const target = getSheetCommandTarget(this._univerInstanceService);
+                    const target = getSheetCommandTarget(this._crabtableInstanceService);
                     if (!target) {
                         return false;
                     }
@@ -184,7 +184,7 @@ export class SheetPermissionInterceptorCanvasRenderController extends RxDisposab
         this.disposeWithMe(
             this._selectionRenderService.interceptor.intercept(this._selectionRenderService.interceptor.getInterceptPoints().RANGE_MOVE_PERMISSION_CHECK, {
                 handler: (_: Nullable<boolean>, _cellInfo: null) => {
-                    const target = getSheetCommandTarget(this._univerInstanceService);
+                    const target = getSheetCommandTarget(this._crabtableInstanceService);
                     if (!target) {
                         return false;
                     }
@@ -232,7 +232,7 @@ export class SheetPermissionInterceptorCanvasRenderController extends RxDisposab
         this.disposeWithMe(
             this._headerFreezeRenderController.interceptor.intercept(this._headerFreezeRenderController.interceptor.getInterceptPoints().FREEZE_PERMISSION_CHECK, {
                 handler: (_: Nullable<boolean>, __) => {
-                    const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+                    const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
                     const worksheet = workbook?.getActiveSheet();
                     if (!worksheet || !workbook) {
                         return false;

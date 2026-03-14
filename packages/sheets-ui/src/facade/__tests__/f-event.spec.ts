@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FEventName } from '@univerjs/core/facade';
+import { FEventName } from '@crabtable/core/facade';
 import { describe, expect, it } from 'vitest';
 import { CellFEventName, FSheetsUIEventName } from '../f-event';
 

@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { Dependency, IOperation, IWorkbookData, Workbook } from '@univerjs/core';
-import type { IEditorBridgeServiceVisibleParam } from '@univerjs/sheets-ui';
+import type { Dependency, IOperation, IWorkbookData, Workbook } from '@crabtable/core';
+import type { IEditorBridgeServiceVisibleParam } from '@crabtable/sheets-ui';
 import type { IOpenFilterPanelOperationParams } from '../../commands/operations/sheets-filter.operation';
 import type { IFilterConditionFormParams } from '../../models/conditions';
 import type { IFilterByValueWithTreeItem } from '../sheets-filter-panel.service';
-import { CommandType, ICommandService, Inject, Injector, LocaleService, Plugin, Univer, UniverInstanceType } from '@univerjs/core';
-import { ActiveDirtyManagerService, IActiveDirtyManagerService, ISheetRowFilteredService, SheetRowFilteredService } from '@univerjs/engine-formula';
-import { RefRangeService, SheetInterceptorService, SheetRangeThemeModel, SheetsSelectionsService, ZebraCrossingCacheController } from '@univerjs/sheets';
-import { CustomFilterOperator, FilterBy, SheetsFilterService, UniverSheetsFilterPlugin } from '@univerjs/sheets-filter';
-import { SetSheetsFilterCriteriaCommand } from '@univerjs/sheets-filter/commands/commands/sheets-filter.command.js';
+import { CommandType, CrabTableInstanceType, ICommandService, Inject, Injector, LocaleService, Plugin } from '@crabtable/core';
+import { ActiveDirtyManagerService, IActiveDirtyManagerService, ISheetRowFilteredService, SheetRowFilteredService } from '@crabtable/engine-formula';
+import { RefRangeService, SheetInterceptorService, SheetRangeThemeModel, SheetsSelectionsService, ZebraCrossingCacheController } from '@crabtable/sheets';
+import { CustomFilterOperator, FilterBy, SheetsFilterService, UniverSheetsFilterPlugin } from '@crabtable/sheets-filter';
+import { SetSheetsFilterCriteriaCommand } from '@crabtable/sheets-filter/commands/commands/sheets-filter.command.js';
 import { afterEach, beforeEach, describe, expect, it, vitest } from 'vitest';
 import { E_ITEMS, ITEMS, ITEMS_WITH_EMPTY, WithCustomFilterModelFactory, WithMergedCellFilterFactory, WithMultiEmptyCellsModelFactory, WithTwoFilterColumnsFactory, WithValuesAndEmptyFilterModelFactory, WithValuesFilterModelFactory } from '../../__testing__/data';
 import { CloseFilterPanelOperation, OpenFilterPanelOperation } from '../../commands/operations/sheets-filter.operation';
@@ -77,12 +77,12 @@ function getAllLeafNodes(
 }
 
 function createSheetsFilterPanelServiceTestBed(workbookData: IWorkbookData) {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
     class SheetsFilterPanelTestPlugin extends Plugin {
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
         static override pluginName = 'sheets-filter-panel-test';
 
         constructor(_config: unknown, @Inject(Injector) protected readonly _injector: Injector) {
@@ -108,7 +108,7 @@ function createSheetsFilterPanelServiceTestBed(workbookData: IWorkbookData) {
     univer.registerPlugin(UniverSheetsFilterPlugin);
     univer.registerPlugin(SheetsFilterPanelTestPlugin);
 
-    univer.createUnit<IWorkbookData, Workbook>(UniverInstanceType.UNIVER_SHEET, workbookData);
+    univer.createUnit<IWorkbookData, Workbook>(CrabTableInstanceType.CRABTABLE_SHEET, workbookData);
 
     const commandService = get(ICommandService);
 
@@ -123,7 +123,7 @@ function createSheetsFilterPanelServiceTestBed(workbookData: IWorkbookData) {
 }
 
 describe('test "SheetsFilterPanelService"', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let sheetsFilterService: SheetsFilterService;

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import type { IAccessor } from '@univerjs/core';
-import type { IMenuItem } from '@univerjs/ui';
-import { UniverInstanceType } from '@univerjs/core';
-import { getMenuHiddenObservable, MenuItemType } from '@univerjs/ui';
+import type { IAccessor } from '@crabtable/core';
+import type { IMenuItem } from '@crabtable/ui';
+import { CrabTableInstanceType } from '@crabtable/core';
+import { getMenuHiddenObservable, MenuItemType } from '@crabtable/ui';
 import { InsertSlideFloatImageCommand } from '../commands/operations/insert-image.operation';
 
 export const SLIDES_IMAGE_MENU_ID = 'slide.menu.image';
@@ -28,7 +28,7 @@ export function SlideImageMenuFactory(accessor: IAccessor): IMenuItem {
         type: MenuItemType.SUBITEMS,
         icon: 'AddImageIcon',
         tooltip: 'slide.image.insert.title',
-        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SLIDE),
+        hidden$: getMenuHiddenObservable(accessor, CrabTableInstanceType.CRABTABLE_SLIDE),
     };
 }
 
@@ -37,6 +37,6 @@ export function UploadSlideFloatImageMenuFactory(_accessor: IAccessor): IMenuIte
         id: InsertSlideFloatImageCommand.id,
         title: 'slide.image.insert.float',
         type: MenuItemType.BUTTON,
-        hidden$: getMenuHiddenObservable(_accessor, UniverInstanceType.UNIVER_SLIDE),
+        hidden$: getMenuHiddenObservable(_accessor, CrabTableInstanceType.CRABTABLE_SLIDE),
     };
 }

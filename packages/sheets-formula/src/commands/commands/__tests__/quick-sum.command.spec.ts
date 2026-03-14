@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IAccessor, IWorkbookData } from '@univerjs/core';
-import { CellValueType, ICommandService, IUniverInstanceService, LocaleType } from '@univerjs/core';
-import { SetRangeValuesCommand, SetSelectionsOperation, SheetsSelectionsService } from '@univerjs/sheets';
+import type { IAccessor, IWorkbookData } from '@crabtable/core';
+import { CellValueType, ICommandService, ICrabTableInstanceService, LocaleType } from '@crabtable/core';
+import { SetRangeValuesCommand, SetSelectionsOperation, SheetsSelectionsService } from '@crabtable/sheets';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { createFacadeTestBed } from '../../../facade/__tests__/create-test-bed';
@@ -72,8 +72,8 @@ describe('QuickSumCommand', () => {
                 if (token === SheetsSelectionsService) {
                     return { getCurrentLastSelection: vi.fn(() => null) };
                 }
-                if (token === IUniverInstanceService) {
-                    return testBed.injector.get(IUniverInstanceService);
+                if (token === ICrabTableInstanceService) {
+                    return testBed.injector.get(ICrabTableInstanceService);
                 }
                 if (token === ICommandService) {
                     return { executeCommand };
@@ -112,8 +112,8 @@ describe('QuickSumCommand', () => {
                         })),
                     };
                 }
-                if (token === IUniverInstanceService) {
-                    return testBed.injector.get(IUniverInstanceService);
+                if (token === ICrabTableInstanceService) {
+                    return testBed.injector.get(ICrabTableInstanceService);
                 }
                 if (token === ICommandService) {
                     return { executeCommand };

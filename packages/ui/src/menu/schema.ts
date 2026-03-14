@@ -15,7 +15,7 @@
  */
 
 import type { MenuSchemaType } from '../services/menu/menu-manager.service';
-import { RedoCommand, UndoCommand } from '@univerjs/core';
+import { RedoCommand, UndoCommand } from '@crabtable/core';
 import { ToggleShortcutPanelOperation } from '../commands/operations/toggle-shortcut-panel.operation';
 import { RedoMenuItemFactory, UndoMenuItemFactory } from '../controllers/menus/menus';
 import { ShortcutPanelMenuItemFactory } from '../controllers/shortcut-display/menu';

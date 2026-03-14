@@ -19,8 +19,8 @@ import type {
     IShapeProps,
     Rect,
     UniverRenderingContext,
-} from '@univerjs/engine-render';
-import { Shape } from '@univerjs/engine-render';
+} from '@crabtable/engine-render';
+import { Shape } from '@crabtable/engine-render';
 
 export const COLLAB_CURSOR_LABEL_HEIGHT = 18;
 export const COLLAB_CURSOR_LABEL_MAX_WIDTH = 200;

@@ -15,10 +15,10 @@
  */
 
 import type { IScrollState } from './sheet-bar-tabs/utils/slide-tab-bar';
-import { ICommandService, IPermissionService, throttle } from '@univerjs/core';
+import { ICommandService, IPermissionService, throttle } from '@crabtable/core';
+import { InsertSheetCommand, WorkbookCreateSheetPermission, WorkbookEditablePermission } from '@crabtable/sheets';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { IncreaseIcon, MoreIcon } from '@univerjs/icons';
-import { InsertSheetCommand, WorkbookCreateSheetPermission, WorkbookEditablePermission } from '@univerjs/sheets';
-import { useDependency, useObservable } from '@univerjs/ui';
 import { useEffect, useState } from 'react';
 import { useActiveWorkbook } from '../../components/hook';
 import { ISheetBarService } from '../../services/sheet-bar/sheet-bar.service';

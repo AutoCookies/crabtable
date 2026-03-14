@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import type { IDisposable } from '@univerjs/core';
-import type { IMessageProps } from '@univerjs/design';
-import { createIdentifier } from '@univerjs/core';
+import type { IDisposable } from '@crabtable/core';
+import type { IMessageProps } from '@crabtable/design';
+import { createIdentifier } from '@crabtable/core';
 
 export const IMessageService = createIdentifier<IMessageService>('ui.message.service');
 

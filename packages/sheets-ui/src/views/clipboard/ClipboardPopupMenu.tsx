@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { IDiscreteRange } from '@univerjs/sheets';
+import type { IDiscreteRange } from '@crabtable/sheets';
 import type { IPasteHookKeyType } from '../../services/clipboard/type';
-import { ICommandService, IUniverInstanceService, LocaleService } from '@univerjs/core';
-import { borderClassName, clsx, DropdownMenu } from '@univerjs/design';
-import { convertTransformToOffsetX, convertTransformToOffsetY, IRenderManagerService } from '@univerjs/engine-render';
+import { ICommandService, ICrabTableInstanceService, LocaleService } from '@crabtable/core';
+import { borderClassName, clsx, DropdownMenu } from '@crabtable/design';
+import { convertTransformToOffsetX, convertTransformToOffsetY, IRenderManagerService } from '@crabtable/engine-render';
+import { useDependency, useObservable } from '@crabtable/ui';
 import { MoreDownIcon, PasteSpecialDoubleIcon } from '@univerjs/icons';
-import { useDependency, useObservable } from '@univerjs/ui';
 import { useState } from 'react';
 import { SheetOptionalPasteCommand } from '../../commands/commands/clipboard.command';
 import { useActiveWorkbook } from '../../components/hook';
@@ -41,7 +41,7 @@ const SheetPasteOptions = [
 ];
 
 const useMenuPosition = (range?: IDiscreteRange) => {
-    const univerInstanceService = useDependency(IUniverInstanceService);
+    const crabtableInstanceService = useDependency(ICrabTableInstanceService);
     const renderManagerService = useDependency(IRenderManagerService);
 
     const workbook = useActiveWorkbook();
@@ -62,7 +62,7 @@ const useMenuPosition = (range?: IDiscreteRange) => {
     const sheetSkeletonManagerService = ru?.with(SheetSkeletonManagerService);
     const selectionRenderService = ru?.with(ISheetSelectionRenderService);
 
-    const sheetObject = getSheetObject(univerInstanceService, renderManagerService);
+    const sheetObject = getSheetObject(crabtableInstanceService, renderManagerService);
     if (!sheetObject || !selectionRenderService) return null;
 
     const { scene } = sheetObject;

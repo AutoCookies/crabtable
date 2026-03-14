@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import type { Editor } from '@univerjs/docs-ui';
-import type { IFunctionParam } from '@univerjs/engine-formula';
-import { LocaleService } from '@univerjs/core';
-import { borderClassName, borderTopClassName, clsx, scrollbarClassName } from '@univerjs/design';
+import type { Editor } from '@crabtable/docs-ui';
+import type { IFunctionParam } from '@crabtable/engine-formula';
+import { LocaleService } from '@crabtable/core';
+import { borderClassName, borderTopClassName, clsx, scrollbarClassName } from '@crabtable/design';
+import { IEditorBridgeService } from '@crabtable/sheets-ui';
+import { RectPopup, useDependency, useEvent, useObservable } from '@crabtable/ui';
 import { CloseIcon, MoreIcon } from '@univerjs/icons';
-import { IEditorBridgeService } from '@univerjs/sheets-ui';
-import { RectPopup, useDependency, useEvent, useObservable } from '@univerjs/ui';
 import { useState } from 'react';
 import { generateParam } from '../../../services/utils';
 import { useEditorPosition } from '../hooks/use-editor-position';

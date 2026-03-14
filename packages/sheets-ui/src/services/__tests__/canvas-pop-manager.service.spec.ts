@@ -235,10 +235,10 @@ describe('SheetCanvasPopManagerService', () => {
     it('returns null for missing workbook/sheet in attachPopupToCell', () => {
         const { service } = createService();
         const mock = service as any;
-        mock._univerInstanceService.getUnit = () => null;
+        mock._crabtableInstanceService.getUnit = () => null;
         expect(service.attachPopupToCell(0, 0, { componentKey: 'comp' } as any, 'unit-x', 'sheet-1')).toBeNull();
 
-        mock._univerInstanceService.getUnit = () => ({ getSheetBySheetId: () => null });
+        mock._crabtableInstanceService.getUnit = () => ({ getSheetBySheetId: () => null });
         expect(service.attachPopupToCell(0, 0, { componentKey: 'comp' } as any, 'unit-x', 'sheet-1')).toBeNull();
     });
 });

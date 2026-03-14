@@ -15,7 +15,7 @@
  */
 
 import type { BaseValueObject } from '../engine/value-object/base-value-object';
-import { numfmt } from '@univerjs/core';
+import { numfmt } from '@crabtable/core';
 import { stripErrorMargin } from '../engine/utils/math-kit';
 
 /**

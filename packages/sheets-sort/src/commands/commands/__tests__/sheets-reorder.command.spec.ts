@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { ICellData, Injector, Nullable, Univer, Workbook } from '@univerjs/core';
+import type { ICellData, Injector, Nullable, Workbook } from '@crabtable/core';
 import type { ISortRangeCommandParams } from '../sheets-sort.command';
-import { ICommandService, IUniverInstanceService } from '@univerjs/core';
-import { ReorderRangeCommand, ReorderRangeMutation, SetSelectionsOperation } from '@univerjs/sheets';
+import { ICommandService, ICrabTableInstanceService } from '@crabtable/core';
+import { ReorderRangeCommand, ReorderRangeMutation, SetSelectionsOperation } from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SortRangeCommand } from '../sheets-sort.command';
 import { createCommandTestBed } from './create-command-test-bed';
 
 describe('Test "Sort Range Commands"', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
     let getData: (row: number, col: number) => Nullable<ICellData>;
@@ -36,8 +36,8 @@ describe('Test "Sort Range Commands"', () => {
         commandService.registerCommand(SetSelectionsOperation);
         commandService.registerCommand(ReorderRangeMutation);
         commandService.registerCommand(ReorderRangeCommand);
-        const univerInstanceService = get(IUniverInstanceService);
-        const workbook = univerInstanceService.getUnit('test') as Workbook;
+        const crabtableInstanceService = get(ICrabTableInstanceService);
+        const workbook = crabtableInstanceService.getUnit('test') as Workbook;
         const worksheet = workbook?.getSheetBySheetId('sheet1')!;
         getData = (row: number, col: number) => {
             const data = worksheet.getCellMatrix().getValue(row, col);

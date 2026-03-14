@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import type { IRange, Workbook } from '@univerjs/core';
-import type { IRenderContext, IRenderModule, SpreadsheetSkeleton } from '@univerjs/engine-render';
-import type { ICancelMarkDirtyRowAutoHeightMutationParams, IMarkDirtyRowAutoHeightMutationParams } from '@univerjs/sheets';
-import { createIdentifier, Disposable, ICommandService, Inject, Rectangle } from '@univerjs/core';
-import { CancelMarkDirtyRowAutoHeightMutation, MarkDirtyRowAutoHeightMutation, SetWorksheetRowAutoHeightMutation } from '@univerjs/sheets';
+import type { IRange, Workbook } from '@crabtable/core';
+import type { IRenderContext, IRenderModule, SpreadsheetSkeleton } from '@crabtable/engine-render';
+import type { ICancelMarkDirtyRowAutoHeightMutationParams, IMarkDirtyRowAutoHeightMutationParams } from '@crabtable/sheets';
+import { createIdentifier, Disposable, ICommandService, Inject, Rectangle } from '@crabtable/core';
+import { CancelMarkDirtyRowAutoHeightMutation, MarkDirtyRowAutoHeightMutation, SetWorksheetRowAutoHeightMutation } from '@crabtable/sheets';
 import { SheetSkeletonManagerService } from './sheet-skeleton-manager.service';
 
 export interface IAutoHeightTask {

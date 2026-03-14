@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import type { IFormulaDataItem } from '@univerjs/engine-formula';
+import type { IFormulaDataItem } from '@crabtable/engine-formula';
 import { describe, expect, it } from 'vitest';
 import { formulaDataItemToCellData, formulaDataToCellData, isFormulaDataItem } from '../ref-range-formula';
 

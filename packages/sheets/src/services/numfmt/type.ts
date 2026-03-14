@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import type { ICellData, IRange, Nullable, ObjectMatrix } from '@univerjs/core';
-import { createIdentifier } from '@univerjs/core';
+import type { ICellData, IRange, Nullable, ObjectMatrix } from '@crabtable/core';
+import { createIdentifier } from '@crabtable/core';
 
 // eslint-disable-next-line ts/consistent-type-definitions
 export type INumfmtItem = {

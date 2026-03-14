@@ -14,26 +14,25 @@
  * limitations under the License.
  */
 
-import type { IWorkbookData } from '@univerjs/core';
-import type { ISelectionWithStyle } from '@univerjs/sheets';
+import type { IWorkbookData } from '@crabtable/core';
+import type { ISelectionWithStyle } from '@crabtable/sheets';
 import type { ISheetNote } from '../../../models/sheets-note.model';
 import {
+    CrabTableInstanceType,
     ICommandService,
+    ICrabTableInstanceService,
     ILogService,
     Inject,
     Injector,
     IUndoRedoService,
-    IUniverInstanceService,
     LocaleType,
     LogLevel,
     Plugin,
     RANGE_TYPE,
     touchDependencies,
     UndoCommand,
-    Univer,
-    UniverInstanceType,
-} from '@univerjs/core';
-import { SheetsSelectionsService } from '@univerjs/sheets';
+} from '@crabtable/core';
+import { SheetsSelectionsService } from '@crabtable/sheets';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { SheetsNoteModel } from '../../../models/sheets-note.model';
 import { RemoveNoteMutation, ToggleNotePopupMutation, UpdateNoteMutation } from '../../mutations/note.mutation';
@@ -61,13 +60,13 @@ const TEST_WORKBOOK_DATA: IWorkbookData = {
 };
 
 function createCommandTestBed() {
-    const univer = new Univer();
+    const univer = new CrabTable();
     const injector = univer.__getInjector();
     const get = injector.get.bind(injector);
 
     class TestPlugin extends Plugin {
         static override pluginName = 'test-plugin';
-        static override type = UniverInstanceType.UNIVER_SHEET;
+        static override type = CrabTableInstanceType.CRABTABLE_SHEET;
 
         constructor(
             _config: undefined,
@@ -91,8 +90,8 @@ function createCommandTestBed() {
     }
 
     univer.registerPlugin(TestPlugin);
-    univer.createUnit(UniverInstanceType.UNIVER_SHEET, TEST_WORKBOOK_DATA);
-    get(IUniverInstanceService).focusUnit(unitId);
+    univer.createUnit(CrabTableInstanceType.CRABTABLE_SHEET, TEST_WORKBOOK_DATA);
+    get(ICrabTableInstanceService).focusUnit(unitId);
 
     const logService = get(ILogService);
     logService.setLogLevel(LogLevel.SILENT);
@@ -140,7 +139,7 @@ function setSingleCellSelection(get: Injector['get'], row: number, col: number) 
 }
 
 describe('sheets-note commands', () => {
-    let univer: Univer;
+    let univer: CrabTable;
     let get: Injector['get'];
     let commandService: ICommandService;
 

@@ -14,38 +14,38 @@
  * limitations under the License.
  */
 
-import type { CellValue, ICellData, ICommandInfo, IObjectMatrixPrimitiveType, IRange, ISelectionCell, IStyleData, Nullable, Styles, Workbook, Worksheet } from '@univerjs/core';
-import type { ArrayValueObject, ISheetData } from '@univerjs/engine-formula';
-import type { ISelectionWithStyle, ISetRangeValuesMutationParams } from '@univerjs/sheets';
+import type { CellValue, ICellData, ICommandInfo, IObjectMatrixPrimitiveType, IRange, ISelectionCell, IStyleData, Nullable, Styles, Workbook, Worksheet } from '@crabtable/core';
+import type { ArrayValueObject, ISheetData } from '@crabtable/engine-formula';
+import type { ISelectionWithStyle, ISetRangeValuesMutationParams } from '@crabtable/sheets';
 import type { IStatusBarServiceStatus } from '../services/status-bar.service';
 import {
     CellValueType,
+    CrabTableInstanceType,
     createInterceptorKey,
     debounce,
     Disposable,
     ICommandService,
+    ICrabTableInstanceService,
     Inject,
     InterceptorManager,
-    IUniverInstanceService,
     numfmt,
     ObjectMatrix,
     RANGE_TYPE,
     splitIntoGrid,
     toDisposable,
     Tools,
-    UniverInstanceType,
-} from '@univerjs/core';
+} from '@crabtable/core';
 
 import {
     FormulaDataModel,
     FUNCTION_NAMES_MATH,
     FUNCTION_NAMES_STATISTICAL,
-} from '@univerjs/engine-formula';
+} from '@crabtable/engine-formula';
 import {
     INumfmtService,
     SetRangeValuesMutation,
     SheetsSelectionsService,
-} from '@univerjs/sheets';
+} from '@crabtable/sheets';
 import { IStatusBarService } from '../services/status-bar.service';
 
 export const STATUS_BAR_PERMISSION_CORRECT = createInterceptorKey<ArrayValueObject[], ArrayValueObject[]>('statusBarPermissionCorrect');
@@ -154,7 +154,7 @@ export class StatusBarController extends Disposable {
     public interceptor = new InterceptorManager({ STATUS_BAR_PERMISSION_CORRECT });
 
     constructor(
-        @IUniverInstanceService private readonly _univerInstanceService: IUniverInstanceService,
+        @ICrabTableInstanceService private readonly _crabtableInstanceService: ICrabTableInstanceService,
         @Inject(SheetsSelectionsService) private readonly _selectionManagerService: SheetsSelectionsService,
         @IStatusBarService private readonly _statusBarService: IStatusBarService,
         @ICommandService private readonly _commandService: ICommandService,
@@ -308,7 +308,7 @@ export class StatusBarController extends Disposable {
 
     // eslint-disable-next-line max-lines-per-function
     private _calculateSelection(selections: IRange[], primary: Nullable<ISelectionCell>) {
-        const workbook = this._univerInstanceService.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET);
+        const workbook = this._crabtableInstanceService.getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET);
         if (!workbook) {
             return this._clearResult();
         }
@@ -321,8 +321,8 @@ export class StatusBarController extends Disposable {
 
         const sheetData: ISheetData = {};
 
-        this._univerInstanceService
-            .getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!
+        this._crabtableInstanceService
+            .getCurrentUnitForType<Workbook>(CrabTableInstanceType.CRABTABLE_SHEET)!
             .getSheets()
             .forEach((sheet) => {
                 const sheetConfig = sheet.getConfig();

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import type { ISetDefinedNameMutationParam } from '@univerjs/engine-formula';
+import type { ISetDefinedNameMutationParam } from '@crabtable/engine-formula';
 import type { FWorksheet } from './f-worksheet';
-import { generateRandomId, IAuthzIoService, ICommandService, Inject, Injector, IPermissionService, LocaleService } from '@univerjs/core';
-import { FBase } from '@univerjs/core/facade';
-import { IDefinedNamesService, serializeRange } from '@univerjs/engine-formula';
-import { RangeProtectionRuleModel, RemoveDefinedNameCommand, SCOPE_WORKBOOK_VALUE_DEFINED_NAME, SetDefinedNameCommand, WorksheetProtectionPointModel, WorksheetProtectionRuleModel } from '@univerjs/sheets';
+import { generateRandomId, IAuthzIoService, ICommandService, Inject, Injector, IPermissionService, LocaleService } from '@crabtable/core';
+import { FBase } from '@crabtable/core/facade';
+import { IDefinedNamesService, serializeRange } from '@crabtable/engine-formula';
+import { RangeProtectionRuleModel, RemoveDefinedNameCommand, SCOPE_WORKBOOK_VALUE_DEFINED_NAME, SetDefinedNameCommand, WorksheetProtectionPointModel, WorksheetProtectionRuleModel } from '@crabtable/sheets';
 
 /**
  * Get defined name field name
@@ -72,8 +72,8 @@ export class FDefinedNameBuilder {
      * @returns {FDefinedNameBuilder} The instance of `FDefinedNameBuilder` for method chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
-     * const definedNameBuilder = univerAPI.newDefinedName()
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
+     * const definedNameBuilder = crabtableAPI.newDefinedName()
      *   .setName('MyDefinedName')
      *   .setRef('Sheet1!$A$1')
      *   .build();
@@ -91,8 +91,8 @@ export class FDefinedNameBuilder {
      * @returns {FDefinedNameBuilder} The instance of `FDefinedNameBuilder` for method chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
-     * const definedNameBuilder = univerAPI.newDefinedName()
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
+     * const definedNameBuilder = crabtableAPI.newDefinedName()
      *   .setName('MyDefinedName')
      *   .setFormula('SUM(Sheet1!$A$1)')
      *   .build();
@@ -110,8 +110,8 @@ export class FDefinedNameBuilder {
      * @returns {FDefinedNameBuilder} The instance of `FDefinedNameBuilder` for method chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
-     * const definedNameBuilder = univerAPI.newDefinedName()
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
+     * const definedNameBuilder = crabtableAPI.newDefinedName()
      *   .setName('MyDefinedName')
      *   .setRef('Sheet1!$A$1')
      *   .build();
@@ -132,8 +132,8 @@ export class FDefinedNameBuilder {
      * @returns {FDefinedNameBuilder} The instance of `FDefinedNameBuilder` for method chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
-     * const definedNameBuilder = univerAPI.newDefinedName()
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
+     * const definedNameBuilder = crabtableAPI.newDefinedName()
      *   .setName('MyDefinedName')
      *   .setRefByRange(1, 3, 2, 5) // D2:H3
      *   .build();
@@ -156,8 +156,8 @@ export class FDefinedNameBuilder {
      * @returns {FDefinedNameBuilder} The instance of `FDefinedNameBuilder` for method chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
-     * const definedNameBuilder = univerAPI.newDefinedName()
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
+     * const definedNameBuilder = crabtableAPI.newDefinedName()
      *   .setName('MyDefinedName')
      *   .setRef('Sheet1!$A$1')
      *   .setComment('A reference to A1 cell in Sheet1')
@@ -176,11 +176,11 @@ export class FDefinedNameBuilder {
      * @returns {FDefinedNameBuilder} The instance of `FDefinedNameBuilder` for method chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const sheets = fWorkbook.getSheets();
      *
      * // Create a defined name and make it available only in the second worksheet
-     * const definedNameBuilder = univerAPI.newDefinedName()
+     * const definedNameBuilder = crabtableAPI.newDefinedName()
      *   .setName('MyDefinedName')
      *   .setRef('Sheet1!$A$1')
      *   .setScopeToWorksheet(sheets[1])
@@ -198,10 +198,10 @@ export class FDefinedNameBuilder {
      * @returns {FDefinedNameBuilder} The instance of `FDefinedNameBuilder` for method chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      *
      * // Create a defined name and make it available in the entire workbook
-     * const definedNameBuilder = univerAPI.newDefinedName()
+     * const definedNameBuilder = crabtableAPI.newDefinedName()
      *   .setName('MyDefinedName')
      *   .setRef('Sheet1!$A$1')
      *   .setScopeToWorkbook()
@@ -220,8 +220,8 @@ export class FDefinedNameBuilder {
      * @returns {FDefinedNameBuilder} The instance of `FDefinedNameBuilder` for method chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
-     * const definedNameBuilder = univerAPI.newDefinedName()
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
+     * const definedNameBuilder = crabtableAPI.newDefinedName()
      *   .setName('MyDefinedName')
      *   .setRef('Sheet1!$A$1')
      *   .setHidden(true)
@@ -239,8 +239,8 @@ export class FDefinedNameBuilder {
      * @returns {ISetDefinedNameMutationParam} The defined name mutation parameter.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
-     * const definedNameBuilder = univerAPI.newDefinedName()
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
+     * const definedNameBuilder = crabtableAPI.newDefinedName()
      *   .setName('MyDefinedName')
      *   .setRef('Sheet1!$A$1')
      *   .setComment('A reference to A1 cell in Sheet1')
@@ -258,14 +258,14 @@ export class FDefinedNameBuilder {
      * @returns {FDefinedNameBuilder} The instance of `FDefinedNameBuilder` for method chaining.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const definedNameParam = {
      *   id: '4TMPceoqg8',
      *   unitId: fWorkbook.getId(),
      *   name: 'MyDefinedName',
      *   formulaOrRefString: 'Sheet1!$A$1',
      * }
-     * const definedNameBuilder = univerAPI.newDefinedName()
+     * const definedNameBuilder = crabtableAPI.newDefinedName()
      *   .load(definedNameParam)
      *   .build();
      * fWorkbook.insertDefinedNameBuilder(definedNameBuilder);
@@ -308,7 +308,7 @@ export class FDefinedName extends FBase {
      * @returns {string} The name of the defined name.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const definedName = fWorkbook.getDefinedNames()[0];
      * console.log(definedName?.getName());
      * ```
@@ -322,7 +322,7 @@ export class FDefinedName extends FBase {
      * @param {string} name The name of the defined name.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const definedName = fWorkbook.getDefinedNames()[0];
      * definedName?.setName('NewDefinedName');
      * ```
@@ -337,7 +337,7 @@ export class FDefinedName extends FBase {
      * @param {string} formula The formula of the defined name.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const definedName = fWorkbook.getDefinedNames()[0];
      * definedName?.setFormula('SUM(Sheet1!$A$1)');
      * ```
@@ -352,7 +352,7 @@ export class FDefinedName extends FBase {
      * @param {string} refString The reference of the defined name.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const definedName = fWorkbook.getDefinedNames()[0];
      * definedName?.setRef('Sheet1!$A$1');
      * ```
@@ -367,7 +367,7 @@ export class FDefinedName extends FBase {
      * @returns {string} The formula or reference string of the defined name.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const definedName = fWorkbook.getDefinedNames()[0];
      * console.log(definedName?.getFormulaOrRefString());
      * ```
@@ -384,7 +384,7 @@ export class FDefinedName extends FBase {
      * @param {number} numColumns The number of columns in the range.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const definedName = fWorkbook.getDefinedNames()[0];
      * definedName?.setRefByRange(1, 3, 2, 5); // D2:H3
      * ```
@@ -404,7 +404,7 @@ export class FDefinedName extends FBase {
      * @returns {string | undefined} The comment of the defined name.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const definedName = fWorkbook.getDefinedNames()[0];
      * console.log(definedName?.getComment());
      * ```
@@ -418,7 +418,7 @@ export class FDefinedName extends FBase {
      * @param {string} comment The comment of the defined name.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const definedName = fWorkbook.getDefinedNames()[0];
      * definedName?.setComment('This is a comment');
      * ```
@@ -433,7 +433,7 @@ export class FDefinedName extends FBase {
      * @param {FWorksheet} worksheet The worksheet to set the scope to.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const sheets = fWorkbook.getSheets();
      *
      * // Get the first defined name and make it available only in the second worksheet
@@ -450,7 +450,7 @@ export class FDefinedName extends FBase {
      * Sets the scope of the defined name to the workbook.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const definedName = fWorkbook.getDefinedNames()[0];
      * definedName?.setScopeToWorkbook();
      * ```
@@ -465,7 +465,7 @@ export class FDefinedName extends FBase {
      * @param {boolean} hidden The hidden status of the defined name.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const definedName = fWorkbook.getDefinedNames()[0];
      * definedName?.setHidden(true);
      * ```
@@ -479,7 +479,7 @@ export class FDefinedName extends FBase {
      * Deletes the defined name.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const definedName = fWorkbook.getDefinedNames()[0];
      * definedName?.delete();
      * ```
@@ -493,7 +493,7 @@ export class FDefinedName extends FBase {
      * @returns {string | undefined} The local sheet id of the defined name.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const definedName = fWorkbook.getDefinedNames()[0];
      * console.log(definedName?.getLocalSheetId());
      * ```
@@ -507,7 +507,7 @@ export class FDefinedName extends FBase {
      * @returns {boolean} True if the defined name is in the workbook scope, false otherwise.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const definedName = fWorkbook.getDefinedNames()[0];
      * console.log(definedName?.isWorkbookScope());
      * ```
@@ -521,7 +521,7 @@ export class FDefinedName extends FBase {
      * @returns {FDefinedNameBuilder} The defined name builder.
      * @example
      * ```ts
-     * const fWorkbook = univerAPI.getActiveWorkbook();
+     * const fWorkbook = crabtableAPI.getActiveWorkbook();
      * const definedName = fWorkbook.getDefinedNames()[0];
      * if (!definedName) return;
      * const definedNameBuilder = definedName
