@@ -1,208 +1,326 @@
-# CrabTable
+<div align="center">
 
-An isomorphic full-stack framework for creating and editing spreadsheets, documents, and presentations across web and server. **Extensible. High-performance. Embeddable.**
+![logo](/docs/.vuepress/public/img/logo_text.png)
 
-**English** | [简体中文][readme-zh-link] | [日本語][readme-ja-link] | [Español][readme-es-link]
+[![Join the chat at https://gitter.im/mengshukeji/Luckysheet](https://badges.gitter.im/mengshukeji/Luckysheet.svg)](https://gitter.im/mengshukeji/Luckysheet?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+<a href="https://twitter.com/intent/follow?screen_name=luckysheet">
+        <img src="https://img.shields.io/twitter/follow/luckysheet?style=social&logo=twitter"
+            alt="follow on Twitter"></a>
 
-[Documentation][documentation-link] · [Showcase][playground-link] · [Blog][blog-link]
+</div>
 
-[![License][github-license-shield]][github-license-link]
-[![CI][github-actions-shield]][github-actions-link]
-[![Stars][github-stars-shield]][github-stars-link]
-[![Contributors][github-contributors-shield]][github-contributors-link]
-[![Forks][github-forks-shield]][github-forks-link]
-[![Issues][github-issues-shield]][github-issues-link]
-[![Coverage][codecov-shield]][codecov-link]
-[![CodeFactor][codefactor-shield]][codefactor-link]
+English| [简体中文](./README-zh.md)
 
----
+# Luckysheet is no longer maintained. It is recommended to use the upgraded version of [Univer](https://univer.short.gy/LuckysheetRepository) for production environment deployment. The new version solves problems such as large data loading, chart styles, pivot tables, formula calculations, etc., and has made many optimization designs, added import, export, printing, collaboration and other functions, improved table performance, and has a professional technical team to provide technical support.
 
-## Table of contents
+Follow the [#1454](https://github.com/dream-num/Luckysheet/issues/1454) issue for more details.
 
-- [Highlights](#-highlights)
-- [Features](#-features)
-  - [CrabTable Sheets](#-crabtable-sheets)
-  - [CrabTable Docs](#-crabtable-docs-rc)
-  - [CrabTable Slides](#-crabtable-slides-under-development)
-- [Internationalization](#-internationalization)
-- [Showcase](#-showcase)
-- [Links](#-links)
-- [Security](#-security)
-- [Contribution](#-contribution)
-- [Sponsors](#-sponsors)
-- [License](#-license)
+## Introduction
+🚀Luckysheet is an online spreadsheet like excel that is powerful, simple to configure, and completely open source.
 
----
 
-## 🌈 Highlights
+## Links
+ | Source Code   | Documentation | Demo | Forum |
+ | ------ | -------- | ------ | ------ |
+ | [Github](https://github.com/mengshukeji/Luckysheet)| [Online Documentation](https://dream-num.github.io/LuckysheetDocs/) | [Online Demo](https://dream-num.github.io/LuckysheetDemo) / [Cooperative editing demo](http://luckysheet.lashuju.com/demo/) | [Chinese Forum](https://support.qq.com/product/288322)  |
+ | [Gitee Mirror](https://gitee.com/mengshukeji/Luckysheet)| [Gitee Online Documentation](https://mengshukeji.gitee.io/LuckysheetDocs/) | [Gitee Online Demo](https://mengshukeji.gitee.io/luckysheetdemo/) | [Google Group](https://groups.google.com/g/luckysheet) |
 
-- **Spreadsheets, documents, presentations** — one framework for all three.
-- **Isomorphic** — runs in the browser and on Node.js with the same API.
-- **Embeddable** — integrate into your app with presets and a facade API.
-- **Feature-rich** — formulas, conditional formatting, data validation, filtering, collaborative editing, printing, import & export, and more.
-- **Extensible** — plugin architecture for custom behavior and integrations.
-- **Customizable** — themes and i18n support.
-- **Performant** — canvas-based rendering engine; formula engine in Web Workers or server-side.
-- **Integrated** — sheets, docs, and slides can interoperate and share one canvas.
+![Demo](/docs/.vuepress/public/img/LuckysheetDemo.gif)
 
-## ✨ Features
+## Plugins
 
-### 📊 CrabTable Sheets
+For advanced features like import, export, and printing, please use [Univer](https://github.com/dream-num/univer/)
 
-- **Core** — cells, rows, columns, worksheets, workbooks.
-- **Formulas** — math, stats, logic, text, date/time, lookup, engineering, financial, and more.
-- **Permissions** — restrict access to elements.
-- **Number formatting** — format numbers by criteria.
-- **Hyperlinks** — external URLs, email, in-sheet links.
-- **Floating images** — place images anywhere on the sheet.
-- **Find & replace** — search and replace text.
-- **Filtering & sorting** — filter and sort by criteria.
-- **Data validation** — control what can be entered in cells.
-- **Conditional formatting** — format cells by rules.
-- **Comments** — cell comments.
-- **Cross-highlighting** — highlight related cells.
-- **Zen Editor** — minimal, focused editing.
-- **Pivot tables**[^1], **sparklines**[^1], **printing**[^1], **import/export XLSX**[^1], **charts**[^1], **collaborative editing**[^1], **editing history**[^1].
+## Ecosystem
 
-### 📝 CrabTable Docs (rc)
+| Project | Description |
+|---------|-------------|
+| [Luckysheet Vue]          | Luckysheet and Luckyexcel in a vue cli3 project |
+| [Luckysheet Vue3]          | Luckysheet and Luckyexcel in a vue3 project with vite|
+| [Luckysheet React]          | Luckysheet in a React project |
+| [Luckyexcel Node]          | Use Luckyexcel in koa2 |
+| [Luckysheet Server]          | Java backend Luckysheet Server |
+| [Luckysheet Server Starter]          | LuckysheetServer docker deployment startup template |
 
-- **Core** — paragraphs, headings, lists, superscript, subscript.
-- **Lists** — ordered, unordered, task lists.
-- **Hyperlinks** — links to URLs, email, in-doc locations.
-- **Floating images** — images with text layout.
-- **Headers & footers** — document headers and footers.
-- **Comments** — document comments.
-- **Printing**[^1], **import/export DOCX**[^1], **collaborative editing**[^1].
+[Luckysheet Vue]: https://github.com/mengshukeji/luckysheet-vue
+[Luckysheet Vue3]: https://github.com/hjwforever/luckysheet-vue3-vite
+[Luckysheet React]: https://github.com/mengshukeji/luckysheet-react
+[Luckyexcel Node]: https://github.com/mengshukeji/Luckyexcel-node
+[Luckysheet Server]: https://github.com/mengshukeji/LuckysheetServer
+[Luckysheet Server Starter]: https://github.com/mengshukeji/LuckysheetServerStarter
 
-### 📽️ CrabTable Slides (Under Development)
 
-- **Core** — slides, shapes, text, images (in development).
+## Features
 
-## 🌐 Internationalization
+- **Formatting**: style, conditional formatting, text alignment and rotation, text truncation, overflow, automatic line wrapping, multiple data types, cell segmentation style
+- **Cells**: drag and drop, fill handle, multiple selection, find and replace, location, merge cells, data verification
+- **Row & column**: hide, insert, delete rows or columns, freeze, and split text
+- **Operation**: undo, redo, copy, paste, cut, hot key, format painter, drag and drop selection
+- **Formulas & Functions**: Built-in, remote and custom formulas
+- **Tables**: filter, sort
+- **Enhanced functions**: Pivot tables, charts, comments, cooperative editing, insert picture, matrix calculations, screenshots, copying to other formats, EXCEL import and export, etc.
 
-CrabTable supports multiple locales, including:
+For a more detailed feature list, please refer to: [Features](https://dream-num.github.io/LuckysheetDocs/guide/#features)
 
-`ca-ES` · `en-US` · `es-ES` · `fa-IR` · `ja-JP` · `ko-KR` · `ru-RU` · `sk-SK` · `vi-VN` · `zh-CN` · `zh-TW`
+## 📖 Resources
+- Priority reading for new users: [User Guide](https://github.com/mengshukeji/Luckysheet/wiki/User-Guide)
+- For the tutorials, learning materials and supporting solutions provided by the community, please refer to: [Tutorials and Resources](https://dream-num.github.io/LuckysheetDocs/guide/resource.html)
 
-`zh-CN` and `en-US` are officially supported; others are community-maintained. See [Custom Locales](https://docs.crabtable.dev/guides/sheets/getting-started/i18n#custom-language-packs) and the [contribution guide](./CONTRIBUTING.md) to add or improve locales.
+## 📜 Changelog
 
-## 👾 Showcase
+Detailed changes for each release are documented in the [CHANGELOG.md](CHANGELOG.md).
 
-Examples and demos: [CrabTable Showcase](https://docs.crabtable.dev/showcase).
+## ❗️ Issues
 
-| **Spreadsheets** | **Multi-instance** | **Uniscript** |
-| :---: | :---: | :---: |
-| [Sheets][examples-link-0] | [Multi][examples-link-1] | [Uniscript][examples-link-2] |
-| **Big data** | **Collaboration** | **Import & Export** |
-| [Big data][examples-link-3] | [Collaboration][examples-link-4] | [Exchange][examples-link-6] |
-| **Documents** | **Slides** | **Zen Editor** |
-| [Docs][examples-link-8] | [Slides][examples-link-14] | [Zen][examples-link-15] |
+Please make sure to read the [Issue Reporting Checklist](https://dream-num.github.io/LuckysheetDocs/guide/contribute.html#how-to-submit-issues) before opening an issue. Issues not conforming to the guidelines may be closed immediately.
 
-## 🔗 Links
+## ✅ TODO
 
-- [Latest preview (dev branch)](https://univer-preview.vercel.app/)
-- [Official site](https://crabtable.dev)
-- [Presets](https://github.com/AutoCookies/crabtable-presets)
+Managed with [GitHub Projects](https://github.com/mengshukeji/Luckysheet/projects/1)
 
-## 🔒 Security
+## 💪Contribution
 
-CrabTable follows security best practices and keeps dependencies updated. See the [Security Policy](./SECURITY.md).
+Please make sure to read the[ Contributing Guide](https://dream-num.github.io/LuckysheetDocs/guide/contribute.html) before making a pull request.
 
-## 🤝 Contribution
+## Usage
 
-Contributions are welcome. Open [issues or feature requests](https://github.com/AutoCookies/crabtable/issues) and read the [contributing guide](./CONTRIBUTING.md) before submitting code.
+### First step
+Introduce dependencies through CDN
+```
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/css/pluginsCss.css' />
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/plugins.css' />
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/css/luckysheet.css' />
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/assets/iconfont/iconfont.css' />
+<script src="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/js/plugin.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/luckysheet.umd.js"></script>
+```
+### Second step
+Specify a table container
+```
+<div id="luckysheet" style="margin:0px;padding:0px;position:absolute;width:100%;height:100%;left: 0px;top: 0px;"></div>
+```
+### Third step
+Create a table
+```
+<script>
+    $(function () {
+        //Configuration item
+        var options = {
+            container: 'luckysheet' //luckysheet is the container id
+        }
+        luckysheet.create(options)
+    })
+</script>
+```
 
-## ❤️ Sponsors
+## Development
 
-CrabTable is supported by backers and sponsors. You can support the project via [Open Collective](https://opencollective.com/crabtable).
+### Requirements
+[Node.js](https://nodejs.org/en/) Version >= 6 
 
-[![Sponsors][sponsor-badge-0]][sponsor-link-0]
-[![Sponsors][sponsor-badge-1]][sponsor-link-1]
-[![Sponsors][sponsor-badge-2]][sponsor-link-2]
-[![Sponsors][sponsor-badge-3]][sponsor-link-3]
-[![Sponsors][sponsor-badge-4]][sponsor-link-4]
-[![Sponsors][sponsor-badge-5]][sponsor-link-5]
-[![Sponsors][sponsor-badge-6]][sponsor-link-6]
+### Installation
+```
+npm install
+npm install gulp -g
+```
+### Development
+```
+npm run dev
+```
+### Package
+```
+npm run build
+```
 
-[![Backers][backer-badge-0]][backer-link-0]
-[![Backers][backer-badge-1]][backer-link-1]
-[![Backers][backer-badge-2]][backer-link-2]
-[![Backers][backer-badge-3]][backer-link-3]
-[![Backers][backer-badge-4]][backer-link-4]
-[![Backers][backer-badge-5]][backer-link-5]
-[![Backers][backer-badge-6]][backer-link-6]
+## Partner project
 
-## 📄 License
+- [h5-Dooring](https://github.com/MrXujiang/h5-Dooring)
 
-Copyright © 2021–2025 DreamNum Co., Ltd. All rights reserved.
+## Communication
 
-Licensed under the [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0) license.
+- [WebSite](http://lucky.lashuju.com/index.html)
+- [Github Discussions](https://github.com/mengshukeji/Luckysheet/discussions)
+- [Gitter](https://gitter.im/mengshukeji/Luckysheet)
 
----
+[Chinese community](./README-zh.md)
 
-[^1]: These features are provided by the non-OSS version of CrabTable (free for commercial use, with paid upgrade options).
+## Sponsor
 
-<!-- Links -->
-[github-license-shield]: https://img.shields.io/github/license/AutoCookies/crabtable?style=flat-square
-[github-license-link]: ./LICENSE
-[github-actions-shield]: https://img.shields.io/github/actions/workflow/status/AutoCookies/crabtable/build.yml?style=flat-square
-[github-actions-link]: https://github.com/AutoCookies/crabtable/actions/workflows/build.yml
-[github-stars-link]: https://github.com/AutoCookies/crabtable/stargazers
-[github-stars-shield]: https://img.shields.io/github/stars/AutoCookies/crabtable?style=flat-square
-[github-contributors-link]: https://github.com/AutoCookies/crabtable/graphs/contributors
-[github-contributors-shield]: https://img.shields.io/github/contributors/AutoCookies/crabtable?style=flat-square
-[github-forks-link]: https://github.com/AutoCookies/crabtable/network/members
-[github-forks-shield]: https://img.shields.io/github/forks/AutoCookies/crabtable?style=flat-square
-[github-issues-link]: https://github.com/AutoCookies/crabtable/issues
-[github-issues-shield]: https://img.shields.io/github/issues/AutoCookies/crabtable?style=flat-square
-[codecov-shield]: https://img.shields.io/codecov/c/gh/AutoCookies/crabtable?token=aPfyW2pIMN&style=flat-square
-[codecov-link]: https://codecov.io/gh/AutoCookies/crabtable
-[codefactor-shield]: https://www.codefactor.io/repository/github/AutoCookies/crabtable/badge/dev?style=flat-square
-[codefactor-link]: https://www.codefactor.io/repository/github/AutoCookies/crabtable/overview/dev
+Luckysheet is an MIT-licensed open source project with its ongoing development made possible entirely by the support of these awesome [backers](https://dream-num.github.io/LuckysheetDocs/about/sponsor.html#sponsors-list). If you'd like to join them, please consider:
 
-[readme-zh-link]: ./README-zh.md
-[readme-ja-link]: ./README-ja.md
-[readme-es-link]: ./README-es.md
+- [Become a backer or sponsor on Patreon](https://www.patreon.com/mengshukeji).
+- [Become a backer or sponsor on Open Collective](https://opencollective.com/luckysheet).
+- One-time donation via PayPal, WeChat or Alipay
 
-[documentation-link]: https://docs.crabtable.dev/en-US
-[playground-link]: https://docs.crabtable.dev/en-US/showcase
-[blog-link]: https://docs.crabtable.dev/en-US/blog
+| PayPal |  WeChat  | Alipay |
+|---|---|---|
+| [Paypal Me](https://www.paypal.me/wbfsa) | <img src="https://cdn.jsdelivr.net/gh/mengshukeji/LuckyResources@master/assets/img/wechat/wechat.jpg" width="140" />| <img src="https://cdn.jsdelivr.net/gh/mengshukeji/LuckyResources@master/assets/img/wechat/alipay.jpg" width="130" /> |
 
-[sponsor-link-0]: https://opencollective.com/crabtable/sponsor/0/website
-[sponsor-link-1]: https://opencollective.com/crabtable/sponsor/1/website
-[sponsor-link-2]: https://opencollective.com/crabtable/sponsor/2/website
-[sponsor-link-3]: https://opencollective.com/crabtable/sponsor/3/website
-[sponsor-link-4]: https://opencollective.com/crabtable/sponsor/4/website
-[sponsor-link-5]: https://opencollective.com/crabtable/sponsor/5/website
-[sponsor-link-6]: https://opencollective.com/crabtable/sponsor/6/website
-[sponsor-badge-0]: https://opencollective.com/crabtable/sponsor/0/avatar.svg
-[sponsor-badge-1]: https://opencollective.com/crabtable/sponsor/1/avatar.svg
-[sponsor-badge-2]: https://opencollective.com/crabtable/sponsor/2/avatar.svg
-[sponsor-badge-3]: https://opencollective.com/crabtable/sponsor/3/avatar.svg
-[sponsor-badge-4]: https://opencollective.com/crabtable/sponsor/4/avatar.svg
-[sponsor-badge-5]: https://opencollective.com/crabtable/sponsor/5/avatar.svg
-[sponsor-badge-6]: https://opencollective.com/crabtable/sponsor/6/avatar.svg
-[backer-link-0]: https://opencollective.com/crabtable/backer/0/website
-[backer-link-1]: https://opencollective.com/crabtable/backer/1/website
-[backer-link-2]: https://opencollective.com/crabtable/backer/2/website
-[backer-link-3]: https://opencollective.com/crabtable/backer/3/website
-[backer-link-4]: https://opencollective.com/crabtable/backer/4/website
-[backer-link-5]: https://opencollective.com/crabtable/backer/5/website
-[backer-link-6]: https://opencollective.com/crabtable/backer/6/website
-[backer-badge-0]: https://opencollective.com/crabtable/backer/0/avatar.svg
-[backer-badge-1]: https://opencollective.com/crabtable/backer/1/avatar.svg
-[backer-badge-2]: https://opencollective.com/crabtable/backer/2/avatar.svg
-[backer-badge-3]: https://opencollective.com/crabtable/backer/3/avatar.svg
-[backer-badge-4]: https://opencollective.com/crabtable/backer/4/avatar.svg
-[backer-badge-5]: https://opencollective.com/crabtable/backer/5/avatar.svg
-[backer-badge-6]: https://opencollective.com/crabtable/backer/6/avatar.svg
+### What's the difference between Patreon and OpenCollective?
 
-[examples-link-0]: https://docs.crabtable.dev/showcase
-[examples-link-1]: https://docs.crabtable.dev/showcase
-[examples-link-2]: https://docs.crabtable.dev/showcase
-[examples-link-3]: https://docs.crabtable.dev/showcase
-[examples-link-4]: https://docs.crabtable.dev/showcase
-[examples-link-6]: https://docs.crabtable.dev/showcase
-[examples-link-8]: https://docs.crabtable.dev/showcase
-[examples-link-14]: https://docs.crabtable.dev/showcase
-[examples-link-15]: https://crabtable.dev/guides/sheet/features/zen-editor
+Funds donated via Patreon go directly to support mengshukeji's work on Luckysheet. Funds donated via OpenCollective are managed with transparent expenses and will be used for compensating work and expenses for core team members or sponsoring community events. Your name/logo will receive proper recognition and exposure by donating on either platform.
+
+## Sponsors List
+
+(Sort by time)
+- *涛 ¥ 200
+- popo ¥ 1
+- 孔垂善 ¥ 5
+- Shawn文 ¥ 99
+- 幸运的小路易 ¥ 1
+- 冯启俊 ¥ 88
+- mxb ¥ 10
+- 祭阳 ¥ 20
+- *勇 ¥ 30
+- 虚我 ¥ 200
+- 甜党 ¥ 50
+- Alphabet(Google)-gcf ¥ 1
+- **平 ¥ 100
+- **东 ¥ 10
+- debugger ¥ 20
+- 烦了烦 ¥ 10
+- 文顶顶 ¥ 200
+- yangxshn ¥ 10
+- 爱乐 ¥ 100
+- 小李飞刀刀 ¥ 66
+- 张铭 ¥ 200
+- 曹治军 ¥ 1
+- *特 ¥ 10
+- **权 ¥ 9.9
+- **sdmq ¥ 20
+- *旭 ¥ 10
+- Quentin ¥ 20
+- 周宇凡 ¥ 100
+- *超 ¥ 10
+- 维宁 ¥ 100
+- hyy ¥ 20
+- 雨亭寒江月 ¥ 50
+- **功 ¥ 10
+- **光 ¥ 20
+- terrywan ¥ 100
+- 王晓洪 ¥ 10
+- Sun ¥ 10
+- 忧绣 ¥ 100
+- Jasonx ¥ 10
+- 国勇 ¥ 66.6
+- 郎志 ¥ 100
+- 匿名 ¥ 1
+- ni ¥ 100
+- 苏 ¥ 50
+- Mads_chan ¥ 1
+- LK ¥ 100
+- 智连方舟 李汪石 ¥ 168
+- **发 ¥ 260
+- *超 ¥ 10
+- *勇 ¥ 10
+- *腾 ¥ 15
+- 名字好难起 ¥ 20
+- 大山 ¥ 1
+- waiting ¥ 1000
+- **宇 ¥ 10.00
+- 刘小帅的哥哥 ¥ 20.00
+- 宁静致远 ¥ 10.00
+- Eleven ¥ 1.00
+- **帆 ¥ 188
+- henry ¥ 100
+- .波罗 ¥ 50
+- 花落有家 ¥ 50
+- 踏遍南水北山 ¥ 1
+- LC ¥ 5
+- **明 ¥ 8.80
+- *军 ¥ 20
+- 张彪 ¥ 50
+- 企业文档云@肖敏 ¥ 10
+- 匿名 ¥ 50
+- 逍遥行 ¥ 10
+- z.wasaki ¥ 50
+- Make Children ¥ 20
+- Foam ¥ 20
+- 奥特曼( o|o)ノ三 ¥ 50
+- **凯 ¥ 10
+- **兵 ¥ 20
+- **川 ¥ 1
+- 二万 ¥ 50
+- 蔚然成林 ¥ 10
+- 邹杰 ¥ 10
+- 张永强 ¥ 50
+- 鱼得水 ¥ 50
+- Ccther ¥ 1
+- Eric Cheng ¥ 10
+- 佚名 ¥ 1
+- 花叶 ¥ 50
+- GT ¥ 20
+- 菜菜心 ¥ 10
+- fisher ¥ 1
+- JC ¥ 5
+- 佚名 ¥ 20
+- 独孤一剑 ¥ 50
+- mxt ¥ 20
+- 一叶迷山 ¥ 100
+- Jeff ¥ 100
+- 八千多条狗🐶 ¥ 100
+- 晓峰 ¥ 10
+- 戒 ¥ 1
+- 浪里个浪 ¥ 1
+- 回调函数 ¥ 50
+- 赖瓜子 ¥ 5
+- Milo•J ¥ 20
+- 可道云 ¥ 200
+- *程 ¥ 10
+- 来一杯卡布酸奶 ¥ 5
+- 刘久胜 ¥ 100
+- 快意江湖 ¥ 50
+- *新 ¥ 9.9
+- **龙 ¥ 100
+- **江 ¥ 100
+- **威 ¥ 9.8
+- **涛 ¥ 500
+- **嘉 ¥ 10
+- *涛 ¥ 1
+- *兵 ¥ 5
+- *阳 ¥ 200
+- *辉 ¥ 1
+- *帆 ¥ 30
+- **旺 ¥ 10
+- **麟 ¥ 20
+- *霖 ¥ 9.9
+- *帅 ¥ 10
+- *鑫 ¥ 6.66
+- ~朴:shu ¥ 29.79
+- 未来 ¥ 1
+- 国勇 ¥ 0.1
+- 用心灵听雨 ¥ 10
+- 钊 ¥ 5
+- 星稀 ¥ 5
+
+## Authors and acknowledgment
+
+### Active Core Team Members
+- [@wbfsa](https://github.com/wbfsa)
+- [@eiji-th](https://github.com/eiji-th)
+- [@fly-95](https://github.com/fly-95)
+- [@tonytonychopper123](https://github.com/tonytonychopper123)
+- [@Dushusir](https://github.com/Dushusir)
+- [@iamxuchen800117](https://github.com/iamxuchen800117)
+- [@wpxp123456](https://github.com/wpxp123456)
+- [@c19c19i](https://weibo.com/u/3884623955)
+- [@zhangchen915](https://github.com/zhangchen915)
+- [@jerry-f](https://github.com/jerry-f)
+- [@flowerField](https://github.com/flowerField)
+
+### Community Partners
+- [@yiwasheng](https://github.com/yiwasheng)
+- [@danielcai1987](https://github.com/danielcai1987)
+- [@qq6690876](https://github.com/qq6690876)
+- [@javahuang](https://github.com/javahuang)
+- [@TimerGang](https://github.com/TimerGang)
+- [@gsw945](https://github.com/gsw945)
+- [@swen-xiong](https://github.com/swen-xiong)
+- [@lzmch](https://github.com/lzmch)
+- [@kdevilpf](https://github.com/kdevilpf)
+- [@WJWM0316](https://github.com/WJWM0316)
+
+## License
+[MIT](http://opensource.org/licenses/MIT)
+
+Copyright (c) 2020-present, mengshukeji

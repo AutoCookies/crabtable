@@ -1,4 +1,0 @@
-{
-    "extends": "@crabtable-infra/shared/tsconfigs/node",
-    "include": ["vitest.config.ts"]
-}
