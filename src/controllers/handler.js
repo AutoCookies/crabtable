@@ -70,6 +70,9 @@ import Store from "../store";
 import { createLuckyChart, hideAllNeedRangeShow } from "../expendPlugins/chart/plugin";
 import luckysheetformula from "../global/formula";
 import {createExportDialog,fetchAndDownloadXlsx} from "../expendPlugins/exportXlsx/plugin";
+import { openFileAndImport } from "../expendPlugins/importXlsx/plugin";
+import { showTemplatesPanel } from "../expendPlugins/templates/plugin";
+import { toJson } from "../global/api";
 
 //, columeflowset, rowflowset
 export default function luckysheetHandler() {
@@ -5614,7 +5617,54 @@ export default function luckysheetHandler() {
         e.preventDefault();
     });
 
-    //菜单栏 导出按钮
+    //菜单栏 打开文件(导入XLSX)按钮
+    $("#luckysheet-importXlsx-btn-title").click(function() {
+        openFileAndImport(
+            function() { tooltip.info(_locale.importXlsx && _locale.importXlsx.success ? _locale.importXlsx.success : "File loaded", ""); },
+            function(err) { tooltip.info(_locale.importXlsx && _locale.importXlsx.error ? _locale.importXlsx.error : "Failed to load file", ""); }
+        );
+    });
+
+    // Save: download workbook as JSON
+    $("#luckysheet-save-btn-title").click(function() {
+        try {
+            var data = toJson();
+            var filename = (data.title || "Crab Table").replace(/[^\w\s-]/g, "") || "workbook";
+            var blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement("a");
+            a.href = url;
+            a.download = filename + ".json";
+            a.click();
+            URL.revokeObjectURL(url);
+            tooltip.info(_locale.toolbar && _locale.toolbar.save ? "Saved" : "Saved", "");
+        } catch (e) {
+            tooltip.info("Save failed", "");
+        }
+    });
+
+    // Save As: prompt filename and download JSON
+    $("#luckysheet-saveAs-btn-title").click(function() {
+        try {
+            var data = toJson();
+            var defaultName = (data.title || "Crab Table").replace(/[^\w\s-]/g, "") || "workbook";
+            var filename = prompt(_locale.toolbar && _locale.toolbar.saveAs ? "File name:" : "File name:", defaultName + ".json");
+            if (filename == null || filename === "") return;
+            if (filename.indexOf(".json") === -1) filename += ".json";
+            var blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement("a");
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+            tooltip.info("Saved", "");
+        } catch (e) {
+            tooltip.info("Save failed", "");
+        }
+    });
+
+    //菜单栏 导出 XLSX 按钮
     $("#luckysheet-exportXlsx-btn-title").click(function() {
 
         const exportXlsxInfo =  Store.plugins.find(plugin => plugin.name === 'exportXlsx')
@@ -5626,6 +5676,20 @@ export default function luckysheetHandler() {
         }else{
             tooltip.info(_locale.exportXlsx.notice, "");
         }
+    });
+
+    // Export PDF: open print dialog (user can choose "Save as PDF")
+    $("#luckysheet-exportPdf-btn-title").click(function() {
+        try {
+            window.print();
+        } catch (e) {
+            tooltip.info("Print failed", "");
+        }
+    });
+
+    // Templates: show table layout panel
+    $("#luckysheet-templates-btn-title").click(function() {
+        showTemplatesPanel();
     });
 
     let copychange = function() {

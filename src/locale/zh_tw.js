@@ -5838,7 +5838,11 @@ export default {
         screenshot         : '截圖',
         splitColumn        : '分列',
         insertImage        : '插入圖片',
-        exportXlsx         : "導出Xlsx",
+        importXlsx         : "打開文件",
+        save               : "保存",
+        saveAs             : "另存為",
+        exportXlsx         : "導出 XLSX",
+        exportPdf          : "導出 PDF",
         insertLink         : '插入連結',
         dataVerification   : '數據驗證',
         protection         : '保護工作表內容',
@@ -7009,6 +7013,10 @@ export default {
         close  : 'WebSocket連接關閉',
         contact: '服務器通信發生錯誤,請刷新頁面後再試,如若不行請聯系管理員！',
         support: '當前瀏覽器不支持WebSocket',
+    },
+    importXlsx: {
+        success: "文件已加載",
+        error: "加載文件失敗",
     },
     exportXlsx:{
         notice:'請配置導出插件',

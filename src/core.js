@@ -16,7 +16,7 @@ import { keyboardInitial } from "./controllers/keyboard";
 import { orderByInitial } from "./controllers/orderBy";
 import { initPlugins } from "./controllers/expendPlugins";
 import { getluckysheetfile, getluckysheet_select_save, getconfig, getConditionFormatCells } from "./methods/get";
-import { setluckysheet_select_save } from "./methods/set";
+import { setluckysheet_select_save, setluckysheetfile } from "./methods/set";
 import { luckysheetrefreshgrid, jfrefreshgrid } from "./global/refresh";
 import functionlist from "./function/functionlist";
 import { luckysheetlodingHTML } from "./controllers/constant";
@@ -34,7 +34,7 @@ import Mandarin from "flatpickr/dist/l10n/zh.js";
 import { initListener } from "./controllers/listener";
 import { hideloading, showloading } from "./global/loading.js";
 import { luckysheetextendData } from "./global/extend.js";
-import { initChat } from './demoData/chat.js'
+// Univer AI removed: import { initChat } from './demoData/chat.js'
 
 let luckysheet = {};
 
@@ -182,7 +182,7 @@ luckysheet.create = function (setting) {
         });
     }
 
-    initChat()
+    // initChat() // Univer AI removed
 };
 
 function initialWorkBook() {
@@ -197,6 +197,36 @@ function initialWorkBook() {
     zoomInitial(); //zoom method initialization
     // printInitial(); //print initialization
     initListener();
+}
+
+/**
+ * Load a new workbook (e.g. after importing XLSX). Clears DOM, sets data, and re-initializes.
+ * @param {Array} sheets - Array of sheet objects { name, index, order, status, color, config, celldata, row, column } (or with data)
+ */
+function loadWorkbook(sheets) {
+    if (!sheets || sheets.length === 0) return;
+    setluckysheetfile(sheets);
+    for (let i = 0; i < sheets.length; i++) {
+        const file = sheets[i];
+        file.data = sheetmanage.buildGridData(file);
+        file.load = "1";
+    }
+    Store.currentSheetIndex = sheets[0].index;
+
+    $("#" + Store.container).empty();
+    $("body > .luckysheet-cols-menu").remove();
+    $("#luckysheet-modal-dialog-mask, #luckysheetTextSizeTest, #luckysheet-icon-morebtn-div").remove();
+    $("#luckysheet-input-box").parent().remove();
+    $("#luckysheet-formula-help-c").remove();
+    $(".chartSetting, .luckysheet-modal-dialog-slider").remove();
+    $(document).off(".luckysheetEvent");
+    $(document).off(".luckysheetProtection");
+
+    const loadingObj = luckysheetlodingHTML("#" + Store.container);
+    Store.loadingObj = loadingObj;
+
+    sheetmanage.initialjfFile(null, luckysheetConfigsetting.title);
+    initialWorkBook();
 }
 
 //获取所有表格数据
@@ -253,5 +283,7 @@ luckysheet.locales = locales;
 
 // 获取条件格式渲染的单元格数量
 luckysheet.getConditionFormatCells = getConditionFormatCells;
+
+luckysheet.loadWorkbook = loadWorkbook;
 
 export { luckysheet };

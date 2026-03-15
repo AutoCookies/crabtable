@@ -5,7 +5,7 @@ const luckysheetConfigsetting = {
 
     allowCopy: true,
     showtoolbar: true,
-    showinfobar: true,
+    showinfobar: false,
     showsheetbar: true,
     showstatisticBar: true,
     pointEdit: false,

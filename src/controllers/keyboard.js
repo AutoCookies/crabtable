@@ -680,6 +680,12 @@ export function keyboardInitial(){
                     event.stopPropagation();
                     return;
                 }
+                else if (kcode == 83) {//Ctrl + S  Save
+                    event.preventDefault();
+                    $("#luckysheet-save-btn-title").click();
+                    event.stopPropagation();
+                    return;
+                }
                 else if (kcode == keycode.UP) {//Ctrl + up  调整单元格
                     if (parseInt($inputbox.css("top")) > 0 || $("#luckysheet-singleRange-dialog").is(":visible") || $("#luckysheet-multiRange-dialog").is(":visible")) {
                         return;

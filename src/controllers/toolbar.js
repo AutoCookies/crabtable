@@ -3,8 +3,18 @@ import luckysheetConfigsetting from './luckysheetConfigsetting';
 
 import { getObjType, camel2split } from '../utils/util';
 
-// 默认的工具栏按钮
+// 默认的工具栏按钮 (reorganized: File first, then Edit, Format, Insert, Data)
 export const defaultToolbar = [
+    'importXlsx',
+    'save',
+    'saveAs',
+    '|',
+    'exportXlsx',
+    'exportPdf',
+    'print',
+    'templates',
+    '|',
+
     'undo',
     'redo',
     'paintFormat',
@@ -56,8 +66,6 @@ export const defaultToolbar = [
     'screenshot',
     'findAndReplace',
     'protection',
-    'print',
-    'exportXlsx',
 ];
 
 // 工具栏按钮 id 关系
@@ -99,7 +107,12 @@ export const toolbarIdMap = {
     findAndReplace: '#luckysheet-icon-seachmore', //'Find and Replace'
     protection: '#luckysheet-icon-protection', // 'Worksheet protection'
     print: '#luckysheet-icon-print', // 'print'
-    exportXlsx: '#luckysheet-exportXlsx-btn-title' // 'export xlsx'
+    importXlsx: '#luckysheet-importXlsx-btn-title', // 'open file'
+    save: '#luckysheet-save-btn-title', // 'save'
+    saveAs: '#luckysheet-saveAs-btn-title', // 'save as'
+    exportXlsx: '#luckysheet-exportXlsx-btn-title', // 'export xlsx'
+    exportPdf: '#luckysheet-exportPdf-btn-title', // 'export pdf'
+    templates: '#luckysheet-templates-btn-title' // 'templates'
 };
 
 // 创建工具栏按钮的html
@@ -832,6 +845,52 @@ export function createToolbarHtml() {
                 </div>
             </div>
         </div>`, // 'print'
+        importXlsx: `<div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block"
+        data-tips="${toolbar.importXlsx}" id="luckysheet-importXlsx-btn-title" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
+            style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block"
+                style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block"
+                    style="user-select: none;">
+                        <div class="luckysheet-icon luckysheet-inline-block " style="user-select: none;">
+                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none"
+                            style="user-select: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path d="M4 12a8 8 0 1 0 16 0"/><path stroke-linejoin="round" d="M12 4v10m0 0l3-3m-3 3L9 11"/></g></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`, // 'Open file'
+        save: `<div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block"
+        data-tips="${toolbar.save}" id="luckysheet-save-btn-title" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        <div class="luckysheet-icon luckysheet-inline-block" style="user-select: none;">
+                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none" style="user-select: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path stroke-linejoin="round" d="M12 3v10m0 0l3-3m-3 3l-3-3"/></g></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`, // 'Save'
+        saveAs: `<div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block"
+        data-tips="${toolbar.saveAs}" id="luckysheet-saveAs-btn-title" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        <div class="luckysheet-icon luckysheet-inline-block" style="user-select: none;">
+                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none" style="user-select: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path stroke-linejoin="round" d="M12 18v-6m0 0l3 3m-3-3l-3 3"/></g></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`, // 'Save As'
         exportXlsx: `<div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block"
         data-tips="${toolbar.exportXlsx}" id="luckysheet-exportXlsx-btn-title" role="button" style="user-select: none;">
             <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block"
@@ -849,7 +908,35 @@ export function createToolbarHtml() {
                     </div>
                 </div>
             </div>
-        </div>`, // 'Insert picture'
+        </div>`, // 'Export XLSX'
+        exportPdf: `<div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block"
+        data-tips="${toolbar.exportPdf}" id="luckysheet-exportPdf-btn-title" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        <div class="luckysheet-icon luckysheet-inline-block" style="user-select: none;">
+                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none" style="user-select: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h2m4 0h2m-6 4h2m4 0h2"/></g></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`, // 'Export PDF'
+        templates: `<div class="luckysheet-toolbar-button-split-left luckysheet-toolbar-button luckysheet-inline-block"
+        data-tips="${toolbar.templates}" id="luckysheet-templates-btn-title" role="button" style="user-select: none;">
+            <div class="luckysheet-toolbar-button-outer-box luckysheet-inline-block" style="user-select: none;">
+                <div class="luckysheet-toolbar-menu-button-inner-box luckysheet-inline-block" style="user-select: none;">
+                    <div class="luckysheet-toolbar-menu-button-caption luckysheet-inline-block" style="user-select: none;">
+                        <div class="luckysheet-icon luckysheet-inline-block" style="user-select: none;">
+                            <div aria-hidden="true" class="luckysheet-icon-img-container luckysheet-icon-img luckysheet-icon-rotation-none" style="user-select: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path d="M4 4h6v6H4z"/><path d="M14 4h6v6h-6z"/><path d="M4 14h6v6H4z"/><path d="M14 14h6v6h-6z"/></g></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`, // 'Templates'
     };
 
     const showtoolbar = luckysheetConfigsetting.showtoolbar;
