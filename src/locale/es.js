@@ -5838,7 +5838,11 @@ export default {
         screenshot: 'Captura de pantalla',
         splitColumn: 'Separar texto',
         insertImage: 'Insertar imagen',
-        exportXlsx: "Exportar Xlsx",
+        importXlsx: "Abrir archivo",
+        save: "Guardar",
+        saveAs: "Guardar como",
+        exportXlsx: "Exportar XLSX",
+        exportPdf: "Exportar PDF",
         dataVerification: 'Verificación de datos',
         protection:"Proteger la hoja",
 
@@ -6986,6 +6990,10 @@ export default {
         close: 'Conexión WebSocket cerrada',
         contact: 'Ocurrió un error de comunicación con el servidor, actualice la página y vuelva a intentarlo; de lo contrario, comuníquese con el administrador.',
         support: 'El navegador actual no es compatible con WebSocket',
+    },
+    importXlsx: {
+        success: "Archivo cargado",
+        error: "Error al cargar el archivo",
     },
     exportXlsx:{
         notice:'Configure el complemento de exportación',

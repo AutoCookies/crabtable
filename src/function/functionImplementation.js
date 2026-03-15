@@ -4631,6 +4631,98 @@ const functionImplementation = {
             return [formula.error.v, err];
         }
     },
+    "MAXIFS": function() {
+        if (arguments.length < this.m[0] || arguments.length > this.m[1]) {
+            return formula.error.na;
+        }
+        for (var i = 0; i < arguments.length; i++) {
+            var p = formula.errorParamCheck(this.p, arguments[i], i);
+            if (!p[0]) {
+                return formula.error.v;
+            }
+        }
+        try {
+            var args = arguments;
+            luckysheet_getValue(args);
+            var rangeData = formula.getRangeArray(args[0])[0];
+            var results = new Array(rangeData.length);
+            for (var i = 0; i < results.length; i++) {
+                results[i] = true;
+            }
+            for (var i = 1; i < args.length; i += 2) {
+                var range = formula.getRangeArray(args[i])[0];
+                var criteria = args[i + 1];
+                for (var j = 0; j < range.length; j++) {
+                    var v = range[j];
+                    results[j] = results[j] && (!!v) && formula.acompareb(v, criteria);
+                }
+            }
+            var maxVal = null;
+            for (var i = 0; i < rangeData.length; i++) {
+                if (results[i] && rangeData[i] != null && rangeData[i] !== "" && isRealNum(rangeData[i])) {
+                    var num = parseFloat(rangeData[i]);
+                    if (maxVal === null || num > maxVal) {
+                        maxVal = num;
+                    }
+                }
+            }
+            if (maxVal === null) {
+                return formula.error.v;
+            }
+            return maxVal;
+        }
+        catch (e) {
+            var err = e;
+            err = formula.errorInfo(err);
+            return [formula.error.v, err];
+        }
+    },
+    "MINIFS": function() {
+        if (arguments.length < this.m[0] || arguments.length > this.m[1]) {
+            return formula.error.na;
+        }
+        for (var i = 0; i < arguments.length; i++) {
+            var p = formula.errorParamCheck(this.p, arguments[i], i);
+            if (!p[0]) {
+                return formula.error.v;
+            }
+        }
+        try {
+            var args = arguments;
+            luckysheet_getValue(args);
+            var rangeData = formula.getRangeArray(args[0])[0];
+            var results = new Array(rangeData.length);
+            for (var i = 0; i < results.length; i++) {
+                results[i] = true;
+            }
+            for (var i = 1; i < args.length; i += 2) {
+                var range = formula.getRangeArray(args[i])[0];
+                var criteria = args[i + 1];
+                for (var j = 0; j < range.length; j++) {
+                    var v = range[j];
+                    results[j] = results[j] && (!!v) && formula.acompareb(v, criteria);
+                }
+            }
+            var minVal = null;
+            for (var i = 0; i < rangeData.length; i++) {
+                if (results[i] && rangeData[i] != null && rangeData[i] !== "" && isRealNum(rangeData[i])) {
+                    var num = parseFloat(rangeData[i]);
+                    if (minVal === null || num < minVal) {
+                        minVal = num;
+                    }
+                }
+            }
+            if (minVal === null) {
+                return formula.error.v;
+            }
+            return minVal;
+        }
+        catch (e) {
+            var err = e;
+            err = formula.errorInfo(err);
+            return [formula.error.v, err];
+        }
+    },
     "GET_TARGET": function() {
         try {   
                 var luckysheetCurrentIndex = window.luckysheetCurrentIndex;
@@ -19919,6 +20011,35 @@ const functionImplementation = {
             return [formula.error.v, err];
         }
     },
+    "IFS": function() {
+        if (arguments.length < this.m[0] || arguments.length > this.m[1] || arguments.length % 2 !== 0) {
+            return formula.error.na;
+        }
+        for (var i = 0; i < arguments.length; i++) {
+            var p = formula.errorParamCheck(this.p, arguments[i], i);
+            if (!p[0]) {
+                return formula.error.v;
+            }
+        }
+        try {
+            for (var i = 0; i < arguments.length; i += 2) {
+                var logical_test = func_methods.getCellBoolen(arguments[i]);
+                if (valueIsError(logical_test)) {
+                    return logical_test;
+                }
+                if (logical_test) {
+                    var val = func_methods.getFirstValue(arguments[i + 1], "text");
+                    return valueIsError(val) ? val : val;
+                }
+            }
+            return formula.error.na;
+        }
+        catch (e) {
+            var err = e;
+            err = formula.errorInfo(err);
+            return [formula.error.v, err];
+        }
+    },
     "OR": function() {
         //必要参数个数错误检测
         if (arguments.length < this.m[0] || arguments.length > this.m[1]) {
@@ -20520,6 +20641,45 @@ const functionImplementation = {
             }
 
             return result;
+        }
+        catch (e) {
+            var err = e;
+            err = formula.errorInfo(err);
+            return [formula.error.v, err];
+        }
+    },
+    "TEXTJOIN": function() {
+        if (arguments.length < this.m[0] || arguments.length > this.m[1]) {
+            return formula.error.na;
+        }
+        for (var i = 0; i < arguments.length; i++) {
+            var p = formula.errorParamCheck(this.p, arguments[i], i);
+            if (!p[0]) {
+                return formula.error.v;
+            }
+        }
+        try {
+            var delimiter = func_methods.getFirstValue(arguments[0], "text");
+            if (valueIsError(delimiter)) {
+                return delimiter;
+            }
+            delimiter = delimiter != null ? String(delimiter) : "";
+            var ignoreEmpty = func_methods.getCellBoolen(arguments[1]);
+            if (valueIsError(ignoreEmpty)) {
+                return ignoreEmpty;
+            }
+            var parts = [];
+            for (var i = 2; i < arguments.length; i++) {
+                var text = func_methods.getFirstValue(arguments[i], "text");
+                if (valueIsError(text)) {
+                    return text;
+                }
+                var str = text != null ? String(text) : "";
+                if (!ignoreEmpty || str !== "") {
+                    parts.push(str);
+                }
+            }
+            return parts.join(delimiter);
         }
         catch (e) {
             var err = e;

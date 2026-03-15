@@ -6720,8 +6720,9 @@ export function toJson(){
 
     const toJsonOptions = Store.toJsonOptions;
 
-    // Workbook name
-    toJsonOptions.title = $("#luckysheet_info_detail_input").val();
+    // Workbook name (use infobar input if visible, else config title)
+    const titleEl = document.getElementById("luckysheet_info_detail_input");
+    toJsonOptions.title = (titleEl && titleEl.offsetParent != null) ? $(titleEl).val() : (server.title || luckysheetConfigsetting.title || "Crab Table");
 
     toJsonOptions.data = getAllSheets();
 

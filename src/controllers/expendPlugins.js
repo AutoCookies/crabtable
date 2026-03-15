@@ -1,11 +1,13 @@
 import { chart } from '../expendPlugins/chart/plugin'
 import { print } from '../expendPlugins/print/plugin'
 import { exportXlsx } from '../expendPlugins/exportXlsx/plugin'
+import { importXlsx } from '../expendPlugins/importXlsx/plugin'
 
 const pluginsObj = {
     'chart':chart,
     'print':print,
-    'exportXlsx':exportXlsx
+    'exportXlsx':exportXlsx,
+    'importXlsx':importXlsx
 }
 
 const isDemo = true

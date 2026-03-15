@@ -1100,6 +1100,74 @@ export default [
         ]
     },
     {
+        "n": "MAXIFS",
+        "t": 0,
+        "m": [
+            3,
+            257
+        ],
+        "p": [
+            {
+                "example": "A1:A10",
+                "require": "m",
+                "repeat": "n",
+                "type": "range"
+            },
+            {
+                "example": "B1:B10",
+                "require": "m",
+                "repeat": "n",
+                "type": "range"
+            },
+            {
+                "example": "\">20\"",
+                "require": "m",
+                "repeat": "n",
+                "type": "rangeall"
+            },
+            {
+                "example": "C1:C10",
+                "require": "o",
+                "repeat": "y",
+                "type": "rangeall"
+            }
+        ]
+    },
+    {
+        "n": "MINIFS",
+        "t": 0,
+        "m": [
+            3,
+            257
+        ],
+        "p": [
+            {
+                "example": "A1:A10",
+                "require": "m",
+                "repeat": "n",
+                "type": "range"
+            },
+            {
+                "example": "B1:B10",
+                "require": "m",
+                "repeat": "n",
+                "type": "range"
+            },
+            {
+                "example": "\">20\"",
+                "require": "m",
+                "repeat": "n",
+                "type": "rangeall"
+            },
+            {
+                "example": "C1:C10",
+                "require": "o",
+                "repeat": "y",
+                "type": "rangeall"
+            }
+        ]
+    },
+    {
         "n": "GET_TARGET",
         "t": 0,
         "m": [
@@ -6134,6 +6202,34 @@ export default [
         ]
     },
     {
+        "n": "IFS",
+        "t": 10,
+        "m": [
+            2,
+            254
+        ],
+        "p": [
+            {
+                "example": "A2>0",
+                "require": "m",
+                "repeat": "n",
+                "type": "rangeall"
+            },
+            {
+                "example": "\"Positive\"",
+                "require": "m",
+                "repeat": "n",
+                "type": "rangeall"
+            },
+            {
+                "example": "A2<0",
+                "require": "o",
+                "repeat": "y",
+                "type": "rangeall"
+            }
+        ]
+    },
+    {
         "n": "OR",
         "t": 10,
         "m": [
@@ -6429,6 +6525,40 @@ export default [
             },
             {
                 "example": "\"calla\"",
+                "require": "o",
+                "repeat": "y",
+                "type": "rangeall"
+            }
+        ]
+    },
+    {
+        "n": "TEXTJOIN",
+        "t": 12,
+        "m": [
+            3,
+            255
+        ],
+        "p": [
+            {
+                "example": "\", \"",
+                "require": "m",
+                "repeat": "n",
+                "type": "rangeall"
+            },
+            {
+                "example": "TRUE",
+                "require": "m",
+                "repeat": "n",
+                "type": "rangeall"
+            },
+            {
+                "example": "A1",
+                "require": "m",
+                "repeat": "n",
+                "type": "rangeall"
+            },
+            {
+                "example": "B1",
                 "require": "o",
                 "repeat": "y",
                 "type": "rangeall"

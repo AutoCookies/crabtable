@@ -1,24 +1,24 @@
 module.exports = {
-	base: '/LuckysheetDocs/',
+	base: '/crabtable/',
 	locales: {
 		// 键名是该语言所属的子路径
 		// 作为特例，默认语言可以使用 '/' 作为其路径。
 		'/': {
 			lang: 'en-US', // 将会被设置为 <html> 的 lang 属性
-			title: 'Luckysheet Document',
-			description: 'Luckysheet is an online spreadsheet like excel that is powerful, simple to configure, and completely open source.This site contains official configuration document, API, and tutorial.'
+			title: 'Crab Table Document',
+			description: 'Crab Table is an online spreadsheet like excel that is powerful, simple to configure, and completely open source. This site contains configuration document, API, and tutorial.'
 		},
 		'/zh/': {
 			lang: 'zh-CN',
-			title: 'Luckysheet文档',
-			description: 'Luckysheet ，一款纯前端类似excel的在线表格，功能强大、配置简单、完全开源。本站包含官方配置文档,API,教程。'
+			title: 'Crab Table文档',
+			description: 'Crab Table ，一款纯前端类似excel的在线表格，功能强大、配置简单、完全开源。本站包含配置文档,API,教程。'
 		},
 		
 	},
 	themeConfig: {
 		domain: 'https://dream-num.github.io/LuckysheetDemo',
 		logo: '/img/logo.png',
-		author: 'Luckysheet',
+		author: 'Crab Table',
 		// 仓库地址
 		repo: 'mengshukeji/Luckysheet',
 		// 允许编辑链接文字
@@ -127,7 +127,7 @@ module.exports = {
 	plugins: {
 		'vuepress-plugin-baidu-autopush': {},
 		'sitemap': {
-			hostname: 'https://dream-num.github.io/LuckysheetDocs'
+			hostname: 'https://dream-num.github.io/crabtable'
 		},
 		'vuepress-plugin-code-copy': true,
 		'seo': {
